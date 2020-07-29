@@ -1,0 +1,8 @@
+{
+  "name": "fe-todo",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:manabie-com/FE-todo.git",
+  "author": "phi.pham <phi.pham@manabie.com>",
+  "license": "MIT"
+}
