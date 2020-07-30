@@ -4,7 +4,7 @@ Hello!
 We're excited that you're interested in joining the Manabie. Below are the requirements and explanations for the challenge.
 
 #### Notes: 
-- Our challenge codebase is based on create-react-app with typescript.- We prefer not to use any CSS framework, we want to see your CSS skills :v:.
+- Our challenge codebase is based on create-react-app with typescript. We prefer not to use any CSS framework, we want to see your CSS skills :v:.
 - Some tests are required to demonstrate your TDD skills.
 - All provided codes are in this repository. Please fork, complete your challenge, and send back your github link (or your can zip and send mail) to us.
 - We judge your codes:
