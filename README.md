@@ -14,12 +14,13 @@ We're excited that you're interested in joining the Manabie. Below are the requi
     - Test cases.
 
 #### Requirements:
-- We provided you a simple UI for todo app, please enhance it with your desired design (We prefer not using any CSS framework, we want to see your CSS skill).
-- Our code base has potential of bugs, some anti-patterns in both JS and CSS, please help us find and fix these.
-- Please split the huge line of codes in App.tsx into reusable UI component
+- We provided you a simple UI for todo app, please enhance it with your creative mind (We prefer not using any CSS framework as we want to see your CSS skill).
+- Our code base has bugs, some anti-patterns, please help us find and fix these (please comment the reason why you change it).
+- Please split the huge line of codes in App.tsx into reusable UI component.
 - Write some tests to persuade us that your code is correct.
-- We are missing the persistent feature, after refreshing, our created todos will disappear, that's annoying for our user, please help us implement it.
+- We are missing the persistent feature, after refreshing, our created todos will be disappeared, that's annoying for our users, please help us implement it.
 - For now, user cannot edit the created todo, please help them by implementing this feature.
+
 
 #### How to run this code
 - Run ```yarn``` or ```npm install``` if this is the first time you clone this repo.
