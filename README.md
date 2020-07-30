@@ -19,7 +19,7 @@ We're excited that you're interested in joining the Manabie. Below are the requi
 - Please split the huge line of codes in App.tsx into reusable UI component.
 - Write some tests to persuade us that your code is correct.
 - We are missing the persistent feature, after refreshing, our created todos will be disappeared, that's annoying for our users, please help us implement it.
-- For now, user cannot edit the created todo, please help them by implementing this feature.
+- For now, user cannot edit the created todo, please help them by implementing this feature (user double click into todo to edit, press enter to apply the changes, or click outside to discard the changes).
 
 
 #### How to run this code
