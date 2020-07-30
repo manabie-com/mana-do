@@ -20,3 +20,7 @@ We're excited that you're interested in joining the Manabie. Below are the requi
 - Write some tests to persuade us that your code is correct.
 - We are missing the persistent feature, after refreshing, our created todos will disappear, that's annoying for our user, please help us implement it.
 - For now, user cannot edit the created todo, please help them by implementing this feature.
+
+#### How to run this code
+- Run ```yarn``` or ```npm install``` if this is the first time you clone this repo.
+- Run ```yarn start``` to start this project in development mode.
