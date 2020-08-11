@@ -13,6 +13,7 @@
     - Test cases.
     
 ### Simple app diagram
+![App diagram](diagram.png)
 
 ### Requirements
 
