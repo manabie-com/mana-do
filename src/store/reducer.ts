@@ -1,5 +1,3 @@
-import shortid from 'shortid';
-
 import {Todo, TodoStatus} from '../models/todo';
 import {
   AppActions,
@@ -21,13 +19,7 @@ export const initialState: AppState = {
 function reducer(state: AppState, action: AppActions): AppState {
   switch (action.type) {
     case CREATE_TODO:
-      const newTodo: Todo = {
-        id: shortid.generate(),
-        content: action.payload,
-        createdAt: Date.now(),
-        status: TodoStatus.ACTIVE
-      }
-      state.todos.push(newTodo);
+      state.todos.push(action.payload);
       return {
         ...state
       };
