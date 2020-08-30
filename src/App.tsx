@@ -1,21 +1,21 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 
-import {BrowserRouter, Switch, Route} from 'react-router-dom';
-
-import SignInPage from './SignInPage';
-import ToDoPage from './ToDoPage';
+import { BrowserRouter, Switch } from 'react-router-dom';
 
 import './App.css';
 
+import { Routes } from './routes';
+
 function App() {
   return (
-    <main className="App">
-      <BrowserRouter>
-        <Switch>
-          <Route path="/" exact component={SignInPage}/>
-          <Route path="/todo" component={ToDoPage}/>
-        </Switch>
-      </BrowserRouter>
+    <main className='App'>
+      <Suspense fallback='Loading'>
+        <BrowserRouter>
+          <Switch>
+            <Routes />
+          </Switch>
+        </BrowserRouter>
+      </Suspense>
     </main>
   );
 }
