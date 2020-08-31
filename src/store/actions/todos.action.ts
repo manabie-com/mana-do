@@ -1,14 +1,28 @@
+import { getTodos as getTodosApi } from '../../apis/todo';
+import { TodoStatus } from '../../models/todo';
 import { Todo } from '../../models/todo';
 
-// GET_TODO
+// SET_TODO
 export interface SetTodoAction {
-  type: 'GET_TODOS';
+  type: 'SET_TODOS';
+  payload: Todo[];
 }
-export function getTodos(): SetTodoAction {
+export function setTodos(todo: Todo[]): SetTodoAction {
   return {
-    type: 'GET_TODOS',
+    type: 'SET_TODOS',
+    payload: todo,
   };
 }
+
+// GET_TODO
+export const getTodos = async (dispatch) => {
+  const todos = await getTodosApi();
+
+  dispatch({
+    type: 'SET_TODOS',
+    payload: todos,
+  });
+};
 
 // CREATE_TODO
 export interface CreateTodoAction {
@@ -63,14 +77,14 @@ export function deleteAllTodos(): DeleteAllTodosAction {
 }
 
 // TOGGLE_ALL_TODOS
-export interface ToggleAllTodosAction {
-  type: 'TOGGLE_ALL_TODOS';
-  payload: boolean;
+export interface UpdateAllTodosStatusAction {
+  type: 'UPDATE_ALL_TODOS_STATUS';
+  payload: TodoStatus;
 }
-export function toggleAllTodos(checked: boolean): ToggleAllTodosAction {
+export function updateAllTodosStatus(status: TodoStatus): UpdateAllTodosStatusAction {
   return {
-    type: 'TOGGLE_ALL_TODOS',
-    payload: checked,
+    type: 'UPDATE_ALL_TODOS_STATUS',
+    payload: status,
   };
 }
 
@@ -80,4 +94,4 @@ export type TodoActions =
   | UpdateTodoStatusAction
   | DeleteTodoAction
   | DeleteAllTodosAction
-  | ToggleAllTodosAction;
+  | UpdateAllTodosStatusAction;

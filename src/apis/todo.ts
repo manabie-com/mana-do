@@ -35,7 +35,7 @@ export const createTodo = async (content: string): Promise<Todo> => {
 };
 
 export const getTodos = async (): Promise<Todo[]> => {
-  delay(1000);
+  await delay(2000);
 
   return getCachedTodos();
 };
