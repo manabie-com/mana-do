@@ -1,11 +1,6 @@
 import React from 'react';
 import { Dispatch } from 'redux';
 
-interface AsyncDispatchOutcome {
-  error: Error | null;
-  loading: boolean;
-}
-
 export const useThunkWithProgress = (thunk) => {
   const [isLoading, setIsLoading] = React.useState(false);
 
