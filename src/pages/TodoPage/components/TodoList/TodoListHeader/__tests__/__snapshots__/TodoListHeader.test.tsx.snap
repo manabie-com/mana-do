@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TodoListHeader should render the component 1`] = `
+<div
+  className="todo-list__row todo-list__header"
+>
+  <div
+    className="todo-details"
+  >
+    TODO
+  </div>
+  <div
+    className="todo-status"
+    title="Toggle all todos"
+  >
+    <Switch
+      onChange={[Function]}
+      value={false}
+    />
+  </div>
+  <div
+    className="todo-actions"
+  >
+    <i
+      className="fas fa-trash todo-card__delete-icon"
+      onClick={[Function]}
+      title="Delete all"
+    />
+  </div>
+</div>
+`;

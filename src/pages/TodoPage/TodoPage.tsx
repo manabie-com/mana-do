@@ -7,7 +7,7 @@ import { TodoStatus } from '../../models/todo';
 import { useThunkWithProgress } from '../../hooks';
 import { RoutePath } from '../../routes';
 import { todosSelector } from '../../store/reducers/todos.reducer';
-import { TodoList } from './components/TodoList';
+import { TodoList } from './components';
 
 type EnhanceTodoStatus = TodoStatus | 'ALL';
 

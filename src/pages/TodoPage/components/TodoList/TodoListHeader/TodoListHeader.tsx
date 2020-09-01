@@ -1,7 +1,7 @@
 import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 
 import { Switch } from '../../../../../components';
-import { useSelector, useDispatch } from 'react-redux';
 import { todosSelector } from '../../../../../store/reducers/todos.reducer';
 import { updateAllTodosStatus, deleteAllTodos } from '../../../../../store/actions';
 

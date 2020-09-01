@@ -1,9 +1,9 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import moment from 'moment';
 
 import { Todo } from '../../../../../models';
 import { Switch, EditableDiv } from '../../../../../components';
-import { useDispatch } from 'react-redux';
 import { updateTodoStatus, deleteTodo, updateTodoContent } from '../../../../../store/actions';
 
 interface Props {
