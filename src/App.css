@@ -197,14 +197,14 @@ input:checked + .slider:before {
 .todo-card {
   display: flex;
   margin-top: 5px;
+  border: 1px solid gray;
+  border-radius: 3px;
+  background-color: white;
 }
 
 .todo-list__row {
   display: flex;
-  border: 1px solid gray;
   padding: 5px;
-  border-radius: 3px;
-  background-color: white;
 }
 
 .todo-details {
@@ -232,9 +232,7 @@ input:checked + .slider:before {
 }
 
 .todo-list__header {
-  border: none;
   border-bottom: 1px solid gray;
-  border-radius: 0;
   margin-bottom: 10px;
 }
 

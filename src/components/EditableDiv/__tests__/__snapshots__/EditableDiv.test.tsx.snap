@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Switch should render the component 1`] = `
+<div>
+  <div
+    className="content--test"
+    onDoubleClick={[Function]}
+  >
+    content example
+  </div>
+</div>
+`;

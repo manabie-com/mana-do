@@ -1,6 +1,6 @@
 import React from 'react';
 
-interface Props {
+export interface Props {
   content: string;
   onComplete: (value: string) => void;
 }
@@ -16,7 +16,10 @@ export const EditableDiv: React.FC<Props> = ({ content, onComplete }) => {
   };
 
   const handleEditComplete = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === 'Enter') {
+    const isEmptyValue = !value;
+    const isTheSameValue = value === content;
+
+    if (event.key === 'Enter' && !isTheSameValue && !isEmptyValue) {
       onComplete(value);
       setIsInEditMode(false);
     }
@@ -29,7 +32,9 @@ export const EditableDiv: React.FC<Props> = ({ content, onComplete }) => {
   return (
     <div>
       {!isInEditMode ? (
-        <div onDoubleClick={() => setIsInEditMode(true)}>{content}</div>
+        <div className='content--test' onDoubleClick={() => setIsInEditMode(true)}>
+          {content}
+        </div>
       ) : (
         <input
           autoFocus

@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`App should render the component 1`] = `
+<main
+  className="App"
+>
+  <Provider
+    store={
+      Object {
+        "dispatch": [Function],
+        "getState": [Function],
+        "replaceReducer": [Function],
+        "subscribe": [Function],
+        Symbol(observable): [Function],
+      }
+    }
+  >
+    <Suspense
+      fallback="Loading"
+    >
+      <BrowserRouter>
+        <Switch>
+          <Routes />
+        </Switch>
+      </BrowserRouter>
+    </Suspense>
+  </Provider>
+</main>
+`;
