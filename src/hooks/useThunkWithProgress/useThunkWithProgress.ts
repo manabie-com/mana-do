@@ -1,5 +1,5 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { Dispatch } from 'redux';
 
 interface AsyncDispatchOutcome {
   error: Error | null;
@@ -10,7 +10,7 @@ export const useThunkWithProgress = (thunk) => {
   const [isLoading, setIsLoading] = React.useState(false);
 
   const thunkWithProgress = React.useCallback(
-    (dispatch) => {
+    (...args: any[]) => (dispatch: Dispatch) => {
       setIsLoading(true);
 
       const dispatchWrapper = (action) => {
@@ -19,7 +19,7 @@ export const useThunkWithProgress = (thunk) => {
         dispatch(action);
       };
 
-      thunk(dispatchWrapper);
+      thunk(...args)(dispatchWrapper);
     },
     [thunk],
   );
