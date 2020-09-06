@@ -44,16 +44,52 @@ const ToDoPage = ({history}: RouteComponentProps) => {
         }
     }
 
-    const onUpdateTodoStatus = (e: React.ChangeEvent<HTMLInputElement>, todoId: string) => {
-        dispatch(updateTodoStatus(todoId, e.target.checked))
+    const onUpdateTodoStatus = async (e: React.ChangeEvent<HTMLInputElement>, todoId: string) => {
+        try {
+            const status = e.target.checked
+            const resp = await Service.updateTodoStatus(todoId, status);
+            dispatch(updateTodoStatus(todoId, status))
+        } catch (e) {
+            if (e.response.status === 401) {
+                history.push('/')
+            }
+        }
     }
 
-    const onToggleAllTodo = (e: React.ChangeEvent<HTMLInputElement>) => {
-        dispatch(toggleAllTodos(e.target.checked))
+    const onToggleAllTodo = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        try {
+            const status = e.target.checked
+            const resp = await Service.updateAllTodosStatus(status);
+            dispatch(toggleAllTodos(status))
+        } catch (e) {
+            if (e.response.status === 401) {
+                history.push('/')
+            }
+        }
     }
 
-    const onDeleteAllTodo = () => {
-        dispatch(deleteAllTodos());
+    const onDeleteAllTodo = async() => {
+        try {
+            const resp = await Service.deleteAllTodos();
+            dispatch(deleteAllTodos());
+        } catch (e) {
+            if (e.response.status === 401) {
+                history.push('/')
+            }
+        }
+        
+    }
+
+    const onDeleteSingleTodo = async(id: string) => {
+        try {
+            const resp = await Service.deleteTodo(id);
+            dispatch(deleteTodo(id))
+        } catch (e) {
+            if (e.response.status === 401) {
+                history.push('/')
+            }
+        }
+        
     }
 
     const showTodos = todos.filter((todo) => {
@@ -94,7 +130,7 @@ const ToDoPage = ({history}: RouteComponentProps) => {
                                 <span>{todo.content}</span>
                                 <button
                                     className="Todo__delete"
-                                    onClick={() => dispatch(deleteTodo(todo.id))}
+                                    onClick={() => onDeleteSingleTodo(todo.id)}
                                 >
                                     X
                                 </button>

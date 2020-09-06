@@ -24,7 +24,28 @@ class ApiFrontend extends IAPI {
     }
 
     async getTodos(): Promise<Todo[]>{
-        return []
+        let todos = JSON.parse(localStorage.getItem("todos") || '[]');
+        return todos;
+    }
+
+    async updateTodoStatus(id: string, status: boolean): Promise<boolean> {
+
+        return true;
+    }
+
+    async updateAllTodosStatus(status: boolean): Promise<boolean>{
+        
+        return true;
+    }
+
+    async deleteTodo(id: string): Promise<boolean>{
+
+        return true;
+    }
+
+    async deleteAllTodos(): Promise<boolean>{
+        
+        return true;
     }
 }
 

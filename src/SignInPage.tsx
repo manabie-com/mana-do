@@ -29,7 +29,7 @@ const SignInPage = () => {
     return (
         <div style={{marginTop: '3rem', textAlign: 'left'}}>
             <form onSubmit={signIn}>
-                <label htmlFor="user_id">
+                <label htmlFor="user_id" data-testid="user_id">
                     User id
                     <input
                         id="user_id"
@@ -40,7 +40,7 @@ const SignInPage = () => {
                     />
                 </label>
                 <br/>
-                <label htmlFor="password" >
+                <label htmlFor="password" data-testid="password">
                     Password
                     <input
                         id="password"
