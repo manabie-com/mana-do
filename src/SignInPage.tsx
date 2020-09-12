@@ -1,28 +1,30 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {useHistory} from 'react-router-dom';
-import { useForm } from 'react-hook-form';
+import { useDispatch } from 'react-redux';
+import { useForm, SubmitHandler } from 'react-hook-form';
+
+import AuthService from './api-service/auth.service';
 import { ISignIn } from './types/auth';
 
 
 const SignInPage = () => {
+    const dispatch = useDispatch();
     const { register, handleSubmit, errors } = useForm();
-    const [form, setForm] = useState({
-        userId: '',
-        password: ''
-    });
     const history = useHistory();
 
-    const signIn =  handleSubmit( async (data) => {
+    const signIn: SubmitHandler<ISignIn> = async (formData) => {
+        const { username , password } = formData;
         try {
-            console.log(data);
-        } catch (error) {
+            const { token } = await AuthService.signIn({ username, password });
             
+        } catch (error) {
+            alert(error.msg)
         }
-    })
+    };
 
     return (
         <div style={{marginTop: '3rem', textAlign: 'left'}}>
-            <form onSubmit={signIn}>
+            <form onSubmit={handleSubmit(signIn)}>
                 <label htmlFor="user_id">
                     User id
                     <input

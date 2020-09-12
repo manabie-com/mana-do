@@ -11,9 +11,9 @@ class AuthService extends HttpClient {
   async signIn (data: ISignIn) {
     const { username, password } = data;
     if (username === MOCK_DATA.username && password === MOCK_DATA.password) {
-            return Promise.resolve(MOCK_DATA.token)
+            return Promise.resolve({ token: MOCK_DATA.token })
         }
-        return Promise.reject('Incorrect username/password')
+        return Promise.reject({ code: 401, msg: 'Incorrect username/password' });
   }
 }
 
