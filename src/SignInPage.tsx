@@ -1,30 +1,24 @@
 import React, {useState} from 'react';
+import {useHistory} from 'react-router-dom';
+import { useForm } from 'react-hook-form';
+import { ISignIn } from './types/auth';
 
-import {useHistory} from 'react-router-dom'
-import Service from './service'
 
 const SignInPage = () => {
+    const { register, handleSubmit, errors } = useForm();
     const [form, setForm] = useState({
         userId: '',
         password: ''
     });
     const history = useHistory();
 
-    const signIn = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault()
-        const resp = await Service.signIn(form.userId, form.password)
-
-        localStorage.setItem('token', resp)
-        history.push('/todo')
-    }
-
-    const onChangeField = (e: React.ChangeEvent<HTMLInputElement>) => {
-        e.persist()
-        setForm(prev=>({
-            ...prev,
-            [e.target.name]: e.target.value
-        }))
-    }
+    const signIn =  handleSubmit( async (data) => {
+        try {
+            console.log(data);
+        } catch (error) {
+            
+        }
+    })
 
     return (
         <div style={{marginTop: '3rem', textAlign: 'left'}}>
@@ -32,23 +26,21 @@ const SignInPage = () => {
                 <label htmlFor="user_id">
                     User id
                     <input
+                        ref={register}
                         id="user_id"
                         name="userId"
-                        value={form.userId}
                         style={{marginTop: 12}}
-                        onChange={onChangeField}
                     />
                 </label>
                 <br/>
                 <label htmlFor="password" >
                     Password
                     <input
+                        ref={register}
                         id="password"
                         name="password"
                         type="password"
                         style={{marginTop: 12}}
-                        value={form.password}
-                        onChange={onChangeField}
                     />
                 </label>
                 <br />
