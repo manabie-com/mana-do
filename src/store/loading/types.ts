@@ -1,2 +1,3 @@
-export const AUTH_SIGNIN_REQUEST = 'auth_signin_request';
-export const AUTH_SIGN_IN_FAILURE = 'auth_signin-failure';
+export const AUTH_SIGNIN_REQUEST = 'AUTH_SIGNIN_REQUEST';
+export const AUTH_SIGN_IN_FAILURE = 'AUTH_SIGN_IN_FAILURE';
+export const TODO_GET_LIST_REQUEST = 'TODO_GET_LIST_REQUEST';

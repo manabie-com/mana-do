@@ -1,20 +1,29 @@
-import { HttpClient } from '../network/http';
+import { HttpAuth } from '../network/http';
 import { ISignIn } from '../types/auth';
-
+import { API_VERIFY_AUTH_TOKEN } from '../api-client/auth';
 
 const MOCK_DATA = {
-  username: 'HIEU',
-  password: 'PASS',
+  username: 'username',
+  password: 'pass',
   token: 'token'
 };
-class AuthService extends HttpClient {
+class AuthAPI extends HttpAuth {
   async signIn (data: ISignIn) {
     const { username, password } = data;
     if (username === MOCK_DATA.username && password === MOCK_DATA.password) {
-            return Promise.resolve({ token: MOCK_DATA.token })
-        }
-        return Promise.reject({ code: 401, msg: 'Incorrect username/password' });
+      return Promise.resolve({ token: MOCK_DATA.token })
+    }
+    return Promise.reject({ code: 401, msg: 'Incorrect username/password' });
+  }
+  verifyToken(): Promise<boolean> {
+    try {
+      // this.instance.get(API_VERIFY_AUTH_TOKEN); // Call API at here with TOKEN auto assign into header
+      return new Promise((resolve) => setTimeout(() => resolve(true), 100));
+      // Do some thing
+    } catch (error) {
+      throw new Error('UN AUTH');
+    }
   }
 }
 
-export default new AuthService();
+export default new AuthAPI();

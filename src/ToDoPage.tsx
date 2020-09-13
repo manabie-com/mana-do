@@ -1,73 +1,47 @@
 import React, {useEffect, useReducer, useRef, useState} from 'react';
-import {RouteComponentProps} from 'react-router-dom';
 
-import reducer, {initialState} from './store/reducer';
-import {
-    setTodos,
-    createTodo,
-    deleteTodo,
-    toggleAllTodos,
-    deleteAllTodos,
-    updateTodoStatus
-} from './store/actions';
-import Service from './service';
-import {TodoStatus} from './models/todo';
-import {isTodoCompleted} from './utils';
+import TodoList from './component/todo/todo-list';
+import useTodoList from './hooks/useTodoList';
+import { ETodoStatus } from './types/todo';
+import { isTodoCompleted } from './utils';
 
-type EnhanceTodoStatus = TodoStatus | 'ALL';
+type EnhanceTodoStatus = ETodoStatus | 'ALL';
 
 
-const ToDoPage = ({history}: RouteComponentProps) => {
-    const [{todos}, dispatch] = useReducer(reducer, initialState);
+const ToDoPage = () => {
     const [showing, setShowing] = useState<EnhanceTodoStatus>('ALL');
     const inputRef = useRef<HTMLInputElement>(null);
+    const { list, createTodo } = useTodoList();
 
-    useEffect(()=>{
-        (async ()=>{
-            const resp = await Service.getTodos();
-
-            dispatch(setTodos(resp || []));
-        })()
-    }, [])
-
-    const onCreateTodo = async (e: React.KeyboardEvent<HTMLInputElement>) => {
+    const onCreateTodo = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter' && inputRef.current) {
-            try {
-                const resp = await Service.createTodo(inputRef.current.value);
-                dispatch(createTodo(resp));
-                inputRef.current.value = '';
-            } catch (e) {
-                if (e.response.status === 401) {
-                    history.push('/')
-                }
-            }
+            const { value } = inputRef.current;
+            createTodo(value);
+            inputRef.current.value = '';
         }
     }
 
     const onUpdateTodoStatus = (e: React.ChangeEvent<HTMLInputElement>, todoId: string) => {
-        dispatch(updateTodoStatus(todoId, e.target.checked))
     }
 
     const onToggleAllTodo = (e: React.ChangeEvent<HTMLInputElement>) => {
-        dispatch(toggleAllTodos(e.target.checked))
     }
 
     const onDeleteAllTodo = () => {
-        dispatch(deleteAllTodos());
     }
 
-    const showTodos = todos.filter((todo) => {
+    const showTodos = list.filter((todo) => {
         switch (showing) {
-            case TodoStatus.ACTIVE:
-                return todo.status === TodoStatus.ACTIVE;
-            case TodoStatus.COMPLETED:
-                return todo.status === TodoStatus.COMPLETED;
+            case ETodoStatus.ACTIVE:
+                return todo.status === ETodoStatus.ACTIVE;
+            case ETodoStatus.COMPLETED:
+                return todo.status === ETodoStatus.COMPLETED;
             default:
                 return true;
         }
     });
 
-    const activeTodos = todos.reduce(function (accum, todo) {
+    const activeTodos = list.reduce(function (accum, todo) {
         return isTodoCompleted(todo) ? accum : accum + 1;
     }, 0);
 
@@ -81,30 +55,9 @@ const ToDoPage = ({history}: RouteComponentProps) => {
                     onKeyDown={onCreateTodo}
                 />
             </div>
-            <div className="ToDo__list">
-                {
-                    showTodos.map((todo, index) => {
-                        return (
-                            <div key={index} className="ToDo__item">
-                                <input
-                                    type="checkbox"
-                                    checked={isTodoCompleted(todo)}
-                                    onChange={(e) => onUpdateTodoStatus(e, todo.id)}
-                                />
-                                <span>{todo.content}</span>
-                                <button
-                                    className="Todo__delete"
-                                    onClick={() => dispatch(deleteTodo(todo.id))}
-                                >
-                                    X
-                                </button>
-                            </div>
-                        );
-                    })
-                }
-            </div>
+            <TodoList list={showTodos} />
             <div className="Todo__toolbar">
-                {todos.length > 0 ?
+                {list.length > 0 ?
                     <input
                         type="checkbox"
                         checked={activeTodos === 0}
@@ -115,10 +68,10 @@ const ToDoPage = ({history}: RouteComponentProps) => {
                     <button className="Action__btn" onClick={()=>setShowing('ALL')}>
                         All
                     </button>
-                    <button className="Action__btn" onClick={()=>setShowing(TodoStatus.ACTIVE)}>
+                    <button className="Action__btn" onClick={()=>setShowing(ETodoStatus.ACTIVE)}>
                         Active
                     </button>
-                    <button className="Action__btn" onClick={()=>setShowing(TodoStatus.COMPLETED)}>
+                    <button className="Action__btn" onClick={()=>setShowing(ETodoStatus.COMPLETED)}>
                         Completed
                     </button>
                 </div>

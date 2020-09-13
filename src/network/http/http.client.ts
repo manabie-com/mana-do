@@ -1,6 +1,6 @@
 import Axios, { AxiosInstance, AxiosResponse } from 'axios';
 
-const MAIN_API: string = 'hahaha';
+const MAIN_API: string = 'localhost://5000';
 
 abstract class HttpClient {
   protected instance: AxiosInstance;

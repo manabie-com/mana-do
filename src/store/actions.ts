@@ -1,4 +1,4 @@
-import {Todo} from "../models/todo";
+import { ITodo } from "../types/todo";
 
 export const SET_TODO = 'SET_TODO';
 export const CREATE_TODO = 'CREATE_TODO';
@@ -10,10 +10,10 @@ export const UPDATE_TODO_STATUS = 'UPDATE_TODO_STATUS';
 
 export interface SetTodoAction {
   type: typeof SET_TODO,
-  payload: Array<Todo>
+  payload: Array<ITodo>
 }
 
-export function setTodos(todos: Array<Todo>): SetTodoAction {
+export function setTodos(todos: Array<ITodo>): SetTodoAction {
   return {
     type: SET_TODO,
     payload: todos
@@ -23,10 +23,10 @@ export function setTodos(todos: Array<Todo>): SetTodoAction {
 ///////////
 export interface CreateTodoAction {
   type: typeof CREATE_TODO,
-  payload: Todo
+  payload: ITodo
 }
 
-export function createTodo(newTodo: Todo): CreateTodoAction {
+export function createTodo(newTodo: ITodo): CreateTodoAction {
   return {
     type: CREATE_TODO,
     payload: newTodo

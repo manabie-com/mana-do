@@ -1,9 +1,10 @@
 import shortId from 'shortid';
-import { HttpClient } from '../network/http';
+import { HttpAuth } from '../network/http';
 import { ITodo, ETodoStatus } from '../types/todo';
+import { API_TODO_BASE } from '../api-client/todo';
 
 
-class TodoService extends HttpClient {
+class TodoService extends HttpAuth {
   async create(content: string): Promise<ITodo> {
     const newTodo: ITodo = {
       content,
@@ -29,6 +30,7 @@ class TodoService extends HttpClient {
     throw new Error('ID is not empty');
   }
   async getList(): Promise<ITodo[]> {
+    const { data } = await this.instance.get(API_TODO_BASE);
     return Promise.resolve([]);
   }
 }

@@ -1,9 +1,9 @@
 import React from 'react';
-import {useHistory} from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useForm, SubmitHandler } from 'react-hook-form';
 
-import AuthService from './api-service/auth.service';
+import AuthService from './service/auth.service';
 import { ISignIn } from './types/auth';
 
 
@@ -11,12 +11,14 @@ const SignInPage = () => {
     const dispatch = useDispatch();
     const { register, handleSubmit, errors } = useForm();
     const history = useHistory();
-
+    const cbSignIn = () => {
+        
+    }
     const signIn: SubmitHandler<ISignIn> = async (formData) => {
         const { username , password } = formData;
         try {
-            const { token } = await AuthService.signIn({ username, password });
-            
+            const { token } = await AuthService.signIn({ username, password }, cbSignIn);
+            history.push('/todo');
         } catch (error) {
             alert(error.msg)
         }
@@ -25,12 +27,12 @@ const SignInPage = () => {
     return (
         <div style={{marginTop: '3rem', textAlign: 'left'}}>
             <form onSubmit={handleSubmit(signIn)}>
-                <label htmlFor="user_id">
+                <label htmlFor="user_name">
                     User id
                     <input
                         ref={register}
-                        id="user_id"
-                        name="userId"
+                        id="user_name"
+                        name="username"
                         style={{marginTop: 12}}
                     />
                 </label>
