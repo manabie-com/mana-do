@@ -1,3 +1,6 @@
+
+// All loading state will handle at right
+
 const loadingReducer = (state = {}, action: any) => {
   const { type } = action;
   const matches = /(.*)_(REQUEST|SUCCESS|FAILURE)/.exec(type);

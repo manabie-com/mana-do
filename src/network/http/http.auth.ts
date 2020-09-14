@@ -1,6 +1,7 @@
 import { AxiosRequestConfig } from 'axios';
 import HttpClient from './http.client';
 
+// For protocol need auth
 class HttpAuth extends HttpClient {
   constructor() {
     super();

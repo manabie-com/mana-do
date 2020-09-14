@@ -2,6 +2,7 @@ import Axios, { AxiosInstance, AxiosResponse } from 'axios';
 
 const MAIN_API: string = 'localhost://5000';
 
+// For protocol need't auth
 abstract class HttpClient {
   protected instance: AxiosInstance;
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import TodoItem from '../todo-item';
 import { ITodo } from '../../../types/todo';
-import { isTodoCompleted } from '../../../utils';
+import { isTodoCompleted } from '../../../helper';
 
 interface Props {
   list: ITodo[],
