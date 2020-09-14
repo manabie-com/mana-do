@@ -1,21 +1,21 @@
-import React from 'react';
+import React, { Suspense, lazy } from "react";
+import { Router, Switch, Route } from "react-router-dom";
+import history from "./utils/history";
 
-import {BrowserRouter, Switch, Route} from 'react-router-dom';
-
-import SignInPage from './SignInPage';
-import ToDoPage from './ToDoPage';
-
-import './App.css';
+const SignInPage = lazy(() => import("./pages/sign-in"));
+const ToDoPage = lazy(() => import("./pages/to-do"));
 
 function App() {
   return (
     <main className="App">
-      <BrowserRouter>
-        <Switch>
-          <Route path="/" exact component={SignInPage}/>
-          <Route path="/todo" component={ToDoPage}/>
-        </Switch>
-      </BrowserRouter>
+      <Router history={history}>
+        <Suspense fallback={<div>Loading...</div>}>
+          <Switch>
+            <Route path="/" exact component={SignInPage} />
+            <Route path="/todo" exact component={ToDoPage} />
+          </Switch>
+        </Suspense>
+      </Router>
     </main>
   );
 }

@@ -1,0 +1,37 @@
+.ToDo__item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ToDo__item > span {
+  flex: 1 1;
+  text-align: left;
+  margin-left: 8px;
+}
+
+.Todo__delete {
+  outline: none;
+  border: none;
+
+  min-width: auto;
+  min-height: auto;
+  box-shadow: none;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.Todo__delete:hover {
+  color: red;
+}
+
+.Todo__action,
+.Todo__delete {
+  width: 16px;
+  height: 16px;
+  font-size: 8px;
+  flex-shrink: 0;
+}

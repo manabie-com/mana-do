@@ -1,0 +1,29 @@
+.InlineEditable__wrapper__edit,
+.InlineEditable__wrapper_view {
+  width: 100%;
+  min-width: 200px;
+  height: 20px;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  border-radius: 4px;
+  margin: 0 12px;
+  flex: 1;
+}
+
+.InlineEditable__view {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 0 12px;
+}
+
+.InlineEditable__child {
+  height: 32px;
+  min-height: unset;
+  width: 100%;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
