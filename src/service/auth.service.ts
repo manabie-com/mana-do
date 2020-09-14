@@ -1,6 +1,6 @@
 import AuthAPI from '../api-service/auth.service';
 import { ISignIn } from '../types/auth';
-import { setCookie, getCookie } from '../utils/cookies';
+import { setCookie } from '../utils/cookies';
 
 class AuthService {
   async signIn(data: ISignIn, cb?: Function) {

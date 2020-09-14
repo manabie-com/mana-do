@@ -7,4 +7,6 @@ const appReducer = combineReducers({
   auth,
 });
 
+export type AppState = ReturnType<typeof appReducer>;
+
 export default appReducer;

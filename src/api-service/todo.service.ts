@@ -13,12 +13,19 @@ class TodoService extends HttpAuth {
       status: ETodoStatus.ACTIVE,
       user_id: 'firstUser'
     };
-    return Promise.resolve(newTodo) 
+    return Promise.resolve(newTodo); 
   };
 
-  async edit(id: string, content: string): Promise<boolean> {
+  async edit(id: string, content: string): Promise<ITodo> {
     if(id) {
-      return Promise.resolve(true);
+      const updatedTodo: ITodo = {
+      content,
+      created_date: new Date().toISOString(),
+      id: shortId(),
+      status: ETodoStatus.ACTIVE,
+      user_id: 'firstUser'
+    };
+    return Promise.resolve(updatedTodo) 
     }
     throw new Error('ID is not empty');
   };
@@ -29,8 +36,11 @@ class TodoService extends HttpAuth {
     }
     throw new Error('ID is not empty');
   }
+  async deleteAll(): Promise<boolean> {
+    return Promise.resolve(true);
+  }
   async getList(): Promise<ITodo[]> {
-    const { data } = await this.instance.get(API_TODO_BASE);
+    await this.instance.get(API_TODO_BASE);
     return Promise.resolve([]);
   }
 }

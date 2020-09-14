@@ -1,4 +1,4 @@
-import React, {useEffect, useReducer, useRef, useState} from 'react';
+import React, { useRef, useState} from 'react';
 
 import TodoList from './component/todo/todo-list';
 import useTodoList from './hooks/useTodoList';
@@ -7,27 +7,41 @@ import { isTodoCompleted } from './utils';
 
 type EnhanceTodoStatus = ETodoStatus | 'ALL';
 
-
 const ToDoPage = () => {
     const [showing, setShowing] = useState<EnhanceTodoStatus>('ALL');
     const inputRef = useRef<HTMLInputElement>(null);
-    const { list, createTodo } = useTodoList();
+    const { list, loading, createTodo, deleteAllTodo, deleteTodo, updateTodoStatus, updateTodo } = useTodoList();
 
     const onCreateTodo = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter' && inputRef.current) {
             const { value } = inputRef.current;
-            createTodo(value);
-            inputRef.current.value = '';
+            try {
+                createTodo(value);
+                inputRef.current.value = '';    
+            } catch (error) {
+                console.log(error);
+            }
         }
     }
 
     const onUpdateTodoStatus = (e: React.ChangeEvent<HTMLInputElement>, todoId: string) => {
+        const { checked } = e.target;
+        updateTodoStatus(todoId, checked);
     }
 
     const onToggleAllTodo = (e: React.ChangeEvent<HTMLInputElement>) => {
     }
 
     const onDeleteAllTodo = () => {
+        if (list.length === 0) return;
+        const isAgree = window.confirm('Do you want clear all your jobs ?');
+        if (isAgree) {
+            try {
+                deleteAllTodo();
+            } catch (error) {
+                
+            }
+        }
     }
 
     const showTodos = list.filter((todo) => {
@@ -44,7 +58,6 @@ const ToDoPage = () => {
     const activeTodos = list.reduce(function (accum, todo) {
         return isTodoCompleted(todo) ? accum : accum + 1;
     }, 0);
-
     return (
         <div className="ToDo__container">
             <div className="Todo__creation">
@@ -55,7 +68,16 @@ const ToDoPage = () => {
                     onKeyDown={onCreateTodo}
                 />
             </div>
-            <TodoList list={showTodos} />
+            {
+                loading && <span>Loading</span>
+            }
+            {
+                !loading && (
+                    <TodoList list={showTodos}
+                    onDelete={deleteTodo}
+                    onUpdateTodoStatus={onUpdateTodoStatus}
+                    onUpdate={updateTodo} />)
+            }
             <div className="Todo__toolbar">
                 {list.length > 0 ?
                     <input

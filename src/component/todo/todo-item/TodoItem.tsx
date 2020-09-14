@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import TodoEdit from '../todo-edit';
 
 interface AppProps {
   id: string,
@@ -6,9 +7,14 @@ interface AppProps {
   isDone: boolean,
   onDelete: Function,
   onUpdateStatus: Function,
+  onUpdate: (todoId: string, content: string) => void,
 }
 
-const TodoItem = ({ id, content, isDone, onUpdateStatus, onDelete }: AppProps) => {
+const TodoItem = ({ id, content, isDone, onUpdateStatus, onDelete, onUpdate }: AppProps) => {
+  const [isEdit, setIsEdit] = useState(false);
+  if (isEdit) {
+    return <TodoEdit defaultValue={content} onCancel={() => setIsEdit(false)} onUpdate={(newContent: string) => onUpdate(id, newContent)} />
+  }
   return (
   <div className="ToDo__item">
     <input
@@ -16,7 +22,7 @@ const TodoItem = ({ id, content, isDone, onUpdateStatus, onDelete }: AppProps) =
         checked={isDone}
         onChange={(e) => onUpdateStatus(e, id)}
     />
-    <span>{content}</span>
+    <span onDoubleClick={() => setIsEdit(true)}>{content}</span>
     <button
         className="Todo__delete"
         onClick={() => onDelete(id)}

@@ -1,6 +1,5 @@
 import { HttpAuth } from '../network/http';
 import { ISignIn } from '../types/auth';
-import { API_VERIFY_AUTH_TOKEN } from '../api-client/auth';
 
 const MOCK_DATA = {
   username: 'username',

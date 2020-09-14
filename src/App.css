@@ -57,6 +57,7 @@ input:focus {
 
 .Todo__creation {
   display: flex;
+  margin-bottom: 16px;
 }
 
 .Todo__input {
