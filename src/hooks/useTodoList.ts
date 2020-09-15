@@ -10,6 +10,7 @@ import {
     updateTodo,
     setTodos,
 } from '../store/todo/actions';
+import { ITodo } from 'types/todo';
 
 const useTodoList = () => {
   const [{ todos }, dispatch] = useReducer(reducer, initialState);
@@ -27,7 +28,7 @@ const useTodoList = () => {
   }, []);
   const handleCreateTodo = async (content: string) => {
     try {
-      const newTodo = await TodoAPI.create(content);
+      const newTodo: ITodo = await TodoAPI.create(content);
       dispatch(createTodo(newTodo));
     } catch (error) {
       throw new Error('Err');
