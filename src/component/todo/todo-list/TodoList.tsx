@@ -3,7 +3,7 @@ import TodoItem from '../todo-item';
 import { ITodo } from '../../../types/todo';
 import { isTodoCompleted } from '../../../helper';
 
-interface Props {
+export interface Props {
   list: ITodo[],
   onDelete: Function,
   onUpdateTodoStatus: Function,
@@ -12,7 +12,7 @@ interface Props {
 
 const TodoList = ({ list, onDelete, onUpdateTodoStatus, onUpdate }: Props) => {
   if (!list.length) {
-    return <div>Your Jobs is empty!</div>
+    return <div className="empty">Your Jobs is empty!</div>
   }
   return (
     <div className="ToDo__list">
