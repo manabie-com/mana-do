@@ -39,7 +39,7 @@ describe('<SigninPage />', () => {
     expect(submitButton).toEqual(true);
   });
 
-  it('Should not call API when invalida form', () => {
+  it('Should call API when invalida form', () => {
     const mockFn = jest.fn();
     jest.mock('../SignInPage', () => ({
       signIn: mockFn,
