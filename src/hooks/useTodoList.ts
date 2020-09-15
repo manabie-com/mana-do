@@ -8,14 +8,17 @@ import {
     deleteAllTodos,
     updateTodoStatus,
     updateTodo,
+    setTodos,
 } from '../store/todo/actions';
 
 const useTodoList = () => {
   const [{ todos }, dispatch] = useReducer(reducer, initialState);
   const [loading, setLoading] = useState<boolean>(true);
-  const fetchData = () => {
+  const fetchData = async () => {
+    const resp = await TodoAPI.getList();
     const timerId = setTimeout(() => {
-      setLoading(false)
+      setLoading(false);
+      dispatch(setTodos(resp));
       clearTimeout(timerId);
     }, 1500);
   }
