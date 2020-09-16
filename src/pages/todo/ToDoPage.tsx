@@ -1,9 +1,9 @@
 import React, { useRef, useState} from 'react';
 
-import TodoList from './component/todo/todo-list';
-import useTodoList from './hooks/useTodoList';
-import { ETodoStatus } from './types/todo';
-import { isTodoCompleted } from './helper';
+import TodoList from '../../component/todo/todo-list';
+import useTodoList from '../../hooks/useTodoList';
+import { ETodoStatus } from '../../types/todo';
+import { isTodoCompleted } from '../../helper';
 
 type EnhanceTodoStatus = ETodoStatus | 'ALL';
 

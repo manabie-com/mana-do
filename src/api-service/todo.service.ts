@@ -40,7 +40,7 @@ class TodoService extends HttpAuth {
     return Promise.resolve(true);
   }
   async getList(): Promise<ITodo[]> {
-    await this.instance.get(API_TODO_BASE);
+    // await this.instance.get(API_TODO_BASE);
     return Promise.resolve([]);
   }
 }

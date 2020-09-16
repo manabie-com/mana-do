@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import SignInPage from './pages/signin';
-import ToDoPage from './ToDoPage';
+import ToDoPage from './pages/todo';
 import useAppInit from './hooks/useAppInit';
 import ProtectedRoute from './component/protect-route/ProtectedRoute';
 

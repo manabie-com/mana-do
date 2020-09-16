@@ -124,3 +124,9 @@ input:focus {
 
 .Action__btn {
 }
+
+.err-msg {
+  margin: 0;
+  margin-top: 4px;
+  font-size: 14px;
+}

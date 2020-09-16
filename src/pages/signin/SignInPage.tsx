@@ -15,7 +15,7 @@ const SignInPage = () => {
     const signIn: SubmitHandler<ISignIn> = async (formData) => {
         const { username , password } = formData;
         try {
-            const { token } = await AuthService.signIn({ username, password }, cbSignIn);
+            await AuthService.signIn({ username, password }, cbSignIn);
             history.push('/todo');
         } catch (error) {
             alert(error.msg)
@@ -24,31 +24,35 @@ const SignInPage = () => {
     return (
         <div style={{marginTop: '3rem', textAlign: 'left'}}>
             <form onSubmit={handleSubmit(signIn)}>
-                <label htmlFor="username">
-                    User id
-                    <input
-                        data-testid="username"
-                        ref={register({ required: true })}
-                        id="user_name"
-                        name="username"
-                        style={{marginTop: 12}}
-                        type="text"
-                    />
-                    { errors.username && <span id="username_err"> Please enter your account </span> }
-                </label>
+                <div>
+                    <label htmlFor="username">
+                        <input
+                            data-testid="username"
+                            ref={register({ required: true })}
+                            id="user_name"
+                            name="username"
+                            style={{marginTop: 12}}
+                            type="text"
+                            placeholder="User name"
+                        />
+                    </label>
+                    { errors.username && <p className="err-msg"> Please enter your account </p> }
+                </div>
                 <br/>
-                <label htmlFor="password" >
-                    Password
-                    <input
-                        data-testid="password"
-                        ref={register({ required: true })}
-                        id="password"
-                        name="password"
-                        type="password"
-                        style={{marginTop: 12}}
-                    />
-                    { errors.password && <span data-test-id="passwordErr"> Please enter your password </span> }
-                </label>
+                <div>
+                    <label htmlFor="password" >
+                        <input
+                            data-testid="password"
+                            ref={register({ required: true })}
+                            id="password"
+                            name="password"
+                            type="password"
+                            placeholder="Password"
+                            style={{marginTop: 12}}
+                        />
+                    </label>
+                    { errors.password && <p className="err-msg" data-test-id="passwordErr"> Please enter your password </p> }
+                </div>
                 <br />
                 <button type="submit" style={{marginTop: 12}} >
                     Sign in

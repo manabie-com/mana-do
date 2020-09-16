@@ -2,8 +2,8 @@ import { HttpAuth } from '../network/http';
 import { ISignIn } from '../types/auth';
 
 const MOCK_DATA = {
-  username: 'username',
-  password: 'pass',
+  username: 'firstUser',
+  password: 'example',
   token: 'token'
 };
 class AuthAPI extends HttpAuth {
