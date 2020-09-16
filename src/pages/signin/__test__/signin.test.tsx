@@ -1,59 +1,39 @@
 import React from 'react';
-import { shallow, ShallowWrapper, mount, } from 'enzyme';
-import toJson from 'enzyme-to-json';
+import { render, screen, fireEvent } from "@testing-library/react";
 import SignInPage from '../SignInPage';
+import AuthService from '../../../api-service/auth.service';
 
-let wrapper: ShallowWrapper;
+jest.mock('../../../api-service/auth.service');
 
-beforeEach(() => {  
-  wrapper = shallow(<SignInPage />);
-});
+const mockedAuthService = AuthService as jest.Mocked<typeof AuthService>;
 
 
 describe('<SigninPage />', () => {
-  // it('Should render correctly', () => {
-  //   expect(toJson(wrapper)).toMatchSnapshot();
-  // });
-
-  it('Should have a <form />', () => {
-    const formTotal = wrapper.find('form').length;
-    expect(formTotal).toEqual(1);
-  })
-
-  // it('Should show username err when form is Invalid', () => {
-  //   const input = wrapper.find('[data-test-id="usernameInput"]').first();
-  //   input.simulate('keydown', { key: 'Enter' });
-  //   const errMsg = wrapper.find('[data-test-id="usernameErr"]').exists();
-  //   expect(errMsg).toEqual(true);
-  // });
-
-  // it('Should show password err when form is Invalid', () => {
-  //   const input = wrapper.find('[data-test-id="passwordInput"]');
-  //   input.simulate('keydown', { key: 'Enter' });
-  //   const errMsg = wrapper.find('[data-test-id="passwordErr"]').exists();
-  //   expect(errMsg).toEqual(true);
-  // });
-
-  it('Should has a button to submit', () => {
-    const submitButton = wrapper.exists('[data-test-id="submitButton"]')
-    expect(submitButton).toEqual(true);
+  beforeEach(() => {  
+    render(<SignInPage />);
   });
-
-  it('Should call API when invalida form', () => {
-    const mockFn = jest.fn();
-    jest.mock('../SignInPage', () => ({
-      signIn: mockFn,
-    }));
-    const formValues = {
-      username: 'username',
-      password: 'pass'
-    };
-    const inputUser = wrapper.find('[data-test-id="usernameInput"]');
-    inputUser.simulate('change', { target: { value: formValues.username }});
-    const inputPass = wrapper.find('[data-test-id="passwordInput"]');
-    inputUser.simulate('change', { target: { value: formValues.password }});
-    wrapper.find('[data-test-id="submitButton"]').simulate('submit');
-    expect(mockFn).toBeCalled();
-  });
+  
+  // it('Should call API when valid form', () => {
+  //   const signInMockFn = jest.fn().mockResolvedValueOnce({ token: 'TOKEN' });
+  //   mockedAuthService.signIn = signInMockFn; // mockResolvedValueOnce({ token: 'TOKEN' });
+  //   const formValues = {
+  //     username: 'username',
+  //     password: 'pass'
+  //   };
+  //   fireEvent.input(screen.getByTestId("username"), {
+  //     target: {
+  //       value: formValues.username
+  //     }
+  //   });
+  //   fireEvent.input(screen.getByTestId("password"), {
+  //     target: {
+  //       value: formValues.password
+  //     }
+  //   });
+    
+  //   fireEvent.submit(screen.getByRole("button"));
+    
+  //   expect(mockedAuthService.signIn).toBeCalledTimes(1);
+  // });
 
 });

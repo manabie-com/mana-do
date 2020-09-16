@@ -24,22 +24,23 @@ const SignInPage = () => {
     return (
         <div style={{marginTop: '3rem', textAlign: 'left'}}>
             <form onSubmit={handleSubmit(signIn)}>
-                <label htmlFor="user_name">
+                <label htmlFor="username">
                     User id
                     <input
-                        data-test-id="usernameInput"
+                        data-testid="username"
                         ref={register({ required: true })}
                         id="user_name"
                         name="username"
                         style={{marginTop: 12}}
+                        type="text"
                     />
-                    { errors.username && <span data-test-id="usernameErr"> Please enter your account </span> }
+                    { errors.username && <span id="username_err"> Please enter your account </span> }
                 </label>
                 <br/>
                 <label htmlFor="password" >
                     Password
                     <input
-                        data-test-id="passwordInput"
+                        data-testid="password"
                         ref={register({ required: true })}
                         id="password"
                         name="password"
@@ -49,7 +50,7 @@ const SignInPage = () => {
                     { errors.password && <span data-test-id="passwordErr"> Please enter your password </span> }
                 </label>
                 <br />
-                <button type="submit" style={{marginTop: 12}} data-test-id="submitButton">
+                <button type="submit" style={{marginTop: 12}} >
                     Sign in
                 </button>
             </form>
