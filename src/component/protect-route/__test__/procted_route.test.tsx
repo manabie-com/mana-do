@@ -5,7 +5,7 @@ import { MemoryRouter, Route } from 'react-router-dom';
 import configStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
 import ProtectedRoute from '../ProtectedRoute';
-import TodoPage from '../../../ToDoPage';
+import TodoPage from '../../../pages/todo';
 
 const mockStore = configStore();
 
