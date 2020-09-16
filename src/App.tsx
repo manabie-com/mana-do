@@ -1,9 +1,8 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import SignInPage from './pages/signin';
-import ToDoPage from './pages/todo';
 import useAppInit from './hooks/useAppInit';
 import ProtectedRoute from './component/protect-route/ProtectedRoute';
+import { Home, Todo } from './router';
 
 import './App.css';
 
@@ -17,8 +16,8 @@ function App() {
     <main className="App">
       <BrowserRouter>
         <Switch>
-          <Route path="/" exact component={SignInPage}/>
-          <ProtectedRoute path="/todo" component={ToDoPage}/>
+          <Route path="/" exact component={Home}/>
+          <ProtectedRoute path="/todo" component={Todo}/>
         </Switch>
       </BrowserRouter>
     </main>
