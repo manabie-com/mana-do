@@ -44,8 +44,12 @@ const ToDoPage = ({history}: RouteComponentProps) => {
         }
     }
 
-    const onUpdateTodoStatus = (e: React.ChangeEvent<HTMLInputElement>, todoId: string) => {
-        dispatch(updateTodoStatus(todoId, e.target.checked))
+    const onUpdateTodoStatus = async (e: React.ChangeEvent<HTMLInputElement>, todoId: string) => {
+        const isChecked = e.target.checked;
+        const res = await Service.updateTodoStatus(todoId, isChecked);
+        if (res) {
+            dispatch(updateTodoStatus(todoId, isChecked))
+        }
     }
 
     const onToggleAllTodo = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -54,6 +58,12 @@ const ToDoPage = ({history}: RouteComponentProps) => {
 
     const onDeleteAllTodo = () => {
         dispatch(deleteAllTodos());
+    }
+    const onDeleteTodo = async (todoId : string) => {
+        const res = await Service.deleteTodo(todoId);
+        if (res) {
+            dispatch(deleteTodo(todoId))
+        }
     }
 
     const showTodos = todos.filter((todo) => {
@@ -94,7 +104,7 @@ const ToDoPage = ({history}: RouteComponentProps) => {
                                 <span>{todo.content}</span>
                                 <button
                                     className="Todo__delete"
-                                    onClick={() => dispatch(deleteTodo(todo.id))}
+                                    onClick={() => onDeleteTodo(todo.id)}
                                 >
                                     X
                                 </button>
@@ -102,6 +112,9 @@ const ToDoPage = ({history}: RouteComponentProps) => {
                         );
                     })
                 }
+                {showTodos.length === 0 && (
+                    <p>No todo with type : {showing}</p>
+                )}
             </div>
             <div className="Todo__toolbar">
                 {todos.length > 0 ?

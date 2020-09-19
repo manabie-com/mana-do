@@ -4,6 +4,14 @@ import axios from '../utils/axios';
 import {AxiosResponse} from 'axios';
 
 class ApiFullstack extends IAPI {
+    async updateTodoStatus(todoId: string, status: boolean): Promise<boolean> {
+        const resp = await axios.put<AxiosResponse<string>>(`/tasks?id=${todoId}&isComplete=${status}`);
+        return JSON.parse(resp.data.data);
+    }
+    async deleteTodo(todoId: string): Promise<boolean> {
+        const resp = await axios.delete<AxiosResponse<string>>(`/tasks?id=${todoId}`);
+        return JSON.parse(resp.data.data);
+    }
     async signIn(username: string, password: string): Promise<string> {
         const resp = await axios.get<AxiosResponse<string>>(`/login?user_id=${username}&password=${password}`);
 
@@ -19,10 +27,10 @@ class ApiFullstack extends IAPI {
     }
 
     async getTodos(): Promise<Array<Todo>> {
-        const resp = await axios.get<AxiosResponse<Array<Todo>>>(`/tasks`);
-
+        const resp = await axios.get<AxiosResponse<Array<Todo>>>(`/tasks?created_date=${new Date().toISOString().split("T")[0]}`);
         return resp.data.data;
     }
+    
 }
 
 

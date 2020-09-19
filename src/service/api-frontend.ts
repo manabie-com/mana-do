@@ -5,6 +5,12 @@ import shortid from 'shortid';
 const mockToken = 'testabc.xyz.ahk'
 
 class ApiFrontend extends IAPI {
+    updateTodoStatus(todoId: string, status: boolean): Promise<boolean> {
+        throw new Error('Method not implemented.');
+    }
+    deleteTodo(todoId: string): Promise<boolean> {
+        throw new Error('Method not implemented.');
+    }
     async signIn(username: string, password: string): Promise<string>{
         if (username === 'firstUser' && password === 'example') {
             return Promise.resolve(mockToken)
