@@ -1,0 +1,18 @@
+.Modal {
+  background-color: #2324294a;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1050;
+  display: none;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  outline: 0;
+}
+
+.Modal__close-icon {
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: bold;
+}

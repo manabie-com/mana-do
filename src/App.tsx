@@ -1,23 +1,20 @@
-import React from 'react';
+import React from "react";
+import Router from "./router";
+import { StoreProvider } from "store/provider";
+import { createBrowserHistory } from "history";
 
-import {BrowserRouter, Switch, Route} from 'react-router-dom';
+import "./App.css";
 
-import SignInPage from './SignInPage';
-import ToDoPage from './ToDoPage';
+const App = () => {
+  const history = createBrowserHistory();
 
-import './App.css';
-
-function App() {
   return (
-    <main className="App">
-      <BrowserRouter>
-        <Switch>
-          <Route path="/" exact component={SignInPage}/>
-          <Route path="/todo" component={ToDoPage}/>
-        </Switch>
-      </BrowserRouter>
-    </main>
+    <div className="App">
+      <StoreProvider>
+        <Router history={history} />
+      </StoreProvider>
+    </div>
   );
-}
+};
 
 export default App;

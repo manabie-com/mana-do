@@ -1,0 +1,14 @@
+.PublicTemplate__logo {
+  padding-top: 7rem;
+  background-image: url('../../../logo.png');
+  background-size: contain;
+  background-position: center center;
+  background-repeat: no-repeat;
+  width: 100%;
+  margin-top: 10vh;
+}
+
+.PublicTemplate__content {
+  margin-top: 5vh;
+  padding-bottom: 18vh;
+}

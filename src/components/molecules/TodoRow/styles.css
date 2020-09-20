@@ -1,0 +1,24 @@
+.TodoBox__delete {
+  outline: none;
+  border: none;
+  width: 32px;
+  height: 32px;
+  min-width: auto;
+  min-height: auto;
+  box-shadow: none;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.TodoBox__line-height-center {
+  line-height: 2rem;
+}
+
+.TodoBox__delete {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+}

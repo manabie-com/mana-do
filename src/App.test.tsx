@@ -1,9 +1,17 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { render, cleanup } from '@testing-library/react';
 import App from './App';
 
-test('renders learn react link', () => {
-  const { getByText } = render(<App />);
-  const linkElement = getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+afterEach(cleanup);
+
+describe("App", () => {
+  it('render App', () => {
+    const { container } = render(<App />);
+
+    const div = container.querySelector("div");
+
+    const className = div?.className;
+
+    expect(className).toBe("App");
+  });
 });
