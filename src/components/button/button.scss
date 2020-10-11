@@ -1,0 +1,23 @@
+@import "src/styles/colors.scss";
+.button {
+  display: block;
+  padding: 0.25rem 1rem;
+  border: 1px solid $color-green;
+  background-color: $color-green;
+  color: $color-white;
+  font-weight: 400;
+  border-radius: 0.25rem;
+  &.primary {
+    background-color: $color-primary;
+    border-color: $color-primary;
+  }
+  &.secondary {
+    background-color: $color-secondary;
+    color: $color-black;
+    border-color: $color-secondary;
+  }
+  &.danger {
+    background-color: $color-danger;
+    border-color: $color-danger;
+  }
+}

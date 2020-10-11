@@ -1,0 +1,9 @@
+@import "src/styles/colors.scss";
+
+.input {
+  display: block;
+  border: 1px solid $color-gray;
+  border-radius: 0.25rem;
+  padding: 0.25rem;
+  width: 100%;
+}

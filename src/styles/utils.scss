@@ -1,0 +1,89 @@
+$step: 0;
+
+@while $step < 64 {
+  .p {
+    &t {
+      &-#{$step} {
+        padding-top: ($step * 0.25) + rem;
+      }
+    }
+    &b {
+      &-#{$step} {
+        padding-bottom: ($step * 0.25) + rem;
+      }
+    }
+    &l {
+      &-#{$step} {
+        padding-left: ($step * 0.25) + rem;
+      }
+    }
+    &r {
+      &-#{$step} {
+        padding-right: ($step * 0.25) + rem;
+      }
+    }
+    &y {
+      &-#{$step} {
+        padding-top: ($step * 0.25) + rem;
+        padding-bottom: ($step * 0.25) + rem;
+      }
+    }
+    &x {
+      &-#{$step} {
+        padding-left: ($step * 0.25) + rem;
+        padding-right: ($step * 0.25) + rem;
+      }
+    }
+  }
+  .m {
+    &t {
+      &-#{$step} {
+        margin-top: ($step * 0.25) + rem;
+      }
+    }
+    &b {
+      &-#{$step} {
+        margin-bottom: ($step * 0.25) + rem;
+      }
+    }
+    &l {
+      &-#{$step} {
+        margin-left: ($step * 0.25) + rem;
+      }
+    }
+    &r {
+      &-#{$step} {
+        margin-right: ($step * 0.25) + rem;
+      }
+    }
+    &y {
+      &-#{$step} {
+        margin-top: ($step * 0.25) + rem;
+        margin-bottom: ($step * 0.25) + rem;
+      }
+    }
+    &x {
+      &-#{$step} {
+        margin-left: ($step * 0.25) + rem;
+        margin-right: ($step * 0.25) + rem;
+      }
+    }
+  }
+  $step: $step + 1;
+}
+
+.flex {
+  display: flex;
+}
+
+.inline {
+  display: inline;
+}
+
+.block {
+  display: block;
+}
+
+.inline-block {
+  display: inline-block;
+}

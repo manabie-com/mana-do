@@ -1,0 +1,26 @@
+@import "src/styles/colors.scss";
+
+.todo-item {
+  padding: 1rem;
+  border-radius: 0.25rem;
+  box-shadow: 0 0 5px 3px $color-gray;
+  position: relative;
+  margin-bottom: 0.5rem;
+
+  .checkbox {
+    width: 1.5rem;
+    height: 1.5rem;
+    margin-right: 0.5rem;
+    top: 0.5rem;
+    position: relative;
+  }
+  span {
+    margin-right: 0.25rem;
+  }
+  button {
+    position: absolute;
+    right: 0.5rem;
+    top: 0.5rem;
+    padding: 0rem 0.4rem;
+  }
+}

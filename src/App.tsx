@@ -1,22 +1,27 @@
-import React from 'react';
-
-import {BrowserRouter, Switch, Route} from 'react-router-dom';
-
-import SignInPage from './SignInPage';
-import ToDoPage from './ToDoPage';
-
-import './App.css';
+import React from "react";
+import Router from "./router";
+import { ToastContainer, Slide } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import "./styles/index.scss";
 
 function App() {
   return (
-    <main className="App">
-      <BrowserRouter>
-        <Switch>
-          <Route path="/" exact component={SignInPage}/>
-          <Route path="/todo" component={ToDoPage}/>
-        </Switch>
-      </BrowserRouter>
-    </main>
+    <>
+      <Router />
+      <ToastContainer
+        position="bottom-right"
+        autoClose={5000}
+        hideProgressBar
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        transition={Slide}
+        style={{ marginBottom: "2rem" }}
+      />
+    </>
   );
 }
 
