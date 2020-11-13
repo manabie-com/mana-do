@@ -5,8 +5,10 @@ import {
   DELETE_ALL_TODOS,
   DELETE_TODO,
   TOGGLE_ALL_TODOS,
-  UPDATE_TODO_STATUS
+  UPDATE_TODO_STATUS,
+  SET_TODO
 } from './actions';
+import {setLocalStorage} from "../utils/localStored";
 
 export interface AppState {
   todos: Array<Todo>
@@ -18,19 +20,34 @@ export const initialState: AppState = {
 
 function reducer(state: AppState, action: AppActions): AppState {
   switch (action.type) {
-    case CREATE_TODO:
-      state.todos.push(action.payload);
+    case SET_TODO:
+      setLocalStorage("todoList", [...action.payload]);
       return {
-        ...state
+        ...state,
+        todos: action.payload
+      };
+
+    case CREATE_TODO:
+      //Saving todos item on local storage
+      setLocalStorage("todoList", [...state.todos, action.payload]);
+      // StrictMode renders components twice so this should be pure function without any side effects
+      return {
+        ...state,
+        todos: [...state.todos, action.payload]
       };
 
     case UPDATE_TODO_STATUS:
-      const index2 = state.todos.findIndex((todo) => todo.id === action.payload.todoId);
-      state.todos[index2].status = action.payload.checked ? TodoStatus.COMPLETED : TodoStatus.ACTIVE;
+      const updatedTodoList = state.todos.map((todo) => {
+        if(todo.id === action.payload.todoId){
+          todo.status = action.payload.checked ? TodoStatus.COMPLETED : TodoStatus.ACTIVE;
+        }
+        return todo;
+      })
+      setLocalStorage("todoList", updatedTodoList);
 
       return {
         ...state,
-        todos: state.todos
+        todos: updatedTodoList
       }
 
     case TOGGLE_ALL_TODOS:
@@ -40,6 +57,7 @@ function reducer(state: AppState, action: AppActions): AppState {
           status: action.payload ? TodoStatus.COMPLETED : TodoStatus.ACTIVE
         }
       })
+      setLocalStorage("todoList", tempTodos);
 
       return {
         ...state,
@@ -47,14 +65,15 @@ function reducer(state: AppState, action: AppActions): AppState {
       }
 
     case DELETE_TODO:
-      const index1 = state.todos.findIndex((todo) => todo.id === action.payload);
-      state.todos.splice(index1, 1);
-
+      // Using filter() to get all todos remain
+      const todosRemainder = state.todos.filter((todo) => todo.id !== action.payload);
+      setLocalStorage("todoList", todosRemainder);
       return {
         ...state,
-        todos: state.todos
+        todos: todosRemainder
       }
     case DELETE_ALL_TODOS:
+      setLocalStorage("todoList", []);
       return {
         ...state,
         todos: []
