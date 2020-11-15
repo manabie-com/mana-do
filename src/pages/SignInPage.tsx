@@ -1,7 +1,8 @@
 import React, {useState} from 'react';
 
 import {useHistory} from 'react-router-dom'
-import Service from './service'
+import { useAuth } from '../auth'
+import Notification from '../components/Notification'
 
 const SignInPage = () => {
     const [form, setForm] = useState({
@@ -9,12 +10,13 @@ const SignInPage = () => {
         password: ''
     });
     const history = useHistory();
+    const { token, logIn, error } = useAuth()
+
+    if (token && !error) history.push('/todo')
 
     const signIn = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-        const resp = await Service.signIn(form.userId, form.password)
-
-        localStorage.setItem('token', resp)
+        logIn(form.userId, form.password)
         history.push('/todo')
     }
 
@@ -28,6 +30,7 @@ const SignInPage = () => {
 
     return (
         <div style={{marginTop: '3rem', textAlign: 'left'}}>
+            {error && <Notification type='error'>{error}</Notification>}
             <form onSubmit={signIn}>
                 <label htmlFor="user_id">
                     User id
