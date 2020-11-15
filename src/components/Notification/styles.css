@@ -1,0 +1,11 @@
+.notification-info {
+  color: aqua
+}
+
+.notification-alert {
+  color: yellow;
+}
+
+.notification-error {
+  color: red;
+}
