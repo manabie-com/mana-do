@@ -1,23 +1,18 @@
 import React, {useState} from 'react';
 
-import {useHistory} from 'react-router-dom'
-import { useAuth } from '../auth'
-import Notification from '../components/Notification'
+interface Props {
+  onSubmit: (userId: string, password: string) => void
+}
 
-const SignInPage = () => {
+export default ({ onSubmit }: Props) => {
     const [form, setForm] = useState({
         userId: '',
         password: ''
     });
-    const history = useHistory();
-    const { token, logIn, error } = useAuth()
 
-    if (token && !error) history.push('/todo')
-
-    const signIn = async (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-        logIn(form.userId, form.password)
-        history.push('/todo')
+        onSubmit(form.userId, form.password)
     }
 
     const onChangeField = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -30,8 +25,7 @@ const SignInPage = () => {
 
     return (
         <div style={{marginTop: '3rem', textAlign: 'left'}}>
-            {error && <Notification type='error'>{error}</Notification>}
-            <form onSubmit={signIn}>
+            <form onSubmit={handleSubmit}>
                 <label htmlFor="user_id">
                     User id
                     <input
@@ -62,5 +56,3 @@ const SignInPage = () => {
         </div>
     );
 };
-
-export default SignInPage;

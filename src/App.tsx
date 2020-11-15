@@ -4,8 +4,8 @@ import {BrowserRouter, Switch, Route} from 'react-router-dom';
 
 import { AuthProvider } from './auth'
 import ProtectedRoute from './components/ProtectedRoute'
-import SignInPage from './pages/SignInPage';
-import ToDoPage from './pages/ToDoPage';
+import SignInPage from './pages/SignIn';
+import ToDoPage from './pages/ToDo';
 
 import './App.css';
 
