@@ -6,6 +6,7 @@ import {
   DELETE_TODO,
   TOGGLE_ALL_TODOS,
   UPDATE_TODO_STATUS,
+  UPDATE_TODO,
   SET_TODO
 } from './actions';
 import {setLocalStorage} from "../utils/localStored";
@@ -37,14 +38,27 @@ function reducer(state: AppState, action: AppActions): AppState {
       };
 
     case UPDATE_TODO_STATUS:
-      const updatedTodoList = state.todos.map((todo) => {
+      const updatedTodoStatus = state.todos.map((todo) => {
         if(todo.id === action.payload.todoId){
           todo.status = action.payload.checked ? TodoStatus.COMPLETED : TodoStatus.ACTIVE;
         }
         return todo;
       })
-      setLocalStorage("todoList", updatedTodoList);
+      setLocalStorage("todoList", updatedTodoStatus);
 
+      return {
+        ...state,
+        todos: updatedTodoStatus
+      }
+
+    case UPDATE_TODO:
+      const updatedTodoList = state.todos.map((todo) => {
+        if(todo.id === action.payload.id){
+          todo.content = action.payload.content;
+        }
+        return todo;
+      });
+      setLocalStorage("todoList", updatedTodoList);
       return {
         ...state,
         todos: updatedTodoList

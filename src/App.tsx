@@ -9,7 +9,7 @@ import './App.css';
 
 function App() {
   return (
-    <main className="App">
+    <main className="app">
       <BrowserRouter>
         <Switch>
           <Route path="/" exact component={SignInPage}/>

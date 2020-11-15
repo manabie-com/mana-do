@@ -13,6 +13,8 @@ import {
 import Service from './service';
 import {TodoStatus} from './models/todo';
 import {isTodoCompleted} from './utils';
+import ToDoItem from "./component/ToDoItem";
+import ToDoToolbar from "./component/ToDoToolbar";
 
 type EnhanceTodoStatus = TodoStatus | 'ALL';
 
@@ -31,7 +33,8 @@ const ToDoPage = ({history}: RouteComponentProps) => {
     }, [])
 
     const onCreateTodo = async (e: React.KeyboardEvent<HTMLInputElement>) => {
-        if (e.key === 'Enter' && inputRef.current) {
+        // Checking user type something into input
+        if (e.key === 'Enter' && inputRef.current && inputRef.current.value !== '') {
             try {
                 const resp = await Service.createTodo(inputRef.current.value);
                 dispatch(createTodo(resp));
@@ -56,6 +59,10 @@ const ToDoPage = ({history}: RouteComponentProps) => {
         dispatch(deleteAllTodos());
     }
 
+    const onDeleteTodo = (todoId: string) => {
+        dispatch(deleteTodo(todoId));
+    }
+
     const showTodos = todos.filter((todo) => {
         switch (showing) {
             case TodoStatus.ACTIVE:
@@ -72,59 +79,42 @@ const ToDoPage = ({history}: RouteComponentProps) => {
     }, 0);
 
     return (
-        <div className="ToDo__container">
-            <div className="Todo__creation">
-                <input
-                    ref={inputRef}
-                    className="Todo__input"
-                    placeholder="What need to be done?"
-                    onKeyDown={onCreateTodo}
-                />
+        <div className="form todos">
+            <div className="form-header container-fluid">
+                <div className="row container__main form-header__content ">
+                    <div className="other_height"></div>
+                </div>
             </div>
-            <div className="ToDo__list">
+            <div className="form-logo">
+                <div className="form-logo__bg">
+                    <div className="form-logo__title">
+                        <span>TODOS</span>
+                    </div>
+                </div>
+            </div>
+            <div className="container__form todos-form">
+                <div className="other_title">Your life is well-balanced!</div>
+                <div className="form-group todos-input_typing">
+                    <input
+                        ref={inputRef}
+                        className="form-control"
+                        placeholder="What need to be done?"
+                        onKeyDown={onCreateTodo}
+                    />
+                </div>
+            <ToDoToolbar todos={todos} activeTodos={activeTodos}
+                         showing={showing} setShowing={setShowing}
+                         onDeleteAllTodo={onDeleteAllTodo} onToggleAllTodo={onToggleAllTodo}/>
+            <div className="todos-list">
                 {
                     showTodos.map((todo, index) => {
                         return (
-                            <div key={index} className="ToDo__item">
-                                <input
-                                    type="checkbox"
-                                    checked={isTodoCompleted(todo)}
-                                    onChange={(e) => onUpdateTodoStatus(e, todo.id)}
-                                />
-                                <span>{todo.content}</span>
-                                <button
-                                    className="Todo__delete"
-                                    onClick={() => dispatch(deleteTodo(todo.id))}
-                                >
-                                    X
-                                </button>
-                            </div>
+                            <ToDoItem key={index} todo={todo} dispatch={dispatch}
+                                      onUpdateTodoStatus={onUpdateTodoStatus} onDeleteTodo={onDeleteTodo}/>
                         );
                     })
                 }
             </div>
-            <div className="Todo__toolbar">
-                {todos.length > 0 ?
-                    <input
-                        type="checkbox"
-                        checked={activeTodos === 0}
-                        onChange={onToggleAllTodo}
-                    /> : <div/>
-                }
-                <div className="Todo__tabs">
-                    <button className="Action__btn" onClick={()=>setShowing('ALL')}>
-                        All
-                    </button>
-                    <button className="Action__btn" onClick={()=>setShowing(TodoStatus.ACTIVE)}>
-                        Active
-                    </button>
-                    <button className="Action__btn" onClick={()=>setShowing(TodoStatus.COMPLETED)}>
-                        Completed
-                    </button>
-                </div>
-                <button className="Action__btn" onClick={onDeleteAllTodo}>
-                    Clear all todos
-                </button>
             </div>
         </div>
     );

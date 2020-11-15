@@ -8,54 +8,70 @@ const SignInPage = () => {
         userId: '',
         password: ''
     });
+    const [error, setError] = useState('');
     const history = useHistory();
 
     const signIn = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-        const resp = await Service.signIn(form.userId, form.password)
-
-        localStorage.setItem('token', resp)
-        history.push('/todo')
+        try {
+            const resp = await Service.signIn(form.userId, form.password)
+            localStorage.setItem('token', resp)
+            history.push('/todo')
+        } catch (error){
+            setError(error);
+        }
     }
 
     const onChangeField = (e: React.ChangeEvent<HTMLInputElement>) => {
         e.persist()
-        setForm(prev=>({
+        setForm(prev => ({
             ...prev,
             [e.target.name]: e.target.value
         }))
     }
 
     return (
-        <div style={{marginTop: '3rem', textAlign: 'left'}}>
-            <form onSubmit={signIn}>
-                <label htmlFor="user_id">
-                    User id
-                    <input
-                        id="user_id"
-                        name="userId"
-                        value={form.userId}
-                        style={{marginTop: 12}}
-                        onChange={onChangeField}
-                    />
-                </label>
-                <br/>
-                <label htmlFor="password" >
-                    Password
+        <div className="form">
+            <div className="form-header container-fluid">
+                <div className="row container__main form-header__content ">
+                    <div className="other_height"></div>
+                </div>
+            </div>
+            <div className="form-logo">
+                <div className="form-logo__bg">
+                    <div className="form-logo__title">
+                        <span>TODOS</span>
+                    </div>
+                </div>
+            </div>
+            <div className="container__form">
+                <div className="other_title">Hello, who's this?</div>
+                <form onSubmit={signIn} className="form__content">
+                    <div className="form-group">
+                    <label htmlFor="user_id">Username</label>
+                        <input
+                            id="user_id"
+                            name="userId"
+                            value={form.userId}
+                            onChange={onChangeField}
+                            placeholder="firstUser"
+                            className="form-control" required/>
+                    </div>
+                    <label htmlFor="password">Password</label>
                     <input
                         id="password"
                         name="password"
                         type="password"
-                        style={{marginTop: 12}}
                         value={form.password}
                         onChange={onChangeField}
-                    />
-                </label>
-                <br />
-                <button type="submit" style={{marginTop: 12}}>
-                    Sign in
-                </button>
-            </form>
+                        placeholder="*******"
+                        className="form-control" required/>
+                    <div className="todos-error">{error}</div>
+                    <button type="submit" className="btn btn-form-submit btn-block">
+                        Login to TODOS
+                    </button>
+                </form>
+            </div>
         </div>
     );
 };
