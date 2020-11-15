@@ -1,13 +1,206 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@import url("https://fonts.googleapis.com/css?family=Nunito:400,600&display=swap");
+@import url('https://fonts.googleapis.com/css?family=Fira+Sans&display=swap');
+@import url("https://fonts.googleapis.com/css?family=Poppins:400,500&display=swap");
+
+:root {
+    --white: #ffffff;
+    --black: #000000;
+    --color_white-op8: rgba(255, 255, 255, 0.8);
+    --color-gray-light: #ced4da;
+    --color-gray-light-02: #fafafb;
+    --color-gray: #9f9fa4;
+    --color-gray-light-03: #c5c5c8;
+    --color-sinbad: #B4D3D3;
+    --color-sinbad-light: #D9E9E9;
+    --color-sinbad-bold: #94c0c0;
+    --color-sinbad-light-02: rgba(228, 239, 239, 0.8);
+    --color_pink-b2: #af5d69;
+    --font_nutino: 'Nunito';
+    --font_poppins: 'Poppins';
+    --font_fira-sans: 'Fira Sans';
+    --font_times-new-roman: "Times New Roman";
 }
 
+/*---------- RESET ----------*/
+* {
+    font-size: 1.6rem;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 62.5%;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: var(--font_nutino), var(--font_poppins), var(--font_fira-sans),
+    sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+label {
+    display: inline-block;
+    margin-bottom: .5rem;
+}
+
+input {
+    overflow: visible;
+    margin: 0;
+    font-family: inherit;
+    outline: none;
+    cursor: pointer;
+}
+input:focus{
+    outline: none;
+}
+
+[type=button]:not(:disabled), [type=reset]:not(:disabled), [type=submit]:not(:disabled), button:not(:disabled), input[type="checkbox"] {
+    cursor: pointer;
+}
+p{
+    margin: 0;
+}
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+input[type="checkbox"]:focus {
+    box-shadow: none;
+    outline: none;
+}
+
+button:focus{
+    outline: none;
+}
+
+/*---------- COMMON ----------*/
+.d-none{
+    display: none;
+}
+
+.btn{
+    text-align: center;
+    vertical-align: middle;
+    user-select: none;
+    line-height: 1.5;
+}
+.btn-block {
+    display: block;
+    width: 100%;
+}
+.btn-form-submit{
+    font-family: "Nunito", sans-serif;
+    letter-spacing: 0.2rem;
+    font-weight: 900;
+    transition: all 0.3s;
+    background-color: #94c0c0;
+    color: #ffffff;
+    border: 0.1rem solid #94c0c0;
+    margin-top: 3.5rem;
+    padding: 1rem 2rem;
+    font-size: 1.6rem;
+    text-transform: none;
+    border-radius: .25rem;
+}
+.btn-form-submit:hover {
+    background-color: #ffffff;
+    color: #94c0c0;
+    border: 0.1rem solid #94c0c0;
+}
+.other_height{
+    height: 4rem;
+}
+.other_title{
+    text-align: center;
+    margin-bottom: 3rem;
+}
+.form-group{
+    margin-bottom: 2rem;
+    width: 100%;
+}
+.form-control{
+    display: block;
+    width: 100%;
+    height: calc(1.5em + .75rem + 2px);
+    font-weight: 400;
+    line-height: 1.5;
+    background-color: var(--white);
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    padding: 2rem;
+    font-size: 1.6rem;
+    color: var(--black);
+}
+.form-control:focus {
+    outline: none;
+    border-color: var(--black);
+    box-shadow: none;
+    background-color: var(--white);
+}
+.container-fluid {
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.row {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: -15px;
+}
+
+.container__main {
+    padding: 1.2rem 4.2rem;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/*---------- ANIMATION ----------*/
+@keyframes morphing {
+    0% {
+        border-radius: 30% 70% 70% 30%/30% 30% 70% 70%;
+        box-shadow: 15px 15px 50px rgba(0, 0, 0, 0.2);
+    }
+    25% {
+        border-radius: 58% 42% 75% 25%/76% 46% 54% 24%;
+    }
+    50% {
+        border-radius: 50% 50% 33% 67%/55% 27% 73% 45%;
+        box-shadow: -10px -5px 50px rgba(0, 0, 0, 0.2);
+    }
+    75% {
+        border-radius: 33% 67% 58% 42%/63% 68% 32% 37%;
+    }
+}
+
+@keyframes bounceIn {
+    0% {
+        opacity: 0.2;
+        transform: scale(0.98);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        transform: translate3d(0,-20%,0)
+    }
+
+    to {
+        transform: translate3d(0,0,0);
+        opacity: 1
+    }
 }
