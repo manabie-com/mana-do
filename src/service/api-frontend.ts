@@ -11,7 +11,14 @@ class ApiFrontend extends IAPI {
         }
 
         return Promise.reject('Incorrect username/password')
-    }
+	}
+	
+	async verifyToken(token: string): Promise<void> {
+		if (token === mockToken) {
+            return Promise.resolve()
+        }
+        return Promise.reject('Invalid token')
+	}
 
     async createTodo(content: string): Promise<Todo> {
         return Promise.resolve({
