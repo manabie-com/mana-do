@@ -3,6 +3,8 @@ import React, { useRef, useState } from 'react';
 import {Todo, TodoStatus} from '../../models/todo';
 import {isTodoCompleted} from '../../utils';
 
+import './styles.css'
+
 type EnhanceTodoStatus = TodoStatus | 'ALL';
 
 interface Props {
@@ -52,6 +54,10 @@ const ToDoPage = ({ todos, onCreateTodo, onUpdateTodoStatus, onToggleAllTodos, o
         return isTodoCompleted(todo) ? accum : accum + 1;
     }, 0);
 
+    const getActionClasses = (status: EnhanceTodoStatus) => {
+        return status === showing ? 'Todo__tab Tab__active' : 'Todo__tab'
+    };
+
     return (
         <div className="ToDo__container">
             <div className="Todo__creation">
@@ -64,7 +70,8 @@ const ToDoPage = ({ todos, onCreateTodo, onUpdateTodoStatus, onToggleAllTodos, o
             </div>
             <div className="ToDo__list">
                 {
-                    showTodos.map((todo, index) => {
+                    showTodos.length > 0
+                    ? showTodos.map((todo, index) => {
                         return (
                             <div key={index} className="ToDo__item">
                                 <input
@@ -82,6 +89,7 @@ const ToDoPage = ({ todos, onCreateTodo, onUpdateTodoStatus, onToggleAllTodos, o
                             </div>
                         );
                     })
+                    : <>No Todos</>
                 }
             </div>
             <div className="Todo__toolbar">
@@ -93,17 +101,17 @@ const ToDoPage = ({ todos, onCreateTodo, onUpdateTodoStatus, onToggleAllTodos, o
                     /> : <div/>
                 }
                 <div className="Todo__tabs">
-                    <button className="Action__btn" onClick={()=>setShowing('ALL')}>
+                    <button className={getActionClasses('ALL')} onClick={()=>setShowing('ALL')}>
                         All
                     </button>
-                    <button className="Action__btn" onClick={()=>setShowing(TodoStatus.ACTIVE)}>
+                    <button className={getActionClasses(TodoStatus.ACTIVE)} onClick={()=>setShowing(TodoStatus.ACTIVE)}>
                         Active
                     </button>
-                    <button className="Action__btn" onClick={()=>setShowing(TodoStatus.COMPLETED)}>
+                    <button className={getActionClasses(TodoStatus.COMPLETED)} onClick={()=>setShowing(TodoStatus.COMPLETED)}>
                         Completed
                     </button>
                 </div>
-                <button className="Action__btn" onClick={handleDeleteAllTodos}>
+                <button className="Action__danger" onClick={handleDeleteAllTodos}>
                     Clear all todos
                 </button>
             </div>

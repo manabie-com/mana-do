@@ -1,10 +1,15 @@
 import React, {useState} from 'react';
 
+import Notification from '../../components/Notification'
+
+import './styles.css'
+
 interface Props {
   onSubmit: (userId: string, password: string) => void
+  error: string
 }
 
-export default ({ onSubmit }: Props) => {
+export default ({ onSubmit, error }: Props) => {
     const [form, setForm] = useState({
         userId: '',
         password: ''
@@ -24,15 +29,15 @@ export default ({ onSubmit }: Props) => {
     }
 
     return (
-        <div style={{marginTop: '3rem', textAlign: 'left'}}>
-            <form onSubmit={handleSubmit}>
+        <div className="SignIn__root">
+            {error !== '' && <Notification type='error' className="SignIn__error">{error}</Notification>}
+            <form onSubmit={handleSubmit} className="SignIn__form">
                 <label htmlFor="user_id">
                     User id
                     <input
                         id="user_id"
                         name="userId"
                         value={form.userId}
-                        style={{marginTop: 12}}
                         onChange={onChangeField}
                     />
                 </label>
@@ -43,14 +48,13 @@ export default ({ onSubmit }: Props) => {
                         id="password"
                         name="password"
                         type="password"
-                        style={{marginTop: 12}}
                         value={form.password}
                         onChange={onChangeField}
                     />
                 </label>
                 <br />
-                <button type="submit" style={{marginTop: 12}}>
-                    Sign in
+                <button type="submit">
+                    SIGN IN
                 </button>
             </form>
         </div>

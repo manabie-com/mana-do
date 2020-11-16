@@ -1,11 +1,17 @@
-.notification-info {
+.Notification {
+  border: 1px solid;
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
+}
+
+.Notification--info {
   color: aqua
 }
 
-.notification-alert {
+.Notification--alert {
   color: yellow;
 }
 
-.notification-error {
+.Notification--error {
   color: red;
 }

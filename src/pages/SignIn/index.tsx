@@ -2,7 +2,6 @@ import React from 'react';
 import {useHistory} from 'react-router-dom'
 
 import { useAuth } from '../../auth'
-import Notification from '../../components/Notification'
 import Loading from '../../components/Loading'
 
 import SignInComponent from './Component'
@@ -19,12 +18,7 @@ const SignInPage = () => {
         history.push('/todo')
     }
 
-    return (
-        <>
-            {error && <Notification type='error'>{error}</Notification>}
-            <SignInComponent onSubmit={signIn} />
-        </>
-    );
+    return <SignInComponent onSubmit={signIn} error={error} />
 };
 
 export default SignInPage;

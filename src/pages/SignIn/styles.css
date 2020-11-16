@@ -1,0 +1,30 @@
+.SignIn__root {
+  padding: 5rem;
+}
+
+.SignIn__error {
+  margin-bottom: 1rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.SignIn__form {
+  display: flex;
+  flex-direction: column;
+}
+
+.SignIn__form label {
+  text-align: left;
+}
+
+.SignIn__form input {
+  width: 100%;
+  box-sizing: border-box;
+  margin-top: 0.5rem;
+}
+
+.SignIn__form button[type="submit"] {
+  background-color: #37a0e6;
+  color: white;
+  margin-top: 1rem;
+}
