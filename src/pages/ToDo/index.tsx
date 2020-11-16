@@ -1,9 +1,8 @@
 import React, { useEffect, useReducer } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 
-import reducer, { initialState } from '../../store/reducer';
+import reducer, { AppState } from '../../store/reducer';
 import {
-    setTodos,
     createTodo,
     deleteTodo,
     toggleAllTodos,
@@ -11,23 +10,20 @@ import {
     updateTodoStatus
 } from '../../store/actions';
 import Service from '../../service';
-import {TodoStatus} from '../../models/todo';
 
 import ToDoComponent from './Component'
 
-type EnhanceTodoStatus = TodoStatus | 'ALL';
-
+const todosKey = 'todos'
+const todosString = localStorage.getItem(todosKey)
+const initialState: AppState = todosString ? JSON.parse(todosString) : { todos: [] }
 
 const ToDoPage = ({ history }: RouteComponentProps) => {
     const [{ todos }, dispatch] = useReducer(reducer, initialState);
 
+    // save the app state to local storage whenever it is changed
     useEffect(()=>{
-        (async ()=>{
-            const resp = await Service.getTodos();
-
-            dispatch(setTodos(resp || []));
-        })()
-    }, [])
+        localStorage.setItem(todosKey, JSON.stringify({ todos }))
+    }, [todos])
 
     const onCreateTodo = async (value: string) => {
         try {
