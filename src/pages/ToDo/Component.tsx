@@ -30,12 +30,22 @@ const ToDoPage = ({ todos, onCreateTodo, onUpdateTodoStatus, onToggleAllTodos, o
         }
     }
 
-    const handleUpdateTodoStatus = (e: React.ChangeEvent<HTMLInputElement>, todoId: string) => {
-        onUpdateTodoStatus(todoId, e.target.checked)
+    const handleUpdateTodoStatus = (todoId: string) => {
+        function handler(e: React.ChangeEvent<HTMLInputElement>) {
+            onUpdateTodoStatus(todoId, e.target.checked)
+        }
+        return handler
     }
 
     const handleToggleAllTodo = (e: React.ChangeEvent<HTMLInputElement>) => {
        onToggleAllTodos(e.target.checked)
+    }
+
+    const handleDeleteTodo = (todoId: string) => {
+        function handler() {
+            onDeleteTodo(todoId)
+        }
+        return handler
     }
 
     const handleDeleteAllTodos = () => {
@@ -76,6 +86,13 @@ const ToDoPage = ({ todos, onCreateTodo, onUpdateTodoStatus, onToggleAllTodos, o
         return isTodoCompleted(todo) ? accum : accum + 1;
     }, 0);
 
+    const handleShowTodo = (status: EnhanceTodoStatus) => {
+        function handler() {
+            setShowing(status)
+        }
+        return handler
+    }
+
     const getActionClasses = (status: EnhanceTodoStatus) => {
         return status === showing ? 'Todo__tab Tab__active' : 'Todo__tab'
     };
@@ -99,7 +116,9 @@ const ToDoPage = ({ todos, onCreateTodo, onUpdateTodoStatus, onToggleAllTodos, o
                                 <input
                                     type="checkbox"
                                     checked={isTodoCompleted(todo)}
-                                    onChange={(e) => handleUpdateTodoStatus(e, todo.id)}
+                                    // handling event by arrow function will create a function every time the event is triggered
+                                    // that can lead to performance issue
+                                    onChange={handleUpdateTodoStatus(todo.id)}
                                 />
                                 {
                                     editing !== todo.id
@@ -115,7 +134,7 @@ const ToDoPage = ({ todos, onCreateTodo, onUpdateTodoStatus, onToggleAllTodos, o
                                 }
                                 <button
                                     className="Todo__delete"
-                                    onClick={() => onDeleteTodo(todo.id)}
+                                    onClick={handleDeleteTodo(todo.id)}
                                 >
                                     X
                                 </button>
@@ -134,13 +153,13 @@ const ToDoPage = ({ todos, onCreateTodo, onUpdateTodoStatus, onToggleAllTodos, o
                     /> : <div/>
                 }
                 <div className="Todo__tabs">
-                    <button className={getActionClasses('ALL')} onClick={()=>setShowing('ALL')}>
+                    <button className={getActionClasses('ALL')} onClick={handleShowTodo('ALL')}>
                         All
                     </button>
-                    <button className={getActionClasses(TodoStatus.ACTIVE)} onClick={()=>setShowing(TodoStatus.ACTIVE)}>
+                    <button className={getActionClasses(TodoStatus.ACTIVE)} onClick={handleShowTodo(TodoStatus.ACTIVE)}>
                         Active
                     </button>
-                    <button className={getActionClasses(TodoStatus.COMPLETED)} onClick={()=>setShowing(TodoStatus.COMPLETED)}>
+                    <button className={getActionClasses(TodoStatus.COMPLETED)} onClick={handleShowTodo(TodoStatus.COMPLETED)}>
                         Completed
                     </button>
                 </div>
