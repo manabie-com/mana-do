@@ -7,7 +7,8 @@ import {
     deleteTodo,
     toggleAllTodos,
     deleteAllTodos,
-    updateTodoStatus
+    updateTodoStatus,
+    updateTodo,
 } from '../../store/actions';
 import Service from '../../service';
 
@@ -52,6 +53,10 @@ const ToDoPage = ({ history }: RouteComponentProps) => {
         dispatch(deleteTodo(todoId))
     }
 
+    const onUpdateTodo = (todoId: string, value: string) => {
+        dispatch(updateTodo(todoId, value))
+    }
+
     return (
         <ToDoComponent
             todos={todos}
@@ -60,6 +65,7 @@ const ToDoPage = ({ history }: RouteComponentProps) => {
             onToggleAllTodos={onToggleAllTodo}
             onDeleteAllTodos={onDeleteAllTodos}
             onDeleteTodo={onDeleteTodo}
+            onUpdateTodo={onUpdateTodo}
         />
     )
 };

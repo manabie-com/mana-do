@@ -14,16 +14,19 @@ interface Props {
   onToggleAllTodos: (checked: boolean) => void
   onDeleteAllTodos: () => void
   onDeleteTodo: (id: string) => void
+  onUpdateTodo: (id: string, value: string) => void
 }
 
-const ToDoPage = ({ todos, onCreateTodo, onUpdateTodoStatus, onToggleAllTodos, onDeleteAllTodos, onDeleteTodo }: Props) => {
+const ToDoPage = ({ todos, onCreateTodo, onUpdateTodoStatus, onToggleAllTodos, onDeleteAllTodos, onDeleteTodo, onUpdateTodo }: Props) => {
     const [showing, setShowing] = useState<EnhanceTodoStatus>('ALL');
-    const inputRef = useRef<HTMLInputElement>(null);
+    const todoInputRef = useRef<HTMLInputElement>(null);
+    const todoEditRef = useRef<HTMLInputElement>(null);
+    const [editing, setEditing] = useState('')
 
     const handleCreateTodo = async (e: React.KeyboardEvent<HTMLInputElement>) => {
-        if (e.key === 'Enter' && inputRef.current) {
-            onCreateTodo(inputRef.current.value)
-            inputRef.current.value = '';
+        if (e.key === 'Enter' && todoInputRef.current) {
+            onCreateTodo(todoInputRef.current.value)
+            todoInputRef.current.value = '';
         }
     }
 
@@ -37,6 +40,25 @@ const ToDoPage = ({ todos, onCreateTodo, onUpdateTodoStatus, onToggleAllTodos, o
 
     const handleDeleteAllTodos = () => {
         onDeleteAllTodos();
+    }
+
+    const handleTodoDoubleClick = (todoId: string) => {
+        function handler() {
+            setEditing(todoId)
+        }
+        return handler
+    }
+
+    const handleBlurOnEditing = () => {
+        setEditing('')
+    }
+
+    const handleUpdateTodo = async (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === 'Enter' && todoEditRef.current) {
+            onUpdateTodo(editing, todoEditRef.current.value)
+            todoEditRef.current.value = '';
+            handleBlurOnEditing()
+        }
     }
 
     const showTodos = todos.filter((todo) => {
@@ -62,7 +84,7 @@ const ToDoPage = ({ todos, onCreateTodo, onUpdateTodoStatus, onToggleAllTodos, o
         <div className="ToDo__container">
             <div className="Todo__creation">
                 <input
-                    ref={inputRef}
+                    ref={todoInputRef}
                     className="Todo__input"
                     placeholder="What need to be done?"
                     onKeyDown={handleCreateTodo}
@@ -79,7 +101,18 @@ const ToDoPage = ({ todos, onCreateTodo, onUpdateTodoStatus, onToggleAllTodos, o
                                     checked={isTodoCompleted(todo)}
                                     onChange={(e) => handleUpdateTodoStatus(e, todo.id)}
                                 />
-                                <span>{todo.content}</span>
+                                {
+                                    editing !== todo.id
+                                    ? <span onDoubleClick={handleTodoDoubleClick(todo.id)}>{todo.content}</span>
+                                    : <input
+                                        type="text"
+                                        className="ToDo__edit"
+                                        ref={todoEditRef}
+                                        autoFocus
+                                        onBlur={handleBlurOnEditing}
+                                        onKeyDown={handleUpdateTodo}
+                                    />
+                                }
                                 <button
                                     className="Todo__delete"
                                     onClick={() => onDeleteTodo(todo.id)}

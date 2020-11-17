@@ -81,6 +81,11 @@
   height: fit-content;
 }
 
+.ToDo__edit {
+  width: 100%;
+  margin: 0 1rem;
+}
+
 .Tab__active {
   background-color: #37a0e6;
 }
