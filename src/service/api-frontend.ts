@@ -1,3 +1,4 @@
+// TODO: Enforce coding style (indentation, semicolon,...) with eslint & prettier
 import {IAPI} from './types';
 import {Todo, TodoStatus} from '../models/todo';
 import shortid from 'shortid';
