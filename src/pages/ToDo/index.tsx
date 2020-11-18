@@ -1,5 +1,5 @@
 import React, { useEffect, useReducer } from 'react';
-import { RouteComponentProps } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 import reducer, { AppState } from '../../store/reducer';
 import {
@@ -18,7 +18,8 @@ const todosKey = 'todos'
 const todosString = localStorage.getItem(todosKey)
 const initialState: AppState = todosString ? JSON.parse(todosString) : { todos: [] }
 
-const ToDoPage = ({ history }: RouteComponentProps) => {
+const ToDoPage = () => {
+    const history = useHistory();
     const [{ todos }, dispatch] = useReducer(reducer, initialState);
 
     // save the app state to local storage whenever it is changed
