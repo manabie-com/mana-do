@@ -63,7 +63,6 @@ function reducer(state: AppState, action: AppActions): AppState {
         todos: []
       }
     case UPDATE_TODO: {
-      console.log(action)
       const todos = [...state.todos]
       const index = todos.findIndex((todo) => todo.id === action.payload.todoId)
       todos[index].content = action.payload.value
