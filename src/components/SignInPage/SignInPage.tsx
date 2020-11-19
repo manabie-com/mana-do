@@ -62,8 +62,8 @@ const SignInPage = () => {
     <div className="sign-in-container">
       <form onSubmit={signIn}>
         <h3>Welcome to Manabie coding challenge</h3>
-        {signInSchema(form).map((props) => (
-          <div className="sign-in-field">
+        {signInSchema(form).map((props, index) => (
+          <div className="sign-in-field" key={index}>
             <TextField {...props} />
           </div>
         ))}

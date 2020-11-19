@@ -1,4 +1,5 @@
 import React, {
+  Fragment,
   memo,
   useCallback,
   useEffect,
@@ -144,13 +145,15 @@ const ToDoPage = memo(({ history }: RouteComponentProps) => {
   const renderActionButtons = useCallback(() => {
     return (
       <div className="Todo__tabs">
-        {actionButtons.map((btn) => (
-          <button
-            className={btn.className}
-            onClick={() => setShowing(btn.statusType ?? 'ALL')}
-          >
-            {btn.label}
-          </button>
+        {actionButtons.map((btn, index) => (
+          <Fragment key={index}>
+            <button
+              className={btn.className}
+              onClick={() => setShowing(btn.statusType ?? 'ALL')}
+            >
+              {btn.label}
+            </button>
+          </Fragment>
         ))}
       </div>
     );

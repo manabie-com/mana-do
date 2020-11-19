@@ -1,10 +1,10 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import './App.css';
-import SignInPage from './components/SignInPage/SignInPage';
-import ToDoPage from './components/ToDoPage/ToDoPage';
-import { LOGIN_KEYS } from './models/auth';
-import { AUTH_VALUE } from './resource/constant';
+import { LOGIN_KEYS } from '../../models/auth';
+import { AUTH_VALUE } from '../../resource/constant';
+import SignInPage from '../SignInPage/SignInPage';
+import ToDoPage from '../ToDoPage/ToDoPage';
+import './styles.css';
 
 const App = () => {
   localStorage.setItem(LOGIN_KEYS.userId, AUTH_VALUE.userId);
