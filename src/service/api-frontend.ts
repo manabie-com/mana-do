@@ -5,11 +5,11 @@ import { LOGIN_KEYS } from '../models/auth';
 import { AUTH_VALUE } from '../resource/constant';
 
 class ApiFrontend extends IAPI {
-  userId = localStorage.getItem(LOGIN_KEYS.userId);
-  userPassword = localStorage.getItem(LOGIN_KEYS.password);
-
   async signIn(username: string, password: string): Promise<string> {
-    if (username === this.userId && password === this.userPassword) {
+    const userId = localStorage.getItem(LOGIN_KEYS.userId);
+    const userPassword = localStorage.getItem(LOGIN_KEYS.password);
+
+    if (username === userId && password === userPassword) {
       return Promise.resolve(AUTH_VALUE.token);
     }
 
@@ -17,12 +17,13 @@ class ApiFrontend extends IAPI {
   }
 
   async createTodo(content: string): Promise<Todo> {
+    const userId = localStorage.getItem(LOGIN_KEYS.userId);
     return Promise.resolve({
       content: content,
       created_date: new Date().toISOString(),
       status: TodoStatus.ACTIVE,
       id: shortid(),
-      user_id: this.userId,
+      user_id: userId,
     } as Todo);
   }
 

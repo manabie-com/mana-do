@@ -14,9 +14,6 @@ export interface AppState {
   todos: Array<Todo>;
 }
 
-export const initialState: AppState = {
-  todos: [],
-};
 const setDataToLocalStorage = (data: Todo[]) => {
   localStorage.setItem(TODO_KEYS.todos, JSON.stringify(data));
 };
@@ -24,7 +21,7 @@ const setDataToLocalStorage = (data: Todo[]) => {
 function reducer(state: AppState, action: AppActions): AppState {
   switch (action.type) {
     case SET_TODO:
-      return { ...initialState, todos: action.payload };
+      return { ...state, todos: action.payload };
 
     case CREATE_TODO:
       const cloneCreatedTodos = [...state.todos, action.payload];

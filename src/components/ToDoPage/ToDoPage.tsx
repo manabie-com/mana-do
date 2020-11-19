@@ -8,7 +8,7 @@ import React, {
 } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 
-import reducer, { initialState } from '../../store/reducer';
+import reducer from '../../store/reducer';
 import {
   setTodos,
   createTodo,
@@ -22,10 +22,31 @@ import Service from '../../service';
 import { Todo, TodoStatus } from '../../models/todo';
 import { isTodoCompleted } from '../../utils';
 import { LOGIN_KEYS } from '../../models/auth';
+import ToDoList from './ToDoList/ToDoList';
+import './styles.css';
 
 type EnhanceTodoStatus = TodoStatus | 'ALL';
 
+const actionButtons = [
+  {
+    label: 'All',
+    className: 'action-btn-primary',
+    statusType: 'ALL' as EnhanceTodoStatus,
+  },
+  {
+    label: 'Active',
+    className: 'action-btn-primary',
+    statusType: TodoStatus.ACTIVE,
+  },
+  {
+    label: 'Completed',
+    className: 'action-btn-primary',
+    statusType: TodoStatus.COMPLETED,
+  },
+];
+
 const ToDoPage = memo(({ history }: RouteComponentProps) => {
+  const [initialState] = useState({ todos: [] });
   const [{ todos }, dispatch] = useReducer(reducer, initialState);
   const [showing, setShowing] = useState<EnhanceTodoStatus>('ALL');
   const inputCreatedTodoRef = useRef<HTMLInputElement>(null);
@@ -33,26 +54,17 @@ const ToDoPage = memo(({ history }: RouteComponentProps) => {
   const [editTodo, setEditTodo] = useState({ todo: { id: '' }, index: -1 });
   const [isShowEditInput, setIsShowEditInput] = useState(false);
 
-  const checkAuth = useCallback(() => {
+  useEffect(() => {
     const token = localStorage.getItem(LOGIN_KEYS.token);
     !token && history.push('/');
   }, [history]);
 
   useEffect(() => {
-    checkAuth();
-  }, [checkAuth]);
-
-  const getTodosFromAPI = useCallback(async () => {
-    const resp = await Service.getTodos();
-    return resp;
-  }, []);
-
-  useEffect(() => {
     (async () => {
-      const resp = await getTodosFromAPI();
+      const resp = await Service.getTodos();
       dispatch(setTodos(resp));
     })();
-  }, [getTodosFromAPI]);
+  }, []);
 
   const onCreateTodo = async (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (
@@ -114,18 +126,10 @@ const ToDoPage = memo(({ history }: RouteComponentProps) => {
       setIsShowEditInput(false);
     }
   };
-  const onMouseOutFocusEdit = useCallback(
-    (e: MouseEvent) => {
-      if (
-        inputEditedTodoRef.current &&
-        !inputEditedTodoRef.current.contains(e.target as HTMLElement)
-      ) {
-        editTodo.todo.id !== '' && onEditTodoContent(editTodo.todo.id);
-      }
-      return;
-    },
-    [editTodo]
-  );
+
+  const onMouseOutFocusEdit = (e: React.FocusEvent<HTMLInputElement>) => {
+    onEditTodoContent(editTodo.todo.id);
+  };
 
   const onKeyDownEdit = (
     todoId: string,
@@ -137,14 +141,24 @@ const ToDoPage = memo(({ history }: RouteComponentProps) => {
     return;
   };
 
-  useEffect(() => {
-    document.addEventListener('mousedown', onMouseOutFocusEdit);
+  const renderActionButtons = useCallback(() => {
+    return (
+      <div className="Todo__tabs">
+        {actionButtons.map((btn) => (
+          <button
+            className={btn.className}
+            onClick={() => setShowing(btn.statusType ?? 'ALL')}
+          >
+            {btn.label}
+          </button>
+        ))}
+      </div>
+    );
+  }, []);
 
-    return () => {
-      document.removeEventListener('mousedown', onMouseOutFocusEdit);
-    };
-  }, [onMouseOutFocusEdit]);
-
+  const handleDeleteTodo = (id: string) => {
+    dispatch(deleteTodo(id));
+  };
   return (
     <div className="ToDo__container">
       <div className="Todo__creation">
@@ -155,69 +169,34 @@ const ToDoPage = memo(({ history }: RouteComponentProps) => {
           onKeyDown={onCreateTodo}
         />
       </div>
-      <div className="ToDo__list">
-        {showTodos.map((todo, index) => {
-          return (
-            <div
-              key={index}
-              className="ToDo__item"
-              onDoubleClick={() => onClickEditTodo(todo, index)}
-            >
-              <input
-                type="checkbox"
-                checked={isTodoCompleted(todo)}
-                onChange={(e) => onUpdateTodoStatus(e, todo.id)}
-              />
-              {isShowEditInput && index === editTodo.index ? (
-                <input
-                  ref={inputEditedTodoRef}
-                  type="text"
-                  defaultValue={todo.content}
-                  onKeyDown={(e) => onKeyDownEdit(todo.id, e)}
-                />
-              ) : (
-                <span>{todo.content}</span>
-              )}
-              <button
-                className="Todo__delete"
-                onClick={() => dispatch(deleteTodo(todo.id))}
-              >
-                X
-              </button>
-            </div>
-          );
-        })}
-      </div>
-      <div className="Todo__toolbar">
-        {todos.length > 0 ? (
-          <input
-            type="checkbox"
-            checked={activeTodos === 0}
-            onChange={onToggleAllTodo}
-          />
-        ) : (
-          <></>
-        )}
-        <div className="Todo__tabs">
-          <button className="Action__btn" onClick={() => setShowing('ALL')}>
-            All
-          </button>
-          <button
-            className="Action__btn"
-            onClick={() => setShowing(TodoStatus.ACTIVE)}
-          >
-            Active
-          </button>
-          <button
-            className="Action__btn"
-            onClick={() => setShowing(TodoStatus.COMPLETED)}
-          >
-            Completed
+      <ToDoList
+        className="todo-item"
+        inputEditedTodoRef={inputEditedTodoRef}
+        todosList={showTodos}
+        isShowEditInput={isShowEditInput}
+        editTodoIndex={editTodo.index}
+        handleDeleteTodo={handleDeleteTodo}
+        onClickEditTodo={onClickEditTodo}
+        onUpdateTodoStatus={onUpdateTodoStatus}
+        onMouseOutFocusEdit={onMouseOutFocusEdit}
+        onKeyDownEdit={onKeyDownEdit}
+      />
+      <div>
+        <div className="Todo__toolbar">
+          {todos.length > 0 ? (
+            <input
+              type="checkbox"
+              checked={activeTodos === 0}
+              onChange={onToggleAllTodo}
+            />
+          ) : (
+            <></>
+          )}
+          {renderActionButtons()}
+          <button className="action-btn-danger" onClick={onDeleteAllTodo}>
+            Clear all todos
           </button>
         </div>
-        <button className="Action__btn" onClick={onDeleteAllTodo}>
-          Clear all todos
-        </button>
       </div>
     </div>
   );

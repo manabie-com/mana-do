@@ -1,7 +1,10 @@
-import React, { memo, useCallback, useEffect, useState } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { LOGIN_KEYS } from '../../models/auth';
+import { ITextField } from '../../models/textField';
 import Service from '../../service';
+import TextField from '../Common/TextField';
+import './styles.css';
 
 const SignInPage = () => {
   const [form, setForm] = useState({
@@ -11,14 +14,10 @@ const SignInPage = () => {
   const [errorMsg, setErrorMsg] = useState('');
   const history = useHistory();
 
-  const checkAuth = useCallback(() => {
+  useEffect(() => {
     const token = localStorage.getItem(LOGIN_KEYS.token);
     token && history.push('/todo');
   }, [history]);
-
-  useEffect(() => {
-    checkAuth();
-  }, [checkAuth]);
 
   const signIn = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -38,40 +37,42 @@ const SignInPage = () => {
       [e.target.name]: e.target.value,
     }));
   };
-
+  const signInSchema = (form = { userId: '', password: '' }): ITextField[] => [
+    {
+      id: 'user_id',
+      label: 'User id',
+      required: true,
+      name: LOGIN_KEYS.userId,
+      value: form.userId,
+      className: 'text-field',
+      onChange: onChangeField,
+    },
+    {
+      id: 'password',
+      label: 'Password',
+      required: true,
+      name: LOGIN_KEYS.password,
+      type: LOGIN_KEYS.password,
+      value: form.password,
+      className: 'text-field',
+      onChange: onChangeField,
+    },
+  ];
   return (
-    <div style={{ marginTop: '3rem', textAlign: 'left' }}>
+    <div className="sign-in-container">
       <form onSubmit={signIn}>
-        <label htmlFor="user_id">
-          User id
-          <input
-            required
-            id="user_id"
-            name={LOGIN_KEYS.userId}
-            value={form.userId}
-            style={{ marginTop: 12 }}
-            onChange={onChangeField}
-          />
-        </label>
+        <h3>Welcome to Manabie coding challenge</h3>
+        {signInSchema(form).map((props) => (
+          <div className="sign-in-field">
+            <TextField {...props} />
+          </div>
+        ))}
         <br />
-        <label htmlFor="password">
-          Password
-          <input
-            required
-            id="password"
-            name={LOGIN_KEYS.password}
-            type="password"
-            style={{ marginTop: 12 }}
-            value={form.password}
-            onChange={onChangeField}
-          />
-        </label>
-        <br />
-        <button type="submit" style={{ marginTop: 12 }}>
+        <span className="error-message">{errorMsg}</span>
+        <button type="submit" className="action-btn-primary">
           Sign in
         </button>
       </form>
-      <span>{errorMsg}</span>
     </div>
   );
 };
