@@ -7,7 +7,7 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import { RouteComponentProps } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 import reducer from '../../store/reducer';
 import {
@@ -46,7 +46,7 @@ const actionButtons = [
   },
 ];
 
-const ToDoPage = memo(({ history }: RouteComponentProps) => {
+const ToDoPage = memo(() => {
   const [initialState] = useState({ todos: [] });
   const [{ todos }, dispatch] = useReducer(reducer, initialState);
   const [showing, setShowing] = useState<EnhanceTodoStatus>('ALL');
@@ -54,10 +54,11 @@ const ToDoPage = memo(({ history }: RouteComponentProps) => {
   const inputEditedTodoRef = useRef<HTMLInputElement>(null);
   const [editTodo, setEditTodo] = useState({ todo: { id: '' }, index: -1 });
   const [isShowEditInput, setIsShowEditInput] = useState(false);
+  const history = useHistory();
 
   useEffect(() => {
     const token = localStorage.getItem(LOGIN_KEYS.token);
-    !token && history.push('/');
+    !token && history && history.push('/');
   }, [history]);
 
   useEffect(() => {
@@ -144,7 +145,7 @@ const ToDoPage = memo(({ history }: RouteComponentProps) => {
 
   const renderActionButtons = useCallback(() => {
     return (
-      <div className="Todo__tabs">
+      <div className='Todo__tabs'>
         {actionButtons.map((btn, index) => (
           <Fragment key={index}>
             <button
@@ -163,17 +164,17 @@ const ToDoPage = memo(({ history }: RouteComponentProps) => {
     dispatch(deleteTodo(id));
   };
   return (
-    <div className="ToDo__container">
-      <div className="Todo__creation">
+    <div className='ToDo__container'>
+      <div className='Todo__creation'>
         <input
           ref={inputCreatedTodoRef}
-          className="Todo__input"
-          placeholder="What need to be done?"
+          className='Todo__input'
+          placeholder='What need to be done?'
           onKeyDown={onCreateTodo}
         />
       </div>
       <ToDoList
-        className="todo-item"
+        className='todo-item'
         inputEditedTodoRef={inputEditedTodoRef}
         todosList={showTodos}
         isShowEditInput={isShowEditInput}
@@ -185,10 +186,10 @@ const ToDoPage = memo(({ history }: RouteComponentProps) => {
         onKeyDownEdit={onKeyDownEdit}
       />
       <div>
-        <div className="Todo__toolbar">
+        <div className='Todo__toolbar'>
           {todos.length > 0 ? (
             <input
-              type="checkbox"
+              type='checkbox'
               checked={activeTodos === 0}
               onChange={onToggleAllTodo}
             />
@@ -196,7 +197,7 @@ const ToDoPage = memo(({ history }: RouteComponentProps) => {
             <></>
           )}
           {renderActionButtons()}
-          <button className="action-btn-danger" onClick={onDeleteAllTodo}>
+          <button className='action-btn-danger' onClick={onDeleteAllTodo}>
             Clear all todos
           </button>
         </div>

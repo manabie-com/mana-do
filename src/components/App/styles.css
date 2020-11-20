@@ -89,6 +89,7 @@ input:focus {
   text-align: left;
   font-weight: 500;
   font-size: 13px;
+  padding-bottom: 1rem;
 }
 
 .ToDo__container {

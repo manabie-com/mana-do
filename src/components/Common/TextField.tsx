@@ -1,10 +1,10 @@
 import React from 'react';
 import { ITextField } from '../../models/textField';
 
-const TextField = ({ id, className, label, ...props }: ITextField) => {
+const TextField = (props: ITextField) => {
   return (
-    <label htmlFor={id}>
-      <span className={className}>{label}</span>
+    <label htmlFor={props.id}>
+      <span className={props.className}>{props.label}</span>
       <input {...props} />
     </label>
   );

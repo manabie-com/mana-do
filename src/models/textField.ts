@@ -4,7 +4,7 @@ export interface ITextField {
   name: string;
   value: string;
   label: string;
-  className?: string;
+  className: string;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  type?: string;
+  type: string;
 }

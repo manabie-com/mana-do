@@ -2,7 +2,7 @@
   width: 30%;
   display: flex;
   padding-bottom: 0.5rem;
-  padding-top: 1rem;
+  margin-top: 0.5rem;
 }
 .sign-in-field input {
   width: calc(100% - 24px);
@@ -27,10 +27,19 @@
 }
 
 .sign-in-container button {
-  margin-top: 1rem;
   min-width: 200px;
   height: 36px;
 }
 .sign-in-container form {
   width: 100%;
+}
+
+@media only screen and (max-width: 768px) {
+  .sign-in-container {
+    width: 30vw;
+    height: 60vh;
+  }
+  .sign-in-container .action-btn-primary {
+    min-width: 100px;
+  }
 }

@@ -44,32 +44,33 @@ const SignInPage = () => {
       required: true,
       name: LOGIN_KEYS.userId,
       value: form.userId,
+      type: 'text',
       className: 'text-field',
       onChange: onChangeField,
     },
     {
-      id: 'password',
-      label: 'Password',
+      id: LOGIN_KEYS.password,
       required: true,
       name: LOGIN_KEYS.password,
-      type: LOGIN_KEYS.password,
       value: form.password,
+      label: 'Password',
       className: 'text-field',
       onChange: onChangeField,
+      type: LOGIN_KEYS.password,
     },
   ];
   return (
-    <div className="sign-in-container">
-      <form onSubmit={signIn}>
+    <div className='sign-in-container'>
+      <form data-testid="form"  onSubmit={signIn}>
         <h3>Welcome to Manabie coding challenge</h3>
         {signInSchema(form).map((props, index) => (
-          <div className="sign-in-field" key={index}>
+          <div className='sign-in-field' key={index}>
             <TextField {...props} />
           </div>
         ))}
         <br />
-        <span className="error-message">{errorMsg}</span>
-        <button type="submit" className="action-btn-primary">
+        <span className='error-message'>{errorMsg}</span>
+        <button type='submit' className='action-btn-primary'>
           Sign in
         </button>
       </form>
