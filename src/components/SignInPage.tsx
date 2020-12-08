@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 
 import {useHistory} from 'react-router-dom'
-import Service from './service'
+import Service from '../service'
 
 const SignInPage = () => {
     const [form, setForm] = useState({

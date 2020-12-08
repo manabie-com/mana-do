@@ -1,4 +1,4 @@
-import {Todo, TodoStatus} from '../models/todo';
+import { Todo, TodoStatus } from '../models/todo';
 import {
   AppActions,
   SET_TODO,
@@ -6,7 +6,8 @@ import {
   DELETE_ALL_TODOS,
   DELETE_TODO,
   TOGGLE_ALL_TODOS,
-  UPDATE_TODO_STATUS
+  UPDATE_TODO_STATUS,
+  UPDATE_TODO
 } from './actions';
 
 export interface AppState {
@@ -30,13 +31,24 @@ function reducer(state: AppState, action: AppActions): AppState {
       state.todos.push(action.payload);
 
       // Store todos in localstorage
-      const tasks = JSON.parse(localStorage.getItem("todos") || "[]");
-      tasks.push(action.payload);
-      localStorage.setItem('todos', JSON.stringify(tasks));
+      localStorage.setItem('todos', JSON.stringify(state.todos));
 
       return {
         ...state
       };
+
+    // CASE UPDATE TODO
+    case UPDATE_TODO:
+      const currentIndex = state.todos.findIndex((todo) => todo.id === action.payload.todoId);
+      state.todos[currentIndex].content = action.payload.content;
+     
+      // Store todos in localstorage
+      localStorage.setItem('todos', JSON.stringify(state.todos));
+
+      return {
+        ...state
+      };
+
 
     case UPDATE_TODO_STATUS:
       const index2 = state.todos.findIndex((todo) => todo.id === action.payload.todoId);
@@ -48,7 +60,7 @@ function reducer(state: AppState, action: AppActions): AppState {
       }
 
     case TOGGLE_ALL_TODOS:
-      const tempTodos = state.todos.map((e)=>{
+      const tempTodos = state.todos.map((e) => {
         return {
           ...e,
           status: action.payload ? TodoStatus.COMPLETED : TodoStatus.ACTIVE
@@ -64,6 +76,8 @@ function reducer(state: AppState, action: AppActions): AppState {
       const index1 = state.todos.findIndex((todo) => todo.id === action.payload);
       state.todos.splice(index1, 1);
 
+      // Store todos in localstorage
+      localStorage.setItem('todos', JSON.stringify(state.todos));
       return {
         ...state,
         todos: state.todos
