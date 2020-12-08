@@ -9,6 +9,8 @@ import {
 import Service from '../service';
 import { TodoStatus } from '../models/todo';
 import { isTodoCompleted } from '../utils';
+import Task from './Task';
+
 type EnhanceTodoStatus = TodoStatus | 'ALL';
 
 const ShowTodosList = (props: any) => {
@@ -33,6 +35,10 @@ const ShowTodosList = (props: any) => {
         dispatch(updateTodoStatus(todoId, e.target.checked))
     }
 
+    const onDeleteTodo = (todoId: string) => {
+        dispatch(deleteTodo(todoId))
+    }
+
     useEffect(() => {
         (async () => {
             const resp = await Service.getTodos();
@@ -45,20 +51,12 @@ const ShowTodosList = (props: any) => {
             {showTodos ?
                 showTodos.map((todo: Todo, index: number) => {
                     return (
-                        <div key={index} className="ToDo__item" onDoubleClick={() => openModal(todo)}>
-                            <input
-                                type="checkbox"
-                                checked={isTodoCompleted(todo)}
-                                onChange={(e) => onUpdateTodoStatus(e, todo.id)}
-                            />
-                            <span>{todo.content}</span>
-                            <button
-                                className="Todo__delete"
-                                onClick={() =>  dispatch(deleteTodo(todo.id))}
-                            >
-                                X
-                                </button>
-                        </div>
+                        <Task index={index} todo={todo}
+                        isTodoCompleted={isTodoCompleted}
+                        onUpdateTodoStatus={onUpdateTodoStatus}
+                        onDeleteTodo={onDeleteTodo}
+                        openModal={openModal}
+                        />
                     );
                 })
                 : ""}
