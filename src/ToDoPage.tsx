@@ -25,7 +25,6 @@ const ToDoPage = ({history}: RouteComponentProps) => {
     useEffect(()=>{
         (async ()=>{
             const resp = await Service.getTodos();
-
             dispatch(setTodos(resp || []));
         })()
     }, [])
@@ -34,7 +33,7 @@ const ToDoPage = ({history}: RouteComponentProps) => {
         if (e.key === 'Enter' && inputRef.current) {
             try {
                 const resp = await Service.createTodo(inputRef.current.value);
-                dispatch(createTodo(resp));
+                dispatch(createTodo(resp)); // call dispatch 2 times ???
                 inputRef.current.value = '';
             } catch (e) {
                 if (e.response.status === 401) {
