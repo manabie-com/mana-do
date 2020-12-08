@@ -1,6 +1,7 @@
 import {Todo, TodoStatus} from '../models/todo';
 import {
   AppActions,
+  SET_TODO,
   CREATE_TODO,
   DELETE_ALL_TODOS,
   DELETE_TODO,
@@ -18,8 +19,21 @@ export const initialState: AppState = {
 
 function reducer(state: AppState, action: AppActions): AppState {
   switch (action.type) {
+    //add SET_TODO action type to asign all tasks in local storage to todos
+    case SET_TODO:
+      state.todos = action.payload
+      return {
+        ...state
+      }
+
     case CREATE_TODO:
       state.todos.push(action.payload);
+
+      // Store todos in localstorage
+      const tasks = JSON.parse(localStorage.getItem("todos") || "[]");
+      tasks.push(action.payload);
+      localStorage.setItem('todos', JSON.stringify(tasks));
+
       return {
         ...state
       };

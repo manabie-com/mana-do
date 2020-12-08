@@ -25,7 +25,7 @@ const ToDoPage = ({history}: RouteComponentProps) => {
     useEffect(()=>{
         (async ()=>{
             const resp = await Service.getTodos();
-            dispatch(setTodos(resp || []));
+            dispatch(setTodos(resp));
         })()
     }, [])
 
