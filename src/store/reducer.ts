@@ -22,17 +22,18 @@ function reducer(state: AppState, action: AppActions): AppState {
   switch (action.type) {
     //add SET_TODO action type to asign all tasks in local storage to todos
     case SET_TODO:
-      state.todos = action.payload
+      state.todos = action.payload;
       return {
         ...state
       }
 
     case CREATE_TODO:
       state.todos.push(action.payload);
-
+    
       // Store todos in localstorage
       localStorage.setItem('todos', JSON.stringify(state.todos));
-
+      
+      
       return {
         ...state
       };
@@ -78,15 +79,24 @@ function reducer(state: AppState, action: AppActions): AppState {
 
       // Store todos in localstorage
       localStorage.setItem('todos', JSON.stringify(state.todos));
+
       return {
         ...state,
         todos: state.todos
       }
+
     case DELETE_ALL_TODOS:
+      const length = state.todos.length;
+      state.todos.splice(0, length);
+
+      // Store todos in localstorage
+      localStorage.setItem('todos', JSON.stringify(state.todos));
+
       return {
         ...state,
-        todos: []
+        todos: state.todos
       }
+
     default:
       return state;
   }

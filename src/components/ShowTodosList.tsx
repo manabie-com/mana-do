@@ -50,8 +50,8 @@ const ShowTodosList = (props: any) => {
 
     const onDeleteAllTodo = () => {
         dispatch(deleteAllTodos());
-    }
 
+    }
 
     const activeTodos = todos.reduce(function (accum, todo) {
         return isTodoCompleted(todo) ? accum : accum + 1;
@@ -65,8 +65,9 @@ const ShowTodosList = (props: any) => {
         (async () => {
             const resp = await Service.getTodos();
             dispatch(setTodos(resp));
+
         })()
-    }, [showing])
+    }, [])
 
     return (
         <div>
@@ -84,7 +85,7 @@ const ShowTodosList = (props: any) => {
                             />
                         );
                     })
-                    : ""}
+                    : "No item"}
             </div>
 
             <Actions
