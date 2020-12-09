@@ -4,21 +4,16 @@ import { RouteComponentProps } from 'react-router-dom';
 import reducer, { initialState } from '../store/reducer';
 import {
     createTodo,
-    toggleAllTodos,
-    deleteAllTodos,
     updateTodo
 } from '../store/actions';
 import Service from '../service';
-import { TodoStatus } from '../models/todo';
-import { isTodoCompleted } from '../utils';
+
 import { Todo } from '../models/todo';
 
 import AddNewTaskFrom from './AddNewTaskForm';
 import ShowTodosList from './ShowTodosList';
 
 import ModalEdit from './ModalEdit';
-
-type EnhanceTodoStatus = TodoStatus | 'ALL';
 
 type EnhanceTodo = Todo | undefined;  // enhance type Todo
 
@@ -30,7 +25,7 @@ const ToDoPage = ({ history }: RouteComponentProps) => {
     const [editingTask, setEditingTask] = useState<EnhanceTodo>(undefined);
 
     const [{ todos }, dispatch] = useReducer(reducer, initialState);
-    const [showing, setShowing] = useState<EnhanceTodoStatus>('ALL');
+  
     const inputRef = useRef<HTMLInputElement>(null);
 
     useEffect(() => {
@@ -50,23 +45,13 @@ const ToDoPage = ({ history }: RouteComponentProps) => {
             }
         }
     }
-
+    // define function Update Todo
     const onUpdateTodo = (todoId: string, content: string) => {
         dispatch(updateTodo(todoId, content));
         closeModal();
     }
-    const onToggleAllTodo = (e: React.ChangeEvent<HTMLInputElement>) => {
-        dispatch(toggleAllTodos(e.target.checked))
-    }
 
-    const onDeleteAllTodo = () => {
-        dispatch(deleteAllTodos());
-    }
-
-
-    const activeTodos = todos.reduce(function (accum, todo) {
-        return isTodoCompleted(todo) ? accum : accum + 1;
-    }, 0);
+  
 
     // Modal
     const openModal = (todo: Todo) => {
@@ -86,31 +71,6 @@ const ToDoPage = ({ history }: RouteComponentProps) => {
             <ShowTodosList
                 openModal={openModal}
             />
-
-
-            <div className="Todo__toolbar">
-                {todos.length > 0 ?
-                    <input
-                        type="checkbox"
-                        checked={activeTodos === 0}
-                        onChange={onToggleAllTodo}
-                    /> : <div />
-                }
-                <div className="Todo__tabs">
-                    <button className="Action__btn" onClick={() => setShowing('ALL')}>
-                        All
-                    </button>
-                    <button className="Action__btn" onClick={() => setShowing(TodoStatus.ACTIVE)}>
-                        Active
-                    </button>
-                    <button className="Action__btn" onClick={() => setShowing(TodoStatus.COMPLETED)}>
-                        Completed
-                    </button>
-                </div>
-                <button className="Action__btn" onClick={onDeleteAllTodo}>
-                    Clear all todos
-                </button>
-            </div>
 
             {/* Modal for editing task */}
             {editingTask ?

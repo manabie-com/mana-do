@@ -4,18 +4,21 @@ import reducer, { initialState } from '../store/reducer';
 import {
     setTodos,
     deleteTodo,
-    updateTodoStatus
+    updateTodoStatus,
+    toggleAllTodos,
+    deleteAllTodos,
 } from '../store/actions';
 import Service from '../service';
 import { TodoStatus } from '../models/todo';
 import { isTodoCompleted } from '../utils';
 import Task from './Task';
+import Actions from './Actions';
 
 type EnhanceTodoStatus = TodoStatus | 'ALL';
 
 const ShowTodosList = (props: any) => {
     const openModal = props.openModal;
-   
+
     const [{ todos }, dispatch] = useReducer(reducer, initialState);
 
     const [showing, setShowing] = useState<EnhanceTodoStatus>('ALL');
@@ -39,27 +42,59 @@ const ShowTodosList = (props: any) => {
         dispatch(deleteTodo(todoId))
     }
 
+    // Action buttons
+
+    const onToggleAllTodo = (e: React.ChangeEvent<HTMLInputElement>) => {
+        dispatch(toggleAllTodos(e.target.checked))
+    }
+
+    const onDeleteAllTodo = () => {
+        dispatch(deleteAllTodos());
+    }
+
+
+    const activeTodos = todos.reduce(function (accum, todo) {
+        return isTodoCompleted(todo) ? accum : accum + 1;
+    }, 0);
+
+    const toggleShowing = (status: EnhanceTodoStatus) => {
+        setShowing(status);
+    }
+
     useEffect(() => {
         (async () => {
             const resp = await Service.getTodos();
             dispatch(setTodos(resp));
         })()
-    }, [])
+    }, [showing])
 
     return (
-        <div className="ToDo__list">
-            {showTodos ?
-                showTodos.map((todo: Todo, index: number) => {
-                    return (
-                        <Task index={index} todo={todo}
-                        isTodoCompleted={isTodoCompleted}
-                        onUpdateTodoStatus={onUpdateTodoStatus}
-                        onDeleteTodo={onDeleteTodo}
-                        openModal={openModal}
-                        />
-                    );
-                })
-                : ""}
+        <div>
+            <div className="ToDo__list">
+                {showTodos ?
+                    showTodos.map((todo: Todo, index: number) => {
+                        return (
+                            <Task
+                                index={index}
+                                todo={todo}
+                                isTodoCompleted={isTodoCompleted}
+                                onUpdateTodoStatus={onUpdateTodoStatus}
+                                onDeleteTodo={onDeleteTodo}
+                                openModal={openModal}
+                            />
+                        );
+                    })
+                    : ""}
+            </div>
+
+            <Actions
+                todos={todos}
+                activeTodos={activeTodos}
+                onToggleAllTodo={onToggleAllTodo}
+                toggleShowing={toggleShowing}
+                TodoStatus={TodoStatus}
+                onDeleteAllTodo={onDeleteAllTodo}
+            />
         </div>
     )
 }
