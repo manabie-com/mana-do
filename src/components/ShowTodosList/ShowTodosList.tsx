@@ -18,7 +18,9 @@ const ShowTodosList = (props: any) => {
 
     const newTodo = props.newTodo; // get new todo from ToDoPage component to rerender ShowTodosList component
 
-    const taskList = props.taskList;
+    const taskList = props.taskList; // get updated list of task to rerender this component
+
+    const updateTaskList = props.updateTodoList; // pass updated data to ToDoPage when user update todo status 
 
     // get deleted todo from Task component to rerender ShowTodosList component
     const [deletedTodo, setDeletedTodo] = useState<EnhanceTodo>(undefined);
@@ -59,7 +61,7 @@ const ShowTodosList = (props: any) => {
 
 
      // define function Update Todo
-    const onUpdateTodo = (todoId: string, content: string) => {
+    const onUpdateTodo = async (todoId: string, content: string) => {
         dispatch(updateTodo(todoId, content)); // update State todo
         closeModal();
     }
@@ -71,7 +73,8 @@ const ShowTodosList = (props: any) => {
 
     // Get todos list after editing todo status to rerender this component
     const updateTodoList = (todoList:Array<Todo>) => {
-        setToDoList(todoList)
+        setToDoList(todoList);
+        updateTaskList(todoList); // pass updated data to toDoPage to rerender Action component
     }
 
     useEffect(() => {

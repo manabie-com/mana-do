@@ -1,4 +1,4 @@
-import React, { useState, useReducer, useEffect } from 'react';
+import React, { useState, useReducer } from 'react';
 import reducer, { initialState } from '../../store/reducer';
 import { TodoStatus } from '../../models/todo';
 import {
@@ -14,8 +14,8 @@ const Actions = (props: any) => {
     const [{ todos }, dispatch] = useReducer(reducer, initialState);
     const [showing, setShowing] = useState<EnhanceTodoStatus>('ALL');
 
-    const changeShowing = props.changeShowing;
-    const updateTodoList = props.updateTodoList;
+    const changeShowing = props.changeShowing; // Pass showing status to update ShowTodoslist
+    const updateTodoList = props.updateTodoList; // 
 
 
     const onToggleAllTodo = async (e: React.ChangeEvent<HTMLInputElement>) => {

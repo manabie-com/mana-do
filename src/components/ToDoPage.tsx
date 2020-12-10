@@ -25,8 +25,8 @@ const ToDoPage = () => {
 
     const [{ todos }, dispatch] = useReducer(reducer, initialState);
 
-     // for receiving new todo from AddNewTakForm 
-     const getNewTodo = (todo: Todo) => {
+    // for receiving new todo from AddNewTakForm 
+    const getNewTodo = (todo: Todo) => {
         setNewTodo(todo)
     }
 
@@ -34,7 +34,7 @@ const ToDoPage = () => {
         setShowing(status);
     }
 
-    const updateTodoList = (todoList:EnhanceTodoList) => {
+    const updateTodoList = (todoList: EnhanceTodoList) => {
         setTaskList(todoList);
     }
 
@@ -43,7 +43,7 @@ const ToDoPage = () => {
             const resp = await Service.getTodos();
             dispatch(setTodos(resp));
         })()
-    }, [])
+    }, [taskList])
     return (
         <div className="body-part">
             <div className="ToDo__container">
@@ -53,7 +53,10 @@ const ToDoPage = () => {
                     <AddNewTaskFrom getNewTodo={getNewTodo} />
 
                     {/* Show list of tasks */}
-                    <ShowTodosList newTodo={newTodo} showing={showing} taskList={taskList}/>
+                    <ShowTodosList newTodo={newTodo}
+                        showing={showing}
+                        taskList={taskList}
+                        updateTodoList={updateTodoList} />
 
                     <Actions
                         todos={todos}

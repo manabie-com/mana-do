@@ -45,19 +45,19 @@ function reducer(state: AppState, action: AppActions): AppState {
      
       // Store todos in localstorage
       localStorage.setItem('todos', JSON.stringify(state.todos));
-
+  
       return {
-        ...state
+        ...state,
+        todos: state.todos
       };
 
-
     case UPDATE_TODO_STATUS:
-      const index2 = state.todos.findIndex((todo) => todo.id === action.payload.todoId);
+      const index2 = state.todos.findIndex((todo) => todo.id === action.payload.todo.id);
       state.todos[index2].status = action.payload.checked ? TodoStatus.COMPLETED : TodoStatus.ACTIVE;
-
+      state.todos[index2].content = action.payload.todo.content; // note
       // Store todos in localstorage
       localStorage.setItem('todos', JSON.stringify(state.todos));
-
+      
       return {
         ...state,
         todos: state.todos

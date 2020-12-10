@@ -5,6 +5,7 @@ import {
     updateTodoStatus, deleteTodo
 } from '../store/actions';
 import Service from '../service';
+import { Todo } from '../models/todo';
 
 const Task = (props: any) => {
     const openModal = props.openModal;
@@ -15,8 +16,9 @@ const Task = (props: any) => {
     const [{ todos }, dispatch] = useReducer(reducer, initialState);
 
 
-    const onUpdateTodoStatus = async (e: React.ChangeEvent<HTMLInputElement>, todoId: string) => {
-        dispatch(updateTodoStatus(todoId, e.target.checked));
+    const onUpdateTodoStatus = async (e: React.ChangeEvent<HTMLInputElement>, todo: Todo) => {
+        console.log(todo);
+        dispatch(updateTodoStatus(todo, e.target.checked));
         const resp = await Service.getTodos();
         updateTodoList(resp); // pass data to ShowTodosList component to rerender it
     }
@@ -31,7 +33,7 @@ const Task = (props: any) => {
                 <input
                     type="checkbox"
                     checked={isTodoCompleted(todo)}
-                    onChange={(e) => onUpdateTodoStatus(e, todo.id)}
+                    onChange={(e) => onUpdateTodoStatus(e, todo)}
                 />
             </div>
 

@@ -61,7 +61,7 @@ input[type="checkbox"]:focus {
   display: flex;
   flex-direction: column;
   margin-top: 1.5rem;
-  height: 400px;
+  height: 350px;
   overflow: scroll;
 }
 
@@ -182,19 +182,12 @@ hr {
 
 /* Todo page */
 .ToDo__container {
-  /* border: 1px solid rgba(0,0,0, 0.13);
-  border-radius: 8px;
-  width: 500px;
-  margin-top: 5rem;
-  padding: 24px;
-  box-shadow: 2px 2px 1px rgba(0,0,0, 0.09),
-              3px 2px 3px rgba(0,0,0, 0.05); */
   margin: 3% auto;  
   width: 500px;
   box-shadow: 5px 5px 5px #aaa9a9;
   border-radius: 10px;
   background-image: linear-gradient(white, whitesmoke, snow);
-  height: 700px;
+  height: 650px;
 }
 
 .top-part {
@@ -312,7 +305,7 @@ hr {
 
 /* Action Buttons */
 .All__btn, .Active__btn, .Completed__btn, .Action__btn {
-  padding: 2% 5%;
+  padding: 10px 15px;
   border-radius: 10px;
   color: white;
   border: none;
