@@ -18,13 +18,13 @@ const Actions = (props:any) => {
             /> : <div />
         }
         <div className="Todo__tabs">
-            <button className="Action__btn" onClick={() => toggleShowing("ALL")}>
+            <button className="All__btn" onClick={() => toggleShowing("ALL")}>
                 All
             </button>
-            <button className="Action__btn" onClick={() => toggleShowing(TodoStatus.ACTIVE)}>
+            <button className="Active__btn" onClick={() => toggleShowing(TodoStatus.ACTIVE)}>
                 Active
             </button>
-            <button className="Action__btn" onClick={() => toggleShowing(TodoStatus.COMPLETED)}>
+            <button className="Completed__btn" onClick={() => toggleShowing(TodoStatus.COMPLETED)}>
                 Completed
             </button>
         </div>

@@ -1,10 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200;400;700;900&display=swap');
+body {
+  font-family: 'Nunito', sans-serif;
+}
+
 .App {
   text-align: center;
   display: flex;
   justify-content: center;
 }
 
-button {
+/* button {
   outline: none;
   border: none;
   box-shadow: 2px 0 2px currentColor;
@@ -12,18 +17,19 @@ button {
   min-height: 32px;
   min-width: 80px;
   padding: 4px 8px;
-}
+} */
 
 button:hover {
   opacity: 0.85;
 }
 
 input[type="checkbox"] {
-  width: 24px;
-  height: 24px;
+  width: 20px;
+  height: 20px;
   box-shadow: none;
   border: none;
   outline: none;
+  cursor: pointer;
 }
 
 input[type="checkbox"]:focus {
@@ -32,75 +38,50 @@ input[type="checkbox"]:focus {
   outline: none;
 }
 
-input {
+/* input {
   min-height: 36px;
   border: none;
   outline: none;
   padding: 0 12px;
   box-shadow: 2px 0 4px rgba(0,0,0, 0.2);
   border-radius: 4px;
-}
+} */
 
-input:focus {
+/* input:focus {
   box-shadow: 1px 0 9px rgba(0,0,0, 0.25);
-}
-
-.ToDo__container {
-  border: 1px solid rgba(0,0,0, 0.13);
-  border-radius: 8px;
-  width: 500px;
-  margin-top: 5rem;
-  padding: 24px;
-  box-shadow: 2px 2px 1px rgba(0,0,0, 0.09),
-              3px 2px 3px rgba(0,0,0, 0.05);
-}
+} */
 
 .Todo__creation {
   display: flex;
 }
 
-.Todo__input {
-  flex: 1 1;
-}
+
 
 .ToDo__list {
   display: flex;
   flex-direction: column;
   margin-top: 1.5rem;
+  height: 400px;
+  overflow: scroll;
 }
 
-.ToDo__item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
 
-.ToDo__item > span {
-  flex: 1 1;
-  text-align: left;
-  margin-left: 8px;
-}
 
 .Todo__content {
   flex: 1 1;
 }
 
 .Todo__delete {
-  outline: none;
   border: none;
-  width: 32px;
-  height: 32px;
-  min-width: auto;
-  min-height: auto;
   box-shadow: none;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  width: 50px;
+  height: 100%;
+  background-color: transparent;
   cursor: pointer;
+  margin: 0;
 }
 
-.Todo__action, .Todo__delete {
+.Todo__action {
   width: 24px;
   height: 24px;
   flex-shrink: 0;
@@ -121,5 +102,274 @@ input:focus {
   margin-right: 8px;
 }
 
+
+/* Sign in page */
+.sign-in {
+  margin-top: 3%;
+  padding: 3% 3%;
+  border-radius: 15px;
+  box-shadow: 5px 10px 18px #888888;
+  background-image: linear-gradient(white, whitesmoke, snow);
+  min-width: 300px;
+}
+
+.login-form {
+  margin-top: 5%;
+  border-radius: 5px;
+  border: solid 1px rgb(222, 234, 238);
+  padding-bottom: 4%;
+  background-color: white;
+}
+.login {
+  background-color: #9cdb4a;
+  padding: 4%;
+  margin: 0;
+  border-radius: 5px 5px 0 0;
+}
+hr {
+  width: 30%;
+  height: 5px;
+  background-color: #aab2bd;
+  border: none;
+}
+
+.input-signin {
+  width: 80%;
+  border: none;
+  border-bottom: solid 1px gray;
+  height: 40px;
+  margin-top: 5%;
+}
+
+.floating-label {
+  font-size: 13px;
+  color: #777575;
+  position: absolute;
+  pointer-events: none;
+  left: 10%;
+  bottom: 10%;
+  transition: all 0.1s ease;
+}
+
+.floating-label-group {
+	position: relative;
+}
+
+.input-signin:focus ~ .floating-label,
+	.input-signin:not(:focus):valid ~ .floating-label {
+		top: 2px;
+    left: 30px;
+		font-size: 11px;
+		opacity: 1;
+    color: #404040;
+	}
+
+.submit-btn {
+  background-color: #f0816c;
+  box-shadow: 3px 3px 6px #d6d2d2;
+  color: white;
+  padding: 5% 8%;
+  border-radius: 10px;
+  cursor: pointer;
+  border: none;
+}
+
+.submit-btn:hover {
+  background-color: #e03e1e ;
+  box-shadow: 1px 1px 2px rgb(143, 141, 141), 0 0 25px rgb(164, 164, 165), 0 0 5px rgb(161, 161, 165);
+}
+
+
+/* Todo page */
+.ToDo__container {
+  /* border: 1px solid rgba(0,0,0, 0.13);
+  border-radius: 8px;
+  width: 500px;
+  margin-top: 5rem;
+  padding: 24px;
+  box-shadow: 2px 2px 1px rgba(0,0,0, 0.09),
+              3px 2px 3px rgba(0,0,0, 0.05); */
+  margin: 3% auto;  
+  width: 500px;
+  box-shadow: 5px 5px 5px #aaa9a9;
+  border-radius: 10px;
+  background-image: linear-gradient(white, whitesmoke, snow);
+  height: 700px;
+}
+
+.top-part {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  padding: 3%;
+}
+
+.body-part {
+  background-color: #EBE9F4;
+  width: 100%;
+  min-height: 800px;
+}
+
+.bottom-part {
+  padding: 3%;
+}
+
+.Todo__input {
+  flex: 1 1;
+  height: 30px;
+  border-radius: 5px;
+  border: none;
+  border-bottom: solid 3px green;
+ 
+}
+
+.Todo__input:focus ~ .floating-label-1,
+	.Todo__input:not(:focus):valid ~ .floating-label-1 {
+		bottom: 35px;
+    left: 30px;
+		font-size: 11px;
+		opacity: 1;
+    color: #404040;
+  }
+
+  .floating-label-1 {
+    font-size: 13px;
+    color: #777575;
+    position: absolute;
+    pointer-events: none;
+    left: 10%;
+    bottom: 10%;
+    transition: all 0.1s ease;
+  }
+
+  /* Task */
+
+  .ToDo__item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 2%;
+    
+  }
+  
+  .item-content {
+    flex: 1 1;
+    text-align: left;
+    margin: 0 8px;
+    box-shadow: 1px 1px 2px rgb(207, 204, 204), 0 0 25px rgb(239, 239, 245), 0 0 5px rgb(234, 234, 243);
+    background-color: white;
+    border-radius: 20px;
+    padding: 2%;
+    cursor: pointer;
+  }
+  .item-content:hover {
+    box-shadow: 1px 1px 2px rgb(107, 106, 106), 0 0 25px rgb(99, 99, 100), 0 0 5px rgb(45, 45, 46);
+  }
+
+  .item-checkbox {
+    background-color: #efb891;
+    border-radius: 50%;
+    padding: 2%;
+  }
+
+  .Todo__delete:hover {
+    -webkit-animation: rotate-center 0.6s ease-in-out both;
+            animation: rotate-center 0.6s ease-in-out both;
+  }
+
+  /* ----------------------------------------------
+ * Generated by Animista on 2020-12-10 11:32:38
+ * Licensed under FreeBSD License.
+ * See http://animista.net/license for more info. 
+ * w: http://animista.net, t: @cssanimista
+ * ---------------------------------------------- */
+
+/**
+ * ----------------------------------------
+ * animation rotate-center
+ * ----------------------------------------
+ */
+@-webkit-keyframes rotate-center {
+  0% {
+    -webkit-transform: rotate(0);
+            transform: rotate(0);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+@keyframes rotate-center {
+  0% {
+    -webkit-transform: rotate(0);
+            transform: rotate(0);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+            transform: rotate(360deg);
+  }
+}
+
+/* Action Buttons */
+.All__btn, .Active__btn, .Completed__btn, .Action__btn {
+  padding: 2% 6%;
+  border-radius: 10px;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.All__btn {
+  background-color: palevioletred;
+}
+
+.Active__btn {
+  background-color: green;
+}
+
+.Completed__btn {
+  background-color: lightskyblue;
+  color: black;
+}
+
 .Action__btn {
+  background-color: brown;
+}
+
+/* modal edit */
+.edit {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal {
+  padding: 3%;
+  text-align: center;
+}
+
+.edit-label {
+  margin-right: 3%;
+  font-weight: bolder;
+}
+
+.Cancel_btn, .Edit_btn {
+  padding: 3% 5%;
+  margin: 4%;
+  border-radius: 15px;
+  border: none;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.Cancel_btn {
+  background-color: coral;
+  color: white;
+}
+
+.Edit_btn {
+  background-color: lightskyblue;
+  color: black;
 }

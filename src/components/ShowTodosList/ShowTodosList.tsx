@@ -1,23 +1,29 @@
 import React, { useEffect, useReducer, useState } from 'react';
-import { Todo } from '../models/todo';
-import reducer, { initialState } from '../store/reducer';
+import { Todo } from '../../models/todo';
+import reducer, { initialState } from '../../store/reducer';
 import {
     setTodos,
     deleteTodo,
     updateTodoStatus,
     toggleAllTodos,
     deleteAllTodos,
-} from '../store/actions';
-import Service from '../service';
-import { TodoStatus } from '../models/todo';
-import { isTodoCompleted } from '../utils';
-import Task from './Task';
-import Actions from './Actions';
+    updateTodo
+} from '../../store/actions';
+import Service from '../../service';
+import { TodoStatus } from '../../models/todo';
+import { isTodoCompleted } from '../../utils';
+import Task from '../Task';
+import Actions from '../ActionButtons/Actions';
+import ModalEdit from '../ModalEdit/ModalEdit';
 
 type EnhanceTodoStatus = TodoStatus | 'ALL';
+type EnhanceTodo = Todo | undefined;  // enhance type Todo
 
 const ShowTodosList = (props: any) => {
-    const openModal = props.openModal;
+    // declare editing task and setEditingTask
+    const [editingTask, setEditingTask] = useState<EnhanceTodo>(undefined);
+    // Open/close modal for editing task
+    const [modalIsOpen, setIsOpen] = useState<boolean>(false);
 
     const [{ todos }, dispatch] = useReducer(reducer, initialState);
 
@@ -34,6 +40,23 @@ const ShowTodosList = (props: any) => {
         }
     });
 
+    // Modal
+    const openModal = (todo: Todo) => {
+        setIsOpen(true);
+        setEditingTask(todo);
+    }
+
+    const closeModal = () => {
+        setIsOpen(false);
+    }
+
+
+    // define function Update Todo
+    const onUpdateTodo = (todoId: string, content: string) => {
+        dispatch(updateTodo(todoId, content));
+        closeModal();
+    }
+    
     const onUpdateTodoStatus = (e: React.ChangeEvent<HTMLInputElement>, todoId: string) => {
         dispatch(updateTodoStatus(todoId, e.target.checked))
     }
@@ -50,7 +73,6 @@ const ShowTodosList = (props: any) => {
 
     const onDeleteAllTodo = () => {
         dispatch(deleteAllTodos());
-
     }
 
     const activeTodos = todos.reduce(function (accum, todo) {
@@ -65,7 +87,6 @@ const ShowTodosList = (props: any) => {
         (async () => {
             const resp = await Service.getTodos();
             dispatch(setTodos(resp));
-
         })()
     }, [])
 
@@ -78,7 +99,6 @@ const ShowTodosList = (props: any) => {
                             <Task
                                 index={index}
                                 todo={todo}
-                                isTodoCompleted={isTodoCompleted}
                                 onUpdateTodoStatus={onUpdateTodoStatus}
                                 onDeleteTodo={onDeleteTodo}
                                 openModal={openModal}
@@ -96,6 +116,14 @@ const ShowTodosList = (props: any) => {
                 TodoStatus={TodoStatus}
                 onDeleteAllTodo={onDeleteAllTodo}
             />
+
+             {/* Modal for editing task */}
+             {editingTask ?
+                <ModalEdit modalIsOpen={modalIsOpen}
+                    closeModal={closeModal}
+                    task={editingTask}
+                    onUpdateTodo={onUpdateTodo}
+                /> : ""}
         </div>
     )
 }

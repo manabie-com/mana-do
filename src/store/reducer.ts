@@ -55,6 +55,9 @@ function reducer(state: AppState, action: AppActions): AppState {
       const index2 = state.todos.findIndex((todo) => todo.id === action.payload.todoId);
       state.todos[index2].status = action.payload.checked ? TodoStatus.COMPLETED : TodoStatus.ACTIVE;
 
+      // Store todos in localstorage
+      localStorage.setItem('todos', JSON.stringify(state.todos));
+
       return {
         ...state,
         todos: state.todos
@@ -67,6 +70,8 @@ function reducer(state: AppState, action: AppActions): AppState {
           status: action.payload ? TodoStatus.COMPLETED : TodoStatus.ACTIVE
         }
       })
+      // Store todos in localstorage
+      localStorage.setItem('todos', JSON.stringify(tempTodos));
 
       return {
         ...state,
@@ -91,8 +96,8 @@ function reducer(state: AppState, action: AppActions): AppState {
 
       // Store todos in localstorage
       localStorage.setItem('todos', JSON.stringify(state.todos));
-
-      return {
+     
+      return {  
         ...state,
         todos: state.todos
       }
