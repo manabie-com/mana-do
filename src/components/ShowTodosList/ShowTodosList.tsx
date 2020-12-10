@@ -3,31 +3,38 @@ import { Todo } from '../../models/todo';
 import reducer, { initialState } from '../../store/reducer';
 import {
     setTodos,
-    deleteTodo,
-    updateTodoStatus,
-    toggleAllTodos,
-    deleteAllTodos,
     updateTodo
 } from '../../store/actions';
 import Service from '../../service';
 import { TodoStatus } from '../../models/todo';
-import { isTodoCompleted } from '../../utils';
+
 import Task from '../Task';
-import Actions from '../ActionButtons/Actions';
 import ModalEdit from '../ModalEdit/ModalEdit';
 
-type EnhanceTodoStatus = TodoStatus | 'ALL';
 type EnhanceTodo = Todo | undefined;  // enhance type Todo
+type EnhanceTodoList = Array<Todo> | [];
 
 const ShowTodosList = (props: any) => {
-    // declare editing task and setEditingTask
+
+    const newTodo = props.newTodo; // get new todo from ToDoPage component to rerender ShowTodosList component
+
+    const taskList = props.taskList;
+
+    // get deleted todo from Task component to rerender ShowTodosList component
+    const [deletedTodo, setDeletedTodo] = useState<EnhanceTodo>(undefined);
+
+    // get todo list after updating check box
+    const [todoList, setToDoList] = useState<EnhanceTodoList>([]);
+
+    // declare editing task and setEditingTask to pass current data to ModalEdit
     const [editingTask, setEditingTask] = useState<EnhanceTodo>(undefined);
+
     // Open/close modal for editing task
     const [modalIsOpen, setIsOpen] = useState<boolean>(false);
 
     const [{ todos }, dispatch] = useReducer(reducer, initialState);
 
-    const [showing, setShowing] = useState<EnhanceTodoStatus>('ALL');
+    const showing = props.showing;
 
     const showTodos = todos.filter((todo) => {
         switch (showing) {
@@ -51,36 +58,20 @@ const ShowTodosList = (props: any) => {
     }
 
 
-    // define function Update Todo
+     // define function Update Todo
     const onUpdateTodo = (todoId: string, content: string) => {
-        dispatch(updateTodo(todoId, content));
+        dispatch(updateTodo(todoId, content)); // update State todo
         closeModal();
     }
-    
-    const onUpdateTodoStatus = (e: React.ChangeEvent<HTMLInputElement>, todoId: string) => {
-        dispatch(updateTodoStatus(todoId, e.target.checked))
+
+    // Get deleted todo to rerender this component
+    const getDeletedTodo = (todo:Todo) => {
+        setDeletedTodo(todo);
     }
 
-    const onDeleteTodo = (todoId: string) => {
-        dispatch(deleteTodo(todoId))
-    }
-
-    // Action buttons
-
-    const onToggleAllTodo = (e: React.ChangeEvent<HTMLInputElement>) => {
-        dispatch(toggleAllTodos(e.target.checked))
-    }
-
-    const onDeleteAllTodo = () => {
-        dispatch(deleteAllTodos());
-    }
-
-    const activeTodos = todos.reduce(function (accum, todo) {
-        return isTodoCompleted(todo) ? accum : accum + 1;
-    }, 0);
-
-    const toggleShowing = (status: EnhanceTodoStatus) => {
-        setShowing(status);
+    // Get todos list after editing todo status to rerender this component
+    const updateTodoList = (todoList:Array<Todo>) => {
+        setToDoList(todoList)
     }
 
     useEffect(() => {
@@ -88,7 +79,7 @@ const ShowTodosList = (props: any) => {
             const resp = await Service.getTodos();
             dispatch(setTodos(resp));
         })()
-    }, [])
+    }, [newTodo, deletedTodo, todoList, showing, taskList])
 
     return (
         <div>
@@ -99,23 +90,14 @@ const ShowTodosList = (props: any) => {
                             <Task
                                 index={index}
                                 todo={todo}
-                                onUpdateTodoStatus={onUpdateTodoStatus}
-                                onDeleteTodo={onDeleteTodo}
                                 openModal={openModal}
+                                getDeletedTodo={getDeletedTodo} // pass data from Task component to ShowTodosList component
+                                updateTodoList={updateTodoList} // pass data from Task component to ShowTodosList component
                             />
                         );
                     })
                     : "No item"}
             </div>
-
-            <Actions
-                todos={todos}
-                activeTodos={activeTodos}
-                onToggleAllTodo={onToggleAllTodo}
-                toggleShowing={toggleShowing}
-                TodoStatus={TodoStatus}
-                onDeleteAllTodo={onDeleteAllTodo}
-            />
 
              {/* Modal for editing task */}
              {editingTask ?

@@ -28,7 +28,7 @@ const ModalEdit = (props: any) => {
 
   useEffect(() => {
     setContent(task.content)
-  }, [task])
+  }, [])
 
   return (
 

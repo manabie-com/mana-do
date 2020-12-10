@@ -312,7 +312,7 @@ hr {
 
 /* Action Buttons */
 .All__btn, .Active__btn, .Completed__btn, .Action__btn {
-  padding: 2% 6%;
+  padding: 2% 5%;
   border-radius: 10px;
   color: white;
   border: none;

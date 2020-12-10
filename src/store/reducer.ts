@@ -29,7 +29,7 @@ function reducer(state: AppState, action: AppActions): AppState {
 
     case CREATE_TODO:
       state.todos.push(action.payload);
-    
+
       // Store todos in localstorage
       localStorage.setItem('todos', JSON.stringify(state.todos));
       
@@ -92,7 +92,7 @@ function reducer(state: AppState, action: AppActions): AppState {
 
     case DELETE_ALL_TODOS:
       const length = state.todos.length;
-      state.todos.splice(0, length);
+      state.todos.splice(0, length); // 
 
       // Store todos in localstorage
       localStorage.setItem('todos', JSON.stringify(state.todos));
