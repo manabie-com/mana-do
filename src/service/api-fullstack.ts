@@ -23,6 +23,34 @@ class ApiFullstack extends IAPI {
 
         return resp.data.data;
     }
+
+    async updateTodo(todo: Todo): Promise<Todo> {
+       
+        return todo
+    }
+    async toggleAllTodo(checked: boolean): Promise<Array<Todo>> {
+        const resp = await axios.get<AxiosResponse<Array<Todo>>>(`/tasks`);
+
+        resp.data.data.forEach((task: Todo)=>{
+            return {
+              ...task,
+              status: checked? "COMPELETED" : "ACTIVE"
+            }
+          })
+          return resp.data.data
+    }
+
+    async deleteTodo(todoId: string): Promise<Array<Todo>> {
+        const resp = await axios.get<AxiosResponse<Array<Todo>>>(`/tasks`);
+        const index = resp.data.data.findIndex((task: Todo) => task.id === todoId);
+        resp.data.data.splice(index, 1);
+
+        return resp.data.data;
+    }
+
+    async deleteAllTodo(): Promise<[]> {
+        return []
+    }
 }
 
 

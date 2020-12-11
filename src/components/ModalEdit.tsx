@@ -13,7 +13,7 @@ const customStyles = {
   }
 };
 
-Modal.setAppElement('#root'); // set accessibily of Modal
+
 
 const ModalEdit = (props: any) => {
   const modalIsOpen = props.modalIsOpen;

@@ -188,6 +188,7 @@ hr {
   border-radius: 10px;
   background-image: linear-gradient(white, whitesmoke, snow);
   height: 680px;
+  padding: 1%;
 }
 
 .top-part {
