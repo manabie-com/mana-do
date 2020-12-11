@@ -49,7 +49,6 @@ function reducer(state: AppState, action: AppActions): AppState {
       console.log(state);
       return {
         ...state,
-        todos: state.todos
       };
 
     case UPDATE_TODO_STATUS:
@@ -61,7 +60,6 @@ function reducer(state: AppState, action: AppActions): AppState {
       
       return {
         ...state,
-        todos: state.todos
       }
 
     case TOGGLE_ALL_TODOS:
