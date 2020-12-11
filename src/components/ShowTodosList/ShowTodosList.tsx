@@ -60,19 +60,20 @@ const ShowTodosList = (props: any) => {
     }
 
 
-     // define function Update Todo
+    // define function Update Todo
     const onUpdateTodo = async (todoId: string, content: string) => {
         dispatch(updateTodo(todoId, content)); // update State todo
+        console.log(content);
         closeModal();
     }
 
     // Get deleted todo to rerender this component
-    const getDeletedTodo = (todo:Todo) => {
+    const getDeletedTodo = (todo: Todo) => {
         setDeletedTodo(todo);
     }
 
     // Get todos list after editing todo status to rerender this component
-    const updateTodoList = (todoList:Array<Todo>) => {
+    const updateTodoList = (todoList: Array<Todo>) => {
         setToDoList(todoList);
         updateTaskList(todoList); // pass updated data to toDoPage to rerender Action component
     }
@@ -90,20 +91,21 @@ const ShowTodosList = (props: any) => {
                 {showTodos ?
                     showTodos.map((todo: Todo, index: number) => {
                         return (
-                            <Task
-                                index={index}
-                                todo={todo}
-                                openModal={openModal}
-                                getDeletedTodo={getDeletedTodo} // pass data from Task component to ShowTodosList component
-                                updateTodoList={updateTodoList} // pass data from Task component to ShowTodosList component
-                            />
+                            <div key={index}>
+                                <Task
+                                    todo={todo}
+                                    openModal={openModal}
+                                    getDeletedTodo={getDeletedTodo} // pass data from Task component to ShowTodosList component
+                                    updateTodoList={updateTodoList} // pass data from Task component to ShowTodosList component
+                                />
+                            </div>
                         );
                     })
                     : "No item"}
             </div>
 
-             {/* Modal for editing task */}
-             {editingTask ?
+            {/* Modal for editing task */}
+            {editingTask ?
                 <ModalEdit modalIsOpen={modalIsOpen}
                     closeModal={closeModal}
                     task={editingTask}

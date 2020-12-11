@@ -57,16 +57,16 @@ export function updateTodo(todoId: string, content: string): UpdateTodoAction {
 export interface UpdateTodoStatusAction {
   type: typeof UPDATE_TODO_STATUS,
   payload: {
-    todo: Todo,
+    todoId: string,
     checked: boolean
   }
 }
 
-export function updateTodoStatus(todo: Todo, checked: boolean): UpdateTodoStatusAction {
+export function updateTodoStatus(todoId: string, checked: boolean): UpdateTodoStatusAction {
   return {
     type: UPDATE_TODO_STATUS,
     payload: {
-      todo,
+      todoId,
       checked
     }
   }
