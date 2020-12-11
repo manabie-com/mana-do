@@ -342,6 +342,8 @@ hr {
 .modal {
   padding: 3%;
   text-align: center;
+  border: solid 2px darkolivegreen;
+  border-radius: 15px;
 }
 
 .edit-label {

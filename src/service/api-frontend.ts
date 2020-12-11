@@ -9,7 +9,6 @@ class ApiFrontend extends IAPI {
         if (username === 'firstUser' && password === 'example') {
             return Promise.resolve(mockToken)
         }
-
         return Promise.reject('Incorrect username/password')
     }
 

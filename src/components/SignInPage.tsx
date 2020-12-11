@@ -12,7 +12,6 @@ const SignInPage = () => {
     const signIn = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         const resp = await Service.signIn(form.userId, form.password)
-
         localStorage.setItem('token', resp)
         history.push('/todo')
     }
