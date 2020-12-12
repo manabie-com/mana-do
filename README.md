@@ -9,6 +9,7 @@
 - Implement the edit functionality: double click a task then a modal will be opened and show a form for editing task
 - Separate the code into different components
 - Write test for reducer and api-frontend
+- Add CSS to update UI
 - Fix bug: createTodo function is called twice
     
 ### Disadvantage
