@@ -4,13 +4,12 @@
 - Run ```npm run test``` to run all test
 - Sign in using username: `firstUser`, password: `example`
 
-## Features
+## What I have done
 - Implement the persistent feature. After refreshing, the data is still there: using localstorage
-- Implement the edit functionality: double click a task then a modal will be open and show a form for editing task
+- Implement the edit functionality: double click a task then a modal will be opened and show a form for editing task
 - Separate the code into different components
-
-### Fixed Bugs: 
-- "Add new task" function called dispatch create todo twice 
+- Write test for reducer and api-frontend
+- Fix bug: createTodo function is called twice
     
 ### Disadvantage
 - Still haven't tested for all components
