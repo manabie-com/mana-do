@@ -55,7 +55,7 @@ const ShowTodosList = (props: any) => {
         const todoStatus = e.target.checked ? TodoStatus.COMPLETED : TodoStatus.ACTIVE;
         todo.status = todoStatus;
         dispatch(updateTodoStatus(todo.id, e.target.checked));
-        await Service.updateTodo(todo);
+        await Service.updateTodo(todo); // update todoList in localstorage
         editTodo();
     }
 
@@ -67,11 +67,12 @@ const ShowTodosList = (props: any) => {
 
      // define function Update Todo
      const onUpdateTodo = async (todoId: string, content: string) => {
-        dispatch(updateTodo(todoId, content)); // update State todo
-        const resp = await Service.getTodos();
+        dispatch(updateTodo(todoId, content)); 
+        const resp = await Service.getTodos(); // get new todoList
+
         const currentIndex = resp.findIndex((task) => task.id === todoId);
-        resp[currentIndex].content = content;
-        await Service.updateTodo(resp[currentIndex]);
+        resp[currentIndex].content = content; 
+        await Service.updateTodo(resp[currentIndex]); // update todos in localstorage
         closeModal();
     }
 

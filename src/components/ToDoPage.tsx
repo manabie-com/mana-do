@@ -24,9 +24,10 @@ const ToDoPage = () => {
     const [{ todos }, dispatch] = useReducer(reducer, initialState);
     const [showing, setShowing] = useState<EnhanceTodoStatus>('ALL');
 
-    // for passing data from TodoPage to ShowListTodo
+    // to get data from AddNewtaskFrom to rerender this component
     const [newTodo, setNewTodo] = useState<EnhanceTodo>(undefined);
 
+    // for passing data from ShowTodosList to update UI in ActionButtons
     const [tasksList, setTaskList] = useState<EnhanceTodoList>([]);
 
 
@@ -35,10 +36,12 @@ const ToDoPage = () => {
         setNewTodo(newTodo)
     }
 
+    // to update todos list in ShowTodosList
     const toggleShowing = (status: EnhanceTodoStatus) => {
         setShowing(status);
     }
 
+    // to update TaskList
     const editTodo = async () => {
         const resp = await Service.getTodos();
         setTaskList(resp);
