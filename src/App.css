@@ -26,11 +26,6 @@ input[type="checkbox"] {
   outline: none;
 }
 
-input[type="checkbox"]:focus {
-  box-shadow: none;
-  border: none;
-  outline: none;
-}
 
 input {
   min-height: 36px;
@@ -39,6 +34,13 @@ input {
   padding: 0 12px;
   box-shadow: 2px 0 4px rgba(0,0,0, 0.2);
   border-radius: 4px;
+}
+
+input[type="checkbox"]:focus {
+  box-shadow: none;
+  border: none;
+  outline: none;
+  min-height: 24px;
 }
 
 input:focus {

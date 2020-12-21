@@ -1,0 +1,17 @@
+.button {
+  background: #ffffff;
+  border: 0.5px solid rgba(230, 230, 230, 0.5);
+  box-shadow: -4px -4px 10px #ffffff, 2px 2px 10px rgba(174, 174, 192, 0.5);
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 16px;
+  color: #002448;
+  border-radius: 5px;
+  transition: all .3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  &:hover {
+    box-shadow: -2px -2px 3px #e6e9ed, 2px 2px 3px rgba(0, 14, 29, 0.3);
+  }
+  &:active {
+    box-shadow: none;
+  }
+}

@@ -1,6 +1,7 @@
 import {IAPI} from './types';
 import {Todo, TodoStatus} from '../models/todo';
 import shortid from 'shortid';
+import { initialState } from 'store/reducer';
 
 const mockToken = 'testabc.xyz.ahk'
 
@@ -24,7 +25,13 @@ class ApiFrontend extends IAPI {
     }
 
     async getTodos(): Promise<Todo[]>{
-        return []
+        return JSON.parse(localStorage.getItem('todos') || JSON.stringify(initialState))
+    }
+
+    async updateTodo(todo: Todo): Promise<Todo> {
+        return Promise.resolve({
+            ...todo
+        } as Todo)
     }
 }
 

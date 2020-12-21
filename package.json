@@ -12,12 +12,13 @@
     "@types/react-dom": "^16.9.0",
     "axios": "^0.19.2",
     "cross-env": "^7.0.2",
+    "node-sass": "^4.0.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
     "shortid": "^2.2.15",
-    "typescript": "~3.7.2"
+    "typescript": "^3.8.3"
   },
   "scripts": {
     "start:fullstack": "cross-env REACT_APP_WHOAMI=fullstack react-scripts start",

@@ -38,3 +38,8 @@
 - Run ```yarn``` or ```npm install``` if this is the first time you clone this repo (`master` branch).
 - Run ```yarn start:fullstack``` in case you are doing a fullstack test, else run ```yarn start:frontend``` to start this project in development mode.
 - Sign in using username: `firstUser`, password: `example`
+
+### How to update
+- Click to the content of the task
+- Edit the content and press enter to save
+- If blur while edit, cancel the edit progress
