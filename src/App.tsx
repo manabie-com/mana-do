@@ -1,23 +1,60 @@
-import React from 'react';
+import React from "react"
+import { BrowserRouter, Switch, Redirect } from "react-router-dom"
+import SignInPage from "./components/pages/sign-in/SignInPage"
+import ToDoPage from "./components/pages/todo/ToDoPage"
+import "./App.css"
+import { ROUTE_PATHS } from "./constants/url-config"
+import RouteLayout from "./components/providers/RouteLayout"
+import { isSignIn } from "./utils"
 
-import {BrowserRouter, Switch, Route} from 'react-router-dom';
-
-import SignInPage from './SignInPage';
-import ToDoPage from './ToDoPage';
-
-import './App.css';
-
-function App() {
-  return (
-    <main className="App">
-      <BrowserRouter>
-        <Switch>
-          <Route path="/" exact component={SignInPage}/>
-          <Route path="/todo" component={ToDoPage}/>
-        </Switch>
-      </BrowserRouter>
-    </main>
-  );
+export interface Route {
+	href: string
+	exact: boolean
+	component: React.ReactNode
+	title: string
+	loginRequired: boolean
 }
 
-export default App;
+function App() {
+	const routes: Route[] = [
+		{
+			href: ROUTE_PATHS.SignIn,
+			exact: true,
+			component: SignInPage,
+			title: "Sign In",
+			loginRequired: false,
+		},
+		{
+			href: ROUTE_PATHS.TodoPage,
+			exact: true,
+			component: ToDoPage,
+			title: "Todo",
+			loginRequired: true,
+		},
+	]
+
+	return (
+		<main className="App">
+			<BrowserRouter>
+				<Switch>
+					{routes.map(({ href, exact, component, title, loginRequired }) => (
+						<RouteLayout
+							key={href}
+							path={href}
+							exact={exact}
+							component={component}
+							title={title}
+							loginRequired={loginRequired}
+						/>
+					))}
+
+					<Redirect
+						to={isSignIn() ? ROUTE_PATHS.TodoPage : ROUTE_PATHS.SignIn}
+					/>
+				</Switch>
+			</BrowserRouter>
+		</main>
+	)
+}
+
+export default App
