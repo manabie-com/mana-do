@@ -17,6 +17,7 @@ import { isTodoCompleted } from "../../../utils"
 import { ROUTE_PATHS } from "../../../constants/url-config"
 import TodoItem from "./TodoItem"
 import { LocalConstants } from "../../../constants/local"
+import { toggleConfirmModal } from "../../shared/modal/ConfirmModal"
 
 type EnhanceTodoStatus = TodoStatus | "ALL"
 
@@ -156,7 +157,19 @@ const ToDoPage = ({ history }: RouteComponentProps) => {
 					<button
 						data-testid="btnClearAll"
 						className="Action__btn Clear_btn"
-						onClick={onDeleteAllTodo}
+						onClick={() => {
+							toggleConfirmModal({
+								open: true,
+								title: "",
+								content: `Are you sure you want to delete all todos? This cannot be undone`,
+								titleButtonOk: "Remove",
+								titleButtonNo: "Cancel",
+								handleOk: async () => {
+									onDeleteAllTodo()
+								},
+								handleCancel: () => {},
+							})
+						}}
 					>
 						Clear all todos
 					</button>

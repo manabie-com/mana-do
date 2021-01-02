@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react"
 import { Todo } from "../../../models/todo"
 import { isTodoCompleted } from "../../../utils"
+import { toggleConfirmModal } from "../../shared/modal/ConfirmModal"
 
 type TodoItemProps = {
 	todo: Todo
@@ -81,7 +82,17 @@ const TodoItem = (props: TodoItemProps) => {
 			<button
 				className="Todo__delete"
 				onClick={() => {
-					onDeleteTodo(todo.id)
+					toggleConfirmModal({
+						open: true,
+						title: "",
+						content: `Are you sure you want to delete this todo? This cannot be undone`,
+						titleButtonOk: "Remove",
+						titleButtonNo: "Cancel",
+						handleOk: async () => {
+							onDeleteTodo(todo.id)
+						},
+						handleCancel: () => {},
+					})
 				}}
 			>
 				X

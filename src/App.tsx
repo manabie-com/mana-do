@@ -6,6 +6,7 @@ import "./App.css"
 import { ROUTE_PATHS } from "./constants/url-config"
 import RouteLayout from "./components/providers/RouteLayout"
 import { isSignIn } from "./utils"
+import ConfirmModal from "./components/shared/modal/ConfirmModal"
 
 export interface Route {
 	href: string
@@ -35,6 +36,7 @@ function App() {
 
 	return (
 		<main className="App">
+			<ConfirmModal />
 			<BrowserRouter>
 				<Switch>
 					{routes.map(({ href, exact, component, title, loginRequired }) => (

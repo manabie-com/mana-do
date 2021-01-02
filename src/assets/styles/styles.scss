@@ -1,8 +1,9 @@
 @import "./sign-in.scss";
 @import "./layout.scss";
 @import "./todo.scss";
+@import "./confirm-modal.scss";
 
-::-webkit-scrollbar {
+::-webkit-scrollbar  {
 	width: 4px;
 	height: 7px;
 	border-radius: 50px;
