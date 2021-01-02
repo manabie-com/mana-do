@@ -1,0 +1,26 @@
+#layout {
+	width: 100%;
+
+	.header {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		background-color: #fff;
+		padding: 12px 24px;
+
+		.btn-sign-out {
+			background-color: transparent;
+			box-shadow: none;
+			color: rgb(220, 0, 78);
+
+			&:hover {
+				background-color: #f50057;
+				color: #fff;
+			}
+		}
+	}
+
+	.content {
+		padding: 0 10px;
+	}
+}
