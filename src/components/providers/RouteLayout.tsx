@@ -14,11 +14,6 @@ const RouteLayout: React.FC<any> = ({ component: Component, ...rest }) => {
 		document.title = rest.title
 	}, [])
 
-	// check if not login when redirect to sign in
-	if (isLoginRequired && !isLogin) history.push(ROUTE_PATHS.SignIn)
-	// if logged in but redirects to the login page, redirect to the todo page (home page)
-	if (isLogin && !isLoginRequired) history.push(ROUTE_PATHS.TodoPage)
-
 	return (
 		<Route
 			{...rest}
