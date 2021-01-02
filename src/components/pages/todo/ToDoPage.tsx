@@ -158,17 +158,18 @@ const ToDoPage = ({ history }: RouteComponentProps) => {
 						data-testid="btnClearAll"
 						className="Action__btn Clear_btn"
 						onClick={() => {
-							toggleConfirmModal({
-								open: true,
-								title: "",
-								content: `Are you sure you want to delete all todos? This cannot be undone`,
-								titleButtonOk: "Remove",
-								titleButtonNo: "Cancel",
-								handleOk: async () => {
-									onDeleteAllTodo()
-								},
-								handleCancel: () => {},
-							})
+							if (todos.length)
+								toggleConfirmModal({
+									open: true,
+									title: "",
+									content: `Are you sure you want to delete all todos? This cannot be undone`,
+									titleButtonOk: "Remove",
+									titleButtonNo: "Cancel",
+									handleOk: async () => {
+										onDeleteAllTodo()
+									},
+									handleCancel: () => {},
+								})
 						}}
 					>
 						Clear all todos
