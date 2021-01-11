@@ -1,0 +1,49 @@
+.btn-custome{
+    padding: 15px 30px;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    background: #26a0da;
+    color: #fff;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: none;
+    outline: none;
+
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+.btn-custome:hover{
+    box-shadow: 0px 0px 10px #26a0da, 0px 0px 20px#26a0da, 0px 0px 40px #26a0da;
+}
+
+.btn-all,
+.btn-active,
+.btn-completed,
+.btn-clear{
+    padding:5px 15px;
+    letter-spacing: 2px;
+}
+
+.btn-active{
+    background: #EE8366;
+}
+.btn-active:hover{
+    box-shadow: 0px 0px 10px #EE8366, 0px 0px 20px#EE8366, 0px 0px 40px #EE8366;
+}
+
+.btn-completed{
+    background: #65B688;
+}
+.btn-completed:hover{
+    box-shadow: 0px 0px 10px #65B688, 0px 0px 20px#65B688, 0px 0px 40px #65B688;
+}
+
+.btn-clear{
+    background: #D65C4F;
+}
+.btn-clear:hover{
+    box-shadow: 0px 0px 10px #D65C4F, 0px 0px 20px#D65C4F, 0px 0px 40px #D65C4F;
+}

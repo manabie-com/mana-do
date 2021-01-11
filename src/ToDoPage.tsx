@@ -1,7 +1,7 @@
-import React, {useEffect, useReducer, useRef, useState} from 'react';
-import {RouteComponentProps} from 'react-router-dom';
+import React, { useEffect, useReducer, useRef, useState } from 'react';
+import { RouteComponentProps } from 'react-router-dom';
 
-import reducer, {initialState} from './store/reducer';
+import reducer, { initialState } from './store/reducer';
 import {
     setTodos,
     createTodo,
@@ -11,26 +11,27 @@ import {
     updateTodoStatus
 } from './store/actions';
 import Service from './service';
-import {TodoStatus} from './models/todo';
-import {isTodoCompleted} from './utils';
+import { TodoStatus } from './models/todo';
+import { isTodoCompleted } from './utils';
+import AddTodo from './components/addTodo';
 
 type EnhanceTodoStatus = TodoStatus | 'ALL';
 
 
-const ToDoPage = ({history}: RouteComponentProps) => {
-    const [{todos}, dispatch] = useReducer(reducer, initialState);
+const ToDoPage = ({ history }: RouteComponentProps) => {
+    const [{ todos }, dispatch] = useReducer(reducer, initialState);
     const [showing, setShowing] = useState<EnhanceTodoStatus>('ALL');
     const inputRef = useRef<HTMLInputElement>(null);
 
-    useEffect(()=>{
-        (async ()=>{
+    useEffect(() => {
+        (async () => {
             const resp = await Service.getTodos();
 
             dispatch(setTodos(resp || []));
         })()
     }, [])
 
-    const onCreateTodo = async (e: React.KeyboardEvent<HTMLInputElement>) => {
+    const onCreateTodo = async (e: React.KeyboardEvent<HTMLInputElement>, inputRef: React.RefObject<HTMLInputElement>) => {
         if (e.key === 'Enter' && inputRef.current) {
             try {
                 const resp = await Service.createTodo(inputRef.current.value);
@@ -73,14 +74,7 @@ const ToDoPage = ({history}: RouteComponentProps) => {
 
     return (
         <div className="ToDo__container">
-            <div className="Todo__creation">
-                <input
-                    ref={inputRef}
-                    className="Todo__input"
-                    placeholder="What need to be done?"
-                    onKeyDown={onCreateTodo}
-                />
-            </div>
+            <AddTodo inputRefProp={inputRef} onCreateTodo={onCreateTodo} />
             <div className="ToDo__list">
                 {
                     showTodos.map((todo, index) => {
@@ -109,16 +103,16 @@ const ToDoPage = ({history}: RouteComponentProps) => {
                         type="checkbox"
                         checked={activeTodos === 0}
                         onChange={onToggleAllTodo}
-                    /> : <div/>
+                    /> : <div />
                 }
                 <div className="Todo__tabs">
-                    <button className="Action__btn" onClick={()=>setShowing('ALL')}>
+                    <button className="Action__btn" onClick={() => setShowing('ALL')}>
                         All
                     </button>
-                    <button className="Action__btn" onClick={()=>setShowing(TodoStatus.ACTIVE)}>
+                    <button className="Action__btn" onClick={() => setShowing(TodoStatus.ACTIVE)}>
                         Active
                     </button>
-                    <button className="Action__btn" onClick={()=>setShowing(TodoStatus.COMPLETED)}>
+                    <button className="Action__btn" onClick={() => setShowing(TodoStatus.COMPLETED)}>
                         Completed
                     </button>
                 </div>

@@ -1,0 +1,56 @@
+.Todo__delete{
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+
+.Todo__delete:hover{
+    background: #D65C4F;
+    color:#fff;
+
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    transform: rotate(180deg);
+}
+
+.editInput{
+    position: relative;
+    width:200px;
+    text-align: center;
+    font-size:16px;
+    line-height: 26px;
+}
+.editInput span{
+    cursor: pointer;
+}
+.editInput.active span{
+    opacity: 0;
+}
+
+.editInput input,
+.editInput input:disabled{
+    position: absolute;
+    top:0;
+    left:0;
+    z-index:-1;
+    display: none;
+    min-height: unset;
+    padding:0 5px;
+    border:0;
+    font-size:16px;
+    line-height: 26px;
+    text-align: center;
+    background: #fafafa;
+    color:#000;
+    box-shadow: none !important;
+    outline: none !important;
+}
+
+.editInput.active input{
+    z-index:1;
+    display: block;
+}

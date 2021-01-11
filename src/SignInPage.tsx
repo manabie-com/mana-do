@@ -1,6 +1,6 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 
-import {useHistory} from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import Service from './service'
 
 const SignInPage = () => {
@@ -20,14 +20,14 @@ const SignInPage = () => {
 
     const onChangeField = (e: React.ChangeEvent<HTMLInputElement>) => {
         e.persist()
-        setForm(prev=>({
+        setForm(prev => ({
             ...prev,
             [e.target.name]: e.target.value
         }))
     }
 
     return (
-        <div style={{marginTop: '3rem', textAlign: 'left'}}>
+        <div className="signInForm">
             <form onSubmit={signIn}>
                 <label htmlFor="user_id">
                     User id
@@ -35,24 +35,24 @@ const SignInPage = () => {
                         id="user_id"
                         name="userId"
                         value={form.userId}
-                        style={{marginTop: 12}}
+                        style={{ marginTop: 12 }}
                         onChange={onChangeField}
                     />
                 </label>
-                <br/>
+                <br />
                 <label htmlFor="password" >
                     Password
                     <input
                         id="password"
                         name="password"
                         type="password"
-                        style={{marginTop: 12}}
+                        style={{ marginTop: 12 }}
                         value={form.password}
                         onChange={onChangeField}
                     />
                 </label>
                 <br />
-                <button type="submit" style={{marginTop: 12}}>
+                <button type="submit" style={{ marginTop: 12 }}>
                     Sign in
                 </button>
             </form>
