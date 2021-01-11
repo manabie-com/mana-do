@@ -1,0 +1,37 @@
+.toolbar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem 0;
+}
+
+.toolbar-container-inputCheck {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 3.2rem;
+}
+
+.toolbar-container-inputCheck div {
+  display: inline-block;
+}
+
+.btn-delete-all {
+  background: var(--common-white);
+  border: 2px solid var(--error-main);
+  border-radius: 4px;
+  color: var(--error-main);
+  box-shadow: unset;
+}
+
+.btn-delete-all:hover {
+  opacity: 0.85;
+  transform: translateY(-3px);
+  box-shadow: 0 3px 5px 3px currentColor;
+}
+
+.btn-delete-all:active {
+  opacity: 0.85;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px 2px currentColor;
+}

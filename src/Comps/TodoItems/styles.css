@@ -1,0 +1,45 @@
+.todo-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.todo-head-item {
+  padding: 0.8rem 0rem;
+  font-size: 1.4rem;
+  color: var(--text-secondary);
+  margin-top: 1rem;
+}
+
+.todo-item-btn {
+  background: var(--common-white);
+
+  box-shadow: none;
+  padding: 2px 8px;
+  min-width: unset;
+  min-height: unset;
+  border-radius: 9999px;
+}
+
+.todo-item-btn:hover {
+  box-shadow: 0 5px 6px 1px currentColor;
+}
+
+.todo-item-btn:active {
+  box-shadow: 0 1px 3px 1px currentColor;
+}
+
+.todo-item-btn-del {
+  border: 1px solid var(--error-light);
+  color: var(--error-light);
+}
+.todo-item-btn-edit {
+  border: 1px solid var(--primary-light);
+  color: var(--primary-light);
+}
+.todo-item-btn-success {
+  border: 1px solid var(--success-light);
+  color: var(--success-light);
+}
+.todo-item-edit {
+  padding-bottom: 1rem;
+}

@@ -1,0 +1,70 @@
+/* ICContainer =  The container of Input Check */
+.ICContainer {
+  display: block;
+  position: relative;
+  padding-left: 3.5rem;
+  cursor: pointer;
+  font-size: 2rem;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  overflow: wrap;
+  word-break: break-word;
+}
+
+/* Hide the browser's default checkbox */
+.ICContainer input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 2.5rem;
+  width: 2.5rem;
+  background-color: var(--common-white);
+  border: 1px solid var(--common-black);
+  border-radius: 0.4rem;
+}
+
+/* On mouse-over, add a grey background color */
+.ICContainer:hover input ~ .checkmark {
+  background-color: var(--common-white);
+}
+
+/* When the checkbox is checked, add a blue background */
+.ICContainer input:checked ~ .checkmark {
+  background-color: var(--primary-dark);
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.ICContainer input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.ICContainer .checkmark:after {
+  left: 0.9rem;
+  top: 0.5rem;
+  width: 0.5rem;
+  height: 1.2rem;
+  border: solid var(--common-white);
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
