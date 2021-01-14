@@ -2,9 +2,12 @@ import React, { useEffect, useReducer, useState } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import ButtonConfirm from '../../components/Buttons/ButtonConfirm';
 import FormBasic from '../../components/Forms/FormBasic';
+import CheckBox from '../../components/Inputs/CheckBox';
 import InputSingle from '../../components/Inputs/InputSingle';
+import Box from '../../components/Layouts/Box';
 import Column from '../../components/Layouts/Column';
 import Row from '../../components/Layouts/Row';
+import TextNormal from '../../components/Text/TextNormal';
 import TextWarning from '../../components/Text/TextWarning';
 import { TodoFilters, TodoStatus } from '../../models/todo';
 import Service from '../../service';
@@ -66,8 +69,10 @@ const ToDoPage = ({ history }: RouteComponentProps) => {
         return todo.status === TodoStatus.ACTIVE;
       case TodoFilters.COMPLETED:
         return todo.status === TodoStatus.COMPLETED;
-      default:
+      case TodoFilters.ALL:
         return true;
+      default:
+        return false;
     }
   });
 
@@ -88,35 +93,6 @@ const ToDoPage = ({ history }: RouteComponentProps) => {
           />
         </FormBasic>
       </Row>
-      <ButtonConfirm onClick={onDeleteAllTodo} fullWidth>
-        Clear all todos
-      </ButtonConfirm>
-
-      {showTodos.length
-        ? <Column>
-          {
-            showTodos.map((todo, index) => {
-              return (
-                <div key={index} className="ToDo__item">
-                  <input
-                    type="checkbox"
-                    checked={isTodoCompleted(todo)}
-                    onChange={(e) => onUpdateTodoStatus(e, todo.id)}
-                  />
-                  <span>{todo.content}</span>
-                  <button
-                    className="Todo__delete"
-                    onClick={() => dispatch(deleteTodo(todo.id))}
-                  >
-                    X
-                </button>
-                </div>
-              );
-            })
-          }
-        </Column>
-        : <TextWarning>You do not have any todos yet!</TextWarning>
-      }
       <Row>
         {todos.length > 0 ?
           <input
@@ -125,6 +101,35 @@ const ToDoPage = ({ history }: RouteComponentProps) => {
             onChange={onToggleAllTodo}
           /> : <div />
         }
+        <ButtonConfirm onClick={onDeleteAllTodo} >
+          Clear all todos
+        </ButtonConfirm>
+      </Row>
+
+      {showTodos.length
+        ? <Column>
+          {
+            showTodos.map((todo, index) => {
+              return (
+                <Row key={index}>
+                  <CheckBox
+                    checked={isTodoCompleted(todo)}
+                    onChange={(e) => onUpdateTodoStatus(e, todo.id)}
+                  />
+                  <Box fullWidth>
+                    <TextNormal >{todo.content}</TextNormal>
+                  </Box>
+                  <ButtonConfirm onClick={() => dispatch(deleteTodo(todo.id))}>
+                    X
+                  </ButtonConfirm>
+                </Row>
+              );
+            })
+          }
+        </Column>
+        : <TextWarning>You do not have any todos yet!</TextWarning>
+      }
+      <Row>
         <Row>
           <ButtonConfirm onClick={() => setShowing(TodoFilters.ALL)}>
             All
