@@ -31,8 +31,8 @@ const ToDoPage = ({ history }: RouteComponentProps) => {
     dispatch(updateTodoStatus(todoId, e.target.checked))
   }
 
-  const dispatchToggleAllTodo = (e: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch(toggleAllTodos(e.target.checked))
+  const dispatchToggleAllTodo = (status: boolean) => {
+    dispatch(toggleAllTodos(status))
   }
 
   const dispatchDeleteTodo = (todoId: string) => {
@@ -49,7 +49,7 @@ const ToDoPage = ({ history }: RouteComponentProps) => {
     <Column m={12}>
       <TodoForm onSuccess={todo => dispatch(createTodo(todo))} />
 
-      <TodoFiltersList setShowing={setTodoFilter} />
+      <TodoFiltersList filter={todoFilter} setTodoFilter={setTodoFilter} />
 
       {todos.length
         ? <FilteredTodoList
