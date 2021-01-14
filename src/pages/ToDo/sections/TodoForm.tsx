@@ -18,13 +18,15 @@ const TodoForm = (props:
 
   const onSubmitTodo = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    try {
-      const resp = await Service.createTodo(todo);
-      props.onSuccess(resp);
-      setTodo('');
-    } catch (e) {
-      if (e.response.status === 401) {
-        history.push('/')
+    if (todo.trim().length) {
+      try {
+        const resp = await Service.createTodo(todo);
+        props.onSuccess(resp);
+        setTodo('');
+      } catch (e) {
+        if (e.response.status === 401) {
+          history.push('/')
+        }
       }
     }
   }
