@@ -1,7 +1,7 @@
 import React from 'react';
 
 const ButtonConfirm = (props:
-  { children: string, fullWidth?: boolean }
+  { children: string | string[], fullWidth?: boolean }
   & React.ButtonHTMLAttributes<HTMLButtonElement>
 ) => {
   const { children, fullWidth, ...rest } = props;

@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react';
 
-const Box = (props: { children: ReactElement, fullWidth?: boolean }) => {
+const Box = (props: { children: ReactElement | ReactElement[], fullWidth?: boolean }) => {
   const { children, fullWidth } = props;
   const style: React.CSSProperties = {
     width: fullWidth ? "100%" : "auto",

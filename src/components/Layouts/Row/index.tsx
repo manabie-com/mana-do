@@ -7,12 +7,13 @@ const Row = (props: {
   fullWidth?: boolean,
   m?: LayoutSpacing,
   p?: LayoutSpacing,
+  justifyContent?: 'space-between' | 'flex-end' | 'flex-start'
 }) => {
-  const { children, fullWidth, m, p } = props;
+  const { children, fullWidth, m, p, justifyContent = 'space-between' } = props;
   const style: React.CSSProperties = {
     width: fullWidth ? "100%" : "auto",
     display: 'flex',
-    justifyContent: 'space-between',
+    justifyContent: justifyContent,
     margin: calcSpacing(m),
     padding: calcSpacing(p),
   }
