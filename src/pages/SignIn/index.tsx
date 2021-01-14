@@ -1,7 +1,14 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import ButtonConfirm from '../../components/Buttons/ButtonConfirm';
+import FormBasic from '../../components/Forms/FormBasic';
+import InputSingle from '../../components/Inputs/InputSingle';
+import LabelForm from '../../components/Labels/LabelForm';
+import Center from '../../components/Layouts/Center';
+import Column from '../../components/Layouts/Column';
+import FullHeight from '../../components/Layouts/FullHeight';
+import Row from '../../components/Layouts/Row';
 import Service from '../../service';
-
 const SignInPage = () => {
   const [form, setForm] = useState({
     userId: '',
@@ -26,36 +33,43 @@ const SignInPage = () => {
   }
 
   return (
-    <div style={{ marginTop: '3rem', textAlign: 'left' }}>
-      <form onSubmit={signIn}>
-        <label htmlFor="user_id">
-          User id
-                    <input
-            id="user_id"
-            name="userId"
-            value={form.userId}
-            style={{ marginTop: 12 }}
-            onChange={onChangeField}
-          />
-        </label>
-        <br />
-        <label htmlFor="password" >
-          Password
-                    <input
-            id="password"
-            name="password"
-            type="password"
-            style={{ marginTop: 12 }}
-            value={form.password}
-            onChange={onChangeField}
-          />
-        </label>
-        <br />
-        <button type="submit" style={{ marginTop: 12 }}>
-          Sign in
-                </button>
-      </form>
-    </div>
+    <FullHeight fullWidth>
+      <Center fullWidth>
+        <FormBasic onSubmit={signIn}>
+          <Column g={2}>
+            <Row fullWidth>
+              <LabelForm htmlFor="user_id" label="User ID" />
+              <InputSingle
+                id="user_id"
+                name="userId"
+                value={form.userId}
+                onChange={onChangeField}
+              />
+            </Row>
+
+            <Row fullWidth>
+              <LabelForm htmlFor="password" label="Password" />
+              <InputSingle
+                id="password"
+                name="password"
+                type="password"
+                value={form.password}
+                onChange={onChangeField}
+              />
+            </Row>
+
+            <Row fullWidth>
+              <Center fullWidth>
+                <ButtonConfirm type="submit">
+                  Sign In
+                </ButtonConfirm>
+              </Center>
+            </Row>
+          </Column>
+
+        </FormBasic>
+      </Center>
+    </FullHeight>
   );
 };
 
