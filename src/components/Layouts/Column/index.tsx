@@ -3,7 +3,7 @@ import { LayoutSpacing } from '../../../constants/layouts.constants';
 import { calcSpacing } from '../../../utils/spacing.utils';
 
 const Column = (props: {
-  children: ReactElement[],
+  children: ReactElement | ReactElement[],
   fullWidth?: boolean
   m?: LayoutSpacing,
   p?: LayoutSpacing,
