@@ -1,4 +1,4 @@
-import { Todo } from "../models/todo";
+import { Todo } from "../../../models/todo";
 
 export const SET_TODOS = 'SET_TODOS';
 export const CREATE_TODO = 'CREATE_TODO';

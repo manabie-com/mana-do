@@ -4,17 +4,17 @@ import Column from '../../components/Layouts/Column';
 import TextWarning from '../../components/Text/TextWarning';
 import { TodoFilters } from '../../models/todo';
 import Service from '../../service';
+import FilteredTodoList from './sections/FilteredTodoList';
+import TodoActions from './sections/TodoActions';
+import TodoFiltersList from './sections/TodoFilters';
+import TodoForm from './sections/TodoForm';
 import {
   createTodo,
   deleteAllTodos, deleteTodo, setTodos,
   toggleAllTodos,
   updateTodoStatus
-} from '../../store/actions';
-import reducer, { initialState } from '../../store/reducer';
-import FilteredTodoList from './sections/FilteredTodoList';
-import TodoActions from './sections/TodoActions';
-import TodoFiltersList from './sections/TodoFilters';
-import TodoForm from './sections/TodoForm';
+} from './store/actions';
+import reducer, { initialState } from './store/reducer';
 
 
 const ToDoPage = ({ history }: RouteComponentProps) => {

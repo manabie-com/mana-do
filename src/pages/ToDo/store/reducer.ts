@@ -1,4 +1,4 @@
-import { Todo, TodoStatus } from '../models/todo';
+import { Todo, TodoStatus } from '../../../models/todo';
 import {
   AppActions,
   CREATE_TODO,
