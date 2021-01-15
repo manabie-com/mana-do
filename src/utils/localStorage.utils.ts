@@ -2,7 +2,11 @@
 class LocalStorageUtils {
   getItem(key: string) {
     const value = localStorage.getItem(key) || '';
-    return JSON.parse(value);
+    try {
+      return JSON.parse(value);
+    } catch (error) {
+      return value;
+    }
   }
   setItem(key: string, value: any) {
     const valueJson = JSON.stringify(value);

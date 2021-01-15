@@ -1,5 +1,4 @@
 import React, { useEffect, useReducer, useState } from 'react';
-import { RouteComponentProps } from 'react-router-dom';
 import Column from '../../components/Layouts/Column';
 import TextWarning from '../../components/Text/TextWarning';
 import { TodoFilters } from '../../models/todo';
@@ -17,7 +16,7 @@ import {
 import reducer, { initialState } from './store/reducer';
 
 
-const ToDoPage = ({ history }: RouteComponentProps) => {
+const ToDoPage = () => {
   const [{ todos }, dispatch] = useReducer(reducer, initialState);
   useEffect(() => {
     (async () => {
