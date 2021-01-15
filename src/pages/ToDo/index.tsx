@@ -11,6 +11,7 @@ import {
   createTodo,
   deleteAllTodos, deleteTodo, setTodos,
   toggleAllTodos,
+  updateTodo,
   updateTodoStatus
 } from './store/actions';
 import reducer, { initialState } from './store/reducer';
@@ -25,9 +26,13 @@ const ToDoPage = () => {
     })()
   }, [])
 
-  const onCreateTodo = async (todo: string) => {
-    const resp = await Service.createTodo(todo);
+  const onCreateTodo = async (content: string) => {
+    const resp = await Service.createTodo(content);
     dispatch(createTodo(resp));
+  }
+  const onUpdateTodo = async (todoId: string, content: string) => {
+    await Service.updateTodo(todoId, content);
+    dispatch(updateTodo(todoId, content));
   }
   const onUpdateTodoStatus = async (e: React.ChangeEvent<HTMLInputElement>, todoId: string) => {
     const checked = e.target.checked;
@@ -66,6 +71,7 @@ const ToDoPage = () => {
           filter={todoFilter}
           onDeleteTodo={onDeleteTodo}
           onUpdateTodoStatus={onUpdateTodoStatus}
+          onUpdateTodo={onUpdateTodo}
         />
         : <TextWarning>You do not have any todos yet!</TextWarning>
       }

@@ -1,21 +1,21 @@
 import React from 'react';
-import ButtonConfirm from '../../../components/Buttons/ButtonConfirm';
-import CheckBox from '../../../components/Inputs/CheckBox';
-import Box from '../../../components/Layouts/Box';
-import Column from '../../../components/Layouts/Column';
-import Row from '../../../components/Layouts/Row';
-import TextNormal from '../../../components/Text/TextNormal';
-import TextWarning from '../../../components/Text/TextWarning';
-import { Todo, TodoFilters, TodoStatus } from '../../../models/todo';
-import { isTodoCompleted } from '../../../utils';
-
+import ButtonConfirm from '../../../../components/Buttons/ButtonConfirm';
+import CheckBox from '../../../../components/Inputs/CheckBox';
+import Box from '../../../../components/Layouts/Box';
+import Column from '../../../../components/Layouts/Column';
+import Row from '../../../../components/Layouts/Row';
+import TextWarning from '../../../../components/Text/TextWarning';
+import { Todo, TodoFilters, TodoStatus } from '../../../../models/todo';
+import { isTodoCompleted } from '../../../../utils';
+import TodoItem from './TodoItem';
 const FilteredTodoList = (props: {
   todos: Todo[]
   filter: TodoFilters
   onUpdateTodoStatus: (e: React.ChangeEvent<HTMLInputElement>, todoId: string) => void
+  onUpdateTodo: (todoId: string, newContent: string) => void
   onDeleteTodo: (todoId: string) => void
 }) => {
-  const { todos, filter, onUpdateTodoStatus, onDeleteTodo } = props;
+  const { todos, filter, onUpdateTodoStatus, onDeleteTodo, onUpdateTodo } = props;
 
   const shownTodos = todos.filter((todo) => {
     switch (filter) {
@@ -30,10 +30,12 @@ const FilteredTodoList = (props: {
     }
   });
 
+  console.table(shownTodos);
   return <Column>
     {
       shownTodos?.length
         ? shownTodos.map((todo, index) => {
+          console.log('printing ', todo.content);
           return (
             <Row key={index}>
               <CheckBox
@@ -41,11 +43,11 @@ const FilteredTodoList = (props: {
                 onChange={(e) => onUpdateTodoStatus(e, todo.id)}
               />
               <Box fullWidth>
-                <TextNormal >{todo.content}</TextNormal>
+                <TodoItem todo={todo} onUpdateTodo={onUpdateTodo} />
               </Box>
               <ButtonConfirm onClick={() => onDeleteTodo(todo.id)}>
                 X
-          </ButtonConfirm>
+              </ButtonConfirm>
             </Row>
           );
         })
