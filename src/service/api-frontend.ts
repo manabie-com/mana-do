@@ -61,11 +61,12 @@ class ApiFrontend extends IAPI {
     async updateTodo(todoId: string, content: string) {
         const todos = localStorageUtils.getItem(LOCAL_STORAGE_TODO_KEY) as Todo[];
         const newTodos = todos.map(todo => {
-            if (todoId === todo.id) return todo;
-            else return {
-                ...todo,
-                content,
-            }
+            if (todoId === todo.id) {
+                return {
+                    ...todo,
+                    content,
+                }
+            } else return todo;
         });
         localStorageUtils.setItem(LOCAL_STORAGE_TODO_KEY, newTodos);
         return Promise.resolve(newTodos);
