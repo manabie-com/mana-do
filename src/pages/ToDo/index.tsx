@@ -19,7 +19,6 @@ import TodoForm from './sections/TodoForm';
 
 const ToDoPage = ({ history }: RouteComponentProps) => {
   const [{ todos }, dispatch] = useReducer(reducer, initialState);
-
   useEffect(() => {
     (async () => {
       const resp = await Service.getTodos();
@@ -27,45 +26,51 @@ const ToDoPage = ({ history }: RouteComponentProps) => {
     })()
   }, [])
 
-  const dispatchUpdateTodoStatus = (e: React.ChangeEvent<HTMLInputElement>, todoId: string) => {
-    dispatch(updateTodoStatus(todoId, e.target.checked))
+  const onCreateTodo = async (todo: string) => {
+    const resp = await Service.createTodo(todo);
+    dispatch(createTodo(resp));
   }
-
-  const dispatchToggleAllTodo = (status: boolean) => {
-    dispatch(toggleAllTodos(status))
+  const onUpdateTodoStatus = async (e: React.ChangeEvent<HTMLInputElement>, todoId: string) => {
+    const checked = e.target.checked;
+    await Service.updateTodoStatus(todoId, checked);
+    dispatch(updateTodoStatus(todoId, checked));
   }
-
-  const dispatchDeleteTodo = (todoId: string) => {
-    dispatch(deleteTodo(todoId))
+  const onToggleAllTodo = async (checked: boolean) => {
+    await Service.toggleAllTodos(checked);
+    dispatch(toggleAllTodos(checked));
   }
-  const dispatchDeleteAllTodo = () => {
+  const onDeleteTodo = async (todoId: string) => {
+    await Service.deleteTodo(todoId);
+    dispatch(deleteTodo(todoId));
+  }
+  const onDeleteAllTodo = async () => {
+    await Service.deleteAllTodos();
     dispatch(deleteAllTodos());
   }
 
-  // Lifted states
   const [todoFilter, setTodoFilter] = useState<TodoFilters>(TodoFilters.ALL);
 
   return (
     <Column m={12}>
-      <TodoForm onSuccess={todo => dispatch(createTodo(todo))} />
+      <TodoForm onCreateTodo={onCreateTodo} />
 
       <TodoFiltersList filter={todoFilter} setTodoFilter={setTodoFilter} />
 
+      <TodoActions
+        todos={todos}
+        onDeleteAllTodo={onDeleteAllTodo}
+        onToggleAllTodo={onToggleAllTodo}
+      />
       {todos.length
         ? <FilteredTodoList
           todos={todos}
           filter={todoFilter}
-          onDeleteTodo={dispatchDeleteTodo}
-          onUpdateTodoStatus={dispatchUpdateTodoStatus}
+          onDeleteTodo={onDeleteTodo}
+          onUpdateTodoStatus={onUpdateTodoStatus}
         />
         : <TextWarning>You do not have any todos yet!</TextWarning>
       }
 
-      <TodoActions
-        todos={todos}
-        onDeleteAllTodo={dispatchDeleteAllTodo}
-        onToggleAllTodo={dispatchToggleAllTodo}
-      />
     </Column>
   );
 };

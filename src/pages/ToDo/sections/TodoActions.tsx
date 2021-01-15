@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import ButtonConfirm from '../../../components/Buttons/ButtonConfirm';
+import CheckBox from '../../../components/Inputs/CheckBox';
 import Row from '../../../components/Layouts/Row';
 import { Todo } from '../../../models/todo';
 import { isTodoCompleted } from '../../../utils';
@@ -17,19 +18,16 @@ const TodoActions = (props:
     return isTodoCompleted(todo) ? accum : accum + 1;
   }, 0);
 
-  const [isButtonActivatingTodos, setIsButtonActivatingTodos] = useState(true);
-
   return <Row>
     {todos.length > 0
       ?
-      <ButtonConfirm onClick={() => {
-        onToggleAllTodo(isButtonActivatingTodos);
-        setIsButtonActivatingTodos(!isButtonActivatingTodos)
-      }} >
-        {activeTodos > 0 ? 'Complete' : 'Active'} all todos
-      </ButtonConfirm>
+      <CheckBox
+        checked={activeTodos === 0}
+        onChange={(e) => onToggleAllTodo(e.target.checked)}
+      />
       : <div />
     }
+
     <ButtonConfirm onClick={onDeleteAllTodo} >
       Clear all todos
     </ButtonConfirm>

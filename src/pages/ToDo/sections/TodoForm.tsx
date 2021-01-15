@@ -3,11 +3,9 @@ import { useHistory } from 'react-router-dom';
 import FormBasic from '../../../components/Forms/FormBasic';
 import InputSingle from '../../../components/Inputs/InputSingle';
 import Row from '../../../components/Layouts/Row';
-import { Todo } from '../../../models/todo';
-import Service from '../../../service';
 
 const TodoForm = (props:
-  { onSuccess: (todo: Todo) => void }
+  { onCreateTodo: (todo: string) => void }
 ) => {
   const history = useHistory();
   const [todo, setTodo] = useState('');
@@ -20,8 +18,7 @@ const TodoForm = (props:
     event.preventDefault();
     if (todo.trim().length) {
       try {
-        const resp = await Service.createTodo(todo);
-        props.onSuccess(resp);
+        props.onCreateTodo(todo);
         setTodo('');
       } catch (e) {
         if (e.response.status === 401) {

@@ -1,6 +1,6 @@
-import {Todo} from "../models/todo";
+import { Todo } from "../models/todo";
 
-export const SET_TODO = 'SET_TODO';
+export const SET_TODOS = 'SET_TODOS';
 export const CREATE_TODO = 'CREATE_TODO';
 export const DELETE_TODO = 'DELETE_TODO';
 export const DELETE_ALL_TODOS = 'DELETE_ALL_TODOS';
@@ -9,13 +9,13 @@ export const UPDATE_TODO_STATUS = 'UPDATE_TODO_STATUS';
 
 
 export interface SetTodoAction {
-  type: typeof SET_TODO,
+  type: typeof SET_TODOS,
   payload: Array<Todo>
 }
 
 export function setTodos(todos: Array<Todo>): SetTodoAction {
   return {
-    type: SET_TODO,
+    type: SET_TODOS,
     payload: todos
   }
 }
