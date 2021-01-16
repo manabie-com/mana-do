@@ -6,7 +6,7 @@ const RulerHorizontal = (props:
 ) => {
   const style: React.CSSProperties = {
     width: '100%',
-    color: colorPalete.onSurface,
+    borderTop: `1px solid ${colorPalete.onSurface}`,
     margin: '1px',
   }
   return <hr style={style} />
