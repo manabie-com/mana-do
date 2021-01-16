@@ -37,8 +37,8 @@ const FilteredTodoList = (props: {
       shownTodos?.length
         ? shownTodos.map((todo, index) => {
           return (
-            <Column>
-              <Row key={index}>
+            <Column key={index}>
+              <Row>
                 <Center>
                   <CheckBox
                     checked={isTodoCompleted(todo)}
