@@ -16,21 +16,21 @@ const TodoFiltersList = (props: {
         value={TodoFilters.ALL}
         checked={filter === TodoFilters.ALL}
         onChange={() => setTodoFilter(TodoFilters.ALL)}
-        label="All"
+        label="All &#10000;"
       />
       <FilterItem
         name="Active"
         value={TodoFilters.ACTIVE}
         checked={filter === TodoFilters.ACTIVE}
         onChange={() => setTodoFilter(TodoFilters.ACTIVE)}
-        label="Active"
+        label="Active &#10006;"
       />
       <FilterItem
         name="Completed"
         value={TodoFilters.COMPLETED}
         checked={filter === TodoFilters.COMPLETED}
         onChange={() => setTodoFilter(TodoFilters.COMPLETED)}
-        label="Completed"
+        label="Completed 	&#10004;"
       />
     </Row>
   </Center>
