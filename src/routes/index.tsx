@@ -31,6 +31,7 @@ export const AppRoutes = () => {
         key={route.name}
         exact={true}
         path={route.path}
+        name={route.name}
         component={route.component}
       />
     ))}
