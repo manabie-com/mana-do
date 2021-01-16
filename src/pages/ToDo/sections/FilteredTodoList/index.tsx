@@ -5,6 +5,7 @@ import Box from '../../../../components/Layouts/Box';
 import Center from '../../../../components/Layouts/Center';
 import Column from '../../../../components/Layouts/Column';
 import Row from '../../../../components/Layouts/Row';
+import RulerHorizontal from '../../../../components/Ruler/RulerHorizontal';
 import TextWarning from '../../../../components/Text/TextWarning';
 import { Todo, TodoFilters, TodoStatus } from '../../../../models/todo';
 import { isTodoCompleted } from '../../../../utils';
@@ -36,20 +37,23 @@ const FilteredTodoList = (props: {
       shownTodos?.length
         ? shownTodos.map((todo, index) => {
           return (
-            <Row key={index}>
-              <Center>
-                <CheckBox
-                  checked={isTodoCompleted(todo)}
-                  onChange={(e) => onUpdateTodoStatus(e, todo.id)}
-                />
-              </Center>
-              <Box fullWidth>
-                <TodoItem todo={todo} onUpdateTodo={onUpdateTodo} />
-              </Box>
-              <ButtonNegative onClick={() => onDeleteTodo(todo.id)}>
-                Remove
+            <Column>
+              <Row key={index}>
+                <Center>
+                  <CheckBox
+                    checked={isTodoCompleted(todo)}
+                    onChange={(e) => onUpdateTodoStatus(e, todo.id)}
+                  />
+                </Center>
+                <Box fullWidth>
+                  <TodoItem todo={todo} onUpdateTodo={onUpdateTodo} />
+                </Box>
+                <ButtonNegative onClick={() => onDeleteTodo(todo.id)}>
+                  Remove
               </ButtonNegative>
-            </Row>
+              </Row>
+              <RulerHorizontal />
+            </Column>
           );
         })
         : <TextWarning>You do not have any todo that matches this filter</TextWarning>

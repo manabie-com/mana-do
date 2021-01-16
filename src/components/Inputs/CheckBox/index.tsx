@@ -4,8 +4,8 @@ import { calcSpacing } from '../../../utils/spacing.utils';
 
 const CheckBox = (props: React.InputHTMLAttributes<HTMLInputElement>) => {
   const style: React.CSSProperties = {
-    width: calcSpacing(4),
-    height: calcSpacing(4),
+    width: calcSpacing(3),
+    height: calcSpacing(3),
     border: `3px solid ${colorPalete.primary}`,
     margin: 0
   }
