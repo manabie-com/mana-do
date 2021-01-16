@@ -23,7 +23,7 @@ const TodoFiltersList = (props: {
         value={TodoFilters.ACTIVE}
         checked={filter === TodoFilters.ACTIVE}
         onChange={() => setTodoFilter(TodoFilters.ACTIVE)}
-        label="Active &#10006;"
+        label="Active &#10132;"
       />
       <FilterItem
         name="Completed"
