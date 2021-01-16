@@ -31,6 +31,7 @@ const TodoForm = (props:
   return <Row fullWidth>
     <FormBasic fullWidth onSubmit={onSubmitTodo} >
       <InputSingle
+        type='multiple'
         fullWidth
         placeholder="What needs to be done?"
         value={todo}

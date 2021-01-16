@@ -1,13 +1,16 @@
 import React from 'react';
 import Box from '../../components/Layouts/Box';
+import Center from '../../components/Layouts/Center';
 import { colorPalete } from '../../utils/colors.utils';
 
-const withBackgroundColor = (WrappedComponent: React.FC, name?: string): () => JSX.Element => {
+const withPageName = (WrappedComponent: React.FC, name?: string): () => JSX.Element => {
   return (): JSX.Element => {
     return (
-      <div style={{ backgroundColor: colorPalete.background }}>
-        <Box m={10}>
-          <h1 style={{ color: colorPalete.onSurface }}>{name} Page</h1>
+      <div >
+        <Box m={6}>
+          <Center>
+            <h1 style={{ color: colorPalete.onSurface }}>{name} Page</h1>
+          </Center>
         </Box>
         <WrappedComponent />
       </div>
@@ -15,4 +18,4 @@ const withBackgroundColor = (WrappedComponent: React.FC, name?: string): () => J
   };
 };
 
-export default withBackgroundColor;
+export default withPageName;
