@@ -1,5 +1,6 @@
 import React, { useEffect, useReducer, useState } from 'react';
 import Column from '../../components/Layouts/Column';
+import Container from '../../components/Layouts/Container';
 import TextWarning from '../../components/Text/TextWarning';
 import { TodoFilters } from '../../models/todo';
 import Service from '../../service';
@@ -19,12 +20,17 @@ import reducer, { initialState } from './store/reducer';
 
 const ToDoPage = () => {
   const [{ todos }, dispatch] = useReducer(reducer, initialState);
+
   useEffect(() => {
+    let mounted = true;
     (async () => {
       const resp = await Service.getTodos();
-      dispatch(setTodos(resp || []));
-    })()
-  }, [])
+      if (mounted) dispatch(setTodos(resp || []));
+    })();
+    return () => {
+      mounted = false
+    }
+  }, []);
 
   const onCreateTodo = async (content: string) => {
     const resp = await Service.createTodo(content);
@@ -54,8 +60,8 @@ const ToDoPage = () => {
 
   const [todoFilter, setTodoFilter] = useState<TodoFilters>(TodoFilters.ALL);
 
-  return (
-    <Column m={12}>
+  return <Container breakpoint='sm'>
+    <Column p={2} g={1}>
       <TodoForm onCreateTodo={onCreateTodo} />
 
       <TodoFiltersList filter={todoFilter} setTodoFilter={setTodoFilter} />
@@ -77,7 +83,7 @@ const ToDoPage = () => {
       }
 
     </Column>
-  );
+  </Container>
 };
 
 export default ToDoPage;

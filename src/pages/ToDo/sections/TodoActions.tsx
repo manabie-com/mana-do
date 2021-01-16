@@ -1,6 +1,7 @@
 import React from 'react';
-import ButtonConfirm from '../../../components/Buttons/ButtonConfirm';
+import ButtonNeutral from '../../../components/Buttons/ButtonNeutral';
 import CheckBox from '../../../components/Inputs/CheckBox';
+import Center from '../../../components/Layouts/Center';
 import Row from '../../../components/Layouts/Row';
 import { Todo } from '../../../models/todo';
 import { isTodoCompleted } from '../../../utils';
@@ -21,16 +22,18 @@ const TodoActions = (props:
   return <Row>
     {todos.length > 0
       ?
-      <CheckBox
-        checked={activeTodos === 0}
-        onChange={(e) => onToggleAllTodo(e.target.checked)}
-      />
+      <Center>
+        <CheckBox
+          checked={activeTodos === 0}
+          onChange={(e) => onToggleAllTodo(e.target.checked)}
+        />
+      </Center>
       : <div />
     }
 
-    <ButtonConfirm onClick={onDeleteAllTodo} >
+    <ButtonNeutral onClick={onDeleteAllTodo} >
       Clear all todos
-    </ButtonConfirm>
+    </ButtonNeutral>
   </Row>
 
 }

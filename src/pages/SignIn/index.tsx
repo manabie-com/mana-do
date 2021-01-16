@@ -1,13 +1,11 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import ButtonConfirm from '../../components/Buttons/ButtonConfirm';
+import ButtonNeutral from '../../components/Buttons/ButtonNeutral';
 import FormBasic from '../../components/Forms/FormBasic';
 import InputSingle from '../../components/Inputs/InputSingle';
 import LabelForm from '../../components/Labels/LabelForm';
 import Center from '../../components/Layouts/Center';
 import Column from '../../components/Layouts/Column';
-import FullHeight from '../../components/Layouts/FullHeight';
-import Row from '../../components/Layouts/Row';
 import Service from '../../service';
 const SignInPage = () => {
   const [form, setForm] = useState({
@@ -33,43 +31,43 @@ const SignInPage = () => {
   }
 
   return (
-    <FullHeight fullWidth>
-      <Center fullWidth>
-        <FormBasic onSubmit={signIn}>
-          <Column g={2}>
-            <Row fullWidth>
-              <LabelForm htmlFor="user_id" label="User ID" />
-              <InputSingle
-                id="user_id"
-                name="userId"
-                value={form.userId}
-                onChange={onChangeField}
-              />
-            </Row>
-
-            <Row fullWidth>
-              <LabelForm htmlFor="password" label="Password" />
-              <InputSingle
-                id="password"
-                name="password"
-                type="password"
-                value={form.password}
-                onChange={onChangeField}
-              />
-            </Row>
-
-            <Row fullWidth>
-              <Center fullWidth>
-                <ButtonConfirm type="submit">
-                  Sign In
-                </ButtonConfirm>
-              </Center>
-            </Row>
+    <Center fullWidth>
+      <FormBasic onSubmit={signIn}>
+        <Column g={2}>
+          <Column fullWidth g={1}>
+            <LabelForm htmlFor="user_id" label="User ID" />
+            <InputSingle
+              placeholder='Enter your username...'
+              id="user_id"
+              name="userId"
+              value={form.userId}
+              onChange={onChangeField}
+            />
           </Column>
 
-        </FormBasic>
-      </Center>
-    </FullHeight>
+          <Column fullWidth g={1}>
+            <LabelForm htmlFor="password" label="Password" />
+            <InputSingle
+              placeholder='Enter your password'
+              id="password"
+              name="password"
+              type="password"
+              value={form.password}
+              onChange={onChangeField}
+            />
+          </Column>
+
+          <Column fullWidth>
+            <Center fullWidth>
+              <ButtonNeutral type="submit">
+                Sign In
+                </ButtonNeutral>
+            </Center>
+          </Column>
+        </Column>
+
+      </FormBasic>
+    </Center>
   );
 };
 

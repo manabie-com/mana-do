@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import FormBasic from '../../../../components/Forms/FormBasic';
 import InputSingle from '../../../../components/Inputs/InputSingle';
+import Box from '../../../../components/Layouts/Box';
 import Row from '../../../../components/Layouts/Row';
 import TextNormal from '../../../../components/Text/TextNormal';
 import Clickable from '../../../../components/Wrappers/Clickable';
@@ -54,7 +55,9 @@ const TodoItem = (props:
       </FormBasic>
     </Row>
     : <Clickable onClick={() => setIsUpdating(true)}>
-      <TextNormal >{todoContent}</TextNormal>
+      <Box p={1}>
+        <TextNormal fontSize="medium">{todoContent}</TextNormal>
+      </Box>
     </Clickable>
 }
 

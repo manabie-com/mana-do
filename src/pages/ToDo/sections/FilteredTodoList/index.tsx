@@ -1,7 +1,8 @@
 import React from 'react';
-import ButtonConfirm from '../../../../components/Buttons/ButtonConfirm';
+import ButtonNegative from '../../../../components/Buttons/ButtonNegative';
 import CheckBox from '../../../../components/Inputs/CheckBox';
 import Box from '../../../../components/Layouts/Box';
+import Center from '../../../../components/Layouts/Center';
 import Column from '../../../../components/Layouts/Column';
 import Row from '../../../../components/Layouts/Row';
 import TextWarning from '../../../../components/Text/TextWarning';
@@ -30,24 +31,24 @@ const FilteredTodoList = (props: {
     }
   });
 
-  console.table(shownTodos);
-  return <Column>
+  return <Column g={1}>
     {
       shownTodos?.length
         ? shownTodos.map((todo, index) => {
-          console.log('printing ', todo.content);
           return (
             <Row key={index}>
-              <CheckBox
-                checked={isTodoCompleted(todo)}
-                onChange={(e) => onUpdateTodoStatus(e, todo.id)}
-              />
+              <Center>
+                <CheckBox
+                  checked={isTodoCompleted(todo)}
+                  onChange={(e) => onUpdateTodoStatus(e, todo.id)}
+                />
+              </Center>
               <Box fullWidth>
                 <TodoItem todo={todo} onUpdateTodo={onUpdateTodo} />
               </Box>
-              <ButtonConfirm onClick={() => onDeleteTodo(todo.id)}>
-                X
-              </ButtonConfirm>
+              <ButtonNegative onClick={() => onDeleteTodo(todo.id)}>
+                Remove
+              </ButtonNegative>
             </Row>
           );
         })
