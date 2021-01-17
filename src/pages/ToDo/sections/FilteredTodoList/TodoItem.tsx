@@ -5,7 +5,7 @@ import InputSingle from '../../../../components/Inputs/InputSingle';
 import Box from '../../../../components/Layouts/Box';
 import Row from '../../../../components/Layouts/Row';
 import TextNormal from '../../../../components/Text/TextNormal';
-import Clickable from '../../../../components/Wrappers/Clickable';
+import DoubleClickable from '../../../../components/Wrappers/DoubleClickable';
 import { Todo } from '../../../../models/todo';
 
 const TodoItem = (props:
@@ -54,11 +54,11 @@ const TodoItem = (props:
         />
       </FormBasic>
     </Row>
-    : <Clickable onClick={() => setIsUpdating(true)}>
+    : <DoubleClickable onDoubleClick={() => setIsUpdating(true)}>
       <Box p={1}>
         <TextNormal fontSize="medium">{todoContent}</TextNormal>
       </Box>
-    </Clickable>
+    </DoubleClickable>
 }
 
 export default TodoItem;
