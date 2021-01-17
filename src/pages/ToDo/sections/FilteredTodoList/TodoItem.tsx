@@ -40,11 +40,11 @@ const TodoItem = (props:
 
   return isUpdating
     ? <Row fullWidth>
-      <FormBasic fullWidth onSubmit={onSubmitTodo} >
+      <FormBasic fullWidth onSubmit={onSubmitTodo} data-testid='form-update-todo'>
         <InputSingle
           autoFocus={true}
           fullWidth
-          placeholder="What needs to be done?"
+          placeholder="Enter new todo..."
           value={todoContent}
           onChange={onChangeTodo}
           onBlur={() => {

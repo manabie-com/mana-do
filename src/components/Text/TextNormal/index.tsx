@@ -9,7 +9,7 @@ const TextNormal = (props:
     fontSize?: FontSize
   }
 ) => {
-  const { children, display, fontSize } = props;
+  const { children, display, fontSize, ...rest } = props;
   const style: React.CSSProperties = {
     margin: 0,
     fontWeight: 'bold',
@@ -17,7 +17,7 @@ const TextNormal = (props:
     fontSize: calcFontSize(fontSize),
     display,
   }
-  return <p style={style}>
+  return <p style={style} {...rest}>
     {children}
   </p>
 }

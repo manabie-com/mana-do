@@ -29,9 +29,9 @@ const TodoForm = (props:
   }
 
   return <Row fullWidth>
-    <FormBasic fullWidth onSubmit={onSubmitTodo} >
+    <FormBasic fullWidth onSubmit={onSubmitTodo} data-testid="form-create-todo">
       <InputSingle
-        type='multiple'
+        type='text'
         fullWidth
         placeholder="What needs to be done?"
         value={todo}
