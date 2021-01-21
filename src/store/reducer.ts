@@ -1,64 +1,82 @@
-import {Todo, TodoStatus} from '../models/todo';
+import { Todo, TodoStatus } from "../models/todo";
 import {
   AppActions,
+  SET_TODO,
   CREATE_TODO,
   DELETE_ALL_TODOS,
   DELETE_TODO,
   TOGGLE_ALL_TODOS,
-  UPDATE_TODO_STATUS
-} from './actions';
+  UPDATE_TODO_STATUS,
+  UPDATE_TODO_CONTENT,
+} from "./actions";
 
 export interface AppState {
-  todos: Array<Todo>
+  todos: Array<Todo>;
 }
 
 export const initialState: AppState = {
-  todos: []
-}
+  todos: [],
+};
 
 function reducer(state: AppState, action: AppActions): AppState {
   switch (action.type) {
-    case CREATE_TODO:
-      state.todos.push(action.payload);
+    case SET_TODO:
       return {
-        ...state
+        ...state,
+        todos: [...action.payload],
       };
-
+    case CREATE_TODO:
+      return {
+        ...state,
+        todos: [...state.todos, action.payload],
+      };
     case UPDATE_TODO_STATUS:
-      const index2 = state.todos.findIndex((todo) => todo.id === action.payload.todoId);
-      state.todos[index2].status = action.payload.checked ? TodoStatus.COMPLETED : TodoStatus.ACTIVE;
-
       return {
         ...state,
-        todos: state.todos
-      }
-
+        todos: state.todos.map((todo: Todo) => {
+          if (todo.id === action.payload.todoId) {
+            return Object.assign({}, todo, {
+              status: action.payload.checked
+                ? TodoStatus.COMPLETED
+                : TodoStatus.ACTIVE,
+            });
+          }
+          return todo;
+        }),
+      };
+    case UPDATE_TODO_CONTENT:
+      return {
+        ...state,
+        todos: state.todos.map((todo: Todo) => {
+          if (todo.id === action.payload.todoId) {
+            return Object.assign({}, todo, {
+              content: action.payload.content,
+            });
+          }
+          return todo;
+        }),
+      };
     case TOGGLE_ALL_TODOS:
-      const tempTodos = state.todos.map((e)=>{
-        return {
-          ...e,
-          status: action.payload ? TodoStatus.COMPLETED : TodoStatus.ACTIVE
-        }
-      })
-
       return {
         ...state,
-        todos: tempTodos
-      }
-
+        todos: state.todos.map((todo: Todo) => {
+          return Object.assign({}, todo, {
+            status: action.payload ? TodoStatus.COMPLETED : TodoStatus.ACTIVE,
+          });
+        }),
+      };
     case DELETE_TODO:
-      const index1 = state.todos.findIndex((todo) => todo.id === action.payload);
-      state.todos.splice(index1, 1);
-
       return {
         ...state,
-        todos: state.todos
-      }
+        todos: state.todos.filter((todo: Todo) => {
+          return todo.id !== action.payload;
+        }),
+      };
     case DELETE_ALL_TODOS:
       return {
         ...state,
-        todos: []
-      }
+        todos: [],
+      };
     default:
       return state;
   }

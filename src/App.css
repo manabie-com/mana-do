@@ -1,21 +1,17 @@
+h1 {
+  margin: 0;
+}
+
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+}
+
 .App {
   text-align: center;
   display: flex;
   justify-content: center;
-}
-
-button {
-  outline: none;
-  border: none;
-  box-shadow: 2px 0 2px currentColor;
-  border-radius: 4px;
-  min-height: 32px;
-  min-width: 80px;
-  padding: 4px 8px;
-}
-
-button:hover {
-  opacity: 0.85;
 }
 
 input[type="checkbox"] {
@@ -37,22 +33,21 @@ input {
   border: none;
   outline: none;
   padding: 0 12px;
-  box-shadow: 2px 0 4px rgba(0,0,0, 0.2);
+  box-shadow: 2px 0 4px rgba(0, 0, 0, 0.2);
   border-radius: 4px;
 }
 
 input:focus {
-  box-shadow: 1px 0 9px rgba(0,0,0, 0.25);
+  box-shadow: 1px 0 9px rgba(0, 0, 0, 0.25);
 }
 
 .ToDo__container {
-  border: 1px solid rgba(0,0,0, 0.13);
+  border: 1px solid rgba(0, 0, 0, 0.13);
   border-radius: 8px;
   width: 500px;
   margin-top: 5rem;
   padding: 24px;
-  box-shadow: 2px 2px 1px rgba(0,0,0, 0.09),
-              3px 2px 3px rgba(0,0,0, 0.05);
+  box-shadow: 2px 2px 1px rgba(0, 0, 0, 0.09), 3px 2px 3px rgba(0, 0, 0, 0.05);
 }
 
 .Todo__creation {
@@ -100,7 +95,8 @@ input:focus {
   cursor: pointer;
 }
 
-.Todo__action, .Todo__delete {
+.Todo__action,
+.Todo__delete {
   width: 24px;
   height: 24px;
   flex-shrink: 0;
@@ -121,5 +117,233 @@ input:focus {
   margin-right: 8px;
 }
 
-.Action__btn {
+/* Start Spinner */
+.spinner {
+  width: 96px;
+  height: 96px;
+  border-top: 8px solid #3ac882;
+  border-bottom: 8px solid #3ab882;
+  border-left: 8px solid #3ab882;
+  border-right: 8px solid rgba(0, 0, 0, 0);
+  border-radius: 50%;
+  animation-name: spin;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
 }
+.spinner__wrapper {
+  height: 100vh;
+  width: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+/* End Spinner */
+
+/* Start SignIn Page */
+.signin-page {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.signin-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100%;
+  z-index: -1;
+}
+.signin-form {
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.2);
+  width: 40%;
+  max-width: 460px;
+  padding: 36px 48px 54px 48px;
+  border-radius: 30px;
+  position: relative;
+  z-index: 1;
+  backdrop-filter: blur(40px);
+  border: solid 2px transparent;
+  background-clip: padding-box;
+  box-shadow: 10px 10px 10px rgba(46, 54, 68, 0.03);
+}
+.form-title {
+  margin-bottom: 16px;
+}
+.form-group {
+  width: 100%;
+}
+.form-group .form-label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0px;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+.form-group .form-input {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  line-height: 1.5;
+  border-radius: 5px;
+}
+.form-button {
+  width: 100%;
+  padding: 8px 16px;
+  background-color: #0d6efd;
+  border: 1px solid #0d6efd;
+  border-radius: 5px;
+  color: #fff;
+  font-size: 20px;
+  line-height: 1.5;
+  cursor: pointer;
+}
+.form-button:hover,
+.form-button:active {
+  background-color: #0b5ed7;
+  border-color: #0a58ca;
+}
+.form-button:focus {
+  color: #fff;
+  background-color: #0b5ed7;
+  border-color: #0a58ca;
+  box-shadow: 0 0 0 0.25rem rgba(49, 132, 253, 0.5);
+  outline: none;
+}
+.form-error {
+  font-size: 14px;
+  text-align: left;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  color: #b50000;
+  position: relative;
+  padding-left: 10px;
+}
+.form-error::before {
+  display: block;
+  content: "*";
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+/* End SignIn Page */
+/* Start Todo Page */
+/* Todo Item =================== */
+.ToDo__item {
+  position: relative;
+  height: 56.25px;
+}
+.ToDo__item .ToDo__state {
+  position: absolute;
+  top: -10px;
+  left: 9px;
+  z-index: 1;
+  width: 33.75px;
+  height: 33.75px;
+  opacity: 0;
+}
+.ToDo__item .ToDo__text {
+  color: #135156;
+  transition: all 0.4s linear 0.4s;
+  width: 100%;
+  text-align: left;
+  margin-left: 65px;
+}
+.ToDo__item .ToDo__icon {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: auto;
+  margin: auto;
+
+  fill: none;
+  stroke: #27fdc7;
+  stroke-width: 2;
+  stroke-linejoin: round;
+}
+.ToDo__item .ToDo__box,
+.ToDo__item .ToDo__check {
+  transition: stroke-dashoffset 0.8s cubic-bezier(0.9, 0, 0.5, 1);
+}
+.ToDo__item .ToDo__circle {
+  stroke: #27fdc7;
+  stroke-dasharray: 1 6;
+  stroke-width: 0;
+
+  transform-origin: 13.5px 12.5px;
+  transform: scale(0.4) rotate(0deg);
+  animation: none 0.8s linear;
+}
+.ToDo__item .ToDo__box {
+  stroke-dasharray: 56.1053, 56.1053;
+  stroke-dashoffset: 0;
+  transition-delay: 0.16s;
+}
+.ToDo__item .ToDo__check {
+  stroke: #27fdc7;
+  stroke-dasharray: 9.8995, 9.8995;
+  stroke-dashoffset: 9.8995;
+  transition-duration: 0.32s;
+}
+
+.ToDo__item .ToDo__circle {
+  animation-delay: 0.56s;
+  animation-duration: 0.56s;
+}
+.ToDo__item .ToDo__state:checked ~ .ToDo__text {
+  transition-delay: 0s;
+  color: #5ebec1;
+  opacity: 0.6;
+}
+.ToDo__item .ToDo__state:checked ~ .ToDo__icon .ToDo__box {
+  stroke-dashoffset: 56.1053;
+  transition-delay: 0s;
+}
+
+.ToDo__item .ToDo__state:checked ~ .ToDo__icon .ToDo__check {
+  stroke-dashoffset: 0;
+  transition-delay: 0.48s;
+}
+.ToDo__item .ToDo__state:checked ~ .ToDo__icon .ToDo__circle {
+  animation-name: explode;
+}
+
+/* End Todo Page */
+/* Start Utils class */
+.img-fluid {
+  height: 100%;
+  width: 100%;
+}
+/* End Utils class */
+
+/* Start Animation Definition */
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes explode {
+  30% {
+    stroke-width: 3;
+    stroke-opacity: 1;
+    transform: scale(0.8) rotate(40deg);
+  }
+  100% {
+    stroke-width: 0;
+    stroke-opacity: 0;
+    transform: scale(1.1) rotate(60deg);
+  }
+}
+/* End Animation Definition */
