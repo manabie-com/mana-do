@@ -110,13 +110,7 @@ class ApiFrontend extends IAPI {
       localStorage.setItem(MANA_KEY, JSON.stringify(ids));
       localStorage.setItem(newId, JSON.stringify(newTodo));
 
-      return Promise.resolve({
-        content: content,
-        created_date: new Date().toISOString(),
-        status: TodoStatus.ACTIVE,
-        id: shortid(),
-        user_id: "firstUser",
-      } as Todo);
+      return Promise.resolve(newTodo);
     } catch (error) {
       return Promise.reject("Can not create todo");
     }
@@ -134,6 +128,7 @@ class ApiFrontend extends IAPI {
       }
       ids = ids.filter((id) => id !== todoId);
       localStorage.removeItem(todoId);
+      localStorage.setItem(MANA_KEY, JSON.stringify(ids));
       return Promise.resolve("success");
     } catch (error) {
       return Promise.reject("Can not delete todo");

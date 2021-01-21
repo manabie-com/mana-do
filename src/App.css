@@ -242,12 +242,14 @@ input:focus {
 }
 .ToDo__item .ToDo__state {
   position: absolute;
-  top: -10px;
+  top: 50%;
+  transform: translateY(-50%);
   left: 9px;
   z-index: 1;
   width: 33.75px;
   height: 33.75px;
   opacity: 0;
+  cursor: pointer;
 }
 .ToDo__item .ToDo__text {
   color: #135156;
@@ -261,6 +263,7 @@ input:focus {
   top: 0;
   bottom: 0;
   left: 0;
+  z-index: -1;
   width: 100%;
   height: auto;
   margin: auto;
@@ -269,6 +272,7 @@ input:focus {
   stroke: #27fdc7;
   stroke-width: 2;
   stroke-linejoin: round;
+  pointer-events: none;
 }
 .ToDo__item .ToDo__box,
 .ToDo__item .ToDo__check {
