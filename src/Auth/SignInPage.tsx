@@ -1,6 +1,5 @@
 import React, { useState, useCallback, useContext } from "react";
 import { useHistory, Redirect } from "react-router-dom";
-import Service from "../service";
 import Can from "./Can";
 import authContext, { AuthConsumer } from "./authContext";
 
@@ -15,6 +14,10 @@ const SignInPage = () => {
   const signInRefactor = useCallback(
     (e) => {
       e.preventDefault();
+      if (!userId || !password) {
+        setErrorMsg("Please input your user id and password");
+        return;
+      }
       setIsLoading(true);
       handleAuthentication(userId, password, (status) => {
         if (status === "success") {

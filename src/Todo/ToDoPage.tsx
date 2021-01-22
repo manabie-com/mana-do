@@ -36,6 +36,7 @@ const ToDoPage: React.FC<Props> = () => {
 
   const onCreateTodo = async (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter" && inputRef.current) {
+      if (!inputRef.current.value) return;
       try {
         const resp = await Service.createTodo(inputRef.current.value);
         dispatch(createTodo(resp));
