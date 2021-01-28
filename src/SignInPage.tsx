@@ -1,63 +1,82 @@
-import React, {useState} from 'react';
+import React, { useEffect, useState } from "react";
 
-import {useHistory} from 'react-router-dom'
-import Service from './service'
+import { useHistory } from "react-router-dom";
+import { useImmer } from "use-immer";
+import Input from "./components/Input";
+import Service from "./service";
 
 const SignInPage = () => {
-    const [form, setForm] = useState({
-        userId: '',
-        password: ''
+  //   let _isMounted = true;
+  const [state, setState] = useImmer({
+    userId: "",
+    password: "",
+  });
+
+  //   const setStateCommon = (objects: any) => {
+  //     if (_isMounted) {
+  //       Object.keys(objects).forEach((key) => {
+  //         setState((draft) => {
+  //           draft[key] = objects[key];
+  //         });
+  //       });
+  //     }
+  //   };
+
+  //   useEffect(() => {
+  //     return () => {
+  //       _isMounted = false;
+  //     };
+  //   }, []);
+
+  const history = useHistory();
+
+  const signIn = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const resp = await Service.signIn(state.userId, state.password);
+
+    localStorage.setItem("token", resp);
+    history.push("/todo");
+  };
+
+  //   const onChangeField = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //     e.persist();
+  //     setForm((prev) => ({
+  //       ...prev,
+  //       [e.target.name]: e.target.value,
+  //     }));
+  //   };
+  const onChangeCommon = (name: string, value: string) => {
+    console.log("name, value ===>", name, value);
+    setState((draft: any) => {
+      draft[name] = value;
     });
-    const history = useHistory();
+  };
 
-    const signIn = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault()
-        const resp = await Service.signIn(form.userId, form.password)
-
-        localStorage.setItem('token', resp)
-        history.push('/todo')
-    }
-
-    const onChangeField = (e: React.ChangeEvent<HTMLInputElement>) => {
-        e.persist()
-        setForm(prev=>({
-            ...prev,
-            [e.target.name]: e.target.value
-        }))
-    }
-
-    return (
-        <div style={{marginTop: '3rem', textAlign: 'left'}}>
-            <form onSubmit={signIn}>
-                <label htmlFor="user_id">
-                    User id
-                    <input
-                        id="user_id"
-                        name="userId"
-                        value={form.userId}
-                        style={{marginTop: 12}}
-                        onChange={onChangeField}
-                    />
-                </label>
-                <br/>
-                <label htmlFor="password" >
-                    Password
-                    <input
-                        id="password"
-                        name="password"
-                        type="password"
-                        style={{marginTop: 12}}
-                        value={form.password}
-                        onChange={onChangeField}
-                    />
-                </label>
-                <br />
-                <button type="submit" style={{marginTop: 12}}>
-                    Sign in
-                </button>
-            </form>
+  return (
+    <div className="wrapper-form">
+      <form onSubmit={signIn}>
+        <span className="form-title">Sign in</span>
+        <div className="wrapper-inputs">
+          <Input
+            id="user_id"
+            name="userId"
+            placeholder="User ID"
+            value={state.userId}
+            onChange={onChangeCommon}
+          />
+          <Input
+            id="password"
+            name="password"
+            type="password"
+            placeholder="Password"
+            value={state.password}
+            onChange={onChangeCommon}
+          />
+          <button type="submit">Sign in</button>
         </div>
-    );
+      </form>
+    </div>
+  );
 };
 
 export default SignInPage;
