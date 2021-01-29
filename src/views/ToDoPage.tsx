@@ -1,19 +1,23 @@
 import React, {useEffect, useReducer, useRef, useState} from 'react';
 import {RouteComponentProps} from 'react-router-dom';
-
-import reducer, {initialState} from './store/reducer';
+import reducer, {initialState} from '../store/reducer';
 import {
     setTodos,
     createTodo,
     deleteTodo,
     toggleAllTodos,
     deleteAllTodos,
-    updateTodoStatus
-} from './store/actions';
-import Service from './service';
-import {TodoStatus} from './models/todo';
-import {isTodoCompleted} from './utils';
+    updateTodoStatus,
+    updateTodoContent
+} from '../store/actions';
+import Service from '../service';
+import {TodoStatus} from '../models/todo';
+import {isTodoCompleted} from '../utils';
 
+import {
+    ToDoItem,
+    TodoToolbar
+} from './components'
 type EnhanceTodoStatus = TodoStatus | 'ALL';
 
 
@@ -24,27 +28,39 @@ const ToDoPage = ({history}: RouteComponentProps) => {
 
     useEffect(()=>{
         (async ()=>{
+            console.log('alo')
             const resp = await Service.getTodos();
 
             dispatch(setTodos(resp || []));
+            
         })()
     }, [])
 
     const onCreateTodo = async (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter' && inputRef.current) {
-            try {
-                const resp = await Service.createTodo(inputRef.current.value);
-                dispatch(createTodo(resp));
-                inputRef.current.value = '';
-            } catch (e) {
-                if (e.response.status === 401) {
-                    history.push('/')
+            // create todo method still run even though the content on the input is empty
+            // so i add this selection statement to filter that case
+            if(inputRef.current.value.trim() !== ''){
+                try {
+                    const resp = await Service.createTodo(inputRef.current.value);
+                    dispatch(createTodo(resp));
+                    inputRef.current.value = '';
+                    // I found an error that if user complete create a todo and the value from input is reset to '', 
+                    // but if input field still have a focus status, in the next time, createTodo will dispacth twice
+                    // so that i add blur action after each createTodo 
+                    inputRef.current.blur()
+                } catch (e) {
+                    if (e.response.status === 401) {
+                        history.push('/')
+                    }
                 }
             }
+            return
         }
     }
 
     const onUpdateTodoStatus = (e: React.ChangeEvent<HTMLInputElement>, todoId: string) => {
+        console.log(e.target.checked)
         dispatch(updateTodoStatus(todoId, e.target.checked))
     }
 
@@ -55,6 +71,7 @@ const ToDoPage = ({history}: RouteComponentProps) => {
     const onDeleteAllTodo = () => {
         dispatch(deleteAllTodos());
     }
+
 
     const showTodos = todos.filter((todo) => {
         switch (showing) {
@@ -77,6 +94,7 @@ const ToDoPage = ({history}: RouteComponentProps) => {
                 <input
                     ref={inputRef}
                     className="Todo__input"
+                    style={{boxShadow:'none', border: 'none', backgroundColor: '#f0f0f0', fontSize:'21px'}}
                     placeholder="What need to be done?"
                     onKeyDown={onCreateTodo}
                 />
@@ -85,25 +103,18 @@ const ToDoPage = ({history}: RouteComponentProps) => {
                 {
                     showTodos.map((todo, index) => {
                         return (
-                            <div key={index} className="ToDo__item">
-                                <input
-                                    type="checkbox"
-                                    checked={isTodoCompleted(todo)}
-                                    onChange={(e) => onUpdateTodoStatus(e, todo.id)}
-                                />
-                                <span>{todo.content}</span>
-                                <button
-                                    className="Todo__delete"
-                                    onClick={() => dispatch(deleteTodo(todo.id))}
-                                >
-                                    X
-                                </button>
-                            </div>
+                            <ToDoItem   key={index} 
+                                        content={todo.content}
+                                        deleteTodoEvent = {() => dispatch(deleteTodo(todo.id))}
+                                        onUpdateTodoStatusEvent = {(e: React.ChangeEvent<HTMLInputElement>) => onUpdateTodoStatus(e, todo.id)}
+                                        updateTodoContentEvent = {(content: string) => {dispatch(updateTodoContent(todo.id, content))}}
+                                        isTodoCompletedEvent={isTodoCompleted(todo)}
+                                        todo={todo} />
                         );
                     })
                 }
             </div>
-            <div className="Todo__toolbar">
+            {/* <div className="Todo__toolbar">
                 {todos.length > 0 ?
                     <input
                         type="checkbox"
@@ -125,7 +136,15 @@ const ToDoPage = ({history}: RouteComponentProps) => {
                 <button className="Action__btn" onClick={onDeleteAllTodo}>
                     Clear all todos
                 </button>
-            </div>
+            </div> */}
+            <TodoToolbar    onToggleAllTodoEvent={onToggleAllTodo}
+                            onShowingAllEvent={()=>setShowing('ALL')}
+                            onShowingActiveEvent={()=>setShowing(TodoStatus.ACTIVE)}
+                            onShowingCompleteEvent={()=>setShowing(TodoStatus.COMPLETED)}
+                            onDeleteAllTodoEvent={onDeleteAllTodo}
+                            todos={todos}
+                            activeTodos={activeTodos}
+                            />
         </div>
     );
 };
