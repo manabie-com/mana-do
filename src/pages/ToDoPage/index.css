@@ -34,7 +34,13 @@
 }
 
 .Todo__content {
+  box-shadow: none;
   flex: 1 1;
+  margin: 0 1em;
+}
+
+.Todo__content:focus {
+  box-shadow: none;
 }
 
 .Todo__delete {
@@ -53,10 +59,17 @@
 }
 
 .Todo__action,
-.Todo__delete {
-  width: 24px;
-  height: 24px;
-  flex-shrink: 0;
+.Todo__delete,
+.Todo__edit {
+  /* width: 24px;
+  height: 24px; */
+  /* flex-shrink: 0; */
+  /* display: table;
+  place-items: center; */
+}
+
+.Todo__edit i {
+  font-size: 1.1rem;
 }
 
 .Todo__toolbar {
