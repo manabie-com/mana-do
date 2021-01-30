@@ -47,8 +47,5 @@
   "devDependencies": {
     "@types/react-router-dom": "^5.1.5",
     "@types/shortid": "^0.0.29"
-  },
-  "_moduleAliases": {
-    "#": "./src"
   }
 }
