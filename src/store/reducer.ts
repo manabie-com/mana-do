@@ -12,8 +12,8 @@ import {
 export interface AppState {
   todos: Array<Todo>;
 }
-
-export const initialState: AppState = {
+// localStorage.getItem('state') || 
+export const initialState : AppState = JSON.parse(localStorage.getItem('state') || '') as AppState || {
   todos: []
 };
 

@@ -1,8 +1,8 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
-import {StateInspector, useReducer} from 'reinspect'
+import { StateInspector, useReducer } from 'reinspect';
 
-import {Todo} from '../../models/todo';
+import { Todo } from '../../models/todo';
 
 import reducer, { initialState } from '../../store/reducer';
 import {
@@ -24,11 +24,19 @@ import TodoItem from 'components/TodoItem';
 type EnhanceTodoStatus = TodoStatus | 'ALL';
 
 const ToDoPage = ({ history }: RouteComponentProps) => {
-  const [{ todos }, dispatch] = useReducer(reducer, initialState, (a) => a, 'todosState');
+  const [state, dispatch] = useReducer(
+    reducer,
+    initialState,
+    (a) => a,
+    'todosState'
+  );
   const [todoInput, setTodoInput] = useState('');
   const [showing, setShowing] = useState<EnhanceTodoStatus>('ALL');
   const [editId, setEditId] = useState('');
   const inputRef = useRef<HTMLInputElement>(null);
+  const { todos } = state;
+
+  console.log(todos);
 
   useEffect(() => {
     (async () => {
@@ -37,11 +45,13 @@ const ToDoPage = ({ history }: RouteComponentProps) => {
       console.log('RUN', resp);
       dispatch(setTodos(resp || []));
     })();
+
+    // localStorage.setItem('ahihi', '456');
   }, []);
 
   const updateEditId = (id: string) => {
-    setEditId(id)
-  }
+    setEditId(id);
+  };
 
   const onCreateTodo = async (e: React.KeyboardEvent<HTMLInputElement>) => {
     const inputValue = todoInput.trim();
@@ -58,7 +68,7 @@ const ToDoPage = ({ history }: RouteComponentProps) => {
         //   created_date: '2021-01-30T14:40:29.202Z'
         // } as Todo;
         // dispatch(createTodo(todoo));
-        
+
         // Clear todo input
         setTodoInput('');
       } catch (e) {
@@ -119,8 +129,14 @@ const ToDoPage = ({ history }: RouteComponentProps) => {
       </div>
       <div className='ToDo__list'>
         {showTodos.map((todo) => {
-          const {id = '0'} = todo;
-          return <TodoItem todo={todo} updateEditId={updateEditId} edit={id === editId}/>;
+          const { id = '0' } = todo;
+          return (
+            <TodoItem
+              todo={todo}
+              updateEditId={updateEditId}
+              edit={id === editId}
+            />
+          );
           //   const { id = '123', content = '' } = todo;
           //   return (
           //     <div key={id} className='ToDo__item'>

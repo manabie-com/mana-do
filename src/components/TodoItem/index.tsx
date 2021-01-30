@@ -6,7 +6,6 @@ import { Todo } from 'models/todo';
 import { deleteTodo, updateTodo, updateTodoStatus } from 'store/actions';
 import { useReducer } from 'reinspect';
 import reducer, { initialState } from 'store/reducer';
-// import reducer, { initialState } from '@components';
 
 import './index.css';
 
@@ -86,5 +85,6 @@ const TodoItem = (props: any) => {
     </div>
   );
 };
+
 
 export default TodoItem;
