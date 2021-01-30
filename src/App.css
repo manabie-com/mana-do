@@ -1,125 +1,265 @@
 .App {
-  text-align: center;
-  display: flex;
-  justify-content: center;
+   position: relative;
+   width: 100%;
+   min-height: 100vh;
+   background-color: #0093e9;
+   background-image: linear-gradient(160deg, #0093e9 0%, #80d0c7 100%);
+   text-align: center;
+   display: flex;
+   justify-content: center;
 }
 
+form {
+   position: absolute;
+   top: 40%;
+   left: 50%;
+   padding: 4rem 4rem;
+   transform: translate(-50%, -50%);
+   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
 button {
-  outline: none;
-  border: none;
-  box-shadow: 2px 0 2px currentColor;
-  border-radius: 4px;
-  min-height: 32px;
-  min-width: 80px;
-  padding: 4px 8px;
+   outline: none;
+   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+   border-radius: 4px;
+   min-height: 32px;
+   min-width: 80px;
+   padding: 4px 8px;
+}
+.Action__btn {
+   outline: none;
+   border: 1px solid #43b3d7;
+   border-radius: 4px;
+   min-height: 32px;
+   min-width: 80px;
+   font-size: 1.2rem;
+   transition: ease-out 0.5s;
+   position: relative;
+   z-index: 1;
 }
 
-button:hover {
-  opacity: 0.85;
+.Action__btn:hover {
+   color: white;
+   cursor: pointer;
+   opacity: 0.85;
 }
-
+.Todo__tabs .Action__btn::before {
+   content: "";
+   transition: 0.5s all ease;
+   position: absolute;
+   top: 0;
+   left: 50%;
+   right: 50%;
+   bottom: 0;
+   opacity: 0;
+   background-color: #43b3d7;
+}
+.Action__btn::before {
+   content: "";
+   transition: 0.5s all ease;
+   position: absolute;
+   top: 0;
+   left: 50%;
+   right: 50%;
+   border-radius: 4px;
+   bottom: 0;
+   opacity: 0;
+   background-color: red;
+}
+.Action__btn:hover::before {
+   transition: 0.5s all ease;
+   opacity: 0.85;
+   left: 0;
+   right: 0;
+   opacity: 1;
+   z-index: -1;
+}
 input[type="checkbox"] {
-  width: 24px;
-  height: 24px;
-  box-shadow: none;
-  border: none;
-  outline: none;
+   width: 24px;
+   height: 24px;
+   box-shadow: none;
+   border: none;
+   outline: none;
 }
-
+input[type="checkbox"]:checked {
+   background-color: #4caf50 !important;
+}
 input[type="checkbox"]:focus {
-  box-shadow: none;
-  border: none;
-  outline: none;
+   box-shadow: none;
+   border: none;
+   outline: none;
 }
 
 input {
-  min-height: 36px;
-  border: none;
-  outline: none;
-  padding: 0 12px;
-  box-shadow: 2px 0 4px rgba(0,0,0, 0.2);
-  border-radius: 4px;
+   min-height: 36px;
+   border: none;
+   outline: none;
+   padding: 0 12px;
+   box-shadow: 2px 0 4px rgba(0, 0, 0, 0.2);
+   border-radius: 4px;
+   font-size: 1.2rem;
 }
 
 input:focus {
-  box-shadow: 1px 0 9px rgba(0,0,0, 0.25);
+   box-shadow: 1px 0 9px rgba(0, 0, 0, 0.25);
 }
 
 .ToDo__container {
-  border: 1px solid rgba(0,0,0, 0.13);
-  border-radius: 8px;
-  width: 500px;
-  margin-top: 5rem;
-  padding: 24px;
-  box-shadow: 2px 2px 1px rgba(0,0,0, 0.09),
-              3px 2px 3px rgba(0,0,0, 0.05);
+   border: 1px solid rgba(0, 0, 0, 0.13);
+   border-radius: 8px;
+   width: 60%;
+   margin-top: 5rem;
+   margin-bottom: 2rem;
+   padding: 24px;
+   /* box-shadow: 2px 2px 1px rgba(0, 0, 0, 0.09), 3px 2px 3px rgba(0, 0, 0, 0.05); */
+   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
 .Todo__creation {
-  display: flex;
+   display: flex;
 }
 
 .Todo__input {
-  flex: 1 1;
+   flex: 1 1;
 }
 
 .ToDo__list {
-  display: flex;
-  flex-direction: column;
-  margin-top: 1.5rem;
+   display: flex;
+   flex-direction: column;
+   margin-top: 1.5rem;
 }
 
 .ToDo__item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
 }
 
 .ToDo__item > span {
-  flex: 1 1;
-  text-align: left;
-  margin-left: 8px;
+   flex: 1 1;
+   text-align: left;
+   margin-left: 8px;
 }
-
-.Todo__content {
-  flex: 1 1;
+.ToDo__item:hover {
+   background-color: rgba(0, 0, 0, 0.13);
 }
+/* .Todo__content:hover {
+   background-color: rgba(0, 0, 0, 0.13);
+} */
 
 .Todo__delete {
-  outline: none;
-  border: none;
-  width: 32px;
-  height: 32px;
-  min-width: auto;
-  min-height: auto;
-  box-shadow: none;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
+   outline: none;
+   border: none;
+   width: 32px !important;
+   height: 32px !important;
+   min-width: auto;
+   min-height: auto;
+   box-shadow: none;
+   /* border-radius: 50%; */
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   cursor: pointer;
 }
-
-.Todo__action, .Todo__delete {
-  width: 24px;
-  height: 24px;
-  flex-shrink: 0;
+.Todo__delete:hover {
+   background-color: red;
+}
+.Todo__action,
+.Todo__delete {
+   width: 24px;
+   height: 24px;
+   flex-shrink: 0;
 }
 
 .Todo__toolbar {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 24px;
+   display: flex;
+   justify-content: space-between;
+   margin-top: 24px;
 }
 
 .Todo__tabs {
-  display: flex;
-  justify-content: center;
+   display: flex;
+   justify-content: center;
 }
 
 .Todo__tabs > *:not(:last-child) {
-  margin-right: 8px;
+   margin-right: 10px;
 }
 
-.Action__btn {
+.label {
+   text-align: center !important;
+   font-size: 1.2rem;
+   position: relative;
+}
+.label .label__item {
+   position: absolute;
+   left: 0;
+   top: 0;
+   font-size: 18px;
+   transition: all 0.5s ease;
+   pointer-events: none;
+   transition: all 0.5s;
+   opacity: 0;
+}
+input[type="password"]:focus ~ .label__item,
+input[type="text"]:focus ~ .label__item {
+   display: block;
+   color: black;
+   top: -20px;
+   font-size: 14px;
+   transition: all 0.5s;
+   opacity: 1;
+}
+
+input[type="password"]:focus ~ .enter,
+input[type="text"]:focus ~ .enter {
+   background-color: #0f1f7a;
+   position: absolute;
+   content: " ";
+   height: 1px;
+   right: 41%;
+   top: 42px;
+   transform: scaleX(5);
+}
+.enter {
+   transition: all ease 0.5s;
+   width: 15%;
+   transform: scaleX(1);
+}
+
+textarea,
+input {
+   outline: none;
+   border: 0;
+   border-bottom: 1px solid #cecece;
+   height: 40px;
+   width: 55vw;
+   font-weight: 700;
+}
+input:focus::-webkit-input-placeholder {
+   transition: all 0.5s;
+   opacity: 0;
+}
+input:focus {
+   content: "";
+}
+.ToDo__item input {
+   background-color: transparent;
+   border: 0;
+   box-shadow: none;
+   outline: none;
+}
+
+.ToDo__item input::selection {
+   background-color: transparent;
+}
+.ToDo__item input:hover {
+   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+.Todo__item_child {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+.label input {
+   width: 100% !important;
 }

@@ -1,41 +1,56 @@
-import React, {useEffect, useReducer, useRef, useState} from 'react';
-import {RouteComponentProps} from 'react-router-dom';
+import React, { useEffect, useReducer, useRef, useState } from 'react';
+import { RouteComponentProps } from 'react-router-dom';
 
-import reducer, {initialState} from './store/reducer';
+import reducer, { initialState } from './store/reducer';
 import {
     setTodos,
     createTodo,
     deleteTodo,
     toggleAllTodos,
     deleteAllTodos,
-    updateTodoStatus
+    updateTodoStatus,
+    editTodoContent
 } from './store/actions';
 import Service from './service';
-import {TodoStatus} from './models/todo';
-import {isTodoCompleted} from './utils';
+import { TodoStatus } from './models/todo';
+import { isTodoCompleted } from './utils';
 
 type EnhanceTodoStatus = TodoStatus | 'ALL';
 
 
-const ToDoPage = ({history}: RouteComponentProps) => {
-    const [{todos}, dispatch] = useReducer(reducer, initialState);
+const ToDoPage = ({ history }: RouteComponentProps) => {
+    const [{ todos }, dispatch] = useReducer(reducer, initialState);
     const [showing, setShowing] = useState<EnhanceTodoStatus>('ALL');
     const inputRef = useRef<HTMLInputElement>(null);
+    const inputRef1 = useRef<HTMLInputElement>(null);
 
-    useEffect(()=>{
-        (async ()=>{
+
+    useEffect(() => {
+        (async () => {
             const resp = await Service.getTodos();
+            const localTodo = JSON.parse(localStorage.getItem("localTodos") || "")
+            // console.log(todos);
 
-            dispatch(setTodos(resp || []));
+            if (localTodo) {
+                dispatch(setTodos(localTodo))
+            }
+            else {
+                dispatch(setTodos(resp || []));
+            }
         })()
-    }, [])
+    }, [todos])
 
     const onCreateTodo = async (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter' && inputRef.current) {
             try {
-                const resp = await Service.createTodo(inputRef.current.value);
-                dispatch(createTodo(resp));
-                inputRef.current.value = '';
+                if (inputRef.current.value !== '') {
+                    const resp = await Service.createTodo(inputRef.current.value);
+                    dispatch(createTodo(resp));
+                    inputRef.current.value = '';
+                }
+                else {
+                    alert("You must not leave it blank!")
+                }
             } catch (e) {
                 if (e.response.status === 401) {
                     history.push('/')
@@ -44,6 +59,22 @@ const ToDoPage = ({history}: RouteComponentProps) => {
         }
     }
 
+    const onEditTodoContent = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === "Enter" && inputRef1.current) {
+            try {
+                if (inputRef1.current.value !== '') {
+                    dispatch(editTodoContent(e.currentTarget.id, e.currentTarget.value));
+                    e.currentTarget.readOnly = true
+                }
+
+            } catch (e) {
+                if (e.response.status === 401) {
+                    history.push('/')
+                }
+            }
+        }
+
+    }
     const onUpdateTodoStatus = (e: React.ChangeEvent<HTMLInputElement>, todoId: string) => {
         dispatch(updateTodoStatus(todoId, e.target.checked))
     }
@@ -73,6 +104,7 @@ const ToDoPage = ({history}: RouteComponentProps) => {
 
     return (
         <div className="ToDo__container">
+            <h1>TODOS PAGE</h1>
             <div className="Todo__creation">
                 <input
                     ref={inputRef}
@@ -86,15 +118,32 @@ const ToDoPage = ({history}: RouteComponentProps) => {
                     showTodos.map((todo, index) => {
                         return (
                             <div key={index} className="ToDo__item">
-                                <input
-                                    type="checkbox"
-                                    checked={isTodoCompleted(todo)}
-                                    onChange={(e) => onUpdateTodoStatus(e, todo.id)}
-                                />
-                                <span>{todo.content}</span>
+                                <div className="Todo__item_child">
+                                    <input
+                                        type="checkbox"
+                                        checked={isTodoCompleted(todo)}
+                                        onChange={(e) => onUpdateTodoStatus(e, todo.id)}
+                                    />
+                                    <input
+                                        ref={inputRef1}
+                                        readOnly
+                                        onDoubleClick={(e) => {
+                                            e.currentTarget.readOnly = false;
+                                            e.currentTarget.selectionStart = e.currentTarget.selectionEnd
+                                        }}
+                                        onBlur={(e) => {
+                                            e.currentTarget.readOnly = true;
+                                            e.currentTarget.value = todo.content
+                                        }}
+                                        onKeyDown={onEditTodoContent}
+                                        type="textArea" defaultValue={todo.content} id={todo.id}
+                                    />
+                                </div>
                                 <button
                                     className="Todo__delete"
-                                    onClick={() => dispatch(deleteTodo(todo.id))}
+                                    onClick={() => {
+                                        dispatch(deleteTodo(todo.id))
+                                    }}
                                 >
                                     X
                                 </button>
@@ -109,20 +158,20 @@ const ToDoPage = ({history}: RouteComponentProps) => {
                         type="checkbox"
                         checked={activeTodos === 0}
                         onChange={onToggleAllTodo}
-                    /> : <div/>
+                    /> : <div />
                 }
                 <div className="Todo__tabs">
-                    <button className="Action__btn" onClick={()=>setShowing('ALL')}>
+                    <button className="Action__btn" onClick={() => setShowing('ALL')}>
                         All
                     </button>
-                    <button className="Action__btn" onClick={()=>setShowing(TodoStatus.ACTIVE)}>
+                    <button className="Action__btn" onClick={() => setShowing(TodoStatus.ACTIVE)}>
                         Active
                     </button>
-                    <button className="Action__btn" onClick={()=>setShowing(TodoStatus.COMPLETED)}>
+                    <button className="Action__btn" onClick={() => setShowing(TodoStatus.COMPLETED)}>
                         Completed
                     </button>
                 </div>
-                <button className="Action__btn" onClick={onDeleteAllTodo}>
+                <button className="Action__btn Action__Clear" onClick={onDeleteAllTodo}>
                     Clear all todos
                 </button>
             </div>
