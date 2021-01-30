@@ -3,10 +3,13 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import { StateInspector } from 'reinspect';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <StateInspector name='App'>
+      <App />
+    </StateInspector>
   </React.StrictMode>,
   document.getElementById('root')
 );

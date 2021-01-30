@@ -1,5 +1,8 @@
-import React, { useEffect, useReducer, useRef, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
+import {StateInspector, useReducer} from 'reinspect'
+
+import {Todo} from '../../models/todo';
 
 import reducer, { initialState } from '../../store/reducer';
 import {
@@ -21,7 +24,7 @@ import TodoItem from '../../components/TodoItem';
 type EnhanceTodoStatus = TodoStatus | 'ALL';
 
 const ToDoPage = ({ history }: RouteComponentProps) => {
-  const [{ todos }, dispatch] = useReducer(reducer, initialState);
+  const [{ todos }, dispatch] = useReducer(reducer, initialState, (a) => a, 'todosState');
   const [todoInput, setTodoInput] = useState('');
   const [showing, setShowing] = useState<EnhanceTodoStatus>('ALL');
   const [editId, setEditId] = useState('');
@@ -36,12 +39,26 @@ const ToDoPage = ({ history }: RouteComponentProps) => {
     })();
   }, []);
 
+  const updateEditId = (id: string) => {
+    setEditId(id)
+  }
+
   const onCreateTodo = async (e: React.KeyboardEvent<HTMLInputElement>) => {
     const inputValue = todoInput.trim();
     if (e.key === 'Enter' && inputValue.length > 0) {
       try {
         const resp = await Service.createTodo(inputValue);
         dispatch(createTodo(resp));
+
+        // const todoo = {
+        //   content: 'asd',
+        //   user_id: 'user_id',
+        //   id: 'fine',
+        //   status: 'ACTIVE',
+        //   created_date: '2021-01-30T14:40:29.202Z'
+        // } as Todo;
+        // dispatch(createTodo(todoo));
+        
         // Clear todo input
         setTodoInput('');
       } catch (e) {
@@ -81,12 +98,12 @@ const ToDoPage = ({ history }: RouteComponentProps) => {
     setTodoInput(e.currentTarget.value);
   };
 
-  const handleEdit = (id: string) => {
-    // setTodoInput(e.currentTarget.value);
-    console.log(id);
-    setEditId(id);
-    //    dispatch(updateTodo(id, ))
-  };
+  // const handleEdit = (id: string) => {
+  //   // setTodoInput(e.currentTarget.value);
+  //   console.log(id);
+  //   setEditId(id);
+  //   //    dispatch(updateTodo(id, ))
+  // };
 
   return (
     <div className='ToDo__container'>
@@ -102,7 +119,8 @@ const ToDoPage = ({ history }: RouteComponentProps) => {
       </div>
       <div className='ToDo__list'>
         {showTodos.map((todo) => {
-          return <TodoItem todo={todo} />;
+          const {id = '0'} = todo;
+          return <TodoItem todo={todo} updateEditId={updateEditId} edit={id === editId}/>;
           //   const { id = '123', content = '' } = todo;
           //   return (
           //     <div key={id} className='ToDo__item'>

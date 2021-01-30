@@ -20,6 +20,8 @@ export const initialState: AppState = {
 function reducer(state: AppState, action: AppActions): AppState {
   const { todos = [] } = state;
   console.log(state);
+  console.log(action.type);
+  
 
   switch (action.type) {
     case CREATE_TODO: {
@@ -61,6 +63,9 @@ function reducer(state: AppState, action: AppActions): AppState {
       };
 
     case DELETE_TODO:
+      console.log('HERE');
+      
+      
       const index1 = state.todos.findIndex(
         (todo) => todo.id === action.payload
       );
@@ -71,19 +76,20 @@ function reducer(state: AppState, action: AppActions): AppState {
         todos: state.todos
       };
 
-    case DELETE_ALL_TODOS:
+    case DELETE_ALL_TODOS: {
+      console.log(state);
+      
       return {
         ...state,
         todos: []
       };
-
+    }
     case UPDATE_TODO: {
       const {
         payload: { todoId, content = '' }
       } = action;
       const { todos } = state;
       const currentIndex = todos.findIndex((todo) => todo.id === todoId);
-
       if (currentIndex === -1) {
         console.log(`Todo item's index not found`);
         return {
@@ -94,10 +100,7 @@ function reducer(state: AppState, action: AppActions): AppState {
       const todoList = todos;
       const updatedTodo = todos[currentIndex];
       updatedTodo.content = content;
-      // state.todos.splice(index1, 1);
       todoList.splice(currentIndex, 1, updatedTodo);
-      console.log(todos);
-      console.log(todoList);
 
       return {
         ...state,
