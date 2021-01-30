@@ -13,13 +13,13 @@ import {
   deleteAllTodos,
   updateTodoStatus,
   updateTodo
-} from '../../store/actions';
-import Service from '../../service';
-import { TodoStatus } from '../../models/todo';
-import { isTodoCompleted } from '../../utils';
+} from 'store/actions';
+import Service from 'service';
+import { TodoStatus } from 'models/todo';
+import { isTodoCompleted } from 'utils';
 
 import './index.css';
-import TodoItem from '../../components/TodoItem';
+import TodoItem from 'components/TodoItem';
 
 type EnhanceTodoStatus = TodoStatus | 'ALL';
 

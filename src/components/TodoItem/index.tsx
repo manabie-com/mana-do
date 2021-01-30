@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import clsx from 'clsx';
-import { Todo } from '../../models/todo';
-import { deleteTodo, updateTodo, updateTodoStatus } from '../../store/actions';
+// import { Todo } from '@components/TodoItem';
+import { Todo } from 'models/todo';
+// import { Todo } from '../../models/todo';
+import { deleteTodo, updateTodo, updateTodoStatus } from 'store/actions';
 import { useReducer } from 'reinspect';
-import reducer, { initialState } from '../../store/reducer';
+import reducer, { initialState } from 'store/reducer';
+// import reducer, { initialState } from '@components';
 
 import './index.css';
 
