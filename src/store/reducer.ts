@@ -12,8 +12,13 @@ import {
 export interface AppState {
   todos: Array<Todo>;
 }
-// localStorage.getItem('state') || 
-export const initialState : AppState = JSON.parse(localStorage.getItem('state') || '') as AppState || {
+// localStorage.getItem('state') ||
+// export const initialState : AppState = JSON.parse(localStorage.getItem('state') || '') as AppState || {
+//   todos: []
+// };
+export const initialState: AppState = (JSON.parse(
+  localStorage.getItem('state') || ''
+) as AppState) || {
   todos: []
 };
 
@@ -21,7 +26,6 @@ function reducer(state: AppState, action: AppActions): AppState {
   const { todos = [] } = state;
   console.log(state);
   console.log(action.type);
-  
 
   switch (action.type) {
     case CREATE_TODO: {
@@ -64,8 +68,7 @@ function reducer(state: AppState, action: AppActions): AppState {
 
     case DELETE_TODO:
       console.log('HERE');
-      
-      
+
       const index1 = state.todos.findIndex(
         (todo) => todo.id === action.payload
       );
@@ -78,7 +81,7 @@ function reducer(state: AppState, action: AppActions): AppState {
 
     case DELETE_ALL_TODOS: {
       console.log(state);
-      
+
       return {
         ...state,
         todos: []
