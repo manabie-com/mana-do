@@ -7,7 +7,7 @@ const PrivateComponent: React.FC<any> = ({ component: Component, ...rest }) => {
     <Route
       {...rest}
       render={(props) =>
-        getItemLocalStorage("token") ? (
+        getItemLocalStorage("token", "") ? (
           <Component {...props} />
         ) : (
           <Redirect to="/" />

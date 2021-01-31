@@ -11,9 +11,10 @@ import {
 } from "../store/actions";
 import Service from "../service";
 import { TodoStatus } from "../models/todo";
-import { isTodoCompleted } from "../utils";
+import { getClassNameActiveByType, isTodoCompleted } from "../utils";
 import Input from "../components/Input";
 import Button from "../components/Button";
+import { Helmet } from "react-helmet";
 
 type EnhanceTodoStatus = TodoStatus | "ALL";
 
@@ -25,7 +26,6 @@ const ToDoPage = () => {
   useEffect(() => {
     (async () => {
       const resp = await Service.getTodos();
-
       dispatch(setTodos(resp || []));
     })();
   }, []);
@@ -69,12 +69,14 @@ const ToDoPage = () => {
 
   const onChangeCheckBox = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value, checked } = e.target;
-    console.log("value, checked ===>", value, checked);
     dispatch(updateTodoStatus(value, checked));
   };
 
   return (
     <div className="ToDo__container">
+      <Helmet>
+        <title>Todo Page</title>
+      </Helmet>
       <div className="Todo__creation">
         <Input
           inputRef={inputRef}
@@ -85,6 +87,9 @@ const ToDoPage = () => {
         />
       </div>
       <div className="ToDo__list">
+        {showTodos.length === 0 && (
+          <div className="ToDo__Nodata">No data todo</div>
+        )}
         {showTodos.map((todo, index) => {
           return (
             <div key={index} className="ToDo__item">
@@ -94,58 +99,74 @@ const ToDoPage = () => {
                 name={`${todo.id}`}
                 checked={isTodoCompleted(todo)}
                 value={todo.id}
-                onChange={() => onChangeCheckBox}
+                onChange={onChangeCheckBox}
               />
               <span>{todo.content}</span>
-              <button
+              <Button
                 className="Todo__delete"
                 onClick={() => dispatch(deleteTodo(todo.id))}
-              >
-                X
-              </button>
+                name={todo.id}
+                label="X"
+              />
             </div>
           );
         })}
       </div>
       <div className="Todo__toolbar">
         {todos.length > 0 ? (
-          <Input
-            name="checkAll"
-            type="checkbox"
-            valueWidth="20px"
-            checked={activeTodos === 0}
-            onChange={onToggleAllTodo}
-          />
+          <div className="Todo__CompleteAll">
+            <div className="mb-10 ">Complete all</div>
+            <Input
+              name="checkAll"
+              type="checkbox"
+              valueWidth="20px"
+              checked={activeTodos === 0}
+              onChange={onToggleAllTodo}
+            />
+          </div>
         ) : (
           <div />
         )}
-        <div className="Todo__tabs">
-          <Button
-            className="Action__btn"
-            onClick={() => setShowing("ALL")}
-            name="buttonShowAll"
-            label="All"
-          />
-          <Button
-            className="Action__btn"
-            onClick={() => setShowing(TodoStatus.ACTIVE)}
-            name="buttonActive"
-            label="Active"
-          />
-          <Button
-            className="Action__btn"
-            onClick={() => setShowing(TodoStatus.COMPLETED)}
-            name="buttonCompleted"
-            label="Completed"
-          />
-        </div>
-        <Button
-          className="Action__btn"
-          onClick={onDeleteAllTodo}
-          name="buttonClearAll"
-          label="Clear all todos"
-          valueWidth="30%"
-        />
+        {todos.length > 0 && (
+          <div className="Todo__tabs">
+            <div className="mb-10 ">{`Filter by status: ${showing}`}</div>
+            <div className="Todo__WrapperButtons">
+              <Button
+                className={`Action__btn ${getClassNameActiveByType(
+                  showing,
+                  "ALL"
+                )} mr-3`}
+                onClick={() => setShowing("ALL")}
+                name="buttonShowAll"
+                label="All"
+              />
+              <Button
+                className={`Action__btn ${getClassNameActiveByType(
+                  showing,
+                  TodoStatus.ACTIVE
+                )} mr-3`}
+                onClick={() => setShowing(TodoStatus.ACTIVE)}
+                name="buttonActive"
+                label="Active"
+              />
+              <Button
+                className={`Action__btn ${getClassNameActiveByType(
+                  showing,
+                  TodoStatus.COMPLETED
+                )} mr-3`}
+                onClick={() => setShowing(TodoStatus.COMPLETED)}
+                name="buttonCompleted"
+                label="Completed"
+              />
+              <Button
+                className="Action__btn Button__ClearAll"
+                onClick={onDeleteAllTodo}
+                name="buttonClearAll"
+                label="Clear all todos"
+              />
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

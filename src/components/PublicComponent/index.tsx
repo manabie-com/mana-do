@@ -7,7 +7,7 @@ const PublicComponent: React.FC<any> = ({
   path,
   ...rest
 }) => {
-  const valueToken = getItemLocalStorage("token");
+  const valueToken = getItemLocalStorage("token", "");
   if (valueToken) {
     return <Redirect to="/todo" />;
   }

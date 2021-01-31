@@ -1,10 +1,9 @@
-export const getItemLocalStorage = (key: string) => {
+export const getItemLocalStorage = (key: string, defaultValue: string) => {
   if (!key) {
-    return "";
+    return JSON.parse(defaultValue);
   }
 
-  const value = localStorage.getItem(key) || "";
-
+  const value = localStorage.getItem(key) || defaultValue;
   try {
     return JSON.parse(value);
   } catch (error) {
@@ -12,7 +11,7 @@ export const getItemLocalStorage = (key: string) => {
   }
 };
 
-export const setItemLocalStorage = (key: string, value: string) => {
+export const setItemLocalStorage = (key: string, value: any) => {
   if (!key) {
     return "";
   }

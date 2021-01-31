@@ -1,6 +1,7 @@
 import { IAPI } from "./types";
 import { Todo, TodoStatus, Response } from "../models/todo";
 import shortid from "shortid";
+import { getItemLocalStorage } from "../utils/localStorage.utils";
 
 const mockToken = "testabc.xyz.ahk";
 
@@ -31,7 +32,13 @@ class ApiFrontend extends IAPI {
   }
 
   async getTodos(): Promise<Todo[]> {
-    return [];
+    const dataTodos = getItemLocalStorage("dataTodos", JSON.stringify([]));
+
+    if (!dataTodos) {
+      return Promise.resolve([]);
+    } else {
+      return Promise.resolve(dataTodos);
+    }
   }
 }
 

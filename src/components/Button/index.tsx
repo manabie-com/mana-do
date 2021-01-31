@@ -21,10 +21,11 @@ const Button: React.FC<ButtonProps> = ({
     fontSize: "14px",
     cursor: "pointer",
     padding: "10px",
+    whiteSpace: "nowrap",
   };
   return (
     <>
-      <button {...rest} style={styleButton}>
+      <button {...rest} name={name} style={styleButton}>
         {label}
       </button>
     </>

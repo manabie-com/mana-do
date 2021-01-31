@@ -1,9 +1,11 @@
 import { Todo, TodoStatus } from "../models/todo";
+import { setItemLocalStorage } from "../utils/localStorage.utils";
 import {
   AppActions,
   CREATE_TODO,
   DELETE_ALL_TODOS,
   DELETE_TODO,
+  SET_TODO,
   TOGGLE_ALL_TODOS,
   UPDATE_TODO_STATUS,
 } from "./actions";
@@ -17,28 +19,39 @@ export const initialState: AppState = {
 };
 
 function reducer(state: AppState, action: AppActions): AppState {
+  // To keep immutable of state
+  // To reducer is a pure function
+  // Avoid occur any unexpected side effects (such as: a action dispatch twice in this old code)
+  let dataTodos = JSON.parse(JSON.stringify(state.todos));
+  // Because Array is a reference type, use trick JSON.parse(JSON.stringify()) to new array
+
   switch (action.type) {
     case CREATE_TODO:
-      state.todos.push(action.payload);
+      dataTodos.push(action.payload);
+
+      setItemLocalStorage("dataTodos", dataTodos);
       return {
         ...state,
+        todos: dataTodos,
       };
 
     case UPDATE_TODO_STATUS:
-      console.log("action.payload.todoId ===>", action.payload.todoId);
-      const index2 = state.todos.findIndex(
-        (todo) => todo.id === action.payload.todoId
-      );
-      state.todos[index2].status = action.payload.checked
-        ? TodoStatus.COMPLETED
-        : TodoStatus.ACTIVE;
+      const { todoId, checked } = action.payload;
+      dataTodos = dataTodos.map((todo: Todo) => {
+        if (todo.id === todoId) {
+          todo.status = checked ? TodoStatus.COMPLETED : TodoStatus.ACTIVE;
+        }
+        return todo;
+      });
 
+      setItemLocalStorage("dataTodos", dataTodos);
       return {
-        todos: state.todos,
+        ...state,
+        todos: dataTodos,
       };
 
     case TOGGLE_ALL_TODOS:
-      const tempTodos = state.todos.map((e) => {
+      dataTodos = dataTodos.map((e: Todo) => {
         return {
           ...e,
           status: action.payload ? TodoStatus.COMPLETED : TodoStatus.ACTIVE,
@@ -47,23 +60,33 @@ function reducer(state: AppState, action: AppActions): AppState {
 
       return {
         ...state,
-        todos: tempTodos,
+        todos: dataTodos,
       };
 
     case DELETE_TODO:
-      const index1 = state.todos.findIndex(
-        (todo) => todo.id === action.payload
+      const index1 = dataTodos.findIndex(
+        (todo: Todo) => todo.id === action.payload
       );
-      state.todos.splice(index1, 1);
+      dataTodos.splice(index1, 1);
+
+      setItemLocalStorage("dataTodos", dataTodos);
+      return {
+        ...state,
+        todos: dataTodos,
+      };
+    case DELETE_ALL_TODOS:
+      setItemLocalStorage("dataTodos", []);
 
       return {
         ...state,
-        todos: state.todos,
+        todos: [],
       };
-    case DELETE_ALL_TODOS:
+    case SET_TODO:
+      dataTodos = action.payload;
+
       return {
         ...state,
-        todos: [],
+        todos: dataTodos,
       };
     default:
       return state;
