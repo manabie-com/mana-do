@@ -1,0 +1,87 @@
+.Todo__container {
+  height: 100vh;
+  background-image: -webkit-linear-gradient(right, #fc00ff, #00dbde);
+  padding-top: 100px;
+}
+.Todo__wrap {
+  padding: 0 30px;
+  padding-top: 30px;
+  border-radius: 10px;
+  background-color: white;
+  max-width: 50%;
+  margin: 0 auto;
+  height: 80%;
+}
+.Todo__input {
+  border: none;
+  outline: none;
+  width: 100%;
+}
+.Todo__creation {
+  border-bottom: 1px solid #d9d9d9;
+  margin: 20px 0;
+  
+}
+.Todo__creation input::placeholder{
+    font-weight: bolder;
+}
+.Todo__toolbar{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.Action__btn{
+    border: none;
+    background-color: transparent;
+    border-bottom: 1px solid #d9d9d9;
+    cursor: pointer;
+}
+.Action__btn:focus{
+    outline: none;
+}
+.Todo__tabs button{
+    margin: 0 5px;
+    
+}
+.Todo__item span{
+    margin: 0 10px;
+    width: 300px;
+    display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  cursor: pointer;
+}
+.Todo__item{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 300px;
+    margin: 10px 0;
+}
+.Todo__list{
+    
+    height: 320px;
+    
+    overflow-y: auto;
+}
+.Todo__item .Todo__delete{
+    padding: 5px;
+    border: 1px solid transparent;
+    background-color: red;
+    color: white;
+    border-radius: 3px;
+    text-align: center;
+    transition: all 0.2s;
+    cursor: pointer;
+}
+
+.Todo__item .Todo__delete:hover{
+    background-color: white;
+    color: red;
+    border: 1px solid black;
+    
+}
+.Todo__item .Todo__delete:focus{
+    outline: none;
+}

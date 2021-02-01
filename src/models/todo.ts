@@ -7,6 +7,6 @@ export interface Todo {
   id: string
   user_id: string
   content : string
-  status?: TodoStatus
+  status: TodoStatus
   created_date: string
 }
