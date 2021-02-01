@@ -1,24 +1,19 @@
 import React, { useEffect, useState, useRef, useContext } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
-import { StateInspector, useReducer } from 'reinspect';
 import FlipMove from 'react-flip-move';
 
 import { Todo } from 'models/todo';
 import { day, dayName, month, year } from 'utils';
 
-import reducer, { initialState } from '../../store/reducer';
 import {
   setTodos,
   createTodo,
-  deleteTodo,
   toggleAllTodos,
-  deleteAllTodos,
-  updateTodoStatus,
-  updateTodo
+  deleteAllTodos
 } from 'store/actions';
 import Service from 'service';
 import { TodoStatus } from 'models/todo';
-import { getRandomColor, isTodoCompleted } from 'utils';
+import { isTodoCompleted } from 'utils';
 
 import './index.css';
 import TodoItem from 'components/TodoItem';
@@ -59,7 +54,7 @@ const ToDoPage = ({ history }: RouteComponentProps) => {
       localStorage.removeItem('token');
     };
     // localStorage.setItem('ahihi', '456');
-  }, []);
+  }, [dispatch]);
 
   const updateEditId = (id: string) => {
     setEditId(id);
@@ -181,9 +176,6 @@ const ToDoPage = ({ history }: RouteComponentProps) => {
           <div />
         )}
         <div className='Todo__tabs'>
-          <button className='Action__btn' onClick={() => setShowing('ALL')}>
-            All
-          </button>
           <button
             className='Action__btn'
             onClick={() => setShowing(TodoStatus.ACTIVE)}
@@ -195,6 +187,9 @@ const ToDoPage = ({ history }: RouteComponentProps) => {
             onClick={() => setShowing(TodoStatus.COMPLETED)}
           >
             Completed
+          </button>
+          <button className='Action__btn' onClick={() => setShowing('ALL')}>
+            All
           </button>
           <button className='Action__btn' onClick={onDeleteAllTodo}>
             Clear All

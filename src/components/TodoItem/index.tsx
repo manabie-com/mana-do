@@ -10,12 +10,11 @@ import clsx from 'clsx';
 import { Todo } from 'models/todo';
 // import { Todo } from '../../models/todo';
 import { deleteTodo, updateTodo, updateTodoStatus } from 'store/actions';
-import { useReducer } from 'reinspect';
-import reducer, { initialState } from 'store/reducer';
+import { initialState } from 'store/reducer';
 
 import './index.css';
 import { TodoContext } from 'App';
-import { getRandomColor, isTodoCompleted } from 'utils';
+import { isTodoCompleted } from 'utils';
 
 console.log(initialState);
 // React.ForwardRefRenderFunction<HTMLInputElement, any>
@@ -26,7 +25,7 @@ const TodoItem = forwardRef<HTMLInputElement, any>((props: any, ref) => {
     dispatch: any;
   };
 
-  const { updateEditId, edit = false, lineColor = '' } = props;
+  const { updateEditId, edit = false } = props;
   const todo: Todo = props.todo;
 
   const [todoContent, setTodoContent] = useState('');
@@ -58,14 +57,11 @@ const TodoItem = forwardRef<HTMLInputElement, any>((props: any, ref) => {
     console.log(todoId);
 
     setTimeout(() => {
-      // console.log(e);
-
       dispatch(updateTodoStatus(todoId, checked));
     }, 500);
   };
 
   const handleEdit = (id: string) => {
-    // setTodoInput(e.currentTarget.value);
     console.log(id);
     updateEditId(id);
   };
@@ -77,8 +73,8 @@ const TodoItem = forwardRef<HTMLInputElement, any>((props: any, ref) => {
   const onFinishEditTodo = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
       dispatch(updateTodo(id, todoContent));
-      console.log('HERE');
       setIsEdit(false);
+      updateEditId('');
     }
   };
 
@@ -88,12 +84,10 @@ const TodoItem = forwardRef<HTMLInputElement, any>((props: any, ref) => {
     }, 500);
   };
 
+  console.log(store);
+
   return (
-    <div
-      //  key={id}
-      className={clsx('ToDo__item', edit && 'Todo__item--edit')}
-      ref={ref}
-    >
+    <div className={clsx('ToDo__item', edit && 'Todo__item--edit')} ref={ref}>
       <div className='Todo__line' style={{ backgroundColor: todo.color }} />
       <input
         type='checkbox'

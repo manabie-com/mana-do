@@ -30,10 +30,6 @@ export const initialState: AppState = {
 };
 
 function reducer(state: AppState, action: AppActions): AppState {
-  const { todos = [] } = state;
-  console.log(state);
-  console.log(action.type);
-
   switch (action.type) {
     case CREATE_TODO: {
       const newTodo: Todo = action.payload;
@@ -49,8 +45,6 @@ function reducer(state: AppState, action: AppActions): AppState {
       const index = newTodos.findIndex(
         (todo) => todo.id === action.payload.todoId
       );
-      console.log(newTodos);
-      console.log(action.payload.todoId);
       newTodos[index].status = action.payload.checked
         ? TodoStatus.COMPLETED
         : TodoStatus.ACTIVE;
@@ -75,29 +69,19 @@ function reducer(state: AppState, action: AppActions): AppState {
       };
 
     case DELETE_TODO: {
-      console.log('HERE');
-
       const newTodos: Todo[] = [...state.todos];
       const index: number = newTodos.findIndex(
         (todo) => todo.id === action.payload
       );
       newTodos.splice(index, 1);
 
-      console.log([...state.todos]);
-
-      console.log(newTodos);
-
       return {
         ...state,
-        // todos: [...state.todos]
-        // todos: [...newTodos]
         todos: newTodos
       };
     }
 
     case DELETE_ALL_TODOS: {
-      console.log(state);
-
       return {
         ...state,
         todos: []

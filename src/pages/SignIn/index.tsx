@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 import { useHistory } from 'react-router-dom';
-import Auth from 'service/auth';
 import Service from '../../service';
 
 import './index.css';

@@ -15,6 +15,10 @@
   border: 1px solid black;
 }
 
+.Todo__item--edit .bxs-pencil {
+  color: black;
+}
+
 .Todo__line {
   position: absolute;
   content: '';
@@ -35,13 +39,10 @@
 
 .Todo__content {
   box-shadow: none;
-  /* flex: 1 1; */
   padding: 0 5px;
   margin: 0 0.2em;
-  /* font-weight: 500; */
   font-size: 1rem;
   width: 70%;
-  /* flex: 1; */
 }
 
 .Todo__content:focus {

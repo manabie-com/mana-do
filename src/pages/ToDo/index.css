@@ -64,6 +64,7 @@
 
 .Todo__input::placeholder {
   color: rgb(247, 247, 247);
+  opacity: 0.8;
 }
 
 .ToDo__list {
@@ -92,16 +93,6 @@
   background: rgb(202, 202, 202);
 }
 
-.Todo__action,
-.Todo__delete,
-.Todo__edit {
-  /* width: 24px;
-  height: 24px; */
-  /* flex-shrink: 0; */
-  /* display: table;
-  place-items: center; */
-}
-
 .Todo__edit i {
   font-size: 1.1rem;
 }
@@ -125,10 +116,6 @@
   grid-column-gap: 15px;
   grid-row-gap: 10px;
   grid-template-rows: auto;
-}
-
-.Todo__tabs > *:not(:last-child) {
-  /* margin-right: 8px; */
 }
 
 .Todo__checkAll {
