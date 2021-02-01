@@ -1,6 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from "react";
-import { Helmet } from "react-helmet";
 import { useHistory } from "react-router-dom";
 import { useImmer } from "use-immer";
 import Button from "../components/Button";
@@ -8,8 +7,10 @@ import Input from "../components/Input";
 import Service from "../service";
 import { validateBeforeLogin } from "../utils/validate.utils";
 import { Response } from "../models/todo";
+import HelmetTitle from "../components/Helmet";
+import ErrorMessage from "../components/ErrorMessage";
 
-const SignInPage = () => {
+const SignInPage: React.FC<any> = () => {
   const [state, setState] = useImmer({
     userId: "",
     password: "",
@@ -65,9 +66,7 @@ const SignInPage = () => {
 
   return (
     <div className="Login__WrapperForm">
-      <Helmet>
-        <title>Login</title>
-      </Helmet>
+      <HelmetTitle title="Login" />
       <form onSubmit={signIn}>
         <span className="Login__FormTitle">Sign in</span>
         <div className="Login__WrapperInputs">
@@ -88,9 +87,10 @@ const SignInPage = () => {
             value={state.password}
             onChange={onChangeCommon}
           />
-          {state.errorMessage.length > 0 && (
-            <span className="Login__ErrorMessage">{state.errorMessage}</span>
-          )}
+          <ErrorMessage
+            message={state.errorMessage}
+            className="Login__ErrorMessage"
+          />
           <Button
             type="submit"
             name="buttonLogin"

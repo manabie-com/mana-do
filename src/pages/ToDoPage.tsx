@@ -8,19 +8,22 @@ import {
   toggleAllTodos,
   deleteAllTodos,
   updateTodoStatus,
+  updateTodoContent,
 } from "../store/actions";
 import Service from "../service";
 import { TodoStatus } from "../models/todo";
-import { getClassNameActiveByType, isTodoCompleted } from "../utils";
+import { isTodoCompleted } from "../utils";
 import Input from "../components/Input";
-import Button from "../components/Button";
-import { Helmet } from "react-helmet";
+import TodoList from "../components/TodoList";
+import HelmetTitle from "../components/Helmet";
+import ErrorMessage from "../components/ErrorMessage";
+import Toolbar from "../components/Toolbar";
+import { isDuplicateContent } from "../utils/validate.utils";
 
-type EnhanceTodoStatus = TodoStatus | "ALL";
-
-const ToDoPage = () => {
+const ToDoPage: React.FC<any> = () => {
   const [{ todos }, dispatch] = useReducer(reducer, initialState);
-  const [showing, setShowing] = useState<EnhanceTodoStatus>("ALL");
+  const [showing, setShowing] = useState<TodoStatus>(TodoStatus.ALL);
+  const [errorMessage, setErrorMessage] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -31,15 +34,21 @@ const ToDoPage = () => {
   }, []);
 
   const onCreateTodo = async (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (errorMessage.length > 0) {
+      setErrorMessage("");
+    }
+
     if (e.key === "Enter" && inputRef.current) {
-      try {
-        const resp = await Service.createTodo(inputRef.current.value);
+      const valueInput = inputRef.current.value.trim();
+
+      if (valueInput.length === 0) {
+        setErrorMessage("Name todo not be empty.");
+      } else if (isDuplicateContent(valueInput, showTodos)) {
+        setErrorMessage("Name todo not be duplicate.");
+      } else {
+        const resp = await Service.createTodo(valueInput);
         dispatch(createTodo(resp));
         inputRef.current.value = "";
-      } catch (e) {
-        // if (e.response.status === 401) {
-        //   history.push("/");
-        // }
       }
     }
   };
@@ -67,53 +76,48 @@ const ToDoPage = () => {
     return isTodoCompleted(todo) ? accum : accum + 1;
   }, 0);
 
-  const onChangeCheckBox = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onUpdateTodoStatus = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value, checked } = e.target;
     dispatch(updateTodoStatus(value, checked));
   };
 
+  const onDeleteTodo = (todoId: string) => {
+    dispatch(deleteTodo(todoId));
+  };
+
+  const onUpdateTodo = (todoId: string, newContent: string) => {
+    dispatch(updateTodoContent(todoId, newContent));
+  };
+
+  const onBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+    if (errorMessage.length > 0) {
+      setErrorMessage("");
+    }
+  };
+
   return (
     <div className="ToDo__container">
-      <Helmet>
-        <title>Todo Page</title>
-      </Helmet>
+      <HelmetTitle title="Todo Page" />
       <div className="Todo__creation">
         <Input
+          autoComplete="off"
           inputRef={inputRef}
           name="nameTodo"
           className="Todo__input"
           placeholder="What need to be done?"
           onKeyDown={onCreateTodo}
+          onBlur={onBlur}
         />
+        <ErrorMessage message={errorMessage} className="Todo__ErrorMessage" />
       </div>
-      <div className="ToDo__list">
-        {showTodos.length === 0 && (
-          <div className="ToDo__Nodata">No data todo</div>
-        )}
-        {showTodos.map((todo, index) => {
-          return (
-            <div key={index} className="ToDo__item">
-              <Input
-                type="checkbox"
-                valueWidth="20px"
-                name={`${todo.id}`}
-                checked={isTodoCompleted(todo)}
-                value={todo.id}
-                onChange={onChangeCheckBox}
-              />
-              <span>{todo.content}</span>
-              <Button
-                className="Todo__delete"
-                onClick={() => dispatch(deleteTodo(todo.id))}
-                name={todo.id}
-                label="X"
-              />
-            </div>
-          );
-        })}
-      </div>
-      <div className="Todo__toolbar">
-        {todos.length > 0 ? (
+      <TodoList
+        dataTodos={showTodos}
+        onUpdateTodoStatus={onUpdateTodoStatus}
+        onUpdateTodo={onUpdateTodo}
+        onDeleteTodo={onDeleteTodo}
+      />
+      {todos.length > 0 && (
+        <div className="Todo__toolbar">
           <div className="Todo__CompleteAll">
             <div className="mb-10 ">Complete all</div>
             <Input
@@ -124,50 +128,13 @@ const ToDoPage = () => {
               onChange={onToggleAllTodo}
             />
           </div>
-        ) : (
-          <div />
-        )}
-        {todos.length > 0 && (
-          <div className="Todo__tabs">
-            <div className="mb-10 ">{`Filter by status: ${showing}`}</div>
-            <div className="Todo__WrapperButtons">
-              <Button
-                className={`Action__btn ${getClassNameActiveByType(
-                  showing,
-                  "ALL"
-                )} mr-3`}
-                onClick={() => setShowing("ALL")}
-                name="buttonShowAll"
-                label="All"
-              />
-              <Button
-                className={`Action__btn ${getClassNameActiveByType(
-                  showing,
-                  TodoStatus.ACTIVE
-                )} mr-3`}
-                onClick={() => setShowing(TodoStatus.ACTIVE)}
-                name="buttonActive"
-                label="Active"
-              />
-              <Button
-                className={`Action__btn ${getClassNameActiveByType(
-                  showing,
-                  TodoStatus.COMPLETED
-                )} mr-3`}
-                onClick={() => setShowing(TodoStatus.COMPLETED)}
-                name="buttonCompleted"
-                label="Completed"
-              />
-              <Button
-                className="Action__btn Button__ClearAll"
-                onClick={onDeleteAllTodo}
-                name="buttonClearAll"
-                label="Clear all todos"
-              />
-            </div>
-          </div>
-        )}
-      </div>
+          <Toolbar
+            showing={showing}
+            setShowing={setShowing}
+            onDeleteAllTodo={onDeleteAllTodo}
+          />
+        </div>
+      )}
     </div>
   );
 };

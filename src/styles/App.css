@@ -63,8 +63,10 @@
 span.Login__ErrorMessage {
   width: 90%;
   margin-bottom: 10px;
-  color: #ff0000;
-  font-size: 14px;
+}
+
+span.Todo__ErrorMessage {
+  margin-top: 5px;
 }
 
 button.Login__ButtonSubmit {
@@ -107,6 +109,7 @@ input[type="checkbox"]:focus {
 
 .Todo__creation {
   display: flex;
+  flex-direction: column;
 }
 
 .Todo__input {
@@ -119,6 +122,10 @@ input[type="checkbox"]:focus {
   margin-top: 1rem;
   max-height: 400px;
   overflow: auto;
+}
+
+.Todo__WrapperItem {
+  margin-bottom: 10px;
 }
 
 .ToDo__item {
@@ -135,6 +142,9 @@ input[type="checkbox"]:focus {
 }
 
 .Todo__content {
+  /* display: flex;
+  flex-direction: column;
+  width: 85%; */
   flex: 1 1;
 }
 
@@ -158,6 +168,16 @@ button.Todo__delete:hover {
   background-color: #dc3545;
   border-color: #dc3545;
   transition: 0.3s all;
+}
+
+.Input__TodoItem {
+  padding: 0 !important;
+  border: none !important;
+  background-color: unset !important;
+  width: 85% !important;
+  min-height: 30px !important;
+  border-bottom: 1px solid #333 !important;
+  border-radius: 0 !important;
 }
 
 .Todo__action,

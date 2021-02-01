@@ -7,6 +7,7 @@ import {
   DELETE_TODO,
   SET_TODO,
   TOGGLE_ALL_TODOS,
+  UPDATE_TODO_CONTENT,
   UPDATE_TODO_STATUS,
 } from "./actions";
 
@@ -36,10 +37,25 @@ function reducer(state: AppState, action: AppActions): AppState {
       };
 
     case UPDATE_TODO_STATUS:
-      const { todoId, checked } = action.payload;
       dataTodos = dataTodos.map((todo: Todo) => {
-        if (todo.id === todoId) {
-          todo.status = checked ? TodoStatus.COMPLETED : TodoStatus.ACTIVE;
+        if (todo.id === action.payload.todoId) {
+          todo.status = action.payload.checked
+            ? TodoStatus.COMPLETED
+            : TodoStatus.ACTIVE;
+        }
+        return todo;
+      });
+
+      setItemLocalStorage("dataTodos", dataTodos);
+      return {
+        ...state,
+        todos: dataTodos,
+      };
+
+    case UPDATE_TODO_CONTENT:
+      dataTodos = dataTodos.map((todo: Todo) => {
+        if (todo.id === action.payload.todoId) {
+          todo.content = action.payload.content;
         }
         return todo;
       });
