@@ -1,8 +1,10 @@
 import React, { useEffect, useState, useRef, useContext } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import { StateInspector, useReducer } from 'reinspect';
+import FlipMove from 'react-flip-move';
 
-import { Todo } from '../../models/todo';
+import { Todo } from 'models/todo';
+import { day, dayName, month, year } from 'utils';
 
 import reducer, { initialState } from '../../store/reducer';
 import {
@@ -16,7 +18,7 @@ import {
 } from 'store/actions';
 import Service from 'service';
 import { TodoStatus } from 'models/todo';
-import { isTodoCompleted } from 'utils';
+import { getRandomColor, isTodoCompleted } from 'utils';
 
 import './index.css';
 import TodoItem from 'components/TodoItem';
@@ -33,12 +35,6 @@ const ToDoPage = ({ history }: RouteComponentProps) => {
     dispatch: any;
   };
 
-  // const [store, dispatch] = useReducer(
-  //   reducer,
-  //   initialState,
-  //   (a) => a,
-  //   'todosState'
-  // );
   const [todoInput, setTodoInput] = useState('');
   const [showing, setShowing] = useState<EnhanceTodoStatus>('ALL');
   const [editId, setEditId] = useState('');
@@ -76,15 +72,6 @@ const ToDoPage = ({ history }: RouteComponentProps) => {
         const resp = await Service.createTodo(inputValue);
         dispatch(createTodo(resp));
 
-        // const todoo = {
-        //   content: 'asd',
-        //   user_id: 'user_id',
-        //   id: 'fine',
-        //   status: 'ACTIVE',
-        //   created_date: '2021-01-30T14:40:29.202Z'
-        // } as Todo;
-        // dispatch(createTodo(todoo));
-
         // Clear todo input
         setTodoInput('');
       } catch (e) {
@@ -120,6 +107,14 @@ const ToDoPage = ({ history }: RouteComponentProps) => {
     return isTodoCompleted(todo) ? accum : accum + 1;
   }, 0);
 
+  console.log(activeTodos);
+
+  // useEffect(() => {
+  //   console.log('GO');
+  //   // setTodoInput('asd');
+  // }, [showTodos]);
+  console.log(showTodos);
+
   const onTodoInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTodoInput(e.currentTarget.value);
   };
@@ -130,6 +125,7 @@ const ToDoPage = ({ history }: RouteComponentProps) => {
   //   setEditId(id);
   //   //    dispatch(updateTodo(id, ))
   // };
+  console.log('render');
 
   return (
     <div className='ToDo__container'>
@@ -146,55 +142,37 @@ const ToDoPage = ({ history }: RouteComponentProps) => {
         </div>
 
         <div className='Todo__date'>
-          <span className='date__left'>16</span>
+          <span className='date__left'>{day}</span>
           <div className='date__right'>
-            <span className='date__top'>August</span>
+            <span className='date__top'>{month}</span>
             <div className='date__bottom'>
-              <span className='date__year'>2020</span>
-              <span className='date__day'>Monday</span>
+              <span className='date__year'>{year}</span>
+              <span className='date__day'>{dayName}</span>
             </div>
           </div>
         </div>
       </div>
       <div className='ToDo__list'>
-        {showTodos.map((todo) => {
-          const { id = '0' } = todo;
-          return (
-            <TodoItem
-              key={id}
-              todo={todo}
-              updateEditId={updateEditId}
-              edit={id === editId}
-            />
-          );
-          //   const { id = '123', content = '' } = todo;
-          //   return (
-          //     <div key={id} className='ToDo__item'>
-          //       <input
-          //         type='checkbox'
-          //         checked={isTodoCompleted(todo)}
-          //         onChange={(e) => onUpdateTodoStatus(e, id)}
-          //       />
-
-          //       <input className='Todo__content' value={content} disabled></input>
-
-          //       <div
-          //         className='Todo__delete'
-          //         onClick={() => dispatch(deleteTodo(id))}
-          //       >
-          //         <i className='bx bx-x icon'></i>
-          //       </div>
-
-          //       <div className='Todo__edit' onClick={() => handleEdit(id)}>
-          //         <i className='bx bxs-pencil icon'></i>
-          //       </div>
-          //     </div>
-          //   );
-        })}
+        <FlipMove>
+          {showTodos.map((todo) => {
+            const { id = '0' } = todo;
+            return (
+              <TodoItem
+                key={id}
+                todo={todo}
+                updateEditId={updateEditId}
+                edit={id === editId}
+                // lineColor={randomColor}
+              />
+            );
+          })}
+        </FlipMove>
       </div>
+
       <div className='Todo__toolbar'>
         {todos.length > 0 ? (
           <input
+            className='Todo__checkAll'
             type='checkbox'
             checked={activeTodos === 0}
             onChange={onToggleAllTodo}
@@ -218,10 +196,10 @@ const ToDoPage = ({ history }: RouteComponentProps) => {
           >
             Completed
           </button>
+          <button className='Action__btn' onClick={onDeleteAllTodo}>
+            Clear All
+          </button>
         </div>
-        <button className='Action__btn' onClick={onDeleteAllTodo}>
-          Clear all todos
-        </button>
       </div>
     </div>
   );

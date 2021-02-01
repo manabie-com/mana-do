@@ -1,8 +1,30 @@
 .SignIn__container {
-  margin-top: 3em;
-  text-align: left;
+  /* max-width: 300px; */
+}
+
+.SignIn__info {
+  display: grid;
+  /* grid-template-columns: repeat(2, 1fr); */
+  grid-template-columns: 0.5fr 1.5fr;
+  grid-template-rows: auto;
+  place-items: center;
+  grid-gap: 1em;
+}
+
+.SignIn__info label {
+  color: white;
 }
 
 .SignIn_button {
-  margin-top: 12px;
+  margin: 0 auto;
+  margin-top: 1em;
+  background-color: rgb(88, 0, 161);
+  color: white;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: 0.2s ease-in;
+}
+
+.SignIn_button:hover {
+  background-color: rgb(65, 0, 119);
 }

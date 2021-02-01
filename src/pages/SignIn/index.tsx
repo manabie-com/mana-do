@@ -13,17 +13,11 @@ const SignInPage = () => {
   });
   const history = useHistory();
 
-  useEffect(() => {
-    // log out
-    // console.log('log out');
-    // (async () =>
-    //   await Auth.signout(() => {
-    //     console.log('Signed out!');
-    //   }))();
-    return () => {
-      console.log('UNMOUNT');
-    };
-  }, []);
+  // useEffect(() => {
+  //   return () => {
+  //     console.log('UNMOUNT');
+  //   };
+  // }, []);
 
   const signIn = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -48,28 +42,26 @@ const SignInPage = () => {
   return (
     <div className='SignIn__container'>
       <form onSubmit={signIn}>
-        <label htmlFor='user_id'>User id</label>
+        <div className='SignIn__info'>
+          <label htmlFor='user_id'>User id</label>
 
-        <input
-          id='user_id'
-          name='userId'
-          value={form.userId}
-          style={{ marginTop: 12 }}
-          onChange={onChangeField}
-        />
+          <input
+            id='user_id'
+            name='userId'
+            value={form.userId}
+            onChange={onChangeField}
+          />
 
-        <br />
-        <label htmlFor='password'>Password</label>
+          <label htmlFor='password'>Password</label>
 
-        <input
-          id='password'
-          name='password'
-          type='password'
-          style={{ marginTop: 12 }}
-          value={form.password}
-          onChange={onChangeField}
-        />
-        <br />
+          <input
+            id='password'
+            name='password'
+            type='password'
+            value={form.password}
+            onChange={onChangeField}
+          />
+        </div>
         <button className='SignIn_button' type='submit'>
           Sign in
         </button>

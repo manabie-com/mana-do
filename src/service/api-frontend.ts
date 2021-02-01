@@ -2,6 +2,7 @@ import { IAPI } from './types';
 import { Todo, TodoStatus } from '../models/todo';
 import shortid from 'shortid';
 import Auth from './auth';
+import { getRandomColor } from 'utils';
 
 const mockToken = 'testabc.xyz.ahk';
 
@@ -27,7 +28,8 @@ class ApiFrontend extends IAPI {
       created_date: new Date().toISOString(),
       status: TodoStatus.ACTIVE,
       id: shortid(),
-      user_id: 'firstUser'
+      user_id: 'firstUser',
+      color: getRandomColor()
     } as Todo);
   }
 

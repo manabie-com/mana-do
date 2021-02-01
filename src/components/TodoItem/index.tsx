@@ -1,4 +1,10 @@
-import React, { useState, useEffect, useRef, useContext } from 'react';
+import React, {
+  useState,
+  useEffect,
+  useRef,
+  useContext,
+  forwardRef
+} from 'react';
 import clsx from 'clsx';
 // import { Todo } from '@components/TodoItem';
 import { Todo } from 'models/todo';
@@ -9,17 +15,18 @@ import reducer, { initialState } from 'store/reducer';
 
 import './index.css';
 import { TodoContext } from 'App';
+import { getRandomColor, isTodoCompleted } from 'utils';
 
 console.log(initialState);
-
-const TodoItem = (props: any) => {
+// React.ForwardRefRenderFunction<HTMLInputElement, any>
+const TodoItem = forwardRef<HTMLInputElement, any>((props: any, ref) => {
   const todoContext = useContext(TodoContext);
   const { store, dispatch } = todoContext as {
     store: { todos: Todo[] };
     dispatch: any;
   };
 
-  const { updateEditId, edit = false } = props;
+  const { updateEditId, edit = false, lineColor = '' } = props;
   const todo: Todo = props.todo;
 
   const [todoContent, setTodoContent] = useState('');
@@ -47,10 +54,14 @@ const TodoItem = (props: any) => {
     e: React.ChangeEvent<HTMLInputElement>,
     todoId: string
   ) => {
-    console.log(e.target.checked);
+    const checked = e.target.checked;
     console.log(todoId);
 
-    dispatch(updateTodoStatus(todoId, e.target.checked));
+    setTimeout(() => {
+      // console.log(e);
+
+      dispatch(updateTodoStatus(todoId, checked));
+    }, 500);
   };
 
   const handleEdit = (id: string) => {
@@ -71,15 +82,22 @@ const TodoItem = (props: any) => {
     }
   };
 
+  const handleDeleteItem = () => {
+    setTimeout(() => {
+      dispatch(deleteTodo(id));
+    }, 500);
+  };
+
   return (
     <div
       //  key={id}
       className={clsx('ToDo__item', edit && 'Todo__item--edit')}
+      ref={ref}
     >
-      <div className='Todo__line' />
+      <div className='Todo__line' style={{ backgroundColor: todo.color }} />
       <input
         type='checkbox'
-        // checked={isTodoCompleted(todoItem)}
+        checked={isTodoCompleted(todo)}
         onChange={(e) => onUpdateTodoStatus(e, id)}
       />
 
@@ -95,7 +113,7 @@ const TodoItem = (props: any) => {
         ref={inputRef}
       ></input>
 
-      <div className='Todo__delete' onClick={() => dispatch(deleteTodo(id))}>
+      <div className='Todo__delete' onClick={() => handleDeleteItem()}>
         <i className='bx bx-x icon'></i>
       </div>
 
@@ -104,6 +122,6 @@ const TodoItem = (props: any) => {
       </div>
     </div>
   );
-};
+});
 
 export default TodoItem;
