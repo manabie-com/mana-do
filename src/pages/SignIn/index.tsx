@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { useHistory } from 'react-router-dom';
+import Auth from 'service/auth';
 import Service from '../../service';
 
 import './index.css';
@@ -12,11 +13,27 @@ const SignInPage = () => {
   });
   const history = useHistory();
 
+  useEffect(() => {
+    // log out
+    // console.log('log out');
+    // (async () =>
+    //   await Auth.signout(() => {
+    //     console.log('Signed out!');
+    //   }))();
+    return () => {
+      console.log('UNMOUNT');
+    };
+  }, []);
+
   const signIn = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const resp = await Service.signIn(form.userId, form.password);
 
-    localStorage.setItem('token', resp);
+    const resp = await Service.signIn(
+      form.userId.toString(),
+      form.password.toString()
+    );
+
+    localStorage.setItem('token', resp || '123456');
     history.push('/todo');
   };
 

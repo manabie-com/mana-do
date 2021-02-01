@@ -9,6 +9,8 @@ import reducer, { initialState } from 'store/reducer';
 
 import './index.css';
 
+console.log(initialState);
+
 const TodoItem = (props: any) => {
   const { updateEditId, edit = false } = props;
   const todo: Todo = props.todo;
@@ -60,7 +62,10 @@ const TodoItem = (props: any) => {
   };
 
   return (
-    <div key={id} className={clsx('ToDo__item', edit && 'Todo__item--edit')}>
+    <div
+      //  key={id}
+      className={clsx('ToDo__item', edit && 'Todo__item--edit')}
+    >
       <input
         type='checkbox'
         // checked={isTodoCompleted(todoItem)}
@@ -85,6 +90,5 @@ const TodoItem = (props: any) => {
     </div>
   );
 };
-
 
 export default TodoItem;

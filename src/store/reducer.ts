@@ -12,14 +12,21 @@ import {
 export interface AppState {
   todos: Array<Todo>;
 }
-// localStorage.getItem('state') ||
-// export const initialState : AppState = JSON.parse(localStorage.getItem('state') || '') as AppState || {
+
+// Not good when storing a large amount of data in localStorage
+
+// export const initialState: AppState = (JSON.parse(
+//   localStorage.getItem('state') || '{todos: []}'
+// ) as AppState) || {
 //   todos: []
 // };
-export const initialState: AppState = (JSON.parse(
-  localStorage.getItem('state') || ''
-) as AppState) || {
-  todos: []
+// if (!localStorage.getItem('state')) {
+//   localStorage.setItem('state', '{todos: []}');
+// }
+console.log(JSON.parse(localStorage.getItem('todos') || ''));
+
+export const initialState: AppState = {
+  todos: JSON.parse(localStorage.getItem('todos') || '') || []
 };
 
 function reducer(state: AppState, action: AppActions): AppState {

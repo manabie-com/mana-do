@@ -20,6 +20,7 @@ import { isTodoCompleted } from 'utils';
 
 import './index.css';
 import TodoItem from 'components/TodoItem';
+import Auth from 'service/auth';
 
 type EnhanceTodoStatus = TodoStatus | 'ALL';
 
@@ -34,18 +35,21 @@ const ToDoPage = ({ history }: RouteComponentProps) => {
   const [showing, setShowing] = useState<EnhanceTodoStatus>('ALL');
   const [editId, setEditId] = useState('');
   const inputRef = useRef<HTMLInputElement>(null);
-  const { todos } = state;
-
-  console.log(todos);
+  const { todos = [] } = state;
 
   useEffect(() => {
+    Auth.authenticate(() => {});
+
     (async () => {
       const resp = await Service.getTodos();
 
-      console.log('RUN', resp);
       dispatch(setTodos(resp || []));
     })();
 
+    return () => {
+      console.log('UNMOUNT');
+      localStorage.removeItem('token');
+    };
     // localStorage.setItem('ahihi', '456');
   }, []);
 
@@ -132,6 +136,7 @@ const ToDoPage = ({ history }: RouteComponentProps) => {
           const { id = '0' } = todo;
           return (
             <TodoItem
+              key={id}
               todo={todo}
               updateEditId={updateEditId}
               edit={id === editId}
