@@ -1,5 +1,5 @@
-import React, { createContext, useReducer as useReducerReact } from 'react';
-import { useReducer } from 'reinspect';
+import React, { createContext, useReducer, useEffect } from 'react';
+// import { useReducer } from 'reinspect';
 
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import PrivateRoute from 'routes/PrivateRoute';
@@ -15,31 +15,14 @@ import NotFound from 'pages/NotFound';
 export const TodoContext = createContext({});
 
 const App = () => {
-  const [store, dispatch] = useReducer(
-    reducer,
-    initialState,
-    (a) => a,
-    'globalStore'
-  );
+  const [store, dispatch] = useReducer(reducer, initialState);
 
-  // useEffect(() => {
-  //   const handler = () => {
-  //     console.log(store);
-  //     console.log(JSON.stringify(store.todos));
-
-  //     localStorage.setItem('todos', JSON.stringify(store.todos));
-  //   };
-
-  //   window.addEventListener('beforeunload', handler);
-
-  //   return () => {
-  //     window.removeEventListener('beforeunload', handler);
-  //   };
-  // }, [store]);
-
-  // useEffect(() => {}, [Auth.isAuthenticated]);
-
-  // console.log(Auth.isAuthenticated);
+  useEffect(() => {
+    return () => {
+      localStorage.removeItem('todos');
+      localStorage.removeItem('token');
+    };
+  }, []);
 
   return (
     <main className='App'>

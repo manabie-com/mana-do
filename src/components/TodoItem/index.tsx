@@ -6,18 +6,14 @@ import React, {
   forwardRef
 } from 'react';
 import clsx from 'clsx';
-// import { Todo } from '@components/TodoItem';
-import { Todo } from 'models/todo';
-// import { Todo } from '../../models/todo';
-import { deleteTodo, updateTodo, updateTodoStatus } from 'store/actions';
-import { initialState } from 'store/reducer';
 
-import './index.css';
+import { Todo } from 'models/todo';
+import { deleteTodo, updateTodo, updateTodoStatus } from 'store/actions';
+
 import { TodoContext } from 'App';
 import { isTodoCompleted } from 'utils';
+import './index.css';
 
-console.log(initialState);
-// React.ForwardRefRenderFunction<HTMLInputElement, any>
 const TodoItem = forwardRef<HTMLInputElement, any>((props: any, ref) => {
   const todoContext = useContext(TodoContext);
   const { store, dispatch } = todoContext as {
@@ -45,7 +41,6 @@ const TodoItem = forwardRef<HTMLInputElement, any>((props: any, ref) => {
 
   useEffect(() => {
     if (isEdit && inputRef) {
-      console.log(inputRef.current);
       inputRef.current?.focus();
     }
   }, [isEdit]);
@@ -55,14 +50,16 @@ const TodoItem = forwardRef<HTMLInputElement, any>((props: any, ref) => {
     todoId: string
   ) => {
     const checked = e.target.checked;
-    console.log(todoId);
 
     setCross(checked);
     dispatch(updateTodoStatus(todoId, checked));
   };
 
   const handleEdit = (id: string) => {
-    console.log(id);
+    // Cannot edit ticket after complete
+    if (isTodoCompleted(todo)) {
+      return;
+    }
     updateEditId(id);
   };
 
@@ -121,9 +118,6 @@ const TodoItem = forwardRef<HTMLInputElement, any>((props: any, ref) => {
           disabled={!isEdit}
           onKeyDown={onFinishEditTodo}
           onChange={onChangeTodoContent}
-          onFocus={() => {
-            console.log('FOCUS');
-          }}
           ref={inputRef}
         ></input>
       </div>

@@ -3,8 +3,6 @@ import { RouteComponentProps } from 'react-router-dom';
 import FlipMove from 'react-flip-move';
 
 import { Todo } from 'models/todo';
-import { day, dayName, month, year } from 'utils';
-
 import {
   setTodos,
   createTodo,
@@ -15,16 +13,17 @@ import Service from 'service';
 import { TodoStatus } from 'models/todo';
 import { isTodoCompleted } from 'utils';
 
-import './index.css';
+// import Auth from 'service/auth';
 import TodoItem from 'components/TodoItem';
-import Auth from 'service/auth';
+import { day, dayName, month, year } from 'utils';
 import { TodoContext } from 'App';
+
+import './index.css';
 
 type EnhanceTodoStatus = TodoStatus | 'ALL';
 
 const ToDoPage = ({ history }: RouteComponentProps) => {
   const todoContext = useContext(TodoContext);
-  console.log(todoContext);
   const { store, dispatch } = todoContext as {
     store: { todos: Todo[] };
     dispatch: any;
@@ -36,12 +35,8 @@ const ToDoPage = ({ history }: RouteComponentProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const { todos = [] as Todo[] } = store || {};
 
-  // console.log(initialState);
-
-  console.log(store);
-
   useEffect(() => {
-    Auth.authenticate(() => {});
+    // Auth.authenticate(() => {});
 
     (async () => {
       const resp = await Service.getTodos();
@@ -99,25 +94,9 @@ const ToDoPage = ({ history }: RouteComponentProps) => {
     return isTodoCompleted(todo) ? accum : accum + 1;
   }, 0);
 
-  console.log(activeTodos);
-
-  // useEffect(() => {
-  //   console.log('GO');
-  //   // setTodoInput('asd');
-  // }, [showTodos]);
-  console.log(showTodos);
-
   const onTodoInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTodoInput(e.currentTarget.value);
   };
-
-  // const handleEdit = (id: string) => {
-  //   // setTodoInput(e.currentTarget.value);
-  //   console.log(id);
-  //   setEditId(id);
-  //   //    dispatch(updateTodo(id, ))
-  // };
-  console.log('render');
 
   return (
     <div className='ToDo__container'>
