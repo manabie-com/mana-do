@@ -45,7 +45,6 @@ const ToDoPage = ({ history }: RouteComponentProps) => {
 
     (async () => {
       const resp = await Service.getTodos();
-
       dispatch(setTodos(resp || []));
     })();
 

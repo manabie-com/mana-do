@@ -1,8 +1,4 @@
-import React, {
-  useEffect,
-  createContext,
-  useReducer as useReducerReact
-} from 'react';
+import React, { createContext, useReducer as useReducerReact } from 'react';
 import { useReducer } from 'reinspect';
 
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
@@ -26,21 +22,20 @@ const App = () => {
     'globalStore'
   );
 
-  useEffect(() => {
-    const handler = () => {
-      console.log(store);
-      // localStorage.setItem('state', JSON.stringify(state));
-      console.log(JSON.stringify(store.todos));
+  // useEffect(() => {
+  //   const handler = () => {
+  //     console.log(store);
+  //     console.log(JSON.stringify(store.todos));
 
-      localStorage.setItem('todos', JSON.stringify(store.todos));
-    };
+  //     localStorage.setItem('todos', JSON.stringify(store.todos));
+  //   };
 
-    window.addEventListener('beforeunload', handler);
+  //   window.addEventListener('beforeunload', handler);
 
-    return () => {
-      window.removeEventListener('beforeunload', handler);
-    };
-  }, [store]);
+  //   return () => {
+  //     window.removeEventListener('beforeunload', handler);
+  //   };
+  // }, [store]);
 
   // useEffect(() => {}, [Auth.isAuthenticated]);
 

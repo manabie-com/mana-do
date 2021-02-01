@@ -12,12 +12,6 @@ const SignInPage = () => {
   });
   const history = useHistory();
 
-  // useEffect(() => {
-  //   return () => {
-  //     console.log('UNMOUNT');
-  //   };
-  // }, []);
-
   const signIn = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 

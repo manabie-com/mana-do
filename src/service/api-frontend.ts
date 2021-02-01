@@ -1,25 +1,20 @@
 import { IAPI } from './types';
 import { Todo, TodoStatus } from '../models/todo';
 import shortid from 'shortid';
-import Auth from './auth';
+// import Auth from './auth';
 import { getRandomColor } from 'utils';
 
 const mockToken = 'testabc.xyz.ahk';
-
-const loginSuccess = () => {
-  console.log('Log in successfully!');
-};
-
 class ApiFrontend extends IAPI {
   async signIn(username: string, password: string): Promise<string> {
     if (username === 'firstUser' && password === 'example') {
-      Auth.authenticate(() => {});
+      // Auth.authenticate(() => {});
       return Promise.resolve(mockToken);
-      //   return Promise.resolve(mockToken).then(() => {
-      //     return Auth.authenticate(loginSuccess);
-      //   });
     }
-    return Promise.reject('Incorrect username/password');
+    return Promise.reject({
+      statusCode: 401,
+      message: 'Incorrect username/password'
+    });
   }
 
   async createTodo(content: string): Promise<Todo> {
@@ -34,7 +29,7 @@ class ApiFrontend extends IAPI {
   }
 
   async getTodos(): Promise<Todo[]> {
-    return [];
+    return JSON.parse(localStorage.getItem('todos') || '{}') || [];
   }
 }
 

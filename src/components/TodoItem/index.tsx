@@ -58,13 +58,9 @@ const TodoItem = forwardRef<HTMLInputElement, any>((props: any, ref) => {
     console.log(todoId);
 
     setTimeout(() => {
-      if (checked) {
-        setCross(true);
-      } else {
-        setCross(false);
-      }
+      setCross(checked);
       dispatch(updateTodoStatus(todoId, checked));
-    }, 500);
+    }, 1000);
   };
 
   const handleEdit = (id: string) => {
@@ -87,7 +83,7 @@ const TodoItem = forwardRef<HTMLInputElement, any>((props: any, ref) => {
   const handleDeleteItem = () => {
     setTimeout(() => {
       dispatch(deleteTodo(id));
-    }, 500);
+    }, 1000);
   };
 
   console.log(store);
@@ -118,7 +114,12 @@ const TodoItem = forwardRef<HTMLInputElement, any>((props: any, ref) => {
       </div>
       {/* /Checkbox */}
 
-      <div className={clsx('Todo__content', cross && 'cross')}>
+      <div
+        className={clsx(
+          'Todo__content',
+          (cross || isTodoCompleted(todo)) && 'cross'
+        )}
+      >
         <input
           value={todoContent}
           disabled={!isEdit}
