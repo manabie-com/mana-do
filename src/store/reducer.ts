@@ -36,7 +36,6 @@ function reducer(state: AppState, action: AppActions): AppState {
 
   switch (action.type) {
     case CREATE_TODO: {
-      // console.log(action.payload);
       const newTodo: Todo = action.payload;
 
       return {
@@ -69,22 +68,30 @@ function reducer(state: AppState, action: AppActions): AppState {
       });
 
       return {
-        ...state,
-        todos: tempTodos
+        ...state
+        // todos: tempTodos
       };
 
-    case DELETE_TODO:
+    case DELETE_TODO: {
       console.log('HERE');
 
-      const index1 = state.todos.findIndex(
+      const newTodos: Todo[] = [...state.todos];
+      const index: number = newTodos.findIndex(
         (todo) => todo.id === action.payload
       );
-      state.todos.splice(index1, 1);
+      newTodos.splice(index, 1);
+
+      console.log([...state.todos]);
+
+      console.log(newTodos);
 
       return {
         ...state,
-        todos: state.todos
+        // todos: [...state.todos]
+        // todos: [...newTodos]
+        todos: newTodos
       };
+    }
 
     case DELETE_ALL_TODOS: {
       console.log(state);
@@ -94,6 +101,7 @@ function reducer(state: AppState, action: AppActions): AppState {
         todos: []
       };
     }
+
     case UPDATE_TODO: {
       const {
         payload: { todoId, content = '' }

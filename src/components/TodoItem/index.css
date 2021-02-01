@@ -1,3 +1,64 @@
+.ToDo__item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  min-height: 60px;
+  margin-bottom: 1em;
+  position: relative;
+  box-shadow: 0px 0px 6px rgba(0, 0, 179, 0.534);
+  padding-left: 1em;
+  padding-right: 0.5em;
+}
+
 .Todo__item--edit {
   border: 1px solid black;
+}
+
+.Todo__line {
+  position: absolute;
+  content: '';
+  width: 5px;
+  /* height: 100%; */
+  background-color: purple;
+  left: 5px;
+  top: 5px;
+  bottom: 5px;
+  border-radius: 5px;
+}
+
+.ToDo__item > span {
+  flex: 1 1;
+  text-align: left;
+  margin-left: 8px;
+}
+
+.Todo__content {
+  box-shadow: none;
+  /* flex: 1 1; */
+  padding: 0 5px;
+  margin: 0 0.2em;
+  /* font-weight: 500; */
+  font-size: 1rem;
+  width: 70%;
+  /* flex: 1; */
+}
+
+.Todo__content:focus {
+  box-shadow: none;
+}
+
+.Todo__delete {
+  outline: none;
+  border: none;
+  width: 32px;
+  height: 32px;
+  min-width: auto;
+  min-height: auto;
+  box-shadow: none;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
 }

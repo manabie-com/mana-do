@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, useContext } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import { StateInspector, useReducer } from 'reinspect';
 
@@ -21,10 +21,14 @@ import { isTodoCompleted } from 'utils';
 import './index.css';
 import TodoItem from 'components/TodoItem';
 import Auth from 'service/auth';
+import { TodoContext } from 'App';
 
 type EnhanceTodoStatus = TodoStatus | 'ALL';
 
 const ToDoPage = ({ history }: RouteComponentProps) => {
+  const todoContext = useContext(TodoContext);
+  console.log(todoContext);
+
   const [state, dispatch] = useReducer(
     reducer,
     initialState,
@@ -35,7 +39,11 @@ const ToDoPage = ({ history }: RouteComponentProps) => {
   const [showing, setShowing] = useState<EnhanceTodoStatus>('ALL');
   const [editId, setEditId] = useState('');
   const inputRef = useRef<HTMLInputElement>(null);
-  const { todos = [] } = state;
+  const { todos = [] } = state || {};
+
+  // console.log(initialState);
+
+  console.log(state);
 
   useEffect(() => {
     Auth.authenticate(() => {});
@@ -121,15 +129,28 @@ const ToDoPage = ({ history }: RouteComponentProps) => {
 
   return (
     <div className='ToDo__container'>
-      <div className='Todo__creation'>
-        <input
-          ref={inputRef}
-          value={todoInput}
-          className='Todo__input'
-          placeholder='What need to be done?'
-          onKeyDown={onCreateTodo}
-          onChange={onTodoInput}
-        />
+      <div className='Todo__header'>
+        <div className='Todo__creation'>
+          <input
+            ref={inputRef}
+            value={todoInput}
+            className='Todo__input'
+            placeholder='What need to be done?'
+            onKeyDown={onCreateTodo}
+            onChange={onTodoInput}
+          />
+        </div>
+
+        <div className='Todo__date'>
+          <span className='date__left'>16</span>
+          <div className='date__right'>
+            <span className='date__top'>August</span>
+            <div className='date__bottom'>
+              <span className='date__year'>2020</span>
+              <span className='date__day'>Monday</span>
+            </div>
+          </div>
+        </div>
       </div>
       <div className='ToDo__list'>
         {showTodos.map((todo) => {

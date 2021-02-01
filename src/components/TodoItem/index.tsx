@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import clsx from 'clsx';
 // import { Todo } from '@components/TodoItem';
 import { Todo } from 'models/todo';
@@ -22,6 +22,7 @@ const TodoItem = (props: any) => {
   );
   const [todoContent, setTodoContent] = useState('');
   const [isEdit, setIsEdit] = useState(false);
+  const inputRef: React.RefObject<HTMLInputElement> = useRef(null);
 
   const { id = '123', content = '' } = todo;
 
@@ -32,6 +33,13 @@ const TodoItem = (props: any) => {
   useEffect(() => {
     setIsEdit(edit);
   }, [edit]);
+
+  useEffect(() => {
+    if (isEdit && inputRef) {
+      console.log(inputRef.current);
+      inputRef.current?.focus();
+    }
+  }, [isEdit]);
 
   const onUpdateTodoStatus = (
     e: React.ChangeEvent<HTMLInputElement>,
@@ -66,6 +74,7 @@ const TodoItem = (props: any) => {
       //  key={id}
       className={clsx('ToDo__item', edit && 'Todo__item--edit')}
     >
+      <div className='Todo__line' />
       <input
         type='checkbox'
         // checked={isTodoCompleted(todoItem)}
@@ -78,6 +87,10 @@ const TodoItem = (props: any) => {
         disabled={!isEdit}
         onKeyDown={onFinishEditTodo}
         onChange={onChangeTodoContent}
+        onFocus={() => {
+          console.log('FOCUS');
+        }}
+        ref={inputRef}
       ></input>
 
       <div className='Todo__delete' onClick={() => dispatch(deleteTodo(id))}>

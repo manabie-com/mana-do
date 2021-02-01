@@ -1,61 +1,95 @@
 .ToDo__container {
-  border: 1px solid rgba(0, 0, 0, 0.13);
   border-radius: 8px;
-  width: 500px;
-  margin-top: 5rem;
-  padding: 24px;
-  box-shadow: 2px 2px 1px rgba(0, 0, 0, 0.09), 3px 2px 3px rgba(0, 0, 0, 0.05);
+  width: 350px;
+  min-height: 450px;
+  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.288);
+  background-color: rgb(247, 247, 247);
+}
+
+.Todo__header {
+  padding-top: 1.2em;
+  height: 200px;
+  display: block;
+  width: 100%;
+  background-image: linear-gradient(45deg, #09c0fc, #8777ef);
+}
+
+.Todo__date {
+  width: 80%;
+  margin: 0 auto;
+  display: flex;
+  margin-top: 1.5em;
+  /* justify-content: space-between; */
+  align-items: center;
+  color: white;
+}
+
+.date__left {
+  font-size: 3rem;
+  font-weight: 500;
+  margin-right: 0.3em;
+}
+
+.date__right {
+  flex: 1;
+  text-align: left;
+  font-weight: 300;
+}
+
+.date__top {
+  font-weight: 400;
+  font-size: 1rem;
+}
+.date__bottom {
+  margin-top: 5px;
+  font-size: 0.9rem;
+  display: flex;
+  justify-content: space-between;
 }
 
 .Todo__creation {
   display: flex;
+  margin: 0 auto;
+  width: 80%;
 }
 
 .Todo__input {
   flex: 1 1;
+  /* background-image: linear-gradient(45deg, #31cafd, #a89bfa); */
+  background-color: #09c0fc;
+  color: rgb(255, 255, 255);
+  padding: 10px 15px;
+  font-size: 1rem;
+}
+
+.Todo__input::placeholder {
+  color: rgb(247, 247, 247);
 }
 
 .ToDo__list {
   display: flex;
   flex-direction: column;
-  margin-top: 1.5rem;
+  margin: 0 auto;
+  margin-top: -50px;
+  width: 90%;
+  padding: 1em 0.7em;
+  background-color: white;
+  height: 350px;
+  overflow-y: scroll;
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.329);
 }
 
-.ToDo__item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+.ToDo__list::-webkit-scrollbar {
+  /* display: none; */
+  width: 5px;
 }
 
-.ToDo__item > span {
-  flex: 1 1;
-  text-align: left;
-  margin-left: 8px;
+.ToDo__list::-webkit-scrollbar-track {
+  background: rgb(236, 236, 236);
 }
 
-.Todo__content {
-  box-shadow: none;
-  flex: 1 1;
-  margin: 0 1em;
-}
-
-.Todo__content:focus {
-  box-shadow: none;
-}
-
-.Todo__delete {
-  outline: none;
-  border: none;
-  width: 32px;
-  height: 32px;
-  min-width: auto;
-  min-height: auto;
-  box-shadow: none;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
+.ToDo__list::-webkit-scrollbar-thumb {
+  background: rgb(202, 202, 202);
 }
 
 .Todo__action,

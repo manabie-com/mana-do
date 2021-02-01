@@ -1,4 +1,8 @@
-import React, { useEffect } from 'react';
+import React, {
+  useEffect,
+  createContext,
+  useReducer as useReducerReact
+} from 'react';
 import { useReducer } from 'reinspect';
 
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
@@ -12,7 +16,10 @@ import './App.css';
 import NotFound from 'pages/NotFound';
 // import Auth from 'service/auth';
 
-function App() {
+export const TodoContext = createContext({});
+
+const App = () => {
+  const [todoStore, dispatchTodo] = useReducerReact(reducer, initialState);
   const [state, dispatch] = useReducer(
     reducer,
     initialState,
@@ -42,15 +49,17 @@ function App() {
 
   return (
     <main className='App'>
-      <BrowserRouter>
-        <Switch>
-          <Route path='/' exact component={SignInPage} />
-          <PrivateRoute path='/todo' component={ToDoPage} />
-          <Route path='/' component={NotFound} />
-        </Switch>
-      </BrowserRouter>
+      <TodoContext.Provider value={{ todoStore, dispatchTodo }}>
+        <BrowserRouter>
+          <Switch>
+            <Route path='/' exact component={SignInPage} />
+            <PrivateRoute path='/todo' component={ToDoPage} />
+            <Route path='/' component={NotFound} />
+          </Switch>
+        </BrowserRouter>
+      </TodoContext.Provider>
     </main>
   );
-}
+};
 
 export default App;
