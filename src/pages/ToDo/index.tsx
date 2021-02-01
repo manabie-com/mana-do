@@ -28,22 +28,26 @@ type EnhanceTodoStatus = TodoStatus | 'ALL';
 const ToDoPage = ({ history }: RouteComponentProps) => {
   const todoContext = useContext(TodoContext);
   console.log(todoContext);
+  const { store, dispatch } = todoContext as {
+    store: { todos: Todo[] };
+    dispatch: any;
+  };
 
-  const [state, dispatch] = useReducer(
-    reducer,
-    initialState,
-    (a) => a,
-    'todosState'
-  );
+  // const [store, dispatch] = useReducer(
+  //   reducer,
+  //   initialState,
+  //   (a) => a,
+  //   'todosState'
+  // );
   const [todoInput, setTodoInput] = useState('');
   const [showing, setShowing] = useState<EnhanceTodoStatus>('ALL');
   const [editId, setEditId] = useState('');
   const inputRef = useRef<HTMLInputElement>(null);
-  const { todos = [] } = state || {};
+  const { todos = [] as Todo[] } = store || {};
 
   // console.log(initialState);
 
-  console.log(state);
+  console.log(store);
 
   useEffect(() => {
     Auth.authenticate(() => {});

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useContext } from 'react';
 import clsx from 'clsx';
 // import { Todo } from '@components/TodoItem';
 import { Todo } from 'models/todo';
@@ -8,18 +8,20 @@ import { useReducer } from 'reinspect';
 import reducer, { initialState } from 'store/reducer';
 
 import './index.css';
+import { TodoContext } from 'App';
 
 console.log(initialState);
 
 const TodoItem = (props: any) => {
+  const todoContext = useContext(TodoContext);
+  const { store, dispatch } = todoContext as {
+    store: { todos: Todo[] };
+    dispatch: any;
+  };
+
   const { updateEditId, edit = false } = props;
   const todo: Todo = props.todo;
-  const [{ todos }, dispatch] = useReducer(
-    reducer,
-    initialState,
-    (a) => a,
-    'todosState'
-  );
+
   const [todoContent, setTodoContent] = useState('');
   const [isEdit, setIsEdit] = useState(false);
   const inputRef: React.RefObject<HTMLInputElement> = useRef(null);

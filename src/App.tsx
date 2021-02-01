@@ -19,21 +19,20 @@ import NotFound from 'pages/NotFound';
 export const TodoContext = createContext({});
 
 const App = () => {
-  const [todoStore, dispatchTodo] = useReducerReact(reducer, initialState);
-  const [state, dispatch] = useReducer(
+  const [store, dispatch] = useReducer(
     reducer,
     initialState,
     (a) => a,
-    'todosState'
+    'globalStore'
   );
 
   useEffect(() => {
     const handler = () => {
-      console.log(state);
+      console.log(store);
       // localStorage.setItem('state', JSON.stringify(state));
-      console.log(JSON.stringify(state.todos));
+      console.log(JSON.stringify(store.todos));
 
-      localStorage.setItem('todos', JSON.stringify(state.todos));
+      localStorage.setItem('todos', JSON.stringify(store.todos));
     };
 
     window.addEventListener('beforeunload', handler);
@@ -41,7 +40,7 @@ const App = () => {
     return () => {
       window.removeEventListener('beforeunload', handler);
     };
-  }, [state]);
+  }, [store]);
 
   // useEffect(() => {}, [Auth.isAuthenticated]);
 
@@ -49,7 +48,7 @@ const App = () => {
 
   return (
     <main className='App'>
-      <TodoContext.Provider value={{ todoStore, dispatchTodo }}>
+      <TodoContext.Provider value={{ store, dispatch }}>
         <BrowserRouter>
           <Switch>
             <Route path='/' exact component={SignInPage} />
