@@ -29,6 +29,7 @@ const TodoItem = forwardRef<HTMLInputElement, any>((props: any, ref) => {
   const todo: Todo = props.todo;
 
   const [todoContent, setTodoContent] = useState('');
+  const [cross, setCross] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
   const inputRef: React.RefObject<HTMLInputElement> = useRef(null);
 
@@ -57,6 +58,11 @@ const TodoItem = forwardRef<HTMLInputElement, any>((props: any, ref) => {
     console.log(todoId);
 
     setTimeout(() => {
+      if (checked) {
+        setCross(true);
+      } else {
+        setCross(false);
+      }
       dispatch(updateTodoStatus(todoId, checked));
     }, 500);
   };
@@ -89,23 +95,41 @@ const TodoItem = forwardRef<HTMLInputElement, any>((props: any, ref) => {
   return (
     <div className={clsx('ToDo__item', edit && 'Todo__item--edit')} ref={ref}>
       <div className='Todo__line' style={{ backgroundColor: todo.color }} />
-      <input
-        type='checkbox'
-        checked={isTodoCompleted(todo)}
-        onChange={(e) => onUpdateTodoStatus(e, id)}
-      />
 
-      <input
-        className='Todo__content'
-        value={todoContent}
-        disabled={!isEdit}
-        onKeyDown={onFinishEditTodo}
-        onChange={onChangeTodoContent}
-        onFocus={() => {
-          console.log('FOCUS');
-        }}
-        ref={inputRef}
-      ></input>
+      {/* Checkbox */}
+      <div className='wrapper'>
+        <input
+          className='checkbox'
+          type='checkbox'
+          checked={isTodoCompleted(todo)}
+          onChange={(e) => onUpdateTodoStatus(e, id)}
+        />
+
+        <div className='box'>
+          <div className='tick tick-left'></div>
+          <div className='tick tick-right'></div>
+        </div>
+
+        <div className='line top'></div>
+        <div className='line left'></div>
+        <div className='line bottom'></div>
+        <div className='line right-top'></div>
+        <div className='line right-bottom'></div>
+      </div>
+      {/* /Checkbox */}
+
+      <div className={clsx('Todo__content', cross && 'cross')}>
+        <input
+          value={todoContent}
+          disabled={!isEdit}
+          onKeyDown={onFinishEditTodo}
+          onChange={onChangeTodoContent}
+          onFocus={() => {
+            console.log('FOCUS');
+          }}
+          ref={inputRef}
+        ></input>
+      </div>
 
       <div className='Todo__delete' onClick={() => handleDeleteItem()}>
         <i className='bx bx-x icon'></i>
