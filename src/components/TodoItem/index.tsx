@@ -57,10 +57,8 @@ const TodoItem = forwardRef<HTMLInputElement, any>((props: any, ref) => {
     const checked = e.target.checked;
     console.log(todoId);
 
-    setTimeout(() => {
-      setCross(checked);
-      dispatch(updateTodoStatus(todoId, checked));
-    }, 1000);
+    setCross(checked);
+    dispatch(updateTodoStatus(todoId, checked));
   };
 
   const handleEdit = (id: string) => {
@@ -81,9 +79,7 @@ const TodoItem = forwardRef<HTMLInputElement, any>((props: any, ref) => {
   };
 
   const handleDeleteItem = () => {
-    setTimeout(() => {
-      dispatch(deleteTodo(id));
-    }, 1000);
+    dispatch(deleteTodo(id));
   };
 
   console.log(store);

@@ -49,10 +49,8 @@ const ToDoPage = ({ history }: RouteComponentProps) => {
     })();
 
     return () => {
-      console.log('UNMOUNT');
       localStorage.removeItem('token');
     };
-    // localStorage.setItem('ahihi', '456');
   }, [dispatch]);
 
   const updateEditId = (id: string) => {
