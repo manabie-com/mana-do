@@ -1,0 +1,133 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ToDoPage /> should match snapshot 1`] = `
+.c4 {
+  outline: none;
+  cursor: pointer;
+  border: none;
+  font-weight: 700;
+  padding: 8px 16px;
+  border-radius: 6px;
+  background-color: #e0e1e2;
+  color: rgba(0,0,0,0.6);
+}
+
+.c4:hover,
+.c4:focus {
+  background-color: #cacbcd;
+  color: rgba(0,0,0,0.8);
+}
+
+.c4:active {
+  background-color: #babbbc;
+  color: rgba(0,0,0,0.9);
+}
+
+.c5 {
+  outline: none;
+  cursor: pointer;
+  border: none;
+  font-weight: 700;
+  padding: 8px 16px;
+  border-radius: 6px;
+  background-color: #2185d0;
+  color: #fff;
+}
+
+.c5:hover,
+.c5:focus {
+  background-color: #1678c2;
+}
+
+.c5:active {
+  background-color: #1a69a4;
+}
+
+.c1 {
+  padding: 8px 16px;
+  border-radius: 6px;
+  width: 100%;
+  outline: none;
+  border: 1px solid rgba(34,36,38,0.15);
+}
+
+.c1:focus {
+  border-color: #85b7d9;
+}
+
+.c2 {
+  padding: 24px 0;
+}
+
+.c0 {
+  box-shadow: 0 1px 2px 0 rgba(34,36,38,0.15);
+  border: 1px solid rgba(34,36,38,0.15);
+  margin: 200px auto;
+  max-width: 600px;
+  padding: 16px;
+  border-radius: 6px;
+}
+
+.c3 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+}
+
+<div>
+  <div
+    class="c0"
+  >
+    <form>
+      <input
+        class="c1"
+        placeholder="What need to be done?"
+        value=""
+      />
+    </form>
+    <div
+      class="c2"
+    >
+      <div>
+        Nothing to show
+      </div>
+    </div>
+    <div
+      class="c3"
+    >
+      <button
+        class="c4"
+      >
+        Show all
+      </button>
+      <button
+        class="c4"
+      >
+        Show active
+      </button>
+      <button
+        class="c4"
+      >
+        Show completed
+      </button>
+      <button
+        class="c5"
+      >
+        Complete all
+      </button>
+      <button
+        class="c5"
+      >
+        Delete all
+      </button>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`<ToDoPage /> should redirect to login page 1`] = `<div />`;
