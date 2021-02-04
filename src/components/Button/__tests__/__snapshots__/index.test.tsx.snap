@@ -1,0 +1,55 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Button /> should match primary snapshot 1`] = `
+.c0 {
+  outline: none;
+  cursor: pointer;
+  border: none;
+  font-weight: 700;
+  padding: 8px 16px;
+  border-radius: 6px;
+  background-color: #2185d0;
+  color: #fff;
+}
+
+.c0:hover,
+.c0:focus {
+  background-color: #1678c2;
+}
+
+.c0:active {
+  background-color: #1a69a4;
+}
+
+<button
+  class="c0"
+/>
+`;
+
+exports[`<Button /> should match snapshot 1`] = `
+.c0 {
+  outline: none;
+  cursor: pointer;
+  border: none;
+  font-weight: 700;
+  padding: 8px 16px;
+  border-radius: 6px;
+  background-color: #e0e1e2;
+  color: rgba(0,0,0,0.6);
+}
+
+.c0:hover,
+.c0:focus {
+  background-color: #cacbcd;
+  color: rgba(0,0,0,0.8);
+}
+
+.c0:active {
+  background-color: #babbbc;
+  color: rgba(0,0,0,0.9);
+}
+
+<button
+  class="c0"
+/>
+`;
