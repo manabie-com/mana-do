@@ -1,0 +1,357 @@
+* {
+  box-sizing: border-box;
+}
+body {
+  width: 100vw;
+  height: 100vh;
+  background-color: #e0e0e0;
+  overflow: hidden;
+  font-size: 12px;
+}
+.login-form-wrap {
+  display: grid;
+}
+.inspiration {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  padding: 10px;
+  text-align: center;
+  text-decoration: none;
+  font-family: "Gill Sans", sans-serif;
+  font-size: 12px;
+  color: #969696;
+}
+.inspiration img {
+  width: 60px;
+}
+.login-form {
+  position: relative;
+  box-shadow: 3px 3px 10px #eee;
+  top: 50%;
+  left: 50%;
+  display: inline-block;
+  width: 275px;
+  height: 465px;
+  padding-bottom: 26px;
+  border-radius: 3px;
+  transform: translate(-50%, -50%);
+  overflow: hidden;
+  background-image: linear-gradient(to top right, #f9a743, #f9db5f);
+}
+@media screen and (max-height: 500px) {
+  .login-form {
+    transition: transform 0.5s;
+    transform: translate(-50%, -50%) scale(0.8);
+  }
+}
+.login-form .ear {
+  position: absolute;
+  top: -110px;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background-color: #243946;
+}
+.login-form .ear.ear--left {
+  left: -135px;
+}
+.login-form .ear.ear--right {
+  right: -135px;
+}
+.login-form .dog-face {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 200px;
+  height: 150px;
+  margin: 80px auto 10px;
+  --rotate-head: 0deg;
+  transform: rotate(var(--rotate-head));
+  transition: transform 0.2s;
+  transform-origin: center 20px;
+}
+.login-form .eye {
+  display: inline-block;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background-color: #243946;
+}
+.login-form .eye.eye--left {
+  margin-right: 40px;
+}
+.login-form .eye.eye--right {
+  margin-left: 40px;
+}
+.login-form .eye .glow {
+  position: relative;
+  top: 3px;
+  right: -12px;
+  width: 12px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: #fff;
+  transform: rotate(38deg);
+}
+.login-form .nose {
+  position: relative;
+  top: 30px;
+  transform: scale(1.1);
+}
+.login-form .error-message {
+  text-align: center;
+  margin-top: 10px;
+}
+.login-form .nose .glow {
+  position: absolute;
+  top: 3px;
+  left: 32%;
+  width: 15px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #476375;
+}
+.login-form .mouth {
+  position: relative;
+  margin-top: 45px;
+}
+.login-form svg.smile {
+  position: absolute;
+  left: -28px;
+  top: -19px;
+  transform: scaleX(1.1);
+  stroke: #243946;
+}
+.login-form .mouth-hole {
+  position: absolute;
+  top: 0;
+  left: -50%;
+  width: 60px;
+  height: 15px;
+  border-radius: 50%/100% 100% 0% 0;
+  transform: rotate(180deg);
+  background-color: #243946;
+  z-index: -1;
+}
+.login-form .tongue {
+  position: relative;
+  top: 5px;
+  width: 30px;
+  height: 20px;
+  background-color: #ffd7dd;
+  transform-origin: top;
+  transform: rotateX(60deg);
+}
+.login-form .tongue.breath {
+  -webkit-animation: breath 0.3s infinite linear;
+  animation: breath 0.3s infinite linear;
+}
+.login-form .tongue-top {
+  position: absolute;
+  bottom: -15px;
+  width: 30px;
+  height: 30px;
+  border-radius: 15px;
+  background-color: #ffd7dd;
+}
+.login-form .line {
+  position: absolute;
+  top: 0;
+  width: 30px;
+  height: 5px;
+  background-color: #fcb7bf;
+}
+.login-form .median {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 25px;
+  border-radius: 5px;
+  background-color: #fcb7bf;
+}
+.login-form .hands {
+  position: relative;
+}
+.login-form .hands .hand {
+  position: absolute;
+  top: -6px;
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+  z-index: 1;
+}
+.login-form .hands .hand--left {
+  left: 50px;
+}
+.login-form .hands .hand--left.hide {
+  transform: translate(2px, -155px) rotate(-160deg);
+}
+.login-form .hands .hand--left.peek {
+  transform: translate(0px, -120px) rotate(-160deg);
+}
+.login-form .hands .hand--right {
+  left: 170px;
+}
+.login-form .hands .hand--right.hide {
+  transform: translate(-6px, -155px) rotate(160deg);
+}
+.login-form .hands .hand--right.peek {
+  transform: translate(-4px, -120px) rotate(160deg);
+}
+.login-form .hands .finger {
+  position: relative;
+  z-index: 0;
+}
+.login-form .hands .finger .bone {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #243946;
+  border-bottom: none;
+  border-top: none;
+  background-color: #fac555;
+}
+.login-form .hands .finger .nail {
+  position: absolute;
+  left: 0;
+  top: 10px;
+  width: 20px;
+  height: 18px;
+  border-radius: 50%;
+  border: 2px solid #243946;
+  background-color: #fac555;
+  z-index: -1;
+}
+.login-form .hands .finger:nth-child(1),
+.login-form .hands .finger:nth-child(3) {
+  left: 4px;
+  z-index: 1;
+}
+.login-form .hands .finger:nth-child(1) .bone,
+.login-form .hands .finger:nth-child(3) .bone {
+  height: 10px;
+}
+.login-form .hands .finger:nth-child(3) {
+  left: -4px;
+}
+.login-form .hands .finger:nth-child(2) {
+  top: -5px;
+  z-index: 2;
+}
+.login-form .hands .finger:nth-child(1) .nail,
+.login-form .hands .finger:nth-child(3) .nail {
+  top: 0px;
+}
+.login-form .login {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+.login-form .login label {
+  position: relative;
+  padding: 0 20px;
+}
+.login-form .login label .fa {
+  position: absolute;
+  top: 40%;
+  left: 35px;
+  color: #bbb;
+}
+.login-form .login label .fa:before {
+  position: relative;
+  left: 1px;
+}
+.login-form .login input,
+.login-form .login .login-button {
+  width: 100%;
+  height: 35px;
+  border: none;
+  border-radius: 30px;
+}
+.login-form .login input {
+  padding: 0 20px;
+  margin: 5px 0;
+  box-shadow: none;
+  outline: none;
+}
+.login-form .login input::-moz-placeholder {
+  color: #ccc;
+}
+.login-form .login input:-ms-input-placeholder {
+  color: #ccc;
+}
+.login-form .login input::placeholder {
+  color: #ccc;
+}
+.login-form .login .password-button {
+  position: absolute;
+  top: 9px;
+  right: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 80px;
+  height: 27px;
+  border-radius: 30px;
+  border: none;
+  outline: none;
+  background-color: #243946;
+  color: #fff;
+}
+.login-form .login .password-button:active {
+  transform: scale(0.95);
+}
+.login-form .login .login-button {
+  width: calc(100% - 40px);
+  margin: 20px 20px 0;
+  outline: none;
+  background-color: #243946;
+  color: #fff;
+  transition: transform 0.1s;
+}
+.login-form .login .login-button:active {
+  transform: scale(0.95);
+}
+.login-form .social-buttons {
+  display: flex;
+  justify-content: center;
+  margin-top: 25px;
+}
+.login-form .social-buttons .social {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 35px;
+  height: 35px;
+  margin: 0 10px;
+  border-radius: 50%;
+  background-color: #243946;
+  color: #fff;
+  font-size: 18px;
+}
+.login-form .social-buttons .social:active {
+  transform: scale(0.95);
+}
+.login-form .footer {
+  text-align: center;
+  margin-top: 15px;
+}
+@-webkit-keyframes breath {
+  0%,
+  100% {
+    transform: rotateX(0deg);
+  }
+  50% {
+    transform: rotateX(60deg);
+  }
+}
+@keyframes breath {
+  0%,
+  100% {
+    transform: rotateX(0deg);
+  }
+  50% {
+    transform: rotateX(60deg);
+  }
+}
