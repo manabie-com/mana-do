@@ -1,6 +1,5 @@
 import React from "react";
 import { TodoStatus } from "../models/todo";
-import { getClassNameActiveByType } from "../utils";
 import styled from "styled-components";
 
 const ListFilter = styled.ul`
@@ -23,6 +22,7 @@ const ListFilter = styled.ul`
       box-shadow: 4px 4px #f50057;
       cursor: pointer;
       transform: 2s ease;
+      outline: none;
 
       &:active {
         position: relative;
@@ -30,6 +30,9 @@ const ListFilter = styled.ul`
         top: 4px;
         box-shadow: none;
         text-shadow: none;
+      }
+      &.active {
+        background: #f50057;
       }
     }
   }
@@ -45,25 +48,19 @@ const Toolbar: React.FC<ToolbarProps> = ({ showing, setShowing, onDeleteAllTodo 
   return (
     <ListFilter id="list--sort">
       <li>
-        <button
-          onClick={() => setShowing(TodoStatus.ALL)}
-          className={`nav--button ${getClassNameActiveByType(showing, TodoStatus.ALL)}`}
-        >
+        <button onClick={() => setShowing(TodoStatus.ALL)} className={showing === TodoStatus.ALL ? "active" : ""}>
           All
         </button>
       </li>
       <li>
-        <button
-          onClick={() => setShowing(TodoStatus.ACTIVE)}
-          className={`nav--button ${getClassNameActiveByType(showing, TodoStatus.ACTIVE)}`}
-        >
+        <button onClick={() => setShowing(TodoStatus.ACTIVE)} className={showing === TodoStatus.ACTIVE ? "active" : ""}>
           To-do
         </button>
       </li>
       <li>
         <button
           onClick={() => setShowing(TodoStatus.COMPLETED)}
-          className={`nav--button ${getClassNameActiveByType(showing, TodoStatus.COMPLETED)}`}
+          className={showing === TodoStatus.COMPLETED ? "active" : ""}
         >
           Completed
         </button>

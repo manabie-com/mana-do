@@ -14,6 +14,7 @@ const ContentWrap = styled.div`
   justify-content: center;
   flex: 1;
   padding: 30px;
+  overflow-y: auto;
 `;
 
 function App() {

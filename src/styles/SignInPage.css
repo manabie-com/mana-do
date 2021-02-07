@@ -268,12 +268,14 @@ body {
   height: 35px;
   border: none;
   border-radius: 30px;
+  cursor: pointer;
 }
 .login-form .login input {
   padding: 0 20px;
   margin: 5px 0;
   box-shadow: none;
   outline: none;
+  cursor: initial;
 }
 .login-form .login input::-moz-placeholder {
   color: #ccc;

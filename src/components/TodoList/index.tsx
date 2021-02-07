@@ -1,6 +1,12 @@
 import React from "react";
 import { Todo } from "../../models/todo";
 import ItemTodo from "./ItemTodo";
+import styled from "styled-components";
+
+const NoData = styled.div`
+  text-align: center;
+  text-transform: uppercase;
+`;
 
 interface TodoListProps {
   dataTodos: Todo[];
@@ -13,7 +19,7 @@ const TodoList: React.FC<TodoListProps> = (props) => {
   return (
     <div id="list--container">
       <ul className="list">
-        {props.dataTodos.length === 0 && <div className="ToDo__Nodata">No data</div>}
+        {props.dataTodos.length === 0 && <NoData>No data</NoData>}
         {props.dataTodos.map((todo, index) => {
           return (
             <ItemTodo

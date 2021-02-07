@@ -54,6 +54,7 @@ const TodoWrap = styled.div`
         box-shadow: 4px 4px #f50057;
         cursor: pointer;
         transform: 2s ease;
+        outline: none;
 
         &:active {
           position: relative;
