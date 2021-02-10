@@ -1,0 +1,6 @@
+{
+  "javascript.validate.enable": false,
+  "editor.defaultFormatter": "chenxsan.vscode-standardjs",
+  "standard.usePackageJson": true,
+  "standard.autoFixOnSave": true
+}

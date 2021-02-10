@@ -1,0 +1,11 @@
+.wrapper {
+  display: flex;
+}
+
+.input {
+  flex: 1;
+}
+
+.input.error {
+  outline: 1px solid #f00;
+}

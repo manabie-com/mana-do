@@ -1,9 +1,7 @@
-import {Todo, TodoStatus} from '../models/todo';
+import { TodoStatus } from '../models/todo'
 
-export function isTodoCompleted(todo: Todo): boolean {
-  return todo.status === TodoStatus.COMPLETED;
-}
+export const isTodoCompleted = (status?: TodoStatus): boolean => status === TodoStatus.COMPLETED
 
-export function isTodoActive(todo: Todo): boolean {
-  return todo.status === TodoStatus.ACTIVE;
-}
+export const isTodoActive = (status?: TodoStatus): boolean => status === TodoStatus.ACTIVE
+
+export const getTodoStatus = (checked: boolean): TodoStatus => checked ? TodoStatus.COMPLETED : TodoStatus.ACTIVE

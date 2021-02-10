@@ -1,0 +1,36 @@
+.item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.item > span {
+  flex: 1 1;
+  text-align: left;
+  margin-left: 8px;
+  cursor: pointer;
+}
+
+.input {
+  flex: 1;
+  margin: 0 1rem;
+}
+
+.input.error {
+  outline: 1px solid #f00;
+}
+
+.delete {
+  outline: none;
+  border: none;
+  width: 32px;
+  height: 32px;
+  min-width: auto;
+  min-height: auto;
+  box-shadow: none;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}

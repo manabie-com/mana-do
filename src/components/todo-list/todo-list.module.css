@@ -1,0 +1,7 @@
+.list {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1.5rem;
+  max-height: 400px;
+  overflow: auto;
+}

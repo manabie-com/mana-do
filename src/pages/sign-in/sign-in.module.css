@@ -1,0 +1,14 @@
+.container {
+  margin-top: 3rem;
+  text-align: left;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.row > :first-child {
+  width: 5rem;
+}
