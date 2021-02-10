@@ -25,7 +25,7 @@ const CreateTodoForm = (): JSX.Element => {
   const handleFormSubmit = async (e: React.FormEvent): Promise<void> => {
     e.preventDefault()
 
-    if (value === '') return setError(true)
+    if (value.trim() === '') return setError(true)
 
     try {
       const resp = await Service.createTodo(value)

@@ -40,7 +40,7 @@ const TodoListItem = ({
     }
 
     if (e.key === KEYBOARD_KEY.ENTER) {
-      if (value === '') return setError(true)
+      if (value.trim() === '') return setError(true)
 
       handleUpdateTodo({ ...todo, content: value })
       setIsEditing(false)
