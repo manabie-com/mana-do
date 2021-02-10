@@ -29,6 +29,8 @@ const SignInPage = (): JSX.Element => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault()
 
+    if (form.userId.trim() === '') return
+
     try {
       const resp = await Service.signIn(form.userId, form.password)
 
