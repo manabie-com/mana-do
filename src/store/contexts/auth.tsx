@@ -5,19 +5,21 @@ import { AuthTypes, AuthActionTypes } from '../actions/auth'
 interface AuthState {
   isAuthenticated: boolean
   token: string
+  loading: boolean
 }
 
 type AuthContextType = [AuthState, React.Dispatch<AuthActionTypes>]
 
 const initialState: AuthState = {
   isAuthenticated: false,
-  token: ''
+  token: '',
+  loading: true
 }
 
 const reducer = (state: AuthState, { type, payload }: AuthActionTypes): AuthState => {
   switch (type) {
     case AuthTypes.SET_TOKEN:
-      return { isAuthenticated: true, token: payload }
+      return { isAuthenticated: true, token: payload, loading: false }
     default:
       return state
   }
