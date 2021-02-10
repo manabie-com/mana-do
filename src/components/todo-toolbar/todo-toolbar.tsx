@@ -3,7 +3,7 @@ import React, { useState, useEffect, useContext, memo } from 'react'
 import { TodoContext } from '../../store/contexts/todo'
 import { setDisplayFilter, deleteTodos, toggleTodos } from '../../store/actions/todo'
 
-import { Todo, TodoStatus, EnhancedTodoStatus } from '../../models/todo'
+import { Todo, TodoDisplayFilter } from '../../models/todo'
 
 import { isTodoCompleted } from '../../utils'
 
@@ -14,14 +14,14 @@ import styles from './todo-toolbar.module.css'
 const countActiveTodos = (todos: Todo[]): number => todos.reduce((accum, todo) =>
   isTodoCompleted(todo.status) ? accum : accum + 1, 0)
 
-const getTodoActionClassName = (displayFilter: EnhancedTodoStatus, status: EnhancedTodoStatus): string =>
-  displayFilter === status ? `${styles.action} ${styles.active}` : styles.action
+const getTodoActionClassName = (displayFilter: TodoDisplayFilter, filter: TodoDisplayFilter): string =>
+  displayFilter === filter ? `${styles.action} ${styles.active}` : styles.action
 
 const TodoToolbar = (): JSX.Element => {
   const [{ todos, displayFilter }, dispatch] = useContext(TodoContext)
   const [activeTodoNumber, setActiveTodoNumber] = useState(countActiveTodos(todos))
 
-  const handleFilterClick = (status: EnhancedTodoStatus): void => dispatch(setDisplayFilter(status))
+  const handleFilterClick = (filter: TodoDisplayFilter): void => dispatch(setDisplayFilter(filter))
 
   const handleClearButtonClick = (): void => dispatch(deleteTodos())
 
@@ -39,20 +39,20 @@ const TodoToolbar = (): JSX.Element => {
         : <div />}
       <div className={styles.tabs}>
         <button
-          className={getTodoActionClassName(displayFilter, 'ALL')}
-          onClick={() => handleFilterClick('ALL')}
+          className={getTodoActionClassName(displayFilter, TodoDisplayFilter.ALL)}
+          onClick={() => handleFilterClick(TodoDisplayFilter.ALL)}
         >
           All
         </button>
         <button
-          className={getTodoActionClassName(displayFilter, TodoStatus.ACTIVE)}
-          onClick={() => handleFilterClick(TodoStatus.ACTIVE)}
+          className={getTodoActionClassName(displayFilter, TodoDisplayFilter.ACTIVE)}
+          onClick={() => handleFilterClick(TodoDisplayFilter.ACTIVE)}
         >
           Active
         </button>
         <button
-          className={getTodoActionClassName(displayFilter, TodoStatus.COMPLETED)}
-          onClick={() => handleFilterClick(TodoStatus.COMPLETED)}
+          className={getTodoActionClassName(displayFilter, TodoDisplayFilter.COMPLETED)}
+          onClick={() => handleFilterClick(TodoDisplayFilter.COMPLETED)}
         >
           Completed
         </button>

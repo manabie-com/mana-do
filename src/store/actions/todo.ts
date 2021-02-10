@@ -1,4 +1,4 @@
-import { Todo, EnhancedTodoStatus } from '../../models/todo'
+import { Todo, TodoDisplayFilter } from '../../models/todo'
 
 export enum TodoTypes {
   FETCH_TODOS = 'FETCH_TODOS',
@@ -81,12 +81,12 @@ export const toggleTodos = (checked: boolean): ToggleTodosAction => ({
 
 interface SetDisplayFilterAction {
   type: typeof TodoTypes.SET_DISPLAY_FILTER
-  payload: EnhancedTodoStatus
+  payload: TodoDisplayFilter
 }
 
-export const setDisplayFilter = (status: EnhancedTodoStatus): SetDisplayFilterAction => ({
+export const setDisplayFilter = (filter: TodoDisplayFilter): SetDisplayFilterAction => ({
   type: TodoTypes.SET_DISPLAY_FILTER,
-  payload: status
+  payload: filter
 })
 
 export type TodoActionTypes = FetchTodosAction

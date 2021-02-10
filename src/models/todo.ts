@@ -3,7 +3,11 @@ export enum TodoStatus {
   COMPLETED = 'COMPLETED'
 }
 
-export type EnhancedTodoStatus = TodoStatus | 'ALL'
+export enum TodoDisplayFilter {
+  ALL = 'ALL',
+  ACTIVE = 'ACTIVE',
+  COMPLETED = 'COMPLETED'
+}
 
 export interface Todo {
   id: string

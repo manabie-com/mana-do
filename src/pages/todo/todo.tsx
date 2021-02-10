@@ -3,7 +3,7 @@ import React, { useEffect, useContext, useMemo } from 'react'
 import { TodoContext } from '../../store/contexts/todo'
 import { fetchTodos, setTodos } from '../../store/actions/todo'
 import Service from '../../service'
-import { TodoStatus } from '../../models/todo'
+import { TodoStatus, TodoDisplayFilter } from '../../models/todo'
 
 import CreateTodoForm from '../../components/create-todo-form'
 import TodoList from '../../components/todo-list'
@@ -40,9 +40,9 @@ const TodoPage = (): JSX.Element => {
 
   const visibleTodos = useMemo(() => todos.filter((todo) => {
     switch (displayFilter) {
-      case TodoStatus.ACTIVE:
+      case TodoDisplayFilter.ACTIVE:
         return todo.status === TodoStatus.ACTIVE
-      case TodoStatus.COMPLETED:
+      case TodoDisplayFilter.COMPLETED:
         return todo.status === TodoStatus.COMPLETED
       default:
         return true

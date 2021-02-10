@@ -1,12 +1,12 @@
 import React, { createContext, useReducer } from 'react'
 
-import { Todo, TodoStatus, EnhancedTodoStatus } from '../../models/todo'
+import { Todo, TodoStatus, TodoDisplayFilter } from '../../models/todo'
 
 import { TodoTypes, TodoActionTypes } from '../actions/todo'
 
 interface TodoState {
   todos: Todo[]
-  displayFilter: EnhancedTodoStatus
+  displayFilter: TodoDisplayFilter
   loading: boolean
 }
 
@@ -14,7 +14,7 @@ type TodoContextType = [TodoState, React.Dispatch<TodoActionTypes>]
 
 const initialState: TodoState = {
   todos: [],
-  displayFilter: 'ALL',
+  displayFilter: TodoDisplayFilter.ALL,
   loading: false
 }
 
@@ -48,7 +48,7 @@ const reducer = (state: TodoState, { type, payload }: TodoActionTypes): TodoStat
     case TodoTypes.SET_DISPLAY_FILTER:
       return {
         ...state,
-        displayFilter: payload as EnhancedTodoStatus
+        displayFilter: payload as TodoDisplayFilter
       }
     default:
       return state
