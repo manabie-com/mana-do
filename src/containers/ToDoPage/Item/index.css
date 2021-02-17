@@ -1,0 +1,90 @@
+.Item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.Item > span {
+  flex: 1 1;
+  text-align: left;
+  margin-left: 8px;
+}
+
+.Item__delete {
+  outline: none;
+  border: none;
+  width: 32px;
+  height: 32px;
+  min-width: auto;
+  min-height: auto;
+  box-shadow: none;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.Item__delete:hover {
+  color: #f5222d;
+  background: #fff;
+  border-color: #f5222d;
+}
+
+.Item__text {
+  max-width: 50%;
+  flex: 0 0 50%;
+}
+
+.Item__text input {
+  width: 100%;
+}
+
+.Item__tooltip {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+  cursor: pointer;
+}
+
+.Item__tooltip .Item__tooltip__div {
+  overflow-x: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.Item__tooltip .Item__tooltip__span {
+  visibility: hidden;
+  bottom: 100%;
+  left: 50%;
+  margin-left: -120px;
+  width: 240px;
+  background-color: black;
+  text-align: center;
+  border-radius: 6px;
+  padding: 6px;
+  position: absolute;
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 1s;
+  color: white;
+  background: #1890ff;
+  word-break: break-word;
+}
+
+.Item__tooltip .Item__tooltip__span::after {
+  content: " ";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #1890ff transparent transparent transparent;
+}
+
+.Item__tooltip:hover .Item__tooltip__span {
+  visibility: visible;
+  opacity: 1;
+}

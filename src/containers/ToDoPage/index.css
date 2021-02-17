@@ -1,0 +1,39 @@
+.Todo__creation {
+  display: flex;
+}
+
+.Todo__input {
+  flex: 1 1;
+}
+
+.ToDo__list {
+  display: flex;
+  flex-direction: column;
+}
+
+.Todo__content {
+  flex: 1 1;
+}
+
+.Todo__action,
+.Todo__delete {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+.Todo__toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 24px 0;
+}
+
+.Todo__tabs {
+  display: flex;
+  justify-content: center;
+}
+
+.Todo__tabs > *:not(:last-child) {
+  margin-right: 8px;
+}

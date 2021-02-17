@@ -11,3 +11,45 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.form {
+  width: 500px;
+  max-height: 500px;
+  overflow: scroll;
+  padding: 24px;
+  box-shadow: 2px 2px 1px rgba(0, 0, 0, 0.09), 3px 2px 3px rgba(0, 0, 0, 0.05);
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+  border: 1px solid rgba(0, 0, 0, 0.13);
+  border-radius: 8px;
+  background: white;
+}
+
+input[type="checkbox"] {
+  width: 24px;
+  height: 24px;
+  box-shadow: none;
+  border: none;
+  outline: none;
+}
+
+input[type="checkbox"]:focus {
+  box-shadow: none;
+  border: none;
+  outline: none;
+}
+
+input {
+  min-height: 36px;
+  border: none;
+  outline: none;
+  padding: 0 12px;
+  box-shadow: 2px 0 4px rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+}
+
+input:focus {
+  box-shadow: 1px 0 9px rgba(0, 0, 0, 0.25);
+}
