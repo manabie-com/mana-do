@@ -19,7 +19,7 @@
 
 #### Common (required in both position)
 - Our code base has some strange bugs adn anti-patterns, please help us find and fix these (please comment the reason why you change it).
-- Write some tests to persuade us that your code is correct.
+- Write some tests to persuade us that what what you had ADDED or FIXED are correct.
 
 #### Front-end engineer
 - For front-end side only, you can use local state instead of remote state.
@@ -38,3 +38,5 @@
 - Run ```yarn``` or ```npm install``` if this is the first time you clone this repo (`master` branch).
 - Run ```yarn start:fullstack``` in case you are doing a fullstack test, else run ```yarn start:frontend``` to start this project in development mode.
 - Sign in using username: `firstUser`, password: `example`
+
+Last updated: 2021/02/18
