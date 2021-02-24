@@ -3,6 +3,8 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import Service from './service';
 
+import './SignInPage.css';
+
 const SignInPage = () => {
   const [form, setForm] = useState({
     userId: '',
@@ -27,32 +29,44 @@ const SignInPage = () => {
   };
 
   return (
-    <div style={{ marginTop: '3rem', textAlign: 'left' }}>
-      <form onSubmit={signIn}>
-        <label htmlFor="user_id">
-          User ID
-          <input
-            id="user_id"
-            name="userId"
-            value={form.userId}
-            style={{ marginLeft: 26, marginTop: 12 }}
-            onChange={onChangeField}
-          />
+    <div className="Signin_container">
+      <form className="Signin__form" onSubmit={signIn}>
+        <label htmlFor="password">
+          <div id="Signin__input-container">
+            <input
+              id="user_id"
+              name="userId"
+              value={form.userId}
+              onChange={onChangeField}
+              placeholder="User ID"
+            />
+            <img
+              src="https://www.freeiconspng.com/thumbs/login-icon/user-login-icon-14.png"
+              id="Signin__input-img"
+              alt="login"
+            />
+          </div>
         </label>
         <br />
         <label htmlFor="password">
-          Password
-          <input
-            id="password"
-            name="password"
-            type="password"
-            style={{ margin: 12 }}
-            value={form.password}
-            onChange={onChangeField}
-          />
+          <div id="Signin__input-container">
+            <input
+              id="password"
+              name="password"
+              type="password"
+              value={form.password}
+              onChange={onChangeField}
+              placeholder="Password"
+            />
+            <img
+              src="https://cdn1.iconfinder.com/data/icons/ios-11-glyphs/30/password-512.png"
+              id="Signin__input-img"
+              alt="password"
+            />
+          </div>
         </label>
         <br />
-        <button type="submit" style={{ marginTop: 12 }}>
+        <button type="submit" className="Signin__submit-button">
           Sign in
         </button>
       </form>
