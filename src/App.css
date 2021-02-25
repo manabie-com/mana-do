@@ -2,13 +2,32 @@
   text-align: center;
   display: flex;
   justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100%;
+  /* background: linear-gradient(135deg, #c850c0, #4158d0); */
+  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+  background-size: 400% 400%;
+  animation: gradient 15s ease infinite;
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 button {
   outline: none;
   border: none;
   color: white;
-  background-color: rgb(59, 104, 240);
+  background-color: #4158d0;
   box-shadow: 1px 1px 1px grey;
   border-radius: 4px;
   min-height: 32px;
@@ -17,7 +36,7 @@ button {
 }
 
 button:hover {
-  opacity: 0.85;
+  opacity: 0.7;
   cursor: pointer;
 }
 
@@ -35,6 +54,13 @@ input[type='checkbox']:focus {
   outline: none;
 }
 
+input[type='checkbox']:checked {
+  box-shadow: none;
+  border: none;
+  outline: none;
+  background: black;
+}
+
 input {
   min-height: 36px;
   border: none;
@@ -45,20 +71,33 @@ input {
 }
 
 input:focus {
-  box-shadow: 1px 0 9px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 0 4px 8px rgba(21, 156, 228, 0.4);
 }
 
 .ToDo__container {
   border: 1px solid rgba(0, 0, 0, 0.13);
-  border-radius: 8px;
-  width: 500px;
-  margin-top: 5rem;
-  padding: 24px;
-  box-shadow: 2px 2px 1px rgba(0, 0, 0, 0.09), 3px 2px 3px rgba(0, 0, 0, 0.05);
+  border-radius: 1rem;
+  width: 50%;
+  height: 70vh;
+  padding: 2rem;
+  box-shadow: 2px 2px 1px rgba(0, 0, 0, 0.09);
+  background: #fff;
+  overflow: auto;
 }
 
 .Todo__creation {
   display: flex;
+  flex-direction: column;
+}
+.Todo__banner {
+  background-color: #4158d0;
+  color: white;
+  margin: 0rem 0rem 0.5rem 0rem;
+  padding: 1rem 0rem;
+  border-radius: 4px;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 1.5rem;
 }
 
 .Todo__input {
@@ -75,12 +114,16 @@ input:focus {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin: 0.5rem 0rem 0.5rem 0rem;
+  border-radius: 1px;
+  min-height: 3rem;
+  border-bottom: 2px solid #223fd3;
 }
 
 .ToDo__item > span {
   flex: 1 1;
   text-align: left;
-  margin-left: 8px;
+  margin: 0px 8px 0px 8px;
 }
 
 .Todo__content {
@@ -112,7 +155,7 @@ input:focus {
 .Todo__toolbar {
   display: flex;
   justify-content: space-between;
-  margin-top: 24px;
+  margin-top: 2rem;
 }
 
 .Todo__tabs {
@@ -125,4 +168,23 @@ input:focus {
 }
 
 .Action__btn {
+}
+
+/* scroll bar css */
+::-webkit-scrollbar {
+  width: 5px;
+}
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }

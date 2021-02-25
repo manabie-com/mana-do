@@ -13,9 +13,9 @@
 }
 
 .Signin__form {
-}
-
-label[for='user-id'] {
+  background: #fff;
+  border-radius: 2rem;
+  padding: 5rem;
 }
 
 #user_id {
@@ -29,9 +29,12 @@ label[for='user-id'] {
   border-radius: 1.8rem;
   padding: 0 2rem 0 3rem;
   box-shadow: none;
+  transition: all 0.4s ease;
 }
 
-label[for='password'] {
+#user_id:focus {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(21, 156, 228, 0.4);
 }
 
 #password {
@@ -45,6 +48,12 @@ label[for='password'] {
   border-radius: 1.8rem;
   padding: 0 2rem 0 3rem;
   box-shadow: none;
+  transition: all 0.4s ease;
+}
+
+#password:focus {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(21, 156, 228, 0.4);
 }
 
 .Signin__submit-button {
@@ -56,7 +65,7 @@ label[for='password'] {
   width: 100%;
   height: 3rem;
   border-radius: 1.8rem;
-  background: #57b846;
+
   transition: all 0.4s;
 }
 
