@@ -5,10 +5,12 @@ import reducer, { initialState } from './store/reducer';
 import {
   setTodos,
   createTodo,
+  editTodo,
   deleteTodo,
   toggleAllTodos,
   deleteAllTodos,
   updateTodoStatus,
+  EditAbleTodo,
 } from './store/actions';
 import Service from './service';
 import { TodoStatus } from './models/todo';
@@ -20,14 +22,28 @@ const ToDoPage = ({ history }: RouteComponentProps) => {
   const [{ todos }, dispatch] = useReducer(reducer, initialState);
   const [showing, setShowing] = useState<EnhanceTodoStatus>('ALL');
   const inputRef = useRef<HTMLInputElement>(null);
+  const inputRef2 = useRef<HTMLInputElement>(null);
+  const [editText, setEditText] = useState<string>('');
 
+  // used localStorage to persist todo stage
   useEffect(() => {
     (async () => {
+      const data = localStorage.getItem('my-todo-list');
+      const savedData = data;
       const resp = await Service.getTodos();
-
-      dispatch(setTodos(resp || []));
+      // if there is data in localStorage then set it as current state
+      if (savedData) {
+        console.log(JSON.parse(savedData));
+        dispatch(setTodos(JSON.parse(savedData)));
+      } else {
+        dispatch(setTodos(resp || []));
+      }
     })();
   }, []);
+  // save the current todos state as string
+  useEffect(() => {
+    localStorage.setItem('my-todo-list', JSON.stringify(todos));
+  });
 
   const onCreateTodo = async (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter' && inputRef.current) {
@@ -41,6 +57,21 @@ const ToDoPage = ({ history }: RouteComponentProps) => {
         }
       }
     }
+  };
+
+  const onEditTodo = (
+    e: React.KeyboardEvent<HTMLInputElement>,
+    todoId: string,
+    message: string
+  ) => {
+    if (e.key === 'Enter' && inputRef.current) {
+      dispatch(editTodo(todoId, message));
+      setEditText('');
+    }
+  };
+
+  const onEditAble = (todoId: string) => {
+    dispatch(EditAbleTodo(todoId));
   };
 
   const onUpdateTodoStatus = (
@@ -95,7 +126,29 @@ const ToDoPage = ({ history }: RouteComponentProps) => {
                 checked={isTodoCompleted(todo)}
                 onChange={(e) => onUpdateTodoStatus(e, todo.id)}
               />
-              <span>{todo.content}</span>
+              {!todo.editAble ? (
+                <input
+                  ref={inputRef2}
+                  className="Todo__task"
+                  id={todo.id}
+                  placeholder={todo.content}
+                  onChange={(e) => setEditText(e.target.value)}
+                  onKeyDown={(e) => onEditTodo(e, todo.id, editText)}
+                  onBlur={() => {
+                    onEditAble(todo.id);
+                  }}
+                ></input>
+              ) : (
+                <span
+                  className="Todo__task"
+                  onClick={() => {
+                    onEditAble(todo.id);
+                  }}
+                >
+                  {todo.content}
+                </span>
+              )}
+
               <button
                 className="Todo__delete"
                 onClick={() => dispatch(deleteTodo(todo.id))}

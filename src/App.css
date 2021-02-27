@@ -120,10 +120,29 @@ input:focus {
   border-bottom: 2px solid #223fd3;
 }
 
-.ToDo__item > span {
+span.Todo__task {
   flex: 1 1;
   text-align: left;
-  margin: 0px 8px 0px 8px;
+  padding: 0rem 1rem;
+}
+
+input.Todo__task {
+  flex: 1 1;
+  text-align: left;
+  padding: 0rem 1rem;
+  border: none;
+  font-family: inherit;
+  font-size: inherit;
+  box-shadow: none;
+}
+
+input.Todo__task:focus {
+  box-shadow: 0 0 4px 8px rgba(21, 156, 228, 0.4);
+}
+
+input.Todo__task::placeholder {
+  opacity: 1;
+  color: black;
 }
 
 .Todo__content {
