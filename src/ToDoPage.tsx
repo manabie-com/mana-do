@@ -22,10 +22,10 @@ const ToDoPage = ({ history }: RouteComponentProps) => {
   const [{ todos }, dispatch] = useReducer(reducer, initialState);
   const [showing, setShowing] = useState<EnhanceTodoStatus>('ALL');
   const inputRef = useRef<HTMLInputElement>(null);
-  const inputRef2 = useRef<HTMLInputElement>(null);
   const [editText, setEditText] = useState<string>('');
 
   // used localStorage to persist todo stage
+  // retrieve localstorage array and prefer dispatching setTodo with persisted list before using the default getTodos()
   useEffect(() => {
     (async () => {
       const data = localStorage.getItem('my-todo-list');
@@ -33,7 +33,6 @@ const ToDoPage = ({ history }: RouteComponentProps) => {
       const resp = await Service.getTodos();
       // if there is data in localStorage then set it as current state
       if (savedData) {
-        console.log(JSON.parse(savedData));
         dispatch(setTodos(JSON.parse(savedData)));
       } else {
         dispatch(setTodos(resp || []));
@@ -58,7 +57,7 @@ const ToDoPage = ({ history }: RouteComponentProps) => {
       }
     }
   };
-
+  // update content of todo task with message
   const onEditTodo = (
     e: React.KeyboardEvent<HTMLInputElement>,
     todoId: string,
@@ -69,7 +68,7 @@ const ToDoPage = ({ history }: RouteComponentProps) => {
       setEditText('');
     }
   };
-
+  // change editable to the opposite of its current value so that the respective Todo task can be edit/non-editable
   const onEditAble = (todoId: string) => {
     dispatch(EditAbleTodo(todoId));
   };
@@ -126,9 +125,9 @@ const ToDoPage = ({ history }: RouteComponentProps) => {
                 checked={isTodoCompleted(todo)}
                 onChange={(e) => onUpdateTodoStatus(e, todo.id)}
               />
+              {/* render a span unless the user need to edit the Todo task, then it render an input instead */}
               {!todo.editAble ? (
                 <input
-                  ref={inputRef2}
                   className="Todo__task"
                   id={todo.id}
                   placeholder={todo.content}
@@ -145,10 +144,9 @@ const ToDoPage = ({ history }: RouteComponentProps) => {
                     onEditAble(todo.id);
                   }}
                 >
-                  {todo.content}
+                  {todo.content ? todo.content : 'empty task'}
                 </span>
               )}
-
               <button
                 className="Todo__delete"
                 onClick={() => dispatch(deleteTodo(todo.id))}
