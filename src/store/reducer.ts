@@ -1,4 +1,4 @@
-import {Todo, TodoStatus} from '../models/todo';
+import { Todo, TodoStatus } from '../models/todo';
 import {
   AppActions,
   CREATE_TODO,
@@ -19,7 +19,9 @@ export const initialState: AppState = {
 function reducer(state: AppState, action: AppActions): AppState {
   switch (action.type) {
     case CREATE_TODO:
-      state.todos.push(action.payload);
+      //When use React.StrictMode, App always run twice and it will load once when work on production
+      let isSameId = state.todos.filter(todo => todo.id === action.payload.id)?.length === 0
+      if (isSameId) state.todos.push(action.payload);
       return {
         ...state
       };
@@ -34,7 +36,7 @@ function reducer(state: AppState, action: AppActions): AppState {
       }
 
     case TOGGLE_ALL_TODOS:
-      const tempTodos = state.todos.map((e)=>{
+      const tempTodos = state.todos.map((e) => {
         return {
           ...e,
           status: action.payload ? TodoStatus.COMPLETED : TodoStatus.ACTIVE
@@ -48,7 +50,7 @@ function reducer(state: AppState, action: AppActions): AppState {
 
     case DELETE_TODO:
       const index1 = state.todos.findIndex((todo) => todo.id === action.payload);
-      state.todos.splice(index1, 1);
+      if (index1 > -1) state.todos.splice(index1, 1); // Need condition here if findIndex return -1
 
       return {
         ...state,
