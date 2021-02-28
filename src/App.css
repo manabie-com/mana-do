@@ -37,22 +37,23 @@ input {
   border: none;
   outline: none;
   padding: 0 12px;
-  box-shadow: 2px 0 4px rgba(0,0,0, 0.2);
+  box-shadow: 2px 0 4px rgba(0, 0, 0, 0.2);
   border-radius: 4px;
 }
 
 input:focus {
-  box-shadow: 1px 0 9px rgba(0,0,0, 0.25);
+  box-shadow: 1px 0 9px rgba(0, 0, 0, 0.25);
 }
 
 .ToDo__container {
-  border: 1px solid rgba(0,0,0, 0.13);
+  border: 1px solid rgba(0, 0, 0, 0.13);
   border-radius: 8px;
   width: 500px;
-  margin-top: 5rem;
+  margin: 4rem 0;
   padding: 24px;
-  box-shadow: 2px 2px 1px rgba(0,0,0, 0.09),
-              3px 2px 3px rgba(0,0,0, 0.05);
+  background-color: white;
+  -webkit-box-shadow: 0 15px 30px 0 rgb(0 0 0 / 20%);
+  box-shadow: 0 15px 30px 0 rgb(0 0 0 / 20%);
 }
 
 .Todo__creation {
@@ -67,6 +68,8 @@ input:focus {
   display: flex;
   flex-direction: column;
   margin-top: 1.5rem;
+  max-height: calc(100% - 1.5rem - 36px - 48px - 24px);
+  overflow: auto;
 }
 
 .ToDo__item {
@@ -100,7 +103,8 @@ input:focus {
   cursor: pointer;
 }
 
-.Todo__action, .Todo__delete {
+.Todo__action,
+.Todo__delete {
   width: 24px;
   height: 24px;
   flex-shrink: 0;
@@ -123,3 +127,71 @@ input:focus {
 
 .Action__btn {
 }
+
+/*Update CSS Login*/
+html,
+html body {
+  font-family: "Roboto", sans-serif;
+}
+html,
+body,
+#root,
+.App {
+  height: 100%;
+}
+.App {
+  background-color: #f6f7fc;
+}
+/*Login*/
+.Login__container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.Login__container p {
+  margin: 0;
+}
+.Login__content {
+  background: #fff;
+  padding: 40px;
+  width: 320px;
+  -webkit-box-shadow: 0 15px 30px 0 rgb(0 0 0 / 20%);
+  box-shadow: 0 15px 30px 0 rgb(0 0 0 / 20%);
+}
+.Login__text {
+  text-align: center;
+  margin-bottom: 32px;
+}
+.Login__text h3 {
+  font-weight: 500;
+}
+.Login__text strong {
+  color: rgb(57, 90, 210);
+}
+.Login__form {
+  text-align: left;
+}
+.Login__form label {
+  display: block;
+}
+.Login__form input {
+  width: calc(100% - 24px);
+}
+.Login__form label:first-child {
+  margin-bottom: 16px;
+}
+.Login__form button {
+  box-shadow: none;
+  -webkit-box-shadow: none;
+  width: 100%;
+  background-color: rgb(57, 90, 210);
+  color: white;
+  margin-top: 24px;
+  height: 36px;
+  font-size: 16px;
+}
+.Login__form button:hover {
+  cursor: pointer;
+}
+/*end css login*/
