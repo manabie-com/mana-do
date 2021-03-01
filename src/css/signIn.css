@@ -1,0 +1,296 @@
+/*Arrange structure*/
+.limiter {
+  width: 100%;
+  margin: 0 auto;
+}
+.container-login {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  padding: 15px;
+  background: #f2f2f2;
+}
+.wrap-login {
+  width: 1170px;
+  background: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  flex-direction: row-reverse;
+}
+
+/*Title form*/
+.login-form-title {
+  width: 100%;
+  position: relative;
+  border-radius: 10px;
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  padding: 70px 15px 74px 15px;
+}
+
+.login-form-title-1 {
+  font-family: "Titillium Web", sans-serif;
+  font-size: 30px;
+  color: #fff;
+  text-transform: uppercase;
+  line-height: 0.2;
+  text-align: center;
+}
+
+.login-form-title::before {
+  content: "";
+  border-radius: 10px;
+  display: block;
+  position: absolute;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: rgba(54, 84, 99, 0.7);
+}
+
+/*Form*/
+.form-login {
+  width: 50%;
+  display: flow-root;
+  flex-wrap: wrap;
+  padding: 303px 65px 40px 65px;
+}
+
+/*Input*/
+
+.wrap-input {
+  position: relative;
+  width: 100%;
+  z-index: 1;
+  margin-bottom: 10px;
+}
+
+.rs2-wrap-input {
+  border-left: none;
+}
+
+.input-custom {
+  display: block;
+  width: 100%;
+  background: transparent;
+  font-family: "Titillium Web", sans-serif;
+  font-size: 18px;
+  color: #666666;
+}
+
+.label-input {
+  font-family: "Titillium Web", sans-serif;
+  /* font-size: 15px; */
+  color: #808080;
+
+  width: 100%;
+}
+
+.focus-input {
+  position: absolute;
+  display: block;
+  width: calc(100% + 2px);
+  height: calc(100% + 2px);
+  top: -1px;
+  left: -1px;
+  pointer-events: none;
+  border: 1px solid #00b7fa;
+  visibility: hidden;
+  opacity: 0;
+  transition: all 0.4s;
+  transform: scaleX(1.1) scaleY(1.3);
+}
+
+.input-custom:focus + .focus-input {
+  visibility: visible;
+  opacity: 1;
+  transform: scale(1);
+}
+
+/*button*/
+
+.container-login-form-btn {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding-top: 0px;
+}
+
+.login-form-btn:hover {
+  background: #008abd;
+}
+
+.login-form-btn {
+  font-family: "Titillium Web", sans-serif;
+  font-size: 15px;
+  line-height: 1.5;
+  color: #fff;
+  text-transform: uppercase;
+
+  width: 100%;
+  height: 50px;
+  border-radius: 25px;
+  background: #00b7fa;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 25px;
+  transition: all 0.4s;
+}
+
+/*login-slider*/
+
+#login-more {
+  width: 50%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  z-index: 1;
+}
+
+#login-more > #div-login {
+  position: absolute;
+  z-index: -1;
+}
+
+#login-more::before {
+  content: "";
+  display: block;
+  position: absolute;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.3);
+}
+
+/*Imgage for slider*/
+.login-img {
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+
+.login-img-color {
+  opacity: 0.3;
+  background-color: rgb(7, 59, 76);
+}
+
+/*Setting caption on slider*/
+
+.form-setting {
+  margin-top: 20px;
+}
+
+.slider-caption {
+  top: 44%;
+  right: 0;
+  bottom: auto;
+  left: 0;
+  display: flex;
+  align-items: center;
+  transform: translateY(-50%);
+  position: absolute;
+  z-index: 10;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  color: #fff;
+  text-align: center;
+}
+
+.align-center {
+  text-align: center;
+}
+
+.justify-content-center {
+  justify-content: center !important;
+}
+
+.display-h2 {
+  font-size: calc(
+    2.1374999999999997rem + (4.25 - 2.1374999999999997) *
+      ((100vw - 20rem) / (48 - 20))
+  );
+  line-height: calc(
+    1.4 *
+      (
+        2.1374999999999997rem + (4.25 - 2.1374999999999997) *
+          ((100vw - 20rem) / (48 - 20))
+      )
+  );
+  font-weight: 300;
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  color: inherit;
+  font-family: "Roboto Slab", serif;
+}
+
+.display-p {
+  font-size: calc(1.175rem + (1.5 - 1.175) * ((100vw - 20rem) / (48 - 20)));
+  line-height: calc(
+    1.4 * (1.175rem + (1.5 - 1.175) * ((100vw - 20rem) / (48 - 20)))
+  );
+  font-style: normal;
+  font-weight: 300;
+  margin-top: 0;
+  margin-bottom: 1rem;
+  font-family: "Roboto Slab", serif;
+}
+
+/*Checkbox*/
+
+.input-checkbox {
+  display: none;
+}
+
+.label-checkbox {
+  font-family: "Titillium Web", sans-serif;
+  font-size: 16px;
+  color: #999999;
+  line-height: 1.4;
+  display: block;
+  position: relative;
+  padding-left: 26px;
+  cursor: pointer;
+}
+
+.label-checkbox::before {
+  content: "\f00c";
+  font-family: FontAwesome;
+  font-size: 13px;
+  color: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  border-radius: 2px;
+  background: #fff;
+  border: 1px solid #e6e6e6;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.input-checkbox:checked + .label-checkbox::before {
+  color: #008abd;
+}
