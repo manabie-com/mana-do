@@ -4,6 +4,16 @@ import axios from '../utils/axios';
 import {AxiosResponse} from 'axios';
 import { create } from 'domain';
 import { numberPadLeft } from '../utils';
+import { UnauthorizedError } from '../models/exception';
+
+axios.interceptors.response.use(function (response) {
+    return response;
+  }, function (error) {
+    if(error.response.status == 401) {
+        return Promise.reject(new UnauthorizedError())
+    }
+    return Promise.reject(error);
+  });
 
 class ApiFullstack extends IAPI {
     async signIn(username: string, password: string): Promise<string> {

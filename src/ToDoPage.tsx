@@ -13,6 +13,7 @@ import {
 import Service from './service';
 import {TodoStatus} from './models/todo';
 import {isTodoCompleted} from './utils';
+import { UnauthorizedError } from './models/exception';
 
 type EnhanceTodoStatus = TodoStatus | 'ALL';
 
@@ -24,9 +25,15 @@ const ToDoPage = ({history}: RouteComponentProps) => {
 
     useEffect(()=>{
         (async ()=>{
-            const resp = await Service.getTodos();
+            try {
+                const resp = await Service.getTodos();
+                dispatch(setTodos(resp || []));
 
-            dispatch(setTodos(resp || []));
+            } catch(e) {
+                if(e instanceof UnauthorizedError) {
+                    history.push('/');
+                }
+            }
         })()
     }, [])
 
@@ -34,11 +41,12 @@ const ToDoPage = ({history}: RouteComponentProps) => {
         if (e.key === 'Enter' && inputRef.current) {
             try {
                 const resp = await Service.createTodo(inputRef.current.value);
+                console.log("onCreateTodo", resp);
                 dispatch(createTodo(resp));
                 inputRef.current.value = '';
             } catch (e) {
-                if (e.response.status === 401) {
-                    history.push('/')
+                if(e instanceof UnauthorizedError) {
+                    history.push('/');
                 }
             }
         }
