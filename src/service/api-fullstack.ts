@@ -2,6 +2,8 @@ import {IAPI} from './types';
 import {Todo} from '../models/todo';
 import axios from '../utils/axios';
 import {AxiosResponse} from 'axios';
+import { create } from 'domain';
+import { numberPadLeft } from '../utils';
 
 class ApiFullstack extends IAPI {
     async signIn(username: string, password: string): Promise<string> {
@@ -18,8 +20,12 @@ class ApiFullstack extends IAPI {
         return resp.data.data;
     }
 
-    async getTodos(): Promise<Array<Todo>> {
-        const resp = await axios.get<AxiosResponse<Array<Todo>>>(`/tasks`);
+    async getTodos(createdDate?: string): Promise<Array<Todo>> {
+        if(!createdDate) {
+            const now = new Date();
+            createdDate = `${now.getFullYear()}-${numberPadLeft(now.getMonth() + 1, 2, '0')}-${numberPadLeft(now.getDate(), 2, '0')}`
+        }
+        const resp = await axios.get<AxiosResponse<Array<Todo>>>(`/tasks?created_date=${createdDate}`);
 
         return resp.data.data;
     }
