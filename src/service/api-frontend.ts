@@ -1,6 +1,7 @@
 import {IAPI} from './types';
 import {Todo, TodoStatus} from '../models/todo';
 import shortid from 'shortid';
+import { UserProfile } from '../models/profile';
 
 const mockToken = 'testabc.xyz.ahk'
 
@@ -25,6 +26,12 @@ class ApiFrontend extends IAPI {
 
     async getTodos(): Promise<Todo[]>{
         return []
+    }
+
+    async getProfile(): Promise<UserProfile> {
+        return {
+            maximum_task_perday: 5
+        };
     }
 }
 

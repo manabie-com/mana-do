@@ -8,24 +8,28 @@ import {
     deleteTodo,
     toggleAllTodos,
     deleteAllTodos,
-    updateTodoStatus
+    updateTodoStatus,
+    setProfile
 } from './store/actions';
 import Service from './service';
 import {TodoStatus} from './models/todo';
 import {isTodoCompleted} from './utils';
-import { UnauthorizedError } from './models/exception';
+import { TodoExeceededError, UnauthorizedError } from './models/exception';
 
 type EnhanceTodoStatus = TodoStatus | 'ALL';
 
 
 const ToDoPage = ({history}: RouteComponentProps) => {
-    const [{todos}, dispatch] = useReducer(reducer, initialState);
+    const [{todos, profile}, dispatch] = useReducer(reducer, initialState);
     const [showing, setShowing] = useState<EnhanceTodoStatus>('ALL');
     const inputRef = useRef<HTMLInputElement>(null);
 
     useEffect(()=>{
         (async ()=>{
             try {
+                const profileResp = await Service.getProfile();
+                dispatch(setProfile(profileResp));
+
                 const resp = await Service.getTodos();
                 dispatch(setTodos(resp || []));
 
@@ -35,7 +39,7 @@ const ToDoPage = ({history}: RouteComponentProps) => {
                 }
             }
         })()
-    }, [])
+    }, [history])
 
     const onCreateTodo = async (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter' && inputRef.current) {
@@ -47,6 +51,9 @@ const ToDoPage = ({history}: RouteComponentProps) => {
             } catch (e) {
                 if(e instanceof UnauthorizedError) {
                     history.push('/');
+                }
+                if(e instanceof TodoExeceededError) {
+                    alert(`Bạn đã hết lượt tạo task hôm nay!`)
                 }
             }
         }
@@ -87,7 +94,11 @@ const ToDoPage = ({history}: RouteComponentProps) => {
                     className="Todo__input"
                     placeholder="What need to be done?"
                     onKeyDown={onCreateTodo}
+                    disabled={todos.length >= profile?.maximum_task_perday}
                 />
+                <span>
+                    {todos.length}/{profile?.maximum_task_perday}
+                </span>
             </div>
             <div className="ToDo__list">
                 {

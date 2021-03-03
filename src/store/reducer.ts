@@ -1,20 +1,24 @@
+import { UserProfile } from '../models/profile';
 import {Todo, TodoStatus} from '../models/todo';
 import {
   AppActions,
   CREATE_TODO,
   DELETE_ALL_TODOS,
   DELETE_TODO,
+  SET_PROFILE,
   SET_TODO,
   TOGGLE_ALL_TODOS,
   UPDATE_TODO_STATUS
 } from './actions';
 
 export interface AppState {
-  todos: Array<Todo>
+  todos: Array<Todo>;
+  profile: UserProfile;
 }
 
 export const initialState: AppState = {
-  todos: []
+  todos: [],
+  profile: {maximum_task_perday: 5}
 }
 
 function reducer(state: AppState, action: AppActions): AppState {
@@ -64,6 +68,11 @@ function reducer(state: AppState, action: AppActions): AppState {
       return {
         ...state,
         todos: action.payload
+      }
+    case SET_PROFILE:
+      return {
+        ...state,
+        profile: action.payload
       }
     default:
       return state;

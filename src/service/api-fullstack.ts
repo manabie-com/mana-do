@@ -4,13 +4,17 @@ import axios from '../utils/axios';
 import {AxiosResponse} from 'axios';
 import { create } from 'domain';
 import { numberPadLeft } from '../utils';
-import { UnauthorizedError } from '../models/exception';
+import { TodoExeceededError, UnauthorizedError } from '../models/exception';
+import { UserProfile } from '../models/profile';
 
 axios.interceptors.response.use(function (response) {
     return response;
   }, function (error) {
     if(error.response.status == 401) {
         return Promise.reject(new UnauthorizedError())
+    }
+    if(error.response.status == 451) {
+        return Promise.reject(new TodoExeceededError())
     }
     return Promise.reject(error);
   });
@@ -20,6 +24,11 @@ class ApiFullstack extends IAPI {
         const resp = await axios.get<AxiosResponse<string>>(`/login?user_id=${username}&password=${password}`);
 
         return resp.data.data
+    }
+
+    async getProfile(): Promise<UserProfile> {
+        const resp = await axios.get<UserProfile>(`/profile`);
+        return resp.data;
     }
 
     async createTodo(content: string): Promise<Todo> {
