@@ -5,10 +5,11 @@ import { unmountComponentAtNode } from 'react-dom';
 import { Router } from 'react-router-dom';
 import { act } from 'react-dom/test-utils';
 import { createMemoryHistory } from 'history'
-import reducer from './store/reducer';
-import { setTodos } from './store/actions';
+import reducer, { initialState } from './store/reducer';
+import { setProfile, setTodos } from './store/actions';
 import { TodoStatus } from './models/todo';
 import { renderHook } from '@testing-library/react-hooks';
+import { UserProfile } from './models/profile';
 
 let container: any = null;
 beforeEach(() => {
@@ -45,15 +46,26 @@ it("should have todos in state after dispatch setTodos action with todos data", 
     status: TodoStatus.ACTIVE,
     created_date: '2021-03-03'
   }];
-  const initialState = {
-    todos: []
-  };
 
   const {result} = renderHook(() => useReducer(reducer, initialState));
   const [_, dispatch] = result.current
   act(() => {
     dispatch(setTodos(mockTodos));
   });
-  expect(result.current[0]).toEqual({todos:mockTodos})
+  expect(result.current[0].todos).toEqual(mockTodos)
+
+})
+
+it("should have profile in state after dispatch setProfile action with profile data", () => {
+  const mockProfile: UserProfile = {
+    maximum_task_perday: 10
+  };
+
+  const {result} = renderHook(() => useReducer(reducer, initialState));
+  const [_, dispatch] = result.current
+  act(() => {
+    dispatch(setProfile(mockProfile));
+  });
+  expect(result.current[0].profile).toEqual(mockProfile)
 
 })
