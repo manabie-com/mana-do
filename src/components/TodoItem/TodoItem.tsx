@@ -47,7 +47,7 @@ const TodoItem = ({ id, content, deleteItem, updateItem }: TodoItemProps) => {
   };
 
   return (
-    <div>
+    <div className="ToDoItem__container">
       <fieldset disabled={!isEdit}>
         <input
           ref={inputRef}
@@ -60,10 +60,7 @@ const TodoItem = ({ id, content, deleteItem, updateItem }: TodoItemProps) => {
         />
       </fieldset>
 
-      {/* <button className="Todo__delete" onClick={onClickEdit}>
-        edit
-      </button> */}
-      <button className="Todo__delete" onClick={onClickDelete}>
+      <button className="ToDoItem__btn-delete" onClick={onClickDelete}>
         X
       </button>
     </div>

@@ -1,9 +1,9 @@
 import React, { useEffect, useReducer, useRef, useState } from "react";
 import { RouteComponentProps } from "react-router-dom";
-import TodoItem from "../components/TodoItem";
-import { userConfig } from "../config/user";
-import { Todo, TodoStatus } from "../models/todo";
-import Service from "../service";
+import TodoItem from "../../components/TodoItem";
+import { userConfig } from "../../config/user";
+import { Todo, TodoStatus } from "../../models/todo";
+import Service from "../../service";
 import {
   createTodo,
   deleteAllTodos,
@@ -12,9 +12,10 @@ import {
   toggleAllTodos,
   updateTodoContent,
   updateTodoStatus,
-} from "../store/actions";
-import reducer, { initialState } from "../store/reducer";
-import { isTodoCompleted } from "../utils";
+} from "../../store/actions";
+import reducer, { initialState } from "../../store/reducer";
+import { isTodoCompleted } from "../../utils";
+import "./styles.css";
 
 type EnhanceTodoStatus = TodoStatus | "ALL";
 
@@ -33,6 +34,12 @@ const ToDoPage = ({ history }: RouteComponentProps) => {
       const resp = await Service.getTodos();
       dispatch(setTodos(resp || []));
     })();
+
+    // cleanup function
+    // component will unmount
+    return () => {
+      localStorage.removeItem("token");
+    };
   }, []);
 
   // add change
@@ -41,11 +48,10 @@ const ToDoPage = ({ history }: RouteComponentProps) => {
   }, [todos]);
 
   const onCreateTodo = async (e: React.KeyboardEvent<HTMLInputElement>) => {
-    // change
     if (
       e.key === "Enter" &&
       inputRef.current &&
-      inputRef.current.value.length > 0
+      inputRef.current.value.length > 0 // not create toto with content empty
     ) {
       try {
         const resp = await Service.createTodo(inputRef.current.value);
@@ -106,22 +112,25 @@ const ToDoPage = ({ history }: RouteComponentProps) => {
   };
 
   return (
-    <div className="Todo__container">
-      <button onClick={handleLogout}>X</button>
-      <div className="Todo__creation">
+    <div className="ToDo__container">
+      {/* <button className="ToDo__btn " onClick={handleLogout}>
+        X
+      </button> */}
+      <div className="ToDo__creation">
         <input
           ref={inputRef}
-          className="Todo__input"
+          className="ToDo__input"
           placeholder="What need to be done?"
           onKeyDown={onCreateTodo}
         />
+        <label htmlFor="date_todo">Thursday, March 04 2021</label>
       </div>
-      <div className="Todo__list">
+      <div className="ToDo__list">
         {/* add type for todo, change key = todo.id  */}
         {/* index as a key is an anti-pattern */}
         {showTodos.map((todo: Todo) => {
           return (
-            <div key={todo.id} className="Todo__item">
+            <div key={todo.id} className="ToDo__item">
               <input
                 type="checkbox"
                 checked={isTodoCompleted(todo)}
@@ -138,7 +147,7 @@ const ToDoPage = ({ history }: RouteComponentProps) => {
           );
         })}
       </div>
-      <div className="Todo__toolbar">
+      <div className="ToDo__toolbar">
         {todos.length > 0 ? (
           <input
             type="checkbox"
@@ -148,7 +157,7 @@ const ToDoPage = ({ history }: RouteComponentProps) => {
         ) : (
           <div />
         )}
-        <div className="Todo__tabs">
+        <div className="ToDo__tabs">
           <button className="Action__btn" onClick={() => setShowing("ALL")}>
             All
           </button>

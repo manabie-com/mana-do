@@ -1,3 +1,6 @@
 fieldset {
   padding: 0;
+  border-radius: unset;
+  border: 0;
+  background-color: transparent;
 }
