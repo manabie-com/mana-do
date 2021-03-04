@@ -1,6 +1,6 @@
 import React from "react";
 import { Route, RouteProps, useHistory } from "react-router-dom";
-import userConfig from "../../config/user";
+import { userConfig } from "../../config/user";
 
 interface PrivateRouteProps extends Omit<RouteProps, "component"> {
   component: React.ElementType;

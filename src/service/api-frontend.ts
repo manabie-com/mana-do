@@ -1,13 +1,14 @@
+import { userConfig } from "./../config/user";
 import { IAPI } from "./types";
 import { Todo, TodoStatus } from "../models/todo";
 import shortid from "shortid";
 
-const mockToken = "testabc.xyz.ahk";
+// const mockToken = "testabc.xyz.ahk";
 
 class ApiFrontend extends IAPI {
   async signIn(username: string, password: string): Promise<string> {
     if (username === "firstUser" && password === "example") {
-      return Promise.resolve(mockToken);
+      return Promise.resolve(userConfig.mockToken);
     }
 
     return Promise.reject("Incorrect username/password");
@@ -23,7 +24,7 @@ class ApiFrontend extends IAPI {
       user_id: "firstUser",
     };
 
-    const data = JSON.parse(localStorage.getItem("todos") || "[]");
+    const data = JSON.parse(localStorage.getItem(userConfig.dbName) || "[]");
     data.push(todo);
     try {
       localStorage.setItem("todos", JSON.stringify(data));
@@ -48,7 +49,7 @@ class ApiFrontend extends IAPI {
     ];
 
     try {
-      const todos = JSON.parse(localStorage.getItem("todos") || "[]");
+      const todos = JSON.parse(localStorage.getItem(userConfig.dbName) || "[]");
       if (Array.isArray(todos) && todos.length > 0) {
         return Promise.resolve(todos);
       }

@@ -7,6 +7,7 @@ import {
   SET_TODO,
   TOGGLE_ALL_TODOS,
   UPDATE_TODO_STATUS,
+  UPDATE_TODO_CONTENT, // add
 } from "./actions";
 
 export interface AppState {
@@ -78,6 +79,22 @@ function reducer(state: AppState, action: AppActions): AppState {
       return {
         ...state,
         todos: todos2,
+      };
+
+    // add feature
+    case UPDATE_TODO_CONTENT:
+      // find index
+      const index3 = state.todos.findIndex(
+        (todo) => todo.id === action.payload.todoId
+      );
+      // shallow copy
+      const newTodos3 = [...state.todos];
+      // update content
+      newTodos3[index3].content = action.payload.content;
+      console.log(newTodos3);
+      return {
+        ...state,
+        todos: newTodos3,
       };
 
     case DELETE_ALL_TODOS:

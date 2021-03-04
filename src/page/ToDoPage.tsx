@@ -1,21 +1,24 @@
 import React, { useEffect, useReducer, useRef, useState } from "react";
 import { RouteComponentProps } from "react-router-dom";
-import { Todo, TodoStatus } from "./models/todo";
-import Service from "./service";
+import TodoItem from "../components/TodoItem";
+import { userConfig } from "../config/user";
+import { Todo, TodoStatus } from "../models/todo";
+import Service from "../service";
 import {
   createTodo,
   deleteAllTodos,
   deleteTodo,
   setTodos,
   toggleAllTodos,
+  updateTodoContent,
   updateTodoStatus,
-} from "./store/actions";
-import reducer, { initialState } from "./store/reducer";
-import { isTodoCompleted } from "./utils";
+} from "../store/actions";
+import reducer, { initialState } from "../store/reducer";
+import { isTodoCompleted } from "../utils";
 
 type EnhanceTodoStatus = TodoStatus | "ALL";
 
-interface valueItemEdit {
+interface ValueEdit {
   id: string;
   content: string;
 }
@@ -24,8 +27,6 @@ const ToDoPage = ({ history }: RouteComponentProps) => {
   const [{ todos }, dispatch] = useReducer(reducer, initialState);
   const [showing, setShowing] = useState<EnhanceTodoStatus>("ALL");
   const inputRef = useRef<HTMLInputElement>(null);
-  const [isEdit, setIsEdit] = useState(false);
-  const [valueItemEdit, setValueItemEdit] = useState<valueItemEdit>();
 
   useEffect(() => {
     (async () => {
@@ -44,7 +45,7 @@ const ToDoPage = ({ history }: RouteComponentProps) => {
     if (
       e.key === "Enter" &&
       inputRef.current &&
-      inputRef.current.value.length > 0 //
+      inputRef.current.value.length > 0
     ) {
       try {
         const resp = await Service.createTodo(inputRef.current.value);
@@ -90,8 +91,23 @@ const ToDoPage = ({ history }: RouteComponentProps) => {
     return isTodoCompleted(todo) ? accum : accum + 1;
   }, 0);
 
+  // callback recieve data from child component
+  const handleDeleteTodoItem = (id: string) => {
+    dispatch(deleteTodo(id));
+  };
+
+  const handleUpdateTodoContent = (id: string, content: string) => {
+    dispatch(updateTodoContent(id, content));
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    history.push(userConfig.loginPath);
+  };
+
   return (
     <div className="Todo__container">
+      <button onClick={handleLogout}>X</button>
       <div className="Todo__creation">
         <input
           ref={inputRef}
@@ -111,20 +127,13 @@ const ToDoPage = ({ history }: RouteComponentProps) => {
                 checked={isTodoCompleted(todo)}
                 onChange={(e) => onUpdateTodoStatus(e, todo.id)}
               />
-              {/* <span>{todo.content}</span> */}
-              <input
-                type="text"
-                value={todo.content}
-                disabled={isEdit}
-                // onChange={handleEdit}
-              />
 
-              <button
-                className="Todo__delete"
-                onClick={() => dispatch(deleteTodo(todo.id))}
-              >
-                X
-              </button>
+              <TodoItem
+                id={todo.id}
+                content={todo.content}
+                deleteItem={handleDeleteTodoItem}
+                updateItem={handleUpdateTodoContent}
+              />
             </div>
           );
         })}
