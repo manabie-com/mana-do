@@ -1,19 +1,25 @@
-import React from 'react';
+import React from "react";
 
-import {BrowserRouter, Switch, Route} from 'react-router-dom';
+import { BrowserRouter, Switch, Route } from "react-router-dom";
+import userConfig from "./config/user";
 
-import SignInPage from './SignInPage';
-import ToDoPage from './ToDoPage';
+import SignInPage from "./SignInPage";
+import ToDoPage from "./ToDoPage";
 
-import './App.css';
+import "./App.css";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
   return (
     <main className="App">
       <BrowserRouter>
         <Switch>
-          <Route path="/" exact component={SignInPage}/>
-          <Route path="/todo" component={ToDoPage}/>
+          <Route path={userConfig.loginPath} exact component={SignInPage} />
+          <ProtectedRoute
+            path={userConfig.todoPath}
+            exact
+            component={ToDoPage}
+          />
         </Switch>
       </BrowserRouter>
     </main>
