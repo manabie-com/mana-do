@@ -2,5 +2,81 @@ fieldset {
   padding: 0;
   border-radius: unset;
   border: 0;
+  margin: 0;
+  width: 100%;
+  margin: 0 0.4rem;
+}
+
+.TodoItem {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: var(--backgound-item-color);
+  padding: 0.4rem 0.7rem;
+  border-left: 0.3rem solid var(--primary-color);
+}
+
+.TodoItem + .TodoItem {
+  margin-top: 0.5rem;
+}
+
+.TodoItem--checked {
+  opacity: 0.5;
+  transition: 3s ease;
+}
+
+.TodoItem__delete {
+  cursor: pointer;
+  padding: 0.3rem 0.4rem;
+  color: var(--black-color);
+  opacity: 0.1;
+  margin-right: 0.4rem;
+}
+
+.TodoItem__delete:hover {
+  color: var(--black-color);
+  opacity: 1;
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.TodoItem input[type="text"]:disabled {
+  box-shadow: 14px 14px 131px -51px rgba(0, 0, 0, 0.75);
+  color: var(--black-color);
+}
+
+.TodoItem input[type="checkbox"] {
+  width: 2rem;
+}
+
+.TodoItem__input {
+  width: 100%;
+  box-shadow: unset;
+  font-size: 0.9rem;
+  cursor: pointer;
   background-color: transparent;
+  padding: 0;
+  transition: 0.4s;
+  font-size: 1rem;
+}
+
+.TodoItem__input:focus {
+  box-shadow: unset;
+  cursor: unset;
+  transition: 0.3s ease;
+  font-style: italic;
+}
+
+.TodoItem__input--checked {
+  animation: strike 2s linear;
+  text-decoration: line-through;
+  opacity: 0.5;
+}
+
+@keyframes strike {
+  from {
+    text-decoration-color: transparent;
+  }
+  to {
+    text-decoration-color: auto;
+  }
 }

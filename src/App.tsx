@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import "./App.css";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { userConfig } from "./config/user";
+import NotFound from "./page/NotFound";
 import SignInPage from "./page/SignInPage";
 import ToDoPage from "./page/ToDoPage";
 
@@ -17,6 +18,7 @@ function App() {
             exact
             component={ToDoPage}
           />
+          <Route component={NotFound} />
         </Switch>
       </BrowserRouter>
     </main>

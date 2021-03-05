@@ -48,7 +48,7 @@ function reducer(state: AppState, action: AppActions): AppState {
       );
 
       // shallow copy array, because state todos is not nested array
-      // if nested array, deep clone array or use immutable js library or option
+      // if nested array, deep clone array or use immutablejs library or ...
       const newTodos = [...state.todos];
       newTodos[index2].status = action.payload.checked
         ? TodoStatus.COMPLETED
@@ -81,7 +81,7 @@ function reducer(state: AppState, action: AppActions): AppState {
         todos: todos2,
       };
 
-    // add feature
+    // add case
     case UPDATE_TODO_CONTENT:
       // find index
       const index3 = state.todos.findIndex(

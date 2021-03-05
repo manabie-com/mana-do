@@ -27,7 +27,6 @@ const SignInPage = () => {
   };
 
   return (
-    // <div style={{ marginTop: "3rem", textAlign: "left" }}>
     <div className="SignIn">
       <div className="SignIn__title">User Login</div>
       <form onSubmit={signIn} className="SignIn__form">

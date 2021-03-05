@@ -1,0 +1,135 @@
+.ToDo__container {
+  box-shadow: 15px 13px 22px -16px rgba(0, 0, 0, 0.53);
+  background-color: var(--white-color);
+  display: flex;
+  flex-direction: column;
+  margin: 3vh 0;
+  border-radius: 0.2rem;
+  padding: 1rem;
+  height: 94vh;
+  position: relative;
+  min-width: 380px;
+}
+
+.ToDo__btn {
+  min-width: none;
+  padding: unset;
+  width: 10px;
+}
+
+.ToDo__creation {
+  display: flex;
+  flex-direction: column;
+  font-size: 1.2rem;
+}
+
+.ToDo__creation label {
+  color: #333;
+}
+
+.ToDo__creation input {
+  font-size: 1rem;
+  margin: 0 2rem;
+}
+
+.ToDo__creation label {
+  margin: 1rem 0;
+}
+
+.ToDo__list {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 1rem;
+  overflow-y: auto;
+  flex: 1;
+  box-shadow: 0px 0px 12px 1px rgba(0, 0, 0, 0.15);
+}
+
+.ToDo__item {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  width: 100%;
+  margin: 0;
+}
+
+.ToDo__toolbar {
+  display: flex;
+  justify-content: space-between;
+  margin: 1rem 0 0 0;
+  border-radius: 4px;
+  padding: 0.1rem 0 0 0;
+}
+
+.ToDo__toolbar input[type="checkbox"] {
+  align-self: center;
+  width: 2rem;
+  margin-left: 2rem;
+}
+
+.ToDo__tabs {
+  display: flex;
+  flex-direction: column;
+}
+
+.Action__group {
+  margin-bottom: 0.4rem;
+  display: flex;
+  justify-content: space-between;
+  flex-shrink: 1;
+}
+
+.Action__btn {
+  min-height: 36px;
+  font-size: 1rem;
+  min-width: 120px;
+  transition: 0.3s;
+  opacity: 1;
+}
+
+.Action__btn:hover {
+  background-color: var(--primary-color);
+  border: none;
+  color: var(--white-color);
+  opacity: 0.85;
+}
+
+.Action__btn + .Action__btn {
+  margin-left: 0.4rem;
+}
+
+.Action__btn--delete {
+  background-color: var(--danger-color);
+  border: none;
+  color: var(--white-color);
+  font-size: 16px;
+  opacity: 0.7;
+  transition: 0.3s;
+}
+
+.Action__btn--delete:hover {
+  background-color: var(--danger-color);
+  border: none;
+  color: var(--white-color);
+  opacity: 1;
+}
+
+/* scroll bar */
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgb(192, 190, 190);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(173, 169, 169);
+}

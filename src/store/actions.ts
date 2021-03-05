@@ -16,7 +16,7 @@ export interface UpdateTodoContent {
     content: string;
   };
 }
-// add func
+// add function
 export function updateTodoContent(
   todoId: string,
   content: string

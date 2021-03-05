@@ -1,68 +1,83 @@
 import React, { useRef, useState } from "react";
+import { Todo } from "../../models/todo";
+import { isTodoCompleted } from "../../utils";
 import "./styles.css";
+import clsx from "clsx";
 
 interface TodoItemProps {
-  id: string;
-  content: string;
+  todo: Todo;
   deleteItem: Function;
-  updateItem: Function;
+  updateContent: Function;
+  updateStatus: Function;
 }
 
-const TodoItem = ({ id, content, deleteItem, updateItem }: TodoItemProps) => {
+const TodoItem = ({
+  todo,
+  deleteItem,
+  updateContent,
+  updateStatus,
+}: TodoItemProps) => {
   const [isEdit, setIsEdit] = useState(false);
-  const [contentUpd, setContentUpd] = useState(() => content);
+  const [contentUpd, setContentUpd] = useState(() => todo.content);
   const inputRef = useRef<HTMLInputElement>(null);
 
   const onSaveEdit = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter" && inputRef.current) {
       if (inputRef.current.value.length > 0)
-        updateItem(id, inputRef.current.value);
+        updateContent(todo.id, inputRef.current.value);
       setIsEdit(false);
     }
   };
 
   const onEditTodo = (e: React.FormEvent<HTMLInputElement>) => {
-    console.log(e.currentTarget.value);
     setContentUpd(e.currentTarget.value);
   };
 
   const onBlurTodo = (e: React.FocusEvent<HTMLInputElement>) => {
-    setContentUpd(content);
+    setContentUpd(todo.content);
     setIsEdit(!isEdit);
-    console.log("blur");
   };
-
-  // const onClickEdit = () => {
-  //   setIsEdit(!isEdit);
-  //   if (inputRef.current) inputRef.current.focus();
-  // };
 
   const onClickDelete = () => {
-    deleteItem(id);
+    deleteItem(todo.id);
   };
 
-  const onDBClick = () => {
-    setIsEdit(true);
-    console.log("db");
+  const onUpdateTodoStatus = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    todoId: string
+  ) => {
+    updateStatus(todoId, e.target.checked);
   };
 
   return (
-    <div className="ToDoItem__container">
-      <fieldset disabled={!isEdit}>
+    <div
+      key={todo.id}
+      className={clsx("TodoItem", isTodoCompleted(todo) && "TodoItem--checked")}
+    >
+      <input
+        className="TodoItem__checkbox"
+        type="checkbox"
+        checked={isTodoCompleted(todo)}
+        onChange={(e) => onUpdateTodoStatus(e, todo.id)}
+      />
+
+      <fieldset disabled={!isEdit} className="TodoItem__fieldset">
         <input
+          className={clsx(
+            "TodoItem__input",
+            isTodoCompleted(todo) && "TodoItem__input--checked"
+          )}
           ref={inputRef}
           type="text"
           value={contentUpd}
           onChange={onEditTodo}
           onKeyDown={onSaveEdit}
           onBlur={onBlurTodo}
-          onClick={onDBClick}
+          onClick={() => setIsEdit(true)}
         />
       </fieldset>
 
-      <button className="ToDoItem__btn-delete" onClick={onClickDelete}>
-        X
-      </button>
+      <i className="fas fa-times TodoItem__delete" onClick={onClickDelete}></i>
     </div>
   );
 };

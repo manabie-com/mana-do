@@ -1,42 +1,3 @@
-/* SigninPage
-
-.Signin {
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-  margin-top: 10rem;
-}
-
-.Signin .SignIn__form {
-  background-color: white;
-  padding: 2rem;
-  border-radius: 0.6rem;
-  max-width: 500px;
-  box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.2);
-}
-
-.SignIn__form input {
-  margin: 1rem 0;
-  box-shadow: none;
-  border: 0;
-  border-radius: unset;
-  padding: 0.6rem;
-  border-bottom: 2px solid #5680e9;
-  width: 100%;
-}
-
-.SignIn__form button {
-  width: 100%;
-  border-radius: unset;
-  box-shadow: none;
-  padding: 0.5rem 1rem;
-  cursor: pointer;
-  background-color: #5680e9;
-  color: #eee2dc;
-} */
-
-/* new */
-
 .SignIn {
   background-color: var(--white-color);
   padding: 4rem 1rem;
@@ -48,7 +9,7 @@
 
 .SignIn__title {
   margin: 0 0 1rem;
-  font-size: 1.2rem;
+  font-size: 1.4rem;
 }
 
 .SignIn__form {
@@ -59,4 +20,9 @@
 
 .SignIn__form button {
   min-height: 36px;
+  font-size: 1rem;
+}
+
+.SignIn__form input {
+  font-size: 0.9rem;
 }
