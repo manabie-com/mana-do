@@ -1,0 +1,40 @@
+.Modal {
+  position: fixed;
+  /* visibility: hidden; */
+  /* display: none; */
+  z-index: 999;
+  top: 0;
+  left: 0;
+  opacity: 0;
+}
+
+.Modal--active {
+  background-color: rgba(22, 22, 22, 0.3);
+  /* visibility: visible; */
+  /* display: block; */
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: opacity 1s ease;
+  opacity: 1;
+}
+
+.Modal__content {
+  background-color: var(--white-color);
+  width: 300px;
+  padding: 1.7rem;
+  border-radius: 4px;
+  box-shadow: 2px 2px 1px rgba(0, 0, 0, 0.2);
+}
+
+.Modal__content button {
+  font-size: 0.9rem;
+}
+
+.Modal__btn--delete {
+  background-color: var(--danger-color);
+  opacity: 0.7;
+  margin-right: 0.4rem;
+}
