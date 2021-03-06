@@ -18,15 +18,6 @@ export const initialState: AppState = {
   todos: [],
 };
 
-export const initializer = (initialValue = initialState) => {
-  const data =
-    JSON.parse(localStorage.getItem("todos") || "[]") || initialValue;
-
-  return {
-    todos: data,
-  };
-};
-
 // reducer should be pure and have no side effects
 function reducer(state: AppState, action: AppActions): AppState {
   switch (action.type) {
@@ -91,7 +82,6 @@ function reducer(state: AppState, action: AppActions): AppState {
       const newTodos3 = [...state.todos];
       // update content
       newTodos3[index3].content = action.payload.content;
-      console.log(newTodos3);
       return {
         ...state,
         todos: newTodos3,
