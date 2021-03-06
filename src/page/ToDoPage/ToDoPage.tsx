@@ -2,6 +2,7 @@ import React, { useEffect, useReducer, useState } from "react";
 import { RouteComponentProps } from "react-router-dom";
 import TodoCreation from "../../components/TodoCreation";
 import TodoItem from "../../components/TodoItem";
+import TodoToolbar from "../../components/TodoToolbar";
 import { Todo, TodoStatus } from "../../models/todo";
 import Service from "../../service";
 import {
@@ -47,8 +48,12 @@ const ToDoPage = ({ history }: RouteComponentProps) => {
     }
   };
 
-  const onToggleAllTodo = (e: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch(toggleAllTodos(e.target.checked));
+  const handleSetShowing = (status: EnhanceTodoStatus) => {
+    setShowing(status);
+  };
+
+  const onToggleAllTodo = (checked: boolean) => {
+    dispatch(toggleAllTodos(checked));
   };
 
   const onDeleteAllTodo = () => {
@@ -105,46 +110,13 @@ const ToDoPage = ({ history }: RouteComponentProps) => {
         })}
       </div>
 
-      <div className="ToDo__toolbar">
-        {todos.length > 0 ? (
-          <input
-            type="checkbox"
-            checked={activeTodos === 0}
-            onChange={onToggleAllTodo}
-          />
-        ) : (
-          <div />
-        )}
-        <div className="ToDo__tabs">
-          <div className="Action__group">
-            <button
-              className="Action__btn "
-              onClick={() => setShowing(TodoStatus.ACTIVE)}
-            >
-              Active
-            </button>
-
-            <button
-              className="Action__btn"
-              onClick={() => setShowing(TodoStatus.COMPLETED)}
-            >
-              Completed
-            </button>
-          </div>
-          <div>
-            <button className="Action__btn" onClick={() => setShowing("ALL")}>
-              All
-            </button>
-
-            <button
-              className="Action__btn Action__btn--delete"
-              onClick={onDeleteAllTodo}
-            >
-              Clear all
-            </button>
-          </div>
-        </div>
-      </div>
+      <TodoToolbar
+        todos={todos}
+        activeTodos={activeTodos}
+        handleSetShowing={handleSetShowing}
+        onDeleteAllTodo={onDeleteAllTodo}
+        onToggleAllTodo={onToggleAllTodo}
+      />
     </div>
   );
 };
