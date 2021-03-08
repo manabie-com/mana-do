@@ -1,0 +1,14 @@
+.signin {
+  background-image: linear-gradient(
+    to bottom,
+    rgba(187, 63, 177, 0.849),
+    rgba(78, 44, 230, 0.822) 50%
+  );
+
+  height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}

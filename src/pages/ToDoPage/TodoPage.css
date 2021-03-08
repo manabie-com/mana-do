@@ -1,0 +1,27 @@
+.todo{
+  background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(108,9,121,0.8715861344537815) 38%, rgba(0,212,255,1) 98%, rgba(0,212,255,1) 98%);
+  background-size: cover;
+  max-height: 9999px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.todo__heading{
+  margin: 0;
+  color: white;
+  font-size: 4rem;
+  margin: 3rem auto;
+}
+.todo__container {
+  border: 1px solid rgba(0,0,0, 0.13);
+  border-radius: 8px;
+  max-width: 500px;
+  padding: 2.4rem;
+  box-shadow: 2px 2px 1px rgba(0,0,0, 0.09),
+              3px 2px 3px rgba(0,0,0, 0.05);
+  background-color: whitesmoke;
+  margin: 2rem 1rem;
+}
+
+

@@ -1,4 +1,5 @@
-import {Todo} from "../models/todo";
+import { EnhanceTodoStatus } from "../context";
+import { Todo } from "../models/todo";
 
 export const SET_TODO = 'SET_TODO';
 export const CREATE_TODO = 'CREATE_TODO';
@@ -6,6 +7,8 @@ export const DELETE_TODO = 'DELETE_TODO';
 export const DELETE_ALL_TODOS = 'DELETE_ALL_TODOS';
 export const TOGGLE_ALL_TODOS = 'TOGGLE_ALL_TODOS';
 export const UPDATE_TODO_STATUS = 'UPDATE_TODO_STATUS';
+export const SET_SHOWING ='SET_SHOWING';
+export const EDIT_TODO ='EDIT_TODO';
 
 
 export interface SetTodoAction {
@@ -89,10 +92,37 @@ export function toggleAllTodos(checked: boolean): ToggleAllTodosAction {
   }
 }
 
+///////////
+export interface setShowingAction{
+  type: typeof SET_SHOWING;
+  payload: EnhanceTodoStatus;
+}
+export function setShowing(showing: EnhanceTodoStatus): setShowingAction{
+  return {
+    type:SET_SHOWING,
+    payload: showing
+  }
+}
+
+///////////////////////////
+export interface editTodoAction{
+  type: typeof EDIT_TODO;
+  payload: {id:string;
+  content:string;}
+}
+export function editTodo(id: string, content: string):editTodoAction{
+  return {
+    type: EDIT_TODO,
+    payload:{id,content}
+  }
+} 
+
 export type AppActions =
   SetTodoAction |
   CreateTodoAction |
   UpdateTodoStatusAction |
   DeleteTodoAction |
   DeleteAllTodosAction |
-  ToggleAllTodosAction;
+  ToggleAllTodosAction|
+  setShowingAction|
+  editTodoAction;

@@ -1,0 +1,36 @@
+.todo__toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-top: 24px;
+}
+
+.todo__tabs {
+  display: flex;
+  justify-content: center;
+}
+
+.todo__tabs > *:not(:last-child) {
+  margin-right: 8px;
+}
+
+.action__btn:first-of-type {
+  margin-left: 2rem;
+}
+.action__btn{
+  display: inline-block;
+  height: 3rem;
+  padding: .2rem 1rem;
+  font-weight: bold;
+  color: white;
+  background-color: black;
+  border: .1rem;
+  transition: all .3s;
+  margin-bottom: 0.5rem;
+}
+.action__btn:hover{
+  transform: rotate(-5deg) scale(1.2);
+  cursor: pointer;
+}
+.checkbox{
+  margin-top: .2rem ;}

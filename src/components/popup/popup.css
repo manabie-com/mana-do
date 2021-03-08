@@ -1,0 +1,23 @@
+.popup{
+  position: fixed;
+  height: 100vh;
+  width: 100vw;
+  top: 0;
+  left: 0;
+  z-index: 999;
+  background-color: rgba(128, 128, 128, 0.76);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.popup__container{
+  margin-top: -30vh;
+}
+.popup__input{
+  height: 4rem;
+  font-size: 2.5rem;
+  outline: none;
+  padding: 2.5rem 3.5rem;
+}
+
