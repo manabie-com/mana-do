@@ -1,0 +1,189 @@
+button {
+    outline: none;
+    border: none;
+    border-radius: 4px;
+    min-height: 32px;
+    min-width: 80px;
+    padding: 4px 8px;
+}
+
+button:hover {
+    opacity: 0.8;
+    cursor: pointer;
+    background-color: rgb(23 226 79);
+}
+
+input[type="checkbox"] {
+    width: 15px;
+    box-shadow: none;
+    border: none;
+    outline: none;
+}
+
+input[type="checkbox"]:focus {
+    box-shadow: none;
+    border: none;
+    outline: none;
+}
+
+input {
+    min-height: 36px;
+    border: none;
+    outline: none;
+    padding: 0 12px;
+    box-shadow: 2px 0 4px rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+}
+
+input:focus {
+    box-shadow: 1px 0 9px rgba(0, 0, 0, 0.25);
+}
+
+.ToDo__container {
+    position: relative;
+    background-color: #f4f5f7;
+    /* border: 1px solid rgba(0, 0, 0, 0.13); */
+    border-radius: 8px;
+    width: 500px;
+    margin-top: 5rem;
+    padding: 24px;
+    box-shadow: 2px 2px 1px rgba(0, 0, 0, 0.09), 3px 2px 3px rgba(0, 0, 0, 0.05);
+}
+
+.ToDo__container > h1 {
+    margin: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 20px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    background-color: rgb(23 226 79);
+    color: #fff;
+}
+
+.Todo__creation {
+    position: absolute;
+    display: flex;
+    top: 65px;
+    left: 25px;
+    right: 25px;
+}
+
+.Todo__input {
+    flex: 1 1;
+    font-family: "RocknRoll One", sans-serif;
+}
+
+.ToDo__list {
+    display: flex;
+    flex-direction: column;
+    margin-top: 6rem;
+    margin-bottom: 4rem;
+}
+
+.ToDo__item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    background-color: white;
+    border-radius: 50px;
+    padding: 0 12px;
+    margin-bottom: 5px;
+
+    position: relative;
+}
+
+.ToDo__item:hover {
+    opacity: 0.8;
+    cursor: pointer;
+    padding: 0 20px;
+}
+
+.ToDo__item > span {
+    flex: 1 1;
+    text-align: left;
+    margin-left: 8px;
+}
+
+.ToDo__input_edit {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 95%;
+    height: 42px;
+    padding: 0 12px;
+    border-radius: 50px;
+    font-family: "RocknRoll One", sans-serif;
+}
+
+.Todo__content {
+    flex: 1 1;
+}
+
+.Todo__delete {
+    outline: none;
+    border: none;
+    width: 32px;
+    height: 32px;
+    min-width: auto;
+    min-height: auto;
+    box-shadow: none;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.Todo__delete:hover {
+    opacity: 0.7;
+    background-color: red;
+}
+
+.Todo__action,
+.Todo__delete {
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+
+    background-color: red;
+    color: white;
+}
+
+.Todo__toolbar {
+    display: flex;
+    justify-content: space-between;
+
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 12px;
+
+    background-color: #fff;
+}
+
+.Todo__tabs {
+    display: flex;
+    justify-content: center;
+}
+
+.Todo__tabs > *:not(:last-child) {
+    margin-right: 8px;
+}
+
+.Action__btn {
+    font-family: "RocknRoll One", sans-serif;
+    background-color: transparent;
+}
+
+.active {
+    background-color: rgb(23 226 79);
+}
+
+.transparent {
+    background: rgba(255, 255, 255, 0.3);
+}

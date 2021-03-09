@@ -1,0 +1,46 @@
+.Login__container {
+    margin-top: 50px;
+    padding: 20px 30px;
+    background: rgba(255, 255, 255, 0.09);
+}
+
+.Login__container h1 {
+    color: rgb(23 226 79);
+}
+
+.Login__field {
+    position: relative;
+    margin-top: 16px;
+    height: 45px;
+    width: 100%;
+    display: flex;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 4px;
+}
+
+.Login__field span {
+    color: #222;
+    width: 40px;
+    line-height: 45px;
+}
+
+.Login__field input {
+    height: 100%;
+    width: 100%;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #222;
+    font-size: 16px;
+}
+
+.Login__field > button {
+    width: 100%;
+    background: rgb(23 226 79);
+    border: 1px solid rgb(23 226 79);
+    color: white;
+    font-size: 18px;
+    letter-spacing: 1px;
+    font-weight: 600;
+    cursor: pointer;
+}
