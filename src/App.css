@@ -2,6 +2,7 @@
   text-align: center;
   display: flex;
   justify-content: center;
+  
 }
 
 button {
@@ -53,6 +54,7 @@ input:focus {
   padding: 24px;
   box-shadow: 2px 2px 1px rgba(0,0,0, 0.09),
               3px 2px 3px rgba(0,0,0, 0.05);
+  background-color: darkslateblue
 }
 
 .Todo__creation {
@@ -61,6 +63,7 @@ input:focus {
 
 .Todo__input {
   flex: 1 1;
+  
 }
 
 .ToDo__list {
@@ -73,6 +76,41 @@ input:focus {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin: 4px auto;
+  color: #fff;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 118, 20, 1) 0%,
+    rgba(255, 84, 17, 1) 100%
+  );
+
+  padding: 16px;
+  border-radius: 5px;
+  width: 90%;
+}
+
+.ToDo__item:nth-child(4n + 1) {
+  background: linear-gradient(
+    90deg,
+    rgba(93, 12, 255, 1) 0%,
+    rgba(155, 0, 250, 1) 100%
+  );
+}
+
+.ToDo__item:nth-child(4n + 2) {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 12, 241, 1) 0%,
+    rgba(250, 0, 135, 1) 100%
+  );
+}
+
+.ToDo__item:nth-child(4n + 3) {
+  background: linear-gradient(
+    90deg,
+    rgba(20, 159, 255, 1) 0%,
+    rgba(17, 122, 255, 1) 100%
+  );
 }
 
 .ToDo__item > span {
@@ -119,6 +157,24 @@ input:focus {
 
 .Todo__tabs > *:not(:last-child) {
   margin-right: 8px;
+}
+
+.Todo__button {
+  padding: 2px;
+  border: none;
+  border-radius: 0 4px 4px 0;
+  cursor: pointer;
+  outline: none;
+  color: #fff;
+  display: flex;
+}
+
+.Todo__button.edit {
+  padding: 2px 4px;
+}
+
+.Todo__button.delete{
+  padding: 2px 4px;
 }
 
 .Action__btn {
