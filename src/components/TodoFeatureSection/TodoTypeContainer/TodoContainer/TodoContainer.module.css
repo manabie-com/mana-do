@@ -39,12 +39,27 @@
   border-radius: 30px;
 }
 
+.ManaDo__Todo__Container > .ManaDo__TodoContent > .ManaDo__Completed {
+  fill: white;
+  background-color: var(--secondary--low--a--bit);
+  border-radius: 30px;
+}
+
+.ManaDo__Todo__Container > .ManaDo__Completed {
+  text-decoration: line-through;
+  color: var(--muted);
+}
+
 .ManaDo__Todo__Container > .ManaDo__Todo__Footer {
   color: var(--muted--darker);
   font-size: 0.8rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+.ManaDo__Todo__Container > .ManaDo__Todo__Footer > .ManaDo__Completed {
+  color: var(--muted);
 }
 
 .ManaDo__Todo__Container > .ManaDo__Todo__Footer > .ManaDo__Todo__ToolBar {
