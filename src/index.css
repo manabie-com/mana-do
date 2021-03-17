@@ -2,8 +2,11 @@
   --primary: #405bca;
   --primaryTint: rgba(64, 91, 202, 20);
   --secondary: #3ace85;
+  --secondary--lighter: #E2FFFA;
   --danger: #ca4040;
+  --muted--lighter: #e2e2f0;
   --muted: #b5b5c3;
+  --muted--darker: #7f7f8a;
   --textColor: #464e5f;
   --textColorTint: rgba(98, 98, 107, 20);
 }
