@@ -1,7 +1,18 @@
 import * as React from "react";
 import styles from "./FormGroup.module.css";
 
-const FormGroup = ({
+interface IFormGroupProps extends React.HTMLAttributes<HTMLElement> {
+  name: string;
+  id: string;
+  label: string;
+  value: string;
+  type: string;
+  placeholder: string;
+  feedbackLabel: string;
+  required: boolean;
+}
+
+const FormGroup: React.FunctionComponent<IFormGroupProps> = ({
   name = "",
   id = "",
   label = "",

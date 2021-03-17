@@ -6,7 +6,9 @@ import FormGroup from "../FormGroup";
 import ManaDoButton from "../ManaDoButton";
 import styles from "./LoginForm.module.css";
 
-const LoginForm = ({ ...props }) => {
+interface LoginFormProps extends React.HTMLAttributes<HTMLElement> {}
+
+const LoginForm: React.FunctionComponent<LoginFormProps> = ({ ...props }) => {
   const history = useHistory();
   const [, setToken] = useLocalStorage("TOKEN", "");
   const [loginMsg, setLoginMsg] = React.useState("");
@@ -72,6 +74,7 @@ const LoginForm = ({ ...props }) => {
       <FormGroup
         id="user_id"
         name="userId"
+        type="text"
         value={form.userId}
         onChange={onChangeField}
         label="Username"

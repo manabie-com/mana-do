@@ -1,17 +1,17 @@
 import * as React from "react";
 import styles from "./ManaDoButton.module.css";
 
-interface IProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  type: "submit" | "reset" | "button";
+interface ManaDoButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   label: string;
 }
 
-const ManaDoButton = ({
+const ManaDoButton: React.FunctionComponent<ManaDoButtonProps> = ({
   type = "button",
   label = "",
   onClick = () => {},
   ...props
-}: IProps) => {
+}) => {
   return (
     <button
       className={`${styles.ManaDo__button} ${props.className || ""}`}
