@@ -1,0 +1,15 @@
+.ManaDo__button {
+  background-color: var(--primary);
+  color: white;
+  border-radius: 10px;
+  padding: 8px 16px;
+  border: none;
+  font-weight: bold;
+  font-size: 1rem;
+  transition: all ease-in-out 200ms;
+}
+
+.ManaDo__button:hover {
+  cursor: pointer;
+  box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.103);
+}
