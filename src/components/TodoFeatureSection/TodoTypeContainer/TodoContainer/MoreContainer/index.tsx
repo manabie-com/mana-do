@@ -18,7 +18,6 @@ const MoreContainer: React.FunctionComponent<MoreContainerProps> = ({
   return (
     <div
       className={`${styles.ManaDo__MoreContainer} ${!show && styles.hidden}`}
-      onBlur={() => console.log("Blurred")}
     >
       <ul className={styles.ManaDo__MoreList}>
         {items.length &&
