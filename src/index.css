@@ -1,13 +1,69 @@
+:root {
+  --primary: #405bca;
+  --primaryTint: rgba(64, 91, 202, 20);
+  --secondary: #3ace85;
+  --danger: #ca4040;
+  --muted: #b5b5c3;
+  --textColor: #464e5f;
+  --textColorTint: rgba(98, 98, 107, 20);
+}
+
+.mt-1 {
+  margin-top: 1rem;
+}
+
+.mt-2 {
+  margin-top: 2rem;
+}
+
+.mt-3 {
+  margin-top: 3rem;
+}
+
+.mb-1 {
+  margin-bottom: 1rem;
+}
+
+.mb-2 {
+  margin-bottom: 2rem;
+}
+
+.mb-3 {
+  margin-bottom: 3rem;
+}
+
+.mx-1 {
+  margin: 0px 1rem;
+}
+
+.mx-2 {
+  margin: 0px 2rem;
+}
+
+.mx-3 {
+  margin: 0px 3rem;
+}
+
+.my-1 {
+  margin: 1rem 0px;
+}
+
+.my-2 {
+  margin: 2rem 0px;
+}
+
+.my-3 {
+  margin: 3rem 0px;
+}
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: "Poppins", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
