@@ -1,0 +1,14 @@
+.ManaDo_TodoFeature_Container {
+}
+
+.ManaDo_TodoFeature_Container > .ManaDo_TodoFeature_Form {
+  display: flex;
+  align-items: flex-start;
+  width: 50%;
+}
+
+.ManaDo_TodoFeature_Container > .ManaDo_TodoFeature_Form > .ManaDo_TodoFeature_Input {
+  flex: 1;
+}
+
+

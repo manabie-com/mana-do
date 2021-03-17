@@ -16,6 +16,8 @@ import { TodoStatus } from "../../models/todo";
 import { isTodoCompleted } from "../../utils";
 import { TodoContext } from "../../store/ManaDo_todo/context";
 import ManaDoContainer from "../../components/ManaDoContainer";
+import Header from "../../components/Header";
+import TodoFeatureSection from "../../components/TodoFeatureSection";
 
 type EnhanceTodoStatus = TodoStatus | "ALL";
 
@@ -80,7 +82,7 @@ const ToDoPage = () => {
 
   return (
     <ManaDoContainer>
-      <div className="Todo__creation">
+      {/* <div className="Todo__creation">
         <input
           ref={inputRef}
           className="Todo__input"
@@ -138,7 +140,9 @@ const ToDoPage = () => {
         <button className="Action__btn" onClick={onDeleteAllTodo}>
           Clear all todos
         </button>
-      </div>
+      </div> */}
+      <Header />
+      <TodoFeatureSection />
     </ManaDoContainer>
   );
 };

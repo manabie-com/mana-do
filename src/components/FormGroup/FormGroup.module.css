@@ -7,6 +7,7 @@
   color: var(--textColor);
   font-weight: 400;
   font-size: 0.9rem;
+  margin-bottom: 6px;
 }
 
 .ManaDo__formGroup > .ManaDo__formGroupFeedbackLabel {
@@ -20,7 +21,6 @@
   background-color: #f3f6f9;
   border: none;
   padding: 9px 13px;
-  margin-top: 6px;
   border-radius: 4px;
 }
 

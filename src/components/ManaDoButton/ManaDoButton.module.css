@@ -4,9 +4,10 @@
   border-radius: 10px;
   padding: 8px 16px;
   border: none;
-  font-weight: bold;
+  font-weight: 700;
   font-size: 1rem;
   transition: all ease-in-out 200ms;
+  min-width: 100px;
 }
 
 .ManaDo__button:hover {

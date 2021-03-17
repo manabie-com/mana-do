@@ -1,0 +1,33 @@
+.ManaDo__Header__Container {
+  display: flex;
+  flex-direction: column;
+  padding: 3rem 0;
+}
+
+.ManaDo__Header__Container > .ManaDo__UserGreeting__Container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ManaDo__Header__Container
+  > .ManaDo__UserGreeting__Container
+  > .ManaDo__GreetUser__Label {
+  font-weight: 500;
+  font-size: 1.2rem;
+  margin: 0;
+}
+
+.ManaDo__Header__Container
+  > .ManaDo__UserGreeting__Container
+  > .ManaDo__LogOut {
+  font-weight: 400;
+  cursor: pointer;
+  font-size: 16px;
+  color: var(--primary);
+}
+
+.ManaDo__Header__Container > .ManaDo__AskUser {
+  color: var(--primary);
+  margin: 2rem 0;
+}

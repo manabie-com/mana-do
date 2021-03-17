@@ -2,14 +2,14 @@ import * as React from "react";
 import styles from "./FormGroup.module.css";
 
 interface IFormGroupProps extends React.HTMLAttributes<HTMLElement> {
-  name: string;
   id: string;
-  label: string;
-  value: string;
+  name: string;
   type: string;
-  placeholder: string;
-  feedbackLabel: string;
-  required: boolean;
+  value: string;
+  label?: string;
+  placeholder?: string;
+  feedbackLabel?: string;
+  required?: boolean;
 }
 
 const FormGroup: React.FunctionComponent<IFormGroupProps> = ({
@@ -26,9 +26,11 @@ const FormGroup: React.FunctionComponent<IFormGroupProps> = ({
 }) => {
   return (
     <div className={`${styles.ManaDo__formGroup} ${props.className || ""}`}>
-      <label className={styles.ManaDo__formGroupLabel} htmlFor={id}>
-        {label}
-      </label>
+      {label && (
+        <label className={styles.ManaDo__formGroupLabel} htmlFor={id}>
+          {label}
+        </label>
+      )}
       <input
         className={`${styles.ManaDo__formGroupInput} ${
           feedbackLabel && styles.ManaDo__inputError
