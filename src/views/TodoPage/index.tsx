@@ -15,6 +15,7 @@ import Service from "../../service";
 import { TodoStatus } from "../../models/todo";
 import { isTodoCompleted } from "../../utils";
 import { TodoContext } from "../../store/ManaDo_todo/context";
+import ManaDoContainer from "../../components/ManaDoContainer";
 
 type EnhanceTodoStatus = TodoStatus | "ALL";
 
@@ -78,7 +79,7 @@ const ToDoPage = () => {
   }, 0);
 
   return (
-    <div className="ToDo__container">
+    <ManaDoContainer>
       <div className="Todo__creation">
         <input
           ref={inputRef}
@@ -138,7 +139,7 @@ const ToDoPage = () => {
           Clear all todos
         </button>
       </div>
-    </div>
+    </ManaDoContainer>
   );
 };
 
