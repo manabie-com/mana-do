@@ -1,0 +1,14 @@
+.ManaDo__loginForm {
+  width: 100%;
+}
+
+.ManaDo__loginForm > .ManaDo__LoginButton {
+  width: 100%;
+}
+
+.ManaDo__loginForm > .ManaDo__LoginMsg {
+  color: var(--danger);
+  font-size: .9rem;
+  text-align: center;
+  margin-bottom: 2rem;
+}
