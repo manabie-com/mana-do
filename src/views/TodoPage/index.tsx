@@ -1,4 +1,6 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
+import "./TodoPage.module.css";
+
 import { useHistory } from "react-router-dom";
 
 import {
@@ -8,11 +10,11 @@ import {
   toggleAllTodos,
   deleteAllTodos,
   updateTodoStatus,
-} from "../store/ManaDo_todo/actions";
-import Service from "../service";
-import { TodoStatus } from "../models/todo";
-import { isTodoCompleted } from "../utils";
-import { TodoContext } from "../store/ManaDo_todo/context";
+} from "../../store/ManaDo_todo/actions";
+import Service from "../../service";
+import { TodoStatus } from "../../models/todo";
+import { isTodoCompleted } from "../../utils";
+import { TodoContext } from "../../store/ManaDo_todo/context";
 
 type EnhanceTodoStatus = TodoStatus | "ALL";
 

@@ -1,9 +1,10 @@
 import React, { useState } from "react";
+import "./SignInPage.module.css";
 
 import { useHistory } from "react-router-dom";
-import { AUTH_TOKEN } from "../constants";
-import Service from "../service";
-import useLocalStorage from "../_hooks/useLocalStorage";
+import { AUTH_TOKEN } from "../../constants";
+import Service from "../../service";
+import useLocalStorage from "../../_hooks/useLocalStorage";
 
 const SignInPage = () => {
   const [, setToken] = useLocalStorage(AUTH_TOKEN);

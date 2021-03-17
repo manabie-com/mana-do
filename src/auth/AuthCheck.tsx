@@ -5,7 +5,7 @@ import * as ManaDoRoute from "../router";
 import useLocalStorage from "../_hooks/useLocalStorage";
 
 const SignInPage = React.lazy(() => import("../views/SignInPage"));
-const ToDoPage = React.lazy(() => import("../views/ToDoPage"));
+const ToDoPage = React.lazy(() => import("../views/TodoPage"));
 
 export interface AuthCheckProps {}
 
