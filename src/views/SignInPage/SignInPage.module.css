@@ -1,0 +1,18 @@
+.ManaDo__SignInPageContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.ManaDo__SignInPageContainer > .ManaDo__LoginFormWrapper {
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.ManaDo__SignInPageContainer > .ManaDo__LoginFormWrapper > .ManaDo__LogoName {
+  color: var(--primary);
+  margin-top: 0;
+}
