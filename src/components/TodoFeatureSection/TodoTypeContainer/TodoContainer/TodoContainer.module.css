@@ -1,0 +1,73 @@
+.ManaDo__Todo__Container {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--muted);
+  border-radius: 10px;
+  margin-bottom: 1.5rem;
+  padding: 14px 20px 20px 20px;
+  transition: all ease-in-out 150ms;
+  cursor: pointer;
+}
+
+.ManaDo__Todo__Container:hover {
+  box-shadow: 0 0 20px var(--muted--lighter);
+}
+
+.ManaDo__Todo__Container > .ManaDo__TodoContent {
+  margin: 0;
+  word-wrap: break-word;
+  font-weight: 300;
+  line-height: 1.5rem;
+  font-size: 0.9rem;
+}
+
+.ManaDo__Todo__Container > .ManaDo__TodoContent > .ManaDo__CompleteToggler {
+  display: inline;
+  height: 20px;
+  transform: translateY(4px);
+  fill: var(--muted--darker);
+  transition: 200ms ease-in-out;
+  cursor: pointer;
+  margin-right: 0.8rem;
+}
+
+.ManaDo__Todo__Container
+  > .ManaDo__TodoContent
+  > .ManaDo__CompleteToggler:hover {
+  fill: var(--secondary);
+  background-color: var(--secondary--lighter);
+  border-radius: 30px;
+}
+
+.ManaDo__Todo__Container > .ManaDo__Todo__Footer {
+  color: var(--muted--darker);
+  font-size: 0.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ManaDo__Todo__Container > .ManaDo__Todo__Footer > .ManaDo__Todo__ToolBar {
+  display: flex;
+  border-radius: 10px;
+  padding: 10px 10px;
+  transition: all ease-in-out 150ms;
+}
+
+.ManaDo__Todo__Container
+  > .ManaDo__Todo__Footer
+  > .ManaDo__Todo__ToolBar:hover {
+  background-color: var(--muted--lighter);
+}
+
+.Focused {
+  background-color: var(--muted--lighter);
+}
+
+.ManaDo__Todo__Container
+  > .ManaDo__Todo__Footer
+  > .ManaDo__Todo__ToolBar
+  > .ManaDo__Todo__ToolBar {
+  width: 16px !important;
+  fill: var(--muted--darker);
+}

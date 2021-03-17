@@ -18,6 +18,7 @@ import { TodoContext } from "../../store/ManaDo_todo/context";
 import ManaDoContainer from "../../components/ManaDoContainer";
 import Header from "../../components/Header";
 import TodoFeatureSection from "../../components/TodoFeatureSection";
+import Footer from "../../components/Footer";
 
 type EnhanceTodoStatus = TodoStatus | "ALL";
 
@@ -81,8 +82,9 @@ const ToDoPage = () => {
   }, 0);
 
   return (
-    <ManaDoContainer>
-      {/* <div className="Todo__creation">
+    <>
+      <ManaDoContainer>
+        {/* <div className="Todo__creation">
         <input
           ref={inputRef}
           className="Todo__input"
@@ -141,9 +143,11 @@ const ToDoPage = () => {
           Clear all todos
         </button>
       </div> */}
-      <Header />
-      <TodoFeatureSection />
-    </ManaDoContainer>
+        <Header />
+        <TodoFeatureSection />
+      </ManaDoContainer>
+      <Footer />
+    </>
   );
 };
 

@@ -1,55 +1,32 @@
 import * as React from "react";
-import FormGroup from "../FormGroup";
-import ManaDoButton from "../ManaDoButton";
+import TodoTypeContainer from "./TodoTypeContainer";
+import TodoCreationForm from "./TodoCreationForm";
 import styles from "./TodoFeatureSection.module.css";
+import { TodoContext } from "../../store/ManaDo_todo/context";
+import { TodoStatus } from "../../models/todo";
 
 export interface TodoFeatureSectionProps {}
 
 const TodoFeatureSection: React.FunctionComponent<TodoFeatureSectionProps> = () => {
-  const [todoContent, setTodoContent] = React.useState("");
-  const [inputFeedbackLabel, setInputFeedbackLabel] = React.useState("");
-
-  const handleCreateTodo = React.useCallback(
-    (e) => {
-      e.preventDefault();
-      if (!todoContent.trim()) {
-        setInputFeedbackLabel("Please provide a work to be added!");
-      }
-      console.log(todoContent);
-    },
-    [todoContent]
-  );
-
-  const handleTodoChange = React.useCallback((e) => {
-    const { currentTarget } = e;
-    if (currentTarget.value) {
-      setInputFeedbackLabel("");
-    }
-    setTodoContent(currentTarget.value);
-  }, []);
+  const [{ todos }] = React.useContext(TodoContext);
 
   return (
-    <div className={styles.ManaDo_TodoFeature_Container}>
-      <form
-        className={styles.ManaDo_TodoFeature_Form}
-        onSubmit={handleCreateTodo}
-      >
-        <FormGroup
-          className={styles.ManaDo_TodoFeature_Input}
-          feedbackLabel={inputFeedbackLabel}
-          value={todoContent}
-          placeholder="Enter your work here..."
-          type="text"
-          id="Todo-create-input"
-          name="Todo-create-input"
-          onChange={handleTodoChange}
+    <div className={`${styles.ManaDo__TodoFeature__Container}`}>
+      <TodoCreationForm />
+      <div className={`${styles.ManaDo__TodoTypes} mt-3`}>
+        <TodoTypeContainer
+          todos={todos.filter((todo) => todo.status === TodoStatus.ACTIVE)}
+          label="Active"
+          actionKey="active"
+          toggleText="Mark all as completed"
         />
-        <ManaDoButton
-          label="Add"
-          type="submit"
-          className={`${styles.ManaDo_TodoFeature_Button} ml-1`}
+        <TodoTypeContainer
+          todos={todos.filter((todo) => todo.status === TodoStatus.COMPLETED)}
+          label="Completed"
+          actionKey="completed"
+          toggleText="Mark all as active"
         />
-      </form>
+      </div>
     </div>
   );
 };

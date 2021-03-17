@@ -1,3 +1,7 @@
+button:focus {
+  border: none;
+}
+
 .ManaDo__button {
   background-color: var(--primary);
   color: white;
@@ -8,6 +12,20 @@
   font-size: 1rem;
   transition: all ease-in-out 200ms;
   min-width: 100px;
+}
+
+.ManaDo__buttonIcon {
+  border: none;
+  background-color: transparent;
+  transition: all ease-in-out 200ms;
+  fill: var(--textColor);
+  cursor: pointer;
+}
+
+.ManaDo__buttonIcon > svg {
+  height: 31px !important;
+  width: 33px !important;
+  transform: translateY(3px);
 }
 
 .ManaDo__button:hover {

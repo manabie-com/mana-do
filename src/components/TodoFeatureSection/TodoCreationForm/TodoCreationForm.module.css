@@ -1,0 +1,32 @@
+.ManaDo_TodoFeature_TodoCreationForm {
+  display: flex;
+  align-items: flex-start;
+  width: 40%;
+}
+
+@media screen and (max-width: 1200px) {
+  .ManaDo_TodoFeature_TodoCreationForm {
+    display: flex;
+    align-items: flex-start;
+    width: 60%;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .ManaDo_TodoFeature_TodoCreationForm {
+    display: flex;
+    align-items: flex-start;
+    width: 100%;
+  }
+}
+
+.ManaDo_TodoFeature_TodoCreationForm > .ManaDo_TodoFeature_Input {
+  flex: 1;
+}
+
+.ManaDo_TodoFeature_TodoCreationForm
+  > .ManaDo_TodoFeature_Button
+  > .ManaDo_TodoFeature_Icon {
+  height: 28px !important;
+  width: 28px !important;
+}

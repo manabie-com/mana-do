@@ -8,7 +8,9 @@ const ManaDoContainer: React.FunctionComponent<IManaDoContainerProps> = ({
   className,
 }) => {
   return (
-    <div className={`${styles.ManaDo__Container} ${className}`}>{children}</div>
+    <div className={`${styles.ManaDo__Container} ${className || ""}`}>
+      {children}
+    </div>
   );
 };
 

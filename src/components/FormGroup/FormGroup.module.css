@@ -18,6 +18,7 @@
 }
 
 .ManaDo__formGroup > .ManaDo__formGroupInput {
+  box-sizing: border-box;
   background-color: #f3f6f9;
   border: none;
   padding: 9px 13px;
@@ -26,7 +27,7 @@
 
 .ManaDo__inputError {
   border-radius: 4px;
-  border: 2px solid var(--danger) !important;
+  box-shadow: 0px 0px 0px 1.5px var(--danger) !important;
 }
 
 .ManaDo__formGroup > .ManaDo__formGroupInput::placeholder {

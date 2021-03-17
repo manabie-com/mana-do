@@ -1,6 +1,6 @@
 .ManaDo__Container {
   margin: 0 auto;
-  max-width: 1280px;
-  height: 100vh;
+  max-width: 1320px;
+  min-height: 100vh;
   padding: 0 16px;
 }

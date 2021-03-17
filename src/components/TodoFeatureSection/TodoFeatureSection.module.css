@@ -1,14 +1,5 @@
-.ManaDo_TodoFeature_Container {
-}
-
-.ManaDo_TodoFeature_Container > .ManaDo_TodoFeature_Form {
+.ManaDo__TodoFeature__Container > .ManaDo__TodoTypes {
   display: flex;
-  align-items: flex-start;
-  width: 50%;
+  width: 100%;
+  overflow-x: auto;
 }
-
-.ManaDo_TodoFeature_Container > .ManaDo_TodoFeature_Form > .ManaDo_TodoFeature_Input {
-  flex: 1;
-}
-
-
