@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
-import { RouteComponentProps } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 import {
   setTodos,
@@ -16,7 +16,8 @@ import { TodoContext } from "../store/ManaDo_todo/context";
 
 type EnhanceTodoStatus = TodoStatus | "ALL";
 
-const ToDoPage = ({ history }: RouteComponentProps) => {
+const ToDoPage = () => {
+  const history = useHistory();
   const [{ todos }, dispatch] = useContext(TodoContext);
   // const [{ todos }, dispatch] = useReducer(reducer, initialState); Implement ContextAPI
   const [showing, setShowing] = useState<EnhanceTodoStatus>("ALL");

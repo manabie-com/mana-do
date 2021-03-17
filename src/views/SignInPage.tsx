@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 
 import { useHistory } from "react-router-dom";
+import { AUTH_TOKEN } from "../constants";
 import Service from "../service";
+import useLocalStorage from "../_hooks/useLocalStorage";
 
 const SignInPage = () => {
+  const [, setToken] = useLocalStorage(AUTH_TOKEN);
   const [form, setForm] = useState({
     userId: "",
     password: "",
@@ -14,7 +17,7 @@ const SignInPage = () => {
     e.preventDefault();
     const resp = await Service.signIn(form.userId, form.password);
 
-    localStorage.setItem("token", resp);
+    setToken(resp);
     history.push("/todo");
   };
 

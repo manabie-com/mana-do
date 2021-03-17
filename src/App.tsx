@@ -1,26 +1,17 @@
 import React from "react";
 
-import {
-  BrowserRouter as RouterProvider,
-  Switch,
-  Route,
-} from "react-router-dom";
-
-import SignInPage from "./views/SignInPage";
-import ToDoPage from "./views/ToDoPage";
+import { BrowserRouter as RouterProvider } from "react-router-dom";
 
 import "./App.css";
 import TodoProvider from "./store/ManaDo_todo/context";
+import AuthCheck from "./auth/AuthCheck";
 
 function App() {
   return (
     <main className="App">
       <RouterProvider>
         <TodoProvider>
-          <Switch>
-            <Route path="/" exact component={SignInPage} />
-            <Route path="/todo" component={ToDoPage} />
-          </Switch>
+          <AuthCheck />
         </TodoProvider>
       </RouterProvider>
     </main>
