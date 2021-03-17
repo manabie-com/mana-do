@@ -3,7 +3,7 @@ import styles from "./TodoContainer.module.css";
 import { ReactComponent as Check } from "../../../../svgs/check.svg";
 import { ReactComponent as More } from "../../../../svgs/more.svg";
 import MoreContainer from "./MoreContainer";
-import { Todo } from "../../../../models/todo";
+import { Todo, TodoStatus } from "../../../../models/todo";
 
 export interface TodoContainerProps extends React.HTMLAttributes<HTMLElement> {
   data: Todo;
@@ -28,12 +28,26 @@ const TodoContainer: React.FunctionComponent<TodoContainerProps> = ({
 
   return (
     <div className={styles.ManaDo__Todo__Container}>
-      <div className={styles.ManaDo__TodoContent}>
-        <Check className={`${styles.ManaDo__CompleteToggler}`} />
+      <div
+        className={`${styles.ManaDo__TodoContent} ${
+          data.status === TodoStatus.COMPLETED && styles.ManaDo__Completed
+        }`}
+      >
+        <Check
+          className={`${styles.ManaDo__CompleteToggler} ${
+            data.status === TodoStatus.COMPLETED && styles.ManaDo__Completed
+          }`}
+        />
         {data.content}
       </div>
       <div className={`${styles.ManaDo__Todo__Footer} mt-1`}>
-        <span>{data.created_date}</span>
+        <span
+          className={`${
+            data.status === TodoStatus.COMPLETED && styles.ManaDo__Completed
+          }`}
+        >
+          {data.created_date}
+        </span>
         <div
           className={`${styles.ManaDo__Todo__ToolBar} ${
             showMore && styles.Focused
@@ -41,11 +55,11 @@ const TodoContainer: React.FunctionComponent<TodoContainerProps> = ({
           onClick={() => setShowMoreState((prev) => !prev)}
         >
           <More className={`${styles.ManaDo__Todo__ToolBar}`} />
+          <MoreContainer
+            show={showMore}
+            items={[{ label: "Remove", onClick: handleRemoveTodo }]}
+          />
         </div>
-        <MoreContainer
-          show={showMore}
-          items={[{ label: "Remove todo", onClick: handleRemoveTodo }]}
-        />
       </div>
     </div>
   );
