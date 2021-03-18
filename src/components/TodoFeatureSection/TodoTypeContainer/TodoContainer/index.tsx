@@ -11,6 +11,7 @@ export interface TodoContainerProps extends React.HTMLAttributes<HTMLElement> {
 
 const TodoContainer: React.FunctionComponent<TodoContainerProps> = ({
   data = {},
+  ...props
 }) => {
   const [showMore, setShowMoreState] = React.useState(false);
   const handleRemoveTodo = React.useCallback(() => {
@@ -27,7 +28,7 @@ const TodoContainer: React.FunctionComponent<TodoContainerProps> = ({
   }, []);
 
   return (
-    <div className={styles.ManaDo__Todo__Container}>
+    <div className={`${styles.ManaDo__Todo__Container} ${props.className || ""}`}>
       <div
         className={`${styles.ManaDo__TodoContent} ${
           data.status === TodoStatus.COMPLETED && styles.ManaDo__Completed

@@ -33,7 +33,7 @@ const TodoTypeContainer: React.FunctionComponent<TodoTypeContainerProps> = ({
       </div>
       <div className={styles.ManaDo__Todos}>
         {(todos.length &&
-          todos.map((todo) => <TodoContainer data={todo} />)) || (
+          todos.map((todo) => <TodoContainer data={todo} className="mb-1"/>)) || (
           <div className={styles.ManaDo__Todos_Empty}>
             {actionKey === ACTIVE_KEY
               ? "Add new todo..."
