@@ -4,7 +4,7 @@ const PREFIX = "PT_APP_";
 
 const useLocalStorage = function (
   key = "",
-  initalValue = ""
+  initialValue = ""
 ): [string, Dispatch<SetStateAction<string>>] {
   const PREFIXED_KEY = PREFIX + key;
 
@@ -15,7 +15,7 @@ const useLocalStorage = function (
       return JSON.parse(localValue);
     }
 
-    return initalValue;
+    return initialValue;
   });
 
   React.useEffect(() => {
