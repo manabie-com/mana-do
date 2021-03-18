@@ -38,7 +38,7 @@ const TodoFeatureSection: React.FunctionComponent<TodoFeatureSectionProps> = () 
             <TodoTypeContainer
               todos={todos.filter((todo) => todo.status === TodoStatus.ACTIVE)}
               label="Active"
-              actionKey="active"
+              actionKey={TodoStatus.ACTIVE}
               toggleText="Mark all as completed"
             />
             <TodoTypeContainer
@@ -46,7 +46,7 @@ const TodoFeatureSection: React.FunctionComponent<TodoFeatureSectionProps> = () 
                 (todo) => todo.status === TodoStatus.COMPLETED
               )}
               label="Completed"
-              actionKey="completed"
+              actionKey={TodoStatus.COMPLETED}
               toggleText="Mark all as active"
             />
           </>

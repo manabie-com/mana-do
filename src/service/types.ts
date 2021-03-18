@@ -7,4 +7,9 @@ export abstract class IAPI {
   abstract getTodos(): Promise<Array<Todo>>;
   abstract createTodo(content: string, user_id: string): Promise<Todo>;
   abstract removeTodo(todoId: string): Promise<Todo>;
+  abstract updateTodosStatus(isCompleted: boolean): Promise<boolean>;
+  abstract updateTodoStatus(
+    todoId: string,
+    isCompleted: boolean
+  ): Promise<boolean>;
 }

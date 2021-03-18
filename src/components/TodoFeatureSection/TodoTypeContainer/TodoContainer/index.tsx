@@ -6,18 +6,36 @@ import MoreContainer from "./MoreContainer";
 import { Todo, TodoStatus } from "../../../../models/todo";
 import Service from "../../../../service";
 import { TodoContext } from "../../../../store/contexts/todoContext";
-import { deleteTodo } from "../../../../store/actions/todoActions";
+import {
+  deleteTodo,
+  updateTodoStatus,
+} from "../../../../store/actions/todoActions";
 
 export interface TodoContainerProps extends React.HTMLAttributes<HTMLElement> {
   data: Todo;
+  type: TodoStatus.ACTIVE | TodoStatus.COMPLETED;
 }
 
 const TodoContainer: React.FunctionComponent<TodoContainerProps> = ({
   data,
+  type,
   ...props
 }) => {
   const [, dispatch] = React.useContext(TodoContext);
   const [showMore, setShowMoreState] = React.useState(false);
+
+  const handleUpdateTodoStatus = React.useCallback(async () => {
+    try {
+      const response = await Service.updateTodoStatus(
+        data.id,
+        type === TodoStatus.ACTIVE ? true : false
+      );
+      dispatch(updateTodoStatus(data.id, response));
+    } catch (error) {
+      console.log(error);
+    }
+  }, [data.id, dispatch, type]);
+
   const handleRemoveTodo = React.useCallback(async () => {
     // Handle remove todo
     try {
@@ -50,6 +68,7 @@ const TodoContainer: React.FunctionComponent<TodoContainerProps> = ({
         }`}
       >
         <Check
+          onClick={handleUpdateTodoStatus}
           className={`${styles.ManaDo__CompleteToggler} ${
             data.status === TodoStatus.COMPLETED && styles.ManaDo__Completed
           }`}
