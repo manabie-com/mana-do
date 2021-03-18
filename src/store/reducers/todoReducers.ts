@@ -1,13 +1,13 @@
 import { TodoStatus } from "../../models/todo";
 import {
-  AppActions,
   CREATE_TODO,
   DELETE_ALL_TODOS,
   DELETE_TODO,
   TOGGLE_ALL_TODOS,
   UPDATE_TODO_STATUS,
-} from "./actions";
-import { ITodoType } from "./types";
+} from "../../constants";
+import { AppActions } from "../actions/todoActions";
+import { ITodoType } from "../types/todoType";
 
 function reducer(state: ITodoType, action: AppActions): ITodoType {
   switch (action.type) {

@@ -2,7 +2,7 @@ import * as React from "react";
 import TodoTypeContainer from "./TodoTypeContainer";
 import TodoCreationForm from "./TodoCreationForm";
 import styles from "./TodoFeatureSection.module.css";
-import { TodoContext } from "../../store/ManaDo_todo/context";
+import { TodoContext } from "../../store/contexts/context";
 import { TodoStatus } from "../../models/todo";
 
 export interface TodoFeatureSectionProps {}

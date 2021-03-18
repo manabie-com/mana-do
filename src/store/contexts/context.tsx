@@ -1,8 +1,8 @@
 import React from "react";
 import { TodoStatus } from "../../models/todo";
-import { AppActions } from "./actions";
-import reducer from "./reducer";
-import { ITodoType } from "./types";
+import { AppActions } from "../actions/todoActions";
+import reducer from "../reducers/todoReducers";
+import { ITodoType } from "../types/todoType";
 
 export const TodoContext = React.createContext([{}, {}] as [
   ITodoType,
@@ -10,6 +10,7 @@ export const TodoContext = React.createContext([{}, {}] as [
 ]);
 
 const initialState: ITodoType = {
+  loading: false,
   todos: [
     {
       id: "1",
@@ -28,7 +29,8 @@ const initialState: ITodoType = {
     {
       id: "3",
       user_id: "zxc",
-      content: "Lorem ipsum dolor lidur mother fucker\nYeah this is the mfking down lined",
+      content:
+        "Lorem ipsum dolor lidur mother fucker\nYeah this is the mfking down lined",
       status: TodoStatus.ACTIVE,
       created_date: "Today 13:00PM",
     },

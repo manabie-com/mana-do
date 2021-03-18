@@ -3,7 +3,7 @@ import React from "react";
 import { BrowserRouter as RouterProvider } from "react-router-dom";
 
 import "./App.css";
-import TodoProvider from "./store/ManaDo_todo/context";
+import TodoProvider from "./store/contexts/context";
 import AuthCheck from "./auth/AuthCheck";
 
 function App() {

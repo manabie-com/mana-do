@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Todo } from "../../../models/todo";
-import { TodoContext } from "../../../store/ManaDo_todo/context";
+import { TodoContext } from "../../../store/contexts/context";
 import TodoContainer from "./TodoContainer";
 import styles from "./TodoTypeContainer.module.css";
 

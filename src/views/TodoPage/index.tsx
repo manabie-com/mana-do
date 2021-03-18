@@ -10,11 +10,11 @@ import {
   toggleAllTodos,
   deleteAllTodos,
   updateTodoStatus,
-} from "../../store/ManaDo_todo/actions";
+} from "../../store/actions/todoActions";
 import Service from "../../service";
 import { TodoStatus } from "../../models/todo";
 import { isTodoCompleted } from "../../utils";
-import { TodoContext } from "../../store/ManaDo_todo/context";
+import { TodoContext } from "../../store/contexts/context";
 import ManaDoContainer from "../../components/ManaDoContainer";
 import Header from "../../components/Header";
 import TodoFeatureSection from "../../components/TodoFeatureSection";
