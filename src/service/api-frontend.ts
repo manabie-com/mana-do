@@ -25,19 +25,25 @@ class ApiFrontend extends IAPI {
 
   // Add user_id argument to know the sender
   async createTodo(content: string, user_id: string): Promise<Todo> {
-    const database = localStorage.getItem("MANADO_DB") || "";
+    const database = JSON.parse(
+      localStorage.getItem("MANADO_DB") || ""
+    ) as IManaDo_DB;
 
     if (!database) {
       return Promise.reject("No database");
     }
 
-    return Promise.resolve({
+    const requestBody = {
       content: content,
       created_date: new Date().toISOString(),
       status: TodoStatus.ACTIVE,
       id: shortid(),
       user_id: user_id,
-    } as Todo);
+    } as Todo;
+
+    database.todos.push(requestBody);
+
+    return Promise.resolve(requestBody);
   }
 
   async getTodos(): Promise<Todo[]> {
