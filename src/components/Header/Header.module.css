@@ -1,7 +1,7 @@
 .ManaDo__Header__Container {
   display: flex;
   flex-direction: column;
-  padding: 3rem 0 2rem 0;
+  padding: 3rem 0 0 0;
 }
 
 @media screen and (max-width: 600px) {
