@@ -1,6 +1,8 @@
 import * as React from "react";
 import { useHistory } from "react-router";
 import Service from "../../service";
+import { setUser } from "../../store/actions/userActions";
+import { UserContext } from "../../store/contexts/userContext";
 import useLocalStorage from "../../_hooks/useLocalStorage";
 import FormGroup from "../FormGroup";
 import ManaDoButton from "../ManaDoButton";
@@ -10,6 +12,8 @@ interface LoginFormProps extends React.HTMLAttributes<HTMLElement> {}
 
 const LoginForm: React.FunctionComponent<LoginFormProps> = ({ ...props }) => {
   const history = useHistory();
+  const [, dispatch] = React.useContext(UserContext);
+
   const [, setToken] = useLocalStorage("TOKEN", "");
   const [loginMsg, setLoginMsg] = React.useState("");
   const [usernameFeedbackMsg, setUsernameFeedbackMsg] = React.useState("");
@@ -33,14 +37,18 @@ const LoginForm: React.FunctionComponent<LoginFormProps> = ({ ...props }) => {
       } else {
         try {
           const resp = await Service.signIn(form.userId, form.password);
+          const user = await Service.getUser(resp);
+
           setToken(resp);
+          dispatch(setUser(user));
+
           history.push("/todo");
         } catch (error) {
           setLoginMsg(error);
         }
       }
     },
-    [form.password, form.userId, history, setToken]
+    [dispatch, form.password, form.userId, history, setToken]
   );
 
   const onChangeField = React.useCallback(

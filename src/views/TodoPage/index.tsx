@@ -14,7 +14,7 @@ import {
 import Service from "../../service";
 import { TodoStatus } from "../../models/todo";
 import { isTodoCompleted } from "../../utils";
-import { TodoContext } from "../../store/contexts/context";
+import { TodoContext } from "../../store/contexts/todoContext";
 import ManaDoContainer from "../../components/ManaDoContainer";
 import Header from "../../components/Header";
 import TodoFeatureSection from "../../components/TodoFeatureSection";
@@ -37,19 +37,19 @@ const ToDoPage = () => {
     })();
   }, [dispatch]);
 
-  const onCreateTodo = async (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter" && inputRef.current) {
-      try {
-        const resp = await Service.createTodo(inputRef.current.value);
-        dispatch(createTodo(resp));
-        inputRef.current.value = "";
-      } catch (e) {
-        if (e.response.status === 401) {
-          history.push("/");
-        }
-      }
-    }
-  };
+  // const onCreateTodo = async (e: React.KeyboardEvent<HTMLInputElement>) => {
+  //   if (e.key === "Enter" && inputRef.current) {
+  //     try {
+  //       const resp = await Service.createTodo(inputRef.current.value);
+  //       dispatch(createTodo(resp));
+  //       inputRef.current.value = "";
+  //     } catch (e) {
+  //       if (e.response.status === 401) {
+  //         history.push("/");
+  //       }
+  //     }
+  //   }
+  // };
 
   const onUpdateTodoStatus = (
     e: React.ChangeEvent<HTMLInputElement>,

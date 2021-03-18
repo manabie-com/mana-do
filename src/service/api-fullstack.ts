@@ -1,29 +1,38 @@
-import {IAPI} from './types';
-import {Todo} from '../models/todo';
-import axios from '../utils/axios';
-import {AxiosResponse} from 'axios';
+import { IAPI } from "./types";
+import { Todo } from "../models/todo";
+import axios from "../utils/axios";
+import { AxiosResponse } from "axios";
+import { User } from "../models/user";
 
 class ApiFullstack extends IAPI {
-    async signIn(username: string, password: string): Promise<string> {
-        const resp = await axios.get<AxiosResponse<string>>(`/login?user_id=${username}&password=${password}`);
+  async signIn(username: string, password: string): Promise<string> {
+    const resp = await axios.get<AxiosResponse<string>>(
+      `/login?user_id=${username}&password=${password}`
+    );
 
-        return resp.data.data
-    }
+    return resp.data.data;
+  }
 
-    async createTodo(content: string): Promise<Todo> {
-        const resp = await axios.post<AxiosResponse<Todo>>(`/tasks`, {
-            content
-        });
+  async getUser(token: string): Promise<User> {
+    return Promise.resolve({
+      user_id: "firstUser",
+      username: "firstUser",
+    } as User);
+  }
 
-        return resp.data.data;
-    }
+  async createTodo(content: string): Promise<Todo> {
+    const resp = await axios.post<AxiosResponse<Todo>>(`/tasks`, {
+      content,
+    });
 
-    async getTodos(): Promise<Array<Todo>> {
-        const resp = await axios.get<AxiosResponse<Array<Todo>>>(`/tasks`);
+    return resp.data.data;
+  }
 
-        return resp.data.data;
-    }
+  async getTodos(): Promise<Array<Todo>> {
+    const resp = await axios.get<AxiosResponse<Array<Todo>>>(`/tasks`);
+
+    return resp.data.data;
+  }
 }
-
 
 export default new ApiFullstack();

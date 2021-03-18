@@ -4,23 +4,36 @@ import styles from "./TodoCreationForm.module.css";
 import FormGroup from "../../FormGroup";
 import ManaDoButton from "../../ManaDoButton";
 import { ReactComponent as RightArrow } from "../../../svgs/right-arrow.svg";
+import Service from "../../../service";
+import { TodoContext } from "../../../store/contexts/todoContext";
+import { createTodo } from "../../../store/actions/todoActions";
 
 export interface TodoCreationFormProps
   extends React.HTMLAttributes<HTMLElement> {}
 
 const TodoCreationForm: React.FunctionComponent<TodoCreationFormProps> = () => {
+  const [, dispatch] = React.useContext(TodoContext);
   const [todoContent, setTodoContent] = React.useState("");
   const [inputFeedbackLabel, setInputFeedbackLabel] = React.useState("");
 
   const handleCreateTodo = React.useCallback(
-    (e) => {
+    async (e) => {
       e.preventDefault();
       if (!todoContent.trim()) {
         setInputFeedbackLabel("Please provide a work to be added!");
+      } else {
+        try {
+          const resp = await Service.createTodo(todoContent, "");
+
+          if (resp) {
+            dispatch(createTodo(resp));
+          }
+        } catch (e) {
+          setInputFeedbackLabel(e?.error?.message);
+        }
       }
-      console.log(todoContent);
     },
-    [todoContent]
+    [dispatch, todoContent]
   );
 
   const handleTodoChange = React.useCallback((e) => {
