@@ -1,25 +1,26 @@
 import * as React from "react";
-import { Route, RouteProps, useHistory } from "react-router";
+import { Redirect, Route, RouteProps } from "react-router";
 
 export interface IConditionalRouteProps extends RouteProps {
-  condition?: boolean | Function;
-  to: string;
+  condition?: boolean;
+  redirect: string;
+  reason?: string;
 }
 
 const ConditionalRoute: React.FunctionComponent<IConditionalRouteProps> = ({
   condition,
-  to,
+  reason,
+  path,
+  redirect,
+  children,
   ...props
 }) => {
-  const history = useHistory();
-
-  React.useEffect(() => {
-    if (!condition) {
-      history.push("/");
-    } else history.push(to);
-  }, [condition, history, to]);
-
-  return <Route {...props}>{props.children}</Route>;
+  return (
+    <Route
+      {...props}
+      render={() => (condition ? children : <Redirect to={redirect} />)}
+    />
+  );
 };
 
 export default ConditionalRoute;

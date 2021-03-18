@@ -1,4 +1,4 @@
-import { Todo, TodoStatus } from "../models/todo";
+import { Todo } from "../models/todo";
 import { User } from "../models/user";
 
 export interface FullUser extends User {

@@ -16,11 +16,15 @@ const TodoFeatureSection: React.FunctionComponent<TodoFeatureSectionProps> = () 
   React.useEffect(() => {
     (async () => {
       setLoading(true);
-      const response = await Service.getTodos();
+      try {
+        const response = await Service.getTodos();
 
-      if (response) {
-        setLoading(false);
-        dispatch(setTodos(response));
+        if (response) {
+          setLoading(false);
+          dispatch(setTodos(response));
+        }
+      } catch (error) {
+        console.log(error);
       }
     })();
   }, [dispatch]);

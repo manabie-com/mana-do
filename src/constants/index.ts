@@ -1,4 +1,4 @@
-export const AUTH_TOKEN = "TOKEN";
+export const AUTH_TOKEN = "MANADO_TOKEN";
 export const MANADO_DB = "MANADO_DB";
 
 export const SET_TODO = "SET_TODO";

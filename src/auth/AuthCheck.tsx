@@ -1,9 +1,8 @@
 import * as React from "react";
-import { Switch } from "react-router";
+import { Route, Switch, useHistory } from "react-router";
 import { AUTH_TOKEN } from "../constants";
 import * as ManaDoRoute from "../router";
 import Service from "../service";
-import useLocalStorage from "../_hooks/useLocalStorage";
 import { UserContext } from "../store/contexts/userContext";
 import { setUser } from "../store/actions/userActions";
 
@@ -13,39 +12,46 @@ const ToDoPage = React.lazy(() => import("../views/TodoPage"));
 export interface AuthCheckProps {}
 
 const AuthCheck: React.FunctionComponent<AuthCheckProps> = () => {
+  const history = useHistory();
   const [, dispatch] = React.useContext(UserContext);
-  const [token] = useLocalStorage(AUTH_TOKEN);
   const [canLogin, setCanLoginState] = React.useState(false);
 
   React.useEffect(() => {
-    (async () => {
-      if (token) {
-        try {
-          const user = await Service.getUser(token);
-          dispatch(setUser(user));
-
-          setCanLoginState(true);
-        } catch (error) {
-          setCanLoginState(false);
-        }
-      }
-    })();
-  }, [dispatch, token]);
+    const token = localStorage.getItem(AUTH_TOKEN) || null;
+    if (token) {
+      // (async () => {
+      //   try {
+      //     const user = await Service.getUser(token);
+      //     dispatch(setUser(user));
+      //     setCanLoginState(true);
+      //   } catch (error) {
+      //     setCanLoginState(false);
+      //   }
+      // })();
+      history.push("/todo");
+    } else history.push("/");
+  }, [dispatch, history]);
 
   return (
     <React.Suspense fallback={<h1>Loading</h1>}>
       <Switch>
-        <ManaDoRoute.ConditionalRoute
+        {/* <ManaDoRoute.ConditionalRoute
           path="/"
-          condition={canLogin}
-          to="/todo"
           exact
+          condition={!canLogin}
+          redirect="/todo"
         >
           <SignInPage />
         </ManaDoRoute.ConditionalRoute>
         <ManaDoRoute.PrivateRoute path="/todo">
           <ToDoPage />
-        </ManaDoRoute.PrivateRoute>
+        </ManaDoRoute.PrivateRoute> */}
+        <Route path="/" exact>
+          <SignInPage />
+        </Route>
+        <Route path="/todo">
+          <ToDoPage />
+        </Route>
       </Switch>
     </React.Suspense>
   );

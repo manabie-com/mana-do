@@ -1,15 +1,11 @@
 import React, { Dispatch, SetStateAction } from "react";
 
-const PREFIX = "PT_APP_";
-
 const useLocalStorage = function (
   key = "",
   initialValue = ""
 ): [string, Dispatch<SetStateAction<string>>] {
-  const PREFIXED_KEY = PREFIX + key;
-
   const [value, setValue] = React.useState(() => {
-    const localValue = localStorage.getItem(PREFIXED_KEY) || null;
+    const localValue = localStorage.getItem(key) || null;
 
     if (localValue) {
       return JSON.parse(localValue);
@@ -19,8 +15,8 @@ const useLocalStorage = function (
   });
 
   React.useEffect(() => {
-    localStorage.setItem(PREFIXED_KEY, JSON.stringify(value));
-  }, [PREFIXED_KEY, value]);
+    localStorage.setItem(key, JSON.stringify(value));
+  }, [key, value]);
 
   return [value, setValue];
 };

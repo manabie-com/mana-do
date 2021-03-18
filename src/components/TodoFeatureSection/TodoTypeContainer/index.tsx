@@ -1,6 +1,5 @@
 import * as React from "react";
 import { Todo } from "../../../models/todo";
-import { TodoContext } from "../../../store/contexts/todoContext";
 import TodoContainer from "./TodoContainer";
 import styles from "./TodoTypeContainer.module.css";
 
@@ -33,7 +32,9 @@ const TodoTypeContainer: React.FunctionComponent<TodoTypeContainerProps> = ({
       </div>
       <div className={styles.ManaDo__Todos}>
         {(todos.length &&
-          todos.map((todo) => <TodoContainer data={todo} className="mb-1"/>)) || (
+          todos.map((todo) => (
+            <TodoContainer key={todo.id} data={todo} className="mb-1" />
+          ))) || (
           <div className={styles.ManaDo__Todos_Empty}>
             {actionKey === ACTIVE_KEY
               ? "Add new todo..."

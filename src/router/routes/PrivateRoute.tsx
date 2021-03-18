@@ -1,15 +1,31 @@
 import * as React from "react";
 import { RouteProps } from "react-router";
 import { AUTH_TOKEN } from "../../constants";
-import useLocalStorage from "../../_hooks/useLocalStorage";
 import ConditionalRoute from "./ConditionalRoute";
 
-const PrivateRoute: React.FunctionComponent<RouteProps> = ({ ...props }) => {
-  const [token] = useLocalStorage(AUTH_TOKEN);
+interface PrivateRouteProps extends RouteProps {}
 
-  const condition = token ? true : false;
+const PrivateRoute: React.FunctionComponent<PrivateRouteProps> = ({
+  children,
+  ...props
+}) => {
+  const [isAuthenticated, setAuthenticatedState] = React.useState(false);
 
-  return <ConditionalRoute condition={condition} to="/todo" {...props} />;
+  React.useEffect(() => {
+    const token = localStorage.getItem(AUTH_TOKEN) || null;
+    console.log(token);
+
+    setAuthenticatedState(!!token);
+  }, []);
+
+  return (
+    <ConditionalRoute
+      condition={isAuthenticated}
+      redirect="/"
+      {...props}
+      children={children}
+    ></ConditionalRoute>
+  );
 };
 
 export default PrivateRoute;

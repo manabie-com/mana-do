@@ -1,9 +1,9 @@
 import * as React from "react";
 import { useHistory } from "react-router";
+import { AUTH_TOKEN } from "../../constants";
 import Service from "../../service";
 import { setUser } from "../../store/actions/userActions";
 import { UserContext } from "../../store/contexts/userContext";
-import useLocalStorage from "../../_hooks/useLocalStorage";
 import FormGroup from "../FormGroup";
 import ManaDoButton from "../ManaDoButton";
 import styles from "./LoginForm.module.css";
@@ -14,7 +14,6 @@ const LoginForm: React.FunctionComponent<LoginFormProps> = ({ ...props }) => {
   const history = useHistory();
   const [, dispatch] = React.useContext(UserContext);
 
-  const [, setToken] = useLocalStorage("TOKEN", "");
   const [loginMsg, setLoginMsg] = React.useState("");
   const [usernameFeedbackMsg, setUsernameFeedbackMsg] = React.useState("");
   const [passwordFeedbackMsg, setPasswordFeedbackMsg] = React.useState("");
@@ -39,7 +38,7 @@ const LoginForm: React.FunctionComponent<LoginFormProps> = ({ ...props }) => {
           const resp = await Service.signIn(form.userId, form.password);
           const user = await Service.getUser(resp);
 
-          setToken(resp);
+          localStorage.setItem(AUTH_TOKEN, resp);
           dispatch(setUser(user));
 
           history.push("/todo");
@@ -48,7 +47,7 @@ const LoginForm: React.FunctionComponent<LoginFormProps> = ({ ...props }) => {
         }
       }
     },
-    [dispatch, form.password, form.userId, history, setToken]
+    [dispatch, form.password, form.userId, history]
   );
 
   const onChangeField = React.useCallback(

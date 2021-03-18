@@ -23,19 +23,19 @@ import Footer from "../../components/Footer";
 type EnhanceTodoStatus = TodoStatus | "ALL";
 
 const ToDoPage = () => {
-  const history = useHistory();
-  const [{ todos }, dispatch] = useContext(TodoContext);
+  // const history = useHistory();
+  // const [{ todos }, dispatch] = useContext(TodoContext);
   // const [{ todos }, dispatch] = useReducer(reducer, initialState); Implement ContextAPI
-  const [showing, setShowing] = useState<EnhanceTodoStatus>("ALL");
-  const inputRef = useRef<HTMLInputElement>(null);
+  // const [showing, setShowing] = useState<EnhanceTodoStatus>("ALL");
+  // const inputRef = useRef<HTMLInputElement>(null);
 
-  useEffect(() => {
-    (async () => {
-      const resp = await Service.getTodos();
-      
-      dispatch(setTodos(resp || []));
-    })();
-  }, [dispatch]);
+  // useEffect(() => {
+  //   (async () => {
+  //     const resp = await Service.getTodos();
+
+  //     dispatch(setTodos(resp || []));
+  //   })();
+  // }, [dispatch]);
 
   // const onCreateTodo = async (e: React.KeyboardEvent<HTMLInputElement>) => {
   //   if (e.key === "Enter" && inputRef.current) {
@@ -51,35 +51,35 @@ const ToDoPage = () => {
   //   }
   // };
 
-  const onUpdateTodoStatus = (
-    e: React.ChangeEvent<HTMLInputElement>,
-    todoId: string
-  ) => {
-    dispatch(updateTodoStatus(todoId, e.target.checked));
-  };
+  // const onUpdateTodoStatus = (
+  //   e: React.ChangeEvent<HTMLInputElement>,
+  //   todoId: string
+  // ) => {
+  //   dispatch(updateTodoStatus(todoId, e.target.checked));
+  // };
 
-  const onToggleAllTodo = (e: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch(toggleAllTodos(e.target.checked));
-  };
+  // const onToggleAllTodo = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   dispatch(toggleAllTodos(e.target.checked));
+  // };
 
-  const onDeleteAllTodo = () => {
-    dispatch(deleteAllTodos());
-  };
+  // const onDeleteAllTodo = () => {
+  //   dispatch(deleteAllTodos());
+  // };
 
-  const showTodos = todos.filter((todo) => {
-    switch (showing) {
-      case TodoStatus.ACTIVE:
-        return todo.status === TodoStatus.ACTIVE;
-      case TodoStatus.COMPLETED:
-        return todo.status === TodoStatus.COMPLETED;
-      default:
-        return true;
-    }
-  });
+  // const showTodos = todos.filter((todo) => {
+  //   switch (showing) {
+  //     case TodoStatus.ACTIVE:
+  //       return todo.status === TodoStatus.ACTIVE;
+  //     case TodoStatus.COMPLETED:
+  //       return todo.status === TodoStatus.COMPLETED;
+  //     default:
+  //       return true;
+  //   }
+  // });
 
-  const activeTodos = todos.reduce(function (accum, todo) {
-    return isTodoCompleted(todo) ? accum : accum + 1;
-  }, 0);
+  // const activeTodos = todos.reduce(function (accum, todo) {
+  //   return isTodoCompleted(todo) ? accum : accum + 1;
+  // }, 0);
 
   return (
     <>

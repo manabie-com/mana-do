@@ -15,10 +15,6 @@ const MoreContainer: React.FunctionComponent<MoreContainerProps> = ({
   show = false,
   items = [],
 }) => {
-  const handleClickItem = React.useCallback((data) => {
-    console.log(data);
-  }, []);
-
   return (
     <div
       className={`${styles.ManaDo__MoreContainer} ${!show && styles.hidden}`}
