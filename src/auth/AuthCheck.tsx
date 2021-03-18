@@ -28,7 +28,15 @@ const AuthCheck: React.FunctionComponent<AuthCheckProps> = () => {
       //     setCanLoginState(false);
       //   }
       // })();
-      history.push("/todo");
+      (async () => {
+        try {
+          const user = await Service.getUser(token);
+          dispatch(setUser(user));
+          history.push("/todo");
+        } catch (error) {
+          history.push("/");
+        }
+      })();
     } else history.push("/");
   }, [dispatch, history]);
 
