@@ -2,6 +2,7 @@ import { IAPI } from "./types";
 import { Todo, TodoStatus } from "../models/todo";
 import shortid from "shortid";
 import { User } from "../models/user";
+import { IManaDo_DB } from "../utils/dbType";
 
 const mockToken = "testabc.xyz.ahk";
 
@@ -24,6 +25,12 @@ class ApiFrontend extends IAPI {
 
   // Add user_id argument to know the sender
   async createTodo(content: string, user_id: string): Promise<Todo> {
+    const database = localStorage.getItem("MANADO_DB") || "";
+
+    if (!database) {
+      return Promise.reject("No database");
+    }
+
     return Promise.resolve({
       content: content,
       created_date: new Date().toISOString(),
@@ -34,7 +41,15 @@ class ApiFrontend extends IAPI {
   }
 
   async getTodos(): Promise<Todo[]> {
-    return [];
+    const database = JSON.parse(
+      localStorage.getItem("MANADO_DB") || ""
+    ) as IManaDo_DB;
+
+    if (!database) {
+      return Promise.reject("No database");
+    }
+
+    return Promise.resolve(database.todos);
   }
 }
 

@@ -32,7 +32,7 @@ const ToDoPage = () => {
   useEffect(() => {
     (async () => {
       const resp = await Service.getTodos();
-
+      
       dispatch(setTodos(resp || []));
     })();
   }, [dispatch]);

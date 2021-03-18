@@ -5,12 +5,19 @@ import {
   DELETE_TODO,
   TOGGLE_ALL_TODOS,
   UPDATE_TODO_STATUS,
+  SET_TODO,
 } from "../../constants";
 import { AppActions } from "../actions/todoActions";
 import { ITodoType } from "../types/todoType";
 
 function reducer(state: ITodoType, action: AppActions): ITodoType {
   switch (action.type) {
+    case SET_TODO:
+      return {
+        ...state,
+        todos: action.payload,
+      };
+
     case CREATE_TODO:
       // state.todos.push(action.payload); // Anti pattern, state should not be mutable
       // return {
