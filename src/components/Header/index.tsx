@@ -23,7 +23,9 @@ const Header: React.FunctionComponent<HeaderProps> = () => {
           Log out
         </span>
       </div>
-      <h1 className={styles.ManaDo__AskUser}>What's need to be done?</h1>
+      <h1 className={styles.ManaDo__AskUser}>
+        What's <span className={styles.ManaDo__AskUser_Important}>need</span> to be done?
+      </h1>
     </div>
   );
 };
