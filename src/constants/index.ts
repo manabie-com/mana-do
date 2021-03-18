@@ -1,4 +1,5 @@
 export const AUTH_TOKEN = "TOKEN";
+export const MANADO_DB = "MANADO_DB";
 
 export const SET_TODO = "SET_TODO";
 export const CREATE_TODO = "CREATE_TODO";

@@ -2,14 +2,27 @@ import { IAPI } from "./types";
 import { Todo, TodoStatus } from "../models/todo";
 import shortid from "shortid";
 import { User } from "../models/user";
-import { IManaDo_DB } from "../utils/dbType";
+import { IManaDo_DB, FullUser } from "../utils/localDatabase";
+import { MANADO_DB } from "../constants";
 
 const mockToken = "testabc.xyz.ahk";
 
 class ApiFrontend extends IAPI {
   async signIn(username: string, password: string): Promise<string> {
-    if (username === "firstUser" && password === "example") {
-      return Promise.resolve(mockToken);
+    const database = JSON.parse(
+      localStorage.getItem(MANADO_DB) || ""
+    ) as IManaDo_DB;
+
+    if (!database) {
+      return Promise.reject("No database");
+    }
+
+    const user = database.users.find(
+      (user) => user.password === password && user.username === username
+    );
+
+    if (user) {
+      return Promise.resolve(mockToken + user.user_id);
     }
 
     return Promise.reject("Incorrect username/password");
@@ -17,16 +30,30 @@ class ApiFrontend extends IAPI {
 
   // Implement getUser api to get user info
   async getUser(token: string): Promise<User> {
-    return Promise.resolve({
-      user_id: "firstUser",
-      username: "firstUser",
-    } as User);
+    const database = JSON.parse(
+      localStorage.getItem(MANADO_DB) || ""
+    ) as IManaDo_DB;
+
+    if (!database) {
+      return Promise.reject("No database");
+    }
+
+    const user = database.users.find(
+      (user) => user.token === token
+    ) as FullUser;
+
+    if (user) {
+      return Promise.resolve({
+        username: user.username,
+        user_id: user.user_id,
+      });
+    } else return Promise.reject("No user found!");
   }
 
   // Add user_id argument to know the sender
   async createTodo(content: string, user_id: string): Promise<Todo> {
     const database = JSON.parse(
-      localStorage.getItem("MANADO_DB") || ""
+      localStorage.getItem(MANADO_DB) || ""
     ) as IManaDo_DB;
 
     if (!database) {
@@ -42,13 +69,14 @@ class ApiFrontend extends IAPI {
     } as Todo;
 
     database.todos.push(requestBody);
+    localStorage.setItem(MANADO_DB, JSON.stringify(database));
 
     return Promise.resolve(requestBody);
   }
 
   async getTodos(): Promise<Todo[]> {
     const database = JSON.parse(
-      localStorage.getItem("MANADO_DB") || ""
+      localStorage.getItem(MANADO_DB) || ""
     ) as IManaDo_DB;
 
     if (!database) {
