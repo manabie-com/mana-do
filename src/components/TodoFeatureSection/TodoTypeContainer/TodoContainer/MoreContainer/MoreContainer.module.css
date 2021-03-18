@@ -25,9 +25,13 @@
 }
 
 .ManaDo__MoreContainer > .ManaDo__MoreList > .ManaDo__MoreList__Item:hover {
-  color: var(--primary);
+  color: var(--textColor);
 }
 
 .hidden {
   display: none;
+}
+
+.danger {
+  color: var(--danger);
 }

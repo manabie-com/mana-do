@@ -96,6 +96,7 @@ const TodoContainer: React.FunctionComponent<TodoContainerProps> = ({
               {
                 label: "Remove",
                 data: { id: data.id },
+                variant: "danger",
                 onClick: handleRemoveTodo,
               },
             ]}

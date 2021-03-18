@@ -3,6 +3,7 @@ import styles from "./MoreContainer.module.css";
 
 interface IArrayItem extends React.HTMLAttributes<HTMLElement> {
   label: string;
+  variant: "danger" | "";
   data: object;
 }
 
@@ -24,7 +25,9 @@ const MoreContainer: React.FunctionComponent<MoreContainerProps> = ({
           items.map((item, idx) => (
             <li
               key={idx}
-              className={styles.ManaDo__MoreList__Item}
+              className={`${styles.ManaDo__MoreList__Item} ${
+                (item.variant === "danger" && styles.danger) || ""
+              }`}
               onClick={item.onClick}
             >
               {item.label}
