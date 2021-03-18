@@ -10,6 +10,7 @@ import {
   deleteTodo,
   updateTodoStatus,
 } from "../../../../store/actions/todoActions";
+import { formatDate } from "../../../../utils/dateFormatter";
 
 export interface TodoContainerProps extends React.HTMLAttributes<HTMLElement> {
   data: Todo;
@@ -81,7 +82,7 @@ const TodoContainer: React.FunctionComponent<TodoContainerProps> = ({
             data.status === TodoStatus.COMPLETED && styles.ManaDo__Completed
           }`}
         >
-          {data.created_date}
+          {formatDate(data.created_date)}
         </span>
         <div
           className={`${styles.ManaDo__Todo__ToolBar} ${
