@@ -1,7 +1,7 @@
 .ManaDo__TodoTypeContainer {
   width: 380px;
   min-width: 330px;
-  margin-right: 4rem;
+  margin-right: 2.5rem;
   display: flex;
   flex-direction: column;
 }
