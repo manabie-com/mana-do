@@ -1,5 +1,5 @@
 :root {
-  --primary--lighter: rgba(64, 91, 202, 20);
+  --primary--lighter: rgba(64, 91, 202, 0.2);
   --primary: #405bca;
 
   --secondary--lighter: #e2fffa;
@@ -13,7 +13,7 @@
   --muted--darker: #7f7f8a;
   
   --textColor: #464e5f;
-  --textColor--lighter: rgba(98, 98, 107, 20);
+  --textColor--lighter: rgba(98, 98, 107, 0.2);
 }
 
 .mt-1 {
