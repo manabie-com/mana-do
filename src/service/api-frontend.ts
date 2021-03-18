@@ -87,6 +87,31 @@ class ApiFrontend extends IAPI {
 
     return Promise.resolve(database.todos);
   }
+
+  async removeTodo(todoId: string): Promise<Todo> {
+    const database = JSON.parse(
+      localStorage.getItem(MANADO_DB) || ""
+    ) as IManaDo_DB;
+
+    if (!database) {
+      return Promise.reject("No database");
+    }
+
+    const todo = database.todos.find((todo) => todo.id === todoId) as Todo;
+
+    if (todo) {
+      localStorage.setItem(
+        MANADO_DB,
+        JSON.stringify({
+          ...database,
+          todos: [...database.todos.filter((todo) => todo.id !== todoId)],
+        } as IManaDo_DB)
+      );
+      return Promise.resolve(todo);
+    }
+
+    return Promise.reject("No todo found!");
+  }
 }
 
 export default new ApiFrontend();

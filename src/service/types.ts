@@ -6,4 +6,5 @@ export abstract class IAPI {
   abstract getUser(token: string): Promise<User>;
   abstract getTodos(): Promise<Array<Todo>>;
   abstract createTodo(content: string, user_id: string): Promise<Todo>;
+  abstract removeTodo(todoId: string): Promise<Todo>;
 }

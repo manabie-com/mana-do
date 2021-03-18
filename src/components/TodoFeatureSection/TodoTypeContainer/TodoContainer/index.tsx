@@ -4,23 +4,36 @@ import { ReactComponent as Check } from "../../../../svgs/check.svg";
 import { ReactComponent as More } from "../../../../svgs/more.svg";
 import MoreContainer from "./MoreContainer";
 import { Todo, TodoStatus } from "../../../../models/todo";
+import Service from "../../../../service";
+import { TodoContext } from "../../../../store/contexts/todoContext";
+import { deleteTodo } from "../../../../store/actions/todoActions";
 
 export interface TodoContainerProps extends React.HTMLAttributes<HTMLElement> {
   data: Todo;
 }
 
 const TodoContainer: React.FunctionComponent<TodoContainerProps> = ({
-  data = {},
+  data,
   ...props
 }) => {
+  const [, dispatch] = React.useContext(TodoContext);
   const [showMore, setShowMoreState] = React.useState(false);
-  const handleRemoveTodo = React.useCallback(() => {
+  const handleRemoveTodo = React.useCallback(async () => {
     // Handle remove todo
-  }, []);
+    try {
+      const response = await Service.removeTodo(data.id);
+
+      if (response) {
+        dispatch(deleteTodo(response.id));
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }, [data.id, dispatch]);
 
   React.useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
-      setShowMoreState(false);
+      // setShowMoreState(false);
     }
     document.addEventListener("mousedown", handleClickOutside);
 
@@ -28,7 +41,9 @@ const TodoContainer: React.FunctionComponent<TodoContainerProps> = ({
   }, []);
 
   return (
-    <div className={`${styles.ManaDo__Todo__Container} ${props.className || ""}`}>
+    <div
+      className={`${styles.ManaDo__Todo__Container} ${props.className || ""}`}
+    >
       <div
         className={`${styles.ManaDo__TodoContent} ${
           data.status === TodoStatus.COMPLETED && styles.ManaDo__Completed
@@ -58,7 +73,13 @@ const TodoContainer: React.FunctionComponent<TodoContainerProps> = ({
           <More className={`${styles.ManaDo__Todo__ToolBar}`} />
           <MoreContainer
             show={showMore}
-            items={[{ label: "Remove", onClick: handleRemoveTodo }]}
+            items={[
+              {
+                label: "Remove",
+                data: { id: data.id },
+                onClick: handleRemoveTodo,
+              },
+            ]}
           />
         </div>
       </div>

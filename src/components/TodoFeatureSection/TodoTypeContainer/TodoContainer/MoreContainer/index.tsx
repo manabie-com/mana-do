@@ -1,9 +1,9 @@
 import * as React from "react";
 import styles from "./MoreContainer.module.css";
 
-interface IArrayItem {
+interface IArrayItem extends React.HTMLAttributes<HTMLElement> {
   label: string;
-  onClick: React.MouseEventHandler<HTMLLIElement>;
+  data: object;
 }
 
 export interface MoreContainerProps extends React.HTMLAttributes<HTMLElement> {
@@ -15,6 +15,10 @@ const MoreContainer: React.FunctionComponent<MoreContainerProps> = ({
   show = false,
   items = [],
 }) => {
+  const handleClickItem = React.useCallback((data) => {
+    console.log(data);
+  }, []);
+
   return (
     <div
       className={`${styles.ManaDo__MoreContainer} ${!show && styles.hidden}`}

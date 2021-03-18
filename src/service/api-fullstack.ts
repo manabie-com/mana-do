@@ -33,6 +33,10 @@ class ApiFullstack extends IAPI {
 
     return resp.data.data;
   }
+
+  async removeTodo(): Promise<Todo> {
+    return Promise.reject("");
+  }
 }
 
 export default new ApiFullstack();
