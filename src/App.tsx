@@ -12,7 +12,9 @@ import { MANADO_DB } from "./constants";
 function App() {
   React.useEffect(() => {
     // Init database to localstorage
-    localStorage.setItem(MANADO_DB, JSON.stringify(ManaDo_DB));
+    if (!localStorage.getItem(MANADO_DB)) {
+      localStorage.setItem(MANADO_DB, JSON.stringify(ManaDo_DB));
+    }
   }, []);
 
   return (

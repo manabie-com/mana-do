@@ -7,12 +7,15 @@ import { ReactComponent as RightArrow } from "../../../svgs/right-arrow.svg";
 import Service from "../../../service";
 import { TodoContext } from "../../../store/contexts/todoContext";
 import { createTodo } from "../../../store/actions/todoActions";
+import { UserContext } from "../../../store/contexts/userContext";
 
 export interface TodoCreationFormProps
   extends React.HTMLAttributes<HTMLElement> {}
 
 const TodoCreationForm: React.FunctionComponent<TodoCreationFormProps> = () => {
   const [, dispatch] = React.useContext(TodoContext);
+  const [{ user_id }] = React.useContext(UserContext);
+
   const [todoContent, setTodoContent] = React.useState("");
   const [inputFeedbackLabel, setInputFeedbackLabel] = React.useState("");
 
@@ -23,7 +26,7 @@ const TodoCreationForm: React.FunctionComponent<TodoCreationFormProps> = () => {
         setInputFeedbackLabel("Please provide a work to be added!");
       } else {
         try {
-          const resp = await Service.createTodo(todoContent, "");
+          const resp = await Service.createTodo(todoContent, user_id);
 
           if (resp) {
             dispatch(createTodo(resp));
@@ -34,7 +37,7 @@ const TodoCreationForm: React.FunctionComponent<TodoCreationFormProps> = () => {
         }
       }
     },
-    [dispatch, todoContent]
+    [dispatch, todoContent, user_id]
   );
 
   const handleTodoChange = React.useCallback((e) => {
