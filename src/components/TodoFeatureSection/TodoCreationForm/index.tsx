@@ -27,6 +27,7 @@ const TodoCreationForm: React.FunctionComponent<TodoCreationFormProps> = () => {
 
           if (resp) {
             dispatch(createTodo(resp));
+            setTodoContent("");
           }
         } catch (e) {
           setInputFeedbackLabel(e?.error?.message);
