@@ -25,7 +25,7 @@ const TodoTypeContainer: React.FunctionComponent<TodoTypeContainerProps> = ({
 
   const handleToggleTodoStatus = React.useCallback(async () => {
     try {
-      const response = await Service.updateTodosStatus(
+      const response = await Service.updateAllTodoStatus(
         actionKey === TodoStatus.ACTIVE
       );
 

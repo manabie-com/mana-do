@@ -3,7 +3,7 @@ import { Todo, TodoStatus } from "../models/todo";
 import shortid from "shortid";
 import { User } from "../models/user";
 import { IManaDo_DB, FullUser } from "../utils/localDatabase";
-import { AUTH_TOKEN, MANADO_DB } from "../constants";
+import { MANADO_DB } from "../constants";
 
 const mockToken = "testabc.xyz.ahk";
 
@@ -113,7 +113,7 @@ class ApiFrontend extends IAPI {
     return Promise.reject("No todo found!");
   }
 
-  async updateTodosStatus(isCompleted: boolean): Promise<boolean> {
+  async updateAllTodoStatus(isCompleted: boolean): Promise<boolean> {
     const database = JSON.parse(
       localStorage.getItem(MANADO_DB) || ""
     ) as IManaDo_DB;
@@ -138,7 +138,10 @@ class ApiFrontend extends IAPI {
     return Promise.resolve(isCompleted);
   }
 
-  async updateTodoStatus(todoId: string, isCompleted: boolean): Promise<boolean> {
+  async updateTodoStatus(
+    todoId: string,
+    isCompleted: boolean
+  ): Promise<boolean> {
     const database = JSON.parse(
       localStorage.getItem(MANADO_DB) || ""
     ) as IManaDo_DB;

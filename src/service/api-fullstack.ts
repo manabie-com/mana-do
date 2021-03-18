@@ -38,7 +38,7 @@ class ApiFullstack extends IAPI {
     return Promise.reject("");
   }
 
-  async updateTodosStatus(): Promise<boolean> {
+  async updateAllTodoStatus(): Promise<boolean> {
     return Promise.reject("");
   }
 
