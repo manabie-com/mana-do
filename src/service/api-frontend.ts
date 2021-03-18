@@ -19,7 +19,7 @@ class ApiFrontend extends IAPI {
 
     const user = database.users.find(
       (user) => user.password === password && user.username === username
-    );
+    ) as FullUser;
 
     if (user) {
       return Promise.resolve(mockToken + user.user_id);
@@ -47,7 +47,9 @@ class ApiFrontend extends IAPI {
         username: user.username,
         user_id: user.user_id,
       });
-    } else return Promise.reject("No user found!");
+    }
+
+    return Promise.reject("No user found!");
   }
 
   // Add user_id argument to know the sender
