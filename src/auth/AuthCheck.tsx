@@ -5,6 +5,7 @@ import * as ManaDoRoute from "../router";
 import Service from "../service";
 import { UserContext } from "../store/contexts/userContext";
 import { setUser } from "../store/actions/userActions";
+import LoadingPage from "../views/LoadingPage";
 
 const SignInPage = React.lazy(() => import("../views/SignInPage"));
 const ToDoPage = React.lazy(() => import("../views/TodoPage"));
@@ -41,7 +42,7 @@ const AuthCheck: React.FunctionComponent<AuthCheckProps> = () => {
   }, [dispatch, history]);
 
   return (
-    <React.Suspense fallback={<h1>Loading</h1>}>
+    <React.Suspense fallback={<LoadingPage />}>
       <Switch>
         {/* <ManaDoRoute.ConditionalRoute
           path="/"
@@ -59,6 +60,9 @@ const AuthCheck: React.FunctionComponent<AuthCheckProps> = () => {
         </Route>
         <Route path="/todo">
           <ToDoPage />
+        </Route>
+        <Route path="/loading">
+          <LoadingPage />
         </Route>
       </Switch>
     </React.Suspense>

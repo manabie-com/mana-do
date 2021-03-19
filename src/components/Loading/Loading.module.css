@@ -1,0 +1,74 @@
+.ManaDo__LoadingIndicator__Wrapper {
+  display: inline-block;
+}
+
+.ManaDo__LoadingIndicator__Wrapper > .ManaDo__LoadingIndicator__Container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.ManaDo__LoadingIndicator__Wrapper
+  > .ManaDo__LoadingIndicator__Container
+  > .ManaDo__LoadingIndicator__Label {
+  margin-top: 0.5rem;
+}
+
+.primary {
+  border-color: var(--primary--lighter);
+  border-top-color: var(--primary);
+}
+
+.secondary {
+  border-color: var(--secondary--lighter);
+  border-top-color: var(--secondary);
+}
+
+.muted {
+  border-color: var(--muted--lighter);
+  border-top-color: var(--muted--darker);
+}
+
+.small {
+  width: 24px;
+  height: 24px;
+  border-width: 3px;
+}
+
+.medium {
+  width: 38px;
+  height: 38px;
+  border-width: 4px;
+}
+
+.large {
+  width: 48px;
+  height: 48px;
+  border-width: 5px;
+}
+
+.xlarge {
+  width: 68px;
+  height: 68px;
+  border-width: 7px;
+}
+
+.ManaDo__LoadingIndicator__Wrapper
+  > .ManaDo__LoadingIndicator__Container
+  > .ManaDo__LoadingIndicator {
+  background-color: transparent;
+  border-style: solid;
+  border-radius: 300px;
+  animation: spin 800ms linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}

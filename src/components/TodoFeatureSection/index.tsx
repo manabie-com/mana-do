@@ -7,6 +7,7 @@ import { TodoStatus } from "../../models/todo";
 import Service from "../../service";
 import { setTodos } from "../../store/actions/todoActions";
 import { UserContext } from "../../store/contexts/userContext";
+import Loading from "../Loading";
 
 export interface TodoFeatureSectionProps {}
 
@@ -53,7 +54,7 @@ const TodoFeatureSection: React.FunctionComponent<TodoFeatureSectionProps> = () 
             />
           </>
         ) : (
-          <h1>Loading...</h1>
+          <Loading />
         )}
       </div>
     </div>
