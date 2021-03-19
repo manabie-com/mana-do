@@ -24,7 +24,7 @@ const TodoFeatureSection: React.FunctionComponent<TodoFeatureSectionProps> = () 
           dispatch(setTodos(response));
         }
       } catch (error) {
-        console.log(error);
+        console.error(error);
       }
     })();
   }, [dispatch]);

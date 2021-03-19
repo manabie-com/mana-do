@@ -38,7 +38,7 @@ const TodoTypeContainer: React.FunctionComponent<TodoTypeContainerProps> = ({
 
       dispatch(toggleAllTodos(response));
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   }, [actionKey, dispatch]);
 
@@ -57,19 +57,18 @@ const TodoTypeContainer: React.FunctionComponent<TodoTypeContainerProps> = ({
         },
       ]);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   }, []);
 
   const handleUpdateConfirm = React.useCallback(
     async (data) => {
       try {
-        console.log(data);
         const todo = await Service.updateTodoContent(data.id, data.todoContent);
         dispatch(updateTodoContent(todo));
         setShow(false);
       } catch (error) {
-        console.log(error);
+        console.error(error);
       }
     },
     [dispatch]

@@ -13,7 +13,6 @@ const PrivateRoute: React.FunctionComponent<PrivateRouteProps> = ({
 
   React.useEffect(() => {
     const token = localStorage.getItem(AUTH_TOKEN) || null;
-    console.log(token);
 
     setAuthenticatedState(!!token);
   }, []);

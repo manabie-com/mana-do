@@ -34,7 +34,7 @@ const TodoContainer: React.FunctionComponent<TodoContainerProps> = ({
       );
       dispatch(updateTodoStatus(data.id, response));
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   }, [data.id, dispatch, type]);
 
@@ -47,7 +47,7 @@ const TodoContainer: React.FunctionComponent<TodoContainerProps> = ({
         dispatch(deleteTodo(response.id));
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   }, [data.id, dispatch]);
 
