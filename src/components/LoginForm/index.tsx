@@ -35,19 +35,16 @@ const LoginForm: React.FunctionComponent<LoginFormProps> = ({ ...props }) => {
         }
       } else {
         try {
-          const resp = await Service.signIn(form.userId, form.password);
-          const user = await Service.getUser(resp);
-
-          localStorage.setItem(AUTH_TOKEN, resp);
-          dispatch(setUser(user));
-
-          history.push("/todo");
+          history.push("/auth", {
+            userId: form.userId,
+            password: form.password,
+          });
         } catch (error) {
           setLoginMsg(error);
         }
       }
     },
-    [dispatch, form.password, form.userId, history]
+    [form.password, form.userId, history]
   );
 
   const onChangeField = React.useCallback(

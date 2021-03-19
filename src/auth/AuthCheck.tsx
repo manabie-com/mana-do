@@ -6,6 +6,7 @@ import Service from "../service";
 import { UserContext } from "../store/contexts/userContext";
 import { setUser } from "../store/actions/userActions";
 import LoadingPage from "../views/LoadingPage";
+import LoginPendingPage from "./LoginPendingPage";
 
 const SignInPage = React.lazy(() => import("../views/SignInPage"));
 const ToDoPage = React.lazy(() => import("../views/TodoPage"));
@@ -61,8 +62,8 @@ const AuthCheck: React.FunctionComponent<AuthCheckProps> = () => {
         <Route path="/todo">
           <ToDoPage />
         </Route>
-        <Route path="/loading">
-          <LoadingPage />
+        <Route path="/auth">
+          <LoginPendingPage />
         </Route>
       </Switch>
     </React.Suspense>
