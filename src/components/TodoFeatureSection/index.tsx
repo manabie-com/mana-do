@@ -8,13 +8,14 @@ import Service from "../../service";
 import { setTodos } from "../../store/actions/todoActions";
 import { UserContext } from "../../store/contexts/userContext";
 import Loading from "../Loading";
+import SkeletonTodoTypes from "../SkeletonTodoTypes";
 
 export interface TodoFeatureSectionProps {}
 
 const TodoFeatureSection: React.FunctionComponent<TodoFeatureSectionProps> = () => {
   const [{ todos }, dispatch] = React.useContext(TodoContext);
   const [{ user_id }] = React.useContext(UserContext);
-  const [loading, setLoading] = React.useState(false);
+  const [loading, setLoading] = React.useState(true);
 
   React.useEffect(() => {
     (async () => {
@@ -23,8 +24,10 @@ const TodoFeatureSection: React.FunctionComponent<TodoFeatureSectionProps> = () 
         const response = await Service.getTodos(user_id);
 
         if (response) {
-          setLoading(false);
-          dispatch(setTodos(response));
+          setTimeout(() => {
+            setLoading(false);
+            dispatch(setTodos(response));
+          }, 1000);
         }
       } catch (error) {
         console.error(error);
@@ -54,7 +57,7 @@ const TodoFeatureSection: React.FunctionComponent<TodoFeatureSectionProps> = () 
             />
           </>
         ) : (
-          <Loading />
+          <SkeletonTodoTypes />
         )}
       </div>
     </div>
