@@ -66,13 +66,18 @@ const TodoTypeContainer: React.FunctionComponent<TodoTypeContainerProps> = ({
 
   const handleUpdateConfirm = React.useCallback(
     async (data) => {
-      try {
-        const todo = await Service.updateTodoContent(data.id, data.todoContent);
-        dispatch(updateTodoContent(todo));
-        setShow(false);
-      } catch (error) {
-        console.error(error);
-      }
+      if (data.content) {
+        try {
+          const todo = await Service.updateTodoContent(
+            data.id,
+            data.todoContent
+          );
+          dispatch(updateTodoContent(todo));
+          setShow(false);
+        } catch (error) {
+          console.error(error);
+        }
+      } else setShow(false);
     },
     [dispatch]
   );
