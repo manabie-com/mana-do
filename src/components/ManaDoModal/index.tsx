@@ -76,8 +76,9 @@ const ManaDoModal: React.FunctionComponent<ManaDoModalProps> = ({
             }}
           >
             {fields.length &&
-              fields.map((field) => (
+              fields.map((field, idx) => (
                 <FormGroup
+                  key={idx}
                   className={`${styles.ManaDo__UpdateTodoInput}`}
                   {...field}
                   onChange={handleChangeFormData}

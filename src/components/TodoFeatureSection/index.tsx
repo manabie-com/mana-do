@@ -6,18 +6,20 @@ import { TodoContext } from "../../store/contexts/todoContext";
 import { TodoStatus } from "../../models/todo";
 import Service from "../../service";
 import { setTodos } from "../../store/actions/todoActions";
+import { UserContext } from "../../store/contexts/userContext";
 
 export interface TodoFeatureSectionProps {}
 
 const TodoFeatureSection: React.FunctionComponent<TodoFeatureSectionProps> = () => {
   const [{ todos }, dispatch] = React.useContext(TodoContext);
+  const [{ user_id }] = React.useContext(UserContext);
   const [loading, setLoading] = React.useState(false);
 
   React.useEffect(() => {
     (async () => {
       setLoading(true);
       try {
-        const response = await Service.getTodos();
+        const response = await Service.getTodos(user_id);
 
         if (response) {
           setLoading(false);
@@ -27,7 +29,7 @@ const TodoFeatureSection: React.FunctionComponent<TodoFeatureSectionProps> = () 
         console.error(error);
       }
     })();
-  }, [dispatch]);
+  }, [dispatch, user_id]);
 
   return (
     <div className={`${styles.ManaDo__TodoFeature__Container}`}>

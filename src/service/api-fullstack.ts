@@ -28,7 +28,7 @@ class ApiFullstack extends IAPI {
     return resp.data.data;
   }
 
-  async getTodos(): Promise<Array<Todo>> {
+  async getTodos(user_id: string): Promise<Array<Todo>> {
     const resp = await axios.get<AxiosResponse<Array<Todo>>>(`/tasks`);
 
     return resp.data.data;

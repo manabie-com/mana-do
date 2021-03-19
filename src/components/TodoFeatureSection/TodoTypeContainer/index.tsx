@@ -10,6 +10,7 @@ import {
 import Service from "../../../service";
 import ManaDoModal from "../../ManaDoModal";
 import { IFormGroupProps } from "../../FormGroup";
+import { UserContext } from "../../../store/contexts/userContext";
 
 export interface TodoTypeContainerProps
   extends React.HTMLAttributes<HTMLElement> {
@@ -26,6 +27,7 @@ const TodoTypeContainer: React.FunctionComponent<TodoTypeContainerProps> = ({
   todos = [],
   ...props
 }) => {
+  const [{ user_id }] = React.useContext(UserContext);
   const [, dispatch] = React.useContext(TodoContext);
   const [show, setShow] = React.useState(false);
   const [fieldData, setFieldData] = React.useState([] as IFormGroupProps[]);
@@ -33,14 +35,15 @@ const TodoTypeContainer: React.FunctionComponent<TodoTypeContainerProps> = ({
   const handleToggleTodoStatus = React.useCallback(async () => {
     try {
       const response = await Service.updateAllTodoStatus(
-        actionKey === TodoStatus.ACTIVE
+        actionKey === TodoStatus.ACTIVE,
+        user_id
       );
 
       dispatch(toggleAllTodos(response));
     } catch (error) {
       console.error(error);
     }
-  }, [actionKey, dispatch]);
+  }, [actionKey, dispatch, user_id]);
 
   const handleShowUpdateModal = React.useCallback(async (todoId) => {
     setShow(true);

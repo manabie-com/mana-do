@@ -17,7 +17,6 @@ const FormGroup: React.FunctionComponent<IFormGroupProps> = ({
   name = "",
   id = "",
   label = "",
-  value,
   type = "text",
   placeholder = "Place holder",
   feedbackLabel = "",
@@ -40,7 +39,6 @@ const FormGroup: React.FunctionComponent<IFormGroupProps> = ({
         type={type}
         id={id}
         name={name}
-        value={value}
         required={required}
         placeholder={placeholder}
         onChange={onChange}

@@ -13,7 +13,7 @@ const Header: React.FunctionComponent<HeaderProps> = () => {
   const handleLogOut = React.useCallback(() => {
     localStorage.removeItem(AUTH_TOKEN);
     history.push("/");
-  }, []);
+  }, [history]);
 
   return (
     <div className={styles.ManaDo__Header__Container}>
@@ -24,7 +24,8 @@ const Header: React.FunctionComponent<HeaderProps> = () => {
         </span>
       </div>
       <h1 className={styles.ManaDo__AskUser}>
-        What's <span className={styles.ManaDo__AskUser_Important}>need</span> to be done?
+        What's <span className={styles.ManaDo__AskUser_Important}>need</span> to
+        be done?
       </h1>
     </div>
   );

@@ -76,7 +76,7 @@ class ApiFrontend extends IAPI {
     return Promise.resolve(requestBody);
   }
 
-  async getTodos(): Promise<Todo[]> {
+  async getTodos(user_id: string): Promise<Todo[]> {
     const database = JSON.parse(
       localStorage.getItem(MANADO_DB) || ""
     ) as IManaDo_DB;
@@ -85,7 +85,9 @@ class ApiFrontend extends IAPI {
       return Promise.reject("No database");
     }
 
-    return Promise.resolve(database.todos);
+    return Promise.resolve(
+      database.todos.filter((todo) => todo.user_id === user_id)
+    );
   }
 
   async getTodo(todoId: string): Promise<Todo> {
@@ -129,7 +131,10 @@ class ApiFrontend extends IAPI {
     return Promise.reject("No todo found!");
   }
 
-  async updateAllTodoStatus(isCompleted: boolean): Promise<boolean> {
+  async updateAllTodoStatus(
+    isCompleted: boolean,
+    user_id: string
+  ): Promise<boolean> {
     const database = JSON.parse(
       localStorage.getItem(MANADO_DB) || ""
     ) as IManaDo_DB;
@@ -143,10 +148,16 @@ class ApiFrontend extends IAPI {
       JSON.stringify({
         ...database,
         todos: [
-          ...database.todos.map((todo) => ({
-            ...todo,
-            status: isCompleted ? TodoStatus.COMPLETED : TodoStatus.ACTIVE,
-          })),
+          ...database.todos.map((todo) =>
+            todo.user_id === user_id
+              ? {
+                  ...todo,
+                  status: isCompleted
+                    ? TodoStatus.COMPLETED
+                    : TodoStatus.ACTIVE,
+                }
+              : todo
+          ),
         ],
       } as IManaDo_DB)
     );

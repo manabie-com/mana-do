@@ -82,7 +82,6 @@ const LoginForm: React.FunctionComponent<LoginFormProps> = ({ ...props }) => {
         id="user_id"
         name="userId"
         type="text"
-        value={form.userId}
         onChange={onChangeField}
         label="Username"
         placeholder="Enter your username"
@@ -93,7 +92,6 @@ const LoginForm: React.FunctionComponent<LoginFormProps> = ({ ...props }) => {
         id="password"
         name="password"
         type="password"
-        value={form.password}
         onChange={onChangeField}
         label="Password"
         className="mt-3"
