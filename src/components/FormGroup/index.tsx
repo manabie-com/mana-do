@@ -11,6 +11,7 @@ export interface IFormGroupProps extends React.HTMLAttributes<HTMLElement> {
   feedbackLabel?: string;
   required?: boolean;
   defaultValue?: string;
+  autoFocus?: boolean;
 }
 
 const FormGroup: React.FunctionComponent<IFormGroupProps> = ({
@@ -23,6 +24,7 @@ const FormGroup: React.FunctionComponent<IFormGroupProps> = ({
   feedbackLabel = "",
   defaultValue = "",
   required = false,
+  autoFocus = false,
   onChange = (e: React.ChangeEvent<HTMLInputElement>) => {},
   ...props
 }) => {
@@ -46,6 +48,7 @@ const FormGroup: React.FunctionComponent<IFormGroupProps> = ({
         defaultValue={defaultValue}
         value={value}
         autoComplete="on"
+        autoFocus={autoFocus}
       />
       <span className={styles.ManaDo__formGroupFeedbackLabel}>
         {feedbackLabel}
