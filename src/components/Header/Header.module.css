@@ -32,7 +32,7 @@
   font-weight: 500;
   cursor: pointer;
   font-size: 14px;
-  color: var(--primary);
+  color: white;
 }
 
 .ManaDo__Header__Container > .ManaDo__AskUser {
