@@ -40,7 +40,7 @@
 
 .ManaDo__Todo__Container > .ManaDo__TodoContent > .ManaDo__Completed {
   fill: white;
-  background-color: var(--secondary--low--a--bit);
+  background-color: var(--secondary--lighter);
   border-radius: 30px;
 }
 

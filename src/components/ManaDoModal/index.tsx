@@ -52,7 +52,7 @@ const ManaDoModal: React.FunctionComponent<ManaDoModalProps> = ({
               Change your content
             </span>
           </div>
-          <form className={`${styles.ManaDo__UpdateTodoForm} mt-2`}>
+          <form className={`${styles.ManaDo__UpdateTodoForm} mt-1`}>
             <FormGroup
               className={`${styles.ManaDo__UpdateTodoInput}`}
               id="content-update"
@@ -60,10 +60,21 @@ const ManaDoModal: React.FunctionComponent<ManaDoModalProps> = ({
               type="text"
               value=""
               placeholder="How do you want to change?"
+              feedbackLabel=""
             />
             <div className={`${styles.ManaDo__UpdateTodoButtons} mt-3`}>
-              <ManaDoButton label="Confirm" className="mr-1" />
-              <ManaDoButton label="Cancel" />
+              <ManaDoButton
+                type="submit"
+                label="Confirm"
+                className="mr-1"
+                variant="secondary-light"
+                />
+              <ManaDoButton
+                type="button"
+                label="Cancel"
+                variant="muted"
+                onClick={handleCloseModal}
+              />
             </div>
           </form>
         </div>

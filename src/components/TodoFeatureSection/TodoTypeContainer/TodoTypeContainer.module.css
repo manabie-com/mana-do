@@ -33,7 +33,7 @@
 .ManaDo__TodoTypeContainer
   > .ManaDo__TodoTypeHeader_Wrapper
   > .ManaDo__TodoTypeHeader_MarkAllButton:hover {
-  color: var(--primary--lighter);
+  color: var(--primary--lighter-a-bit);
 }
 
 .ManaDo__Todos {
@@ -46,7 +46,7 @@
 }
 
 .ManaDo__Todos::-webkit-scrollbar {
-  width: 5px;
+  width: 8px;
   background-color: transparent;
 }
 
@@ -56,13 +56,13 @@
 }
 
 .ManaDo__Todos::-webkit-scrollbar-track {
-  background-color: rgba(128, 128, 128, 0.308);
-  border-radius: 10px;
+  background-color: rgba(128, 128, 128, 0.2);
+  border-radius: 5px;
 }
 
 .ManaDo__Todos::-webkit-scrollbar-thumb {
-  background-color: var(--muted);
-  border-radius: 10px;
+  background-color: #0000002c;
+  border-radius: 5px;
 }
 
 .ManaDo__Todos_Empty {

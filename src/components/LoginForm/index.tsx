@@ -104,6 +104,7 @@ const LoginForm: React.FunctionComponent<LoginFormProps> = ({ ...props }) => {
       <ManaDoButton
         label="Login"
         type="submit"
+        variant="primary-light"
         className={`${styles.ManaDo__LoginButton} mt-3`}
       />
     </form>

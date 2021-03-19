@@ -1,17 +1,18 @@
 :root {
-  --primary--lighter: rgba(64, 91, 202, 0.2);
-  --primary: #405bca;
+  --primary--lighter: #405bca33;
+  --primary--lighter-a-bit: #546ccc;
+  --primary: #3c57c0;
 
-  --secondary--lighter: #e2fffa;
-  --secondary--low--a--bit: #b2e4db;
+  --secondary--lighter: #d2ffe8;
   --secondary: #3ace85;
+  --secondary--darker-a-bit: #37c27d;
 
   --danger: #ca4040;
-  
+
   --muted--lighter: #ececec;
   --muted: #b5b5c3;
   --muted--darker: #7f7f8a;
-  
+
   --textColor: #464e5f;
   --textColor--lighter: rgba(98, 98, 107, 0.2);
 }

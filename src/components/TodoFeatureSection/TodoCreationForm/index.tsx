@@ -65,7 +65,7 @@ const TodoCreationForm: React.FunctionComponent<TodoCreationFormProps> = () => {
       />
       <ManaDoButton
         type="submit"
-        variant="icon"
+        btnType="icon"
         className={`${styles.ManaDo_TodoFeature_Button} ml-1`}
       >
         <RightArrow className={`${styles.ManaDo_TodoFeature_Icon}`} />
