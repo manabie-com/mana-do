@@ -66,7 +66,7 @@ const TodoTypeContainer: React.FunctionComponent<TodoTypeContainerProps> = ({
 
   const handleUpdateConfirm = React.useCallback(
     async (data) => {
-      if (data.content) {
+      if (data.todoContent) {
         try {
           const todo = await Service.updateTodoContent(
             data.id,
