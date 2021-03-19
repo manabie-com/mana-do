@@ -18,6 +18,7 @@ const FormGroup: React.FunctionComponent<IFormGroupProps> = ({
   id = "",
   label = "",
   type = "text",
+  value,
   placeholder = "Place holder",
   feedbackLabel = "",
   defaultValue = "",
@@ -43,6 +44,7 @@ const FormGroup: React.FunctionComponent<IFormGroupProps> = ({
         placeholder={placeholder}
         onChange={onChange}
         defaultValue={defaultValue}
+        value={value}
         autoComplete="on"
       />
       <span className={styles.ManaDo__formGroupFeedbackLabel}>
