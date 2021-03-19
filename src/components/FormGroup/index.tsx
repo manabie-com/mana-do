@@ -1,25 +1,27 @@
 import * as React from "react";
 import styles from "./FormGroup.module.css";
 
-interface IFormGroupProps extends React.HTMLAttributes<HTMLElement> {
+export interface IFormGroupProps extends React.HTMLAttributes<HTMLElement> {
   id: string;
   name: string;
   type: string;
-  value: string;
+  value?: string;
   label?: string;
   placeholder?: string;
   feedbackLabel?: string;
   required?: boolean;
+  defaultValue?: string;
 }
 
 const FormGroup: React.FunctionComponent<IFormGroupProps> = ({
   name = "",
   id = "",
   label = "",
-  value = "",
+  value,
   type = "text",
   placeholder = "Place holder",
   feedbackLabel = "",
+  defaultValue = "",
   required = false,
   onChange = (e: React.ChangeEvent<HTMLInputElement>) => {},
   ...props
@@ -42,6 +44,7 @@ const FormGroup: React.FunctionComponent<IFormGroupProps> = ({
         required={required}
         placeholder={placeholder}
         onChange={onChange}
+        defaultValue={defaultValue}
         autoComplete="on"
       />
       <span className={styles.ManaDo__formGroupFeedbackLabel}>

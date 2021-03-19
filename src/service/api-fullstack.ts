@@ -34,6 +34,12 @@ class ApiFullstack extends IAPI {
     return resp.data.data;
   }
 
+  async getTodo(todoId: string): Promise<Todo> {
+    const resp = await axios.get<AxiosResponse<Todo>>(`/tasks`);
+
+    return resp.data.data;
+  }
+
   async removeTodo(): Promise<Todo> {
     return Promise.reject("");
   }
@@ -43,6 +49,10 @@ class ApiFullstack extends IAPI {
   }
 
   async updateTodoStatus(): Promise<boolean> {
+    return Promise.reject("");
+  }
+
+  async updateTodoContent(todoId: string, content: string): Promise<Todo> {
     return Promise.reject("");
   }
 }

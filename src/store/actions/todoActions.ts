@@ -7,6 +7,7 @@ import {
   DELETE_TODO,
   DELETE_ALL_TODOS,
   TOGGLE_ALL_TODOS,
+  UPDATE_TODO_CONTENT,
 } from "../../constants";
 
 export interface SetTodoAction {
@@ -92,6 +93,18 @@ export function toggleAllTodos(checked: boolean): ToggleAllTodosAction {
     payload: checked,
   };
 }
+///////////
+export interface UpdateTodoContent {
+  type: typeof UPDATE_TODO_CONTENT;
+  payload: Todo;
+}
+
+export function updateTodoContent(todo: Todo): UpdateTodoContent {
+  return {
+    type: UPDATE_TODO_CONTENT,
+    payload: todo,
+  };
+}
 
 export type AppActions =
   | SetTodoAction
@@ -99,4 +112,5 @@ export type AppActions =
   | UpdateTodoStatusAction
   | DeleteTodoAction
   | DeleteAllTodosAction
-  | ToggleAllTodosAction;
+  | ToggleAllTodosAction
+  | UpdateTodoContent;

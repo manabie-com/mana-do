@@ -11,8 +11,7 @@
 }
 
 .ManaDo__ModalContainer {
-  min-height: 330px;
-  min-width: 63vmin;
+  padding-bottom: 2rem;
   max-width: 90vmin;
   background-color: white;
   position: fixed;
@@ -21,7 +20,7 @@
   z-index: 6;
   border-radius: 8px;
   overflow: hidden;
-  transition: all ease-in 100ms;
+  transition: all ease-in 150ms;
 }
 
 .hidden {
@@ -79,6 +78,20 @@
   > .ManaDo__UpdateTodoForm {
   display: flex;
   flex-direction: column;
+}
+
+.ManaDo__ModalContainer
+  > .ManaDo__ModalContentContainer
+  > .ManaDo__UpdateTodoForm
+  > .ManaDo__UpdateTodoInput {
+  margin-bottom: 1.2rem;
+}
+
+.ManaDo__ModalContainer
+  > .ManaDo__ModalContentContainer
+  > .ManaDo__UpdateTodoForm
+  > .ManaDo__UpdateTodoInput {
+  margin-bottom: 0;
 }
 
 .ManaDo__ModalContainer

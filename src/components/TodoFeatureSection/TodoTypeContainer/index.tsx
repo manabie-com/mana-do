@@ -3,9 +3,13 @@ import { Todo, TodoStatus } from "../../../models/todo";
 import { TodoContext } from "../../../store/contexts/todoContext";
 import TodoContainer from "./TodoContainer";
 import styles from "./TodoTypeContainer.module.css";
-import { toggleAllTodos } from "../../../store/actions/todoActions";
+import {
+  toggleAllTodos,
+  updateTodoContent,
+} from "../../../store/actions/todoActions";
 import Service from "../../../service";
 import ManaDoModal from "../../ManaDoModal";
+import { IFormGroupProps } from "../../FormGroup";
 
 export interface TodoTypeContainerProps
   extends React.HTMLAttributes<HTMLElement> {
@@ -24,6 +28,7 @@ const TodoTypeContainer: React.FunctionComponent<TodoTypeContainerProps> = ({
 }) => {
   const [, dispatch] = React.useContext(TodoContext);
   const [show, setShow] = React.useState(false);
+  const [fieldData, setFieldData] = React.useState([] as IFormGroupProps[]);
 
   const handleToggleTodoStatus = React.useCallback(async () => {
     try {
@@ -37,10 +42,38 @@ const TodoTypeContainer: React.FunctionComponent<TodoTypeContainerProps> = ({
     }
   }, [actionKey, dispatch]);
 
-  const handleShowUpdateModal = React.useCallback(() => {
-    console.log("lcicked");
+  const handleShowUpdateModal = React.useCallback(async (todoId) => {
     setShow(true);
+    try {
+      const todo = await Service.getTodo(todoId);
+      setFieldData([
+        {
+          id: todo.id,
+          name: "todoContent",
+          type: "text",
+          placeholder: "How do you want to change this?",
+          required: true,
+          defaultValue: todo.content,
+        },
+      ]);
+    } catch (error) {
+      console.log(error);
+    }
   }, []);
+
+  const handleUpdateConfirm = React.useCallback(
+    async (data) => {
+      try {
+        console.log(data);
+        const todo = await Service.updateTodoContent(data.id, data.todoContent);
+        dispatch(updateTodoContent(todo));
+        setShow(false);
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    [dispatch]
+  );
 
   return (
     <>
@@ -66,7 +99,7 @@ const TodoTypeContainer: React.FunctionComponent<TodoTypeContainerProps> = ({
                 data={todo}
                 type={actionKey}
                 className="mb-1"
-                onDoubleClick={handleShowUpdateModal}
+                onDoubleClick={() => handleShowUpdateModal(todo.id)}
               />
             ))) || (
             <div className={styles.ManaDo__Todos_Empty}>
@@ -78,8 +111,10 @@ const TodoTypeContainer: React.FunctionComponent<TodoTypeContainerProps> = ({
         </div>
       </div>
       <ManaDoModal
+        fields={fieldData}
         show={show}
         onClickOutside={() => setShow(false)}
+        onConfirm={handleUpdateConfirm}
         onClose={() => setShow(false)}
       />
     </>

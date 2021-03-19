@@ -6,6 +6,7 @@ import {
   TOGGLE_ALL_TODOS,
   UPDATE_TODO_STATUS,
   SET_TODO,
+  UPDATE_TODO_CONTENT,
 } from "../../constants";
 import { AppActions } from "../actions/todoActions";
 import { ITodoType } from "../types/todoType";
@@ -54,6 +55,18 @@ function reducer(state: ITodoType, action: AppActions): ITodoType {
               }
             : todo
         ),
+      };
+
+    case UPDATE_TODO_CONTENT:
+      return {
+        ...state,
+        todos: [
+          ...state.todos.map((todo) =>
+            todo.id === action.payload.id
+              ? { ...todo, content: action.payload.content }
+              : todo
+          ),
+        ],
       };
 
     case TOGGLE_ALL_TODOS:

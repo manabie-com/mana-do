@@ -4,19 +4,26 @@ import { ReactComponent as Close } from "../../svgs/close.svg";
 import { ReactComponent as HeadSVG } from "../../svgs/head.svg";
 import FormGroup from "../FormGroup";
 import ManaDoButton from "../ManaDoButton";
+import { IFormGroupProps } from "../FormGroup";
 
 export interface ManaDoModalProps extends React.HTMLAttributes<HTMLElement> {
   show: boolean;
   onClickOutside: React.MouseEventHandler;
   onClose: Function;
+  onConfirm: Function;
+  fields: IFormGroupProps[];
 }
 
 const ManaDoModal: React.FunctionComponent<ManaDoModalProps> = ({
   show,
   onClickOutside,
   onClose,
+  onConfirm,
+  fields,
   ...props
 }) => {
+  const [formData, setFormData] = React.useState({});
+
   const handleCloseModal = React.useCallback(
     (e) => {
       e.preventDefault();
@@ -24,6 +31,15 @@ const ManaDoModal: React.FunctionComponent<ManaDoModalProps> = ({
     },
     [onClose]
   );
+
+  const handleChangeFormData = React.useCallback((e) => {
+    const { currentTarget } = e;
+    setFormData((prev) => ({
+      ...prev,
+      id: currentTarget.id,
+      [currentTarget.name]: currentTarget.value,
+    }));
+  }, []);
 
   return (
     <>
@@ -52,16 +68,21 @@ const ManaDoModal: React.FunctionComponent<ManaDoModalProps> = ({
               Change your content
             </span>
           </div>
-          <form className={`${styles.ManaDo__UpdateTodoForm} mt-1`}>
-            <FormGroup
-              className={`${styles.ManaDo__UpdateTodoInput}`}
-              id="content-update"
-              name="contentUpdate"
-              type="text"
-              value=""
-              placeholder="How do you want to change?"
-              feedbackLabel=""
-            />
+          <form
+            className={`${styles.ManaDo__UpdateTodoForm} mt-1`}
+            onSubmit={(e) => {
+              e.preventDefault();
+              onConfirm(formData);
+            }}
+          >
+            {fields.length &&
+              fields.map((field) => (
+                <FormGroup
+                  className={`${styles.ManaDo__UpdateTodoInput}`}
+                  {...field}
+                  onChange={handleChangeFormData}
+                />
+              ))}
             <div className={`${styles.ManaDo__UpdateTodoButtons} mt-3`}>
               <ManaDoButton
                 type="submit"

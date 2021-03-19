@@ -88,6 +88,22 @@ class ApiFrontend extends IAPI {
     return Promise.resolve(database.todos);
   }
 
+  async getTodo(todoId: string): Promise<Todo> {
+    const database = JSON.parse(
+      localStorage.getItem(MANADO_DB) || ""
+    ) as IManaDo_DB;
+
+    if (!database) {
+      return Promise.reject("No database");
+    }
+
+    const todo = database.todos.find((todo) => todo.id === todoId) as Todo;
+    if (todo) {
+      return Promise.resolve(todo);
+    }
+    return Promise.reject("No todo found!");
+  }
+
   async removeTodo(todoId: string): Promise<Todo> {
     const database = JSON.parse(
       localStorage.getItem(MANADO_DB) || ""
@@ -150,25 +166,68 @@ class ApiFrontend extends IAPI {
       return Promise.reject("No database");
     }
 
-    localStorage.setItem(
-      MANADO_DB,
-      JSON.stringify({
-        ...database,
-        todos: database.todos.map((todo) => {
-          if (todo.id === todoId) {
+    const todo = database.todos.find((todo) => todo.id === todoId);
+
+    if (todo) {
+      localStorage.setItem(
+        MANADO_DB,
+        JSON.stringify({
+          ...database,
+          todos: database.todos.map((todo) => {
+            if (todo.id === todoId) {
+              return {
+                ...todo,
+                status: isCompleted ? TodoStatus.COMPLETED : TodoStatus.ACTIVE,
+              };
+            }
             return {
               ...todo,
-              status: isCompleted ? TodoStatus.COMPLETED : TodoStatus.ACTIVE,
             };
-          }
-          return {
-            ...todo,
-          };
-        }),
-      } as IManaDo_DB)
-    );
+          }),
+        } as IManaDo_DB)
+      );
+      return Promise.resolve(isCompleted);
+    }
+    return Promise.reject("Update failed");
+  }
 
-    return Promise.resolve(isCompleted);
+  async updateTodoContent(todoId: string, content: string): Promise<Todo> {
+    const database = JSON.parse(
+      localStorage.getItem(MANADO_DB) || ""
+    ) as IManaDo_DB;
+
+    if (!database) {
+      return Promise.reject("No database");
+    }
+
+    const todo = database.todos.find((todo) => todo.id === todoId);
+
+    if (todo) {
+      localStorage.setItem(
+        MANADO_DB,
+        JSON.stringify({
+          ...database,
+          todos: database.todos.map((todo) => {
+            if (todo.id === todoId) {
+              return {
+                ...todo,
+                content: content,
+              };
+            }
+            return {
+              ...todo,
+            };
+          }),
+        } as IManaDo_DB)
+      );
+
+      return Promise.resolve({
+        ...todo,
+        content: content,
+      });
+    }
+
+    return Promise.reject("Update failed");
   }
 }
 
