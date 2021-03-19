@@ -29,13 +29,13 @@ const ManaDoModal: React.FunctionComponent<ManaDoModalProps> = ({
     <>
       <div
         className={`${styles.ManaDo__OverlayBackground} ${
-          (!show && styles.hidden) || ""
+          (!show && styles.hidden) || styles.show
         }`}
         onClick={onClickOutside}
       ></div>
       <div
         className={`${styles.ManaDo__ModalContainer} ${
-          (!show && styles.hidden) || ""
+          (!show && styles.hidden) || styles.show
         }`}
       >
         <HeadSVG className={styles.ManaDo__HeadSVG} />
@@ -68,7 +68,7 @@ const ManaDoModal: React.FunctionComponent<ManaDoModalProps> = ({
                 label="Confirm"
                 className="mr-1"
                 variant="secondary-light"
-                />
+              />
               <ManaDoButton
                 type="button"
                 label="Cancel"

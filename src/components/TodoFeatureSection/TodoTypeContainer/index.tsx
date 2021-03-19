@@ -5,6 +5,7 @@ import TodoContainer from "./TodoContainer";
 import styles from "./TodoTypeContainer.module.css";
 import { toggleAllTodos } from "../../../store/actions/todoActions";
 import Service from "../../../service";
+import ManaDoModal from "../../ManaDoModal";
 
 export interface TodoTypeContainerProps
   extends React.HTMLAttributes<HTMLElement> {
@@ -22,6 +23,7 @@ const TodoTypeContainer: React.FunctionComponent<TodoTypeContainerProps> = ({
   ...props
 }) => {
   const [, dispatch] = React.useContext(TodoContext);
+  const [show, setShow] = React.useState(false);
 
   const handleToggleTodoStatus = React.useCallback(async () => {
     try {
@@ -35,37 +37,52 @@ const TodoTypeContainer: React.FunctionComponent<TodoTypeContainerProps> = ({
     }
   }, [actionKey, dispatch]);
 
+  const handleShowUpdateModal = React.useCallback(() => {
+    console.log("lcicked");
+    setShow(true);
+  }, []);
+
   return (
-    <div
-      className={`${styles.ManaDo__TodoTypeContainer} ${props.className || ""}`}
-    >
-      <div className={styles.ManaDo__TodoTypeHeader_Wrapper}>
-        <h4 className={styles.ManaDo__TodoTypeHeader_TypeLabel}>{label}</h4>
-        <span
-          className={styles.ManaDo__TodoTypeHeader_MarkAllButton}
-          onClick={handleToggleTodoStatus}
-        >
-          {toggleText}
-        </span>
+    <>
+      <div
+        className={`${styles.ManaDo__TodoTypeContainer} ${
+          props.className || ""
+        }`}
+      >
+        <div className={styles.ManaDo__TodoTypeHeader_Wrapper}>
+          <h4 className={styles.ManaDo__TodoTypeHeader_TypeLabel}>{label}</h4>
+          <span
+            className={styles.ManaDo__TodoTypeHeader_MarkAllButton}
+            onClick={handleToggleTodoStatus}
+          >
+            {toggleText}
+          </span>
+        </div>
+        <div className={styles.ManaDo__Todos}>
+          {(todos.length &&
+            todos.map((todo) => (
+              <TodoContainer
+                key={todo.id}
+                data={todo}
+                type={actionKey}
+                className="mb-1"
+                onDoubleClick={handleShowUpdateModal}
+              />
+            ))) || (
+            <div className={styles.ManaDo__Todos_Empty}>
+              {actionKey === TodoStatus.ACTIVE
+                ? "Start by add new todo"
+                : "Completed todos are shown here"}
+            </div>
+          )}
+        </div>
       </div>
-      <div className={styles.ManaDo__Todos}>
-        {(todos.length &&
-          todos.map((todo) => (
-            <TodoContainer
-              key={todo.id}
-              data={todo}
-              type={actionKey}
-              className="mb-1"
-            />
-          ))) || (
-          <div className={styles.ManaDo__Todos_Empty}>
-            {actionKey === TodoStatus.ACTIVE
-              ? "Start by add new todo"
-              : "Completed todos are shown here"}
-          </div>
-        )}
-      </div>
-    </div>
+      <ManaDoModal
+        show={show}
+        onClickOutside={() => setShow(false)}
+        onClose={() => setShow(false)}
+      />
+    </>
   );
 };
 

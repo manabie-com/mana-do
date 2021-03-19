@@ -20,6 +20,7 @@ export interface TodoContainerProps extends React.HTMLAttributes<HTMLElement> {
 const TodoContainer: React.FunctionComponent<TodoContainerProps> = ({
   data,
   type,
+  className = "",
   ...props
 }) => {
   const [, dispatch] = React.useContext(TodoContext);
@@ -61,7 +62,8 @@ const TodoContainer: React.FunctionComponent<TodoContainerProps> = ({
 
   return (
     <div
-      className={`${styles.ManaDo__Todo__Container} ${props.className || ""}`}
+      className={`${styles.ManaDo__Todo__Container} ${className || ""}`}
+      {...props}
     >
       <div
         className={`${styles.ManaDo__TodoContent} ${
