@@ -5,8 +5,8 @@
 }
 
 .ManaDo__TodoFeature__Container > .ManaDo__TodoTypes {
+  flex: 1;
   display: flex;
   width: 100%;
   overflow-x: auto;
-  flex: 1;
 }
