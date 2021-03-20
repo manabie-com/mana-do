@@ -1,5 +1,4 @@
 .ManaDo__LoginFormWrapper {
-  width: 320px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -9,13 +8,13 @@
   background-color: white;
 }
 
+.ManaDo__WrapperWidth {
+  width: 380px;
+}
+
 @media only screen and (max-width: 600px) {
-  .ManaDo__LoginFormWrapper {
+  .ManaDo__WrapperWidth {
     width: 70%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
   }
 }
 
@@ -39,9 +38,9 @@
 }
 
 .ManaDo__LoginFormWrapper > .ManaDo__loginForm > .ManaDo__LoginMsg {
-  color: var(--danger);
-  font-size: 0.9rem;
   text-align: center;
+  font-size: 0.9rem;
+  color: var(--danger);
   margin: 1.5rem 0;
 }
 
@@ -49,7 +48,7 @@
   display: inline-block;
   font-size: 0.7rem;
   color: var(--muted--darker);
-  margin-top: .5rem;
+  margin-top: 0.5rem;
 }
 
 .ManaDo__LoginAltText > .ManaDo__formGroupFeedbackLabel__strong {
