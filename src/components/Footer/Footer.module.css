@@ -1,18 +1,17 @@
 .ManaDo__Footer {
   height: 42px;
-  display: block;
-  background-color: var(--primary);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: rgba(255, 255, 255, 0.705);
+  background-color: var(--primary);
   font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.7);
 }
 
-.primary {
+.ManaDo__FooterPrimary {
   background-color: var(--primary);
 }
 
-.secondary {
+.ManaDo__FooterCecondary {
   background-color: var(--secondary);
 }

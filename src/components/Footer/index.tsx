@@ -12,13 +12,13 @@ const Footer: React.FunctionComponent<FooterProps> = ({
   const footerColor = React.useMemo(() => {
     switch (variant) {
       case "primary":
-        return styles.primary;
+        return styles.ManaDo__FooterPrimary;
 
       case "secondary":
-        return styles.secondary;
+        return styles.ManaDo__FooterCecondary;
 
       default:
-        return styles.primary;
+        return styles.ManaDo__FooterPrimary;
     }
   }, [variant]);
 
@@ -27,8 +27,9 @@ const Footer: React.FunctionComponent<FooterProps> = ({
       className={`${styles.ManaDo__Footer} ${footerColor} ${className || ""}`}
     >
       @2021 ManaDo Coding Challenge - By Phan Thong Thanh
+      {/* Eyy it's meee */}
     </div>
   );
 };
 
-export default Footer;
+export default React.memo(Footer);
