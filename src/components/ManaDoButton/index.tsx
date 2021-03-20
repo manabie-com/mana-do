@@ -1,6 +1,7 @@
 import * as React from "react";
-import Loading from "../Loading";
+
 import styles from "./ManaDoButton.module.css";
+import Loading from "../Loading";
 
 interface ManaDoButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -17,14 +18,15 @@ interface ManaDoButtonProps
 
 const ManaDoButton: React.FunctionComponent<ManaDoButtonProps> = ({
   type = "button",
-  className = "",
-  label = "",
+  className,
+  label,
   btnType = "button",
   variant = "muted",
   isLoading = false,
+  children,
   ...props
 }) => {
-  const btnColor = React.useMemo(() => {
+  const buttonColor = React.useMemo(() => {
     switch (variant) {
       case "primary":
         return isLoading
@@ -46,26 +48,37 @@ const ManaDoButton: React.FunctionComponent<ManaDoButtonProps> = ({
         return styles.ManaDo__button__muted;
 
       default:
-        return "";
+        return styles.ManaDo__button__muted;
     }
-  }, [variant]);
+  }, [isLoading, variant]);
+
+  const buttonType = React.useMemo(() => {
+    switch (btnType) {
+      case "button":
+        return styles.ManaDo__button;
+
+      case "icon":
+        return styles.ManaDo__button__Icon;
+
+      default:
+        return styles.ManaDo__button;
+    }
+  }, [btnType]);
 
   return (
     <button
-      className={`${
-        btnType === "button"
-          ? styles.ManaDo__button
-          : styles.ManaDo__button__Icon
-      } ${btnColor} ${className || ""}`}
+      className={`${buttonType} ${buttonColor} ${className || ""}`}
       type={type}
       {...props}
     >
       {isLoading ? (
         <Loading size="sm" />
-      ) : (
+      ) : btnType === "icon" ? (
         <>
-          {props.children} {label}
+          {children || ""} {label || ""}
         </>
+      ) : (
+        label || ""
       )}
     </button>
   );

@@ -23,10 +23,3 @@
 .ManaDo_TodoFeature_TodoCreationForm > .ManaDo_TodoFeature_Input {
   flex: 1;
 }
-
-.ManaDo_TodoFeature_TodoCreationForm
-  > .ManaDo_TodoFeature_Button
-  > .ManaDo_TodoFeature_Icon {
-  height: 28px !important;
-  width: 28px !important;
-}

@@ -1,22 +1,3 @@
-.ManaDo__button {
-  border-radius: 5px;
-  padding: 8px 16px;
-  border: none;
-  font-weight: 600;
-  font-size: 0.9rem;
-  transition: all ease-in-out 100ms;
-  min-width: 100px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.ManaDo__button:hover {
-  cursor: pointer;
-}
-
-/* ---------------------------------------------------- */
-
 .ManaDo__button__primary {
   background-color: var(--primary);
   color: white;
@@ -70,10 +51,27 @@
 
 .ManaDo__button__muted:hover {
   background-color: var(--muted);
-  color: white
+  color: white;
 }
 
 /* ---------------------------------------------------- */
+
+.ManaDo__button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  padding: 8px 16px;
+  border: none;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all ease-in-out 100ms;
+  min-width: 100px;
+}
+
+.ManaDo__button:hover {
+  cursor: pointer;
+}
 
 .ManaDo__button__Icon {
   border: none;
@@ -88,10 +86,8 @@
   fill: var(--primary);
 }
 
-/* ---------------------------------------------------- */
-
 .ManaDo__button__Icon > svg {
-  height: 31px !important;
-  width: 33px !important;
+  height: 28px !important;
+  width: 28px !important;
   transform: translateY(2px);
 }
