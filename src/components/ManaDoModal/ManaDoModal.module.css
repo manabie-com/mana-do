@@ -40,7 +40,7 @@
   height: 90px;
 }
 
-.ManaDo__ModalContentContainer {
+.ManaDo__ModalContainer > .ManaDo__ModalContentContainer {
   padding: 0 1.5rem;
 }
 

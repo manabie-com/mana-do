@@ -1,10 +1,12 @@
 import * as React from "react";
+
 import styles from "./ManaDoModal.module.css";
+import { IFormGroupProps } from "../FormGroup";
+
 import { ReactComponent as Close } from "../../svgs/close.svg";
 import { ReactComponent as HeadSVG } from "../../svgs/head.svg";
 import FormGroup from "../FormGroup";
 import ManaDoButton from "../ManaDoButton";
-import { IFormGroupProps } from "../FormGroup";
 
 export interface ManaDoModalProps extends React.HTMLAttributes<HTMLElement> {
   show: boolean;
@@ -15,6 +17,7 @@ export interface ManaDoModalProps extends React.HTMLAttributes<HTMLElement> {
   isLoading?: boolean;
 }
 
+// This modal can render forms with fields: IFormGroupProps[] prop
 const ManaDoModal: React.FunctionComponent<ManaDoModalProps> = ({
   show,
   onClickOutside,
@@ -22,7 +25,6 @@ const ManaDoModal: React.FunctionComponent<ManaDoModalProps> = ({
   onConfirm,
   fields,
   isLoading = false,
-  ...props
 }) => {
   const [formData, setFormData] = React.useState({});
 
@@ -43,17 +45,25 @@ const ManaDoModal: React.FunctionComponent<ManaDoModalProps> = ({
     }));
   }, []);
 
+  const handleSubmitFormModal = React.useCallback(
+    (e) => {
+      e.preventDefault();
+      onConfirm(formData);
+    },
+    [formData, onConfirm]
+  );
+
   return (
     <>
       <div
         className={`${styles.ManaDo__OverlayBackground} ${
-          (!show && styles.hidden) || styles.show
+          (show && styles.show) || styles.hidden
         }`}
         onClick={onClickOutside}
       ></div>
       <div
         className={`${styles.ManaDo__ModalContainer} ${
-          (!show && styles.hidden) || styles.show
+          (show && styles.show) || styles.hidden
         }`}
       >
         <HeadSVG className={styles.ManaDo__HeadSVG} />
@@ -72,12 +82,9 @@ const ManaDoModal: React.FunctionComponent<ManaDoModalProps> = ({
           </div>
           <form
             className={`${styles.ManaDo__UpdateTodoForm} mt-1`}
-            onSubmit={(e) => {
-              e.preventDefault();
-              onConfirm(formData);
-            }}
+            onSubmit={handleSubmitFormModal}
           >
-            {fields.length &&
+            {(fields.length &&
               fields.map((field, idx) => (
                 <FormGroup
                   key={idx}
@@ -85,7 +92,8 @@ const ManaDoModal: React.FunctionComponent<ManaDoModalProps> = ({
                   {...field}
                   onChange={handleChangeFormData}
                 />
-              ))}
+              ))) ||
+              ""}
             <div className={`${styles.ManaDo__UpdateTodoButtons} mt-3`}>
               <ManaDoButton
                 isLoading={isLoading}
