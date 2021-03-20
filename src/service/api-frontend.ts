@@ -76,7 +76,7 @@ class ApiFrontend extends IAPI {
     return Promise.resolve(requestBody);
   }
 
-  // Get all todos by user_id >> GET METHOD 
+  // Get all todos by user_id >> GET METHOD
   async getTodos(user_id: string): Promise<Todo[]> {
     const database = JSON.parse(
       localStorage.getItem(MANADO_DB) || ""
@@ -102,9 +102,11 @@ class ApiFrontend extends IAPI {
     }
 
     const todo = database.todos.find((todo) => todo.id === todoId) as Todo;
+
     if (todo) {
       return Promise.resolve(todo);
     }
+
     return Promise.reject("No todo found!");
   }
 
@@ -121,13 +123,12 @@ class ApiFrontend extends IAPI {
     const todo = database.todos.find((todo) => todo.id === todoId) as Todo;
 
     if (todo) {
-      localStorage.setItem(
-        MANADO_DB,
-        JSON.stringify({
-          ...database,
-          todos: [...database.todos.filter((todo) => todo.id !== todoId)],
-        } as IManaDo_DB)
-      );
+      const stringifiedTodo = JSON.stringify({
+        ...database,
+        todos: [...database.todos.filter((todo) => todo.id !== todoId)],
+      } as IManaDo_DB);
+
+      localStorage.setItem(MANADO_DB, stringifiedTodo);
       return Promise.resolve(todo);
     }
 
@@ -147,24 +148,21 @@ class ApiFrontend extends IAPI {
       return Promise.reject("No database");
     }
 
-    localStorage.setItem(
-      MANADO_DB,
-      JSON.stringify({
-        ...database,
-        todos: [
-          ...database.todos.map((todo) =>
-            todo.user_id === user_id
-              ? {
-                  ...todo,
-                  status: isCompleted
-                    ? TodoStatus.COMPLETED
-                    : TodoStatus.ACTIVE,
-                }
-              : todo
-          ),
-        ],
-      } as IManaDo_DB)
-    );
+    const stringifiedDB = JSON.stringify({
+      ...database,
+      todos: [
+        ...database.todos.map((todo) =>
+          todo.user_id === user_id
+            ? {
+                ...todo,
+                status: isCompleted ? TodoStatus.COMPLETED : TodoStatus.ACTIVE,
+              }
+            : todo
+        ),
+      ],
+    } as IManaDo_DB);
+
+    localStorage.setItem(MANADO_DB, stringifiedDB);
 
     return Promise.resolve(isCompleted);
   }
@@ -185,25 +183,26 @@ class ApiFrontend extends IAPI {
     const todo = database.todos.find((todo) => todo.id === todoId);
 
     if (todo) {
-      localStorage.setItem(
-        MANADO_DB,
-        JSON.stringify({
-          ...database,
-          todos: database.todos.map((todo) => {
-            if (todo.id === todoId) {
-              return {
-                ...todo,
-                status: isCompleted ? TodoStatus.COMPLETED : TodoStatus.ACTIVE,
-              };
-            }
+      const stringifiedDB = JSON.stringify({
+        ...database,
+        todos: database.todos.map((todo) => {
+          if (todo.id === todoId) {
             return {
               ...todo,
+              status: isCompleted ? TodoStatus.COMPLETED : TodoStatus.ACTIVE,
             };
-          }),
-        } as IManaDo_DB)
-      );
+          }
+          return {
+            ...todo,
+          };
+        }),
+      } as IManaDo_DB);
+
+      localStorage.setItem(MANADO_DB, stringifiedDB);
+
       return Promise.resolve(isCompleted); // This should returns the updated todo, but...
     }
+
     return Promise.reject("Update failed");
   }
 
@@ -220,23 +219,22 @@ class ApiFrontend extends IAPI {
     const todo = database.todos.find((todo) => todo.id === todoId);
 
     if (todo) {
-      localStorage.setItem(
-        MANADO_DB,
-        JSON.stringify({
-          ...database,
-          todos: database.todos.map((todo) => {
-            if (todo.id === todoId) {
-              return {
-                ...todo,
-                content: content,
-              };
-            }
+      const stringifiedDB = JSON.stringify({
+        ...database,
+        todos: database.todos.map((todo) => {
+          if (todo.id === todoId) {
             return {
               ...todo,
+              content: content,
             };
-          }),
-        } as IManaDo_DB)
-      );
+          }
+          return {
+            ...todo,
+          };
+        }),
+      } as IManaDo_DB);
+
+      localStorage.setItem(MANADO_DB, stringifiedDB);
 
       return Promise.resolve({
         ...todo,
