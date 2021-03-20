@@ -9,13 +9,13 @@ import ManaDoContainer from "../../components/ManaDoContainer";
 import TodoFeatureSection from "../../components/TodoFeatureSection";
 
 const ToDoPage = () => {
+  React.useEffect(() => {
+    document.title = "ManaDo - Todo";
+  }, []);
+
   return (
     <>
-      <Wave
-        className={
-          styles.ManaDo__AnimateWave + " " + styles.WaveWidth
-        }
-      />
+      <Wave className={styles.ManaDo__AnimateWave + " " + styles.WaveWidth} />
       <ManaDoContainer>
         <Header />
         <TodoFeatureSection />

@@ -6,6 +6,10 @@ import { ReactComponent as BackgroundParticles } from "../../svgs/background.svg
 import LoginForm from "../../components/LoginForm";
 
 const SignInPage = () => {
+  React.useEffect(() => {
+    document.title = "ManaDo - Login"
+  }, []);
+
   return (
     <>
       <div className={styles.ManaDo__SignInPageContainer}>
