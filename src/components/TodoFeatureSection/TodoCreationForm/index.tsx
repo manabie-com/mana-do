@@ -1,18 +1,22 @@
 import * as React from "react";
+
 import styles from "./TodoCreationForm.module.css";
 
-import FormGroup from "../../FormGroup";
-import ManaDoButton from "../../ManaDoButton";
-import { ReactComponent as RightArrow } from "../../../svgs/right-arrow.svg";
 import Service from "../../../service";
+import { UserContext } from "../../../store/contexts/userContext";
 import { TodoContext } from "../../../store/contexts/todoContext";
 import { createTodo } from "../../../store/actions/todoActions";
-import { UserContext } from "../../../store/contexts/userContext";
+
+import { ReactComponent as RightArrow } from "../../../svgs/right-arrow.svg";
+import FormGroup from "../../FormGroup";
+import ManaDoButton from "../../ManaDoButton";
 
 export interface TodoCreationFormProps
   extends React.HTMLAttributes<HTMLElement> {}
 
-const TodoCreationForm: React.FunctionComponent<TodoCreationFormProps> = () => {
+const TodoCreationForm: React.FunctionComponent<TodoCreationFormProps> = ({
+  className,
+}) => {
   const [, dispatch] = React.useContext(TodoContext);
   const [{ user_id }] = React.useContext(UserContext);
 
@@ -31,7 +35,7 @@ const TodoCreationForm: React.FunctionComponent<TodoCreationFormProps> = () => {
           if (resp) {
             dispatch(createTodo(resp));
             setTodoContent("");
-          }
+          } else setInputFeedbackLabel("Forbidden action!");
         } catch (err) {
           setInputFeedbackLabel(err);
         }
@@ -50,24 +54,22 @@ const TodoCreationForm: React.FunctionComponent<TodoCreationFormProps> = () => {
 
   return (
     <form
-      className={styles.ManaDo_TodoFeature_TodoCreationForm}
+      className={`${styles.ManaDo_TodoFeature_TodoCreationForm} ${
+        className || ""
+      } ${styles.CreationFormWidth}`}
       onSubmit={handleCreateTodo}
     >
       <FormGroup
         className={styles.ManaDo_TodoFeature_Input}
-        feedbackLabel={inputFeedbackLabel}
-        value={todoContent}
-        placeholder="Enter your work here..."
-        type="text"
         id="Todo-create-input"
         name="Todo-create-input"
+        type="text"
+        value={todoContent}
+        placeholder="Enter your work here..."
+        feedbackLabel={inputFeedbackLabel}
         onChange={handleTodoChange}
       />
-      <ManaDoButton
-        type="submit"
-        btnType="icon"
-        className={`${styles.ManaDo_TodoFeature_Button} ml-1`}
-      >
+      <ManaDoButton type="submit" btnType="icon" className="ml-1">
         <RightArrow className={`${styles.ManaDo_TodoFeature_Icon}`} />
       </ManaDoButton>
     </form>
