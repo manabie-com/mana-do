@@ -11,6 +11,7 @@ const Loading: React.FunctionComponent<LoadingProps> = ({
   label,
   size = "md",
   variant = "muted",
+  className,
 }) => {
   const indicatorSize = React.useMemo(() => {
     switch (size) {
@@ -48,7 +49,11 @@ const Loading: React.FunctionComponent<LoadingProps> = ({
   }, [variant]);
 
   return (
-    <div className={`${styles.ManaDo__LoadingIndicator__Wrapper}`}>
+    <div
+      className={`${styles.ManaDo__LoadingIndicator__Wrapper} ${
+        className || ""
+      }`}
+    >
       <div className={`${styles.ManaDo__LoadingIndicator__Container}`}>
         <div
           className={`${styles.ManaDo__LoadingIndicator} ${indicatorSize} ${indicatorColor}`}
