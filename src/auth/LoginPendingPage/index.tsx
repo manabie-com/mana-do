@@ -26,6 +26,7 @@ const LoginPendingPage: React.FunctionComponent<LoginPendingPageProps> = () => {
           const user = await Service.getUser(token);
           setMessage("Welcome");
           setTimeout(() => {
+            // Welcome
             localStorage.setItem(AUTH_TOKEN, token);
             dispatch(setUser(user));
 
@@ -34,6 +35,7 @@ const LoginPendingPage: React.FunctionComponent<LoginPendingPageProps> = () => {
         } catch (error) {
           setMessage("There is something wrong...");
           setTimeout(() => {
+            // There is something wrong...
             history.push("/");
           }, 2000);
         }
