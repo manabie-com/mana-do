@@ -22,7 +22,7 @@ class ApiFrontend extends IAPI {
     ) as FullUser;
 
     if (user) {
-      return Promise.resolve(mockToken + user.user_id);
+      return Promise.resolve(mockToken + user.user_id); // Identify which token belongs to which user
     }
 
     return Promise.reject("Incorrect username/password");
