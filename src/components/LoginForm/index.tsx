@@ -69,40 +69,43 @@ const LoginForm: React.FunctionComponent<LoginFormProps> = ({ ...props }) => {
   }, [form]);
 
   return (
-    <form
-      className={`${styles.ManaDo__loginForm} ${props.className || ""}`}
-      onSubmit={handleSubmit}
-      noValidate
-    >
-      {loginMsg && <div className={styles.ManaDo__LoginMsg}>{loginMsg}</div>}
-      <FormGroup
-        id="user_id"
-        name="userId"
-        type="text"
-        onChange={onChangeField}
-        label="Username"
-        placeholder="Enter your username"
-        feedbackLabel={usernameFeedbackMsg}
-        required
-      />
-      <FormGroup
-        id="password"
-        name="password"
-        type="password"
-        onChange={onChangeField}
-        label="Password"
-        className="mt-3"
-        placeholder="Enter your password"
-        feedbackLabel={passwordFeedbackMsg}
-        required
-      />
-      <ManaDoButton
-        label="Login"
-        type="submit"
-        variant="primary-light"
-        className={`${styles.ManaDo__LoginButton} mt-3`}
-      />
-    </form>
+    <div className={styles.ManaDo__LoginFormWrapper}>
+      <h1 className={styles.ManaDo__LogoName}>Mana-do</h1>
+      <form
+        className={`${styles.ManaDo__loginForm} ${props.className || ""}`}
+        onSubmit={handleSubmit}
+        noValidate
+      >
+        {loginMsg && <div className={styles.ManaDo__LoginMsg}>{loginMsg}</div>}
+        <FormGroup
+          id="user_id"
+          name="userId"
+          type="text"
+          onChange={onChangeField}
+          label="Username"
+          placeholder="Enter your username"
+          feedbackLabel={usernameFeedbackMsg}
+          required
+        />
+        <FormGroup
+          id="password"
+          name="password"
+          type="password"
+          onChange={onChangeField}
+          label="Password"
+          className="mt-3"
+          placeholder="Enter your password"
+          feedbackLabel={passwordFeedbackMsg}
+          required
+        />
+        <ManaDoButton
+          label="Login"
+          type="submit"
+          variant="primary-light"
+          className={`${styles.ManaDo__LoginButton} mt-3`}
+        />
+      </form>
+    </div>
   );
 };
 
