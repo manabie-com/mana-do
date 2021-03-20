@@ -1,5 +1,7 @@
 import React from "react";
+
 import styles from "./SignInPage.module.css";
+
 import { ReactComponent as BackgroundParticles } from "../../svgs/background.svg";
 import LoginForm from "../../components/LoginForm";
 

@@ -1,16 +1,21 @@
 import React from "react";
+
 import styles from "./TodoPage.module.css";
 
-import ManaDoContainer from "../../components/ManaDoContainer";
-import Header from "../../components/Header";
-import TodoFeatureSection from "../../components/TodoFeatureSection";
-import Footer from "../../components/Footer";
 import { ReactComponent as Wave } from "../../svgs/wave.svg";
+import Header from "../../components/Header";
+import Footer from "../../components/Footer";
+import ManaDoContainer from "../../components/ManaDoContainer";
+import TodoFeatureSection from "../../components/TodoFeatureSection";
 
 const ToDoPage = () => {
   return (
     <>
-      <Wave className={styles.ManaDo__AnimateWave} />
+      <Wave
+        className={
+          styles.ManaDo__AnimateWave + " " + styles.WaveWidth
+        }
+      />
       <ManaDoContainer>
         <Header />
         <TodoFeatureSection />

@@ -1,6 +1,8 @@
 import * as React from "react";
-import Loading from "../../components/Loading";
+
 import styles from "./LoadingPage.module.css";
+
+import Loading from "../../components/Loading";
 
 export interface LoadingPageProps {}
 
