@@ -1,9 +1,11 @@
 import * as React from "react";
+
 import { Route, Switch, useHistory } from "react-router";
-import { AUTH_TOKEN } from "../constants";
-import Service from "../service";
 import { UserContext } from "../store/contexts/userContext";
 import { setUser } from "../store/actions/userActions";
+import { AUTH_TOKEN } from "../constants";
+import Service from "../service";
+
 import LoadingPage from "../views/LoadingPage";
 import LoginPendingPage from "./LoginPendingPage";
 
@@ -12,6 +14,8 @@ const ToDoPage = React.lazy(() => import("../views/TodoPage"));
 
 export interface AuthCheckProps {}
 
+// This "Route dispatch" component will check for pre-existed token
+// then redirect user to /todo if any otherwise redirect to login page
 const AuthCheck: React.FunctionComponent<AuthCheckProps> = () => {
   const history = useHistory();
   const [, dispatch] = React.useContext(UserContext);
