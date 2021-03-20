@@ -1,14 +1,14 @@
 .ManaDo__Header__Container {
   display: flex;
   flex-direction: column;
-  padding: 3rem 0 0 0;
+  padding-top: 3rem;
 }
 
 @media screen and (max-width: 600px) {
   .ManaDo__Header__Container {
     display: flex;
     flex-direction: column;
-    padding: 2rem 0 2rem 0;
+    padding: 2rem 0;
   }
 }
 
@@ -31,13 +31,13 @@
   > .ManaDo__LogOut {
   font-weight: 500;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 1rem;
   color: white;
 }
 
 .ManaDo__Header__Container > .ManaDo__AskUser {
   color: var(--primary);
-  margin: 2rem 0 1rem 0;
+  margin: 2rem 0;
 }
 
 .ManaDo__Header__Container > .ManaDo__AskUser > .ManaDo__AskUser_Important {

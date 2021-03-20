@@ -1,8 +1,9 @@
 import * as React from "react";
+
+import styles from "./Header.module.css";
 import { useHistory } from "react-router";
 import { AUTH_TOKEN } from "../../constants";
 import { UserContext } from "../../store/contexts/userContext";
-import styles from "./Header.module.css";
 
 export interface HeaderProps {}
 
