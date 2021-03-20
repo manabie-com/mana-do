@@ -31,6 +31,7 @@ const TodoTypeContainer: React.FunctionComponent<TodoTypeContainerProps> = ({
   const [, dispatch] = React.useContext(TodoContext);
   const [show, setShow] = React.useState(false);
   const [fieldData, setFieldData] = React.useState([] as IFormGroupProps[]);
+  const [isUpdateLoading, setIsUpdateLoadingState] = React.useState(false);
 
   const handleToggleTodoStatus = React.useCallback(async () => {
     try {
@@ -65,18 +66,25 @@ const TodoTypeContainer: React.FunctionComponent<TodoTypeContainerProps> = ({
   }, []);
 
   const handleUpdateConfirm = React.useCallback(
-    async (data) => {
+    (data) => {
       if (data.todoContent) {
-        try {
-          const todo = await Service.updateTodoContent(
-            data.id,
-            data.todoContent
-          );
-          dispatch(updateTodoContent(todo));
-          setShow(false);
-        } catch (error) {
-          console.error(error);
-        }
+        setIsUpdateLoadingState(true);
+        setTimeout(async () => {
+          try {
+            const todo = await Service.updateTodoContent(
+              data.id,
+              data.todoContent
+            );
+            dispatch(updateTodoContent(todo));
+            setIsUpdateLoadingState(false);
+            setShow(false);
+          } catch (error) {
+            console.error(error);
+            setIsUpdateLoadingState(false);
+          } finally {
+            setIsUpdateLoadingState(false);
+          }
+        }, 2000);
       } else setShow(false);
     },
     [dispatch]
@@ -118,6 +126,7 @@ const TodoTypeContainer: React.FunctionComponent<TodoTypeContainerProps> = ({
         </div>
       </div>
       <ManaDoModal
+        isLoading={isUpdateLoading}
         fields={fieldData}
         show={show}
         onClickOutside={() => setShow(false)}

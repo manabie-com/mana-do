@@ -12,6 +12,7 @@ export interface ManaDoModalProps extends React.HTMLAttributes<HTMLElement> {
   onClose: Function;
   onConfirm: Function;
   fields: IFormGroupProps[];
+  isLoading?: boolean;
 }
 
 const ManaDoModal: React.FunctionComponent<ManaDoModalProps> = ({
@@ -20,6 +21,7 @@ const ManaDoModal: React.FunctionComponent<ManaDoModalProps> = ({
   onClose,
   onConfirm,
   fields,
+  isLoading = false,
   ...props
 }) => {
   const [formData, setFormData] = React.useState({});
@@ -86,6 +88,7 @@ const ManaDoModal: React.FunctionComponent<ManaDoModalProps> = ({
               ))}
             <div className={`${styles.ManaDo__UpdateTodoButtons} mt-3`}>
               <ManaDoButton
+                isLoading={isLoading}
                 type="submit"
                 label="Confirm"
                 className="mr-1"
