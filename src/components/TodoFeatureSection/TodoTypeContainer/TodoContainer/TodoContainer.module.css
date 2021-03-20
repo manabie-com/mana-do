@@ -38,12 +38,14 @@
   border-radius: 30px;
 }
 
+/* Body toggler completed state */
 .ManaDo__Todo__Container > .ManaDo__TodoContent > .ManaDo__Completed {
   fill: white;
   background-color: var(--secondary--lighter);
   border-radius: 30px;
 }
 
+/* Body content completed state */
 .ManaDo__Todo__Container > .ManaDo__Completed {
   text-decoration: line-through;
   color: var(--muted);
@@ -57,6 +59,7 @@
   justify-content: space-between;
 }
 
+/* Footer date completed state */
 .ManaDo__Todo__Container > .ManaDo__Todo__Footer > .ManaDo__Completed {
   color: var(--muted);
 }
@@ -81,7 +84,6 @@
 .ManaDo__Todo__Container
   > .ManaDo__Todo__Footer
   > .ManaDo__Todo__ToolBar
-  > .ManaDo__Todo__ToolBar {
+  > .ManaDo__Todo__More {
   width: 16px !important;
-  fill: var(--muted--darker);
 }
