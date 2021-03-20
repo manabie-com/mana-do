@@ -1,16 +1,19 @@
 import * as React from "react";
-import { Todo, TodoStatus } from "../../../models/todo";
-import { TodoContext } from "../../../store/contexts/todoContext";
-import TodoContainer from "./TodoContainer";
+
 import styles from "./TodoTypeContainer.module.css";
+
+import { Todo, TodoStatus } from "../../../models/todo";
+import { UserContext } from "../../../store/contexts/userContext";
+import { TodoContext } from "../../../store/contexts/todoContext";
+import Service from "../../../service";
 import {
   toggleAllTodos,
   updateTodoContent,
 } from "../../../store/actions/todoActions";
-import Service from "../../../service";
-import ManaDoModal from "../../ManaDoModal";
 import { IFormGroupProps } from "../../FormGroup";
-import { UserContext } from "../../../store/contexts/userContext";
+
+import ManaDoModal from "../../ManaDoModal";
+import TodoContainer from "./TodoContainer";
 
 export interface TodoTypeContainerProps
   extends React.HTMLAttributes<HTMLElement> {
@@ -25,6 +28,7 @@ const TodoTypeContainer: React.FunctionComponent<TodoTypeContainerProps> = ({
   toggleText,
   actionKey,
   todos = [],
+  className,
   ...props
 }) => {
   const [{ user_id }] = React.useContext(UserContext);
@@ -47,7 +51,6 @@ const TodoTypeContainer: React.FunctionComponent<TodoTypeContainerProps> = ({
   }, [actionKey, dispatch, user_id]);
 
   const handleShowUpdateModal = React.useCallback(async (todoId) => {
-    setShow(true);
     try {
       const todo = await Service.getTodo(todoId);
       setFieldData([
@@ -60,6 +63,7 @@ const TodoTypeContainer: React.FunctionComponent<TodoTypeContainerProps> = ({
           defaultValue: todo.content,
         },
       ]);
+      setShow(true);
     } catch (error) {
       console.error(error);
     }
@@ -67,7 +71,7 @@ const TodoTypeContainer: React.FunctionComponent<TodoTypeContainerProps> = ({
 
   const handleUpdateConfirm = React.useCallback(
     (data) => {
-      if (data.todoContent) {
+      if (data.todoContent.trim()) {
         setIsUpdateLoadingState(true);
         setTimeout(async () => {
           try {
@@ -81,8 +85,6 @@ const TodoTypeContainer: React.FunctionComponent<TodoTypeContainerProps> = ({
           } catch (error) {
             console.error(error);
             setIsUpdateLoadingState(false);
-          } finally {
-            setIsUpdateLoadingState(false);
           }
         }, 2000);
       } else setShow(false);
@@ -92,11 +94,7 @@ const TodoTypeContainer: React.FunctionComponent<TodoTypeContainerProps> = ({
 
   return (
     <>
-      <div
-        className={`${styles.ManaDo__TodoTypeContainer} ${
-          props.className || ""
-        }`}
-      >
+      <div className={`${styles.ManaDo__TodoTypeContainer} ${className || ""}`}>
         <div className={styles.ManaDo__TodoTypeHeader_Wrapper}>
           <h4 className={styles.ManaDo__TodoTypeHeader_TypeLabel}>{label}</h4>
           <span
@@ -111,9 +109,9 @@ const TodoTypeContainer: React.FunctionComponent<TodoTypeContainerProps> = ({
             todos.map((todo) => (
               <TodoContainer
                 key={todo.id}
+                className="mb-1"
                 data={todo}
                 type={actionKey}
-                className="mb-1"
                 onDoubleClick={() => handleShowUpdateModal(todo.id)}
               />
             ))) || (

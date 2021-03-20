@@ -36,7 +36,7 @@
   color: var(--primary--lighter-a-bit);
 }
 
-.ManaDo__Todos {
+.ManaDo__TodoTypeContainer > .ManaDo__Todos {
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -45,27 +45,27 @@
   max-height: 80vh;
 }
 
-.ManaDo__Todos::-webkit-scrollbar {
+.ManaDo__TodoTypeContainer > .ManaDo__Todos::-webkit-scrollbar {
   width: 8px;
   background-color: transparent;
 }
 
-.ManaDo__Todos::-webkit-scrollbar-button {
+.ManaDo__TodoTypeContainer > .ManaDo__Todos::-webkit-scrollbar-button {
   background-color: red;
   height: 0;
 }
 
-.ManaDo__Todos::-webkit-scrollbar-track {
+.ManaDo__TodoTypeContainer > .ManaDo__Todos::-webkit-scrollbar-track {
   background-color: rgba(128, 128, 128, 0.2);
   border-radius: 5px;
 }
 
-.ManaDo__Todos::-webkit-scrollbar-thumb {
+.ManaDo__TodoTypeContainer > .ManaDo__Todos::-webkit-scrollbar-thumb {
   background-color: #0000002c;
   border-radius: 5px;
 }
 
-.ManaDo__Todos_Empty {
+.ManaDo__TodoTypeContainer > .ManaDo__Todos > .ManaDo__Todos_Empty {
   flex: 1;
   border-radius: 10px;
   background-image: linear-gradient(to top, white, rgb(245, 245, 245));
