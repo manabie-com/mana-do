@@ -28,7 +28,7 @@ class ApiFrontend extends IAPI {
     return Promise.reject("Incorrect username/password");
   }
 
-  // Implement getUser api to get user info
+  // Get user info by token >> GET METHOD
   async getUser(token: string): Promise<User> {
     const database = JSON.parse(
       localStorage.getItem(MANADO_DB) || ""
@@ -52,7 +52,7 @@ class ApiFrontend extends IAPI {
     return Promise.reject("No user found!");
   }
 
-  // Add user_id argument to know the sender
+  // Add user_id argument to know the sender >> POST METHOD
   async createTodo(content: string, user_id: string): Promise<Todo> {
     const database = JSON.parse(
       localStorage.getItem(MANADO_DB) || ""
@@ -76,6 +76,7 @@ class ApiFrontend extends IAPI {
     return Promise.resolve(requestBody);
   }
 
+  // Get all todos by user_id >> GET METHOD 
   async getTodos(user_id: string): Promise<Todo[]> {
     const database = JSON.parse(
       localStorage.getItem(MANADO_DB) || ""
@@ -90,6 +91,7 @@ class ApiFrontend extends IAPI {
     );
   }
 
+  // Get one todo by todoId >> GET METHOD
   async getTodo(todoId: string): Promise<Todo> {
     const database = JSON.parse(
       localStorage.getItem(MANADO_DB) || ""
@@ -106,6 +108,7 @@ class ApiFrontend extends IAPI {
     return Promise.reject("No todo found!");
   }
 
+  // Delete one todo by todoId >> DELETE METHOD
   async removeTodo(todoId: string): Promise<Todo> {
     const database = JSON.parse(
       localStorage.getItem(MANADO_DB) || ""
@@ -131,6 +134,7 @@ class ApiFrontend extends IAPI {
     return Promise.reject("No todo found!");
   }
 
+  // Update all todo status owned user_id >> PUT METHOD
   async updateAllTodoStatus(
     isCompleted: boolean,
     user_id: string
@@ -165,6 +169,7 @@ class ApiFrontend extends IAPI {
     return Promise.resolve(isCompleted);
   }
 
+  // Update one todo status by todoId >> PUT METHOD
   async updateTodoStatus(
     todoId: string,
     isCompleted: boolean
@@ -197,11 +202,12 @@ class ApiFrontend extends IAPI {
           }),
         } as IManaDo_DB)
       );
-      return Promise.resolve(isCompleted);
+      return Promise.resolve(isCompleted); // This should returns the updated todo, but...
     }
     return Promise.reject("Update failed");
   }
 
+  // Update todo content by todoId >> PUT METHOD
   async updateTodoContent(todoId: string, content: string): Promise<Todo> {
     const database = JSON.parse(
       localStorage.getItem(MANADO_DB) || ""
