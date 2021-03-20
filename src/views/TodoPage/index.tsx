@@ -15,7 +15,7 @@ const ToDoPage = () => {
         <Header />
         <TodoFeatureSection />
       </ManaDoContainer>
-      <Footer />
+      <Footer className="mt-3" />
     </>
   );
 };

@@ -4,9 +4,9 @@
 }
 
 .ManaDo__formGroup > .ManaDo__formGroupLabel {
-  color: var(--textColor);
+  color: var(--muted--darker);
   font-weight: 400;
-  font-size: 0.9rem;
+  font-size: 0.7rem;
   margin-bottom: 6px;
 }
 
@@ -23,6 +23,12 @@
   border: none;
   padding: 9px 13px;
   border-radius: 4px;
+  transition: box-shadow 100ms ease-in;
+}
+
+.ManaDo__formGroup > .ManaDo__formGroupInput:focus {
+  outline: none;
+  box-shadow: 0px 0px 0px 1.5px var(--secondary);
 }
 
 .ManaDo__inputError {

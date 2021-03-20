@@ -34,13 +34,3 @@
     width: 400px;
   }
 }
-
-/* @media screen and (max-width: 600px) {
-  .ManaDo__AnimateWave {
-    position: absolute;
-    right: 0px;
-    top: 0px;
-    z-index: -1;
-    width: 50px;
-  }
-} */

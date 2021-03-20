@@ -10,9 +10,11 @@ import styles from "./LoginForm.module.css";
 
 interface LoginFormProps extends React.HTMLAttributes<HTMLElement> {}
 
-const LoginForm: React.FunctionComponent<LoginFormProps> = ({ ...props }) => {
+const LoginForm: React.FunctionComponent<LoginFormProps> = ({
+  className,
+  ...props
+}) => {
   const history = useHistory();
-  const [, dispatch] = React.useContext(UserContext);
 
   const [loginMsg, setLoginMsg] = React.useState("");
   const [usernameFeedbackMsg, setUsernameFeedbackMsg] = React.useState("");
@@ -69,10 +71,13 @@ const LoginForm: React.FunctionComponent<LoginFormProps> = ({ ...props }) => {
   }, [form]);
 
   return (
-    <div className={styles.ManaDo__LoginFormWrapper}>
+    <div className={`${styles.ManaDo__LoginFormWrapper} ${className || ""}`}>
       <h1 className={styles.ManaDo__LogoName}>Mana-do</h1>
+      <span className={styles.ManaDo__WelcomeAlt}>
+        We're so excited to see you again!
+      </span>
       <form
-        className={`${styles.ManaDo__loginForm} ${props.className || ""}`}
+        className={styles.ManaDo__loginForm}
         onSubmit={handleSubmit}
         noValidate
       >
@@ -82,7 +87,7 @@ const LoginForm: React.FunctionComponent<LoginFormProps> = ({ ...props }) => {
           name="userId"
           type="text"
           onChange={onChangeField}
-          label="Username"
+          label="USERNAME"
           placeholder="Enter your username"
           feedbackLabel={usernameFeedbackMsg}
           required
@@ -92,7 +97,7 @@ const LoginForm: React.FunctionComponent<LoginFormProps> = ({ ...props }) => {
           name="password"
           type="password"
           onChange={onChangeField}
-          label="Password"
+          label="PASSWORD"
           className="mt-3"
           placeholder="Enter your password"
           feedbackLabel={passwordFeedbackMsg}
@@ -104,6 +109,17 @@ const LoginForm: React.FunctionComponent<LoginFormProps> = ({ ...props }) => {
           variant="primary-light"
           className={`${styles.ManaDo__LoginButton} mt-3`}
         />
+        <p className={styles.ManaDo__LoginAltText}>
+          Need an account?{" "}
+          <a
+            rel="noopener noreferrer"
+            target="_blank"
+            href="https://www.facebook.com/ptteee/"
+            className={styles.ManaDo__formGroupFeedbackLabel__strong}
+          >
+            Contact the administrator
+          </a>
+        </p>
       </form>
     </div>
   );

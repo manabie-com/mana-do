@@ -1,24 +1,17 @@
 .ManaDo__LoginFormWrapper {
-  min-width: 30%;
+  width: 320px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-}
-
-@media only screen and (max-width: 1200px) {
-  .ManaDo__LoginFormWrapper {
-    min-width: 50%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-  }
+  padding: 2rem;
+  border-radius: 10px;
+  background-color: white;
 }
 
 @media only screen and (max-width: 600px) {
   .ManaDo__LoginFormWrapper {
-    min-width: 80%;
+    width: 70%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -28,7 +21,13 @@
 
 .ManaDo__LoginFormWrapper > .ManaDo__LogoName {
   color: var(--primary);
-  margin-top: 0;
+  margin: 0;
+}
+
+.ManaDo__LoginFormWrapper > .ManaDo__WelcomeAlt {
+  color: var(--muted--darker);
+  margin-bottom: 3rem;
+  font-size: 0.8rem;
 }
 
 .ManaDo__LoginFormWrapper > .ManaDo__loginForm {
@@ -44,4 +43,17 @@
   font-size: 0.9rem;
   text-align: center;
   margin-bottom: 2rem;
+}
+
+.ManaDo__LoginAltText {
+  display: inline-block;
+  font-size: 0.7rem;
+  color: var(--muted--darker);
+  margin-top: 1rem;
+}
+
+.ManaDo__LoginAltText > .ManaDo__formGroupFeedbackLabel__strong {
+  color: var(--secondary);
+  font-weight: 600;
+  text-decoration: none;
 }

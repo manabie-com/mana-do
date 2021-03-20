@@ -1,14 +1,17 @@
 import React from "react";
 import styles from "./SignInPage.module.css";
-
+import { ReactComponent as BackgroundParticles } from "../../svgs/background.svg";
 import LoginForm from "../../components/LoginForm";
-import ManaDoContainer from "../../components/ManaDoContainer";
 
 const SignInPage = () => {
   return (
-    <ManaDoContainer className={styles.ManaDo__SignInPageContainer}>
-      <LoginForm className="mt-1" />
-    </ManaDoContainer>
+    <>
+      <div className={styles.ManaDo__SignInPageContainer}>
+        <BackgroundParticles className={styles.ManaDo__BackgroundParticles} />
+        <div className={styles.ManaDo__AnimateWave} />
+        <LoginForm className={styles.ManaDo__SignInForm} />
+      </div>
+    </>
   );
 };
 
