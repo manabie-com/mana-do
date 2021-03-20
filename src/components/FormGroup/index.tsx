@@ -15,21 +15,22 @@ export interface IFormGroupProps extends React.HTMLAttributes<HTMLElement> {
 }
 
 const FormGroup: React.FunctionComponent<IFormGroupProps> = ({
-  name = "",
-  id = "",
-  label = "",
+  id,
+  name,
   type = "text",
   value,
-  placeholder = "Place holder",
-  feedbackLabel = "",
-  defaultValue = "",
+  label,
+  placeholder,
+  feedbackLabel,
   required = false,
+  defaultValue,
   autoFocus = false,
-  onChange = (e: React.ChangeEvent<HTMLInputElement>) => {},
+  className,
+  onChange,
   ...props
 }) => {
   return (
-    <div className={`${styles.ManaDo__formGroup} ${props.className || ""}`}>
+    <div className={`${styles.ManaDo__formGroup} ${className || ""}`}>
       {label && (
         <label className={styles.ManaDo__formGroupLabel} htmlFor={id}>
           {label}
@@ -51,7 +52,7 @@ const FormGroup: React.FunctionComponent<IFormGroupProps> = ({
         autoFocus={autoFocus}
       />
       <span className={styles.ManaDo__formGroupFeedbackLabel}>
-        {feedbackLabel}
+        {feedbackLabel || <>&nbsp;</>}
       </span>
     </div>
   );

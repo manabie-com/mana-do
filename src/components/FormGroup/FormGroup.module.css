@@ -10,18 +10,11 @@
   margin-bottom: 6px;
 }
 
-.ManaDo__formGroup > .ManaDo__formGroupFeedbackLabel {
-  color: var(--danger);
-  font-weight: 400;
-  margin-top: 3px;
-  font-size: 0.9rem;
-}
-
 .ManaDo__formGroup > .ManaDo__formGroupInput {
-  box-sizing: border-box;
   background-color: #f3f6f9;
-  border: none;
+  box-sizing: border-box;
   padding: 9px 13px;
+  border: none;
   border-radius: 4px;
   transition: box-shadow 100ms ease-in;
 }
@@ -31,11 +24,18 @@
   box-shadow: 0px 0px 0px 1.5px var(--secondary);
 }
 
-.ManaDo__inputError {
-  border-radius: 4px;
-  box-shadow: 0px 0px 0px 1.5px var(--danger) !important;
-}
-
 .ManaDo__formGroup > .ManaDo__formGroupInput::placeholder {
   color: var(--muted);
+}
+
+.ManaDo__inputError {
+  border-radius: 4px;
+  box-shadow: 0px 0px 0px 1.5px var(--danger);
+}
+
+.ManaDo__formGroup > .ManaDo__formGroupFeedbackLabel {
+  color: var(--danger);
+  font-weight: 400;
+  margin-top: 3px;
+  font-size: 0.9rem;
 }
