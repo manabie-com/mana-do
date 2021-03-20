@@ -42,14 +42,14 @@
   color: var(--danger);
   font-size: 0.9rem;
   text-align: center;
-  margin-bottom: 2rem;
+  margin: 1.5rem 0;
 }
 
 .ManaDo__LoginAltText {
   display: inline-block;
   font-size: 0.7rem;
   color: var(--muted--darker);
-  margin-top: 1rem;
+  margin-top: .5rem;
 }
 
 .ManaDo__LoginAltText > .ManaDo__formGroupFeedbackLabel__strong {

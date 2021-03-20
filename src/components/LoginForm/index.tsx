@@ -1,9 +1,6 @@
 import * as React from "react";
 import { useHistory } from "react-router";
-import { AUTH_TOKEN } from "../../constants";
 import Service from "../../service";
-import { setUser } from "../../store/actions/userActions";
-import { UserContext } from "../../store/contexts/userContext";
 import FormGroup from "../FormGroup";
 import ManaDoButton from "../ManaDoButton";
 import styles from "./LoginForm.module.css";
@@ -17,6 +14,7 @@ const LoginForm: React.FunctionComponent<LoginFormProps> = ({
   const history = useHistory();
 
   const [loginMsg, setLoginMsg] = React.useState("");
+  const [buttonLoading, setButtonLoadingState] = React.useState(false);
   const [usernameFeedbackMsg, setUsernameFeedbackMsg] = React.useState("");
   const [passwordFeedbackMsg, setPasswordFeedbackMsg] = React.useState("");
   const [form, setForm] = React.useState({
@@ -36,14 +34,18 @@ const LoginForm: React.FunctionComponent<LoginFormProps> = ({
           setPasswordFeedbackMsg("Password cannot be blank!");
         }
       } else {
-        try {
-          history.push("/auth", {
-            userId: form.userId,
-            password: form.password,
-          });
-        } catch (error) {
-          setLoginMsg(error);
-        }
+        setButtonLoadingState(true);
+        setTimeout(async () => {
+          try {
+            const token = await Service.signIn(form.userId, form.password);
+            history.push("/auth", token);
+          } catch (error) {
+            setLoginMsg(error);
+            setButtonLoadingState(false);
+          } finally {
+            setButtonLoadingState(false);
+          }
+        }, 1000);
       }
     },
     [form.password, form.userId, history]
@@ -81,7 +83,6 @@ const LoginForm: React.FunctionComponent<LoginFormProps> = ({
         onSubmit={handleSubmit}
         noValidate
       >
-        {loginMsg && <div className={styles.ManaDo__LoginMsg}>{loginMsg}</div>}
         <FormGroup
           id="user_id"
           name="userId"
@@ -103,11 +104,13 @@ const LoginForm: React.FunctionComponent<LoginFormProps> = ({
           feedbackLabel={passwordFeedbackMsg}
           required
         />
+        <div className={styles.ManaDo__LoginMsg}>{loginMsg || <>&nbsp;</>}</div>
         <ManaDoButton
           label="Login"
           type="submit"
           variant="primary-light"
-          className={`${styles.ManaDo__LoginButton} mt-3`}
+          isLoading={buttonLoading}
+          className={`${styles.ManaDo__LoginButton}`}
         />
         <p className={styles.ManaDo__LoginAltText}>
           Need an account?{" "}

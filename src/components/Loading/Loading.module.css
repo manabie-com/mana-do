@@ -26,13 +26,13 @@
 }
 
 .muted {
-  border-color: var(--muted--lighter);
-  border-top-color: var(--muted--darker);
+  border-color: white;
+  border-top-color: var(--muted);
 }
 
 .small {
-  width: 24px;
-  height: 24px;
+  width: 11px;
+  height: 11px;
   border-width: 3px;
 }
 

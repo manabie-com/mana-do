@@ -6,6 +6,9 @@
   font-size: 0.9rem;
   transition: all ease-in-out 100ms;
   min-width: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .ManaDo__button:hover {

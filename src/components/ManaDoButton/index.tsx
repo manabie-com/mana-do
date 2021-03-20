@@ -1,4 +1,5 @@
 import * as React from "react";
+import Loading from "../Loading";
 import styles from "./ManaDoButton.module.css";
 
 interface ManaDoButtonProps
@@ -11,6 +12,7 @@ interface ManaDoButtonProps
     | "primary-light"
     | "secondary-light"
     | "muted";
+  isLoading?: boolean;
 }
 
 const ManaDoButton: React.FunctionComponent<ManaDoButtonProps> = ({
@@ -19,15 +21,20 @@ const ManaDoButton: React.FunctionComponent<ManaDoButtonProps> = ({
   label = "",
   btnType = "button",
   variant = "muted",
+  isLoading = false,
   ...props
 }) => {
   const btnColor = React.useMemo(() => {
     switch (variant) {
       case "primary":
-        return styles.ManaDo__button__primary;
+        return isLoading
+          ? styles.ManaDo__button__primaryLight
+          : styles.ManaDo__button__primary;
 
       case "secondary":
-        return styles.ManaDo__button__secondary;
+        return isLoading
+          ? styles.ManaDo__button__secondaryLight
+          : styles.ManaDo__button__secondary;
 
       case "primary-light":
         return styles.ManaDo__button__primaryLight;
@@ -53,8 +60,13 @@ const ManaDoButton: React.FunctionComponent<ManaDoButtonProps> = ({
       type={type}
       {...props}
     >
-      {props.children || ""}
-      {label}
+      {isLoading ? (
+        <Loading size="sm" />
+      ) : (
+        <>
+          {props.children} {label}
+        </>
+      )}
     </button>
   );
 };
