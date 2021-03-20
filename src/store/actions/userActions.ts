@@ -6,6 +6,7 @@ export interface SetUser {
   payload: User;
 }
 
+// Set current authorized user to state for better data fetching...
 export function setUser(user: User): SetUser {
   return {
     type: SET_USER,
