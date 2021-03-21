@@ -7,7 +7,7 @@ import LoginForm from "../../components/LoginForm";
 
 const SignInPage = () => {
   React.useEffect(() => {
-    document.title = "ManaDo - Login"
+    document.title = "Login | ManaDo"
   }, []);
 
   return (

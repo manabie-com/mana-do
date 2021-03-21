@@ -34,9 +34,7 @@ const TodoContainer: React.FunctionComponent<TodoContainerProps> = ({
         data.id,
         type === TodoStatus.ACTIVE ? true : false
       );
-      if (response) {
-        dispatch(updateTodoStatus(data.id, response));
-      }
+      dispatch(updateTodoStatus(data.id, response));
     } catch (error) {
       console.error(error);
     }

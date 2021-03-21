@@ -10,7 +10,7 @@ import TodoFeatureSection from "../../components/TodoFeatureSection";
 
 const ToDoPage = () => {
   React.useEffect(() => {
-    document.title = "ManaDo - Todo";
+    document.title = "Todo | ManaDo";
   }, []);
 
   return (
