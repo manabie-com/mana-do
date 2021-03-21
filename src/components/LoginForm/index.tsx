@@ -33,19 +33,19 @@ const LoginForm: React.FunctionComponent<LoginFormProps> = ({ className }) => {
       // Check user inputs
       if (form.userId.trim() && form.password.trim()) {
         setButtonLoadingState(true);
-        try {
-          const token = await Service.signIn(form.userId, form.password);
-          // Wait 1s for token from login (simulated)
-          setTimeout(async () => {
+        setTimeout(async () => {
+          try {
+            // Wait 1s for token from login (simulated)
+            const token = await Service.signIn(form.userId, form.password);
             // If token is returned, redirect to authorization pending page
             if (token) {
               history.push("/auth", token);
             } else setLoginMsg("Login info is not valid, please try again!");
-          }, 1000);
-        } catch (error) {
-          setLoginMsg(error);
-          setButtonLoadingState(false);
-        }
+          } catch (error) {
+            setLoginMsg(error);
+            setButtonLoadingState(false);
+          }
+        }, 1000);
       }
     },
     [form.password, form.userId, history]
@@ -74,7 +74,11 @@ const LoginForm: React.FunctionComponent<LoginFormProps> = ({ className }) => {
   }, [form]);
 
   return (
-    <div className={`${styles.ManaDo__LoginFormWrapper} ${styles.ManaDo__WrapperWidth} ${className || ""}`}>
+    <div
+      className={`${styles.ManaDo__LoginFormWrapper} ${
+        styles.ManaDo__WrapperWidth
+      } ${className || ""}`}
+    >
       <h1 className={styles.ManaDo__LogoName}>Mana-do</h1>
       <span className={styles.ManaDo__WelcomeAlt}>
         We're so excited to see you again!

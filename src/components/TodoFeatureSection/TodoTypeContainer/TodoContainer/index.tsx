@@ -24,6 +24,7 @@ const TodoContainer: React.FunctionComponent<TodoContainerProps> = ({
   data,
   type,
   className,
+  ...props
 }) => {
   const [, dispatch] = React.useContext(TodoContext);
   const [showMore, setShowMoreState] = React.useState(false);
@@ -53,7 +54,10 @@ const TodoContainer: React.FunctionComponent<TodoContainerProps> = ({
   }, [data.id, dispatch]);
 
   return (
-    <div className={`${styles.ManaDo__Todo__Container} ${className || ""}`}>
+    <div
+      className={`${styles.ManaDo__Todo__Container} ${className || ""}`}
+      {...props}
+    >
       <div
         className={`${styles.ManaDo__TodoContent} ${
           data.status === TodoStatus.COMPLETED && styles.ManaDo__Completed
