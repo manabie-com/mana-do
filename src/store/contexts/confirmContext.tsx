@@ -1,6 +1,8 @@
 import React from "react";
 import { ConfirmModalProps } from "../../_hooks/useConfirm/ConfirmModal";
 
+// I kept action creators, reducer and context in one place because I still experiment this...
+
 export interface ConfirmState {
   isShow: boolean;
   config: ConfirmModalProps;
