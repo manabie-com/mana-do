@@ -65,6 +65,19 @@ const ManaDoButton: React.FunctionComponent<ManaDoButtonProps> = ({
     }
   }, [btnType]);
 
+  const loadingColor = React.useMemo(() => {
+    switch (variant) {
+      case "primary-light":
+        return "primary";
+
+      case "secondary-light":
+        return "secondary";
+
+      default:
+        return "muted";
+    }
+  }, [variant]);
+
   return (
     <button
       className={`${buttonType} ${buttonColor} ${className || ""}`}
@@ -72,7 +85,7 @@ const ManaDoButton: React.FunctionComponent<ManaDoButtonProps> = ({
       {...props}
     >
       {isLoading ? (
-        <Loading size="sm" />
+        <Loading size="sm" variant={loadingColor} />
       ) : btnType === "icon" ? (
         <>
           {children || ""} {label || ""}

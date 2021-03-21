@@ -4,7 +4,7 @@
 }
 
 .secondary {
-  border-color: var(--secondary--lighter);
+  border-color: var(--secondary--lighter-a-bit);
   border-top-color: var(--secondary);
 }
 

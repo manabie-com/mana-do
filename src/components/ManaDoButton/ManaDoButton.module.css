@@ -15,7 +15,7 @@
 }
 
 .ManaDo__button__secondary:hover {
-  background-color: var(--secondary--darker-a-bit);
+  background-color: var(--secondary);
 }
 
 /* ---------------------------------------------------- */
