@@ -244,6 +244,54 @@ class ApiFrontend extends IAPI {
 
     return Promise.reject("Update failed");
   }
+
+  async removeAllTodoByType(userId: string, type: string): Promise<any> {
+    const database = JSON.parse(
+      localStorage.getItem(MANADO_DB) || ""
+    ) as IManaDo_DB;
+
+    if (!database) {
+      return Promise.reject("No database");
+    }
+
+    const stringifiedDB = JSON.stringify({
+      ...database,
+      todos: database.todos.filter((todo) => {
+        if (todo.status === type && todo.user_id === userId) {
+          return false;
+        }
+        return true;
+      }),
+    } as IManaDo_DB);
+
+    localStorage.setItem(MANADO_DB, stringifiedDB);
+
+    return Promise.resolve();
+  }
+
+  async removeAllTodo(userId: string): Promise<any> {
+    const database = JSON.parse(
+      localStorage.getItem(MANADO_DB) || ""
+    ) as IManaDo_DB;
+
+    if (!database) {
+      return Promise.reject("No database");
+    }
+
+    const stringifiedDB = JSON.stringify({
+      ...database,
+      todos: database.todos.filter((todo) => {
+        if (todo.user_id === userId) {
+          return false;
+        }
+        return true;
+      }),
+    } as IManaDo_DB);
+
+    localStorage.setItem(MANADO_DB, stringifiedDB);
+
+    return Promise.resolve();
+  }
 }
 
 export default new ApiFrontend();

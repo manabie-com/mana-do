@@ -16,6 +16,7 @@ import { ReactComponent as More } from "../../../svgs/more.svg";
 import ManaDoModal from "../../ManaDoModal";
 import TodoContainer from "./TodoContainer";
 import MoreContainer from "../../MoreContainer";
+import useConfirm from "../../../_hooks/useConfirm/useConfirm";
 
 export interface TodoTypeContainerProps
   extends React.HTMLAttributes<HTMLElement> {
@@ -35,6 +36,7 @@ const TodoTypeContainer: React.FunctionComponent<TodoTypeContainerProps> = ({
 }) => {
   const [{ user_id }] = React.useContext(UserContext);
   const [, dispatch] = React.useContext(TodoContext);
+  const { setConfirmConfig, closeConfirmModal, setLoadingState } = useConfirm();
   const [show, setShow] = React.useState(false);
   const [showMore, setShowMoreFlg] = React.useState(false);
   const [fieldData, setFieldData] = React.useState([] as IFormGroupProps[]);
@@ -48,6 +50,7 @@ const TodoTypeContainer: React.FunctionComponent<TodoTypeContainerProps> = ({
       );
 
       dispatch(toggleAllTodos(response));
+      setShowMoreFlg(false);
     } catch (error) {
       console.error(error);
     }
@@ -95,6 +98,44 @@ const TodoTypeContainer: React.FunctionComponent<TodoTypeContainerProps> = ({
     [dispatch]
   );
 
+  const handleClearAllTodoByType = React.useCallback(async () => {
+    setLoadingState(true);
+    try {
+      await Service.removeAllTodoByType(user_id, actionKey);
+      setTimeout(() => {
+        closeConfirmModal();
+        setShowMoreFlg(false);
+      }, 1000);
+    } catch (error) {
+      console.error(error);
+    }
+  }, [actionKey, closeConfirmModal, setLoadingState, user_id]);
+
+  const handleOpenConfirmModal = React.useCallback(() => {
+    setConfirmConfig({
+      title: actionKey === TodoStatus.ACTIVE ? "Hold on" : "Clear confirm",
+      subLabel: "Remove all todo",
+      content: `Are your sure you want to clear all ${
+        actionKey === TodoStatus.ACTIVE ? "active" : "completed"
+      } todos?`,
+      variant: "danger",
+      primaryLabel: "Do it!",
+      primaryVariant: "danger-light",
+      onConfirm: handleClearAllTodoByType,
+    });
+  }, [actionKey, handleClearAllTodoByType, setConfirmConfig]);
+
+  React.useEffect(() => {
+    const app = document.querySelector(".App");
+    const mousedownHandler = () => {
+      setShowMoreFlg(false);
+    };
+    if (app) {
+      app.addEventListener("click", mousedownHandler);
+    }
+    return () => app?.removeEventListener("click", mousedownHandler);
+  }, []);
+
   return (
     <>
       <div className={`${styles.ManaDo__TodoTypeContainer} ${className || ""}`}>
@@ -124,7 +165,7 @@ const TodoTypeContainer: React.FunctionComponent<TodoTypeContainerProps> = ({
                   label: `Clear all ${
                     actionKey === TodoStatus.ACTIVE ? "completed" : "active"
                   } todo`,
-                  onClick: handleToggleTodoStatus,
+                  onClick: handleOpenConfirmModal,
                   variant: "danger",
                 },
               ]}

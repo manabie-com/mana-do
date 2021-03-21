@@ -52,7 +52,7 @@ const TodoFeatureSection: React.FunctionComponent<TodoFeatureSectionProps> = () 
                     new Date(b.created_date).getTime() -
                     new Date(a.created_date).getTime()
                   );
-                })}
+                })} // Sort todo by date time created (Latest first)
               actionKey={TodoStatus.ACTIVE}
               toggleText="Mark all as completed"
             />
@@ -67,7 +67,7 @@ const TodoFeatureSection: React.FunctionComponent<TodoFeatureSectionProps> = () 
                     new Date(b.created_date).getTime() -
                     new Date(a.created_date).getTime()
                   );
-                })}
+                })} // Sort todo by date time created (Latest first)
               actionKey={TodoStatus.COMPLETED}
               toggleText="Mark all as active"
             />

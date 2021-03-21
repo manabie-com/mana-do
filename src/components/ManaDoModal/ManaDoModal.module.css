@@ -1,12 +1,12 @@
 .ManaDo__OverlayBackground {
-  background-color: rgba(0, 0, 0, 0.6);
+  background-color: rgba(0, 0, 0, 0.7);
   position: fixed;
   top: 0;
   left: 0;
   z-index: 5;
   width: 100vw;
   height: 100vh;
-  transition: all ease-in 50ms;
+  transition: all ease-in 300ms;
   transform: none !important;
 }
 
@@ -20,7 +20,7 @@
   z-index: 6;
   border-radius: 8px;
   overflow: hidden;
-  transition: all ease-in 150ms;
+  transition: all ease-in 300ms;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
 }
 
