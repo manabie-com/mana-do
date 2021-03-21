@@ -8,14 +8,17 @@
   --secondary: #3ace85;
   --secondary--darker-a-bit: #37c27d;
 
-  --danger: #ca4040;
+  /* --danger: #ca4040; */
+  --danger--lighter: #fdc7be;
+  --danger--lighter-a-bit: #f59888;
+  --danger: #ce503a;
 
   --muted--lighter: #ececec;
   --muted: #b5b5c3;
   --muted--darker: #7f7f8a;
 
   --textColor: #464e5f;
-  --textColor--lighter: rgba(98, 98, 110, 0.2);
+  --textColor--lighter: #768096;
 }
 
 /* ------------------------------------------------------------- */

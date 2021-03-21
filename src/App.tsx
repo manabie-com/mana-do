@@ -6,7 +6,9 @@ import { MANADO_DB } from "./constants";
 
 import TodoProvider from "./store/contexts/todoContext";
 import UserProvider from "./store/contexts/userContext";
+import ConfirmModalProvider from "./_hooks/useConfirm/ConfirmModalProvider";
 import AuthCheck from "./auth/AuthCheck";
+import ConfirmProvider from "./store/contexts/confirmContext";
 
 function App() {
   React.useEffect(() => {
@@ -21,7 +23,11 @@ function App() {
       <RouterProvider>
         <UserProvider>
           <TodoProvider>
-            <AuthCheck />
+            <ConfirmProvider>
+              <ConfirmModalProvider>
+                <AuthCheck />
+              </ConfirmModalProvider>
+            </ConfirmProvider>
           </TodoProvider>
         </UserProvider>
       </RouterProvider>

@@ -8,6 +8,11 @@
   border-top-color: var(--secondary);
 }
 
+.danger {
+  border-color: var(--danger--lighter-a-bit);
+  border-top-color: var(--danger);
+}
+
 .muted {
   border-color: white;
   border-top-color: var(--muted);

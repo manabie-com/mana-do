@@ -1,0 +1,115 @@
+.ManaDo__OverlayBackground {
+  background-color: rgba(0, 0, 0, 0.3);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 5;
+  width: 100vw;
+  height: 100vh;
+  transition: all ease-in 50ms;
+  transform: none !important;
+}
+
+.ManaDo__ModalContainer {
+  padding: 1.7rem 0 2rem 0;
+  width: 500px;
+  max-width: 90vmin;
+  background-color: white;
+  box-shadow: 0px 0px 10px grey;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  z-index: 6;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: all ease-in 150ms;
+}
+
+.ModalPrimary {
+  border-top: 10px solid var(--primary);
+}
+
+.ModalDanger {
+  border-top: 10px solid var(--danger);
+}
+
+.hidden {
+  visibility: hidden;
+  opacity: 0;
+  transform: translate(-50%, -40%);
+}
+
+.show {
+  visibility: visible;
+  opacity: 1;
+  transform: translate(-50%, -50%);
+}
+
+.ManaDo__ModalContainer > .ManaDo__ModalContentContainer {
+  padding: 0 1.5rem;
+}
+
+.ManaDo__ModalContainer > .ManaDo__ModalContentContainer {
+  border-radius: 5px 5px 0 0;
+}
+
+.ManaDo__ModalContainer
+  > .ManaDo__ModalContentContainer
+  > .ManaDo__LabelWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.ManaDo__ModalContainer
+  > .ManaDo__ModalContentContainer
+  > .ManaDo__LabelWrapper
+  > .ManaDo__HeaderLabel {
+  margin: 0;
+  color: var(--textColor);
+  font-weight: 500;
+}
+
+.ManaDo__ModalContainer
+  > .ManaDo__ModalContentContainer
+  > .ManaDo__LabelWrapper
+  > .ManaDo__HeaderSublabel {
+  color: var(--muted);
+  font-size: 0.7rem;
+}
+
+.ManaDo__ModalContainer > .ManaDo__CloseWrapper {
+  margin-right: 0.5rem;
+  position: absolute;
+  right: 24px;
+  top: 28px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.ManaDo__ModalContainer > .ManaDo__CloseWrapper > .ManaDo__CloseIcon {
+  fill: var(--textColor);
+  width: 15px;
+  height: 15px;
+  transform: translateY(2px);
+}
+
+.ManaDo__ModalContainer > .ManaDo__ModalContentContainer > .ManaDo__Content {
+  padding: 1.5rem 0 2rem 0;
+  font-size: 0.9rem;
+}
+
+.ManaDo__ModalContainer
+  > .ManaDo__ModalContentContainer
+  > .ManaDo__ButtonWrapper {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.ManaDo__ModalContainer
+  > .ManaDo__ModalContentContainer
+  > .ManaDo__ButtonWrapper
+  > .ManaDo__PrimaryButton {
+  margin-left: 10px;
+}

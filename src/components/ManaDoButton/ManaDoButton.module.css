@@ -20,6 +20,17 @@
 
 /* ---------------------------------------------------- */
 
+.ManaDo__button__danger {
+  background-color: var(--danger);
+  color: white;
+}
+
+.ManaDo__button__danger:hover {
+  background-color: var(--danger--lighter-a-bit);
+}
+
+/* ---------------------------------------------------- */
+
 .ManaDo__button__primaryLight {
   background-color: var(--primary--lighter);
   color: var(--primary);
@@ -44,9 +55,21 @@
 
 /* ---------------------------------------------------- */
 
+.ManaDo__button__dangerLight {
+  background-color: var(--danger--lighter);
+  color: var(--danger);
+}
+
+.ManaDo__button__dangerLight:hover {
+  background-color: var(--danger);
+  color: white;
+}
+
+/* ---------------------------------------------------- */
+
 .ManaDo__button__muted {
   background-color: var(--muted--lighter);
-  color: var(--textColor);
+  color: var(--textColor--lighter);
 }
 
 .ManaDo__button__muted:hover {

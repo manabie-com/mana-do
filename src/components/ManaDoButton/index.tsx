@@ -10,8 +10,10 @@ interface ManaDoButtonProps
   variant?:
     | "primary"
     | "secondary"
+    | "danger"
     | "primary-light"
     | "secondary-light"
+    | "danger-light"
     | "muted";
   isLoading?: boolean;
 }
@@ -38,11 +40,19 @@ const ManaDoButton: React.FunctionComponent<ManaDoButtonProps> = ({
           ? styles.ManaDo__button__secondaryLight
           : styles.ManaDo__button__secondary;
 
+      case "danger":
+        return isLoading
+          ? styles.ManaDo__button__dangerLight
+          : styles.ManaDo__button__danger;
+
       case "primary-light":
         return styles.ManaDo__button__primaryLight;
 
       case "secondary-light":
         return styles.ManaDo__button__secondaryLight;
+
+      case "danger-light":
+        return styles.ManaDo__button__dangerLight;
 
       case "muted":
         return styles.ManaDo__button__muted;
@@ -72,6 +82,9 @@ const ManaDoButton: React.FunctionComponent<ManaDoButtonProps> = ({
 
       case "secondary-light":
         return "secondary";
+
+      case "danger-light":
+        return "danger";
 
       default:
         return "muted";

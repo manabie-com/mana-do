@@ -14,6 +14,7 @@ import { formatDate } from "../../../../utils/dateFormatter";
 import { ReactComponent as Check } from "../../../../svgs/check.svg";
 import { ReactComponent as More } from "../../../../svgs/more.svg";
 import MoreContainer from "./MoreContainer";
+import useConfirm from "../../../../_hooks/useConfirm/useConfirm";
 
 export interface TodoContainerProps extends React.HTMLAttributes<HTMLElement> {
   data: Todo;
@@ -26,6 +27,7 @@ const TodoContainer: React.FunctionComponent<TodoContainerProps> = ({
   className,
   ...props
 }) => {
+  const { setConfirmConfig, closeConfirmModal, setLoadingState } = useConfirm();
   const [, dispatch] = React.useContext(TodoContext);
   const [showMore, setShowMoreState] = React.useState(false);
 
@@ -41,17 +43,37 @@ const TodoContainer: React.FunctionComponent<TodoContainerProps> = ({
     }
   }, [data.id, dispatch, type]);
 
-  const handleRemoveTodo = React.useCallback(async () => {
-    try {
-      const response = await Service.removeTodo(data.id);
-
-      if (response) {
-        dispatch(deleteTodo(response.id));
+  const handleRemoveTodo = React.useCallback(() => {
+    setLoadingState(true);
+    setTimeout(async () => {
+      try {
+        const response = await Service.removeTodo(data.id);
+        if (response) {
+          setLoadingState(false);
+          dispatch(deleteTodo(response.id));
+          closeConfirmModal();
+        }
+      } catch (error) {
+        setLoadingState(false);
+        console.error(error);
       }
-    } catch (error) {
-      console.error(error);
-    }
-  }, [data.id, dispatch]);
+    }, 1000);
+  }, [closeConfirmModal, data.id, dispatch, setLoadingState]);
+
+  const handleOpenRemoveTodoModal = React.useCallback(() => {
+    setConfirmConfig({
+      title:
+        data.status === TodoStatus.ACTIVE
+          ? "Work is not completed yet"
+          : "Remove confirmation",
+      subLabel: "Confirm on remove todo",
+      content: <p>Are you sure you want to remove selected todo?</p>,
+      onConfirm: handleRemoveTodo,
+      variant: "danger",
+      primaryLabel: "Confirm",
+      primaryVariant: "danger-light",
+    });
+  }, [data.status, handleRemoveTodo, setConfirmConfig]);
 
   return (
     <div
@@ -93,7 +115,7 @@ const TodoContainer: React.FunctionComponent<TodoContainerProps> = ({
                 label: "Remove",
                 data: { id: data.id },
                 variant: "danger",
-                onClick: handleRemoveTodo,
+                onClick: handleOpenRemoveTodoModal,
               },
             ]}
           />

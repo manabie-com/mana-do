@@ -4,7 +4,7 @@ import styles from "./Loading.module.css";
 export interface LoadingProps extends React.HTMLAttributes<HTMLElement> {
   label?: string;
   size?: "sm" | "md" | "lg" | "xl";
-  variant?: "primary" | "secondary" | "muted";
+  variant?: "primary" | "secondary" | "danger" | "muted";
 }
 
 const Loading: React.FunctionComponent<LoadingProps> = ({
@@ -39,6 +39,9 @@ const Loading: React.FunctionComponent<LoadingProps> = ({
 
       case "secondary":
         return styles.secondary;
+
+      case "danger":
+        return styles.danger;
 
       case "muted":
         return styles.muted;
