@@ -45,7 +45,14 @@ const TodoFeatureSection: React.FunctionComponent<TodoFeatureSectionProps> = () 
             {/* Active type column */}
             <TodoTypeContainer
               label="Active"
-              todos={todos.filter((todo) => todo.status === TodoStatus.ACTIVE)}
+              todos={todos
+                .filter((todo) => todo.status === TodoStatus.ACTIVE)
+                .sort((a, b) => {
+                  return (
+                    new Date(b.created_date).getTime() -
+                    new Date(a.created_date).getTime()
+                  );
+                })}
               actionKey={TodoStatus.ACTIVE}
               toggleText="Mark all as completed"
             />
@@ -53,9 +60,14 @@ const TodoFeatureSection: React.FunctionComponent<TodoFeatureSectionProps> = () 
             {/* Completed type column */}
             <TodoTypeContainer
               label="Completed"
-              todos={todos.filter(
-                (todo) => todo.status === TodoStatus.COMPLETED
-              )}
+              todos={todos
+                .filter((todo) => todo.status === TodoStatus.COMPLETED)
+                .sort((a, b) => {
+                  return (
+                    new Date(b.created_date).getTime() -
+                    new Date(a.created_date).getTime()
+                  );
+                })}
               actionKey={TodoStatus.COMPLETED}
               toggleText="Mark all as active"
             />
