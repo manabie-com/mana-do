@@ -8,6 +8,7 @@ import { TodoContext } from "../../../store/contexts/todoContext";
 import Service from "../../../service";
 import {
   toggleAllTodos,
+  triggerRefresh,
   updateTodoContent,
 } from "../../../store/actions/todoActions";
 import { IFormGroupProps } from "../../FormGroup";
@@ -105,11 +106,12 @@ const TodoTypeContainer: React.FunctionComponent<TodoTypeContainerProps> = ({
       setTimeout(() => {
         closeConfirmModal();
         setShowMoreFlg(false);
+        dispatch(triggerRefresh()); // Trigger refresh all todos
       }, 1000);
     } catch (error) {
       console.error(error);
     }
-  }, [actionKey, closeConfirmModal, setLoadingState, user_id]);
+  }, [actionKey, closeConfirmModal, dispatch, setLoadingState, user_id]);
 
   const handleOpenConfirmModal = React.useCallback(() => {
     setConfirmConfig({

@@ -8,6 +8,7 @@ import {
   DELETE_ALL_TODOS,
   TOGGLE_ALL_TODOS,
   UPDATE_TODO_CONTENT,
+  TRIGGER_REFRESH,
 } from "../../constants";
 
 export interface SetTodoAction {
@@ -105,6 +106,18 @@ export function updateTodoContent(todo: Todo): UpdateTodoContent {
     payload: todo,
   };
 }
+///////////
+export interface TriggerRefresh {
+  type: typeof TRIGGER_REFRESH;
+  payload: any;
+}
+
+export function triggerRefresh(): TriggerRefresh {
+  return {
+    type: TRIGGER_REFRESH,
+    payload: {},
+  };
+}
 
 export type AppActions =
   | SetTodoAction
@@ -113,4 +126,5 @@ export type AppActions =
   | DeleteTodoAction
   | DeleteAllTodosAction
   | ToggleAllTodosAction
-  | UpdateTodoContent;
+  | UpdateTodoContent
+  | TriggerRefresh;

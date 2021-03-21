@@ -14,7 +14,7 @@ import SkeletonTodoTypes from "../SkeletonTodoTypes";
 export interface TodoFeatureSectionProps {}
 
 const TodoFeatureSection: React.FunctionComponent<TodoFeatureSectionProps> = () => {
-  const [{ todos }, dispatch] = React.useContext(TodoContext);
+  const [{ todos, refreshTrigger }, dispatch] = React.useContext(TodoContext);
   const [{ user_id }] = React.useContext(UserContext);
   const [loading, setLoading] = React.useState(true);
 
@@ -34,7 +34,7 @@ const TodoFeatureSection: React.FunctionComponent<TodoFeatureSectionProps> = () 
         console.error(error);
       }
     })();
-  }, [dispatch, user_id]);
+  }, [dispatch, user_id, refreshTrigger]); // Re run effect on refreshTrigger changed 
 
   return (
     <div className={styles.ManaDo__TodoFeature__Container}>

@@ -10,6 +10,7 @@ export const TodoContext = React.createContext([{}, {}] as [
 
 const initialState: ITodoType = {
   todos: [],
+  refreshTrigger: {},
 };
 
 const TodoProvider: React.FunctionComponent = ({ children }) => {

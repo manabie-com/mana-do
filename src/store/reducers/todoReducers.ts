@@ -7,6 +7,7 @@ import {
   UPDATE_TODO_STATUS,
   SET_TODO,
   UPDATE_TODO_CONTENT,
+  TRIGGER_REFRESH,
 } from "../../constants";
 import { AppActions } from "../actions/todoActions";
 import { ITodoType } from "../types/todoType";
@@ -102,6 +103,12 @@ function reducer(state: ITodoType, action: AppActions): ITodoType {
       return {
         ...state,
         todos: [],
+      };
+
+    case TRIGGER_REFRESH:
+      return {
+        ...state,
+        refreshTrigger: action.payload,
       };
 
     default:
