@@ -61,6 +61,7 @@ const TodoContainer: React.FunctionComponent<TodoContainerProps> = ({
   }, [closeConfirmModal, data.id, dispatch, setLoadingState]);
 
   const handleOpenRemoveTodoModal = React.useCallback(() => {
+    // Use custom hook to set confirm modal props
     setConfirmConfig({
       title:
         data.status === TodoStatus.ACTIVE
@@ -70,7 +71,7 @@ const TodoContainer: React.FunctionComponent<TodoContainerProps> = ({
       content: <p>Are you sure you want to remove selected todo?</p>,
       onConfirm: handleRemoveTodo,
       variant: "danger",
-      primaryLabel: "Confirm",
+      primaryLabel: "I'm sure",
       primaryVariant: "danger-light",
     });
   }, [data.status, handleRemoveTodo, setConfirmConfig]);
