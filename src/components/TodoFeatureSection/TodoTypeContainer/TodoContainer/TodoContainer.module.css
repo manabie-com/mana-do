@@ -64,7 +64,9 @@
   color: var(--muted);
 }
 
-.ManaDo__Todo__Container > .ManaDo__Todo__Footer > .ManaDo__Todo__ToolBar {
+.ManaDo__Todo__Container
+  > .ManaDo__Todo__Footer
+  > .ManaDo__Todo__RemoveWrapper {
   display: flex;
   border-radius: 10px;
   padding: 10px 10px;
@@ -73,17 +75,15 @@
 
 .ManaDo__Todo__Container
   > .ManaDo__Todo__Footer
-  > .ManaDo__Todo__ToolBar:hover {
-  background-color: var(--muted--lighter);
-}
-
-.Focused {
+  > .ManaDo__Todo__RemoveWrapper:hover {
   background-color: var(--muted--lighter);
 }
 
 .ManaDo__Todo__Container
   > .ManaDo__Todo__Footer
-  > .ManaDo__Todo__ToolBar
-  > .ManaDo__Todo__More {
+  > .ManaDo__Todo__RemoveWrapper
+  > .ManaDo__Todo__Remove {
   width: 16px !important;
+  height: 16px !important;
+  fill: var(--muted--darker);
 }

@@ -11,9 +11,11 @@ import {
   updateTodoContent,
 } from "../../../store/actions/todoActions";
 import { IFormGroupProps } from "../../FormGroup";
+import { ReactComponent as More } from "../../../svgs/more.svg";
 
 import ManaDoModal from "../../ManaDoModal";
 import TodoContainer from "./TodoContainer";
+import MoreContainer from "../../MoreContainer";
 
 export interface TodoTypeContainerProps
   extends React.HTMLAttributes<HTMLElement> {
@@ -34,6 +36,7 @@ const TodoTypeContainer: React.FunctionComponent<TodoTypeContainerProps> = ({
   const [{ user_id }] = React.useContext(UserContext);
   const [, dispatch] = React.useContext(TodoContext);
   const [show, setShow] = React.useState(false);
+  const [showMore, setShowMoreFlg] = React.useState(false);
   const [fieldData, setFieldData] = React.useState([] as IFormGroupProps[]);
   const [isUpdateLoading, setIsUpdateLoadingState] = React.useState(false);
 
@@ -71,7 +74,7 @@ const TodoTypeContainer: React.FunctionComponent<TodoTypeContainerProps> = ({
 
   const handleUpdateConfirm = React.useCallback(
     (data) => {
-      if (data.todoContent.trim()) {
+      if (data?.todoContent?.trim()) {
         setIsUpdateLoadingState(true);
         setTimeout(async () => {
           try {
@@ -86,7 +89,7 @@ const TodoTypeContainer: React.FunctionComponent<TodoTypeContainerProps> = ({
             console.error(error);
             setIsUpdateLoadingState(false);
           }
-        }, 2000);
+        }, 1000);
       } else setShow(false);
     },
     [dispatch]
@@ -97,12 +100,36 @@ const TodoTypeContainer: React.FunctionComponent<TodoTypeContainerProps> = ({
       <div className={`${styles.ManaDo__TodoTypeContainer} ${className || ""}`}>
         <div className={styles.ManaDo__TodoTypeHeader_Wrapper}>
           <h4 className={styles.ManaDo__TodoTypeHeader_TypeLabel}>{label}</h4>
-          <span
-            className={styles.ManaDo__TodoTypeHeader_MarkAllButton}
-            onClick={handleToggleTodoStatus}
+          <div
+            className={
+              styles.ManaDo__TodoTypeHeader_More +
+                " " +
+                (showMore && styles.focused) || ""
+            }
+            onClick={() => setShowMoreFlg((prev) => !prev)}
           >
-            {toggleText}
-          </span>
+            <More className={styles.ManaDo__MoreButton} />
+            <MoreContainer
+              className={styles.ManaDo__MoreContainer}
+              show={showMore}
+              items={[
+                {
+                  label: `Mark all as ${
+                    actionKey === TodoStatus.ACTIVE ? "completed" : "active"
+                  }`,
+                  onClick: handleToggleTodoStatus,
+                  variant: "primary",
+                },
+                {
+                  label: `Clear all ${
+                    actionKey === TodoStatus.ACTIVE ? "completed" : "active"
+                  } todo`,
+                  onClick: handleToggleTodoStatus,
+                  variant: "danger",
+                },
+              ]}
+            />
+          </div>
         </div>
         <div className={styles.ManaDo__Todos}>
           {(todos.length &&

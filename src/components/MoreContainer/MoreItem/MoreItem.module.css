@@ -1,0 +1,23 @@
+.ManaDo__MoreItem {
+  padding: 1rem 1rem;
+  color: var(--muted);
+  transition: color 150ms ease-in-out;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.ManaDo__MoreItem:hover {
+  color: var(--textColor);
+}
+
+.ManaDo__MoreItem:last-of-type {
+  padding-top: 0;
+}
+
+.danger {
+  color: var(--danger--lighter-a-bit);
+}
+
+.danger:hover {
+  color: var(--danger) !important;
+}

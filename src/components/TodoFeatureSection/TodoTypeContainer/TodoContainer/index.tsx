@@ -12,8 +12,7 @@ import {
 import { formatDate } from "../../../../utils/dateFormatter";
 
 import { ReactComponent as Check } from "../../../../svgs/check.svg";
-import { ReactComponent as More } from "../../../../svgs/more.svg";
-import MoreContainer from "./MoreContainer";
+import { ReactComponent as RemoveIcon } from "../../../../svgs/delete.svg";
 import useConfirm from "../../../../_hooks/useConfirm/useConfirm";
 
 export interface TodoContainerProps extends React.HTMLAttributes<HTMLElement> {
@@ -29,7 +28,6 @@ const TodoContainer: React.FunctionComponent<TodoContainerProps> = ({
 }) => {
   const { setConfirmConfig, closeConfirmModal, setLoadingState } = useConfirm();
   const [, dispatch] = React.useContext(TodoContext);
-  const [showMore, setShowMoreState] = React.useState(false);
 
   const handleUpdateTodoStatus = React.useCallback(async () => {
     try {
@@ -103,23 +101,10 @@ const TodoContainer: React.FunctionComponent<TodoContainerProps> = ({
           {formatDate(data.created_date) || ""}
         </span>
         <div
-          className={`${styles.ManaDo__Todo__ToolBar} ${
-            (showMore && styles.Focused) || ""
-          }`}
-          onClick={() => setShowMoreState((prev) => !prev)}
+          className={styles.ManaDo__Todo__RemoveWrapper}
+          onClick={handleOpenRemoveTodoModal}
         >
-          <More className={`${styles.ManaDo__Todo__More}`} />
-          <MoreContainer
-            show={showMore}
-            items={[
-              {
-                label: "Remove",
-                data: { id: data.id },
-                variant: "danger",
-                onClick: handleOpenRemoveTodoModal,
-              },
-            ]}
-          />
+          <RemoveIcon className={styles.ManaDo__Todo__Remove} />
         </div>
       </div>
     </div>

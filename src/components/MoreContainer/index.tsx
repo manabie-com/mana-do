@@ -1,15 +1,10 @@
 import * as React from "react";
 
 import styles from "./MoreContainer.module.css";
-
-interface IArrayItem extends React.HTMLAttributes<HTMLElement> {
-  label: string;
-  variant: "danger";
-  data: object;
-}
+import MoreItem, { IItem } from "./MoreItem";
 
 export interface MoreContainerProps extends React.HTMLAttributes<HTMLElement> {
-  items?: Array<IArrayItem>;
+  items?: Array<IItem>;
   show: boolean;
 }
 
@@ -26,17 +21,7 @@ const MoreContainer: React.FunctionComponent<MoreContainerProps> = ({
     >
       <ul className={styles.ManaDo__MoreList}>
         {(items.length &&
-          items.map((item, idx) => (
-            <li
-              key={idx}
-              className={`${styles.ManaDo__MoreList__Item} ${
-                (item.variant === "danger" && styles.danger) || ""
-              }`}
-              onClick={item.onClick}
-            >
-              {item.label}
-            </li>
-          ))) ||
+          items.map((item, idx) => <MoreItem key={idx} data={item} />)) ||
           "Nothing here..."}
       </ul>
     </div>
