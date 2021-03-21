@@ -10,3 +10,10 @@
   width: 100%;
   overflow-x: auto;
 }
+
+.ManaDo__TodoFeature__Container > .ManaDo__ClearAllTodoWrapper > * {
+  font-size: 0.8rem;
+  color: var(--danger);
+  cursor: pointer;
+  display: inline;
+}

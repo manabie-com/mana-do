@@ -47,7 +47,7 @@ const LoginPendingPage: React.FunctionComponent<LoginPendingPageProps> = () => {
               setMessage("Welcome");
               localStorage.setItem(AUTH_TOKEN, token);
               dispatch(setUser(user));
-              // Wait 1.5s for "adventure experience"?
+              // Wait 2s for "adventure experience"?
               setTimeout(() => {
                 // Then redirect user to TodoPage
                 history.push("/todo");
@@ -56,7 +56,7 @@ const LoginPendingPage: React.FunctionComponent<LoginPendingPageProps> = () => {
               // User is not authorized/ user not found,...
               errorHandler();
             }
-          }, 1000);
+          }, 2000);
         } catch (error) {
           // API error catch then redirect user to login page
           errorHandler(error);

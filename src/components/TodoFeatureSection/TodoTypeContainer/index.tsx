@@ -117,9 +117,12 @@ const TodoTypeContainer: React.FunctionComponent<TodoTypeContainerProps> = ({
     setConfirmConfig({
       title: actionKey === TodoStatus.ACTIVE ? "Hold on" : "Clear confirm",
       subLabel: "Remove all todo",
-      content: `Are your sure you want to clear all ${
-        actionKey === TodoStatus.ACTIVE ? "active" : "completed"
-      } todos?`,
+      content: (
+        <p>
+          Are your sure you want to clear all
+          {actionKey === TodoStatus.ACTIVE ? "active" : "completed"} todos?
+        </p>
+      ),
       variant: "danger",
       primaryLabel: "Do it!",
       primaryVariant: "danger-light",
