@@ -34,12 +34,12 @@ const TodoFeatureSection: React.FunctionComponent<TodoFeatureSectionProps> = () 
         console.error(error);
       }
     })();
-  }, [dispatch, user_id, refreshTrigger]); // Re run effect on refreshTrigger changed 
+  }, [dispatch, user_id, refreshTrigger]); // Re run effect on refreshTrigger changed
 
   return (
     <div className={styles.ManaDo__TodoFeature__Container}>
       <TodoCreationForm />
-      <div className={`${styles.ManaDo__TodoTypes} mt-3`}>
+      <div className={`${styles.ManaDo__TodoTypes} mt-1`}>
         {!loading ? (
           <>
             {/* Active type column */}
