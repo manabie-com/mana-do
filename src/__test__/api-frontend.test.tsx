@@ -1,14 +1,14 @@
+import Service from "../service";
 import { MANADO_DB } from "../constants";
 import { IManaDo_DB } from "../utils/localDatabase";
-import Service from "../service";
 import { TodoStatus } from "../models/todo";
 import { mockDB } from "./mockData";
 import { fetchDB } from "./utils";
 
-localStorage.setItem(MANADO_DB, JSON.stringify(mockDB));
-
 // ------------------------------------------------------------
 
+// A function to reset the localstorage database
+// (in case we want to get the default database rather than the modified one)
 function resetDB() {
   localStorage.setItem(MANADO_DB, JSON.stringify(mockDB));
 }
@@ -16,6 +16,9 @@ function resetDB() {
 // ------------------------------------------------------------
 
 describe("Front-end API tests", () => {
+  // Setup the localstorage database
+  beforeAll(() => localStorage.setItem(MANADO_DB, JSON.stringify(mockDB)));
+
   test("Sign in api", () => {
     const username = "firstUser";
     const password = "example";

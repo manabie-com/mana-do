@@ -1,8 +1,6 @@
 import * as React from "react";
 
 import { cleanup, render, screen } from "@testing-library/react";
-import { mockDB } from "./mockData";
-import { AUTH_TOKEN, MANADO_DB } from "../constants";
 import {
   createTodo,
   deleteTodo,
@@ -10,18 +8,19 @@ import {
   updateTodoContent,
   updateTodoStatus,
 } from "../store/actions/todoActions";
+import { mockDB } from "./mockData";
+import { fetchDB } from "./utils";
+import { Todo, TodoStatus } from "../models/todo";
+import { MANADO_DB } from "../constants";
 import { TestComponentProps } from "./TestComponent";
 
 import TodoProvider from "../store/contexts/todoContext";
 import TestComponent from "./TestComponent";
-import { fetchDB } from "./utils";
-import { Todo, TodoStatus } from "../models/todo";
-
-localStorage.setItem(MANADO_DB, JSON.stringify(mockDB));
-localStorage.setItem(AUTH_TOKEN, "testabc.xyz.ahkfirstUser");
 
 // ----------------------------------------------------------------------
 
+// Wraps the test component with the Provider to use the context API.
+// Will spreads the data arg to test component props.
 function CustomRender(data: TestComponentProps) {
   return (
     <TodoProvider>
@@ -32,9 +31,13 @@ function CustomRender(data: TestComponentProps) {
 
 // ----------------------------------------------------------------------
 
-describe("Todo test", () => {
-  afterAll(() => cleanup());
+describe("Todos test", () => {
+  // Setup the localstorage database
+  beforeAll(() => {
+    localStorage.setItem(MANADO_DB, JSON.stringify(mockDB));
+  });
 
+  // Create todo test
   it("Should create 1 todo", () => {
     const expectedTodo = {
       content: "New Todo",
@@ -43,6 +46,7 @@ describe("Todo test", () => {
       id: "123456",
       user_id: "firstUser",
     } as Todo;
+    const expectedTodoId = /123456/i;
 
     render(
       CustomRender({
@@ -50,10 +54,11 @@ describe("Todo test", () => {
       })
     );
 
-    const todoID = screen.getByText(/123456/i);
+    const todoID = screen.getByText(expectedTodoId);
     expect(todoID).toBeInTheDocument();
   });
 
+  // Get all todos test
   it("Should render all expected todos", () => {
     const database = fetchDB();
     const expectedTodoIds = [/RmrMgo8gH/i, /zxczxczxc/i];
@@ -70,8 +75,10 @@ describe("Todo test", () => {
     });
   });
 
+  // Update todo status test
   it("Should update expected todo status", () => {
     const database = fetchDB();
+    const expectedTodoId = /RmrMgo8gH/i;
     render(
       CustomRender({
         preData: database.todos, // Need to set todos to state before updating
@@ -79,27 +86,35 @@ describe("Todo test", () => {
       })
     );
 
-    const todoID = screen.getByText(/RmrMgo8gH/i);
+    const todoID = screen.getByText(expectedTodoId);
 
-    expect(todoID.textContent.includes("COMPLETED")).toBeTruthy();
+    expect(todoID.textContent.includes("COMPLETED")).toBeTruthy(); // The expected status is updated based on the todo ID
   });
 
+  // Update todo content test
   it("Should update expected todo content", () => {
     const database = fetchDB();
+    const expectedTodoId = /RmrMgo8gH/i;
+    const expectedContent = "Edited todo";
+
     render(
       CustomRender({
         preData: database.todos, // Need to set todos to state before updating
-        action: updateTodoContent("RmrMgo8gH", "Edited todo"),
+        action: updateTodoContent("RmrMgo8gH", expectedContent),
       })
     );
 
-    const updatedTodoString = screen.getByText(/RmrMgo8gH/i);
+    const updatedTodoString = screen.getByText(expectedTodoId);
 
-    expect(updatedTodoString.textContent.includes("Edited todo")).toBeTruthy();
+    expect(
+      updatedTodoString.textContent.includes(expectedContent)
+    ).toBeTruthy(); // The expected updated content is available/updated based on the expected todo ID
   });
 
+  // Remove todo test
   it("Should remove expected todo", () => {
     const database = fetchDB();
+    const expectedTodoId = /RmrMgo8gH/i;
 
     render(
       CustomRender({
@@ -109,9 +124,11 @@ describe("Todo test", () => {
     );
 
     try {
-      screen.getByText(/RmrMgo8gH/i);
+      screen.getByText(expectedTodoId); // Throw error when ID is not on the screen
     } catch (error) {
       expect(error).not.toBeNull();
     }
   });
+
+  afterAll(() => cleanup());
 });

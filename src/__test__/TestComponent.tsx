@@ -8,6 +8,13 @@ export interface TestComponentProps extends React.HTMLAttributes<HTMLElement> {
   action: AppActions;
 }
 
+// The purpose of this component is to test wheter the todo reducers is modifying
+// Context state correctly.
+
+// Todos context state output being rendered which is JSON string.
+
+// The "components.test.tsx" test suite will query the "screen" and "expect" 
+// the ouput based on the context state rendered in this component.
 const TestComponent: React.FunctionComponent<TestComponentProps> = ({
   preData,
   action,
