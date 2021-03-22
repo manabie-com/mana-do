@@ -89,13 +89,7 @@ describe("Todo test", () => {
     render(
       CustomRender({
         preData: database.todos, // Need to set todos to state before updating
-        action: updateTodoContent({
-          content: "Edited todo",
-          created_date: "2021-03-22T09:21:46.595Z",
-          id: "RmrMgo8gH",
-          status: TodoStatus.ACTIVE,
-          user_id: "firstUser",
-        } as Todo),
+        action: updateTodoContent("RmrMgo8gH", "Edited todo"),
       })
     );
 

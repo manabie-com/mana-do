@@ -97,13 +97,19 @@ export function toggleAllTodos(checked: boolean): ToggleAllTodosAction {
 ///////////
 export interface UpdateTodoContent {
   type: typeof UPDATE_TODO_CONTENT;
-  payload: Todo;
+  payload: { todoId: string; content: string };
 }
 
-export function updateTodoContent(todo: Todo): UpdateTodoContent {
+export function updateTodoContent(
+  todoId: string,
+  content: string
+): UpdateTodoContent {
   return {
     type: UPDATE_TODO_CONTENT,
-    payload: todo,
+    payload: {
+      todoId,
+      content,
+    },
   };
 }
 ///////////

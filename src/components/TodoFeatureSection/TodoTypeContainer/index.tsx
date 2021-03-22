@@ -86,7 +86,7 @@ const TodoTypeContainer: React.FunctionComponent<TodoTypeContainerProps> = ({
               data.id,
               data.todoContent
             );
-            dispatch(updateTodoContent(todo));
+            dispatch(updateTodoContent(todo.id, todo.content));
             setIsUpdateLoadingState(false);
             setShow(false);
           } catch (error) {
@@ -120,7 +120,7 @@ const TodoTypeContainer: React.FunctionComponent<TodoTypeContainerProps> = ({
       content: (
         <p>
           Are your sure you want to clear all
-          {actionKey === TodoStatus.ACTIVE ? "active" : "completed"} todos?
+          {actionKey === TodoStatus.ACTIVE ? " active" : " completed"} todos?
         </p>
       ),
       variant: "danger",

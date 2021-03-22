@@ -63,7 +63,7 @@ function reducer(state: ITodoType, action: AppActions): ITodoType {
         ...state,
         todos: [
           ...state.todos.map((todo) =>
-            todo.id === action.payload.id
+            todo.id === action.payload.todoId
               ? { ...todo, content: action.payload.content }
               : todo
           ),
