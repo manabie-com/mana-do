@@ -5,7 +5,7 @@ import { User } from "../models/user";
 export interface FullUser extends User {
   user_id: string;
   username: string;
-  token: string;
+  token: string; // This field is just a pseudo. Database does not need to store this.
   password: string;
 }
 
@@ -24,13 +24,13 @@ export const ManaDo_DB: IManaDo_DB = {
       user_id: "firstUser",
       username: "firstUser",
       password: "example",
-      token: "testabc.xyz.ahkfirstUser",
+      token: "testabc.xyz.ahkfirstUser", // This field is just a pseudo. Database does not need to store this.
     },
     {
       user_id: "admin",
       username: "admin",
       password: "123",
-      token: "testabc.xyz.ahkadmin",
+      token: "testabc.xyz.ahkadmin", // This field is just a pseudo. Database does not need to store this.
     },
   ],
 };

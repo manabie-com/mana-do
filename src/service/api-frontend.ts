@@ -245,6 +245,7 @@ class ApiFrontend extends IAPI {
     return Promise.reject("Update failed");
   }
 
+  // Remove all todos of user by status/type active or completed >> DELETE METHOD
   async removeAllTodoByType(userId: string, type: string): Promise<any> {
     const database = JSON.parse(
       localStorage.getItem(MANADO_DB) || ""
@@ -269,6 +270,7 @@ class ApiFrontend extends IAPI {
     return Promise.resolve();
   }
 
+  // Remove all todos of a user >> DELETE METHOD
   async removeAllTodo(userId: string): Promise<any> {
     const database = JSON.parse(
       localStorage.getItem(MANADO_DB) || ""
