@@ -1,0 +1,32 @@
+.ManaDo__LoginPendingPage {
+  background-image: url("https://ptmediahost.blob.core.windows.net/imgs/background.png");
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-repeat: repeat-x;
+  animation: backgroundAnimation 60s linear infinite;
+}
+
+@keyframes backgroundAnimation {
+  0% {
+    background-position-x: 0px;
+  }
+
+  100% {
+    background-position-x: 1920px;
+  }
+}
+
+.ManaDo__LoginPendingPage > .ManaDo__LoadingWrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.ManaDo__LoginPendingPage > .ManaDo__LoadingWrapper > .ManaDo__LoadingLabel {
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--textColor);
+}

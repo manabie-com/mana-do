@@ -1,0 +1,28 @@
+.ManaDo__AnimateWave {
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  z-index: -1;
+}
+
+.WaveWidth {
+  width: 700px;
+}
+
+@media screen and (max-width: 1200px) {
+  .WaveWidth {
+    width: 600px;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .WaveWidth {
+    width: 500px;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .WaveWidth {
+    width: 400px;
+  }
+}

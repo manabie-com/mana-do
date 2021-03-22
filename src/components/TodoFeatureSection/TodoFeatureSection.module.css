@@ -1,0 +1,19 @@
+.ManaDo__TodoFeature__Container {
+  min-height: 90vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.ManaDo__TodoFeature__Container > .ManaDo__TodoTypes {
+  flex: 1;
+  display: flex;
+  width: 100%;
+  overflow-x: auto;
+}
+
+.ManaDo__TodoFeature__Container > .ManaDo__ClearAllTodoWrapper > * {
+  font-size: 0.8rem;
+  color: var(--danger);
+  cursor: pointer;
+  display: inline;
+}

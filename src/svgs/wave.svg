@@ -1,0 +1,27 @@
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="700px" height="540px" xml:space="preserve">
+  <defs>
+    <pattern id="water" width=".25" height="1.1" patternContentUnits="objectBoundingBox">
+      <path fill="#3c57c0" d="M0.25,1H0c0,0,0-0.659,0-0.916c0.083-0.303,0.158,0.334,0.25,0C0.25,0.327,0.25,1,0.25,1z"/>
+    </pattern>
+    <pattern id="water2" width=".25" height="1.1" patternContentUnits="objectBoundingBox">
+      <path fill="#3ace85" d="M0.25,1H0c0,0,0-0.659,0-0.916c0.083-0.303,0.158,0.334,0.25,0C0.25,0.327,0.25,1,0.25,1z"/>
+    </pattern>
+    
+    <g transform="rotate(-135) translate(-1000 0) scale(3)" id="eff">
+      <rect class="water-fill" fill="url(#water2)" y="45" width="1600" height="120" opacity="1">
+        <animate attributeType="xml" attributeName="x" from="-400" to="0" repeatCount="indefinite" dur="3s"/>
+      </rect>
+      <rect class="water-fill" fill="url(#water)" y="55" width="800" height="120" opacity="0.3">
+        <animate attributeType="xml" attributeName="x" from="-200" to="0" repeatCount="indefinite" dur="3s"/>
+      </rect>
+      <rect class="water-fill" fill="url(#water2)" y="55" width="2000" height="120" opacity="0.3">
+        <animate attributeType="xml" attributeName="x" from="-500" to="0" repeatCount="indefinite" dur="5s"/>
+      </rect>
+      <rect class="water-fill" fill="url(#water)" x="-300" y="50" width="1200" height="120" opacity="1">
+        <animate attributeType="xml" attributeName="x" from="-300" to="0" repeatCount="indefinite" dur="6s"/>
+      </rect>
+    </g>
+  </defs>
+  <use xlink:href="#eff" opacity="0.9" style="mix-blend-mode:color-burn"/>
+</svg>

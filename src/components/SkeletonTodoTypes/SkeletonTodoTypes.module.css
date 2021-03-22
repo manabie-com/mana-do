@@ -1,0 +1,82 @@
+.skeleton {
+  z-index: -2;
+  border-radius: 5px;
+  background-color: #f0f2f7;
+  animation: skeletonAnimate 1s linear 0s infinite;
+}
+
+@keyframes skeletonAnimate {
+  0% {
+    background-color: #eaecf1;
+  }
+
+  50% {
+    background-color: #f6f8fc;
+  }
+
+  100% {
+    background-color: #eaecf1;
+  }
+}
+
+.ManaDo__TodoTypeSkeleton__Container {
+  width: 100%;
+  height: 60vh;
+  display: flex;
+}
+
+.ManaDo__TodoTypeSkeleton__Container > .ManaDo__Skeleton__TodoTypeContainer {
+  width: 380px;
+  min-width: 330px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  margin-right: 2.5rem;
+}
+
+.ManaDo__TodoTypeSkeleton__Container
+  > .ManaDo__Skeleton__TodoTypeContainer
+  > .ManaDo__Skeleton__TodoTypeHeader {
+  height: 24px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.ManaDo__TodoTypeSkeleton__Container
+  > .ManaDo__Skeleton__TodoTypeContainer
+  > .ManaDo__Skeleton__TodoTypeHeader
+  > .ManaDo__Skeleton__TodoTypeLabel {
+  height: 24px;
+  width: 25%;
+}
+
+.ManaDo__TodoTypeSkeleton__Container
+  > .ManaDo__Skeleton__TodoTypeContainer
+  > .ManaDo__Skeleton__TodoTypeHeader
+  > .ManaDo__Skeleton__TodoTypeToggler {
+  height: 24px;
+  width: 40%;
+}
+
+.ManaDo__TodoTypeSkeleton__Container
+  > .ManaDo__Skeleton__TodoTypeContainer
+  > .ManaDo__Skeleton__TodoTypeBody {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  margin-top: 1.5rem;
+  overflow-y: auto;
+  max-height: 80vh;
+}
+
+.ManaDo__TodoTypeSkeleton__Container
+  > .ManaDo__Skeleton__TodoTypeContainer
+  > .ManaDo__Skeleton__TodoTypeBody
+  > .ManaDo__Skeleton__Todo {
+  height: 30%;
+  width: 100%;
+  margin-bottom: 1rem;
+}

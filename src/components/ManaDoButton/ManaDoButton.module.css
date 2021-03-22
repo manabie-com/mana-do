@@ -1,0 +1,116 @@
+.ManaDo__button__primary {
+  background-color: var(--primary);
+  color: white;
+}
+
+.ManaDo__button__primary:hover {
+  background-color: var(--primary--lighter-a-bit);
+}
+
+/* ---------------------------------------------------- */
+
+.ManaDo__button__secondary {
+  background-color: var(--secondary);
+  color: white;
+}
+
+.ManaDo__button__secondary:hover {
+  background-color: var(--secondary);
+}
+
+/* ---------------------------------------------------- */
+
+.ManaDo__button__danger {
+  background-color: var(--danger);
+  color: white;
+}
+
+.ManaDo__button__danger:hover {
+  background-color: var(--danger--lighter-a-bit);
+}
+
+/* ---------------------------------------------------- */
+
+.ManaDo__button__primaryLight {
+  background-color: var(--primary--lighter);
+  color: var(--primary);
+}
+
+.ManaDo__button__primaryLight:hover {
+  background-color: var(--primary);
+  color: white;
+}
+
+/* ---------------------------------------------------- */
+
+.ManaDo__button__secondaryLight {
+  background-color: var(--secondary--lighter);
+  color: var(--secondary);
+}
+
+.ManaDo__button__secondaryLight:hover {
+  background-color: var(--secondary);
+  color: white;
+}
+
+/* ---------------------------------------------------- */
+
+.ManaDo__button__dangerLight {
+  background-color: var(--danger--lighter);
+  color: var(--danger);
+}
+
+.ManaDo__button__dangerLight:hover {
+  background-color: var(--danger);
+  color: white;
+}
+
+/* ---------------------------------------------------- */
+
+.ManaDo__button__muted {
+  background-color: var(--muted--lighter);
+  color: var(--textColor--lighter);
+}
+
+.ManaDo__button__muted:hover {
+  background-color: var(--muted);
+  color: white;
+}
+
+/* ---------------------------------------------------- */
+
+.ManaDo__button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  padding: 8px 16px;
+  border: none;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all ease-in-out 100ms;
+  min-width: 100px;
+}
+
+.ManaDo__button:hover {
+  cursor: pointer;
+}
+
+.ManaDo__button__Icon {
+  border: none;
+  background-color: transparent;
+  transition: all ease-in-out 200ms;
+  fill: var(--primary);
+  cursor: pointer;
+}
+
+.ManaDo__button__Icon:hover {
+  background-color: transparent;
+  fill: var(--primary);
+}
+
+.ManaDo__button__Icon > svg {
+  height: 28px !important;
+  width: 28px !important;
+  transform: translateY(2px);
+}

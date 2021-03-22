@@ -1,0 +1,83 @@
+.primary {
+  border-color: var(--primary--lighter);
+  border-top-color: var(--primary);
+}
+
+.secondary {
+  border-color: var(--secondary--lighter-a-bit);
+  border-top-color: var(--secondary);
+}
+
+.danger {
+  border-color: var(--danger--lighter-a-bit);
+  border-top-color: var(--danger);
+}
+
+.muted {
+  border-color: white;
+  border-top-color: var(--muted);
+}
+
+/* ------------------------------------------------ */
+
+.small {
+  width: 11px;
+  height: 11px;
+  border-width: 3px;
+}
+
+.medium {
+  width: 38px;
+  height: 38px;
+  border-width: 7px;
+}
+
+.large {
+  width: 48px;
+  height: 48px;
+  border-width: 8px;
+}
+
+.xlarge {
+  width: 68px;
+  height: 68px;
+  border-width: 9px;
+}
+
+/* ------------------------------------------------ */
+
+.ManaDo__LoadingIndicator__Wrapper {
+  display: inline-block;
+}
+
+.ManaDo__LoadingIndicator__Wrapper > .ManaDo__LoadingIndicator__Container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.ManaDo__LoadingIndicator__Wrapper
+  > .ManaDo__LoadingIndicator__Container
+  > .ManaDo__LoadingIndicator__Label {
+  margin-top: 0.5rem;
+}
+
+.ManaDo__LoadingIndicator__Wrapper
+  > .ManaDo__LoadingIndicator__Container
+  > .ManaDo__LoadingIndicator {
+  background-color: transparent;
+  border-style: solid;
+  border-radius: 300px;
+  animation: spin 800ms linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
