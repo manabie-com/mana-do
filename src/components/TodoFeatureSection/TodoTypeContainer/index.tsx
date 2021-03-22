@@ -190,7 +190,7 @@ const TodoTypeContainer: React.FunctionComponent<TodoTypeContainerProps> = ({
             ))) || (
             <div className={styles.ManaDo__Todos_Empty}>
               {actionKey === TodoStatus.ACTIVE
-                ? "Start by add new todo"
+                ? "Start by adding new todo"
                 : "Completed todos are shown here"}
             </div>
           )}
