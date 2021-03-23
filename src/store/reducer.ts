@@ -12,14 +12,17 @@ export interface AppState {
   todos: Array<Todo>
 }
 
+const data = JSON.parse(localStorage.getItem("todos") || '{}');
+
 export const initialState: AppState = {
-  todos: []
+  todos: data ? data : []
 }
 
 function reducer(state: AppState, action: AppActions): AppState {
   switch (action.type) {
     case CREATE_TODO:
       state.todos.push(action.payload);
+      localStorage.setItem("todos", JSON.stringify(state.todos));
       return {
         ...state
       };
@@ -27,7 +30,7 @@ function reducer(state: AppState, action: AppActions): AppState {
     case UPDATE_TODO_STATUS:
       const index2 = state.todos.findIndex((todo) => todo.id === action.payload.todoId);
       state.todos[index2].status = action.payload.checked ? TodoStatus.COMPLETED : TodoStatus.ACTIVE;
-
+      localStorage.setItem("todos", JSON.stringify(state.todos));
       return {
         ...state,
         todos: state.todos
@@ -40,21 +43,24 @@ function reducer(state: AppState, action: AppActions): AppState {
           status: action.payload ? TodoStatus.COMPLETED : TodoStatus.ACTIVE
         }
       })
-
-      return {
+      
+      const result = {
         ...state,
         todos: tempTodos
       }
+      localStorage.setItem("todos", JSON.stringify(result.todos));
+      return result;
 
     case DELETE_TODO:
       const index1 = state.todos.findIndex((todo) => todo.id === action.payload);
       state.todos.splice(index1, 1);
-
+      localStorage.setItem("todos", JSON.stringify(state.todos));
       return {
         ...state,
         todos: state.todos
       }
     case DELETE_ALL_TODOS:
+      localStorage.setItem('todos', '[]')
       return {
         ...state,
         todos: []

@@ -1,0 +1,39 @@
+.login {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: linear-gradient(to bottom right, #1BC2E2 0 24%, #FFF 25% 75%, #9359F1 76% 100%);
+}
+
+.login__form {
+    width: 400px;
+    padding: 0 40px 30px;
+    background-color: white;
+    border: 3px solid #F1F1F1;
+    border-radius: 10px;
+    box-shadow: 1px 1px 2px 2px #EAEAEA;
+}
+
+.login__form-text {
+    text-align: center;
+}
+
+.btn__submit {
+    display: flex;
+    justify-content: center;
+    margin-top: 24px;
+}
+
+.btn__submit-item {
+    width: 50%;
+    padding: 0;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+#user_id,
+#password {
+    margin: 16px -16px;
+}

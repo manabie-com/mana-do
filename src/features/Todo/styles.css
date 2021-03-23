@@ -1,0 +1,92 @@
+.ToDo__container {
+    width: 700px;
+    margin-top: 5rem;
+    padding: 24px;
+
+    background-color: #e9ecef26;
+    border: 1px solid rgba(0, 0, 0, 0.13);
+    border-radius: 8px;
+    box-shadow: 2px 2px 1px rgba(0, 0, 0, 0.09),
+        3px 2px 3px rgba(0, 0, 0, 0.05);
+}
+
+.ToDo__title {
+    color: #1ABC9C;
+    font-size: 40px;
+    text-align: center;
+}
+
+.Todo__creation {
+    display: flex;
+}
+
+.Todo__input {
+    margin: 16px 0;
+    font-size: 20px;
+}
+
+.ToDo__list {
+    display: flex;
+    flex-direction: column;
+    margin-top: 1.5rem;
+}
+
+.ToDo__item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 16px;
+    padding: 4px 16px;
+
+    border-radius: 20px;
+    box-shadow: 1px 1px 4px 1px rgb(0 0 0 / 20%);
+}
+
+.ToDo__item>span {
+    flex: 1 1;
+    margin-left: 16px;
+
+    font-size: 20px;
+    font-weight: 500;
+    text-align: left;
+}
+
+.Todo__delete {
+    cursor: pointer;
+    min-height: 30px;
+    padding: 0 16px;
+
+    color: red;
+    background-color: white;
+
+    border: 2px solid;
+    box-shadow: none;
+    border-radius: 15px;
+
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.Todo__toolbar {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 24px;
+    padding: 0 16px;
+}
+
+.Todo__tabs {
+    display: flex;
+    justify-content: center;
+}
+
+.Todo__tabs>*:not(:last-child) {
+    margin-right: 16px;
+}
+
+.Action__btn {
+    height: 36px;
+    padding: 0 10px;
+    font-size: 16px;
+    font-weight: 500;
+}

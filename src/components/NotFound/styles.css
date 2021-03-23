@@ -1,0 +1,20 @@
+.page__error {
+    height: 100vh;
+    text-align: center;
+    overflow: hidden;
+    background-color: #272041;
+}
+
+.page__error-title,
+.page__error-text,
+.page__error-link {
+    color: white;
+}
+
+.page__error-title {
+    font-size: 100px;
+}
+
+.page__error-text {
+    font-size: 50px;
+}
