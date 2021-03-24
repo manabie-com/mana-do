@@ -19,22 +19,29 @@ export const initialState: AppState = {
 function reducer(state: AppState, action: AppActions): AppState {
   switch (action.type) {
     case CREATE_TODO:
-      state.todos.push(action.payload);
+      const tempTodos1 = [...state.todos, action.payload];
       return {
-        ...state
+        ...state,
+        todos: tempTodos1,
       };
 
     case UPDATE_TODO_STATUS:
-      const index2 = state.todos.findIndex((todo) => todo.id === action.payload.todoId);
-      state.todos[index2].status = action.payload.checked ? TodoStatus.COMPLETED : TodoStatus.ACTIVE;
-
+      const tempTodos2 = state.todos.map((todo) => {
+        if(todo.id === action.payload.todoId) {
+          return {
+            ...todo,
+            status: action.payload.checked ? TodoStatus.COMPLETED : TodoStatus.ACTIVE,
+          }
+        }
+        return todo;
+      })
       return {
         ...state,
-        todos: state.todos
+        todos: tempTodos2
       }
 
     case TOGGLE_ALL_TODOS:
-      const tempTodos = state.todos.map((e)=>{
+      const tempTodos3 = state.todos.map((e)=>{
         return {
           ...e,
           status: action.payload ? TodoStatus.COMPLETED : TodoStatus.ACTIVE
@@ -43,16 +50,14 @@ function reducer(state: AppState, action: AppActions): AppState {
 
       return {
         ...state,
-        todos: tempTodos
+        todos: tempTodos3
       }
 
     case DELETE_TODO:
-      const index1 = state.todos.findIndex((todo) => todo.id === action.payload);
-      state.todos.splice(index1, 1);
-
+      const remainingTodos = [...state.todos].filter((todo) => todo.id !== action.payload);
       return {
         ...state,
-        todos: state.todos
+        todos: remainingTodos
       }
     case DELETE_ALL_TODOS:
       return {
