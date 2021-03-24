@@ -153,17 +153,20 @@ const ToDoPage = ({ history }: RouteComponentProps) => {
           <div />
         )}
         <div className="Todo__tabs">
-          <button className="Action__btn" onClick={() => setShowing("ALL")}>
+          <button
+            className={`Action__btn ${showing === "ALL" ? "active" : ""}`}
+            onClick={() => setShowing("ALL")}
+          >
             All
           </button>
           <button
-            className="Action__btn"
+            className={`Action__btn ${showing === "ACTIVE" ? "active" : ""}`}
             onClick={() => setShowing(TodoStatus.ACTIVE)}
           >
             Active
           </button>
           <button
-            className="Action__btn"
+            className={`Action__btn ${showing === "COMPLETED" ? "active" : ""}`}
             onClick={() => setShowing(TodoStatus.COMPLETED)}
           >
             Completed

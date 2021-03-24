@@ -125,3 +125,7 @@ input:focus {
 
 .Action__btn {
 }
+.Action__btn.active {
+  background-color: #0075ff;
+  color: #ffffff;
+}
