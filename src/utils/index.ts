@@ -7,3 +7,11 @@ export function isTodoCompleted(todo: Todo): boolean {
 export function isTodoActive(todo: Todo): boolean {
   return todo.status === TodoStatus.ACTIVE;
 }
+
+export function saveTodos(todos: Todo[]) {
+  localStorage.setItem("todos", JSON.stringify(todos));
+}
+
+export function removeAllTodos() {
+  localStorage.removeItem("todos");
+}

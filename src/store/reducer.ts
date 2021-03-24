@@ -1,6 +1,8 @@
 import {Todo, TodoStatus} from '../models/todo';
+import { saveTodos, removeAllTodos } from '../utils';
 import {
   AppActions,
+  SET_TODO,
   CREATE_TODO,
   DELETE_ALL_TODOS,
   DELETE_TODO,
@@ -21,6 +23,7 @@ function reducer(state: AppState, action: AppActions): AppState {
   switch (action.type) {
     case CREATE_TODO:
       const tempTodos1 = [...state.todos, action.payload];
+      saveTodos(tempTodos1);
       return {
         ...state,
         todos: tempTodos1,
@@ -36,6 +39,7 @@ function reducer(state: AppState, action: AppActions): AppState {
         }
         return todo;
       })
+      saveTodos(tempTodos2);
       return {
         ...state,
         todos: tempTodos2
@@ -51,6 +55,7 @@ function reducer(state: AppState, action: AppActions): AppState {
           }
           return todo;
         })
+        saveTodos(tempTodos3);
         return {
           ...state,
           todos: tempTodos3
@@ -63,7 +68,7 @@ function reducer(state: AppState, action: AppActions): AppState {
           status: action.payload ? TodoStatus.COMPLETED : TodoStatus.ACTIVE
         }
       })
-
+      saveTodos(tempTodos4);
       return {
         ...state,
         todos: tempTodos4
@@ -71,14 +76,21 @@ function reducer(state: AppState, action: AppActions): AppState {
 
     case DELETE_TODO:
       const remainingTodos = [...state.todos].filter((todo) => todo.id !== action.payload);
+      saveTodos(remainingTodos);
       return {
         ...state,
         todos: remainingTodos
       }
     case DELETE_ALL_TODOS:
+      removeAllTodos();
       return {
         ...state,
         todos: []
+      }
+    case SET_TODO:
+      return {
+        ...state,
+        todos: action.payload,
       }
     default:
       return state;
