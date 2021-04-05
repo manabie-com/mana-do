@@ -1,0 +1,39 @@
+.todo__list {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1.5rem;
+  max-height: 280px;
+  overflow: auto;
+}
+
+.todo__item {
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #ffffffa1;
+  border: 1px solid #b7b7b7;
+  margin: 5px;
+  padding: 0 5px;
+}
+
+.todo__item .todo__input {
+  margin: 5px 0;
+  min-height: 30px;
+  border: 1px solid #e0e0e0;
+}
+
+.todo__item > span {
+  flex: 1 1;
+  text-align: left;
+  margin-left: 8px;
+  line-height: 44px;
+  font-weight: 500;
+  text-transform: capitalize;
+  cursor: pointer;
+}
+
+.todo__item > span.completed {
+  text-decoration: line-through;
+  color: #f90000;
+}

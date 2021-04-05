@@ -1,0 +1,37 @@
+.app {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  background-image: url("/geoffrey-ernault-candywater.jpg");
+  background-position: center;
+  background-repeat: repeat;
+  background-size: cover;
+  position: relative;
+  height: 100vh;
+}
+
+.label__errorMessage {
+  text-align: center !important;
+  color: red !important;
+  font-weight: 100 !important;
+}
+
+.todo__input {
+  flex: 1 1;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1bd; 
+}
+ 
+::-webkit-scrollbar-thumb {
+  background: rgba(136, 136, 136, 0.692); 
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(85, 85, 85, 0.719); 
+}

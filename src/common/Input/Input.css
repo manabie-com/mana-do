@@ -1,0 +1,44 @@
+input[type="checkbox"] {
+  width: 24px;
+  min-height: 24px;
+  margin: 0 5px 0 8px;
+  box-shadow: none;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  clip-path: polygon(
+    0% 20%,
+    20% 20%,
+    20% 0%,
+    80% 0%,
+    80% 20%,
+    100% 20%,
+    100% 80%,
+    80% 80%,
+    80% 100%,
+    20% 100%,
+    20% 80%,
+    0% 80%
+  );
+}
+
+input[type="checkbox"]:focus {
+  box-shadow: none;
+  border: none;
+  outline: none;
+}
+
+input {
+  min-height: 36px;
+  border: none;
+  outline: none;
+  margin: 5px 0;
+  padding: 0 12px;
+  box-shadow: 3px 1px 4px 0px rgb(0 0 0 / 20%);
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+input:focus {
+  box-shadow: 1px 0 9px rgba(0, 0, 0, 0.25);
+}

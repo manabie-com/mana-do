@@ -1,0 +1,14 @@
+.todo__toolbar {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 24px;
+}
+
+.todo__tabs {
+  display: flex;
+  justify-content: center;
+}
+
+.todo__tabs > *:not(:last-child) {
+  margin-right: 8px;
+}

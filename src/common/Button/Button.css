@@ -1,0 +1,66 @@
+
+button {
+  outline: none;
+  border: none;
+  border-radius: 4px;
+  min-height: 32px;
+  min-width: 80px;
+  padding: 4px 8px;
+}
+
+button:hover {
+  opacity: 0.85;
+}
+
+.btn__action {
+  background: #16a3b7;
+  color: #ffffff;
+  font-weight: 600;
+  cursor: pointer;
+  clip-path: polygon(
+    0% 0%,
+    0% 100%,
+    4% 71%,
+    76% 6%,
+    94% 6%,
+    76% 22%,
+    35% 23%,
+    0 100%,
+    100% 100%,
+    100% 0
+  );
+}
+
+.btn__delete {
+  outline: none;
+  border: none;
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  min-width: auto;
+  min-height: auto;
+  box-shadow: none;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  clip-path: polygon(
+    20% 0%,
+    0% 20%,
+    30% 50%,
+    0% 80%,
+    20% 100%,
+    50% 70%,
+    80% 100%,
+    100% 80%,
+    70% 50%,
+    100% 20%,
+    80% 0%,
+    50% 30%
+  );
+  background: #f90000;
+  color: white;
+  font-weight: bold;
+  border: 1px solid black;
+}

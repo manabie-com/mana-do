@@ -1,0 +1,37 @@
+
+.form__signIn {
+  position: absolute;
+  top: 50%;
+  background: #ffffff5c;
+  border: 1px solid rgba(0, 0, 0, 0.13);
+  border-radius: 8px;
+  width: 400px;
+  height: min-content;
+  padding: 24px;
+  box-shadow: 2px 2px 1px rgba(0, 0, 0, 0.09), 3px 2px 3px rgba(0, 0, 0, 0.05);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+.form__signIn .form__header {
+  font-size: 2em;
+  font-weight: 600;
+  padding-bottom: 20px;
+  display: block;
+  color: #000000bf;
+}
+
+.form__signIn label {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  font-weight: 500;
+  color: #000000bf;
+  margin: 5px 0;
+}
+
+.form__signIn .form__note {
+  font-size: 12px;
+  font-style: oblique;
+  cursor: copy;
+}

@@ -1,0 +1,22 @@
+.todo__header {
+  display: flex;
+  justify-content: space-between;
+
+  margin-bottom: 1rem;
+}
+
+.todo__header > label {
+  font-weight: 600;
+}
+
+.todo__header > label > .all {
+  color: #5686d8;
+}
+
+.todo__header > label > .active {
+  color: #b188c4;
+}
+
+.todo__header > label > .completed {
+  color: #78404a;
+}
