@@ -15,6 +15,7 @@
   border: 1px solid #b7b7b7;
   margin: 5px;
   padding: 0 5px;
+  animation: animation-item 0.7s forwards;
 }
 
 .todo__item .todo__input {
@@ -36,4 +37,15 @@
 .todo__item > span.completed {
   text-decoration: line-through;
   color: #f90000;
+}
+
+@keyframes animation-item{
+  from{
+      transform: scale(1.5);
+      opacity: 0;
+  }
+  to{
+      transform: scale(1);
+      opacity: 1;
+  }
 }

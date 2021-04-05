@@ -10,13 +10,13 @@
 }
 
 .todo__header > label > .all {
-  color: #5686d8;
+  color: #0058ef;
 }
 
 .todo__header > label > .active {
-  color: #b188c4;
+  color: #03bb00;
 }
 
 .todo__header > label > .completed {
-  color: #78404a;
+  color: #b0210a;
 }
