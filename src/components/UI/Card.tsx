@@ -16,7 +16,7 @@ const Card = ({
 }: Props) => {
   return (
     <div className="ToDo__list">
-      {todoList.map((todo: any, index: number) => {
+      {todoList.map((todo: Todo, index: number) => {
         return (
           <div
             key={index}

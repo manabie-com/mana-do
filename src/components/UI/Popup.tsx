@@ -29,6 +29,7 @@ const Popup = ({ isToggle, onTogglePopup, todoEdit, todolist }: Props) => {
         };
 
         dispatch(editTodo(todoEdited));
+        console.log('yeah')
         onTogglePopup();
       }
     }

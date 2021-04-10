@@ -12,7 +12,7 @@ import {
 import Service from "./service";
 import { TodoStatus, Todo } from "./models/todo";
 import { isTodoCompleted } from "./utils";
-import { Card, Popup } from "./components/UI/index";
+import { Card, Popup, Input } from "./components/UI/index";
 
 type EnhanceTodoStatus = TodoStatus | "ALL";
 
@@ -21,7 +21,6 @@ const ToDoPage = ({ history }: RouteComponentProps) => {
   const [showing, setShowing] = useState<EnhanceTodoStatus>("ALL");
   const [togglePopup, setTogglePopup] = useState<boolean>(false);
   const [todoEdit, setTodoEdit] = useState<Todo | null>(null);
-  const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     (async () => {
@@ -30,7 +29,11 @@ const ToDoPage = ({ history }: RouteComponentProps) => {
     })();
   }, [togglePopup]);
 
-  const onCreateTodo = async (e: React.KeyboardEvent<HTMLInputElement>) => {
+  const onCreateTodo = async (
+    e: React.KeyboardEvent<HTMLInputElement>,
+    inputRef: any
+  ) => {
+    console.log("eee", e);
     if (e.key === "Enter" && inputRef.current) {
       try {
         const resp = await Service.createTodo(inputRef.current.value);
@@ -63,6 +66,7 @@ const ToDoPage = ({ history }: RouteComponentProps) => {
   };
 
   const showTodos = todos.filter((todo) => {
+    console.log("showing", showing);
     switch (showing) {
       case TodoStatus.ACTIVE:
         return todo.status === TodoStatus.ACTIVE;
@@ -89,6 +93,7 @@ const ToDoPage = ({ history }: RouteComponentProps) => {
 
   return (
     <div className="ToDo__container">
+      <h1>Mana Todo</h1>
       <Popup
         todolist={showTodos}
         isToggle={togglePopup}
@@ -96,21 +101,7 @@ const ToDoPage = ({ history }: RouteComponentProps) => {
         todoEdit={todoEdit}
       />
 
-      <div className="Todo__creation">
-        <input
-          ref={inputRef}
-          className="Todo__input"
-          placeholder="What need to be done?"
-          onKeyDown={onCreateTodo}
-        />
-      </div>
-
-      <Card
-        todoList={showTodos}
-        onUpdateTodoStatus={onUpdateTodoStatus}
-        deleteTodo={deleteTodoFunc}
-        onTogglePopup={onTogglePopup}
-      />
+      <Input onCreateTodo={onCreateTodo} />
       <div className="Todo__toolbar">
         {todos.length > 0 ? (
           <input
@@ -122,26 +113,43 @@ const ToDoPage = ({ history }: RouteComponentProps) => {
           <div />
         )}
         <div className="Todo__tabs">
-          <button className="Action__btn" onClick={() => setShowing("ALL")}>
+          <button
+            className={`Action__btn ${showing === "ALL" ? "active all" : ""} `}
+            onClick={() => setShowing("ALL")}
+          >
             All
           </button>
           <button
-            className="Action__btn"
+            className={`Action__btn ${
+              showing === TodoStatus.ACTIVE
+                ? "active " + TodoStatus.ACTIVE.toLowerCase()
+                : ""
+            } `}
             onClick={() => setShowing(TodoStatus.ACTIVE)}
           >
             Active
           </button>
           <button
-            className="Action__btn"
+            className={`Action__btn ${
+              showing === TodoStatus.COMPLETED
+                ? "active " + TodoStatus.COMPLETED.toLowerCase()
+                : ""
+            } `}
             onClick={() => setShowing(TodoStatus.COMPLETED)}
           >
             Completed
           </button>
+          <button className={`Action__btn `} onClick={onDeleteAllTodo}>
+            Clear all todos
+          </button>
         </div>
-        <button className="Action__btn" onClick={onDeleteAllTodo}>
-          Clear all todos
-        </button>
       </div>
+      <Card
+        todoList={showTodos}
+        onUpdateTodoStatus={onUpdateTodoStatus}
+        deleteTodo={deleteTodoFunc}
+        onTogglePopup={onTogglePopup}
+      />
     </div>
   );
 };
