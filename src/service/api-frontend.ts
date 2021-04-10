@@ -1,7 +1,7 @@
 import {IAPI} from './types';
 import {Todo, TodoStatus} from '../models/todo';
 import shortid from 'shortid';
-
+import {getLocalStore} from '../utils';
 const mockToken = 'testabc.xyz.ahk'
 
 class ApiFrontend extends IAPI {
@@ -24,6 +24,11 @@ class ApiFrontend extends IAPI {
     }
 
     async getTodos(): Promise<Todo[]>{
+        const localStoreToDoList = getLocalStore('todoList') ?? '';
+        const todoList = localStoreToDoList && JSON.parse(localStoreToDoList);
+        if(todoList.length > 0){
+            return todoList;
+        }
         return []
     }
 }
