@@ -1,12 +1,5 @@
-import React, {
-  useCallback,
-  useEffect,
-  useReducer,
-  useRef,
-  useState,
-} from "react";
+import React, { useReducer, useRef } from "react";
 import { Todo } from "../../models/todo";
-
 import reducer, { initialState } from "../../store/reducer";
 import { editTodo } from "../../store/actions";
 
@@ -23,13 +16,14 @@ const Popup = ({ isToggle, onTogglePopup, todoEdit, todolist }: Props) => {
   const onCreateTodo = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (todoEdit !== null) {
       if (e.key === "Enter" && inputRef.current) {
+        if (inputRef.current.value.length === 0) {
+          return;
+        }
         const todoEdited = {
           ...todoEdit,
           content: inputRef.current.value,
         };
-
         dispatch(editTodo(todoEdited));
-        console.log('yeah')
         onTogglePopup();
       }
     }
@@ -45,14 +39,17 @@ const Popup = ({ isToggle, onTogglePopup, todoEdit, todolist }: Props) => {
       onClick={(e) => onTogglePopup(e)}
     >
       <div className="popup-form" onClick={(e) => handleChildClick(e)}>
-        <input
-          ref={inputRef}
-          key={todoEdit?.content}
-          defaultValue={todoEdit ? todoEdit.content : ""}
-          className="Todo__input"
-          placeholder="What need to be done?"
-          onKeyDown={(e) => onCreateTodo(e)}
-        />
+        <div>
+          <h2>Edit you todo !</h2>
+          <input
+            ref={inputRef}
+            key={todoEdit?.content}
+            defaultValue={todoEdit ? todoEdit.content : ""}
+            className="Todo__input"
+            placeholder="What need to be done?"
+            onKeyDown={(e) => onCreateTodo(e)}
+          />
+        </div>
       </div>
     </div>
   );
