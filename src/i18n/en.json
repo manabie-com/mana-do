@@ -1,0 +1,25 @@
+{
+    "COMMONS": {
+        "ACTIVE": "Active",
+        "COMPLETED": "Completed",
+        "TITLE_LIST_TODO": "To Do List",
+        "ALL" : "All",
+        "CLEAR_ALL": "Clear all todos"
+    },
+    "INPUT": {
+        "PLACEHOLDER_CREATE_TODO": "What need to be done?",
+        "TITLE_CREATE_TODO": "Press enter to add todo",
+        "ADD_TODO_SUCCESSFULLY": "Add {{value}} successfully",
+        "REMOVE_ALL_SUCCESSFULLY": "Remove all todos successfully"
+    },
+    "BUTTON": {
+        "TITLE_ALL": "Show All List Todo",
+        "TITLE_ACTIVE": "Show List Todo with status is Active",
+        "TITLE_COMPLETED": "Show List Todo with status is Completed",
+        "TITLE_CLEAR_ALL": "Remove All List Todo"
+        
+    },
+    "ERRORS": {
+        "FIELD_REQUIRED": "Todo is required. Please type new task again !"
+    }
+}

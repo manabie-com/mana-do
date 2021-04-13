@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`render Input snapshots render input does not have label 1`] = `
+Array [
+  "",
+  <input
+    className=""
+    onChange={[Function]}
+    style={Object {}}
+    type="text"
+  />,
+]
+`;
+
+exports[`render Input snapshots render input has label 1`] = `
+Array [
+  <label>
+    password
+  </label>,
+  <input
+    className=""
+    onChange={[Function]}
+    style={Object {}}
+    type="text"
+  />,
+]
+`;

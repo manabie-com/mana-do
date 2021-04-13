@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`render Button snapshots render default Button 1`] = `
+<button
+  className=""
+  disabled={false}
+  style={
+    Object {
+      "backgroundColor": "#337ab7",
+      "color": "#fff",
+    }
+  }
+  type="button"
+>
+  Button
+</button>
+`;
+
+exports[`render Button snapshots render disabled Button 1`] = `
+<button
+  className=""
+  disabled={false}
+  style={
+    Object {
+      "backgroundColor": "#337ab7",
+      "color": "#fff",
+    }
+  }
+  type="button"
+>
+  Button disabled
+</button>
+`;

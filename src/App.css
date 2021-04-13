@@ -74,7 +74,10 @@ input:focus {
   align-items: center;
   justify-content: space-between;
 }
-
+.ToDo__edit {
+  min-width: 80%;
+  min-height: 27px;
+}
 .ToDo__item > span {
   flex: 1 1;
   text-align: left;
@@ -104,6 +107,7 @@ input:focus {
   width: 24px;
   height: 24px;
   flex-shrink: 0;
+  margin-left: 5px;
 }
 
 .Todo__toolbar {
@@ -120,6 +124,28 @@ input:focus {
 .Todo__tabs > *:not(:last-child) {
   margin-right: 8px;
 }
+.SignIn__container {
+    padding: 32px 40px;
+    background: #fff;
+    border-radius: 3px;
+    box-shadow: 0 0 10px rgb(0 0 0 / 10%);
+    box-sizing: border-box;
+}
+.SignIn__row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.SignIn__row label {
+  padding: 18px 12px 12px 0;
+}
 
 .Action__btn {
+  cursor: pointer;
+}
+
+.Action__btn:disabled {
+  background-color: #cccccc !important;
+  color: #666666 !important;
+  cursor: not-allowed;
 }

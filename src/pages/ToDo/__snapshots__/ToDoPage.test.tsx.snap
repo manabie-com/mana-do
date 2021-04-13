@@ -1,0 +1,99 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`render To do page snapshots render deafult 1`] = `
+<div
+  className="ToDo__container"
+>
+  <h2>
+    To Do List
+  </h2>
+  <div
+    className="Todo__creation"
+  >
+    
+    <input
+      className="Todo__input"
+      data-testid="input_create"
+      onChange={[Function]}
+      onKeyPress={[Function]}
+      placeholder="What need to be done?"
+      required={true}
+      style={Object {}}
+      title="Press enter to add todo"
+      type="text"
+    />
+  </div>
+  <div
+    className="ToDo__list"
+  />
+  <div
+    className="Todo__toolbar"
+  >
+    <div />
+    <div
+      className="Todo__tabs"
+    >
+      <button
+        className="Action__btn"
+        disabled={true}
+        onClick={[Function]}
+        style={
+          Object {
+            "backgroundColor": "#337ab7",
+            "color": "#fff",
+          }
+        }
+        title="Show All List Todo"
+        type="button"
+      >
+        All
+      </button>
+      <button
+        className="Action__btn"
+        disabled={false}
+        onClick={[Function]}
+        style={
+          Object {
+            "backgroundColor": "#28a745",
+            "color": "#fff",
+          }
+        }
+        title="Show List Todo with status is Active"
+        type="button"
+      >
+        Active
+      </button>
+      <button
+        className="Action__btn"
+        disabled={false}
+        onClick={[Function]}
+        style={
+          Object {
+            "backgroundColor": "#337ab7",
+            "color": "#fff",
+          }
+        }
+        title="Show List Todo with status is Completed"
+        type="button"
+      >
+        Completed
+      </button>
+      <button
+        className="Action__btn"
+        disabled={true}
+        onClick={[Function]}
+        style={
+          Object {
+            "backgroundColor": "#dc3545",
+            "color": "#fff",
+          }
+        }
+        title="Remove All List Todo"
+        type="button"
+      >
+        Clear all todos
+      </button>
+    </div>
+  </div>
+</div>
+`;
