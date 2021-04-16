@@ -1,0 +1,28 @@
+.signIn {
+    background-color: #98ddca;
+    width: 30%;
+    padding: 50px;
+    transition-duration: 0.5s;
+    border-radius: 8px;
+    height: 40vh;
+    box-shadow: 2px 2px 1px rgba(0, 0, 0, 0.09), 3px 2px 3px rgba(0, 0, 0, 0.05);
+
+    h1 {
+        color: white;
+    }
+    .grid {
+        display: inline-grid;
+        grid-template-columns: 90px auto;
+        margin-bottom: 10px;
+        .labelSignIn {
+            display: flex;
+            align-items: center;
+        }
+    }
+    .btnSignIn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 10px;
+    }
+}

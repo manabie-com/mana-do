@@ -1,0 +1,45 @@
+.submitButton {
+    position: relative;
+    z-index: 0;
+    cursor: pointer;
+    background-color: white;
+    padding: 8px 16px;
+    box-shadow: 2px 2px 1px #e4bad4;
+    .contentButton {
+        color: #e4bad4;
+        font-weight: bold;
+        z-index: 100;
+        transition-duration: 0.3s;
+        font-size: 1.2rem;
+    }
+    &::after {
+        position: absolute;
+        content: "";
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+       
+        transform: scaleX(0);
+        transform-origin: right center;
+        background-color: #e4bad4;
+        -webkit-transition: -webkit-transform 0.3s cubic-bezier(0.785, 0.135, 0.15, 0.86);
+        transition: -webkit-transform 0.3s cubic-bezier(0.785, 0.135, 0.15, 0.86);
+        transition: transform 0.3s cubic-bezier(0.785, 0.135, 0.15, 0.86);
+        -webkit-transform: 0.3s cubic-bezier(0.785, 0.135, 0.15, 0.86);
+        z-index: -1111;
+    }
+    &:hover {
+        .contentButton {
+            color: white;
+        }
+        &::after {
+            transform: scaleX(1);
+            transform-origin: left center;
+            opacity: 1;
+        }
+    }
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
