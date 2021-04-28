@@ -1,0 +1,49 @@
+.App {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+  background-color: #76b852;
+}
+
+button {
+  outline: none;
+  border: none;
+  box-shadow: 1px 0 2px currentColor;
+  border-radius: 4px;
+  min-height: 32px;
+  min-width: 80px;
+  padding: 4px 8px;
+  cursor: pointer;
+}
+
+button:hover {
+  opacity: 0.85;
+}
+
+input[type="checkbox"] {
+  box-shadow: none;
+  border: none;
+  outline: none;
+}
+
+input[type="checkbox"]:focus {
+  box-shadow: none;
+  border: none;
+  outline: none;
+}
+
+input {
+  min-height: 36px;
+  border: none;
+  outline: none;
+  padding: 0 12px;
+  box-shadow: 1px 0 4px rgba(0,0,0, 0.2);
+  border-radius: 4px;
+}
+
+input:focus {
+  box-shadow: 1px 0 9px rgba(0,0,0, 0.25);
+}
+

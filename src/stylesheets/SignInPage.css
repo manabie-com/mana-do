@@ -1,0 +1,28 @@
+.Form__container {
+  margin-top: 15rem;
+}
+
+.Form__signin {
+  padding: 2rem 2.5rem 2.5rem;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
+  box-shadow: 0 0 20px 0 #00000033, 0 5px 5px 0 #0000003d;
+}
+
+.Form__signin input {
+  width: 250px;
+  margin-top: .75rem;
+}
+
+.Action__btn {
+  box-shadow: none;
+  color: #fff;
+  height: 36px;
+  text-transform: uppercase;
+  background-color: #76b852;
+}

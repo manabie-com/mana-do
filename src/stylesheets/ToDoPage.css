@@ -1,58 +1,13 @@
-.App {
-  text-align: center;
-  display: flex;
-  justify-content: center;
-}
-
-button {
-  outline: none;
-  border: none;
-  box-shadow: 2px 0 2px currentColor;
-  border-radius: 4px;
-  min-height: 32px;
-  min-width: 80px;
-  padding: 4px 8px;
-}
-
-button:hover {
-  opacity: 0.85;
-}
-
-input[type="checkbox"] {
-  width: 24px;
-  height: 24px;
-  box-shadow: none;
-  border: none;
-  outline: none;
-}
-
-input[type="checkbox"]:focus {
-  box-shadow: none;
-  border: none;
-  outline: none;
-}
-
-input {
-  min-height: 36px;
-  border: none;
-  outline: none;
-  padding: 0 12px;
-  box-shadow: 2px 0 4px rgba(0,0,0, 0.2);
-  border-radius: 4px;
-}
-
-input:focus {
-  box-shadow: 1px 0 9px rgba(0,0,0, 0.25);
-}
-
 .ToDo__container {
   border: 1px solid rgba(0,0,0, 0.13);
+  background-color: #fff;
   border-radius: 8px;
   width: 500px;
+  height: fit-content;
   margin-top: 5rem;
-  padding: 24px;
-  box-shadow: 2px 2px 1px rgba(0,0,0, 0.09),
-              3px 2px 3px rgba(0,0,0, 0.05);
+  padding: 2rem;
+  box-shadow: 0 0 20px 0 #00000033, 0 5px 5px 0 #0000003d;
+
 }
 
 .Todo__creation {
@@ -78,7 +33,8 @@ input:focus {
 .ToDo__item > span {
   flex: 1 1;
   text-align: left;
-  margin-left: 8px;
+  margin: 0 8px 3px;
+  word-break: break-word;
 }
 
 .Todo__content {
@@ -108,12 +64,14 @@ input:focus {
 
 .Todo__toolbar {
   display: flex;
+  align-items: center;
   justify-content: space-between;
   margin-top: 24px;
 }
 
 .Todo__tabs {
   display: flex;
+  align-items: center;
   justify-content: center;
 }
 
@@ -121,5 +79,28 @@ input:focus {
   margin-right: 8px;
 }
 
-.Action__btn {
+.ToDo__status {
+  margin-left: .25rem;
+  font-style: italic;
+  font-size: 14px;
+}
+
+.ToDo__status__completed {
+  color: #57ad28;
+}
+
+.ToDo__status__active {
+  color: #d28c21;
+}
+
+.ToDo__input__edit {
+  width: 100%;
+  margin: 0 8px 3px;
+  min-height: 28px;
+  box-shadow: none;
+  border: 1px solid #ddd;
+}
+
+.Action__btn__active {
+  background-color: #1d819c;
 }
