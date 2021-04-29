@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import { useHistory } from 'react-router-dom';
-import { clearTodos } from '../utils/helpers';
-import Service from '../service';
-import '../stylesheets/SignInPage.css';
+import { clearTodos } from '../../utils/helpers';
+import Service from '../../service';
+import '../../stylesheets/SignInPage.css';
 
 const SignInPage = () => {
-  const [form, setForm] = useState({
+  const [form, setForm] = React.useState({
     userId: '',
     password: ''
   });
@@ -22,11 +22,11 @@ const SignInPage = () => {
   }
 
   const onChangeField = (e: React.ChangeEvent<HTMLInputElement>) => {
-    e.persist()
-    setForm(prev=>({
-      ...prev,
+    e.persist();
+    setForm({
+      ...form,
       [e.target.name]: e.target.value
-    }))
+    })
   }
 
   return (

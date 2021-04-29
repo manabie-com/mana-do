@@ -12,8 +12,13 @@
     "@types/react-dom": "^16.9.0",
     "axios": "^0.19.2",
     "cross-env": "^7.0.2",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.6",
+    "history": "^5.0.0",
+    "jest": "24.9.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-hooks-testing-library": "^0.6.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
     "shortid": "^2.2.15",
@@ -23,7 +28,7 @@
     "start:fullstack": "cross-env REACT_APP_WHOAMI=fullstack react-scripts start",
     "start:frontend": "cross-env REACT_APP_WHOAMI=frontend react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "react-scripts test --coverage",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -42,7 +47,10 @@
     ]
   },
   "devDependencies": {
+    "@types/enzyme-adapter-react-16": "^1.0.6",
     "@types/react-router-dom": "^5.1.5",
-    "@types/shortid": "^0.0.29"
+    "@types/shortid": "^0.0.29",
+    "enzyme-to-json": "^3.6.2",
+    "react-test-renderer": "^17.0.2"
   }
 }
