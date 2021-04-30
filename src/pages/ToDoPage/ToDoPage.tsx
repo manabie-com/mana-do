@@ -21,9 +21,9 @@ type EnhanceTodoStatus = TodoStatus | TodoStatus.ALL;
 
 const ToDoPage = ({ history }: RouteComponentProps ) => {
   const [{ todos }, dispatch] = useReducer(reducer, initialState);
-  const [showing, setShowing] = useState<EnhanceTodoStatus>(TodoStatus.ALL);
-  const [todoId, setTodoId] = useState('');
-  const [curValue, setCurValue] = useState('');
+  const [showing, setShowing] = React.useState<EnhanceTodoStatus>(TodoStatus.ALL);
+  const [todoId, setTodoId] = React.useState('');
+  const [curValue, setCurValue] = React.useState('');
   const inputRef = useRef<HTMLInputElement>(null);
   const inputUpdateRef = useRef<HTMLInputElement>(null);
 
@@ -183,18 +183,21 @@ const ToDoPage = ({ history }: RouteComponentProps ) => {
 
         <div className="Todo__tabs">
           <button
+            data-testid="btn-all"
             className={`Action__btn ${showing === TodoStatus.ALL ? 'Action__btn__active' : ''}`}
             onClick={()=>setShowing(TodoStatus.ALL)}
           >
             All
           </button>
           <button
+            data-testid="btn-active"
             className={`Action__btn ${showing === TodoStatus.ACTIVE ? 'Action__btn__active' : ''}`}
             onClick={()=>setShowing(TodoStatus.ACTIVE)}
           >
             Active
           </button>
           <button
+            data-testid="btn-completed"
             className={`Action__btn ${showing === TodoStatus.COMPLETED ? 'Action__btn__active' : ''}`}
             onClick={()=>setShowing(TodoStatus.COMPLETED)}
           >
@@ -202,7 +205,11 @@ const ToDoPage = ({ history }: RouteComponentProps ) => {
           </button>
         </div>
 
-        <button className="Action__btn" onClick={onDeleteAllTodo}>
+        <button
+          data-testid="btn-clear"
+          className="Action__btn"
+          onClick={onDeleteAllTodo}
+        >
           Clear all todos
         </button>
       </div>
