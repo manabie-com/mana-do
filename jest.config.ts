@@ -4,6 +4,8 @@ module.exports = {
   collectCoverageFrom: [
     'src/pages/SignInPage/SignInPage.tsx',
     'src/pages/ToDoPage/ToDoPage.tsx',
+    'src/store/actions.ts',
+    'src/store/reducer.ts',
   ],
   coverageThreshold: {
     global: {

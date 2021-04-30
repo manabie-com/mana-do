@@ -25,7 +25,7 @@ export const initialState: AppState = {
 // That the reason i use state.todos to get the current data instead state.todos
 
 function reducer(state: AppState, action: AppActions): AppState {
-  switch (action.type) {
+  switch (action?.type) {
     case CREATE_TODO: {
       const newTodos = [...state.todos];
       newTodos.push(action.payload);
@@ -112,8 +112,9 @@ function reducer(state: AppState, action: AppActions): AppState {
         todos: []
       }
     }
+
     default:
-      return state;
+      return initialState;
   }
 }
 
