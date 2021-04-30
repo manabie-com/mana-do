@@ -31,33 +31,41 @@ const SignInPage = () => {
 
   return (
     <div className="Form__container">
+      <div className="Form__bg" />
       <form className="Form__signin" onSubmit={signIn}>
-        <input
-          id="user_id"
-          name="userId"
-          placeholder="User ID"
-          value={form.userId}
-          onChange={onChangeField}
-        />
+        <div className="Form__signin__title">
+          <h1>Welcome Back!</h1>
+          <span>Do you have something to do today?</span>
+        </div>
 
-        <input
-          id="password"
-          name="password"
-          type="password"
-          placeholder="Password"
-          value={form.password}
-          onChange={onChangeField}
-        />
+        <div className="Form__group__input">
+          <input
+            id="user_id"
+            name="userId"
+            placeholder="User ID"
+            value={form.userId}
+            onChange={onChangeField}
+          />
+
+          <input
+            id="password"
+            name="password"
+            type="password"
+            placeholder="Password"
+            value={form.password}
+            onChange={onChangeField}
+          />
+        </div>
 
         <button
           className="Action__btn"
           type="submit"
           style={{
             width: '100%',
-            marginTop: '1rem',
+            marginTop: '2rem',
           }}
         >
-          Sign in
+          Let's make a plan
         </button>
       </form>
     </div>

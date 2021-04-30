@@ -4,10 +4,7 @@
   justify-content: center;
   width: 100vw;
   height: 100vh;
-  background-color: #fefefe;
-  background-image: linear-gradient(#a0e4a2 0%, #409e59 100%);
-  background-repeat: no-repeat;
-  background-size: cover;
+  background-color: #b9c8d8;
 }
 
 button {
@@ -43,11 +40,11 @@ input {
   border: none;
   outline: none;
   padding: 0 12px;
-  box-shadow: 1px 0 4px rgba(0,0,0, 0.2);
   border-radius: 3px;
+  border-bottom: 1px solid #ddd;
 }
 
 input:focus {
-  box-shadow: 1px 0 9px rgba(0,0,0, 0.25);
+  box-shadow: none;
 }
 

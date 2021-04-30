@@ -4,9 +4,15 @@
   border-radius: 8px;
   width: 500px;
   height: fit-content;
-  margin-top: 5rem;
   padding: 2rem;
   box-shadow: 0 0 20px 0 #00000033, 0 5px 5px 0 #0000003d;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  right: 0;
+  bottom: 0;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
 }
 
 .Todo__creation {
@@ -15,6 +21,9 @@
 
 .Todo__input {
   flex: 1 1;
+  height: 42px;
+  font-size: 14px;
+  border: 1px solid #ddd
 }
 
 .ToDo__list {
@@ -22,6 +31,7 @@
   flex-direction: column;
   margin-top: 1rem;
   max-height: 50vh;
+  min-height: 10vh;
   overflow-y: auto;
   overflow-x: hidden;
 }
@@ -42,11 +52,13 @@
 .Todo__total {
   text-align: right;
   margin-top: 1rem;
+  margin-bottom: 2rem;
 }
 
 .ToDo__empty {
   height: 10vh;
   margin-top: 1.5rem;
+  font-size: 18px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -89,6 +101,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.Todo__toolbar button {
+  height: 36px;
 }
 
 .Todo__tabs > *:not(:last-child) {
