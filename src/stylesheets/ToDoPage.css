@@ -1,13 +1,12 @@
 .ToDo__container {
   border: 1px solid rgba(0,0,0, 0.13);
-  background-color: #fff;
+  background-color: #f4f7fc;
   border-radius: 8px;
   width: 500px;
   height: fit-content;
   margin-top: 5rem;
   padding: 2rem;
   box-shadow: 0 0 20px 0 #00000033, 0 5px 5px 0 #0000003d;
-
 }
 
 .Todo__creation {
@@ -21,13 +20,36 @@
 .ToDo__list {
   display: flex;
   flex-direction: column;
-  margin-top: 1.5rem;
+  margin-top: 1rem;
+  max-height: 50vh;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .ToDo__item {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding: 0rem .25rem;
+  margin-bottom: .5rem;
+  border-radius: 3px;
+  background-color: #e0e8f5;
+  transition: all 400ms ease;
+  cursor: pointer;
+  position: relative;
+}
+
+.Todo__total {
+  text-align: right;
+  margin-top: 1rem;
+}
+
+.ToDo__empty {
+  height: 10vh;
+  margin-top: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .ToDo__item > span {
@@ -42,24 +64,17 @@
 }
 
 .Todo__delete {
-  outline: none;
-  border: none;
-  width: 32px;
-  height: 32px;
+  width: 38px;
+  height: 100%;
+  font-size: 12px;
   min-width: auto;
   min-height: auto;
   box-shadow: none;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   cursor: pointer;
-}
-
-.Todo__action, .Todo__delete {
-  width: 24px;
-  height: 24px;
-  flex-shrink: 0;
+  position: absolute;
+  background-color: #f56468;
+  color: #fff;
+  right: -40px;
 }
 
 .Todo__toolbar {
@@ -67,6 +82,7 @@
   align-items: center;
   justify-content: space-between;
   margin-top: 24px;
+  padding-left: .25rem;
 }
 
 .Todo__tabs {
@@ -95,10 +111,19 @@
 
 .ToDo__input__edit {
   width: 100%;
-  margin: 0 8px 3px;
+  margin: 0 40px 3px 8px;
   min-height: 28px;
   box-shadow: none;
   border: 1px solid #ddd;
+}
+
+.ToDo__input__edit:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+.ToDo__item:hover .Todo__delete {
+  right: 0px;
 }
 
 .Action__btn__active {

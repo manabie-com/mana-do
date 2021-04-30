@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 
 import reducer, { initialState } from '../../store/reducer';
@@ -19,8 +19,8 @@ import '../../stylesheets/ToDoPage.css';
 
 type EnhanceTodoStatus = TodoStatus | TodoStatus.ALL;
 
-const ToDoPage = ({ history }: RouteComponentProps ) => {
-  const [{ todos }, dispatch] = useReducer(reducer, initialState);
+const ToDoPage = ({ history }: RouteComponentProps) => {
+  const [{ todos }, dispatch] = React.useReducer(reducer, initialState);
   const [showing, setShowing] = React.useState<EnhanceTodoStatus>(TodoStatus.ALL);
   const [todoId, setTodoId] = React.useState('');
   const [curValue, setCurValue] = React.useState('');
@@ -69,6 +69,7 @@ const ToDoPage = ({ history }: RouteComponentProps ) => {
         if (inputRef.current.value) {
           const resp = await Service.createTodo(inputRef.current.value);
           dispatch(createTodo(resp));
+          setShowing(TodoStatus.ALL);
           inputRef.current.value = '';
         }
       } catch (e) {
@@ -95,6 +96,11 @@ const ToDoPage = ({ history }: RouteComponentProps ) => {
 
   const onToggleAllTodo = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(toggleAllTodos(e.target.checked))
+    if (e.target.checked) {
+      setShowing(TodoStatus.COMPLETED)
+    } else {
+      setShowing(TodoStatus.ALL)
+    }
   }
 
   const onDeleteAllTodo = () => {
@@ -130,47 +136,57 @@ const ToDoPage = ({ history }: RouteComponentProps ) => {
           onKeyDown={onCreateTodo}
         />
       </div>
-      
-      <div className="ToDo__list">
-        {
-          showTodos.map((todo: Todo, index: React.Key|undefined) => (
-            <div key={index} className="ToDo__item">
-              <input
-                type="checkbox"
-                checked={isTodoCompleted(todo)}
-                onChange={(e) => onUpdateTodoStatus(e, todo.id)}
-              />
 
-              { todoId === todo.id
-                ? (
-                  <input
-                    ref={inputUpdateRef}
-                    value={curValue}
-                    autoFocus
-                    className='ToDo__input__edit'
-                    onChange={handleOnChangeEdit}
-                    onKeyDown={(e) => onUpdateTodo(e, todo.id)}
-                  />
-                ) : (
-                  <span onDoubleClick={() => handleDbClick(todo.id, todo.content)}>
-                    <span>{todo.content}</span>
-                    <span className={`ToDo__status ToDo__status__${todo.status?.toLowerCase()}`}>
-                      {`(${todo.status})`}
-                    </span>
-                  </span>
-                )
-              }
-
-              <button
-                className="Todo__delete"
-                onClick={() => dispatch(deleteTodo(todo.id))}
-              >
-                X
-              </button>
+      {todos && todos.length > 0
+        ? (
+          <>
+            <div className="Todo__total">
+              You have <strong>{todos.length}</strong> {todos.length > 1 ? 'things' : 'thing'} to do
             </div>
-          ))
-        }
-      </div>
+            
+            <div className="ToDo__list">
+              {
+                showTodos.map((todo: Todo, index: React.Key|undefined) => (
+                  <div key={index} className="ToDo__item">
+                    <input
+                      type="checkbox"
+                      checked={isTodoCompleted(todo)}
+                      onChange={(e) => onUpdateTodoStatus(e, todo.id)}
+                    />
+
+                    { todoId === todo.id
+                      ? (
+                        <input
+                          ref={inputUpdateRef}
+                          value={curValue}
+                          autoFocus
+                          className='ToDo__input__edit'
+                          onChange={handleOnChangeEdit}
+                          onKeyDown={(e) => onUpdateTodo(e, todo.id)}
+                        />
+                      ) : (
+                        <span onDoubleClick={() => handleDbClick(todo.id, todo.content)}>
+                          <span>{todo.content}</span>
+                          <span className={`ToDo__status ToDo__status__${todo.status?.toLowerCase()}`}>
+                            {`(${todo.status})`}
+                          </span>
+                        </span>
+                      )
+                    }
+
+                    <button
+                      className="Todo__delete"
+                      onClick={() => dispatch(deleteTodo(todo.id))}
+                    >
+                      X
+                    </button>
+                  </div>
+                ))
+              }
+            </div>
+          </>
+        ) : <div className="ToDo__empty">Time to chill! You have nothing to do. :)</div>
+      }
 
       <div className="Todo__toolbar">
         {showTodos.length > 0 ?

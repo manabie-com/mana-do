@@ -1,7 +1,9 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import ToDoPage from './ToDoPage';
 import { TodoStatus } from '../../models/todo';
+
+
+import ToDoPage from './ToDoPage';
 
 const fakeLocalStorage = (function () {
   let store = {};
@@ -40,6 +42,7 @@ describe('render ToDoPage', () => {
   useStateSpy.mockImplementation((init) => [init, setState]);
 
   beforeEach(() => {
+    window.localStorage.setItem('todos', mockProps.todos);
     Component = mount(<ToDoPage {...mockProps} />);
   });
 
@@ -54,15 +57,12 @@ describe('render ToDoPage', () => {
     expect(Component).toMatchSnapshot();
   });
 
-  it('should have todos data', () => {
-    window.localStorage.setItem('todos', mockProps.todos);
-    expect(window.localStorage.getItem('todos')).toEqual(JSON.stringify(mockProps.todos));
+  it('should render todo list', () => {
+    expect(Component.find('div.ToDo__item')).toHaveLength(3);
   });
 
   describe('click tab action', () => {
     it('should call setState and change status is ALL', () => {
-      Component.setProps({ todos: mockProps.todos });
-      window.localStorage.setItem('todos', mockProps.todos);
       const AllBtn = Component.find(
         'button[data-testid="btn-all"]',
       );
@@ -72,7 +72,6 @@ describe('render ToDoPage', () => {
     });
 
     it('should call setState and change status is ACTIVE', () => {
-      window.localStorage.setItem('todos', mockProps.todos);
       const ActiveBtn = Component.find(
         'button[data-testid="btn-active"]',
       );
@@ -82,7 +81,6 @@ describe('render ToDoPage', () => {
     });
 
     it('should call setState and change status is COMPLETED', () => {
-      window.localStorage.setItem('todos', mockProps.todos);
       const CompletedBtn = Component.find(
         'button[data-testid="btn-completed"]',
       );
