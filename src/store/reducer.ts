@@ -19,9 +19,9 @@ export const initialState: AppState = {
 function reducer(state: AppState, action: AppActions): AppState {
   switch (action.type) {
     case CREATE_TODO:
-      state.todos.push(action.payload);
       return {
-        ...state
+        ...state,
+        todos: [ ...state.todos, action.payload]
       };
 
     case UPDATE_TODO_STATUS:

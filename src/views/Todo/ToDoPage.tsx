@@ -14,6 +14,7 @@ import {
 import Service from '../../service';
 import {TodoStatus} from '../../models/todo';
 import {isTodoCompleted} from '../../utils';
+import './style.css'
 
 type EnhanceTodoStatus = TodoStatus | 'ALL';
 
@@ -39,6 +40,7 @@ const ToDoPage = ({ history }: RouteComponentProps) => {
         if (e.key === 'Enter' && inputRef.current) {
             try {
                 const resp = await Service.createTodo(inputRef.current.value);
+        console.log(1, resp)
                 dispatch(createTodo(resp));
                 inputRef.current.value = '';
             } catch (e) {
@@ -83,7 +85,7 @@ const ToDoPage = ({ history }: RouteComponentProps) => {
                     ref={inputRef}
                     className="Todo__input"
                     placeholder="What need to be done?"
-                    onKeyDown={onCreateTodo}
+                    onKeyPress={onCreateTodo}
                 />
             </div>
             <div className="ToDo__list">
