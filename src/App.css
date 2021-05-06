@@ -4,20 +4,6 @@
   justify-content: center;
 }
 
-button {
-  outline: none;
-  border: none;
-  box-shadow: 2px 0 2px currentColor;
-  border-radius: 4px;
-  min-height: 32px;
-  min-width: 80px;
-  padding: 4px 8px;
-}
-
-button:hover {
-  opacity: 0.85;
-}
-
 input[type="checkbox"] {
   width: 24px;
   height: 24px;
@@ -37,8 +23,9 @@ input {
   border: none;
   outline: none;
   padding: 0 12px;
-  box-shadow: 2px 0 4px rgba(0,0,0, 0.2);
+  box-shadow: 0px 0px 5px 1px rgb(0 0 0 / 20%);
   border-radius: 4px;
+  width: 100%;
 }
 
 input:focus {
@@ -121,5 +108,20 @@ input:focus {
   margin-right: 8px;
 }
 
-.Action__btn {
+/* .Action__btn {
+} */
+
+.d-flex {
+  display: flex;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: gray;
+  align-items: center;
+  justify-content: center;
 }

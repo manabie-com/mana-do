@@ -1,7 +1,8 @@
 import React, {useEffect, useReducer, useRef, useState} from 'react';
 import {RouteComponentProps} from 'react-router-dom';
 
-import reducer, {initialState} from './store/reducer';
+import reducer, {initialState} from '../../store/reducer';
+
 import {
     setTodos,
     createTodo,
@@ -9,18 +10,22 @@ import {
     toggleAllTodos,
     deleteAllTodos,
     updateTodoStatus
-} from './store/actions';
-import Service from './service';
-import {TodoStatus} from './models/todo';
-import {isTodoCompleted} from './utils';
+} from '../../store/actions';
+import Service from '../../service';
+import {TodoStatus} from '../../models/todo';
+import {isTodoCompleted} from '../../utils';
 
 type EnhanceTodoStatus = TodoStatus | 'ALL';
 
 
-const ToDoPage = ({history}: RouteComponentProps) => {
+const ToDoPage = ({ history }: RouteComponentProps) => {
     const [{todos}, dispatch] = useReducer(reducer, initialState);
     const [showing, setShowing] = useState<EnhanceTodoStatus>('ALL');
     const inputRef = useRef<HTMLInputElement>(null);
+
+    useEffect(() => {
+        if (!localStorage.getItem('token')) history.push('/');
+    }, [ history ])
 
     useEffect(()=>{
         (async ()=>{
