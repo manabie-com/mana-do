@@ -40,7 +40,6 @@ const ToDoPage = ({ history }: RouteComponentProps) => {
         if (e.key === 'Enter' && inputRef.current) {
             try {
                 const resp = await Service.createTodo(inputRef.current.value);
-        console.log(1, resp)
                 dispatch(createTodo(resp));
                 inputRef.current.value = '';
             } catch (e) {
