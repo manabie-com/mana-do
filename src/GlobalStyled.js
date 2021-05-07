@@ -16,3 +16,4 @@ body {
   }
   
 `
+export default GlobalStyled
