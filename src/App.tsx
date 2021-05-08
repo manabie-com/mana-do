@@ -1,11 +1,11 @@
 import React, { lazy, Suspense } from 'react';
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
 
-import SignInPage from './views/Signin/SignInPage';
-// import ToDoPage from './views/Todo/ToDoPage';
+import SignInPage from './views/Signin/SignIn';
+// import ToDoPage from './views/Todo/ToDo';
 import './App.css';
 
-const ToDoPage = lazy(() => import('./views/Todo/ToDoPage'));
+const ToDoPage = lazy(() => import('./views/Todo/ToDo'));
 const NotFound = lazy(() => import('./views/NotFound/NotFound'));
 
 function App() {
