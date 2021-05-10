@@ -1,4 +1,4 @@
-import React, {useEffect, useReducer, useRef, useState} from 'react';
+import React, { useEffect, useReducer, useRef, useState } from 'react';
 import {RouteComponentProps} from 'react-router-dom';
 
 import reducer, {initialState} from '../../store/reducer';
@@ -19,7 +19,6 @@ import TodoItem from '../../components/ToDoItem'
 import './style.css'
 
 type EnhanceTodoStatus = TodoStatus | 'ALL';
-
 
 const ToDoPage = ({ history }: RouteComponentProps) => {
     const [{todos}, dispatch] = useReducer(reducer, initialState);

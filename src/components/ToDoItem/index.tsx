@@ -1,4 +1,5 @@
 import React, { useState, useRef } from 'react';
+import { useOnClickOutside } from '../../utils/customHooks';
 
 import './style.css'
 
@@ -32,7 +33,14 @@ const TodoItem = (props : ToDoItemProps): JSX.Element => {
         setContentEditable(!isContentEditable);
     }
 
+    const resetContentEditable = () => {
+        setContentEditable(false);
+        setTodoContent(content);
+        setContentValue(content);
+    }
+
     const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        e.stopPropagation();
         const { keyCode } = e;
         if (keyCode === 13 && editContentRef.current) {
             const newContent = editContentRef.current.value
@@ -40,8 +48,15 @@ const TodoItem = (props : ToDoItemProps): JSX.Element => {
             setTodoContent(newContent);
             setContentValue(newContent);
             onUpdateContent(newContent)
+        } else if (keyCode === 27) {
+            resetContentEditable();
         }
     }
+
+    const handleClickOutside = () => {
+        resetContentEditable();
+    }
+    useOnClickOutside(editContentRef, handleClickOutside)
 
     return <div className="ToDo__item">
     <input
