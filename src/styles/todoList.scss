@@ -1,0 +1,64 @@
+//
+// List styles
+//
+
+.todo__list {
+  display: flex;
+  flex-direction: column;
+  &-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .item__content {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      flex: 1 1;
+      padding: 0 0.5em;
+      &--read {
+        cursor: pointer;
+        .content--read {
+          display: inline-block;
+        }
+        input {
+          display: none;
+        }
+      }
+      &--edit {
+        .content--read {
+          display: none;
+        }
+        input {
+          display: block;
+          flex: 1 1;
+        }
+      }
+    }
+    .item__action {
+      outline: none;
+      border: none;
+      width: 32px;
+      height: 32px;
+      min-width: auto;
+      min-height: auto;
+      box-shadow: none;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    // When item active
+    &--active {
+    }
+    // When item completed
+    &--completed {
+      .item__content {
+        text-decoration: line-through;
+        color: #c3c3c3;
+        opacity: 0.8;
+      }
+    }
+  }
+}

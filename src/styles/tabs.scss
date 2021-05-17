@@ -1,0 +1,58 @@
+.ToDo__tabs {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #e3e3e3;
+  .tabs__nav {
+    position: relative;
+    justify-content: space-between;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    &::before {
+      border-bottom: 1px solid #e3e3e3;
+      content: "";
+      left: 0;
+      position: absolute;
+      right: 0;
+      bottom: 0;
+    }
+    &-wrapper {
+      display: flex;
+      flex-direction: row;
+      .nav__tab {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background: 0 0;
+        border: 0;
+        cursor: pointer;
+        font-size: 14px;
+        outline: none;
+        padding: 1em 1em;
+        position: relative;
+        min-width: 2em;
+        transition: all 0.5 ease-in-out;
+        &:hover {
+          div[role="tab"] {
+            color: var(--success);
+          }
+        }
+        &--active {
+          div[role="tab"] {
+            color: var(--success);
+            font-weight: 500;
+          }
+        }
+      }
+    }
+    &-action {
+      margin: 0 0.5em;
+      button + button {
+        margin-left: 0.5em;
+      }
+    }
+  }
+  .tabs__body {
+    padding: 0.5em.5em;
+  }
+}
