@@ -2,9 +2,6 @@ import React from "react";
 import {
   render,
   cleanup,
-  fireEvent,
-  waitForDomChange,
-  waitForElement,
 } from "@testing-library/react";
 import TodoListItem from "./TodoListItem";
 import { Todo, TodoStatus } from "../models/todo";
