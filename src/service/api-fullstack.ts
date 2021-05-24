@@ -1,5 +1,5 @@
 import {IAPI} from './types';
-import {Todo} from '../models/todo';
+import {Todo, TodoStatus} from '../models/todo';
 import axios from '../utils/axios';
 import {AxiosResponse} from 'axios';
 
@@ -22,6 +22,18 @@ class ApiFullstack extends IAPI {
         const resp = await axios.get<AxiosResponse<Array<Todo>>>(`/tasks`);
 
         return resp.data.data;
+    }
+
+    removeTodo(id: string): Promise<string> {
+        throw "this method is not implemented";
+    }
+
+    updateTodo(id: string, content?: string | undefined, status?: TodoStatus | undefined): Promise<Todo> {
+        throw "this method is not implemented";
+    }
+
+    updateTodos(todos: Todo[]): Promise<Todo[]> {
+        throw "this method is not implemented";
     }
 }
 

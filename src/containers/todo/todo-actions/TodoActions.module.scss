@@ -1,0 +1,19 @@
+.TodoActions {
+  display: flex;
+  justify-content: flex-start;
+  padding: 15px 0;
+  border-bottom: 1px solid #DCE0E4;
+  background-color: #fafafa;
+
+  .ToggleAllCell {
+    justify-content: center;
+  }
+
+  .RemoveCell {
+  }
+
+  .Checkbox {
+    width: 22px;
+    height: 22px;
+  }
+}

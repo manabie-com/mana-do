@@ -1,0 +1,21 @@
+.RemoveButton {
+  font-size: 13px;
+  height: 30px;
+  border: none;
+  border-radius: 20px;
+  color: #ffffff;
+  background-size: 300% 100%;
+  transition: all .4s ease-in-out;
+  background-image: linear-gradient(to right, #ff7875, #f5222d, #ff7875, #f5222d);
+
+  &:disabled {
+    cursor: not-allowed;
+  }
+
+  &:not(:disabled) {
+    &:hover {
+      background-position: 100% 0;
+      transition: all .4s ease-in-out;
+    }
+  }
+}

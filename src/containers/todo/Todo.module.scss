@@ -1,0 +1,14 @@
+.TodoContainer {
+  height: 100%;
+  background-color: #ffffff;
+  padding: 30px;
+
+  .CreateTodo {
+    padding: 20px 0;
+  }
+
+  .TodoList {
+    height: calc(100% - 150px);
+    overflow: auto;
+  }
+}

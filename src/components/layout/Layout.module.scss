@@ -1,0 +1,63 @@
+@import '../../styles/variables';
+
+.Layout {
+  height: 100vh;
+  background: #f0f2f5;
+  flex: auto;
+}
+
+.Header {
+  height: 64px;
+  padding: 0 50px;
+  line-height: 64px;
+  background: $header-background;
+  color: #fff;
+  font-size: 1.2rem;
+  font-weight: 700;
+  display: flex;
+  justify-content: space-between;
+}
+
+.HeaderText {
+  margin: 0;
+}
+
+.LoginButton {
+  font-size: 13px;
+  border: none;
+  border-radius: 20px;
+
+  &:hover {
+    box-shadow: 0 2px 8px 0 rgba(65, 132, 234, 0.75);
+    color: $primary-color;
+  }
+}
+
+.Content {
+  margin: auto;
+  padding: 15px;
+  height: calc(100vh - 190px);
+}
+
+.Footer {
+  padding: 24px 50px;
+  color: rgba(0, 0, 0, .85);
+  font-size: 14px;
+  background: #f0f2f5;
+  text-align: center;
+
+  .AuthorName {
+    font-weight: 700;
+  }
+
+  .HearthIcon {
+    color: red;
+  }
+}
+
+@media (min-width: 1440px) {
+  .Content {
+    max-width: 900px;
+    padding: 50px 50px 0;
+  }
+}

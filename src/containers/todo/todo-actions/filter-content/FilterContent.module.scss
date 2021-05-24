@@ -1,0 +1,16 @@
+@import '../../../../styles/variables';
+
+.FilterContent {
+  .FilterButton {
+    &:not(.active) {
+      &:hover {
+        color: $primary-color;
+      }
+    }
+
+    &.active {
+      background-color: $primary-color;
+      color: white;
+    }
+  }
+}

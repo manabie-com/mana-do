@@ -1,0 +1,21 @@
+@mixin dragIconLine() {
+  background-image: radial-gradient(black 50%, transparent 50%);
+  background-size: 4px 4px;
+  background-position: 0 100%;
+  background-repeat: repeat-x;
+}
+
+.DraggableIcon {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  @include dragIconLine();
+
+  &:before, &:after {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 33%;
+    @include dragIconLine()
+  }
+}

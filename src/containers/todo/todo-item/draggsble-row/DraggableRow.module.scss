@@ -1,0 +1,10 @@
+.DraggableRow {
+  display: flex;
+  justify-content: flex-start;
+  padding: 10px 0;
+  border-bottom: 1px solid #DCE0E4;
+
+  &.dragging {
+    background-color: #e6f7ff;
+  }
+}
