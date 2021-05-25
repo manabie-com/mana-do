@@ -4,6 +4,7 @@ import Classes from './TodoItem.module.scss';
 import TodoCell from '../todo-cell/TodoCell';
 import DraggableRow from './draggsble-row/DraggableRow';
 import RemoveButton from '../../../components/remove-button/RemoveButton';
+import {useOnClickOutside} from '../../../utils/hooks';
 
 export interface ITodoItemProps {
   todo: Todo;
@@ -26,10 +27,17 @@ const TodoItem = (props: ITodoItemProps) => {
   const [isEditMode, setEditMode] = useState(false);
   const [content, setContent] = useState(todo.content);
   const isCompleted = todo.status === TodoStatus.COMPLETED;
+  const ref = useRef<HTMLInputElement>(null);
+  const handleClickOutside = () =>{
+    setEditMode(false);
+    setContent(todo.content);
+  };
 
   useEffect(() => {
     setContent(todo.content);
-  }, [todo])
+  }, [todo]);
+
+  useOnClickOutside(ref, handleClickOutside);
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.keyCode === 13 && content) {
@@ -46,14 +54,14 @@ const TodoItem = (props: ITodoItemProps) => {
     changeTodoStatus(todo.id, status);
   }
   const contentElement = isEditMode
-    ? <input type="text"
+    ? <input ref={ref} type="text"
              value={content}
              onKeyDown={handleKeyDown}
              onChange={(e) => setContent(e.target.value)}/>
     : todo.content;
+
   return (
     <DraggableRow
-      key={todo.id}
       draggableId={todo.id}
       index={index}
       isActiveRearrange={isActiveRearrange}>

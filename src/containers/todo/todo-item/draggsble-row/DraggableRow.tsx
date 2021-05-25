@@ -5,16 +5,15 @@ import Classes from './DraggableRow.module.scss';
 
 export interface IDraggableRowProps {
   draggableId: string;
-  key: string;
   children?: any;
   index: number;
   isActiveRearrange: boolean;
 }
 
 const DraggableRow = (props: IDraggableRowProps) => {
-  const {key, draggableId, index, children, isActiveRearrange} = props;
+  const {draggableId, index, children, isActiveRearrange} = props;
   return (
-    <Draggable key={key} draggableId={draggableId} index={index}>
+    <Draggable key={draggableId} draggableId={draggableId} index={index}>
       {(provided, snapshot) => {
         const draggingClassName = snapshot.isDragging ? Classes.dragging : '';
         return (
