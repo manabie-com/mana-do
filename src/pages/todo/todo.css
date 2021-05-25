@@ -1,0 +1,89 @@
+.todo {
+    min-width: 400px;
+    width: 40%;
+    box-shadow: 0 20px 25px -5px rgb(0 0 0), 0 10px 10px -5px rgb(0 0 0);
+    background-color: rgba(79, 209, 197, .9);
+    padding: 20px;
+    border-radius: 5px;
+    align-self: center;
+}
+
+.todo__creation {
+    padding: 20px 0;
+    display: flex;
+    justify-content: center;
+}
+
+.todo__input {
+    width: 80%;
+}
+
+.todo__filter {
+    padding: 20px 0;
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+}
+
+.todo__list {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.todo__item, .todo__edit {
+    width: 90%;
+    padding: 10px 15px;
+    margin: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgba(178, 245, 234, .9);
+    cursor: default;
+}
+
+.todo__item-content {
+    width: 100%;
+    text-align: left;
+}
+
+.todo__item-content.complete {
+    text-decoration: line-through;
+    opacity: 0.7;
+}
+
+.todo__item-action {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 120px;
+}
+
+.todo__item-action > input {
+    cursor: pointer;
+}
+
+.todo__edit > input {
+    background-color: #FFFFFF;
+}
+
+.todo__delete {
+    cursor: pointer;
+    background: none;
+}
+
+.todo__toolbar {
+    padding: 20px 35px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 5px;
+}
+
+button {
+    background-color: #FFFFFF;
+    border-radius: 5px;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1rem;
+}
