@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@cypress/react": "^5.8.1",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
@@ -12,6 +13,7 @@
     "@types/react-dom": "^16.9.0",
     "axios": "^0.19.2",
     "cross-env": "^7.0.2",
+    "cypress": "^7.4.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.2.0",
@@ -24,7 +26,8 @@
     "start:frontend": "cross-env REACT_APP_WHOAMI=frontend react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "cypress:open": "npx cypress open"
   },
   "eslintConfig": {
     "extends": "react-app"

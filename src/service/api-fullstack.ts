@@ -23,6 +23,22 @@ class ApiFullstack extends IAPI {
 
         return resp.data.data;
     }
+
+    clearTodo(): Promise<void> {
+        return Promise.resolve(undefined);
+    }
+
+    deleteTodoItem(todoId: string): Promise<void> {
+        return Promise.resolve(undefined);
+    }
+
+    updateTodoItemContent(todo: Todo): Promise<void> {
+        return Promise.resolve(undefined);
+    }
+
+    updateTodoStatus(todoList: Todo[]): Promise<Todo[]> {
+        return Promise.resolve([]);
+    }
 }
 
 

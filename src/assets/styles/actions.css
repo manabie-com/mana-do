@@ -1,0 +1,19 @@
+.Action__btn {
+    color: white;
+    cursor: pointer;
+}
+.Action__btn:first-child {
+    color: gray;
+}
+.Action__btn.Action__btn--active {
+    background-color: var(--info);
+}
+.Action__btn.Action__btn--completed {
+    background-color: var(--success);
+}
+.Action__btn.Action__btn--clear {
+    background-color: var(--danger);
+}
+.Action__cbx--check-all {
+    margin: 0 12px;
+}

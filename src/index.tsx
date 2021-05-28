@@ -5,9 +5,10 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  // disable strict-mode due to a bug doubling render in component
+  // <React.StrictMode> 
+    <App />,
+  // </React.StrictMode>,
   document.getElementById('root')
 );
 

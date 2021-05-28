@@ -1,42 +1,33 @@
-import React, {useState} from 'react';
+import React from 'react';
 
 import {useHistory} from 'react-router-dom'
 import Service from './service'
 
 const SignInPage = () => {
-    const [form, setForm] = useState({
-        userId: '',
-        password: ''
-    });
+    const userNameInputRef = React.createRef<HTMLInputElement>()
+    const passwordInputRef = React.createRef<HTMLInputElement>()
     const history = useHistory();
 
     const signIn = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-        const resp = await Service.signIn(form.userId, form.password)
-
-        localStorage.setItem('token', resp)
-        history.push('/todo')
-    }
-
-    const onChangeField = (e: React.ChangeEvent<HTMLInputElement>) => {
-        e.persist()
-        setForm(prev=>({
-            ...prev,
-            [e.target.name]: e.target.value
-        }))
+        if (userNameInputRef.current && passwordInputRef.current) {
+            const resp = await Service.signIn(userNameInputRef.current.value, passwordInputRef.current.value)
+            localStorage.setItem('token', resp)
+            history.push('/todo')
+        }
     }
 
     return (
-        <div style={{marginTop: '3rem', textAlign: 'left'}}>
-            <form onSubmit={signIn}>
+        <div style={{marginTop: '3rem', textAlign: 'left', width: 300}}>
+            <form onSubmit={signIn} className="Login__form">
                 <label htmlFor="user_id">
                     User id
                     <input
                         id="user_id"
                         name="userId"
-                        value={form.userId}
+                        className="Todo__input"
+                        ref={userNameInputRef}
                         style={{marginTop: 12}}
-                        onChange={onChangeField}
                     />
                 </label>
                 <br/>
@@ -46,13 +37,13 @@ const SignInPage = () => {
                         id="password"
                         name="password"
                         type="password"
+                        className="Todo__input"
+                        ref={passwordInputRef}
                         style={{marginTop: 12}}
-                        value={form.password}
-                        onChange={onChangeField}
                     />
                 </label>
                 <br />
-                <button type="submit" style={{marginTop: 12}}>
+                <button className="Action__btn Action__btn--active" type="submit" style={{marginTop: 12}}>
                     Sign in
                 </button>
             </form>
