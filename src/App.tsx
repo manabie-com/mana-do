@@ -1,22 +1,20 @@
-import React from 'react';
+import React from "react";
+import { Provider as SessionProvider } from "./containers/SessionProvider";
 
-import {BrowserRouter, Switch, Route} from 'react-router-dom';
+import { BrowserRouter } from "react-router-dom";
 
-import SignInPage from './SignInPage';
-import ToDoPage from './ToDoPage';
-
-import './App.css';
+import "./App.css";
+import Root from "./Root";
 
 function App() {
   return (
-    <main className="App">
-      <BrowserRouter>
-        <Switch>
-          <Route path="/" exact component={SignInPage}/>
-          <Route path="/todo" component={ToDoPage}/>
-        </Switch>
-      </BrowserRouter>
-    </main>
+    <SessionProvider>
+      <main className="App">
+        <BrowserRouter>
+          <Root />
+        </BrowserRouter>
+      </main>
+    </SessionProvider>
   );
 }
 
