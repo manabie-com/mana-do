@@ -25,7 +25,8 @@
     "start:frontend": "cross-env REACT_APP_WHOAMI=frontend react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "deploy-surge": "REACT_APP_WHOAMI=frontend react-scripts build && cp build/index.html build/200.html && surge ./build"
   },
   "eslintConfig": {
     "extends": "react-app"

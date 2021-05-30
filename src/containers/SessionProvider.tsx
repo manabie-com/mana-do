@@ -36,7 +36,6 @@ export const Provider = function SessionProvider({ children }: ProviderProps) {
 
   const signOut = () => {
     window.localStorage.removeItem("token");
-    window.localStorage.removeItem('mana-todo-list');
     setIsLogged(false);
   };
 

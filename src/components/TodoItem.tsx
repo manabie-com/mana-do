@@ -58,14 +58,29 @@ const Container = styled.div`
 
       flex-shrink: 0;
 
+      svg {
+        width: inherit;
+        height: inherit;
+      }
+
       @media screen and (max-width: 767px) {
-        opacity: 1
+        opacity: 1;
       }
     }
 
     &__input {
       min-height: 36px;
       width: 90%;
+    }
+
+    &__checkbox {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      span {
+        padding-left: 10px;
+        display: block;
+      }
     }
   }
 `;
@@ -102,7 +117,7 @@ export default function TodoItem({
   const handleInputPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       const content = (inputRef?.current?.value || "").trim();
-      
+
       // delete todo in case of empty content
       if (content === "") {
         onDelete();
@@ -126,7 +141,9 @@ export default function TodoItem({
       ) : (
         <>
           <input type="checkbox" checked={isCompleted} onChange={onUpdate} />
-          <span onDoubleClick={handleEdit}>{todo.content}</span>
+          <span onDoubleClick={handleEdit} onTouchStart={handleEdit}>
+            {todo.content}
+          </span>
         </>
       )}
       <button className="todo-item__delete-btn" onClick={onDelete}>

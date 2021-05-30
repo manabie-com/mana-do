@@ -23,6 +23,9 @@ input[type="checkbox"] {
   box-shadow: none;
   border: none;
   outline: none;
+  padding: 0;
+  margin: 0;
+  border: 1px solid;
 }
 
 input[type="checkbox"]:focus {
@@ -37,10 +40,26 @@ input {
   outline: none;
   padding: 0 15px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
   border-radius: 4px;
   transition: all 0.25s ease-in;
 }
 
 input:focus {
   box-shadow: 1px 0 9px rgba(0, 0, 0, 0.25);
+}
+
+@media screen and (max-width: 991px) {
+  input {
+    font-size: 16px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+  }
+
+  input[type="checkbox"] {
+    -webkit-appearance: checkbox;
+    -moz-appearance: checkbox;
+    appearance: checkbox;
+  }
 }
