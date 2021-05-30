@@ -102,15 +102,17 @@ type EnhanceTodoStatus = TodoStatus | "ALL";
 
 const ToDoPage = ({ history }: RouteComponentProps) => {
   const [{ todos }, dispatch] = useReducer(reducer, initialState);
-  // change showing to selectedTab for meaning
+
   const [selectedTab, setSelectedTab] = useState<EnhanceTodoStatus>("ALL");
+
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    (async () => {
+    const fetchTodos = async () => {
       const resp = await Service.getTodos();
       dispatch(setTodos(resp || []));
-    })();
+    };
+    fetchTodos();
   }, []);
 
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -134,7 +136,7 @@ const ToDoPage = ({ history }: RouteComponentProps) => {
     return resp;
   };
 
-  const onUpdateTodoStatus = (
+  const handleUpdateTodoStatus = (
     e: React.ChangeEvent<HTMLInputElement>,
     todoId: string
   ) => {
@@ -182,12 +184,12 @@ const ToDoPage = ({ history }: RouteComponentProps) => {
           )}
 
           <div className="todo__list">
-            {showTodos.map((todo, index) => {
+            {showTodos.map((todo) => {
               return (
                 <TodoItem
                   key={todo.id}
                   todo={todo}
-                  onUpdate={(e) => onUpdateTodoStatus(e, todo.id)}
+                  onUpdate={(e) => handleUpdateTodoStatus(e, todo.id)}
                   onDelete={() => handleDeleteTodo(todo.id)}
                   onUpdateContent={(content: string) =>
                     handleUpdateTodoItem({ ...todo, content })
