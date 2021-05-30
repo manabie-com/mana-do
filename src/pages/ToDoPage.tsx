@@ -13,10 +13,10 @@ import {
 } from "../store/actions";
 import Service from "../service";
 import { Todo, TodoStatus } from "../models/todo";
-import { isTodoCompleted } from "../utils";
 import TodoItem from "../components/TodoItem";
-import ActionButton from "../components/ActionButton";
 import styled from "styled-components";
+import TodoCreation from "../components/TodoCreation";
+import TodoToolbar from "../components/TodoToolbar";
 
 const Container = styled.div`
   padding-top: 5rem;
@@ -106,12 +106,6 @@ const ToDoPage = ({ history }: RouteComponentProps) => {
   const [selectedTab, setSelectedTab] = useState<EnhanceTodoStatus>("ALL");
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const listTabs: EnhanceTodoStatus[] = [
-    "ALL",
-    TodoStatus.ACTIVE,
-    TodoStatus.COMPLETED,
-  ];
-
   useEffect(() => {
     (async () => {
       const resp = await Service.getTodos();
@@ -119,20 +113,25 @@ const ToDoPage = ({ history }: RouteComponentProps) => {
     })();
   }, []);
 
-  const onCreateTodo = async (e: React.KeyboardEvent<HTMLInputElement>) => {
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter" && inputRef.current) {
       try {
         const content = inputRef?.current?.value?.trim();
-        if (content === "") return;
-        const resp = await Service.createTodo(content);
+        handleCreateTodo(content);
         inputRef.current.value = "";
-        dispatch(createTodo(resp));
       } catch (e) {
         if (e.response.status === 401) {
           history.push("/");
         }
       }
     }
+  };
+
+  const handleCreateTodo = async (content: string) => {
+    if (content === "") return;
+    const resp = await Service.createTodo(content);
+    dispatch(createTodo(resp));
+    return resp;
   };
 
   const onUpdateTodoStatus = (
@@ -142,11 +141,11 @@ const ToDoPage = ({ history }: RouteComponentProps) => {
     dispatch(updateTodoStatus(todoId, e.target.checked));
   };
 
-  const onToggleAllTodo = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleToggleAllTodos = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(toggleAllTodos(e.target.checked));
   };
 
-  const onDeleteAllTodo = () => {
+  const handleDeleteAllTodos = () => {
     dispatch(deleteAllTodos());
   };
 
@@ -169,28 +168,19 @@ const ToDoPage = ({ history }: RouteComponentProps) => {
     }
   });
 
-  const activeTodos = todos.reduce(function (accum, todo) {
-    return isTodoCompleted(todo.status) ? accum : accum + 1;
-  }, 0);
-
   return (
     <Container>
       <div className="todo">
         <div className="todo__page-title">Todo List</div>
-        <div className="todo__creation">
-          <input
-            ref={inputRef}
-            className="todo__creation__input"
-            placeholder="What need to be done?"
-            onKeyDown={onCreateTodo}
-          />
-        </div>
+        <TodoCreation inputRef={inputRef} onKeyDown={handleKeyPress} />
+
         <div className="todo__list-wrapper">
           {showTodos.length === 0 ? (
             <div className="todo__empty-block">Empty List</div>
           ) : (
             ""
           )}
+
           <div className="todo__list">
             {showTodos.map((todo, index) => {
               return (
@@ -206,30 +196,14 @@ const ToDoPage = ({ history }: RouteComponentProps) => {
               );
             })}
           </div>
-          <div className="todo__toolbar">
-            {todos.length > 0 ? (
-              <input
-                type="checkbox"
-                checked={activeTodos === 0}
-                onChange={onToggleAllTodo}
-              />
-            ) : (
-              <div />
-            )}
-            <div className="todo__tabs">
-              {listTabs.map((status) => (
-                <ActionButton
-                  key={status}
-                  text={status.toLowerCase()}
-                  active={selectedTab === status}
-                  onClick={() => setSelectedTab(status)}
-                />
-              ))}
-            </div>
-            <div className="todo__clear">
-              <ActionButton text="Clear all todos" onClick={onDeleteAllTodo} />
-            </div>
-          </div>
+
+          <TodoToolbar
+            selectedTab={selectedTab}
+            todos={todos}
+            onToggleAllTodos={handleToggleAllTodos}
+            onSetSelectedTab={setSelectedTab}
+            onDeleteAllTodos={handleDeleteAllTodos}
+          />
         </div>
       </div>
     </Container>

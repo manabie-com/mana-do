@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Route, Switch, useHistory, useLocation } from "react-router";
+import { Redirect, Route, Switch, useHistory, useLocation } from "react-router";
 import styled from "styled-components";
 import Header from "./components/Header";
 import SignInPage from "./pages/SignInPage";
@@ -29,7 +29,7 @@ export default function Root() {
     return () => {
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [location.pathname]);
 
   return (
     <StyledRoot>
@@ -37,6 +37,7 @@ export default function Root() {
       <Switch>
         <Route path="/" exact component={SignInPage} />
         <Route path="/todo" component={ToDoPage} />
+        <Redirect to="/" />
       </Switch>
     </StyledRoot>
   );

@@ -1,9 +1,7 @@
 import React, { useState } from "react";
-
 import { useHistory } from "react-router-dom";
 import styled from "styled-components";
-import EyeIcon from "../components/svg/EyeIcon";
-import EyeOffIcon from "../components/svg/EyeOffIcon";
+import FormItem from "../components/form/FormItem";
 import { useSession } from "../containers/SessionProvider";
 import Service from "../service";
 
@@ -104,12 +102,11 @@ const SignInPage = () => {
 
   const [signInError, setSignInError] = useState("");
 
-  const [showPassword, setShowPassword] = useState(false);
-
   const [form, setForm] = useState({
     userId: "",
     password: "",
   });
+
   const history = useHistory();
 
   const handleSignIn = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -143,41 +140,25 @@ const SignInPage = () => {
       <div className="login">
         <div className="login__title">Sign In</div>
         <form onSubmit={handleSignIn}>
-          <div className="form-item">
-            <label htmlFor="user_id">
-              <div className="form-item__label">Username</div>
-              <div className="form-item__input">
-                <input
-                  id="user_id"
-                  name="userId"
-                  placeholder="Username"
-                  value={form.userId}
-                  onChange={onChangeField}
-                />
-              </div>
-            </label>
-          </div>
-          <div className="form-item">
-            <label htmlFor="password">
-              <div className="form-item__label">Password</div>
-              <div className="form-item__input">
-                <input
-                  id="password"
-                  name="password"
-                  placeholder="Password"
-                  type={showPassword ? "text" : "password"}
-                  value={form.password}
-                  onChange={onChangeField}
-                />
-                <div
-                  className="form-item__icon"
-                  onClick={() => setShowPassword(!showPassword)}
-                >
-                  {!showPassword ? <EyeOffIcon /> : <EyeIcon />}
-                </div>
-              </div>
-            </label>
-          </div>
+          <FormItem
+            id="user_id"
+            name="userId"
+            placeholder="Username"
+            value={form.userId}
+            onChange={onChangeField}
+            label="Username"
+          />
+
+          <FormItem
+            id="password"
+            name="password"
+            placeholder="Password"
+            type="password"
+            value={form.password}
+            onChange={onChangeField}
+            label="Password"
+          />
+
           {signInError && <div className="form-item__error">{signInError}</div>}
           <button type="submit">Sign in</button>
         </form>

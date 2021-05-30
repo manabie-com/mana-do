@@ -25,12 +25,52 @@ function storeTodoList(data: Array<Todo>) {
   window.localStorage.setItem("mana-todo-list", JSON.stringify(data));
 }
 
+export function addNewTodo(todos: Array<Todo>, todo: Todo) {
+  return todos.concat(todo);
+}
+
+export function updateTodoStatus(
+  todos: Array<Todo>,
+  todoId: string,
+  status: TodoStatus
+) {
+  const index = todos.findIndex((todo) => todo.id === todoId);
+
+  todos[index].status = status;
+  return todos;
+}
+
+export function updateAllTodos(todos: Array<Todo>, status: TodoStatus) {
+  return todos.map((todo) => {
+    return {
+      ...todo,
+      status,
+    };
+  });
+}
+
+export function deleteTodo(todos: Array<Todo>, todoId: string) {
+  const index = todos.findIndex((todo) => todo.id === todoId);
+  todos.splice(index, 1);
+  return todos;
+}
+
+export function updateTodo(todos: Array<Todo>, todo: Todo) {
+  const index = todos.findIndex((item) => item.id === todo.id);
+
+  todos[index] = {
+    ...todo,
+  };
+
+  return todos;
+}
+
 function reducer(state: AppState, action: AppActions): AppState {
-  const todos = [...state.todos];
+  let todos = [...state.todos];
 
   switch (action.type) {
     case CREATE_TODO:
-      const newTodos = todos.concat(action.payload);
+      const newTodos = addNewTodo(todos, action.payload);
 
       storeTodoList(newTodos);
 
@@ -40,39 +80,34 @@ function reducer(state: AppState, action: AppActions): AppState {
       };
 
     case UPDATE_TODO_STATUS:
-      const index2 = todos.findIndex(
-        (todo) => todo.id === action.payload.todoId
+      todos = updateTodoStatus(
+        todos,
+        action.payload.todoId,
+        action.payload.checked ? TodoStatus.COMPLETED : TodoStatus.ACTIVE
       );
-
-      todos[index2].status = action.payload.checked
-        ? TodoStatus.COMPLETED
-        : TodoStatus.ACTIVE;
 
       storeTodoList(todos);
 
       return {
         ...state,
-        todos: todos,
+        todos,
       };
 
     case TOGGLE_ALL_TODOS:
-      const tempTodos = todos.map((e) => {
-        return {
-          ...e,
-          status: action.payload ? TodoStatus.COMPLETED : TodoStatus.ACTIVE,
-        };
-      });
+      todos = updateAllTodos(
+        todos,
+        action.payload ? TodoStatus.COMPLETED : TodoStatus.ACTIVE
+      );
 
-      storeTodoList(tempTodos);
+      storeTodoList(todos);
 
       return {
         ...state,
-        todos: tempTodos,
+        todos,
       };
 
     case DELETE_TODO:
-      const index1 = todos.findIndex((todo) => todo.id === action.payload);
-      todos.splice(index1, 1);
+      todos = deleteTodo(todos, action.payload);
 
       storeTodoList(todos);
 
@@ -80,6 +115,7 @@ function reducer(state: AppState, action: AppActions): AppState {
         ...state,
         todos: todos,
       };
+
     case DELETE_ALL_TODOS:
       storeTodoList([]);
 
@@ -89,11 +125,7 @@ function reducer(state: AppState, action: AppActions): AppState {
       };
 
     case UPDATE_TODO:
-      const index = todos.findIndex((todo) => todo.id === action.payload.id);
-
-      todos[index] = {
-        ...action.payload,
-      };
+      todos = updateTodo(todos, action.payload);
 
       storeTodoList(todos);
 
