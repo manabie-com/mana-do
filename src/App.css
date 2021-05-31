@@ -1,125 +1,130 @@
-.App {
+@import url(https://fonts.googleapis.com/css?family=Roboto:300);
+body {
+  background: #76b852; /* fallback for old browsers */
+  background: -webkit-linear-gradient(right, #76b852, #8dc26f);
+  background: -moz-linear-gradient(right, #76b852, #8dc26f);
+  background: -o-linear-gradient(right, #76b852, #8dc26f);
+  background: linear-gradient(to left, #76b852, #8dc26f);
+  font-family: "Roboto", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.login-page {
+  width: 360px;
+  padding: 8% 0 0;
+  margin: auto;
+}
+.form {
+  position: relative;
+  z-index: 1;
+  background: #ffffff;
+  max-width: 360px;
+  margin: 0 auto 100px;
+  padding: 45px;
   text-align: center;
-  display: flex;
-  justify-content: center;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 }
-
+input[type="text"], input[type="password"] {
+  font-family: "Roboto", sans-serif;
+  outline: 0;
+  background: #f2f2f2;
+  width: 100%;
+  border: 0;
+  margin: 0 0 15px;
+  padding: 15px;
+  box-sizing: border-box;
+  font-size: 14px;
+}
 button {
-  outline: none;
-  border: none;
-  box-shadow: 2px 0 2px currentColor;
-  border-radius: 4px;
-  min-height: 32px;
-  min-width: 80px;
-  padding: 4px 8px;
-}
-
-button:hover {
-  opacity: 0.85;
-}
-
-input[type="checkbox"] {
-  width: 24px;
-  height: 24px;
-  box-shadow: none;
-  border: none;
-  outline: none;
-}
-
-input[type="checkbox"]:focus {
-  box-shadow: none;
-  border: none;
-  outline: none;
-}
-
-input {
-  min-height: 36px;
-  border: none;
-  outline: none;
-  padding: 0 12px;
-  box-shadow: 2px 0 4px rgba(0,0,0, 0.2);
-  border-radius: 4px;
-}
-
-input:focus {
-  box-shadow: 1px 0 9px rgba(0,0,0, 0.25);
-}
-
-.ToDo__container {
-  border: 1px solid rgba(0,0,0, 0.13);
-  border-radius: 8px;
-  width: 500px;
-  margin-top: 5rem;
-  padding: 24px;
-  box-shadow: 2px 2px 1px rgba(0,0,0, 0.09),
-              3px 2px 3px rgba(0,0,0, 0.05);
-}
-
-.Todo__creation {
-  display: flex;
-}
-
-.Todo__input {
-  flex: 1 1;
-}
-
-.ToDo__list {
-  display: flex;
-  flex-direction: column;
-  margin-top: 1.5rem;
-}
-
-.ToDo__item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.ToDo__item > span {
-  flex: 1 1;
-  text-align: left;
-  margin-left: 8px;
-}
-
-.Todo__content {
-  flex: 1 1;
-}
-
-.Todo__delete {
-  outline: none;
-  border: none;
-  width: 32px;
-  height: 32px;
-  min-width: auto;
-  min-height: auto;
-  box-shadow: none;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  font-family: "Roboto", sans-serif;
+  text-transform: uppercase;
+  outline: 0;
+  background: #4caf50;
+  width: 100%;
+  border: 0;
+  padding: 15px;
+  color: #ffffff;
+  font-size: 14px;
+  -webkit-transition: all 0.3 ease;
+  transition: all 0.3 ease;
   cursor: pointer;
 }
-
-.Todo__action, .Todo__delete {
-  width: 24px;
-  height: 24px;
-  flex-shrink: 0;
+button:hover,
+button:active,
+button:focus {
+  background: #43a047;
 }
 
-.Todo__toolbar {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 24px;
+.container {
+  height: 100vh;
+  width: 100%;
 }
 
-.Todo__tabs {
-  display: flex;
-  justify-content: center;
+.wrapper {
+  margin: 0 auto;
+  padding: 40px;
+  max-width: 800px;
 }
 
-.Todo__tabs > *:not(:last-child) {
-  margin-right: 8px;
+.table {
+  margin: 0 0 40px 0;
+  width: 100%;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  display: table;
+  border-collapse: collapse;
+  overflow: scroll;
+}
+@media screen and (max-width: 580px) {
+  .table {
+    display: block;
+  }
 }
 
-.Action__btn {
+.row {
+  display: table-row;
+  background: #f6f6f6;
+}
+.row:nth-of-type(odd) {
+  background: #e9e9e9;
+}
+@media screen and (max-width: 580px) {
+  .wrapper {
+    padding: 20px;
+  }
+  .row {
+    padding: 14px 0 7px;
+  }
+  .row.header {
+    padding: 0;
+    height: 6px;
+  }
+  .row .cell {
+    margin-bottom: 10px;
+  }
+  .row .cell:before {
+    margin-bottom: 3px;
+    content: attr(data-title);
+    min-width: 98px;
+    font-size: 10px;
+    line-height: 10px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #969696;
+    display: block;
+  }
+}
+
+.cell {
+  padding: 6px 12px;
+  display: table-cell;
+}
+
+.cell.empty {
+  padding: 22px;
+  text-align: center;
+}
+@media screen and (max-width: 580px) {
+  .cell {
+    padding: 2px 16px;
+  }
 }
