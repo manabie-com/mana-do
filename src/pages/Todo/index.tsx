@@ -21,14 +21,12 @@ import { isTodoCompleted } from '../../utils';
 import useEffectOnMount from '../../utils/hooks/useEffectOnMount';
 import { TodoItem } from './TodoItem';
 
-type EnhanceTodoStatus = TodoStatus | 'ALL';
-
 const TodoPage = ({ history }: RouteComponentProps) => {
 	const {
 		state: { todos },
 		dispatch,
 	} = useTodos();
-	const [showing, setShowing] = useState<EnhanceTodoStatus>('ALL');
+	const [showing, setShowing] = useState<TodoStatus>(TodoStatus.ALL);
 
 	const inputRef = useRef<HTMLInputElement>(null);
 	useEffectOnMount(() => {
