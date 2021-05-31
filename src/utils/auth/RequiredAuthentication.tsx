@@ -24,7 +24,6 @@ const RequiredAuthentication: React.FC<Props> = ({ children }) => {
 
 	// if not logged in and in protected routes  => redirect to `/login`
 	if (!isAuthenticated) {
-		console.log(location.pathname);
 		return (
 			<Redirect
 				to={routes.login.concat(

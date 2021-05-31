@@ -1,20 +1,10 @@
-import React, {
-	createContext,
-	useContext,
-	useEffect,
-	useReducer,
-	Dispatch,
-} from 'react';
+import React, { createContext, useContext, useEffect, useReducer } from 'react';
 import { AuthActions } from '../store/actions/authActions';
 import authReducer, {
 	AuthState,
 	initialState,
 } from '../store/reducers/authReducer';
-
-export type Context<S, A> = {
-	state: S;
-	dispatch: Dispatch<A>;
-};
+import { Context } from './types';
 
 const AuthContext = createContext<Context<AuthState, AuthActions>>({
 	state: initialState,
