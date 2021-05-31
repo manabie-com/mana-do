@@ -8,23 +8,28 @@ import { LoginPage } from './pages/Auth/Login';
 import { LogoutPage } from './pages/Auth/Logout';
 import { NotFoundPage } from './pages/NotFound';
 import TodoPage from './pages/Todo';
+import RequiredAuthentication from './utils/auth/RequiredAuthentication';
 
 function App() {
 	return (
 		<main className="App">
-			<BrowserRouter>
-				<Switch>
+			<div className="App__inner">
+				<BrowserRouter>
 					<Route exact path={routes.login} component={LoginPage} />
 					<Route exact path={routes.logout} component={LogoutPage} />
 
-					<Route exact path={routes.index}>
-						<Redirect to={routes.todo.index} />
-					</Route>
+					<RequiredAuthentication>
+						<Switch>
+							<Route exact path={routes.index}>
+								<Redirect to={routes.todo.index} />
+							</Route>
 
-					<Route exact path={routes.todo.index} component={TodoPage} />
-					<Route component={NotFoundPage} />
-				</Switch>
-			</BrowserRouter>
+							<Route exact path={routes.todo.index} component={TodoPage} />
+							<Route component={NotFoundPage} />
+						</Switch>
+					</RequiredAuthentication>
+				</BrowserRouter>
+			</div>
 		</main>
 	);
 }

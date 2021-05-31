@@ -1,7 +1,14 @@
 import React, { useState } from 'react';
 
 import { useHistory } from 'react-router-dom';
+import Header from '../../components/Header';
+import XIcon from '../../components/icons/XIcon';
+import { InputField } from '../../components/InputField';
+import { routes } from '../../config/routes';
+import { useAuth } from '../../context/authContext';
 import Service from '../../service';
+import { login } from '../../store/actions/authActions';
+import useQuery from '../../utils/hooks/useQuery';
 interface LoginPageProps {}
 
 export const LoginPage: React.FC<LoginPageProps> = (props) => {
@@ -9,14 +16,21 @@ export const LoginPage: React.FC<LoginPageProps> = (props) => {
 		userId: '',
 		password: '',
 	});
+	const [errMsg, setErrMsg] = useState('');
+	const query = useQuery();
 	const history = useHistory();
+	const { dispatch } = useAuth();
 
 	const signIn = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		const resp = await Service.signIn(form.userId, form.password);
-
-		localStorage.setItem('token', resp);
-		history.push('/todo');
+		try {
+			const returnPath = query.get('path');
+			const resp = await Service.signIn(form.userId, form.password);
+			dispatch(login(resp));
+			history.push(returnPath || routes.todo.index);
+		} catch (err) {
+			setErrMsg(err);
+		}
 	};
 
 	const onChangeField = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -28,36 +42,43 @@ export const LoginPage: React.FC<LoginPageProps> = (props) => {
 	};
 
 	return (
-		<div style={{ marginTop: '3rem', textAlign: 'left' }}>
-			<form onSubmit={signIn}>
-				<label htmlFor="user_id">
-					User id
-					<input
-						id="user_id"
-						name="userId"
-						value={form.userId}
-						style={{ marginTop: 12 }}
-						onChange={onChangeField}
-					/>
-				</label>
-				<br />
-				<label htmlFor="password">
-					Password
-					<input
-						id="password"
-						name="password"
-						type="password"
-						style={{ marginTop: 12 }}
-						value={form.password}
-						onChange={onChangeField}
-					/>
-				</label>
-				<br />
-				<button type="submit" style={{ marginTop: 12 }}>
+		<>
+			<Header title="Mana-do" />
+			<form className="App__space" onSubmit={signIn}>
+				{errMsg && (
+					<div className="App__error">
+						<XIcon solid />
+						<span>{errMsg}</span>
+					</div>
+				)}
+				<InputField
+					id="user_id"
+					label="Username"
+					name="userId"
+					type="text"
+					autoComplete="username"
+					required
+					value={form.userId}
+					onChange={onChangeField}
+				/>
+				<InputField
+					label="Password"
+					name="password"
+					type="password"
+					autoComplete="current-password"
+					required
+					value={form.password}
+					onChange={onChangeField}
+				/>
+
+				<button
+					type="submit"
+					className="App__btn App__btn--primary App__btn--block"
+				>
 					Sign in
 				</button>
 			</form>
-		</div>
+		</>
 	);
 };
 
