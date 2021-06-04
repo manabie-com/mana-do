@@ -15,6 +15,7 @@ interface MEditableFieldProps {
 }
 
 /**
+ * Manabie's Editable Field
  * Initially, this component shows as view mode, to show only the value.
  * You can change it into edit mode by double click on the value.
  * This component can always show in edit mode as well.

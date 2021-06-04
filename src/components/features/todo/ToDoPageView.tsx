@@ -3,6 +3,7 @@ import {Todo, TodoStatus} from '../../../models/todo';
 import React, {useState} from 'react';
 import {isTodoCompleted} from '../../../utils';
 import {MButton} from '../../commons';
+import MCheckbox from "../../commons/MCheckbox/MCheckbox";
 
 type EnhanceTodoStatus = TodoStatus | 'ALL';
 
@@ -10,11 +11,11 @@ interface ToDoPageViewProps {
   inputRef: React.RefObject<HTMLInputElement>,
   todos: Array<Todo>,
   onCreateTodo: (e: React.KeyboardEvent<HTMLInputElement>) => void,
-  onUpdateTodoStatus: (e: React.ChangeEvent<HTMLInputElement>, todoId: string) => void,
+  onUpdateTodoStatus: (checked: boolean, todoId: string) => void,
   onUpdateTodoContent: (content: string, todoId: string) => void,
   onDeleteTodo: (todoId: string) => void,
   onDeleteAllTodo: () => void,
-  onToggleAllTodo: (e: React.ChangeEvent<HTMLInputElement>) => void
+  onToggleAllTodo: (checked: boolean) => void
 }
 
 const ToDoPageView = ({
@@ -56,40 +57,37 @@ const ToDoPageView = ({
       </div>
       <div className='Todo__list'>
         {
-          showTodos.map((todo, index) => (
+          showTodos.map(todo => (
             <ToDoItem
               key={todo.id}
               todo={todo}
-              updateTodoStatus={(e:React.ChangeEvent<HTMLInputElement>) => onUpdateTodoStatus(e, todo.id)}
-              updateTodoContent={(content : string) => onUpdateTodoContent(content, todo.id)}
-              deleteTodo={(todoId) => onDeleteTodo(todoId)}/>
+              updateTodoStatus={onUpdateTodoStatus}
+              updateTodoContent={onUpdateTodoContent}
+              deleteTodo={onDeleteTodo}/>
           ))
         }
       </div>
       <div className='Todo__toolbar'>
-        {todos.length > 0 ?
-          <input
-            type='checkbox'
-            checked={activeTodos === 0}
-            onChange={(e) => onToggleAllTodo(e)}
-          /> : <div/>
+        {todos.length > 0
+          ? <MCheckbox checked={activeTodos === 0} onChange={onToggleAllTodo}/>
+          : <div/>
         }
         <div className='Todo__tabs'>
           <MButton
-            btnExtraClassName={showing === 'ALL' ? 'active' : ''}
-            onClickAction={()=>setShowing('ALL')}
+            className={showing === 'ALL' ? 'active' : ''}
+            onClickAction={() => setShowing('ALL')}
           >
             All
           </MButton>
           <MButton
-            btnExtraClassName={showing === TodoStatus.ACTIVE ? 'active' : ''}
-            onClickAction={()=>setShowing(TodoStatus.ACTIVE)}
+            className={showing === TodoStatus.ACTIVE ? 'active' : ''}
+            onClickAction={() => setShowing(TodoStatus.ACTIVE)}
           >
             Active
           </MButton>
           <MButton
-            btnExtraClassName={showing === TodoStatus.COMPLETED ? 'active' : ''}
-            onClickAction={()=>setShowing(TodoStatus.COMPLETED)}
+            className={showing === TodoStatus.COMPLETED ? 'active' : ''}
+            onClickAction={() => setShowing(TodoStatus.COMPLETED)}
           >
             Completed
           </MButton>

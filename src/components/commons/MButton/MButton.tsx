@@ -3,15 +3,26 @@ import React, {useRef} from 'react';
 type ButtonType = 'submit' | 'reset' | 'button';
 
 interface MButtonProps {
-  btnExtraClassName?: string,
+  className?: string,
   type?: ButtonType,
   style?: {},
-  children: any,
+  children?: any,
   onClickAction?: () => void
 }
 
+/**
+ * Manabie's Button
+ *
+ * @param className: extra class that pass to button
+ * @param type: type of button (submit | button | reset)
+ * @param style: inline style - NOT RECOMMEND
+ * @param children: Text show in button
+ * @param onClickAction: Action fire when button is clicked
+ * @constructor
+ */
+
 const MButton = ({
-  btnExtraClassName,
+  className,
   type = 'button',
   style,
   children,
@@ -31,7 +42,7 @@ const MButton = ({
   }
 
   return (
-    <button type={type} className={`MButton ${btnExtraClassName || ''}`} style={style} onClick={onClick} ref={buttonRef}>
+    <button type={type} className={`MButton ${className || ''}`} style={style} onClick={onClick} ref={buttonRef}>
       {children}
     </button>
   )

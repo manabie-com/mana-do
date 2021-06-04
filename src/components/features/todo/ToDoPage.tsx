@@ -42,9 +42,9 @@ const ToDoPage = ({history} : RouteComponentProps) => {
     }
   }
 
-  const onUpdateTodoStatus = async (e: React.ChangeEvent<HTMLInputElement>, todoId: string) => {
+  const onUpdateTodoStatus = async (checked: boolean, todoId: string) => {
     try {
-      const resp = await Service.updateTodoStatus(todoId, e.target.checked ? TodoStatus.COMPLETED : TodoStatus.ACTIVE);
+      const resp = await Service.updateTodoStatus(todoId, checked ? TodoStatus.COMPLETED : TodoStatus.ACTIVE);
       dispatch(todoAction.updateTodoStatus(resp.id, resp.status));
     } catch (e) {
       if (e.response.status === 401) {
@@ -64,9 +64,9 @@ const ToDoPage = ({history} : RouteComponentProps) => {
     }
   }
 
-  const onToggleAllTodo = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onToggleAllTodo = async (checked: boolean) => {
     try {
-      const resp = await Service.updateAllTodosStatuses(e.target.checked ? TodoStatus.COMPLETED : TodoStatus.ACTIVE);
+      const resp = await Service.updateAllTodosStatuses(checked ? TodoStatus.COMPLETED : TodoStatus.ACTIVE);
       dispatch(todoAction.toggleAllTodos(resp));
     } catch (e) {
       if (e.response.status === 401) {
