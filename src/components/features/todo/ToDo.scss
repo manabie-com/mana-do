@@ -1,0 +1,46 @@
+.Todo {
+  &__container {
+    border: 1px solid rgba(0,0,0, 0.13);
+    border-radius: 8px;
+    width: 500px;
+    margin-top: 5rem;
+    padding: 24px;
+    box-shadow: 2px 2px 1px rgba(0,0,0, 0.09),
+    3px 2px 3px rgba(0,0,0, 0.05);
+  }
+
+  &__creation {
+    display: flex;
+  }
+
+  &__input {
+    flex: 1 1;
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    margin-top: 1.5rem;
+  }
+
+  &__content {
+    flex: 1 1;
+  }
+
+  &__toolbar {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 24px;
+  }
+
+  &__tabs {
+    display: flex;
+    justify-content: center;
+
+    > *:not(:last-child) {
+      margin-right: 8px;
+    }
+  }
+}
+
+@import './todo-item/ToDoItem';

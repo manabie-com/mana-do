@@ -1,0 +1,40 @@
+.m-button {
+  outline: none;
+  cursor: pointer;
+  border: none;
+  position: relative;
+  background-color: $WhiteSmoke;
+  box-shadow: 0 3px 10px -5px currentColor;
+  border-radius: 4px;
+  min-height: 32px;
+  min-width: 80px;
+  padding: 4px 8px;
+
+  &:before {
+    background-color: currentColor;
+    border-radius: inherit;
+    color: inherit;
+    content: "";
+    opacity: 0;
+    pointer-events: none;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    transition: opacity .2s cubic-bezier(.4, 0, .6, 1);
+  }
+
+  &:hover:before {
+    opacity: 0.05;
+  }
+
+  &:focus:before {
+    opacity: 0.4;
+  }
+
+  &.active {
+    background-color: $BlueNavy;
+    opacity: 0.8;
+  }
+}

@@ -1,4 +1,4 @@
-import {Todo} from "../models/todo";
+import {Todo, TodoStatus} from '../../models/todo';
 
 export const SET_TODO = 'SET_TODO';
 export const CREATE_TODO = 'CREATE_TODO';
@@ -6,6 +6,7 @@ export const DELETE_TODO = 'DELETE_TODO';
 export const DELETE_ALL_TODOS = 'DELETE_ALL_TODOS';
 export const TOGGLE_ALL_TODOS = 'TOGGLE_ALL_TODOS';
 export const UPDATE_TODO_STATUS = 'UPDATE_TODO_STATUS';
+export const UPDATE_TODO_CONTENT = 'UPDATE_TODO_CONTENT';
 
 
 export interface SetTodoAction {
@@ -38,16 +39,35 @@ export interface UpdateTodoStatusAction {
   type: typeof UPDATE_TODO_STATUS,
   payload: {
     todoId: string,
-    checked: boolean
+    status: TodoStatus
   }
 }
 
-export function updateTodoStatus(todoId: string, checked: boolean): UpdateTodoStatusAction {
+export function updateTodoStatus(todoId: string, status: TodoStatus): UpdateTodoStatusAction {
   return {
     type: UPDATE_TODO_STATUS,
     payload: {
       todoId,
-      checked
+      status
+    }
+  }
+}
+
+//////////////
+export interface UpdateTodoContentAction {
+  type: typeof UPDATE_TODO_CONTENT,
+  payload: {
+    todoId: string,
+    content: string
+  }
+}
+
+export function updateTodoContent(todoId: string, content: string): UpdateTodoContentAction {
+  return {
+    type: UPDATE_TODO_CONTENT,
+    payload: {
+      todoId,
+      content
     }
   }
 }
@@ -79,20 +99,21 @@ export function deleteAllTodos(): DeleteAllTodosAction {
 ///////////
 export interface ToggleAllTodosAction {
   type: typeof TOGGLE_ALL_TODOS,
-  payload: boolean
+  payload: TodoStatus
 }
 
-export function toggleAllTodos(checked: boolean): ToggleAllTodosAction {
+export function toggleAllTodos(status: TodoStatus): ToggleAllTodosAction {
   return {
     type: TOGGLE_ALL_TODOS,
-    payload: checked
+    payload: status
   }
 }
 
-export type AppActions =
-  SetTodoAction |
+export type TodoActionType = SetTodoAction |
   CreateTodoAction |
   UpdateTodoStatusAction |
   DeleteTodoAction |
   DeleteAllTodosAction |
-  ToggleAllTodosAction;
+  ToggleAllTodosAction |
+  UpdateTodoContentAction;
+

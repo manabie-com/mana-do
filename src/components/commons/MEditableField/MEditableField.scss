@@ -1,0 +1,8 @@
+.m-editable-field {
+  text-align: left;
+  width: 80%;
+
+  &__input {
+    width: calc(100% - 24px);
+  }
+}

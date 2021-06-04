@@ -1,0 +1,28 @@
+.Todo {
+  &__item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    > span {
+      flex: 1 1;
+      text-align: left;
+      margin-left: 8px;
+    }
+  }
+  &__delete {
+    outline: none;
+    border: none;
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+    min-width: auto;
+    min-height: auto;
+    box-shadow: none;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+  }
+}
