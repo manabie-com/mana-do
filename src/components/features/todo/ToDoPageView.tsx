@@ -58,7 +58,7 @@ const ToDoPageView = ({
         {
           showTodos.map((todo, index) => (
             <ToDoItem
-              key={index}
+              key={todo.id}
               todo={todo}
               updateTodoStatus={(e:React.ChangeEvent<HTMLInputElement>) => onUpdateTodoStatus(e, todo.id)}
               updateTodoContent={(content : string) => onUpdateTodoContent(content, todo.id)}

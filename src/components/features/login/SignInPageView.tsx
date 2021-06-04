@@ -28,14 +28,13 @@ const SignInPageView = ({
   }
 
   return (
-    <div style={{marginTop: '3rem', textAlign: 'left'}}>
+    <div className='SignInPage'>
       <form onSubmit={onSubmit}>
         <label htmlFor='user_id'>
           User Id
           <MEditableField
             id='user_id'
             value={form.userId}
-            style={{marginTop: 12}}
             alwaysEditMode={true}
             actionOnChange={(value) => onChangeField('userId', value)}/>
         </label>
@@ -46,13 +45,12 @@ const SignInPageView = ({
             id='user_password'
             type='password'
             value={form.password}
-            style={{marginTop: 12}}
             alwaysEditMode={true}
             actionOnChange={(value) => onChangeField('password', value)}/>
         </label>
         <br />
         {
-          errorMessage ? <div className='error-message'>{errorMessage}</div> : ''
+          errorMessage ? <div className='ErrorMessage'>{errorMessage}</div> : ''
         }
         <MButton
           type='submit'

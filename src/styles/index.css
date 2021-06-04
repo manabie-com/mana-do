@@ -42,15 +42,15 @@ input:focus {
   justify-content: center;
 }
 
-.m-editable-field {
+.MEditableField {
   text-align: left;
   width: 80%;
 }
-.m-editable-field__input {
+.MEditableField__input {
   width: calc(100% - 24px);
 }
 
-.m-button {
+.MButton {
   outline: none;
   cursor: pointer;
   border: none;
@@ -62,7 +62,7 @@ input:focus {
   min-width: 80px;
   padding: 4px 8px;
 }
-.m-button:before {
+.MButton:before {
   background-color: currentColor;
   border-radius: inherit;
   color: inherit;
@@ -76,13 +76,13 @@ input:focus {
   left: 0;
   transition: opacity 0.2s cubic-bezier(0.4, 0, 0.6, 1);
 }
-.m-button:hover:before {
+.MButton:hover:before {
   opacity: 0.05;
 }
-.m-button:focus:before {
+.MButton:focus:before {
   opacity: 0.4;
 }
-.m-button.active {
+.MButton.active {
   background-color: #689ff7;
   opacity: 0.8;
 }

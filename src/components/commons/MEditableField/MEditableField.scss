@@ -1,8 +1,12 @@
-.m-editable-field {
+.MEditableField {
   text-align: left;
   width: 80%;
 
-  &__input {
+  &__Input, &__Placeholder {
     width: calc(100% - 24px);
+  }
+
+  &__Placeholder {
+    @include text-ellipsis;
   }
 }

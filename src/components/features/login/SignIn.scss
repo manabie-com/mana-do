@@ -1,4 +1,14 @@
-.error-message {
-  color: $RedError;
-  font-size: 0.7em;
+.SignInPage {
+  margin-top: 3rem;
+  text-align: left;
+
+  .MEditableField__Input, .MButton {
+    margin-top: 12px
+  }
+
+  .ErrorMessage {
+    color: $RedError;
+    font-size: 0.7em;
+  }
 }
+

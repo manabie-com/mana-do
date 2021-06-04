@@ -31,7 +31,7 @@ const MButton = ({
   }
 
   return (
-    <button type={type} className={`m-button ${btnExtraClassName || ''}`} style={style} onClick={onClick} ref={buttonRef}>
+    <button type={type} className={`MButton ${btnExtraClassName || ''}`} style={style} onClick={onClick} ref={buttonRef}>
       {children}
     </button>
   )
