@@ -4,7 +4,7 @@
   justify-content: center;
 }
 
-button {
+/* button {
   outline: none;
   border: none;
   box-shadow: 2px 0 2px currentColor;
@@ -16,7 +16,7 @@ button {
 
 button:hover {
   opacity: 0.85;
-}
+} */
 
 input[type="checkbox"] {
   width: 24px;
