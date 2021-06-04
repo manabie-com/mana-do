@@ -1,23 +1,25 @@
-import React from 'react';
-
-import {BrowserRouter, Switch, Route} from 'react-router-dom';
-
-import SignInPage from './pages/SignInPage';
-import ToDoPage from './pages/ToDoPage';
-
+import React, { Suspense } from 'react';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import routes from 'routes';
 import './App.css';
-import Spinner from './components/Loading/LoadingSpinner';
 
 function App() {
   return (
     <main className="App">
-      <Spinner />
-      <BrowserRouter>
-        <Switch>
-          <Route path="/" exact component={SignInPage}/>
-          <Route path="/todo" component={ToDoPage}/>
-        </Switch>
-      </BrowserRouter>
+      <Suspense fallback={'<div>Loading...</div>'}>
+        <BrowserRouter>
+          <Switch>
+            {routes.map(({ path, loadComponent, exact = true }) => (
+              <Route
+                key={path}
+                path={path}
+                component={loadComponent}
+                exact={exact}
+              />
+            ))}
+          </Switch>
+        </BrowserRouter>
+      </Suspense>
     </main>
   );
 }
