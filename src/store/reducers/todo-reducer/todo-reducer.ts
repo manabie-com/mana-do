@@ -1,8 +1,8 @@
-import {Todo} from '../../models/todo';
+import {Todo} from '../../../models/todo';
 import {
   AppActions,
   todoAction
-} from '../actions';
+} from '../../actions';
 
 export interface TodoState {
   todos: Array<Todo>

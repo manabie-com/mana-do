@@ -1,5 +1,5 @@
-import React, {useRef, useState} from "react";
-import useRefClickOutside from "../../../utils/hooks/useRefClickOutside";
+import React, {useRef, useState} from 'react';
+import { useRefClickOutside } from '../../../utils/hooks';
 
 interface MEditableFieldProps {
   id?: string,
@@ -27,7 +27,6 @@ const MEditableField = ({
   const inputRef = useRef<HTMLInputElement>(null);
   const [isEditing, setEditState] = useState(false);
   const [tempValue, setTempValue] = useState(value);
-
   useRefClickOutside(inputRef, () => {
     setEditState(false);
     setTempValue(value);

@@ -1,9 +1,8 @@
 import React from 'react';
 
-import {BrowserRouter, Switch, Route} from 'react-router-dom';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
-import SignInPage from './features/login/SignInPage';
-import ToDoPage from './features/todo/ToDoPage';
+import { SignInPage, ToDoPage } from './features';
 
 function App() {
   return (

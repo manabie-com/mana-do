@@ -1,8 +1,7 @@
 import {isTodoCompleted} from '../../../../utils';
 import React from 'react';
 import {Todo} from '../../../../models/todo';
-import MButton from "../../../commons/MButton/MButton";
-import MEditableField from "../../../commons/MEditableField/MEditableField";
+import { MButton, MEditableField } from '../../../commons';
 
 interface ToDoItemProps {
   todo: Todo,

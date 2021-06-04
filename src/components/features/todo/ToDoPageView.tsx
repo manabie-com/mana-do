@@ -2,7 +2,7 @@ import ToDoItem from './todo-item/ToDoItem';
 import {Todo, TodoStatus} from '../../../models/todo';
 import React, {useState} from 'react';
 import {isTodoCompleted} from '../../../utils';
-import MButton from '../../commons/MButton/MButton';
+import {MButton} from '../../commons';
 
 type EnhanceTodoStatus = TodoStatus | 'ALL';
 
@@ -62,7 +62,7 @@ const ToDoPageView = ({
               todo={todo}
               updateTodoStatus={(e:React.ChangeEvent<HTMLInputElement>) => onUpdateTodoStatus(e, todo.id)}
               updateTodoContent={(content : string) => onUpdateTodoContent(content, todo.id)}
-              deleteTodo={(todoId) => onDeleteTodo(todoId)}></ToDoItem>
+              deleteTodo={(todoId) => onDeleteTodo(todoId)}/>
           ))
         }
       </div>

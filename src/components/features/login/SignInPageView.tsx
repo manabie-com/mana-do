@@ -1,6 +1,5 @@
-import React, {FormEvent, useState} from "react";
-import MEditableField from "../../commons/MEditableField/MEditableField";
-import MButton from "../../commons/MButton/MButton";
+import React, {FormEvent, useState} from 'react';
+import { MButton, MEditableField } from '../../commons';
 
 interface SignInPageViewProps {
   signInAction: (userId: string, password: string) => void,
@@ -56,7 +55,7 @@ const SignInPageView = ({
           errorMessage ? <div className='error-message'>{errorMessage}</div> : ''
         }
         <MButton
-          type="submit"
+          type='submit'
           style={{marginTop: 12}}
         >
           Sign in
