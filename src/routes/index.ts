@@ -11,11 +11,11 @@ type RouteType = {
 const routes: RouteType[] = [
   {
     path: '/',
-    loadComponent: lazy(() => import('pages/SignInPage')),
+    loadComponent: lazy(() => import('pages/signin')),
   },
   {
     path: '/todo',
-    loadComponent: lazy(() => import('pages/ToDoPage')),
+    loadComponent: lazy(() => import('pages/todo')),
   },
 ];
 

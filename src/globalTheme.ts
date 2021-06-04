@@ -2,6 +2,7 @@ const globalTheme = {
   color: {
     primary: '#FFAE42',
     secondary: '',
+    gray: '#808080',
   },
   fontSize: {
     default: '16px',

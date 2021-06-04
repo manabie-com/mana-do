@@ -7,11 +7,27 @@ type TextInputPropsType = ComponentPropsWithoutRef<'input'> & {
   text: string;
 };
 
+const StyledLabel = styled.label`
+  display: inline-block;
+  width: 30%;
+  text-align: right;
+  padding-right: 3%;
+`;
+
 const StyledInput = styled.input`
-  border-radius: 5px;
-  border: 1px solid ${theme.color.primary};
+  outline: none;
+  border: none;
+  border-bottom: 1px solid ${theme.color.gray};
+  background: none;
+  color: currentColor;
   font-size: ${theme.fontSize.default};
-  padding: 0.5rem 1rem;
+  padding: 0;
+  min-height: 36px;
+  transition: border 0.2s ease-in-out;
+  width: 66%;
+  &:focus {
+    border-bottom: 1px solid ${theme.color.primary};
+  }
 `;
 
 const Input = forwardRef<HTMLInputElement, ComponentPropsWithoutRef<'input'>>(
@@ -28,8 +44,8 @@ const TextInput = ({
 }: TextInputPropsType) => {
   const classes = clsx('input__text', className);
   return (
-    <div>
-      {id && <label htmlFor={id}>{text}</label>}
+    <div className="form-control">
+      <StyledLabel htmlFor={id}>{text}</StyledLabel>
       <Input {...rest} id={id} className={classes} />
     </div>
   );

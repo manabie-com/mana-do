@@ -3,8 +3,9 @@ import Container from 'components/Container';
 import React, { useState } from 'react';
 
 import { useHistory } from 'react-router-dom';
-import TextInput from '../components/Form/TextInput';
-import Service from '../service';
+import TextInput from 'components/TextInput';
+import Service from 'service';
+import Form from 'components/Form';
 
 const SignInPage = () => {
   const [form, setForm] = useState({
@@ -31,17 +32,15 @@ const SignInPage = () => {
 
   return (
     <Container>
-      <form onSubmit={signIn} autoComplete="off">
+      <Form onSubmit={signIn} autoComplete="off">
         <TextInput
           text="User id"
-          className="abc xyz"
           id="user_id"
           name="userId"
           value={form.userId}
+          placeholder="Your userId"
           onChange={onChangeField}
         />
-
-        <br />
 
         <TextInput
           text="Password"
@@ -49,15 +48,14 @@ const SignInPage = () => {
           name="password"
           type="password"
           value={form.password}
+          placeholder="Your password"
           onChange={onChangeField}
         />
 
-        <br />
-        <Button type="submit">Sign in</Button>
-        <button type="submit" style={{ marginTop: 12 }}>
-          Sign in
-        </button>
-      </form>
+        <div>
+          <Button type="submit">Sign in</Button>
+        </div>
+      </Form>
     </Container>
   );
 };
