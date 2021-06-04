@@ -1,5 +1,5 @@
 import React, {useEffect, useReducer, useRef} from 'react';
-import {RouteComponentProps, useHistory} from 'react-router-dom';
+import {RouteComponentProps} from 'react-router-dom';
 
 import {TodoReducer, initialTodoState} from '../../../store/reducers';
 import {
@@ -25,7 +25,7 @@ const ToDoPage = ({history} : RouteComponentProps) => {
             }
         }
         authorization(token);
-    });
+    }, []);
 
     const onCreateTodo = async (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter' && inputRef.current) {
