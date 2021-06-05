@@ -9,7 +9,7 @@ const globalTheme = {
   fontSize: {
     default: '16px',
   },
-  size: {
+  responsive: {
     sm: '640px',
     md: '768px',
     lg: '1024px',

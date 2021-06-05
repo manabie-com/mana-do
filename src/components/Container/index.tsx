@@ -2,7 +2,7 @@ import theme from 'globalTheme';
 import styled from 'styled-components';
 
 const createMediaQueries = () => {
-  let sizes = theme.size;
+  let sizes = theme.responsive;
   let css = '';
   for (const key in sizes) {
     if (Object.prototype.hasOwnProperty.call(sizes, key)) {
