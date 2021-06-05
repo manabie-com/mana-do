@@ -1,8 +1,16 @@
 import React from 'react';
 import clsx from 'clsx';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import theme from 'globalTheme';
-import { InputType, TextInputPropsType } from './types';
+import { InputType } from './types';
+
+const StyledFormControl = styled.div<InputType>`
+  ${(props) =>
+    props.fullWidth &&
+    css`
+      width: 100%;
+    `}
+`;
 
 const StyledLabel = styled.label`
   display: inline-block;
@@ -22,25 +30,35 @@ const StyledInput = styled.input<InputType>`
   padding: 0;
   min-height: 36px;
   transition: border 0.2s ease-in-out;
-  width: 66%;
+  width: ${(props) => (props.text ? '66%' : '100%')};
   &:focus {
     border-bottom: 1px solid ${theme.color.primary};
   }
 `;
 
 const TextInput = ({
-  text,
+  text = '',
   id = '',
-  className,
   error = false,
+  fullWidth = false,
+  inputRef,
+  className,
   ...rest
-}: TextInputPropsType) => {
+}: InputType) => {
   const classes = clsx('form__input-text', className);
   return (
-    <div className="form-control">
-      <StyledLabel htmlFor={id}>{text}</StyledLabel>
-      <StyledInput {...rest} id={id} className={classes} error={error} />
-    </div>
+    <StyledFormControl fullWidth={fullWidth}>
+      {text && <StyledLabel htmlFor={id}>{text}</StyledLabel>}
+      <StyledInput
+        {...rest}
+        ref={inputRef}
+        id={id}
+        text={text}
+        className={classes}
+        error={error}
+        fullWidth={fullWidth}
+      />
+    </StyledFormControl>
   );
 };
 

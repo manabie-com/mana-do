@@ -1,9 +1,8 @@
-import { ComponentPropsWithRef } from 'react';
+import { ComponentPropsWithRef, Ref } from 'react';
 
 export type InputType = ComponentPropsWithRef<'input'> & {
   error?: boolean;
-};
-
-export type TextInputPropsType = InputType & {
-  text: string;
+  fullWidth?: boolean;
+  text?: string;
+  inputRef?: Ref<any>;
 };

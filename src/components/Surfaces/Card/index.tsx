@@ -1,6 +1,5 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
-// import theme from 'globalTheme';
 
 type CardType = {
   children: React.ReactNode;
@@ -9,7 +8,6 @@ type CardType = {
 const StyledCard = styled.div`
   box-shadow: 0px 2px 3px 1px rgb(0 0 0 / 20%);
   border-radius: 4px;
-  min-width: 500px;
   padding: 2rem;
 `;
 
