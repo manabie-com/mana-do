@@ -6,20 +6,26 @@ import { useHistory } from 'react-router-dom';
 import TextInput from 'components/TextInput';
 import Service from 'service';
 import Form from 'components/Form';
+import Typography from 'components/Typography/Typography';
 
 const SignInPage = () => {
   const [form, setForm] = useState({
     userId: '',
     password: '',
   });
+  const [error, setError] = useState('');
   const history = useHistory();
 
   const signIn = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const resp = await Service.signIn(form.userId, form.password);
+    try {
+      const resp = await Service.signIn(form.userId, form.password);
 
-    localStorage.setItem('token', resp);
-    history.push('/todo');
+      localStorage.setItem('token', resp);
+      history.push('/todo');
+    } catch (error) {
+      setError(error);
+    }
   };
 
   const onChangeField = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -40,6 +46,7 @@ const SignInPage = () => {
           value={form.userId}
           placeholder="Your userId"
           onChange={onChangeField}
+          error={!!error}
         />
 
         <TextInput
@@ -50,7 +57,10 @@ const SignInPage = () => {
           value={form.password}
           placeholder="Your password"
           onChange={onChangeField}
+          error={!!error}
         />
+
+        <Typography variant="error">{error}</Typography>
 
         <div>
           <Button type="submit">Sign in</Button>
