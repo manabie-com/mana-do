@@ -1,15 +1,8 @@
+import React from 'react';
 import clsx from 'clsx';
-import React, { ComponentPropsWithoutRef, forwardRef } from 'react';
 import styled from 'styled-components';
 import theme from 'globalTheme';
-
-type InputType = ComponentPropsWithoutRef<'input'> & {
-  error?: boolean;
-};
-
-type TextInputPropsType = InputType & {
-  text: string;
-};
+import { InputType, TextInputPropsType } from './types';
 
 const StyledLabel = styled.label`
   display: inline-block;
@@ -35,10 +28,6 @@ const StyledInput = styled.input<InputType>`
   }
 `;
 
-const Input = forwardRef<HTMLInputElement, InputType>((props, ref) => {
-  return <StyledInput ref={ref} {...props} />;
-});
-
 const TextInput = ({
   text,
   id = '',
@@ -46,11 +35,11 @@ const TextInput = ({
   error = false,
   ...rest
 }: TextInputPropsType) => {
-  const classes = clsx('input__text', className);
+  const classes = clsx('form__input-text', className);
   return (
     <div className="form-control">
       <StyledLabel htmlFor={id}>{text}</StyledLabel>
-      <Input {...rest} id={id} className={classes} error={error} />
+      <StyledInput {...rest} id={id} className={classes} error={error} />
     </div>
   );
 };
