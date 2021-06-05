@@ -3,6 +3,8 @@ const globalTheme = {
     primary: '#FFAE42',
     secondary: '',
     gray: '#808080',
+    error: '#c62828',
+    dark: 'black',
   },
   fontSize: {
     default: '16px',
