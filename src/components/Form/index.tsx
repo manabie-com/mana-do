@@ -1,6 +1,6 @@
 import React, { ComponentPropsWithRef } from 'react';
 import styled from 'styled-components';
-import theme from 'globalTheme';
+// import theme from 'globalTheme';
 
 const StyledForm = styled.form`
   display: flex;
