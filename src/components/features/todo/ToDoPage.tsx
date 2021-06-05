@@ -1,12 +1,12 @@
-import React, {useEffect, useReducer, useRef} from 'react';
-import {RouteComponentProps} from 'react-router-dom';
+import React, { useEffect, useReducer, useRef } from 'react';
+import { RouteComponentProps } from 'react-router-dom';
 
-import {TodoReducer, initialTodoState} from '../../../store/reducers';
+import { TodoReducer, initialTodoState } from '../../../store/reducers';
 import {
   todoAction
 } from '../../../store/actions';
 import Service from '../../../service';
-import {TodoStatus} from '../../../models/todo';
+import { TodoStatus } from '../../../models/todo';
 import ToDoPageView from './ToDoPageView';
 
 const ToDoPage = ({history} : RouteComponentProps) => {

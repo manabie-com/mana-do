@@ -8,7 +8,7 @@ export const todoListPlaceholder = 'todoList';
 class ApiFrontend extends IAPI {
   /*
       Here we virtualize the backend functionalities,
-      used localStorage instead of real database
+      used localStorage instead of real database to persist the data
    */
   private todoList : Array<Todo> = new Array<Todo>();
 

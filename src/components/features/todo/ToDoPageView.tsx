@@ -1,9 +1,8 @@
+import React, { useState } from 'react';
 import ToDoItem from './todo-item/ToDoItem';
-import {Todo, TodoStatus} from '../../../models/todo';
-import React, {useState} from 'react';
-import {isTodoCompleted} from '../../../utils';
-import {MButton} from '../../commons';
-import MCheckbox from "../../commons/MCheckbox/MCheckbox";
+import { Todo, TodoStatus } from '../../../models/todo';
+import { isTodoCompleted } from '../../../utils';
+import { MButton , MCheckbox} from '../../commons';
 
 type EnhanceTodoStatus = TodoStatus | 'ALL';
 

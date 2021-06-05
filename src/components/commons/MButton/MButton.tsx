@@ -1,4 +1,4 @@
-import React, {useRef} from 'react';
+import React, { useRef } from 'react';
 
 type ButtonType = 'submit' | 'reset' | 'button';
 

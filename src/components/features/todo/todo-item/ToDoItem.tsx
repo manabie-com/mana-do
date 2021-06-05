@@ -1,8 +1,7 @@
-import {isTodoCompleted} from '../../../../utils';
 import React from 'react';
-import {Todo} from '../../../../models/todo';
-import { MButton, MEditableField } from '../../../commons';
-import MCheckbox from "../../../commons/MCheckbox/MCheckbox";
+import { isTodoCompleted } from '../../../../utils';
+import { Todo } from '../../../../models/todo';
+import { MButton, MEditableField, MCheckbox } from '../../../commons';
 
 interface ToDoItemProps {
   todo: Todo,

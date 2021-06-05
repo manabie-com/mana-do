@@ -1,6 +1,5 @@
-import React, {useEffect, useState} from 'react';
-
-import {useHistory} from 'react-router-dom'
+import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom'
 import Service from '../../../service'
 import SignInPageView from './SignInPageView';
 
@@ -22,10 +21,11 @@ const SignInPage = () => {
 
   const signIn = async (userId: string, password: string) => {
     try {
-      const resp = await Service.signIn(userId, password)
-      localStorage.setItem('token', resp)
-      history.push('/todo')
+      const resp = await Service.signIn(userId, password);
+      localStorage.setItem('token', resp);
+      history.push('/todo');
     } catch (e) {
+      console.log('e: ', e)
       setErrorMessage(e);
     }
   }

@@ -1,5 +1,5 @@
 import React from 'react';
-import {fireEvent, render} from '@testing-library/react';
+import { fireEvent, render } from '@testing-library/react';
 import MCheckbox from './MCheckbox';
 
 describe('Must render MCheckbox properly', () => {
