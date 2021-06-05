@@ -45,7 +45,7 @@ input:focus {
   box-shadow: 1px 0 9px rgba(0,0,0, 0.25);
 } */
 
-/* .ToDo__container {
+.ToDo__container {
   border: 1px solid rgba(0,0,0, 0.13);
   border-radius: 8px;
   width: 500px;
@@ -122,4 +122,4 @@ input:focus {
 }
 
 .Action__btn {
-} */
+}

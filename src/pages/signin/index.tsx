@@ -3,7 +3,7 @@ import Container from 'components/Container';
 import React, { useState } from 'react';
 
 import { useHistory } from 'react-router-dom';
-import TextInput from 'components/TextInput';
+import TextInput from 'components/Form/TextInput';
 import Service from 'service';
 import Form from 'components/Form';
 import Typography from 'components/Typography/Typography';
