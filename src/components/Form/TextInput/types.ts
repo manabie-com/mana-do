@@ -1,6 +1,6 @@
-import { ComponentPropsWithoutRef } from 'react';
+import { ComponentPropsWithRef } from 'react';
 
-export type InputType = ComponentPropsWithoutRef<'input'> & {
+export type InputType = ComponentPropsWithRef<'input'> & {
   error?: boolean;
 };
 

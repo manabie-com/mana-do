@@ -1,15 +1,16 @@
-import clsx from 'clsx';
-import React, { ComponentPropsWithoutRef, forwardRef } from 'react';
+import React, { ComponentPropsWithRef, FC } from 'react';
 import styled from 'styled-components';
-import theme from 'globalTheme';
 
 const StyledCheckbox = styled.input`
-  outline: none;
+  width: 24px;
+  height: 24px;
+  box-shadow: none;
   border: none;
+  outline: none;
 `;
 
-const Checkbox = () => {
-  return <StyledCheckbox />;
+const Checkbox: FC<ComponentPropsWithRef<'input'>> = ({ ...rest }) => {
+  return <StyledCheckbox {...rest} type="checkbox" />;
 };
 
 export default Checkbox;

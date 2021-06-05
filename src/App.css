@@ -1,8 +1,8 @@
-.App {
+/* .App {
   text-align: center;
   display: flex;
   justify-content: center;
-}
+} */
 
 /* button {
   outline: none;
@@ -18,19 +18,19 @@ button:hover {
   opacity: 0.85;
 } */
 
-input[type="checkbox"] {
+/* input[type="checkbox"] {
   width: 24px;
   height: 24px;
   box-shadow: none;
   border: none;
   outline: none;
-}
+} */
 
-input[type="checkbox"]:focus {
+/* input[type="checkbox"]:focus {
   box-shadow: none;
   border: none;
   outline: none;
-}
+} */
 
 /* input {
   min-height: 36px;
