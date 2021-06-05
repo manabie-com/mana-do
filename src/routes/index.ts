@@ -16,6 +16,7 @@ const routes: RouteType[] = [
   {
     path: '/todo',
     loadComponent: lazy(() => import('pages/todo')),
+    isPrivate: true,
   },
 ];
 
