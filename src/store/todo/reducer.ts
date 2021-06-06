@@ -7,9 +7,11 @@ import {
   TOGGLE_ALL_TODOS,
   UPDATE_TODO_STATUS,
   SET_TODO,
+  SET_SHOWING_TAB,
 } from './actions';
 
 export const initialState: IToDoState = {
+  showing: 'ALL',
   todos: [],
 };
 
@@ -66,6 +68,13 @@ function reducer(state: IToDoState, action: AppActions): IToDoState {
         ...state,
         todos: [],
       };
+
+    case SET_SHOWING_TAB:
+      return {
+        ...state,
+        showing: action.payload,
+      };
+
     default:
       return state;
   }

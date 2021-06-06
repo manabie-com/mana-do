@@ -13,5 +13,6 @@ export interface Todo {
   created_date: string;
 }
 export interface IToDoState {
+  showing: EnhanceTodoStatusType;
   todos: Todo[];
 }
