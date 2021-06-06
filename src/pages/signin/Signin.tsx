@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import Button from 'components/Buttons/PrimaryButton';
 import Container from 'components/Container';
-import TextInput from 'components/Form/TextInput';
+import TextInput from 'components/Forms/TextInput';
 import Service from 'service';
-import Form from 'components/Form';
+import Form from 'components/Forms/Form';
 import Typography from 'components/Typography/Typography';
 import Box from 'components/Box';
 

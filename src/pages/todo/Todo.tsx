@@ -1,10 +1,10 @@
 import React from 'react';
 import { deleteTodo } from 'store/todo/actions';
 import { isTodoCompleted } from 'utils';
-import Checkbox from 'components/Form/Checkbox';
+import Checkbox from 'components/Forms/Checkbox';
 import Container from 'components/Container';
 import Card from 'components/Surfaces/Card';
-import TextInput from 'components/Form/TextInput';
+import TextInput from 'components/Forms/TextInput';
 import Box from 'components/Box';
 import Button from 'components/Buttons/PrimaryButton';
 import globalTheme from 'globalTheme';
