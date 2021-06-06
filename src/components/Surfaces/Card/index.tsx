@@ -1,8 +1,7 @@
-import React, { FC } from 'react';
+import React, { ComponentPropsWithRef, FC } from 'react';
 import styled from 'styled-components';
 
-type CardType = {
-  children: React.ReactNode;
+type CardType = ComponentPropsWithRef<'div'> & {
   background?: string;
 };
 
