@@ -98,12 +98,12 @@ const ToDoPage = ({ history }: RouteComponentProps) => {
    * Or: use API to save list in DB
    */
   useEffect(() => {
-    const beforeUnloadFc = () => {
+    const beforeUnloadFn = () => {
       localStorage.setItem(token, JSON.stringify(todos));
     };
 
-    window.addEventListener('beforeunload', beforeUnloadFc);
-    return () => window.removeEventListener('beforeunload', beforeUnloadFc);
+    window.addEventListener('beforeunload', beforeUnloadFn);
+    return () => window.removeEventListener('beforeunload', beforeUnloadFn);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [todos]);
 
