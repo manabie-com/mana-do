@@ -1,7 +1,7 @@
-export type VarientType = 'default' | 'error' | 'disable';
+export type TypographyVariantType = 'default' | 'error' | 'disable';
 
 export type StyledTypoType = {
-  variant: VarientType;
+  variant: TypographyVariantType;
 };
 
 export type TypographyType = Partial<StyledTypoType> & {

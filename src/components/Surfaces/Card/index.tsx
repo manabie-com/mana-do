@@ -9,6 +9,7 @@ const StyledCard = styled.div`
   box-shadow: 0px 2px 3px 1px rgb(0 0 0 / 20%);
   border-radius: 4px;
   padding: 2rem;
+  width: 100%;
 `;
 
 const Card: FC<CardType> = ({ children }) => {

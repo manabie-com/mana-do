@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import theme from 'globalTheme';
-import { StyledTypoType, TypographyType, VarientType } from './types';
+import { StyledTypoType, TypographyType, TypographyVariantType } from './types';
 
-const colorVariants = (key: VarientType) => {
+const colorVariants = (key: TypographyVariantType) => {
   switch (key) {
     case 'error':
       return theme.color.error;
