@@ -24,14 +24,16 @@ import TodoToolbar from 'components/Todo/Toolbar';
 
 const ToDoPage = ({ history }: RouteComponentProps) => {
   const [{ todos }, dispatch] = useReducer(reducer, initialState);
-  console.log('todos', todos);
   const [showing, setShowing] = useState<EnhanceTodoStatusType>('ALL');
+  const inputRef = useRef<HTMLInputElement>(null);
+  const token = localStorage.getItem('token') || '';
 
   const onCreateTodo = async (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
+    if (e.key === 'Enter' && inputRef.current) {
       try {
-        const resp = await Service.createTodo(e.currentTarget.value);
+        const resp = await Service.createTodo(inputRef.current.value);
         dispatch(createTodo(resp));
+        inputRef.current.value = '';
       } catch (e) {
         if (e.response.status === 401) {
           history.push('/');
@@ -70,21 +72,48 @@ const ToDoPage = ({ history }: RouteComponentProps) => {
     return isTodoCompleted(todo) ? accum : accum + 1;
   }, 0);
 
+  const handleShowAll = () => setShowing('ALL');
+  const handleShowActive = () => setShowing(TodoStatus.ACTIVE);
+  const handleShowCompleted = () => setShowing(TodoStatus.COMPLETED);
+
   const fetchList = async () => {
-    const resp = await Service.getTodos();
-    dispatch(setTodos(resp || []));
+    let todoList = JSON.parse(localStorage.getItem(token) || '[]');
+
+    // if data in localStorage
+    if (todoList.length) {
+      dispatch(setTodos(todoList || []));
+    } else {
+      const resp = await Service.getTodos();
+      dispatch(setTodos(resp || []));
+    }
   };
 
   useEffect(() => {
     fetchList();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  /**
+   * Persist Todo list to localStorage before user leave
+   * Or: use API to save list in DB
+   */
+  useEffect(() => {
+    const beforeUnloadFc = () => {
+      localStorage.setItem(token, JSON.stringify(todos));
+    };
+
+    window.addEventListener('beforeunload', beforeUnloadFc);
+    return () => window.removeEventListener('beforeunload', beforeUnloadFc);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [todos]);
 
   return (
     <Container>
-      <Box display="flex" justifyContent="center" margin="2rem 0 0 0">
+      <Box display="flex" justifyContent="center" margin="2rem 0 0">
         <Card background={globalTheme.color.background}>
           <Box margin="0 0 1rem">
             <TextInput
+              inputRef={inputRef}
               fullWidth={true}
               placeholder="What need to be done?"
               onKeyDown={onCreateTodo}
@@ -111,23 +140,18 @@ const ToDoPage = ({ history }: RouteComponentProps) => {
               );
             })}
           </div>
+
           <TodoToolbar>
-            {/* <div> */}
             <Checkbox
               checked={activeTodos === 0 && todos.length !== 0}
               onChange={onToggleAllTodo}
               disabled={todos.length === 0}
             />
-            {/* </div> */}
 
             <Box textAlign="center">
-              <Button onClick={() => setShowing('ALL')}>All</Button>
-              <Button onClick={() => setShowing(TodoStatus.ACTIVE)}>
-                Active
-              </Button>
-              <Button onClick={() => setShowing(TodoStatus.COMPLETED)}>
-                Completed
-              </Button>
+              <Button onClick={handleShowAll}>All</Button>
+              <Button onClick={handleShowActive}>Active</Button>
+              <Button onClick={handleShowCompleted}>Completed</Button>
             </Box>
 
             <Button width="200px" variant="secondary" onClick={onDeleteAllTodo}>
