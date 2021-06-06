@@ -1,3 +1,4 @@
+import LoadingSpinner from 'components/Loading/LoadingSpinner';
 import React, { Suspense } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import routes from 'routes';
@@ -7,7 +8,7 @@ import './App.css';
 function App() {
   return (
     <main className="App">
-      <Suspense fallback={'<div>Loading...</div>'}>
+      <Suspense fallback={<LoadingSpinner />}>
         <BrowserRouter>
           <Switch>
             {routes.map(({ path, loadComponent, exact = true, isPrivate }) =>
