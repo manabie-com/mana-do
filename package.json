@@ -43,6 +43,9 @@
       "last 1 safari version"
     ]
   },
+  "resolutions": {
+    "**/pretty-format": "25.1.0"
+  },
   "devDependencies": {
     "@types/react-router-dom": "^5.1.5",
     "@types/shortid": "^0.0.29"
