@@ -12,12 +12,14 @@ import DeleteButton from 'components/Buttons/DeleteButton';
 import TodoToolbar from 'components/Todo/Toolbar';
 import TodoContent from 'components/Todo/TodoContent';
 import useTodoHook from './hook';
+import { TodoStatus } from 'models/todo';
 
 // remove unused history props
 const ToDoPage = () => {
   // move all useReducer & useState & func to hook file
   const {
     todos,
+    showing,
     inputRef,
     dispatch,
     onCreateTodo,
@@ -79,9 +81,21 @@ const ToDoPage = () => {
             />
 
             <Box textAlign="center">
-              <Button onClick={handleShowAll}>All</Button>
-              <Button onClick={handleShowActive}>Active</Button>
-              <Button onClick={handleShowCompleted}>Completed</Button>
+              <Button active={showing === 'ALL'} onClick={handleShowAll}>
+                All
+              </Button>
+              <Button
+                active={showing === TodoStatus.ACTIVE}
+                onClick={handleShowActive}
+              >
+                Active
+              </Button>
+              <Button
+                active={showing === TodoStatus.COMPLETED}
+                onClick={handleShowCompleted}
+              >
+                Completed
+              </Button>
             </Box>
 
             <Button width="200px" variant="secondary" onClick={onDeleteAllTodo}>

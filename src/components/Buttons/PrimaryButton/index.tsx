@@ -21,7 +21,9 @@ const PrimaryButton = styled.button<ButtonPropsType>`
   border-radius: 4px;
   min-height: 32px;
   padding: 0.6rem 1.4rem;
-  background: ${({ variant = 'primary' }) => colorVariants(variant)};
+
+  background: ${({ active, variant = 'primary' }) =>
+    active ? theme.color.error : colorVariants(variant)};
   width: ${({ width = 'auto' }) => width};
   color: white;
   margin: 0 0.4rem;
