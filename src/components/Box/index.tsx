@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components';
 
 type BoxPropsType = ComponentPropsWithRef<'div'> & {
   display?: 'block' | 'inline-block' | 'flex';
-  justifyContent?: 'flex-start' | 'center' | 'flex-end';
+  justifyContent?: 'flex-start' | 'center' | 'flex-end' | 'space-between';
   alignItems?: 'baseline' | 'flex-start' | 'center' | 'flex-end' | 'stretch';
   textAlign?: 'left' | 'center' | 'right';
   padding?: string;
@@ -22,7 +22,6 @@ const Box = styled.div<BoxPropsType>`
   ${({ textAlign }) => css`
     text-align: ${textAlign};
   `}
-  margin: 0 auto;
   padding: ${({ padding = 0 }) => padding};
   margin: ${({ margin = 0 }) => margin};
 `;

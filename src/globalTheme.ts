@@ -1,10 +1,11 @@
 const globalTheme = {
   color: {
-    primary: '#FFAE42',
-    secondary: '',
+    primary: '#f8a488',
+    secondary: '#5aa897',
+    dark: '#45526c',
     gray: '#808080',
     error: '#c62828',
-    dark: 'black',
+    background: '#f8f5f1',
   },
   fontSize: {
     default: '16px',

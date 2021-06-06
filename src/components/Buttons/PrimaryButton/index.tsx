@@ -15,19 +15,21 @@ const colorVariants = (key: ButtonVariantType) => {
   }
 };
 
-const Button = styled.button<ButtonPropsType>`
+const PrimaryButton = styled.button<ButtonPropsType>`
   outline: none;
   border: none;
   border-radius: 4px;
   min-height: 32px;
   padding: 0.6rem 1.4rem;
   background: ${({ variant = 'primary' }) => colorVariants(variant)};
+  width: ${({ width = 'auto' }) => width};
   color: white;
-  font-size: ${theme.fontSize.default};
+  margin: 0 0.4rem;
+
   &:hover {
     opacity: 0.85;
     cursor: pointer;
   }
 `;
 
-export default Button;
+export default PrimaryButton;

@@ -7,6 +7,10 @@ const StyledCheckbox = styled.input`
   box-shadow: none;
   border: none;
   outline: none;
+  flex-shrink: 0;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const Checkbox: FC<ComponentPropsWithRef<'input'>> = ({ ...rest }) => {
