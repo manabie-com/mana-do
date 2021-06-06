@@ -26,7 +26,7 @@ describe('<TextInput />', () => {
   it('render with input onchange', () => {
     let { getByPlaceholderText } = render(<TextInput {...props} />);
     let input = getByPlaceholderText(props.placeholder);
-    input.focus();
+
     fireEvent.change(input, { target: { value: props.text } });
     fireEvent.keyDown(input, { key: 'Enter' });
 

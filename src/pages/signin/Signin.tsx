@@ -38,7 +38,7 @@ const SignInPage = () => {
 
   return (
     <Container>
-      <Form onSubmit={signIn} autoComplete="off" data-testid="form">
+      <Form onSubmit={signIn} autoComplete="off">
         <TextInput
           text="User id"
           id="user_id"
