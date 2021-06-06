@@ -1,12 +1,12 @@
-import Button from 'components/Button';
-import Container from 'components/Container';
 import React, { useState } from 'react';
-
 import { useHistory } from 'react-router-dom';
+import Button from 'components/Buttons/PrimaryButton';
+import Container from 'components/Container';
 import TextInput from 'components/Form/TextInput';
 import Service from 'service';
 import Form from 'components/Form';
 import Typography from 'components/Typography/Typography';
+import Box from 'components/Box';
 
 const SignInPage = () => {
   const [form, setForm] = useState({
@@ -60,11 +60,12 @@ const SignInPage = () => {
           error={!!error}
         />
 
-        <Typography variant="error">{error}</Typography>
-
-        <div>
+        <Box textAlign="center" margin="1rem 0 0 0">
+          <Typography variant="error">{error}</Typography>
+        </Box>
+        <Box textAlign="center" margin="1rem 0 0 0">
           <Button type="submit">Sign in</Button>
-        </div>
+        </Box>
       </Form>
     </Container>
   );
