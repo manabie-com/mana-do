@@ -6,7 +6,15 @@ const StateContext = React.createContext(initialState);
 const DispatchContext = React.createContext({});
 
 function StoreProvider ({children}: any) {
-  var [state, dispatch]: [AppState, any] = React.useReducer(reducer, initialState);
+  let todos: any = [];
+  if(typeof window !== undefined) {
+    todos = localStorage.getItem('todos');
+    todos = todos ? JSON.parse(todos): [];
+  }
+  console.log('todos', todos);
+  var [state, dispatch]: [AppState, any] = React.useReducer(reducer, {
+      todos,
+  });
   return (
     <StateContext.Provider value={state}>
       <DispatchContext.Provider value={dispatch}>

@@ -1,21 +1,24 @@
-import React from 'react';
+import React, {Suspense} from 'react';
 
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
 
-import SignInPage from './components/SignInPage';
-import ToDoPage from './components/ToDoPage';
+import routes from './route/routes'
 
 import './App.css';
 
 function App() {
+
+  const loading = <div>Loading..</div>;
+  
   return (
     <main className="App">
-      <BrowserRouter>
-        <Switch>
-          <Route path="/" exact component={SignInPage}/>
-          <Route path="/todo" component={ToDoPage}/>
-        </Switch>
-      </BrowserRouter>
+      <Suspense fallback={loading}>
+        <BrowserRouter>
+          <Switch>
+            {routes.map(route => <Route key={route.name} path={route.path} exact={route.exact} component={route.component}/>)}
+          </Switch>
+        </BrowserRouter>
+      </Suspense>
     </main>
   );
 }
