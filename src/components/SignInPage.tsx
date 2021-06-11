@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 
 import {useHistory} from 'react-router-dom'
-import Service from './service'
+import Service from '../service'
 
 const SignInPage = () => {
     const [form, setForm] = useState({
@@ -13,7 +13,8 @@ const SignInPage = () => {
     const signIn = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         const resp = await Service.signIn(form.userId, form.password)
-
+        console.log('resp', resp);
+        // use JSON.stringify() to sure it is string. 
         localStorage.setItem('token', resp)
         history.push('/todo')
     }

@@ -1,7 +1,5 @@
-import React, {useEffect, useReducer, useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {RouteComponentProps} from 'react-router-dom';
-
-import reducer, {initialState} from './store/reducer';
 import {
     setTodos,
     createTodo,
@@ -9,35 +7,41 @@ import {
     toggleAllTodos,
     deleteAllTodos,
     updateTodoStatus
-} from './store/actions';
-import Service from './service';
-import {TodoStatus} from './models/todo';
-import {isTodoCompleted} from './utils';
+} from '../store/actions';
+import Service from '../service';
+import {TodoStatus} from '../models/todo';
+import {isTodoCompleted} from '../utils';
+import {useDispatch, useStoreState, updateStore} from '../context/TodoContext';
 
 type EnhanceTodoStatus = TodoStatus | 'ALL';
 
-
 const ToDoPage = ({history}: RouteComponentProps) => {
-    const [{todos}, dispatch] = useReducer(reducer, initialState);
+    // Do not declare useReducer inside function ==> reason duplication state, data should through via
+    const {todos} = useStoreState();
+    const dispatch = useDispatch();
     const [showing, setShowing] = useState<EnhanceTodoStatus>('ALL');
     const inputRef = useRef<HTMLInputElement>(null);
 
     useEffect(()=>{
         (async ()=>{
             const resp = await Service.getTodos();
-
-            dispatch(setTodos(resp || []));
+            console.log('useEffect', resp);
+            updateStore(dispatch, setTodos(resp || []))
+            // dispatch(setTodos(resp || []));
         })()
-    }, [])
+    }, [dispatch])
 
     const onCreateTodo = async (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter' && inputRef.current) {
             try {
                 const resp = await Service.createTodo(inputRef.current.value);
-                dispatch(createTodo(resp));
+                // dispatch(createTodo(resp));
+                updateStore(dispatch, createTodo(resp));
                 inputRef.current.value = '';
-            } catch (e) {
-                if (e.response.status === 401) {
+            } catch (error) {
+                console.log('error', error);
+                
+                if (error.response.status === 401) {
                     history.push('/')
                 }
             }
@@ -45,15 +49,18 @@ const ToDoPage = ({history}: RouteComponentProps) => {
     }
 
     const onUpdateTodoStatus = (e: React.ChangeEvent<HTMLInputElement>, todoId: string) => {
-        dispatch(updateTodoStatus(todoId, e.target.checked))
+        // dispatch(updateTodoStatus(todoId, e.target.checked))
+        updateStore(dispatch, updateTodoStatus(todoId, e.target.checked));
     }
 
     const onToggleAllTodo = (e: React.ChangeEvent<HTMLInputElement>) => {
-        dispatch(toggleAllTodos(e.target.checked))
+        // dispatch(toggleAllTodos(e.target.checked))
+        updateStore(dispatch, toggleAllTodos(e.target.checked));
     }
 
     const onDeleteAllTodo = () => {
-        dispatch(deleteAllTodos());
+        // dispatch(deleteAllTodos());
+        updateStore(dispatch, deleteAllTodos());
     }
 
     const showTodos = todos.filter((todo) => {
@@ -70,6 +77,7 @@ const ToDoPage = ({history}: RouteComponentProps) => {
     const activeTodos = todos.reduce(function (accum, todo) {
         return isTodoCompleted(todo) ? accum : accum + 1;
     }, 0);
+console.log('todos', showTodos);
 
     return (
         <div className="ToDo__container">
@@ -94,7 +102,7 @@ const ToDoPage = ({history}: RouteComponentProps) => {
                                 <span>{todo.content}</span>
                                 <button
                                     className="Todo__delete"
-                                    onClick={() => dispatch(deleteTodo(todo.id))}
+                                    onClick={() => updateStore(dispatch, deleteTodo(todo.id))/*dispatch(deleteTodo(todo.id))*/}
                                 >
                                     X
                                 </button>
