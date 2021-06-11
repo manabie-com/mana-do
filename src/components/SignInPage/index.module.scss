@@ -1,0 +1,25 @@
+.Page {
+  background-color: var(--t-background-subdued);
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.Container {
+  background-color: white;
+  max-width: 25rem;
+  border-radius: var(--t-border-radius);
+  flex: 1;
+}
+
+.LogIn {
+  padding: 1rem;
+
+  .Heading {
+    margin-bottom: 1.5rem;
+    text-align: center;
+  }
+}
+

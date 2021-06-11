@@ -1,0 +1,40 @@
+.Item {
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  border-radius: var(--t-border-radius);
+  background-color: var(--t-background);
+  padding: 0.5rem 1rem;
+  margin-top: 1rem;
+  box-shadow: var(--t-box-shadow-1);
+
+  .Content {
+    display: flex;
+    align-items: center;
+    flex: 1;
+  }
+
+  .Spacing {
+    flex: 1;
+  }
+
+  .TextWrapper {
+    cursor: text;
+    padding: 0.5rem;
+    margin-left: -0.5rem;
+
+    &.Completed {
+      text-decoration: line-through;
+    }
+
+    &:hover {
+      border-radius: var(--t-border-radius);
+      background-color: var(--t-background-subdued);
+    }
+  }
+
+  .Delete{
+    cursor: pointer;
+    padding: .5rem 0 .5rem .5rem;
+  }
+}

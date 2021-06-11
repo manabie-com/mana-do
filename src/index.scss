@@ -1,0 +1,46 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+input {
+  font-family: 'Roboto', sans-serif;
+}
+
+#root {
+  font-family: 'Roboto', sans-serif;
+
+  --t-primary: rgba(0, 128, 96, 1);
+  --t-critical: rgba(215, 44, 13, 1);
+
+  --t-background: rgba(255, 255, 255, 1);
+  --t-background-subdued: rgba(240, 240, 241, 1);
+
+  --t-text-primary: rgba(72, 72, 72, 1);
+
+  --t-border-subdued: rgba(201, 204, 207, 1);
+  --t-border-radius: 4px;
+
+  --t-action-primary: rgba(0, 128, 96, 1);
+  --t-action-primary-hovered: rgba(0, 110, 82, 1);
+  --t-action-primary-text: rgba(255, 255, 255, 1);
+  --t-action-primary-depressed: rgba(0, 61, 44, 1);
+
+  --t-action-default: rgba(255, 255, 255, 1);
+  --t-action-default-hovered: rgba(246, 246, 247, 1);
+  --t-action-default-text: rgba(32, 34, 35, 1);
+  --t-action-default-active: rgba(241, 242, 243, 1);
+  --t-action-default-depressed: rgba(87, 89, 89, 1);
+
+  --t-box-shadow-1: 0 3px 2px rgba(67, 67, 67, 0.1);
+}
+
+

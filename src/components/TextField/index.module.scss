@@ -1,0 +1,19 @@
+.TextField {
+  margin-bottom: 1rem;
+
+  .Input {
+    font-size: 1rem;
+    margin: 0;
+    padding: .5rem 1rem;
+    border-radius: 4px;
+    border: 1px solid var(--t-border-subdued);
+    width: 100%;
+    min-height: 2.5rem;
+  }
+
+  .Label {
+    margin-bottom: 0.5rem;
+  }
+
+}
+

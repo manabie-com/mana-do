@@ -1,0 +1,23 @@
+.Header {
+  height: 4rem;
+  background-color: var(--t-background);
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0 1rem;
+  box-shadow: var(--t-box-shadow-1);
+  position: sticky;
+  top: 0;
+
+  .Spacing {
+    flex: 1;
+  }
+
+  .Brand {
+    font-weight: 700;
+  }
+
+  .UserInfo {
+    margin-right: 1rem;
+  }
+}

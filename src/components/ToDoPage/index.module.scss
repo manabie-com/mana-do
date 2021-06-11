@@ -1,0 +1,27 @@
+.Page {
+  background-color: var(--t-background-subdued);
+  position: relative;
+  min-height: 100vh;
+}
+
+.Navigation {
+  margin-bottom: 1rem;
+}
+
+.Content {
+  max-width: 50rem;
+  margin: auto;
+  padding: 2rem 0;
+}
+
+.ListHeading {
+  margin-top: 2rem;
+  padding: 0 1rem;
+  display: flex;
+  align-items: center;
+
+  .Spacing {
+    flex: 1;
+  }
+}
+

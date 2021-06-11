@@ -1,0 +1,26 @@
+.Icon {
+  width: 24px;
+  height: 24px;
+}
+
+.default {
+  --t-svg-fill: black;
+}
+
+.white {
+  --t-svg-fill: white;
+}
+
+.primary {
+  --t-svg-fill: var(--t-primary);
+}
+
+.danger {
+  --t-svg-fill: var(--t-critical);
+}
+
+svg {
+  fill: var(--t-svg-fill);
+  width: 20px;
+  height: 20px;
+}
