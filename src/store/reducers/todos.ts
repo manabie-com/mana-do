@@ -1,4 +1,4 @@
-import {Todo, TodoStatus} from '../models/todo';
+import {Todo, TodoStatus} from '../../models/todo';
 import {
   AppActions,
   CREATE_TODO,
@@ -6,7 +6,7 @@ import {
   DELETE_TODO,
   TOGGLE_ALL_TODOS,
   UPDATE_TODO_STATUS
-} from './actions';
+} from '../actions/todos';
 
 export interface AppState {
   todos: Array<Todo>
@@ -16,7 +16,7 @@ export const initialState: AppState = {
   todos: []
 }
 
-function reducer(state: AppState, action: AppActions): AppState {
+function todos(state: AppState, action: AppActions): AppState {
   switch (action.type) {
     case CREATE_TODO:
       state.todos.push(action.payload);
@@ -64,4 +64,4 @@ function reducer(state: AppState, action: AppActions): AppState {
   }
 }
 
-export default reducer;
+export default todos;

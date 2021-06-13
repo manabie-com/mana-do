@@ -11,3 +11,19 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.App {
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  position: relative;
+}
+
+.App div {
+  position: relative;
+}
+
+:root {
+  --background-primary: #FFFFFF;
+  --foreground-primary: #1D1D42;
+}
