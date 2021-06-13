@@ -1,0 +1,16 @@
+.container {
+    height: 100%;
+    width: 100%;
+    background-color: var(--foreground-primary);
+}
+
+.formContainer {
+    height: 100%;
+    background-color: var(--background-primary);
+    width: 400px;
+}
+
+.formContainer .form {
+    padding: 30vh 20px;
+    margin: auto;
+}
