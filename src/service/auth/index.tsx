@@ -1,15 +1,32 @@
-import {IAuth} from "./types";
+import { IAuth } from "./types"
+import { ResponseDataType } from "../types"
 
-const mockToken = 'testabc.xyz.ahk'
+const mockToken = "testabc.xyz.ahk"
 
 class AuthService extends IAuth {
-    async signIn(username: string, password: string): Promise<string> {
-        if (username === 'firstUser' && password === 'example') {
-            return Promise.resolve(mockToken)
-        }
-
-        return Promise.reject('Incorrect username/password')
+  signIn = async (
+    username: string,
+    password: string,
+  ): Promise<ResponseDataType<string>> => {
+    if (username === "firstUser" && password === "example") {
+      return Promise.resolve({ isSuccess: true, data: mockToken })
     }
+    return Promise.resolve({
+      isSuccess: false,
+      data: "Incorrect username/password",
+    })
+  }
+
+  verifyToken = async (token: string): Promise<ResponseDataType<string>> => {
+    if (token === mockToken) {
+      return Promise.resolve({ isSuccess: true, data: "Verified token" })
+    } else {
+      return Promise.resolve({
+        isSuccess: false,
+        data: "Incorrect token",
+      })
+    }
+  }
 }
 
-export default new AuthService();
+export default new AuthService()

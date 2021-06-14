@@ -5,9 +5,9 @@ import App from 'pages';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  //remove strict mode 'cuz the reducer will dispatch twice in this mode
+  //issues link https://github.com/facebook/react/issues/16295
+    <App />,
   document.getElementById('root')
 );
 
