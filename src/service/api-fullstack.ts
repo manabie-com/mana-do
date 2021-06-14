@@ -7,7 +7,21 @@ class ApiFullstack extends IAPI {
   async signIn(username: string, password: string): Promise<string> {
     const resp = await axios.get<AxiosResponse<string>>(`/login?user_id=${username}&password=${password}`);
 
+    localStorage.setItem('token', resp.data.data);
+
     return resp.data.data;
+  }
+
+  async signOut() {
+    localStorage.removeItem('token');
+
+    return Promise.resolve();
+  }
+
+  isLoggedIn() {
+    const token = localStorage.getItem('token');
+
+    return !!token;
   }
 
   async createTodo(content: string): Promise<Todo> {
