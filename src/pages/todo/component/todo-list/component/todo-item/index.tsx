@@ -24,17 +24,32 @@ const TodoItem = (props: IProps): JSX.Element => {
     }
   }
   return (
-    <div className={styles.todoItemContainer}>
+    <div
+      className={styles.todoItemContainer}
+      tabIndex={0}
+      onDoubleClick={(e) => {
+        setEditable(true)
+        editTextFieldRef?.focus()
+      }}
+    >
       <label
         className={styles.checkBoxContainer}
         onDoubleClick={(e) => {
           setEditable(true)
           editTextFieldRef?.focus()
         }}
+        onClick={(e) => {
+          onMarkDone(!isTodoCompleted(todo), todo.id)
+          e.preventDefault()
+        }}
       >
         {editable ? (
           <input
             autoFocus
+            onClick={(e) => {
+              e.preventDefault()
+              e.stopPropagation()
+            }}
             onChange={(e) => {
               setEditValue(e.target.value)
             }}
@@ -49,25 +64,28 @@ const TodoItem = (props: IProps): JSX.Element => {
             }}
             className={styles.editTextField}
             value={editValue}
+            data-testid="updateInput"
           />
         ) : (
-          <span className={styles.todoText}>
-            {isTodoCompleted(todo) ? <s>{todo.content}</s> : todo.content}
+          <span
+            className={[
+              styles.todoText,
+              isTodoCompleted(todo) ? styles.strike : "",
+            ].join(" ")}
+          >
+            {todo.content}
           </span>
         )}
         <input
           id={todo.id}
           type="checkbox"
           checked={isTodoCompleted(todo)}
-          onClick={(e) => {
-            onMarkDone(!isTodoCompleted(todo), todo.id)
-            e.stopPropagation()
-          }}
           onChange={() => {}}
         />
         <span className={styles.checkmark} />
       </label>
       <button
+        data-testid="deleteBtn"
         className={styles.removeBtn}
         onClick={(e) => {
           e.stopPropagation()
