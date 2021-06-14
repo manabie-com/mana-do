@@ -10,6 +10,14 @@ import NotFoundPage from './components/NotFoundPage';
 
 export default class App extends Component<any, any> {
   render() {
+    /* The old route is not security:
+       - We can access any page without authentication
+       - After authorizing, the use can access login page
+       FIXME: So I created 2 component "PublicRoute" & "PrivateRoute" to handle the permission
+
+       We must to handle "not found" page
+       FIXME: I created component "NotFoundPage" to handle this
+     */
     return (
       <main className="App">
         <BrowserRouter>

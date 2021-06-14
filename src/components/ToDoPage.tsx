@@ -24,6 +24,7 @@ const ToDoPage = ({history}: RouteComponentProps) => {
 
   useEffect(() => {
     (async () => {
+      // FIXME: Load todos first time and dispatch to store
       const resp = await Service.getTodos();
 
       dispatch(setTodos(resp || []));
@@ -31,6 +32,10 @@ const ToDoPage = ({history}: RouteComponentProps) => {
   }, []);
 
   const onCreateTodo = async (e: HTMLInputElement) => {
+    /* - We must to check "Enter" keyword multi time (create todos, edit todos)
+       - Need to trim value before create todos
+       FIXME: So I create "IndependentInputComponent" to handle this
+     */
     try {
       if (e.value?.trim()) {
         const resp = await Service.createTodo(e.value.trim());
@@ -54,6 +59,9 @@ const ToDoPage = ({history}: RouteComponentProps) => {
   };
 
   const onDeleteTodo = ({id, content}: Todo) => {
+    /* - Need to confirm before delete
+       FIXME: I used "window.confirm" to handle this
+     */
     const result = window.confirm(`Do you really want to delete todo "${content}"?`);
 
     if (result) {
@@ -66,10 +74,14 @@ const ToDoPage = ({history}: RouteComponentProps) => {
   };
 
   const onDeleteAllTodo = () => {
+    // No need to do anything if dont have any todos
     if (!todos.length) {
       return;
     }
 
+    /* - Need to confirm before delete all
+       FIXME: I used "window.confirm" to handle this
+     */
     const result = window.confirm('Do you really want to delete all todo?');
 
     if (result) {
@@ -94,6 +106,11 @@ const ToDoPage = ({history}: RouteComponentProps) => {
 
   return (
     <div className="container small-container" style={{marginBottom: '3rem'}}>
+      {
+        /* - We must to check "Enter" keyword multi time (create todos, edit todos)
+           FIXME: So I create "IndependentInputComponent" to handle this
+         */
+      }
       <IndependentInputComponent
         className="Todo__input"
         placeholder="What need to be done?"

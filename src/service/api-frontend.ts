@@ -5,6 +5,9 @@ import shortid from 'shortid';
 const mockToken = 'testabc.xyz.ahk';
 
 class ApiFrontend extends IAPI {
+  /**
+   * FIXME: add isLoggedIn feature to check the permission
+   */
   isLoggedIn(): boolean {
     const token = localStorage.getItem('token');
 
@@ -21,6 +24,9 @@ class ApiFrontend extends IAPI {
     return Promise.reject('Incorrect username/password');
   }
 
+  /**
+   * FIXME: add signOut feature to sign out this app
+   */
   async signOut() {
     localStorage.removeItem('token');
 
@@ -37,6 +43,9 @@ class ApiFrontend extends IAPI {
     } as Todo);
   }
 
+  /**
+   * FIXME: load toDo from the localStorage
+   */
   async getTodos(): Promise<Todo[]> {
     const json = localStorage.getItem('todoList');
     let result = [];

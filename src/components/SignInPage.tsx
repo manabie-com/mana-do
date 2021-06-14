@@ -22,6 +22,9 @@ export default class SignInPage extends Component<any, { form: any, errorMessage
       this.setState({errorMessage: ''});
       this.props.history.push('/todo');
     } catch (errorMessage) {
+      /* Missing error message after login failed
+         FIXME: Add errorMessage state
+       */
       this.setState({errorMessage});
     }
   }
@@ -78,6 +81,11 @@ export default class SignInPage extends Component<any, { form: any, errorMessage
             Sign in
           </button>
 
+          {
+            /* Missing error message after login failed
+               FIXME: Add errorMessage state
+             */
+          }
           <div style={{color: '#dc3545'}}>
             {this.state.errorMessage ? <p>{this.state.errorMessage}</p> : ''}
           </div>
