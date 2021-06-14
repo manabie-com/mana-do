@@ -105,7 +105,7 @@ const ToDoPage = ({history}: RouteComponentProps) => {
         display: 'grid',
         gridTemplateColumns: '50% 50%',
         marginTop: '15px',
-        padding: '0 7px'
+        padding: '0 7px',
       }}>
         {todos.length > 0 ?
           <input

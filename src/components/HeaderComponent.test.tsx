@@ -2,8 +2,6 @@ import React from 'react';
 import {fireEvent, render} from '@testing-library/react';
 import HeaderComponent from './HeaderComponent';
 import {createMemoryHistory} from 'history';
-import {Router} from 'react-router-dom';
-import App from '../App';
 
 test('has avatar', () => {
   const {getByAltText} = render(<HeaderComponent/>);
