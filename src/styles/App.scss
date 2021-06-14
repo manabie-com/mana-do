@@ -1,0 +1,69 @@
+@import './variables';
+
+#root {
+    background-color: $bg;
+}
+.color-label {
+    color: $subTitle;
+    margin: 6px auto;
+    font-size: 14px;
+}
+.input-none {
+    border: none;
+    border-radius: 0!important;
+}
+.wrap-box {
+    background-color: $white;
+    border: 1px solid $secondary;
+    border-radius: 3px;
+}
+.p-4 {
+    padding: 30px!important;
+}
+.m-t-10 {
+    margin-top: 10px!important;
+}
+.m-t-15 {
+    margin-top: 15px!important;
+}
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: -15px;
+}
+.btn-submit {
+    background-color: $primary;
+    border-color: $primary;
+    color: $white;
+    border-radius: 3px;
+}
+.align-items-center {
+    -ms-flex-align: center!important;
+    align-items: center!important;
+    &-title {
+        font-weight: normal;
+        margin-bottom: 0px;
+    }
+    &-group-input {
+        border: 1px solid $secondary;
+        display: flex;
+        align-items: center;
+        border-radius: 3px;
+        &-icon {
+            width: 16px;
+            height: 16px;
+        }
+        &-img {
+            padding: 10px;
+            background-color: $bg;
+        }
+    }
+    &-error {
+        color: $danger;
+    }
+    &-button {
+        justify-content: center;
+        display: flex;
+    }
+}
