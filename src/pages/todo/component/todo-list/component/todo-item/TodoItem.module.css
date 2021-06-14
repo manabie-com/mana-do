@@ -29,7 +29,12 @@
 }
 
 .checkBoxContainer .todoText{
+    z-index: 0;
     word-break: break-all;
+}
+
+.checkBoxContainer .todoText.strike {
+    text-decoration:line-through ;
 }
 
 .checkBoxContainer input {
