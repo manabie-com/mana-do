@@ -126,3 +126,10 @@ input:focus {
 
 .Action__btn {
 }
+
+@media (min-width: 576px) {
+  .md-p-4 {
+    padding-left: 30px!important;
+    padding-right: 30px!important;
+  }
+}

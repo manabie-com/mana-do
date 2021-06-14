@@ -11,6 +11,9 @@
 .input-none {
     border: none;
     border-radius: 0!important;
+    flex: 1 1 auto;
+    width: 1%;
+    min-width: 0;
 }
 .wrap-box {
     background-color: $white;
