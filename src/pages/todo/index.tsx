@@ -1,125 +1,121 @@
-import React, {useEffect, useReducer, useRef, useState} from 'react';
-import {RouteComponentProps} from 'react-router-dom';
+import React, { useEffect, useReducer, useState } from "react"
+import { RouteComponentProps } from "react-router-dom"
 
-import todoReducer, {initialState} from 'store/reducers/todos';
-import {createTodo, deleteAllTodos, deleteTodo, setTodos, toggleAllTodos, updateTodoStatus} from 'store/actions/todos';
-import Service from 'service';
-import {TodoStatus} from 'models/todo';
-import {isTodoCompleted} from 'utils';
+import todoReducer, { initialState } from "store/reducers/todos"
+import {
+  createTodo,
+  deleteAllTodos,
+  deleteTodo,
+  setTodos,
+  toggleAllTodos,
+  updateTodoStatus,
+} from "store/actions/todos"
+import { TodoService } from "service"
+import { TodoStatus } from "models/todo"
+import { isTodoCompleted } from "utils"
+import TodoInput from "./component/todo-input"
+import styles from "./TodoPage.module.css"
+import TodoList from "./component/todo-list"
+import TodoToolbar from "./component/todo-toolbar"
+import TodoFilter from "./component/todo-filter"
 
-type EnhanceTodoStatus = TodoStatus | 'ALL';
+type EnhanceTodoStatus = TodoStatus | "ALL"
 
-
-const ToDoPage = ({history}: RouteComponentProps): JSX.Element => {
-  const [{todos}, dispatch] = useReducer(todoReducer, initialState);
-  const [showing, setShowing] = useState<EnhanceTodoStatus>('ALL');
-  const inputRef = useRef<HTMLInputElement>(null);
+const ToDoPage = ({ history }: RouteComponentProps): JSX.Element => {
+  const [{ todos }, dispatch] = useReducer(todoReducer, initialState)
+  const [showing, setShowing] = useState<EnhanceTodoStatus>("ALL")
+  const [todoText, setTodoText] = useState<string>("")
 
   useEffect(() => {
-    (async () => {
-      const resp = await Service.getTodos();
-      dispatch(setTodos(resp || []));
+    ;(async () => {
+      const resp = await TodoService.getTodos()
+      dispatch(setTodos(resp || []))
     })()
   }, [])
 
   const onCreateTodo = async (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter' && inputRef.current) {
+    if (e.key === "Enter" && todoText) {
       try {
-        const resp = await Service.createTodo(inputRef.current.value);
-        dispatch(createTodo(resp));
-        inputRef.current.value = '';
+        const resp = await TodoService.createTodo(todoText)
+        if (resp.isSuccess) {
+          dispatch(createTodo(resp.data))
+          setTodoText("")
+        }
       } catch (e) {
         if (e.response.status === 401) {
-          history.push('/')
+          history.push("/")
         }
       }
     }
   }
 
-  const onUpdateTodoStatus = (e: React.ChangeEvent<HTMLInputElement>, todoId: string) => {
-    dispatch(updateTodoStatus(todoId, e.target.checked))
+  const onUpdateTodos = (todoId: string, content: string) => {
+    let index = todos.findIndex((todo) => todo.id === todoId)
+
+    if (index !== -1) {
+      let newTodos = todos
+      newTodos[index].content = content
+      dispatch(setTodos(newTodos))
+    }
   }
 
-  const onToggleAllTodo = (e: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch(toggleAllTodos(e.target.checked))
+  const onUpdateTodoStatus = (isDone: boolean, todoId: string) => {
+    dispatch(updateTodoStatus(todoId, isDone))
+  }
+
+  const onToggleAllTodo = (isCheck: boolean) => {
+    dispatch(toggleAllTodos(isCheck))
   }
 
   const onDeleteAllTodo = () => {
-    dispatch(deleteAllTodos());
+    dispatch(deleteAllTodos())
   }
 
   const showTodos = todos.filter((todo) => {
     switch (showing) {
       case TodoStatus.ACTIVE:
-        return todo.status === TodoStatus.ACTIVE;
+        return todo.status === TodoStatus.ACTIVE
       case TodoStatus.COMPLETED:
-        return todo.status === TodoStatus.COMPLETED;
+        return todo.status === TodoStatus.COMPLETED
       default:
-        return true;
+        return true
     }
-  });
+  })
 
   const activeTodos = todos.reduce(function (accum, todo) {
-    return isTodoCompleted(todo) ? accum : accum + 1;
-  }, 0);
+    return isTodoCompleted(todo) ? accum : accum + 1
+  }, 0)
 
   return (
-    <div className="ToDo__container">
-      <div className="Todo__creation">
-        <input
-          ref={inputRef}
-          className="Todo__input"
+    <div className={styles.container}>
+      <div className={styles.todoContainer}>
+        <h1 className={styles.header}>Todo</h1>
+        <TodoInput
           placeholder="What need to be done?"
+          onChange={(e) => setTodoText(e.target.value)}
+          value={todoText}
           onKeyDown={onCreateTodo}
         />
-      </div>
-      <div className="ToDo__list">
-        {
-          showTodos.map((todo, index) => {
-            return (
-              <div key={index} className="ToDo__item">
-                <input
-                  type="checkbox"
-                  checked={isTodoCompleted(todo)}
-                  onChange={(e) => onUpdateTodoStatus(e, todo.id)}
-                />
-                <span>{todo.content}</span>
-                <button
-                  className="Todo__delete"
-                  onClick={() => dispatch(deleteTodo(todo.id))}
-                >
-                  X
-                </button>
-              </div>
-            );
-          })
-        }
-      </div>
-      <div className="Todo__toolbar">
-        {todos.length > 0 ?
-          <input
-            type="checkbox"
-            checked={activeTodos === 0}
-            onChange={onToggleAllTodo}
-          /> : <div/>
-        }
-        <div className="Todo__tabs">
-          <button className="Action__btn" onClick={() => setShowing('ALL')}>
-            All
-          </button>
-          <button className="Action__btn" onClick={() => setShowing(TodoStatus.ACTIVE)}>
-            Active
-          </button>
-          <button className="Action__btn" onClick={() => setShowing(TodoStatus.COMPLETED)}>
-            Completed
-          </button>
-        </div>
-        <button className="Action__btn" onClick={onDeleteAllTodo}>
-          Clear all todos
-        </button>
+        <TodoToolbar
+          showCheckAll={todos.length > 0}
+          isChecked={activeTodos === 0}
+          isExistList={!!todos.length}
+          onChange={onToggleAllTodo}
+          onClear={onDeleteAllTodo}
+        />
+        <TodoList
+          todos={showTodos}
+          onMarkDone={onUpdateTodoStatus}
+          onUpdateTodo={onUpdateTodos}
+          onDelete={(todoId) => dispatch(deleteTodo(todoId))}
+        />
+        <TodoFilter
+          onChangeFilter={(status) => setShowing(status)}
+          currentStatus={showing}
+        />
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default ToDoPage;
+export default ToDoPage

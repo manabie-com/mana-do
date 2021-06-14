@@ -1,11 +1,14 @@
-import {SignInPage,ToDoPage} from "pages";
+import SignInPage from "pages/sign-in"
+import ToDoPage from "pages/todo"
+
 import {RouteComponentProps} from "react-router-dom";
 
-type routeType = {
+export type RouteType = {
     key:string,
     path: string,
-    isAuth?: boolean,
-    comp:({history}:RouteComponentProps)=> JSX.Element
+    isAuth: boolean,
+    exact?:boolean,
+    comp:(props:RouteComponentProps)=> JSX.Element
 }
 
 export const ROUTE_PATH = {
@@ -13,18 +16,19 @@ export const ROUTE_PATH = {
     TODO: "/todo"
 }
 
-const routes:routeType[] = [
+export const routes:RouteType[] = [
     {
         key:"signin",
         path: ROUTE_PATH.SIGN_IN,
+        exact:true,
+        isAuth:false,
         comp: SignInPage
     },
     {
-        key:"signin",
-        path: ROUTE_PATH.SIGN_IN,
+        key:"todo",
+        path: ROUTE_PATH.TODO,
         comp: ToDoPage,
         isAuth:true
     }
 ];
 
-export default routes;
