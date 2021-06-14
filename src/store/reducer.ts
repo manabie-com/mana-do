@@ -4,8 +4,10 @@ import {
   CREATE_TODO,
   DELETE_ALL_TODOS,
   DELETE_TODO,
+  SET_TODO,
   TOGGLE_ALL_TODOS,
-  UPDATE_TODO_STATUS
+  UPDATE_TODO_CONTENT,
+  UPDATE_TODO_STATUS,
 } from './actions';
 
 export interface AppState {
@@ -13,54 +15,57 @@ export interface AppState {
 }
 
 export const initialState: AppState = {
-  todos: []
-}
+  todos: [],
+};
 
 function reducer(state: AppState, action: AppActions): AppState {
   switch (action.type) {
-    case CREATE_TODO:
-      state.todos.push(action.payload);
-      return {
-        ...state
-      };
-
-    case UPDATE_TODO_STATUS:
-      const index2 = state.todos.findIndex((todo) => todo.id === action.payload.todoId);
-      state.todos[index2].status = action.payload.checked ? TodoStatus.COMPLETED : TodoStatus.ACTIVE;
-
-      return {
-        ...state,
-        todos: state.todos
+    case SET_TODO: {
+      return {...state, todos: [...action.payload]};
+    }
+    case CREATE_TODO: {
+      if (!state.todos.includes(action.payload)) {
+        state.todos.push(action.payload);
+        localStorage.setItem('todoList', JSON.stringify(state.todos));
       }
 
-    case TOGGLE_ALL_TODOS:
-      const tempTodos = state.todos.map((e)=>{
-        return {
-          ...e,
-          status: action.payload ? TodoStatus.COMPLETED : TodoStatus.ACTIVE
-        }
-      })
+      return {...state};
+    }
+    case UPDATE_TODO_STATUS: {
+      const index = state.todos.findIndex((todo) => todo.id === action.payload.todoId);
+      state.todos[index].status = action.payload.checked ? TodoStatus.COMPLETED : TodoStatus.ACTIVE;
+      localStorage.setItem('todoList', JSON.stringify(state.todos));
 
-      return {
-        ...state,
-        todos: tempTodos
-      }
+      return {...state};
+    }
+    case UPDATE_TODO_CONTENT: {
+      const index = state.todos.findIndex((todo) => todo.id === action.payload.todoId);
+      state.todos[index].content = action.payload.content;
+      localStorage.setItem('todoList', JSON.stringify(state.todos));
 
-    case DELETE_TODO:
-      const index1 = state.todos.findIndex((todo) => todo.id === action.payload);
-      state.todos.splice(index1, 1);
+      return {...state};
+    }
+    case TOGGLE_ALL_TODOS: {
+      state.todos.forEach((todo) => {
+        todo.status = action.payload ? TodoStatus.COMPLETED : TodoStatus.ACTIVE;
+      });
+      localStorage.setItem('todoList', JSON.stringify(state.todos));
 
-      return {
-        ...state,
-        todos: state.todos
-      }
-    case DELETE_ALL_TODOS:
-      return {
-        ...state,
-        todos: []
-      }
-    default:
-      return state;
+      return {...state};
+    }
+    case DELETE_TODO: {
+      state.todos = state.todos.filter((todo) => todo.id !== action.payload);
+      localStorage.setItem('todoList', JSON.stringify(state.todos));
+
+      return {...state};
+    }
+    case DELETE_ALL_TODOS: {
+      localStorage.removeItem('todoList');
+      return {...state, todos: []};
+    }
+    default: {
+      return {...state};
+    }
   }
 }
 
