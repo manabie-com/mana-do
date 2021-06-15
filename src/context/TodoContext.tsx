@@ -11,7 +11,6 @@ function StoreProvider ({children}: any) {
     todos = localStorage.getItem('todos');
     todos = todos ? JSON.parse(todos): [];
   }
-  console.log('todos', todos);
   var [state, dispatch]: [AppState, any] = React.useReducer(reducer, {
       todos,
   });

@@ -75,7 +75,7 @@ const SignInPage = () => {
                         <span>* Username or Password wrong!!!</span>
                     </div>}
                     <div className="align-items-center-button" >
-                        <button type="submit" className="btn-submit" style={{marginTop: 12}}>
+                        <button type="submit" className="btn btn-submit" style={{marginTop: 12}}>
                             Sign in
                         </button>
                     </div>

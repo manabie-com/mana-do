@@ -35,11 +35,34 @@
     margin-right: -15px;
     margin-left: -15px;
 }
+.btn {
+    border-radius: 3px;
+    color: $white;
+}
 .btn-submit {
     background-color: $primary;
     border-color: $primary;
-    color: $white;
-    border-radius: 3px;
+}
+.btn-active {
+    background-color: $warning!important;
+    border-color: $warning!important;
+}
+.btn-success {
+    background-color: $success;
+    border-color: $success;
+}
+.btn-complete {
+    background-color: $complete;
+    border-color: $complete;
+}
+.btn-clear {
+    background-color: $danger;
+    border-color: $danger;
+}
+.hover_edit_text {
+    &:hover {
+        cursor: pointer;
+    }
 }
 .align-items-center {
     -ms-flex-align: center!important;
