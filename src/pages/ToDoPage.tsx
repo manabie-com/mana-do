@@ -13,6 +13,8 @@ import {
 import Service from '../service';
 import {TodoStatus} from '../models/todo';
 import {isTodoCompleted} from '../utils';
+import {TodoCreation} from "../components/TodoCreation";
+import {TodoList} from "../components/TodoList";
 
 type EnhanceTodoStatus = TodoStatus | 'ALL';
 
@@ -22,8 +24,8 @@ const ToDoPage = ({history}: RouteComponentProps) => {
     const [showing, setShowing] = useState<EnhanceTodoStatus>('ALL');
     const inputRef = useRef<HTMLInputElement>(null);
 
-    useEffect(()=>{
-        (async ()=>{
+    useEffect(() => {
+        (async () => {
             const resp = await Service.getTodos();
 
             dispatch(setTodos(resp || []));
@@ -73,36 +75,9 @@ const ToDoPage = ({history}: RouteComponentProps) => {
 
     return (
         <div className="ToDo__container">
-            <div className="Todo__creation">
-                <input
-                    ref={inputRef}
-                    className="Todo__input"
-                    placeholder="What need to be done?"
-                    onKeyDown={onCreateTodo}
-                />
-            </div>
-            <div className="ToDo__list">
-                {
-                    showTodos.map((todo, index) => {
-                        return (
-                            <div key={index} className="ToDo__item">
-                                <input
-                                    type="checkbox"
-                                    checked={isTodoCompleted(todo)}
-                                    onChange={(e) => onUpdateTodoStatus(e, todo.id)}
-                                />
-                                <span>{todo.content}</span>
-                                <button
-                                    className="Todo__delete"
-                                    onClick={() => dispatch(deleteTodo(todo.id))}
-                                >
-                                    X
-                                </button>
-                            </div>
-                        );
-                    })
-                }
-            </div>
+            <TodoCreation onKeyDown={onCreateTodo} ref={inputRef}/>
+            <TodoList todos={showTodos} updateItem={onUpdateTodoStatus} deleteItem={(id:string) => dispatch(deleteTodo(id))}/>
+
             <div className="Todo__toolbar">
                 {todos.length > 0 ?
                     <input
@@ -112,13 +87,13 @@ const ToDoPage = ({history}: RouteComponentProps) => {
                     /> : <div/>
                 }
                 <div className="Todo__tabs">
-                    <button className="Action__btn" onClick={()=>setShowing('ALL')}>
+                    <button className="Action__btn" onClick={() => setShowing('ALL')}>
                         All
                     </button>
-                    <button className="Action__btn" onClick={()=>setShowing(TodoStatus.ACTIVE)}>
+                    <button className="Action__btn" onClick={() => setShowing(TodoStatus.ACTIVE)}>
                         Active
                     </button>
-                    <button className="Action__btn" onClick={()=>setShowing(TodoStatus.COMPLETED)}>
+                    <button className="Action__btn" onClick={() => setShowing(TodoStatus.COMPLETED)}>
                         Completed
                     </button>
                 </div>
