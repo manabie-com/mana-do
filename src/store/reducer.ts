@@ -17,7 +17,13 @@ export const initialState: AppState = {
 }
 const handleCreateTodo = (state: AppState, action: AppActions): AppState => {
     if ("payload" in action) {
-        state.todos.push((action as CreateTodoAction).payload);
+        //Fix: duplicate add todos
+        const newTodo = (action as CreateTodoAction).payload;
+        const updateTodos = [...state.todos, newTodo]
+        return {
+            ...state,
+            todos: updateTodos
+        }
     }
     return {
         ...state

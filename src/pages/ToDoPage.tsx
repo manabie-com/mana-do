@@ -38,7 +38,7 @@ const ToDoPage = ({history}: RouteComponentProps) => {
         }
     }, [todos])
 
-    const onCreateTodo = useCallback(async (e: React.KeyboardEvent<HTMLInputElement>) => {
+    const onCreateTodo = useCallback((e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter' && inputRef.current) {
             try {
                 createTodoAction(dispatch)(inputRef.current.value)
