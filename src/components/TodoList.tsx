@@ -1,7 +1,7 @@
 import React, {useCallback} from 'react';
 import {isTodoCompleted} from "../utils";
 import {deleteTodo} from "../store/actions";
-import {Todo} from "../models/todo";
+import {Todo, TodoStatus} from "../models/todo";
 
 type TodoListProps = {
     todos: Todo[];
@@ -22,6 +22,9 @@ export const TodoItem = (props: TodoItemProps) => {
             onChange={onChange}
         />
         <span>{todo.content}</span>
+        <select>
+            {Object.keys(TodoStatus).map(status => <option key={`todo=${status}`} value={status} onChange={onChange}>{status}</option>)}
+        </select>
         <button
             className="Todo__delete"
             onClick={onClick}
@@ -32,7 +35,7 @@ export const TodoItem = (props: TodoItemProps) => {
 }
 export const TodoList = (props: TodoListProps) => {
     const {todos = [], updateItem, deleteItem} = props;
-    const onUpdateItem = (todoId: string) => (e: React.ChangeEvent<HTMLInputElement>) => updateItem(e, todoId)
+    const onUpdateItem = (todoId: string) => (e: React.ChangeEvent<HTMLInputElement | HTMLOptionElement>) => updateItem(e, todoId)
     const onDeleteItem = (todoId: string) => () => deleteItem(todoId)
     return <div className="ToDo__list">
         {

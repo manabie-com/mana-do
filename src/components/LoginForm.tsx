@@ -1,4 +1,5 @@
 import React from 'react';
+import {Button} from "./Button";
 
 type LoginFormProps = {
     onSubmit: (params:any) => any
@@ -32,8 +33,6 @@ export const LoginForm = (props: LoginFormProps) => {
             />
         </label>
         <br/>
-        <button type="submit" style={{marginTop: 12}}>
-            Sign in
-        </button>
+        <Button text={'Sign in'} type="submit" style={{marginTop: 12}} />
     </form>
 }
