@@ -2,8 +2,8 @@ import React from 'react';
 import {Button} from "./Button";
 
 type LoginFormProps = {
-    onSubmit: (params:any) => any
-    onChange: (params:any) => any
+    onSubmit: (params: any) => any
+    onChange: (params: any) => any
     userId: string
     password: string
 }
@@ -33,6 +33,6 @@ export const LoginForm = (props: LoginFormProps) => {
             />
         </label>
         <br/>
-        <Button text={'Sign in'} type="submit" style={{marginTop: 12}} />
+        <Button text={'Sign in'} type="submit" style={{marginTop: 12}}/>
     </form>
 }

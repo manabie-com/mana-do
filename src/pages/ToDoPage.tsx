@@ -1,4 +1,4 @@
-import React, {useEffect, useMemo, useReducer, useRef, useState} from 'react';
+import React, {useCallback, useEffect, useMemo, useReducer, useRef, useState} from 'react';
 import {RouteComponentProps} from 'react-router-dom';
 
 import reducer, {initialState} from '../store/reducer';
@@ -16,6 +16,13 @@ import {isTodoCompleted} from '../utils';
 import {TodoCreation} from "../components/TodoCreation";
 import {TodoList} from "../components/TodoList";
 import {Button} from "../components/Button";
+import {
+    createTodoAction,
+    deleteAllTodosAction, deleteTodoAction,
+    loadTodosAction,
+    toggleAllTodosAction,
+    updateTodoStatusAction
+} from "../actions/todo";
 
 type EnhanceTodoStatus = TodoStatus | 'ALL';
 
@@ -26,39 +33,40 @@ const ToDoPage = ({history}: RouteComponentProps) => {
     const inputRef = useRef<HTMLInputElement>(null);
     const todos = useMemo(() => state.todos, [state])
     useEffect(() => {
-        (async () => {
-            const resp = await Service.getTodos();
+        if (todos.length === 0) {
+            loadTodosAction(dispatch)()
+        }
+    }, [todos])
 
-            dispatch(setTodos(resp || []));
-        })()
-    }, [])
-
-    const onCreateTodo = async (e: React.KeyboardEvent<HTMLInputElement>) => {
+    const onCreateTodo = useCallback(async (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter' && inputRef.current) {
             try {
-                const resp = await Service.createTodo(inputRef.current.value);
-                dispatch(createTodo(resp));
-                inputRef.current.value = '';
+                createTodoAction(dispatch)(inputRef.current.value)
             } catch (e) {
                 if (e.response.status === 401) {
                     history.push('/')
                 }
+            } finally {
+                inputRef.current.value = '';
             }
         }
-    }
+    }, [])
 
-    const onUpdateTodoStatus = (e: React.ChangeEvent<HTMLInputElement>, todoId: string) => {
-        console.log('onUpdateTodoStatus')
-        dispatch(updateTodoStatus(todoId, e.target.checked))
-    }
+    const onUpdateTodoStatus = useCallback((e: React.ChangeEvent<HTMLInputElement>, todoId: string) => {
+        updateTodoStatusAction(dispatch)(todoId, e.target.checked)
+    }, [])
 
-    const onToggleAllTodo = (e: React.ChangeEvent<HTMLInputElement>) => {
-        dispatch(toggleAllTodos(e.target.checked))
-    }
+    const onToggleAllTodo = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+        toggleAllTodosAction(dispatch)(e.target.checked)
+    }, [])
 
-    const onDeleteAllTodo = () => {
-        dispatch(deleteAllTodos());
-    }
+    const onDeleteTodo = useCallback((id: string) => {
+        deleteTodoAction(dispatch)(id)
+    }, [])
+
+    const onDeleteAllTodo = useCallback(() => {
+        deleteAllTodosAction(dispatch)()
+    }, [])
 
     const filterByStatus = (status: EnhanceTodoStatus) => todos.filter(todo => status === 'ALL' || status === todo.status)
 
@@ -72,7 +80,7 @@ const ToDoPage = ({history}: RouteComponentProps) => {
         <div className="ToDo__container">
             <TodoCreation onKeyDown={onCreateTodo} ref={inputRef}/>
             <TodoList todos={showTodos} updateItem={onUpdateTodoStatus}
-                      deleteItem={(id: string) => dispatch(deleteTodo(id))}/>
+                      deleteItem={onDeleteTodo}/>
 
             <div className="Todo__toolbar">
                 {todos.length > 0 ?
