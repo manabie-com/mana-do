@@ -1,8 +1,9 @@
-import React, {useCallback, useContext, useEffect, useMemo, useRef, useState} from 'react';
+import React, {useContext, useEffect, useMemo, useRef, useState} from 'react';
 import {isTodoCompleted} from "../utils";
-import {deleteTodo} from "../store/actions";
 import {Todo, TodoStatus} from "../models/todo";
 import {TodoPageContext} from "../context/todo";
+import {faTimes} from "@fortawesome/free-solid-svg-icons";
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 
 type TodoListProps = {
     todos: Todo[];
@@ -20,13 +21,14 @@ type TodoItemProps = {
     onCancel: (params?: any) => any
     onEdit: (params: any) => any
 }
-export const TodoItem = (props: TodoItemProps) => {
+export const TodoItem = React.memo((props: TodoItemProps) => {
     const {todo, onDelete, onComplete, isEdited = false, onSelect, onCancel, onEdit} = props;
     const [text, setText] = useState(todo.content)
     const myRef = useRef<HTMLDivElement>(null);
     const _handleDoubleClick = (e: React.MouseEvent) => {
+        console.log('_handleDoubleClick')
         e.stopPropagation();
-        onSelect(e);
+        todo.status !== TodoStatus.COMPLETED && onSelect(e);
     }
 
     const _handleClickOutside = (e: MouseEvent) => {
@@ -35,7 +37,7 @@ export const TodoItem = (props: TodoItemProps) => {
             onCancel(e);
         }
     };
-    const _editText = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const _editText = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         setText(e.target.value);
     }
     const _onKeyDown = (e: React.KeyboardEvent) => {
@@ -47,31 +49,44 @@ export const TodoItem = (props: TodoItemProps) => {
     }
 
     useEffect(() => {
-        document.addEventListener("mousedown", _handleClickOutside);
+        isEdited && document.addEventListener("mousedown", _handleClickOutside);
         return () => document.removeEventListener("mousedown", _handleClickOutside);
     });
-    return <div className="ToDo__item" onDoubleClick={_handleDoubleClick} ref={myRef}>
+
+    //reset edit text
+    useEffect(() => {
+        if (!isEdited && todo.content !== text) {
+            setText(todo.content)
+        }
+    }, [isEdited, text, todo.content]);
+    return <div
+        className={["ToDo__item", todo.status === TodoStatus.ACTIVE ? 'status-active' : 'status-complete'].join(' ')}
+        onDoubleClick={_handleDoubleClick} ref={myRef}>
         <input
             type="checkbox"
+            className={'Todo__checkbox'}
             checked={isTodoCompleted(todo)}
             onChange={onComplete}
         />
-        {!isEdited && <span>{todo.content}</span>}
-        {isEdited && <input
-            type="text"
+        {!isEdited && <span className={"Todo__text"}>{todo.content}</span>}
+        {/*{isEdited && <input*/}
+        {/*    type="text"*/}
+        {/*    className={"Todo__edit"}*/}
+        {/*    value={text}*/}
+        {/*    onChange={_editText}*/}
+        {/*    onKeyDown={_onKeyDown}*/}
+        {/*/>}*/}
+        {isEdited && <textarea
+            className={"Todo__edit"}
             value={text}
             onChange={_editText}
             onKeyDown={_onKeyDown}
         />}
-        <span>{todo.status}</span>
-        <button
-            className="Todo__delete"
-            onClick={onDelete}
-        >
-            X
-        </button>
+        <div className={'Todo__delete'}>
+        <FontAwesomeIcon icon={faTimes} className={'Todo__icon'} onClick={onDelete}/>
+        </div>
     </div>
-}
+})
 export const TodoList = (props: TodoListProps) => {
     const {todos = [], updateItem, deleteItem, selectItemEdit, editItem} = props;
     const context = useContext(TodoPageContext);
@@ -82,17 +97,20 @@ export const TodoList = (props: TodoListProps) => {
     const onRemoveSelected = (todoId: string) => () => selectItemEdit(todoId)
     const onEditItem = (todoId: string) => (value: string) => editItem(todoId, value)
     return <div className="ToDo__list">
-        {
-            todos.map((todo, index) => {
-                const _onComplete = onUpdateItem(todo.id)
-                const _onDelete = onDeleteItem(todo.id)
-                const _onSelect = onSelectItem(todo.id)
-                const _onCancel = onRemoveSelected('')
-                const _onEdit = onEditItem(todo.id)
-                const _isSeletected = todo.id === selectedItem
-                return <TodoItem key={index} todo={todo} isEdited={_isSeletected} onComplete={_onComplete}
-                                 onDelete={_onDelete} onSelect={_onSelect} onCancel={_onCancel} onEdit={_onEdit}/>
-            })
-        }
+        <label className={'Todo__label'}> Today's tasks</label>
+        <div className={'Todo__items'}>
+            {
+                todos.map((todo, index) => {
+                    const _onComplete = onUpdateItem(todo.id)
+                    const _onDelete = onDeleteItem(todo.id)
+                    const _onSelect = onSelectItem(todo.id)
+                    const _onCancel = onRemoveSelected('')
+                    const _onEdit = onEditItem(todo.id)
+                    const _isSeletected = todo.id === selectedItem && todo.status !== TodoStatus.COMPLETED
+                    return <TodoItem key={todo.id} todo={todo} isEdited={_isSeletected} onComplete={_onComplete}
+                                     onDelete={_onDelete} onSelect={_onSelect} onCancel={_onCancel} onEdit={_onEdit}/>
+                })
+            }
+        </div>
     </div>
 }

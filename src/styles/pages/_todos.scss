@@ -1,0 +1,297 @@
+
+.Todo__checkbox {
+  width: $size_checkbox;
+  height: $size_checkbox;
+  position: relative;
+  transition: 0.5s;
+  transition-delay: 0.1s;
+  appearance: none;
+  border-radius: 50%;
+  min-height: $size_checkbox;
+  border-width: 2px;
+  outline: none;
+  box-sizing: content-box;
+  border: 2px solid $color_light;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 50%;
+    transition: 0.8s;
+    width: $size_checkbox;
+    height: $size_checkbox;
+    border: 2px $color_dark_purple solid;
+    box-sizing: border-box;
+  }
+
+  &::after {
+    font-size: $font_size_mall;
+    color: $color_gray;
+    content: '✔';
+    position: absolute;
+    top: -30%;
+    left: 25%;
+    right: 0;
+    bottom: 0;
+    border-radius: 50%;
+    transition: 0.5s;
+    transition-delay: 0.3s;
+    border: 2px transparent solid;
+    width: $size_checkbox;
+    height: $size_checkbox;
+    box-sizing: border-box;
+  }
+}
+
+.ToDo__container {
+  background-color: $color_dark_blue;
+  display: flex;
+  flex-direction: row-reverse;
+
+  .Action__btn {
+    background-color: transparent;
+    padding: $margin_child;
+    color: $color_gray;
+    border: none;
+    height: $item_height;
+    font-size: $font_size_medium;
+    box-sizing: content-box;
+    text-align: center;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    outline: none;
+    .Todo__icon{
+      color: $color_gray;
+      margin-right: $margin_child;
+    }
+  }
+}
+
+.ToDo__main {
+  background-color: $color_blue;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+  padding-bottom: $margin_child;
+  box-sizing: border-box;
+
+}
+
+.ToDo_title {
+  color: $color_light;
+  padding: $margin_child;
+  margin-top: $margin_child;
+  margin-bottom: 0;
+
+}
+
+.Todo__label {
+  color: $color_gray;
+  text-transform: uppercase;
+  font-size: $font_size_mall;
+  font-weight: 500;
+}
+
+.Todo__icon {
+  width: $size_icon;
+  height: $size_icon;
+  color: $color_light;
+}
+
+.ToDo__bar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: $margin_child;
+
+  .Todo__icon {
+    margin: 0 $margin_child;
+  }
+
+  .Todo__icon:first-child {
+    margin-left: 0;
+    margin-right: auto;
+  }
+}
+
+.Todo__creation {
+  padding: $margin_child;
+
+  .Todo__input {
+    width: 100%;
+    height: 35px;
+    border-radius: $border_radius_small;
+    border-color: transparent;
+    box-sizing: border-box;
+  }
+}
+
+.ToDo__item {
+  background-color: $color_dark_blue;
+  color: $color_light;
+  min-height: $item_height;
+  margin-bottom: $margin_child;
+  box-sizing: content-box;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: $margin_child;
+  border-radius: $border_radius_medium;
+
+  .Todo__text, .Todo__edit {
+    flex: 1;
+    padding: $margin_child;
+    margin: auto $margin_child;
+    word-break: break-word;
+    line-break: auto;
+    white-space: break-spaces;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    box-sizing: border-box;
+    position: relative;
+  }
+
+  .Todo__edit {
+    min-height: $item_height;
+  }
+
+  &:hover, &:focus {
+    .Todo__delete {
+      opacity: 1;
+    }
+  }
+
+  .Todo__text {
+    &::before {
+      content: '';
+      transition: 0.5s;
+      width: 0px;
+      height: 12%;
+      position: absolute;
+      //border: 1px $color_gray solid;
+      background-color: $color_gray;
+      box-sizing: border-box;
+      top: 48%;
+      left: 2%;
+    }
+  }
+
+  .Todo__delete {
+    display: flex;
+    align-self: center;
+    align-items: center;
+    justify-content: center;
+    background: red;
+    border-radius: $border_radius_small;
+    padding: 0 $margin_child;
+    opacity: 0;
+    transition: 0.5s;
+  }
+
+  &.status-active {
+    .Todo__text {
+      transition: 1s;
+    }
+
+    .Todo__checkbox {
+      border-color: $color_violet;
+      align-self: center;
+
+      &::before {
+        border-style: dotted;
+        transform: scale(1) rotate(-45deg);
+        opacity: 1;
+        z-index: -1;
+      }
+
+      &::after {
+        transform: scale(0);
+        opacity: 0;
+
+      }
+    }
+  }
+
+  &.status-complete {
+    .Todo__text {
+      opacity: 0.7;
+
+      &::before {
+        width: 94%;
+      }
+    }
+
+    .Todo__checkbox {
+      border-color: transparent;
+      background-color: $color_blue;
+
+      &::before {
+        border-style: dotted;
+        transform: scale(2.5) rotate(135deg);
+        opacity: 0;
+        z-index: 1;
+
+      }
+
+      &::after {
+        transform: scale(1.5);
+        opacity: 1;
+
+      }
+    }
+  }
+}
+
+.ToDo__list {
+  display: flex;
+  flex-direction: column;
+  flex: auto;
+  overflow: hidden;
+  padding: $margin_child;
+  margin-bottom: $margin_child;
+
+  .Todo__items {
+    margin-top: $margin_child;
+    flex: auto;
+    margin-bottom: $margin_child;
+    overflow: scroll;
+    padding-bottom: $margin_child;
+    box-sizing: border-box;
+  }
+}
+
+.ToDo__main {
+  transition: 0.5s;
+}
+
+.Todo__clear {
+  position: absolute;
+  right: $margin_child;
+  bottom: $margin_child;
+  z-index: 3;
+
+}
+.Todo__check-all {
+  position: absolute;
+  height: $item_height;
+  left: $margin_child ;
+  bottom: $margin_child;
+  color: $color_gray;
+  font-size: $font_size_medium;
+  padding: $margin_child;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  z-index: 3;
+  input{
+    margin-right: $margin_child;
+  }
+
+
+}

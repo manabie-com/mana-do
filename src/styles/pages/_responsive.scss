@@ -1,0 +1,82 @@
+@media screen and (min-width: 320px) {
+  .ToDo__container {
+    width: 100vw;
+    height: 100vh;
+    overflow: auto;
+    position: relative;
+
+    .ToDo__main {
+      width: 100vw;
+      height: 100vh;
+      transform: scale(0.5) translateX(50%) translateY(50%);
+    }
+
+    .Todo__toolbar {
+      z-index: 1;
+      opacity: 1;
+      transition: 0.7s;
+    }
+
+    &.close-toolbar {
+      .Todo__toolbar {
+        z-index: -1;
+        opacity: 0;
+        width: 0;
+      }
+
+      .ToDo__main {
+        flex: 1;
+        width: 100vw;
+        height: 100vh;
+        transform: scale(1.0);
+      }
+    }
+  }
+
+
+}
+
+@media screen and (min-width: 768px) {
+  .ToDo__container {
+    //width: 500px;
+    //height: ;
+    max-height: 768px;
+    max-width: 768px;
+    margin: auto;
+    border-radius: $font_size_large;
+
+    overflow: auto;
+    position: relative;
+
+    .ToDo__main {
+      width: 500px;
+      height: 100%;
+      transform: scale(1.0);
+      transition: 0s;
+    }
+
+    .Todo__toolbar {
+      z-index: 1;
+      opacity: 1;
+      transition: 0s;
+      width: calc(100% - 500px);
+    }
+
+    &.close-toolbar {
+      .Todo__toolbar {
+        z-index: 1;
+        opacity: 1;
+        width: calc(100% - 500px);
+      }
+
+      .ToDo__main {
+        flex: 1;
+        width: 500px;
+        height: 100%;
+        transform: scale(1.0);
+      }
+    }
+  }
+
+
+}

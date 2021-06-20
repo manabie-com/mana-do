@@ -1,0 +1,34 @@
+.Todo__toolbar {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  height: 100%;
+
+
+  .Todo__tabs {
+    display: flex;
+    flex-direction: column;
+    margin: 20px;
+
+    .Action__btn {
+      background-color: transparent;
+      padding: $margin_child;
+      color: $color_gray;
+      border: none;
+      height: $item_height;
+      font-size: $font_size_medium;
+      box-sizing: content-box;
+      text-align: center;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      outline: none;
+      .Todo__icon{
+        color: $color_gray;
+        margin-right: $margin_child;
+      }
+    }
+
+  }
+}
