@@ -55,6 +55,5 @@ export const editTodoAction = (dispatch: Dispatch<any>) => async (todoId: string
 }
 // store local
 export const syncTodosToLocal = (todos: Array<Todo>) => {
-    console.log('syncTodosToLocal',todos)
     window.localStorage.setItem('todos', JSON.stringify(todos || []));
 }

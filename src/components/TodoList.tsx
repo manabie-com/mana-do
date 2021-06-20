@@ -24,16 +24,15 @@ type TodoItemProps = {
 export const TodoItem = React.memo((props: TodoItemProps) => {
     const {todo, onDelete, onComplete, isEdited = false, onSelect, onCancel, onEdit} = props;
     const [text, setText] = useState(todo.content)
-    const myRef = useRef<HTMLDivElement>(null);
+    const itemRef = useRef<HTMLDivElement>(null);
     const _handleDoubleClick = (e: React.MouseEvent) => {
-        console.log('_handleDoubleClick')
         e.stopPropagation();
         todo.status !== TodoStatus.COMPLETED && onSelect(e);
     }
 
     const _handleClickOutside = (e: MouseEvent) => {
 
-        if (e.target && !myRef.current?.contains(e.target as Node)) {
+        if (e.target && !itemRef.current?.contains(e.target as Node)) {
             onCancel(e);
         }
     };
@@ -61,7 +60,7 @@ export const TodoItem = React.memo((props: TodoItemProps) => {
     }, [isEdited, text, todo.content]);
     return <div
         className={["ToDo__item", todo.status === TodoStatus.ACTIVE ? 'status-active' : 'status-complete'].join(' ')}
-        onDoubleClick={_handleDoubleClick} ref={myRef}>
+        onDoubleClick={_handleDoubleClick} ref={itemRef}>
         <input
             type="checkbox"
             className={'Todo__checkbox'}
@@ -69,13 +68,7 @@ export const TodoItem = React.memo((props: TodoItemProps) => {
             onChange={onComplete}
         />
         {!isEdited && <span className={"Todo__text"}>{todo.content}</span>}
-        {/*{isEdited && <input*/}
-        {/*    type="text"*/}
-        {/*    className={"Todo__edit"}*/}
-        {/*    value={text}*/}
-        {/*    onChange={_editText}*/}
-        {/*    onKeyDown={_onKeyDown}*/}
-        {/*/>}*/}
+
         {isEdited && <textarea
             className={"Todo__edit"}
             value={text}
