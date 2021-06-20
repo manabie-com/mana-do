@@ -28,7 +28,7 @@ const SignInPage = () => {
     }, [form])
 
     return (
-        <div style={{marginTop: '3rem', textAlign: 'left'}}>
+        <div className={'ToDo__login'}>
             <LoginForm onSubmit={signIn} onChange={onChangeField} userId={form.userId} password={form.password}/>
         </div>
     );

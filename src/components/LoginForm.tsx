@@ -16,7 +16,6 @@ export const LoginForm = (props: LoginFormProps) => {
                 id="user_id"
                 name="userId"
                 value={userId}
-                style={{marginTop: 12}}
                 onChange={onChange}
             />
         </label>
@@ -27,12 +26,11 @@ export const LoginForm = (props: LoginFormProps) => {
                 id="password"
                 name="password"
                 type="password"
-                style={{marginTop: 12}}
                 value={password}
                 onChange={onChange}
             />
         </label>
         <br/>
-        <Button text={'Sign in'} type="submit" style={{marginTop: 12}}/>
+        <Button text={'Sign in'} type="submit" className="Todo__Signin" />
     </form>
 }

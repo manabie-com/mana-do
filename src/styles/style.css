@@ -1,4 +1,51 @@
 @charset "UTF-8";
+.ToDo__login {
+  align-self: center;
+  margin: auto;
+  min-width: 300px;
+  min-height: 300px;
+  background-color: #3d47af;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  box-sizing: border-box;
+  border-radius: 18px;
+  background-image: linear-gradient(120deg, #0A155A, #4f74ff);
+}
+.ToDo__login form {
+  display: flex;
+  flex-direction: column;
+}
+.ToDo__login label {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  font-size: 14px;
+}
+.ToDo__login label input {
+  width: 100%;
+  margin-top: 10px;
+  padding: 5px;
+  font-size: 10px;
+}
+.ToDo__login .Todo__Signin {
+  background-color: #bbc2d8;
+  padding: 0 10px;
+  margin: 10px;
+  color: #010319;
+  border: none;
+  height: 30px;
+  font-size: 14px;
+  box-sizing: content-box;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  outline: none;
+}
+
 .Todo__checkbox {
   width: 12px;
   height: 12px;
