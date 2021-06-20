@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect, useMemo, useReducer, useRef, useState} from 'react';
-import {RouteComponentProps} from 'react-router-dom';
+import {RouteComponentProps,useHistory} from 'react-router-dom';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faBorderAll, faTrash, faSpinner, faClipboardCheck} from '@fortawesome/free-solid-svg-icons'
 import reducer, {AppState, initialState} from '../store/reducer';
@@ -30,7 +30,8 @@ import {TodoBar, TodoToolBar} from "../components/TodoBar";
 type EnhanceTodoStatus = TodoStatus | 'ALL';
 
 
-const ToDoPage = ({history}: RouteComponentProps) => {
+const ToDoPage = (/*{history}: RouteComponentProps*/) => {
+    const history= useHistory()
     const [state, dispatch] = useReducer(reducer, initialState);
     const [showing, setShowing] = useState<EnhanceTodoStatus>('ALL');
     const [showToolbar, setShowToolbar] = useState<boolean>(false);
