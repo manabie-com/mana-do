@@ -15,6 +15,7 @@ import {TodoStatus} from './models/todo';
 import {isTodoCompleted} from './utils';
 
 import TodoItem from './components/TodoItem';
+import TodoInput from './components/TodoInput';
 
 type EnhanceTodoStatus = TodoStatus | 'ALL';
 
@@ -32,19 +33,16 @@ const ToDoPage = ({history}: RouteComponentProps) => {
         })()
     }, [])
 
-    const onCreateTodo = async (e: React.KeyboardEvent<HTMLInputElement>) => {
-        if (e.key === 'Enter' && inputRef.current) {
-            try {
-                const resp = await Service.createTodo(inputRef.current.value);
-                dispatch(createTodo(resp));
-                inputRef.current.value = '';
-            } catch (e) {
-                if (e.response.status === 401) {
-                    history.push('/')
-                }
+    const handleCreateTodo = useCallback(async (content: string) => {
+        try {
+            const resp = await Service.createTodo(content);
+            dispatch(createTodo(resp));
+        } catch (e) {
+            if (e.response.status === 401) {
+                history.push('/')
             }
         }
-    }
+    }, []);
 
     const handleUpdateTodoStatus = useCallback((todoId: string, status: TodoStatus) => {
         dispatch(updateTodoStatus(todoId, status))
@@ -80,11 +78,12 @@ const ToDoPage = ({history}: RouteComponentProps) => {
     return (
         <div className="ToDo__container">
             <div className="Todo__creation">
-                <input
-                    ref={inputRef}
+                <TodoInput
+                    clearTextWhenEnter
                     className="Todo__input"
                     placeholder="What need to be done?"
-                    onKeyDown={onCreateTodo}
+                    onEnter={handleCreateTodo}
+                    content=""
                 />
             </div>
             <div className="ToDo__list">
