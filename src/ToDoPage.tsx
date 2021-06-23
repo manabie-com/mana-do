@@ -1,4 +1,4 @@
-import React, {useEffect, useReducer, useRef, useState} from 'react';
+import React, {useEffect, useReducer, useRef, useState, useCallback} from 'react';
 import {RouteComponentProps} from 'react-router-dom';
 
 import reducer, {initialState} from './store/reducer';
@@ -13,6 +13,8 @@ import {
 import Service from './service';
 import {TodoStatus} from './models/todo';
 import {isTodoCompleted} from './utils';
+
+import TodoItem from './components/TodoItem';
 
 type EnhanceTodoStatus = TodoStatus | 'ALL';
 
@@ -44,9 +46,9 @@ const ToDoPage = ({history}: RouteComponentProps) => {
         }
     }
 
-    const onUpdateTodoStatus = (e: React.ChangeEvent<HTMLInputElement>, todoId: string) => {
-        dispatch(updateTodoStatus(todoId, e.target.checked))
-    }
+    const handleUpdateTodoStatus = useCallback((todoId: string, status: TodoStatus) => {
+        dispatch(updateTodoStatus(todoId, status))
+    }, []);
 
     const onToggleAllTodo = (e: React.ChangeEvent<HTMLInputElement>) => {
         dispatch(toggleAllTodos(e.target.checked))
@@ -85,20 +87,13 @@ const ToDoPage = ({history}: RouteComponentProps) => {
                 {
                     showTodos.map((todo, index) => {
                         return (
-                            <div key={index} className="ToDo__item">
-                                <input
-                                    type="checkbox"
-                                    checked={isTodoCompleted(todo)}
-                                    onChange={(e) => onUpdateTodoStatus(e, todo.id)}
-                                />
-                                <span>{todo.content}</span>
-                                <button
-                                    className="Todo__delete"
-                                    onClick={() => dispatch(deleteTodo(todo.id))}
-                                >
-                                    X
-                                </button>
-                            </div>
+                            <TodoItem
+                                id={todo.id}
+                                onChange={handleUpdateTodoStatus}
+                                onDelete={() => {}}
+                                content={todo.content}
+                                status={todo.status}
+                            />
                         );
                     })
                 }
