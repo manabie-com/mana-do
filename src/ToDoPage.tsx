@@ -50,6 +50,10 @@ const ToDoPage = ({history}: RouteComponentProps) => {
         dispatch(updateTodoStatus(todoId, status))
     }, []);
 
+    const handleDeleteTodo = useCallback((todoId: string) => {
+        dispatch(deleteTodo(todoId));
+    }, []);
+
     const onToggleAllTodo = (e: React.ChangeEvent<HTMLInputElement>) => {
         dispatch(toggleAllTodos(e.target.checked))
     }
@@ -85,12 +89,13 @@ const ToDoPage = ({history}: RouteComponentProps) => {
             </div>
             <div className="ToDo__list">
                 {
-                    showTodos.map((todo, index) => {
+                    showTodos.map((todo) => {
                         return (
                             <TodoItem
+                                key={todo.id}
                                 id={todo.id}
                                 onChange={handleUpdateTodoStatus}
-                                onDelete={() => {}}
+                                onDelete={handleDeleteTodo}
                                 content={todo.content}
                                 status={todo.status}
                             />
