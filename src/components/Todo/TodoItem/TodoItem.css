@@ -12,6 +12,9 @@
   text-align: left;
   margin-left: 16px;
   margin-right: 16px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .Todo__item--completed .Todo__content {

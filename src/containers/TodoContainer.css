@@ -10,9 +10,14 @@
   box-shadow: 0 4px 10px rgba(0, 0, 0, .2)
 }
 
-@media (min-width: 768px) {
+@media (min-width: 568px) {
   .Todo__container {
     width: 500px;
-    margin: 5rem auto;
   }
 }
+@media (min-width: 768px) {
+  .Todo__container {
+    width: 600px;
+  }
+}
+

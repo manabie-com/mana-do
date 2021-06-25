@@ -32,15 +32,17 @@
   color: #fff
 }
 
-@media (min-width: 768px) {
+@media (min-width: 568px) {
   .Todo__toolbar {
     flex-direction: row;
     align-items: center;
+    justify-content: start;
   }
 
   .Todo__tabs {
     flex-direction: row;
-    justify-content: center;
+    justify-content: start;
+    margin-left: 8px;
   }
   
   .Todo__tabs .my-btn {
@@ -57,5 +59,11 @@
 
   .Todo__toolbar .Todo__clear-all {
     width: auto;
+  }
+}
+
+@media (min-width: 768px) {
+  .Todo__tabs {
+    margin-left: 16px;
   }
 }
