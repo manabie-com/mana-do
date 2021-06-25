@@ -1,34 +1,56 @@
 .my-btn {
-  line-height: 1.5715;
+  line-height: 1.5;
+  height: 32px;
+  padding: 4px 15px;
   position: relative;
-  display: inline-block;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
   font-weight: 400;
   white-space: nowrap;
   text-align: center;
   border: 1px solid transparent;
   box-shadow: 0 2px #00000004;
   cursor: pointer;
-  height: 32px;
-  padding: 4px 15px;
   font-size: var(--font-size-base);
   border-radius: var(--border-radius-base);
   color: var(--text-color);
   background: #fff;
   border-color: var(--border-color-base);
 }
+
 .my-btn:hover,
 .my-btn:focus {
   border-color: var(--primary-color);
   color: var(--primary-color)
 }
-.my-btn.my-btn--danger {
+
+.my-btn:not(:last-child) {
+  margin-right: 4px;
+}
+
+.my-btn.my-btn-sm {
+  height: 24px;
+  padding: 0 7px;
+  font-size: 12px;
+}
+
+.my-btn.my-btn-lg {
+  height: 40px;
+  padding: 6.5px 15px;
+  font-size: 16px;
+}
+
+.my-btn.my-btn-danger {
   background: var(--error-color);
   border-color: var(--error-color);
   color: #fff;
 }
-.my-btn.my-btn--danger:hover {
+
+.my-btn.my-btn-danger:hover {
   opacity: .8;
 }
+
 .my-btn[disabled] {
   color: var(--disabled-color);
   background: #f5f5f5;

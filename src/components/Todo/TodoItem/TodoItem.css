@@ -10,14 +10,14 @@
 .Todo__content {
   flex: 1 1;
   text-align: left;
-  margin-left: 16px;
-  margin-right: 16px;
+  margin-left: 8px;
+  margin-right: 8px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-.Todo__item--completed .Todo__content {
+.Todo__item--completed .Todo__content:not(.Todo__content--editable) {
   color: var(--disabled-color);
   text-decoration: line-through;
 }
@@ -31,11 +31,12 @@
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  flex: 0 0 32px;
+  flex: 0 0 40px;
 }
 
-.Todo__action, .Todo__delete {
-  width: 24px;
-  height: 24px;
-  flex-shrink: 0;
+@media (min-width: 568px) {
+  .Todo__content {
+    margin-left: 16px;
+    margin-right: 16px;
+  }
 }

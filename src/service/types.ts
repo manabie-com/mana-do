@@ -7,4 +7,5 @@ export abstract class IAPI {
   abstract updateTodo(todo: Todo): Promise<Todo>
   abstract deleteTodo(id: string): Promise<boolean>
   abstract deleteAllTodo(): Promise<boolean>
+  abstract toggleAllTodo(completed: boolean): Promise<boolean>
 }

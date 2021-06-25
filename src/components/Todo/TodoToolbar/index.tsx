@@ -26,17 +26,30 @@ const TodoToolbar: React.FC = () => {
   const { state, dispatch } = useContext(TodoContext)
   const { todos, visibilityFilter } = state
 
-  const onToggleAllTodo = (e: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch(toggleAllTodos(e.target.checked))
-  }
-
-  const onDeleteAllTodo = async () => {
+  const onToggleAllTodo = async (e: React.ChangeEvent<HTMLInputElement>) => {
     try {
-      await Service.deleteAllTodo()
-      dispatch(deleteAllTodos())
+      const { checked } = e.target
+      await Service.toggleAllTodo(checked)
+      dispatch(toggleAllTodos(checked))
     } catch (error) {
       if (error?.response?.status) {
         history.push('/')
+      }
+    }
+  }
+
+  const onDeleteAllTodo = async () => {
+    const confirmed = window.confirm(
+      'Are you sure you want to delete all todos?'
+    )
+    if (confirmed) {
+      try {
+        await Service.deleteAllTodo()
+        dispatch(deleteAllTodos())
+      } catch (error) {
+        if (error?.response?.status) {
+          history.push('/')
+        }
       }
     }
   }

@@ -4,6 +4,9 @@ import axios from '../utils/axios'
 import { AxiosResponse } from 'axios'
 
 class ApiFullstack extends IAPI {
+  toggleAllTodo(completed: boolean): Promise<boolean> {
+    throw new Error('Method not implemented.')
+  }
   updateTodo(todo: Todo): Promise<Todo> {
     throw new Error('Method not implemented.')
   }

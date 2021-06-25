@@ -63,6 +63,20 @@ class ApiFrontend extends IAPI {
     localStorage.setItem('todos', JSON.stringify([]))
     return Promise.resolve(true)
   }
+
+  async toggleAllTodo(completed: boolean): Promise<boolean> {
+    const prevTodos: Todo[] = safeJsonParse(
+      localStorage.getItem('todos') || '',
+      []
+    )
+    const todos = prevTodos.map((todo) => ({
+      ...todo,
+      status: completed ? TodoStatus.COMPLETED : TodoStatus.ACTIVE,
+    }))
+
+    localStorage.setItem('todos', JSON.stringify(todos))
+    return Promise.resolve(true)
+  }
 }
 
 export default new ApiFrontend()

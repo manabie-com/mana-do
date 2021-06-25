@@ -1,4 +1,4 @@
-import React, { FC, memo, useContext } from 'react'
+import React, { FC, memo, useContext, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 
 import { TodoContext } from 'src/context/TodoContext'
@@ -8,6 +8,7 @@ import { deleteTodo, updateTodo } from 'src/store/actions'
 import { isTodoCompleted } from 'src/utils/index'
 import Checkbox from 'src/components/Checkbox'
 import TrashIcon from 'src/components/Icons/TrashIcon'
+import EditableContent from './EditableContent'
 
 import './TodoItem.css'
 
@@ -18,6 +19,7 @@ interface IProps {
 const TodoItem: FC<IProps> = ({ todo }) => {
   const { dispatch } = useContext(TodoContext)
   const history = useHistory()
+  const [isEdit, setIsEdit] = useState(false)
 
   const onError = (error: any) => {
     if (error?.response?.status === 401) {
@@ -39,6 +41,20 @@ const TodoItem: FC<IProps> = ({ todo }) => {
     }
   }
 
+  const onUpdateContent = async (content: string) => {
+    try {
+      const nextTodo = await Service.updateTodo({
+        ...todo,
+        content,
+      })
+
+      dispatch(updateTodo(nextTodo))
+      setIsEdit(false)
+    } catch (error) {
+      onError(error)
+    }
+  }
+
   const onDelete = async () => {
     try {
       await Service.deleteTodo(todo.id)
@@ -55,10 +71,22 @@ const TodoItem: FC<IProps> = ({ todo }) => {
       }`}
     >
       <Checkbox checked={isTodoCompleted(todo)} onChange={onToggleComplete} />
-      <span className='Todo__content'>{todo.content}</span>
-      <span className='Todo__delete' onClick={onDelete}>
-        <TrashIcon />
-      </span>
+      {isEdit ? (
+        <EditableContent
+          todo={todo}
+          onUpdate={onUpdateContent}
+          onCancel={() => setIsEdit(false)}
+        />
+      ) : (
+        <div className='Todo__content' onDoubleClick={() => setIsEdit(true)}>
+          {todo.content}
+        </div>
+      )}
+      <div className='Todo__actions'>
+        <span className='Todo__delete' title='Delete' onClick={onDelete}>
+          <TrashIcon />
+        </span>
+      </div>
     </div>
   )
 }

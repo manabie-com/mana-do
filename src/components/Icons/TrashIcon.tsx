@@ -2,11 +2,15 @@ import React from 'react'
 
 import './TrashIcon.css'
 
-const TrashIcon = () => {
+interface IProps {
+  className?: string
+}
+
+const TrashIcon: React.FC<IProps> = ({ className }) => {
   return (
     <svg
       xmlns='http://www.w3.org/2000/svg'
-      className='trash-icon'
+      className={`trash-icon ${className ?? ''}`}
       fill='none'
       viewBox='0 0 24 24'
       stroke='currentColor'
