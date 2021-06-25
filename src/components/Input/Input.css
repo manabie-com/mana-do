@@ -1,0 +1,30 @@
+.my-input {
+  box-sizing: border-box;
+  margin: 0;
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  padding: 4px 11px;
+  color: var(--text-color);
+  font-size: var(--font-size-base);
+  line-height: 1.5715;
+  background-color: #fff;
+  border: 1px solid var(--border-color-base);
+  border-radius: var(--border-radius-base);
+  transition: all .3s;
+}
+.my-input:hover {
+  border-color: var(--primary-color);
+}
+.my-input:focus {
+  outline: 0;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px #1890ff33;
+}
+.my-input[disabled] {
+  color: #00000040;
+  background-color: #ececec;
+  cursor: not-allowed;
+  opacity: 1;
+  border: 1px solid var(--border-color-base) !important;
+}

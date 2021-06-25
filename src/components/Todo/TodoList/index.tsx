@@ -1,8 +1,11 @@
 import React, { memo, useContext, useMemo } from 'react'
 
-import { EnhanceTodoStatus, TodoContext } from '../../context/TodoContext'
-import { Todo, TodoStatus } from '../../models/todo'
-import TodoItem from './TodoItem'
+import { EnhanceTodoStatus, TodoContext } from 'src/context/TodoContext'
+import { Todo, TodoStatus } from 'src/models/todo'
+
+import TodoItem from 'src/components/Todo/TodoItem'
+
+import './TodoList.css'
 
 const getVisibleTodos = (todos: Todo[], filter: EnhanceTodoStatus) => {
   switch (filter) {
@@ -26,7 +29,7 @@ const TodoList: React.FC = () => {
   )
 
   return (
-    <div className='ToDo__list'>
+    <div className='Todo__list'>
       {visibleTodos.map((todo) => {
         // Correct using key to prevent same key in the list
         return <TodoItem key={todo.id} todo={todo} />

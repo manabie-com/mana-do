@@ -1,5 +1,5 @@
-import { EnhanceTodoStatus } from './../context/TodoContext'
-import { Todo, TodoStatus } from '../models/todo'
+import { EnhanceTodoStatus } from 'src/context/TodoContext'
+import { Todo, TodoStatus } from 'src/models/todo'
 
 import {
   AppActions,

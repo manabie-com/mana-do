@@ -1,9 +1,12 @@
 import React, { memo, useContext, useRef } from 'react'
 import { useHistory } from 'react-router-dom'
 
-import { TodoContext } from '../../context/TodoContext'
-import Service from '../../service'
-import { createTodo } from '../../store/actions'
+import { TodoContext } from 'src/context/TodoContext'
+import Service from 'src/service/index'
+import { createTodo } from 'src/store/actions'
+import Input from 'src/components/Input'
+
+import './InputTodo.css'
 
 const InputTodo: React.FC = () => {
   const { dispatch } = useContext(TodoContext)
@@ -25,9 +28,8 @@ const InputTodo: React.FC = () => {
   }
   return (
     <div className='Todo__creation'>
-      <input
+      <Input
         ref={inputRef}
-        className='Todo__input'
         placeholder='What need to be done?'
         onKeyDown={onCreateTodo}
       />

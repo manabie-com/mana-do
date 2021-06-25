@@ -1,11 +1,15 @@
 import React, { FC, memo, useContext } from 'react'
 import { useHistory } from 'react-router-dom'
 
-import { TodoContext } from '../../context/TodoContext'
-import { Todo, TodoStatus } from '../../models/todo'
-import Service from '../../service'
-import { deleteTodo, updateTodo } from '../../store/actions'
-import { isTodoCompleted } from '../../utils'
+import { TodoContext } from 'src/context/TodoContext'
+import { Todo, TodoStatus } from 'src/models/todo'
+import Service from 'src/service/index'
+import { deleteTodo, updateTodo } from 'src/store/actions'
+import { isTodoCompleted } from 'src/utils/index'
+import Checkbox from 'src/components/Checkbox'
+import TrashIcon from 'src/components/Icons/TrashIcon'
+
+import './TodoItem.css'
 
 interface IProps {
   todo: Todo
@@ -45,16 +49,16 @@ const TodoItem: FC<IProps> = ({ todo }) => {
   }
 
   return (
-    <div className='ToDo__item'>
-      <input
-        type='checkbox'
-        checked={isTodoCompleted(todo)}
-        onChange={onToggleComplete}
-      />
-      <span>{todo.content}</span>
-      <button className='Todo__delete' onClick={onDelete}>
-        X
-      </button>
+    <div
+      className={`Todo__item ${
+        todo.status === TodoStatus.COMPLETED ? 'Todo__item--completed' : ''
+      }`}
+    >
+      <Checkbox checked={isTodoCompleted(todo)} onChange={onToggleComplete} />
+      <span className='Todo__content'>{todo.content}</span>
+      <span className='Todo__delete' onClick={onDelete}>
+        <TrashIcon />
+      </span>
     </div>
   )
 }

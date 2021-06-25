@@ -1,0 +1,38 @@
+
+.Todo__item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border-color-base);
+}
+
+.Todo__content {
+  flex: 1 1;
+  text-align: left;
+  margin-left: 16px;
+  margin-right: 16px;
+}
+
+.Todo__item--completed .Todo__content {
+  color: var(--disabled-color);
+  text-decoration: line-through;
+}
+
+.Todo__delete {
+  outline: none;
+  border: none;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  flex: 0 0 32px;
+}
+
+.Todo__action, .Todo__delete {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+}

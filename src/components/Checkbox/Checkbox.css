@@ -1,0 +1,13 @@
+.my-checkbox {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  border-radius: var(--border-radius-base);
+  box-shadow: 0 2px #00000004;
+  background: #fff;
+}
+
+.my-checkbox:hover {
+  border-color: var(--primary-color);
+}

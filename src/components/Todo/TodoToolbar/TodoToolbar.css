@@ -1,0 +1,61 @@
+
+.Todo__toolbar {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-top: 24px;
+}
+
+.Todo__tabs {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin: 8px 0;
+}
+
+.Todo__tabs .my-btn {
+  width: 100%;
+}
+
+.Todo__tabs > *:not(:last-child) {
+  margin: 0 0 8px;
+}
+
+.Todo__toolbar .Todo__clear-all {
+  width: 100%;
+}
+
+.Todo__toolbar .Button__filter--active {
+  background: var(--primary-color);
+  border-color: var(--primary-color);
+  color: #fff
+}
+
+@media (min-width: 768px) {
+  .Todo__toolbar {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .Todo__tabs {
+    flex-direction: row;
+    justify-content: center;
+  }
+  
+  .Todo__tabs .my-btn {
+    width: auto;
+  }
+
+  .Todo__toolbar .my-checkbox {
+    flex: 0 0 20px;
+  }
+
+  .Todo__tabs > *:not(:last-child) {
+    margin: 0 8px 0 0;
+  }
+
+  .Todo__toolbar .Todo__clear-all {
+    width: auto;
+  }
+}
