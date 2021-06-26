@@ -1,7 +1,9 @@
 import React from 'react'
-import { render, screen } from '@testing-library/react'
+import { cleanup, render, screen } from '@testing-library/react'
 
 import InputTodo from './index'
+
+afterEach(cleanup)
 
 describe('InputTodo', () => {
   test('renders input todo', () => {

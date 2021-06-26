@@ -66,6 +66,7 @@ const TodoItem: FC<IProps> = ({ todo }) => {
 
   return (
     <div
+      data-testid='todoItem'
       className={`Todo__item ${
         todo.status === TodoStatus.COMPLETED ? 'Todo__item--completed' : ''
       }`}
