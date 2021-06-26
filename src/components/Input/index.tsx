@@ -4,20 +4,9 @@ import './Input.css'
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {}
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  (
-    { disabled, defaultValue, placeholder, className, onKeyDown, onBlur },
-    ref
-  ) => {
+  ({ className, ...rest }, ref) => {
     return (
-      <input
-        ref={ref}
-        disabled={disabled}
-        defaultValue={defaultValue}
-        placeholder={placeholder}
-        className={`my-input ${className ?? ''}`}
-        onKeyDown={onKeyDown}
-        onBlur={onBlur}
-      />
+      <input {...rest} ref={ref} className={`my-input ${className ?? ''}`} />
     )
   }
 )

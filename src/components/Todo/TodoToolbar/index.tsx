@@ -68,11 +68,7 @@ const TodoToolbar: React.FC = () => {
   return (
     <div className='Todo__toolbar'>
       {todos.length > 0 ? (
-        <Checkbox
-          type='checkbox'
-          checked={activeTodos === 0}
-          onChange={onToggleAllTodo}
-        />
+        <Checkbox checked={activeTodos === 0} onChange={onToggleAllTodo} />
       ) : (
         <div />
       )}

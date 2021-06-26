@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
-
 import { useHistory } from 'react-router-dom'
+
+import Input from 'src/components/Input'
+import Button from 'src/components/Button'
 import Service from './service'
 
 const SignInPage = () => {
@@ -31,30 +33,30 @@ const SignInPage = () => {
       <form onSubmit={signIn}>
         <label htmlFor='user_id'>
           User id
-          <input
+          <Input
             id='user_id'
             name='userId'
             value={form.userId}
-            style={{ marginTop: 12 }}
+            style={{ marginTop: 4, marginBottom: 12 }}
             onChange={onChangeField}
           />
         </label>
         <br />
         <label htmlFor='password'>
           Password
-          <input
+          <Input
             id='password'
             name='password'
             type='password'
-            style={{ marginTop: 12 }}
+            style={{ marginTop: 4, marginBottom: 12 }}
             value={form.password}
             onChange={onChangeField}
           />
         </label>
         <br />
-        <button type='submit' style={{ marginTop: 12 }}>
+        <Button type='submit' style={{ marginTop: 12 }}>
           Sign in
-        </button>
+        </Button>
       </form>
     </div>
   )
