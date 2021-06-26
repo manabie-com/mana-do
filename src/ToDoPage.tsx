@@ -18,6 +18,7 @@ type EnhanceTodoStatus = TodoStatus | 'ALL';
 
 
 const ToDoPage = ({history}: RouteComponentProps) => {
+    // prevent go to this page without authen
     const [{todos}, dispatch] = useReducer(reducer, initialState);
     const [showing, setShowing] = useState<EnhanceTodoStatus>('ALL');
     const inputRef = useRef<HTMLInputElement>(null);
@@ -30,8 +31,10 @@ const ToDoPage = ({history}: RouteComponentProps) => {
         })()
     }, [])
 
+    // save data to local storage
     const onCreateTodo = async (e: React.KeyboardEvent<HTMLInputElement>) => {
-        if (e.key === 'Enter' && inputRef.current) {
+        // must have value before submitting
+        if (e.key === 'Enter' && inputRef.current && inputRef.current.value) {
             try {
                 const resp = await Service.createTodo(inputRef.current.value);
                 dispatch(createTodo(resp));
@@ -83,9 +86,10 @@ const ToDoPage = ({history}: RouteComponentProps) => {
             </div>
             <div className="ToDo__list">
                 {
-                    showTodos.map((todo, index) => {
+                    //anti pattern , should not use index for key
+                    showTodos.map(todo => {
                         return (
-                            <div key={index} className="ToDo__item">
+                            <div key={todo.id} className="ToDo__item">
                                 <input
                                     type="checkbox"
                                     checked={isTodoCompleted(todo)}
@@ -104,7 +108,7 @@ const ToDoPage = ({history}: RouteComponentProps) => {
                 }
             </div>
             <div className="Todo__toolbar">
-                {todos.length > 0 ?
+                {showTodos.length > 0 ?
                     <input
                         type="checkbox"
                         checked={activeTodos === 0}

@@ -19,18 +19,27 @@ export const initialState: AppState = {
 function reducer(state: AppState, action: AppActions): AppState {
   switch (action.type) {
     case CREATE_TODO:
-      state.todos.push(action.payload);
+      // anti-pattern mutable if using push
+      let { todos } = state;
+      todos = state.todos.concat(action.payload);
       return {
-        ...state
+        todos,
       };
 
     case UPDATE_TODO_STATUS:
-      const index2 = state.todos.findIndex((todo) => todo.id === action.payload.todoId);
-      state.todos[index2].status = action.payload.checked ? TodoStatus.COMPLETED : TodoStatus.ACTIVE;
+      // anti-pattern mutable
+      const tempTodos2 = state.todos.map((e)=> {
+        if (e.id !== action.payload.todoId) {
+          return e;
+        }
+        return {
+          ...e,
+          status: action.payload.checked ? TodoStatus.COMPLETED : TodoStatus.ACTIVE
+        }
+      })
 
       return {
-        ...state,
-        todos: state.todos
+        todos: tempTodos2
       }
 
     case TOGGLE_ALL_TODOS:
@@ -42,23 +51,22 @@ function reducer(state: AppState, action: AppActions): AppState {
       })
 
       return {
-        ...state,
         todos: tempTodos
       }
 
     case DELETE_TODO:
-      const index1 = state.todos.findIndex((todo) => todo.id === action.payload);
-      state.todos.splice(index1, 1);
+      // anti-pattern mutable if using slice
+      state.todos = state.todos.filter((todo) => todo.id !== action.payload);
 
       return {
-        ...state,
         todos: state.todos
       }
+
     case DELETE_ALL_TODOS:
       return {
-        ...state,
         todos: []
       }
+
     default:
       return state;
   }

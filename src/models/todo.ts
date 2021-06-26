@@ -1,3 +1,4 @@
+// file name should be type, not model
 export enum TodoStatus {
   ACTIVE = 'ACTIVE',
   COMPLETED = 'COMPLETED'

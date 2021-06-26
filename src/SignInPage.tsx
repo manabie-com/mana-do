@@ -4,6 +4,8 @@ import {useHistory} from 'react-router-dom'
 import Service from './service'
 
 const SignInPage = () => {
+    // no need state here
+    // prevent go to this page after sign in
     const [form, setForm] = useState({
         userId: '',
         password: ''
