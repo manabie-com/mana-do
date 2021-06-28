@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 
 import {useHistory} from 'react-router-dom'
 import Service from './service'
+import { set as storageSet, tokenName } from './utils/storage'
 
 const SignInPage = () => {
     // no need state here
@@ -16,7 +17,7 @@ const SignInPage = () => {
         e.preventDefault()
         const resp = await Service.signIn(form.userId, form.password)
 
-        localStorage.setItem('token', resp)
+        storageSet(tokenName, resp)
         history.push('/todo')
     }
 

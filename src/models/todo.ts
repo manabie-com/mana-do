@@ -10,4 +10,5 @@ export interface Todo {
   content : string
   status?: TodoStatus
   created_date: string
+  editable: boolean
 }

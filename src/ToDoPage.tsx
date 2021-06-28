@@ -8,11 +8,14 @@ import {
     deleteTodo,
     toggleAllTodos,
     deleteAllTodos,
-    updateTodoStatus
+    updateTodo,
+    UpdateTodoPayload,
 } from './store/actions';
 import Service from './service';
 import {TodoStatus} from './models/todo';
 import {isTodoCompleted} from './utils';
+import {set as storageSet, todoDataName} from './utils/storage';
+import ToDoItem from './components/todo-item';
 
 type EnhanceTodoStatus = TodoStatus | 'ALL';
 
@@ -31,6 +34,10 @@ const ToDoPage = ({history}: RouteComponentProps) => {
         })()
     }, [])
 
+		useEffect(()=>{
+			storageSet(todoDataName, todos.map(({editable, ...rest}) => rest));
+		}, [todos])
+
     // save data to local storage
     const onCreateTodo = async (e: React.KeyboardEvent<HTMLInputElement>) => {
         // must have value before submitting
@@ -47,8 +54,8 @@ const ToDoPage = ({history}: RouteComponentProps) => {
         }
     }
 
-    const onUpdateTodoStatus = (e: React.ChangeEvent<HTMLInputElement>, todoId: string) => {
-        dispatch(updateTodoStatus(todoId, e.target.checked))
+    const onUpdateTodo = (updatePayload: UpdateTodoPayload) => {
+        dispatch(updateTodo(updatePayload))
     }
 
     const onToggleAllTodo = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -70,7 +77,8 @@ const ToDoPage = ({history}: RouteComponentProps) => {
         }
     });
 
-    const activeTodos = todos.reduce(function (accum, todo) {
+    // fix a bug check all not checked in Completed state
+    const activeTodos = showTodos.reduce(function (accum, todo) {
         return isTodoCompleted(todo) ? accum : accum + 1;
     }, 0);
 
@@ -86,23 +94,14 @@ const ToDoPage = ({history}: RouteComponentProps) => {
             </div>
             <div className="ToDo__list">
                 {
-                    //anti pattern , should not use index for key
                     showTodos.map(todo => {
                         return (
-                            <div key={todo.id} className="ToDo__item">
-                                <input
-                                    type="checkbox"
-                                    checked={isTodoCompleted(todo)}
-                                    onChange={(e) => onUpdateTodoStatus(e, todo.id)}
-                                />
-                                <span>{todo.content}</span>
-                                <button
-                                    className="Todo__delete"
-                                    onClick={() => dispatch(deleteTodo(todo.id))}
-                                >
-                                    X
-                                </button>
-                            </div>
+                            <ToDoItem
+                              key={todo.id}
+                              item={todo}
+                              onChangeItem={onUpdateTodo}
+                              onDeleteItem={(id: string) => dispatch(deleteTodo(id))}
+                            />
                         );
                     })
                 }

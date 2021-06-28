@@ -5,7 +5,8 @@ import {
   DELETE_ALL_TODOS,
   DELETE_TODO,
   TOGGLE_ALL_TODOS,
-  UPDATE_TODO_STATUS
+  UPDATE_TODO,
+  SET_TODO,
 } from './actions';
 
 export interface AppState {
@@ -21,20 +22,22 @@ function reducer(state: AppState, action: AppActions): AppState {
     case CREATE_TODO:
       // anti-pattern mutable if using push
       let { todos } = state;
-      todos = state.todos.concat(action.payload);
+      todos = todos.concat(action.payload);
       return {
+        ...state,
         todos,
       };
 
-    case UPDATE_TODO_STATUS:
+    case UPDATE_TODO:
       // anti-pattern mutable
       const tempTodos2 = state.todos.map((e)=> {
-        if (e.id !== action.payload.todoId) {
+        if (e.id !== action.payload.id) {
           return e;
         }
         return {
           ...e,
-          status: action.payload.checked ? TodoStatus.COMPLETED : TodoStatus.ACTIVE
+          ...action.payload,
+          ...action.payload.checked !== undefined ? {status: action.payload.checked ? TodoStatus.COMPLETED : TodoStatus.ACTIVE} : {},
         }
       })
 
@@ -65,6 +68,11 @@ function reducer(state: AppState, action: AppActions): AppState {
     case DELETE_ALL_TODOS:
       return {
         todos: []
+      }
+
+    case SET_TODO:
+      return {
+        todos: action.payload
       }
 
     default:
