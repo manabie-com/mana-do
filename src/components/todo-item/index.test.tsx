@@ -5,19 +5,19 @@ import userEvent, { specialChars } from '@testing-library/user-event'
 import ToDoItem from "./index";
 import {Todo, TodoStatus} from "../../models/todo";
 
-const mockItem: Todo = {
-	content: 'a',
-	id: '1',
-	status: TodoStatus.ACTIVE,
-	editable: false,
-	created_date: '',
-	user_id: '1',
-};
-
-const mockOnChangeItem = jest.fn();
-const mockOnDeleteItem = jest.fn();
-
 describe('Todo item', () => {
+	const mockItem: Todo = {
+		content: 'a',
+		id: '1',
+		status: TodoStatus.ACTIVE,
+		editable: false,
+		created_date: '',
+		user_id: '1',
+	};
+
+	const mockOnChangeItem = jest.fn();
+	const mockOnDeleteItem = jest.fn();
+
 	it('should render default item successfully', async () => {
 		const Component = render(<ToDoItem onChangeItem={mockOnChangeItem} onDeleteItem={mockOnDeleteItem} item={mockItem} />);
 
@@ -59,7 +59,6 @@ describe('Todo item', () => {
 		await userEvent.type(contentInput, 'abc');
 		await userEvent.keyboard(specialChars.enter);
 
-		expect(mockOnChangeItem).toHaveBeenCalledWith({content: 'abc', id: '1'});
-		expect(mockOnChangeItem).toHaveBeenCalledWith({editable: false, id: '1'});
+		expect(mockOnChangeItem).toHaveBeenCalledWith({content: 'abc', id: '1', editable: false});
 	});
 });

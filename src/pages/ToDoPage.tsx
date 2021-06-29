@@ -1,7 +1,7 @@
 import React, {useEffect, useReducer, useRef, useState} from 'react';
 import {RouteComponentProps} from 'react-router-dom';
 
-import reducer, {initialState} from './store/reducer';
+import reducer, {initialState} from '../store/reducer';
 import {
     setTodos,
     createTodo,
@@ -10,12 +10,12 @@ import {
     deleteAllTodos,
     updateTodo,
     UpdateTodoPayload,
-} from './store/actions';
-import Service from './service';
-import {TodoStatus} from './models/todo';
-import {isTodoCompleted} from './utils';
-import {set as storageSet, todoDataName} from './utils/storage';
-import ToDoItem from './components/todo-item';
+} from '../store/actions';
+import Service from '../service';
+import {TodoStatus} from '../models/todo';
+import {isTodoCompleted} from '../utils';
+import {set as storageSet, todoDataName} from '../utils/storage';
+import ToDoItem from '../components/todo-item';
 
 type EnhanceTodoStatus = TodoStatus | 'ALL';
 
@@ -30,18 +30,19 @@ const ToDoPage = ({history}: RouteComponentProps) => {
         (async ()=>{
             const resp = await Service.getTodos();
 
-            dispatch(setTodos(resp || []));
+            dispatch(setTodos(resp));
         })()
     }, [])
 
-		useEffect(()=>{
-			storageSet(todoDataName, todos.map(({editable, ...rest}) => rest));
+		useEffect(() => {
+		    if (todos.length > 0) {
+            storageSet(todoDataName, todos.map(({editable, ...rest}) => rest));
+        }
 		}, [todos])
 
-    // save data to local storage
     const onCreateTodo = async (e: React.KeyboardEvent<HTMLInputElement>) => {
         // must have value before submitting
-        if (e.key === 'Enter' && inputRef.current && inputRef.current.value) {
+        if (e.key === 'Enter' && inputRef.current && inputRef.current.value.trim()) {
             try {
                 const resp = await Service.createTodo(inputRef.current.value);
                 dispatch(createTodo(resp));
@@ -86,6 +87,7 @@ const ToDoPage = ({history}: RouteComponentProps) => {
         <div className="ToDo__container">
             <div className="Todo__creation">
                 <input
+                    data-testid="add-item-input"
                     ref={inputRef}
                     className="Todo__input"
                     placeholder="What need to be done?"
@@ -107,13 +109,13 @@ const ToDoPage = ({history}: RouteComponentProps) => {
                 }
             </div>
             <div className="Todo__toolbar">
-                {showTodos.length > 0 ?
+                {showTodos.length > 0 && (
                     <input
                         type="checkbox"
                         checked={activeTodos === 0}
                         onChange={onToggleAllTodo}
-                    /> : <div/>
-                }
+                    />
+                )}
                 <div className="Todo__tabs">
                     <button className="Action__btn" onClick={()=>setShowing('ALL')}>
                         All

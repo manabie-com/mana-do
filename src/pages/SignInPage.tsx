@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
 
 import {useHistory} from 'react-router-dom'
-import Service from './service'
-import { set as storageSet, tokenName } from './utils/storage'
+import Service from '../service'
+import { set as storageSet, tokenName } from '../utils/storage'
 
 const SignInPage = () => {
     // no need state here

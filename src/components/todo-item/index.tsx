@@ -26,11 +26,8 @@ const ToDoItem = ({item, onChangeItem, onDeleteItem}: Props) => {
   }, [item.editable]);
 
   const onChangeContent = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter' && inputRef.current && inputRef.current.value) {
-      if (inputRef.current.value) {
-        onChangeItem({content: inputRef.current.value, id: item.id});
-      }
-      onChangeItem({editable: false, id: item.id});
+    if (e.key === 'Enter' && inputRef.current && inputRef.current.value.trim()) {
+      onChangeItem({content: inputRef.current.value, editable: false, id: item.id});
     }
   }
 
