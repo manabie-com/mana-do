@@ -26,7 +26,11 @@ class ApiFrontend extends IAPI {
     }
 
     async getTodos(): Promise<Todo[]>{
-        return Promise.resolve( storageGet(todoDataName) as Todo[]);
+        const todos: Todo[] = storageGet(todoDataName) || [];
+        return Promise.resolve(todos.map(t => {
+            t.editable = false;
+            return t;
+        }));
     }
 }
 
