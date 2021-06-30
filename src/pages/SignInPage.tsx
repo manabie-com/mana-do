@@ -30,7 +30,7 @@ const SignInPage = () => {
     }
 
     return (
-        <div style={{marginTop: '3rem', textAlign: 'left'}}>
+        <div data-testid="signin-page" style={{marginTop: '3rem', textAlign: 'left'}}>
             <form onSubmit={signIn}>
                 <label htmlFor="user_id">
                     User id

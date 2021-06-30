@@ -84,7 +84,7 @@ const ToDoPage = ({history}: RouteComponentProps) => {
     }, 0);
 
     return (
-        <div className="ToDo__container">
+        <div data-testid="todo-page" className="ToDo__container">
             <div className="Todo__creation">
                 <input
                     data-testid="add-item-input"
