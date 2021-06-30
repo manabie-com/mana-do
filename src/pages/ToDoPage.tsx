@@ -17,6 +17,8 @@ import {isTodoCompleted} from '../utils';
 import {set as storageSet, todoDataName} from '../utils/storage';
 import ToDoItem from '../components/todo-item';
 
+import './ToDoPage.css';
+
 type EnhanceTodoStatus = TodoStatus | 'ALL';
 
 
@@ -55,9 +57,9 @@ const ToDoPage = ({history}: RouteComponentProps) => {
         }
     }
 
-    const onUpdateTodo = (updatePayload: UpdateTodoPayload) => {
+    const onUpdateTodo = React.useCallback((updatePayload: UpdateTodoPayload) => {
         dispatch(updateTodo(updatePayload))
-    }
+    }, [])
 
     const onToggleAllTodo = (e: React.ChangeEvent<HTMLInputElement>) => {
         dispatch(toggleAllTodos(e.target.checked))
@@ -83,6 +85,8 @@ const ToDoPage = ({history}: RouteComponentProps) => {
         return isTodoCompleted(todo) ? accum : accum + 1;
     }, 0);
 
+    const getFilterActiveClass = (tab: EnhanceTodoStatus) => tab === showing ? 'active' : '';
+
     return (
         <div data-testid="todo-page" className="ToDo__container">
             <div className="Todo__creation">
@@ -93,6 +97,26 @@ const ToDoPage = ({history}: RouteComponentProps) => {
                     placeholder="What need to be done?"
                     onKeyDown={onCreateTodo}
                 />
+            </div>
+            <div className="Todo__toolbar">
+                {showTodos.length > 0 && (
+                  <input
+                    type="checkbox"
+                    checked={activeTodos === 0}
+                    onChange={onToggleAllTodo}
+                  />
+                )}
+                <div className="Todo__tabs">
+                    <button className={`Action__btn ${getFilterActiveClass('ALL')}`} onClick={()=>setShowing('ALL')}>
+                        All
+                    </button>
+                    <button className={`Action__btn ${getFilterActiveClass(TodoStatus.ACTIVE)}`} onClick={()=>setShowing(TodoStatus.ACTIVE)}>
+                        Active
+                    </button>
+                    <button className={`Action__btn ${getFilterActiveClass(TodoStatus.COMPLETED)}`} onClick={()=>setShowing(TodoStatus.COMPLETED)}>
+                        Completed
+                    </button>
+                </div>
             </div>
             <div className="ToDo__list">
                 {
@@ -107,26 +131,9 @@ const ToDoPage = ({history}: RouteComponentProps) => {
                         );
                     })
                 }
+                {showTodos.length === 0 && <h2>No items</h2>}
             </div>
             <div className="Todo__toolbar">
-                {showTodos.length > 0 && (
-                    <input
-                        type="checkbox"
-                        checked={activeTodos === 0}
-                        onChange={onToggleAllTodo}
-                    />
-                )}
-                <div className="Todo__tabs">
-                    <button className="Action__btn" onClick={()=>setShowing('ALL')}>
-                        All
-                    </button>
-                    <button className="Action__btn" onClick={()=>setShowing(TodoStatus.ACTIVE)}>
-                        Active
-                    </button>
-                    <button className="Action__btn" onClick={()=>setShowing(TodoStatus.COMPLETED)}>
-                        Completed
-                    </button>
-                </div>
                 <button className="Action__btn" onClick={onDeleteAllTodo}>
                     Clear all todos
                 </button>

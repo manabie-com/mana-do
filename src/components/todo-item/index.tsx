@@ -4,6 +4,8 @@ import {isTodoCompleted} from '../../utils';
 import {Todo} from "../../models/todo";
 import {UpdateTodoPayload} from "../../store/actions";
 
+import './todo-item.css';
+
 interface Props {
   item: Todo;
   onChangeItem: (onUpdateTodo: UpdateTodoPayload) => void;
@@ -14,24 +16,24 @@ const ToDoItem = ({item, onChangeItem, onDeleteItem}: Props) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const wrapRef = useRef<HTMLDivElement>(null);
 
-  const onClickOutside = (e: MouseEvent) => {
+  const onClickOutside = React.useCallback((e: MouseEvent) => {
     if (wrapRef.current && !wrapRef.current.contains(e.target as Node) && item.editable) {
       onChangeItem({ editable: false, id: item.id });
     }
-  }
+  }, [item.editable, item.id, onChangeItem])
 
   React.useEffect(() => {
     document.addEventListener('click', onClickOutside);
     return () => document.removeEventListener('click', onClickOutside);
-  }, [item.editable]);
+  }, [item.editable, onClickOutside]);
 
-  const onChangeContent = (e: React.KeyboardEvent<HTMLInputElement>) => {
+  const onChangeContent = React.useCallback((e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter' && inputRef.current && inputRef.current.value.trim()) {
       onChangeItem({content: inputRef.current.value, editable: false, id: item.id});
     }
-  }
+  }, [item.id, onChangeItem])
 
-  const onDoubleClick = () => {
+  const onDoubleClick = React.useCallback(() => {
     if (!item.editable) {
       onChangeItem({editable: true, id: item.id});
       if (inputRef.current) {
@@ -39,7 +41,7 @@ const ToDoItem = ({item, onChangeItem, onDeleteItem}: Props) => {
         inputRef.current.value = item.content;
       }
     }
-  }
+  }, [item.editable, item.id, item.content, onChangeItem])
 
   return (
     <div className="ToDo__item">
