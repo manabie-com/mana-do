@@ -22,12 +22,9 @@ const ToDoPage = ({history}: RouteComponentProps) => {
     const [showing, setShowing] = useState<EnhanceTodoStatus>('ALL');
     const inputRef = useRef<HTMLInputElement>(null);
 
+    //I think it just need dispatch setTodos
     useEffect(()=>{
-        (async ()=>{
-            const resp = await Service.getTodos();
-
-            dispatch(setTodos(resp || []));
-        })()
+        dispatch(setTodos());
     }, [])
 
     const onCreateTodo = async (e: React.KeyboardEvent<HTMLInputElement>) => {

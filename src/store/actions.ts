@@ -10,13 +10,11 @@ export const UPDATE_TODO_STATUS = 'UPDATE_TODO_STATUS';
 
 export interface SetTodoAction {
   type: typeof SET_TODO,
-  payload: Array<Todo>
 }
 
-export function setTodos(todos: Array<Todo>): SetTodoAction {
+export function setTodos(): SetTodoAction {
   return {
     type: SET_TODO,
-    payload: todos
   }
 }
 
