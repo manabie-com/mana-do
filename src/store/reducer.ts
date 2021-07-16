@@ -19,9 +19,12 @@ export const initialState: AppState = {
 function reducer(state: AppState, action: AppActions): AppState {
   switch (action.type) {
     case CREATE_TODO:
-      state.todos.push(action.payload);
+      // clone into a new array to prevent duplicating
+      let newTodos = [...state.todos]
+      newTodos.push(action.payload)
       return {
-        ...state
+        ...state,
+        todos: newTodos
       };
 
     case UPDATE_TODO_STATUS:

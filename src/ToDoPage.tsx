@@ -33,9 +33,12 @@ const ToDoPage = ({history}: RouteComponentProps) => {
     const onCreateTodo = async (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter' && inputRef.current) {
             try {
-                const resp = await Service.createTodo(inputRef.current.value);
-                dispatch(createTodo(resp));
-                inputRef.current.value = '';
+                //check input is empty
+                if(inputRef.current.value){
+                    const resp = await Service.createTodo(inputRef.current.value);
+                    dispatch(createTodo(resp));
+                    inputRef.current.value = '';
+                }
             } catch (e) {
                 if (e.response.status === 401) {
                     history.push('/')
