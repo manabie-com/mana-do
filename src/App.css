@@ -25,6 +25,7 @@ input[type="checkbox"] {
   box-shadow: none;
   border: none;
   outline: none;
+  cursor: pointer;
 }
 
 input[type="checkbox"]:focus {
@@ -64,19 +65,19 @@ input:focus {
   flex: 1 1;
 }
 
-.ToDo__list {
+.todoList {
   display: flex;
   flex-direction: column;
   margin-top: 1.5rem;
 }
 
-.ToDo__item {
+.todoItem {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
-.ToDo__item > span {
+.todoItem > span {
   flex: 1 1;
   text-align: left;
   margin-left: 8px;
@@ -86,7 +87,7 @@ input:focus {
   flex: 1 1;
 }
 
-.Todo__delete {
+.todoDelete {
   outline: none;
   border: none;
   width: 32px;
@@ -101,26 +102,23 @@ input:focus {
   cursor: pointer;
 }
 
-.Todo__action, .Todo__delete {
+.todoAction, .todoDelete {
   width: 24px;
   height: 24px;
   flex-shrink: 0;
 }
 
-.Todo__toolbar {
+.todoToolbar {
   display: flex;
   justify-content: space-between;
   margin-top: 24px;
 }
 
-.Todo__tabs {
+.todoTabs {
   display: flex;
   justify-content: center;
 }
 
-.Todo__tabs > *:not(:last-child) {
+.todoTabs > *:not(:last-child) {
   margin-right: 8px;
-}
-
-.Action__btn {
 }
