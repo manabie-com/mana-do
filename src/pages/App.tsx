@@ -2,10 +2,11 @@ import React from 'react';
 
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
 
-import SignInPage from './SignInPage';
-import ToDoPage from './ToDoPage';
+import SignInPage from './sign-in';
+import ToDoPage from './to-do';
 
 import './App.css';
+import PrivateRoute from '../components/PrivateRoute';
 
 function App() {
   return (
@@ -13,7 +14,7 @@ function App() {
       <BrowserRouter>
         <Switch>
           <Route path="/" exact component={SignInPage}/>
-          <Route path="/todo" component={ToDoPage}/>
+          <PrivateRoute path="/todo" component={ToDoPage}/>
         </Switch>
       </BrowserRouter>
     </main>

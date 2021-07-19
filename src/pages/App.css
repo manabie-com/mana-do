@@ -73,12 +73,15 @@ input:focus {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin-top: 0.5rem;
 }
 
 .ToDo__item > span {
   flex: 1 1;
   text-align: left;
   margin-left: 8px;
+  font-size: 25px;
+  font-weight: bold;
 }
 
 .Todo__content {
