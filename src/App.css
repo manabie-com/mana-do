@@ -1,6 +1,7 @@
 .App {
   text-align: center;
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
 }
 
@@ -12,10 +13,15 @@ button {
   min-height: 32px;
   min-width: 80px;
   padding: 4px 8px;
+  cursor: pointer;
 }
 
 button:hover {
   opacity: 0.85;
+}
+
+button:disabled {
+  display: none;
 }
 
 input[type="checkbox"] {
@@ -43,6 +49,36 @@ input {
 
 input:focus {
   box-shadow: 1px 0 9px rgba(0,0,0, 0.25);
+}
+
+.form-signin .row_signin {
+  width: 100%;
+  margin: 15px 0;
+  display: flex;
+  align-items: center;
+}
+
+.form-signin .row_signin label {
+  width: 95px;
+  padding-right: 15px;
+}
+
+.form-signin .row_signin input {
+  width: calc(100% - 95px);
+  margin: 0 !important;
+}
+
+.form-signin .row_action {
+  display: flex;
+  justify-content: center;
+}
+
+.Todo__title {
+  text-align: center;
+  width: 100%;
+  font-size: 30px;
+  font-weight: bold;
+  margin-top: 3rem;
 }
 
 .ToDo__container {
@@ -75,10 +111,12 @@ input:focus {
   justify-content: space-between;
 }
 
-.ToDo__item > span {
+.ToDo__item > span, .ToDo__item .ToDo__item__edit {
   flex: 1 1;
   text-align: left;
   margin-left: 8px;
+  font-size: 16px;
+  padding: 0 16px;
 }
 
 .Todo__content {
@@ -98,6 +136,8 @@ input:focus {
   justify-content: center;
   align-items: center;
   cursor: pointer;
+  background-color: red;
+  color: #fff;
 }
 
 .Todo__action, .Todo__delete {

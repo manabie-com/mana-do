@@ -24,7 +24,9 @@ class ApiFrontend extends IAPI {
     }
 
     async getTodos(): Promise<Todo[]>{
-        return []
+        const str_todos = JSON.parse(localStorage.getItem('todos') || '');
+        const todos = (str_todos || []) as Todo[];
+        return todos;
     }
 }
 
