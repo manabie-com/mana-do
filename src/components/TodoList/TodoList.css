@@ -1,0 +1,46 @@
+.app-table {
+    border-collapse: collapse;
+    width: 100%;
+    table-layout: fixed;
+
+}   
+
+.app-table thead tr {
+    background-color: #39a1f4;
+    color: #fff;
+
+}
+
+.app-table th,
+.app-table td {
+    padding: 5px 24px;
+}
+
+.app-table td {
+    white-space:pre-wrap; 
+    word-wrap:break-word
+}
+
+.app-table tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+.app-table .th-15-percent {
+    width: 15%;
+}
+
+.app-table .th-seq-number {
+    width: 1%;
+}
+
+.app-table .align-center {
+    text-align: center;
+}
+
+.app-table .align-left {
+    text-align: left;
+}
+
+.app-table .align-right {
+    text-align: right;
+}

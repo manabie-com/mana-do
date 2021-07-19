@@ -1,0 +1,18 @@
+.app-text-strong {
+    font-weight: bold;
+}
+
+.app-text-italic {
+    font-style: italic;
+}
+
+.app-text-strikethrough {
+    text-decoration: line-through;
+}
+
+.app-text-underline {
+    text-decoration: underline;
+}
+
+
+

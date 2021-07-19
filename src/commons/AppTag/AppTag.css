@@ -1,0 +1,26 @@
+.tag {
+    border-radius: 2px;
+    border: 1px solid #e9e9e9;
+    padding: 0 10px;
+    margin: 0 10px 0 0;
+}
+
+.tag-success {
+    color: #51c31b;
+    background: #f7f7f7;
+    border-color: #51c31b;
+}
+
+.tag-danger {
+    color: #e82330;
+    background: #f3e8e8;
+    border-color: #f89690;
+}
+
+/* warning */
+.tag-warning {
+    color: #e99031;
+    background: #fff7e6;
+    border-color: #e99031;
+}
+

@@ -1,23 +1,39 @@
 import {Todo, TodoStatus} from '../models/todo';
+import { Auth } from '../models/auth';
 import {
+  ACT_LOGIN,
   AppActions,
   CREATE_TODO,
   DELETE_ALL_TODOS,
   DELETE_TODO,
+  SET_TODO,
   TOGGLE_ALL_TODOS,
   UPDATE_TODO_STATUS
 } from './actions';
 
+
+//IAuth for authentication
 export interface AppState {
-  todos: Array<Todo>
+  todos: Array<Todo>,
+  auth: Auth,
 }
 
 export const initialState: AppState = {
-  todos: []
+  todos: [],
+  auth: {},
 }
 
 function reducer(state: AppState, action: AppActions): AppState {
+  
+
+  
   switch (action.type) {
+    case ACT_LOGIN: 
+    return {
+      ...state,
+      auth: action.payload
+    }
+
     case CREATE_TODO:
       state.todos.push(action.payload);
       return {
@@ -58,6 +74,11 @@ function reducer(state: AppState, action: AppActions): AppState {
       return {
         ...state,
         todos: []
+      }
+    case SET_TODO: 
+      return {
+        ...state,
+        todos: action.payload
       }
     default:
       return state;

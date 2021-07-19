@@ -1,0 +1,40 @@
+.btn {
+    border-radius: 2px;
+    border: none;
+    font-weight: 500;
+    line-height: 2.5rem;
+    transition: all .2s ease-in-out;
+    min-width: 100px;
+    margin: auto 5px;
+}
+
+.btn-primary {
+    background-color: #39a1f4;
+    color: #FFF;
+
+}
+
+.btn-primary:active {
+    background-color: #2185d0;
+    color: #FFF;
+    transition: all .2s ease-out;
+}
+
+.btn-primary:disabled {
+    background-color: #636363;
+    color: #FFF;
+    transition: all .2s ease-out;
+}
+
+/* THIENNGUYEN: To make sure the loading icon is large enough */
+.btn svg {
+    height: 1em; 
+  }
+
+.btn span {
+margin-right: 5px;
+}
+
+.btn-link {
+    text-decoration: none;
+}

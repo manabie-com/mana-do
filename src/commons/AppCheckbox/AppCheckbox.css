@@ -1,0 +1,10 @@
+.app-checkbox {
+    width: 24px;
+    height: 24px;
+}
+
+
+input.app-checkbox:checked ~ .checkmark {
+    background-color: #2196F3;
+  }
+
