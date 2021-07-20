@@ -4,6 +4,7 @@ import {
     setTodos,
     createTodo,
     deleteAllTodos,
+    actSignOut,
 } from '../../store/actions';
 import Service from '../../service';
 import { TodoStatus } from '../../models/todo';
@@ -76,13 +77,14 @@ const ToDoPage = ({ history }: RouteComponentProps) => {
     }
 
     const onClickSignOut = () => {
+        dispatch(actSignOut());
         localStorage.removeItem('token');
         history.push('/');
     }
 
     return (
         <AppRow className="justify-content-center">
-            <AppCol xs={9} md={10} lg={8} xl={8}>
+            <AppCol xs={5} sm ={9} md={10} lg={8} xl={8}>
             <div className="ToDo__container">
                 <AppTitle />
                 <p>Hi, <AppText strong>{auth.currentUser?.firstName || ''}</AppText><br /><AppButton btnType="link" href="#" onClick={onClickSignOut}>Sign out</AppButton></p>
@@ -101,7 +103,7 @@ const ToDoPage = ({ history }: RouteComponentProps) => {
                         {filterButtonsJSX()}
                     </div>
                     <AppButton btnType="primary" onClick={onDeleteAllTodo}>
-                        Clear all todos
+                        Clear all
                     </AppButton>
                 </div>
             </div>

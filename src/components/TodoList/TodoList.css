@@ -1,8 +1,13 @@
+.table-container {
+    width: 100%;
+    overflow: auto;
+}
+
 .app-table {
     border-collapse: collapse;
     width: 100%;
     table-layout: fixed;
-
+    overflow: auto; 
 }   
 
 .app-table thead tr {
@@ -27,6 +32,17 @@
 
 .app-table .th-15-percent {
     width: 15%;
+}
+
+.app-table .th-160px {
+    width: 160px;
+}
+
+.app-table .th-100px {
+    width: 100px;
+}
+.app-table .th-300px {
+    width: 300px;
 }
 
 .app-table .th-seq-number {

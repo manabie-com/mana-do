@@ -2,6 +2,7 @@ import {Todo, TodoStatus} from '../models/todo';
 import { Auth } from '../models/auth';
 import {
   ACT_LOGIN,
+  ACT_SIGN_OUT,
   AppActions,
   CREATE_TODO,
   DELETE_ALL_TODOS,
@@ -34,6 +35,11 @@ function reducer(state: AppState, action: AppActions): AppState {
       auth: action.payload
     }
 
+    //THIENNGUYEN: Sign out action to reset store
+    case ACT_SIGN_OUT:
+    return {
+      ...initialState,
+    }
     case CREATE_TODO:
       state.todos.push(action.payload);
       return {

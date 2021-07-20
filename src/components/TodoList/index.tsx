@@ -11,15 +11,15 @@ const TodoList = ({filter}:ITodoListProps) => {
     const { state } = useContext(AppContext);
     const { todos } = state; 
     const filteredTodo = todos.filter(item => filter!=='ALL'?item.status === filter:item);
-    return (<table className="app-table">
+    return (<div className="table-container"><table className="app-table">
             <thead>
                 <tr>
                     <th className="th-seq-number align-center">No</th>
                     <th className="th-seq-number align-center">Done?</th>
-                    <th className="th-15-percent align-left">Content</th>
-                    <th className="align-center">Status</th>
-                    <th className="align-center">Created</th>
-                    <th className="align-center">Action</th>
+                    <th className="th-300px align-left">Content</th>
+                    <th className="th-100px align-center">Status</th>
+                    <th className="th-100px align-center">Created</th>
+                    <th className="th-160px align-center">Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -28,7 +28,7 @@ const TodoList = ({filter}:ITodoListProps) => {
                     }
                     ) }
             </tbody>
-        </table>)
+        </table></div>)
 }
 
 export default TodoList;

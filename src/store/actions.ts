@@ -10,11 +10,15 @@ export const UPDATE_TODO_STATUS = 'UPDATE_TODO_STATUS';
 //THIENNGUYEN
 export const ACT_LOGIN = 'ACT_LOGIN';
 export const ACT_LOGOUT = 'ACT_LOGOUT';
+export const ACT_SIGN_OUT = 'ACT_SIGN_OUT';
 
 //THIENNGUYEN: interfaces for Authentication
 export interface actLogin {
   type: typeof ACT_LOGIN,
   payload: Auth
+}
+export interface actSignOut {
+  type: typeof ACT_SIGN_OUT,
 }
 
 
@@ -112,6 +116,13 @@ export function actLogin(auth: Auth):actLogin {
    } 
 }
 
+export function actSignOut():actSignOut {
+  return {
+    type: ACT_SIGN_OUT,
+  } 
+}
+
+
 
 
 export type AppActions =
@@ -121,5 +132,5 @@ export type AppActions =
   DeleteTodoAction |
   DeleteAllTodosAction |
   ToggleAllTodosAction | 
-  actLogin
+  actLogin | actSignOut
   ;
