@@ -1,0 +1,46 @@
+.ToDo__list {
+    display: flex;
+    flex-direction: column;
+    margin-top: 1.5rem;
+    .ToDo__item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        .ToDo__item-value {
+            width: 70%;
+            .ToDo__item-value {
+                &.input {
+                    height: 2.5rem;
+                    transition: all 0.2s;
+                }
+            }
+        }
+        .ToDo__item-checkbox {
+            width: 24px;
+            height: 24px;
+            box-shadow: none;
+            border: none;
+            outline: none;
+            &:focus {
+                box-shadow: none;
+                border: none;
+                outline: none;
+            }
+        }
+        .ToDo__item-delete {
+            background-color: #00000014;
+            outline: none;
+            border: none;
+            width: 32px;
+            height: 32px;
+            min-width: auto;
+            min-height: auto;
+            box-shadow: none;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+    }
+}

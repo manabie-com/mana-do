@@ -2,10 +2,11 @@ import React from 'react';
 
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
 
-import SignInPage from './SignInPage';
-import ToDoPage from './ToDoPage';
+import SignInPage from './components/pages/SignInPage/SignInPage';
+import ToDoPage from './components/pages/ToDoPage/ToDoPage/ToDoPage';
 
-import './App.css';
+import './App.scss';
+
 
 function App() {
   return (
