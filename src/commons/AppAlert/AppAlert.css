@@ -1,0 +1,22 @@
+.app-alert-success {
+    color: #2FCC73;
+    background-color: #cefde3;
+    border-left: 5px solid #2FCC73;
+}
+
+.app-alert-error {
+    color: #c2473a;
+    background-color: #f8cbc8;
+    border-left: 5px solid #c2473a;
+}
+
+.app-alert-warning {
+    color: #F1C40F;
+    background-color: #FCF3CF;
+    border-left: 5px solid #F1C40F;
+}
+
+.app-alert {
+    display: block;
+    padding: 10px;
+}

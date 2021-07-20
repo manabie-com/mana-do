@@ -1,0 +1,36 @@
+.app-input {
+    height: 2.5rem;
+    width: 100%;
+    margin: 0 0 1rem;
+    border: 1px solid #cacaca;
+    border-radius: 4px;
+    background-color: #fff;
+    line-height: 1.5;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    display: block;
+    padding-left: 0.5em;
+    margin-bottom: 0;
+}
+
+
+.app-input:focus {
+    box-shadow: 1px 0 9px #64bffc;
+    border: 1px solid #83c2ed;
+    transition: all .2s ease-out;
+    outline: none !important;
+}
+
+.app-input.input-has-error {
+    color: red;
+    border: 1px solid red;
+}
+
+.app-input-error-text {
+    color: red;
+}
+
+.app-input-label.required:after {
+    content:" *";
+    color: red;
+  } 

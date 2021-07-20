@@ -1,0 +1,13 @@
+.app-title {
+    margin-bottom: 20px;
+}
+
+.app-title-text {
+    font-weight: 700;
+    font-size: x-large;
+}
+
+.app-title .align-left {
+    align-items: left;
+}
+

@@ -1,0 +1,69 @@
+.table-container {
+    width: 100%;
+    overflow: auto;
+}
+
+.app-table {
+    border-collapse: collapse;
+    width: 100%;
+    table-layout: fixed;
+    overflow: auto; 
+}   
+
+.app-table thead tr {
+    background-color: #39a1f4;
+    color: #fff;
+
+}
+
+.app-table th,
+.app-table td {
+    padding: 5px 15px;
+    vertical-align: middle;
+}
+
+.app-table td {
+    white-space:pre-wrap; 
+    word-wrap:break-word
+}
+
+.app-table tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+.app-table .th-15-percent {
+    width: 15%;
+}
+
+.app-table .th-160px {
+    width: 160px;
+}
+
+.app-table .th-100px {
+    width: 100px;
+}
+.app-table .th-300px {
+    width: 300px;
+}
+
+.app-table .th-seq-number {
+    width: 5px;
+    padding: 5px 15px;
+}
+
+.app-table .align-center {
+    text-align: center;
+}
+
+.app-table .align-left {
+    text-align: left;
+}
+
+.app-table .align-right {
+    text-align: right;
+}
+
+.app-table .margin-right-10 {
+    margin-right: 10px;
+}
+

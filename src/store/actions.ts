@@ -1,3 +1,4 @@
+import { Auth } from "../models/auth";
 import {Todo} from "../models/todo";
 
 export const SET_TODO = 'SET_TODO';
@@ -6,6 +7,20 @@ export const DELETE_TODO = 'DELETE_TODO';
 export const DELETE_ALL_TODOS = 'DELETE_ALL_TODOS';
 export const TOGGLE_ALL_TODOS = 'TOGGLE_ALL_TODOS';
 export const UPDATE_TODO_STATUS = 'UPDATE_TODO_STATUS';
+//THIENNGUYEN
+export const ACT_LOGIN = 'ACT_LOGIN';
+export const ACT_LOGOUT = 'ACT_LOGOUT';
+export const ACT_SIGN_OUT = 'ACT_SIGN_OUT';
+
+//THIENNGUYEN: interfaces for Authentication
+export interface actLogin {
+  type: typeof ACT_LOGIN,
+  payload: Auth
+}
+export interface actSignOut {
+  type: typeof ACT_SIGN_OUT,
+}
+
 
 
 export interface SetTodoAction {
@@ -14,11 +29,13 @@ export interface SetTodoAction {
 }
 
 export function setTodos(todos: Array<Todo>): SetTodoAction {
+  
   return {
     type: SET_TODO,
     payload: todos
   }
 }
+
 
 ///////////
 export interface CreateTodoAction {
@@ -89,10 +106,31 @@ export function toggleAllTodos(checked: boolean): ToggleAllTodosAction {
   }
 }
 
+
+
+
+export function actLogin(auth: Auth):actLogin {
+   return {
+     type: ACT_LOGIN,
+     payload: auth
+   } 
+}
+
+export function actSignOut():actSignOut {
+  return {
+    type: ACT_SIGN_OUT,
+  } 
+}
+
+
+
+
 export type AppActions =
   SetTodoAction |
   CreateTodoAction |
   UpdateTodoStatusAction |
   DeleteTodoAction |
   DeleteAllTodosAction |
-  ToggleAllTodosAction;
+  ToggleAllTodosAction | 
+  actLogin | actSignOut
+  ;
