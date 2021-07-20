@@ -1,5 +1,6 @@
 import React, { useReducer } from 'react';
 import { render, screen } from '@testing-library/react'
+import { renderHook, act } from '@testing-library/react-hooks'
 import TodoItem from './TodoItem';
 import { Todo, TodoStatus } from '../../../../models/todo';
 import reducer, { initialState } from '../../../../store/reducer';
