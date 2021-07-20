@@ -22,10 +22,10 @@ const mockTokenTable: token[] = [
 
 const mockUserTable: User[] = [
     {
-        user_id: '1', username: 'firstUser', firstName: 'Thien 1', lastName: 'Nguyen', password: 'example'
+        user_id: '1', username: 'firstUser', firstName: 'Default User 1', lastName: 'Manabie', password: 'example'
     },
     {
-        user_id: '2', username: 'secondUser', firstName: 'Thien 2', lastName: 'Nguyen Van', password: 'example'
+        user_id: '2', username: 'secondUser', firstName: 'Default User 1', lastName: 'Manabie', password: 'example'
     },
 ]
 
