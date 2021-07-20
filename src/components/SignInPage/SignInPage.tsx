@@ -9,14 +9,19 @@ const SignInPage = () => {
     userId: "",
     password: "",
   });
+  const [loginFail, setLoginFail] = useState(false)
   const history = useHistory();
 
   const signIn = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const resp = await Service.signIn(form.userId, form.password);
-
-    localStorage.setItem("token", resp);
-    history.push("/todo");
+    try {
+      const resp = await Service.signIn(form.userId, form.password);
+  
+      localStorage.setItem("token", resp);
+      history.push("/todo");
+    } catch (err) {
+      setLoginFail(true)
+    }
   };
 
   const onChangeField = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -56,7 +61,7 @@ const SignInPage = () => {
               placeholder="Password"
             ></span>
           </div>
-          <br />
+          {loginFail && (<p style={{color: 'red'}}>Wrong User ID or Password <br/> Please try again !!!</p>)}
           <button className={styles.signinBtn} type="submit" style={{ marginTop: 12 }}>
             Sign in
           </button>
