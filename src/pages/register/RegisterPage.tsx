@@ -203,7 +203,7 @@ const RegisterPage = () => {
                         <br />
                         <AppButton isLoading={loading} style={{ minWidth: "100%" }} btnType="primary" type="submit">Register</AppButton>
                         <div style={{textAlign: "center"}}>
-                        <span>Already have an account?</span><AppButton style={{ width: "100%" }} btnType="link"  href="#" ><Link to="/" >Sign in</Link></AppButton>
+                        <span>Already have an account? </span><Link to="/" >Sign in</Link>
                         <AppFooter textColor="theme" />
                         </div>
                     </form>

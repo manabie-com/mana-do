@@ -95,7 +95,7 @@ const SignInPage = () => {
                         <br />
                         <AppButton isLoading={loading} style={{ minWidth: "100%" }} btnType="primary" type="submit">Sign in</AppButton>
                         <div style={{textAlign: "center"}}>
-                        <span>Not a member?</span><AppButton style={{ width: "100%" }} btnType="link"  href="#" ><Link to="/register" >Register an acoount</Link></AppButton>
+                        <span>Not a member? </span><Link to="/register" >Register an acoount</Link>
                         </div>
                         <AppFooter textColor="theme" />
                     </form>
