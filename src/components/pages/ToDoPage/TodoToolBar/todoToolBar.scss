@@ -1,0 +1,31 @@
+.Todo__toolbar {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 24px;
+    .Todo__tabs {
+        display: flex;
+        justify-content: center;
+        .button {
+            margin: 0;
+            &:not(:last-child) {
+                margin-right: 8px;
+            }
+        }
+    }
+    .Todo__toolbar-checkbox {
+        width: 24px;
+        height: 24px;
+        box-shadow: none;
+        border: none;
+        outline: none;
+        margin: 0;
+        &:focus {
+            box-shadow: none;
+            border: none;
+            outline: none;
+        }
+    }
+    .btn-clearAll{
+        margin: 0;
+    }
+}

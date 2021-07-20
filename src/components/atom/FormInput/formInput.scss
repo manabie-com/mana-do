@@ -1,0 +1,21 @@
+.form-input {
+    margin: 1rem 0;
+    padding: 0 12px;
+    .label {
+        text-align: left;
+        padding-left: 0.5rem;
+    }
+    .input {
+        margin-top: 0.25rem;
+        width: 95%;
+        height: 1.5rem;
+        border: none;
+        outline: none;
+        padding: 0 0.75rem;
+        box-shadow: 2px 0 4px rgba(0, 0, 0, 0.2);
+        border-radius: 4px;
+        &:focus {
+            box-shadow: 1px 0 9px rgba(0, 0, 0, 0.25);
+        }
+    }
+}
