@@ -1,0 +1,111 @@
+.container {
+  width: 100%;
+  min-height: 20vh;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 15px;
+}
+
+.container .wrapContent {
+  width: 50%;
+  border-radius: 10px;
+  overflow: hidden;
+  padding: 33px 55px 33px 55px;
+}
+
+.wrapContent .todoCreation .todoInput {
+  background-color: rgba(42,50,113, .28);
+  color: whitesmoke;
+  border-radius: 25px;
+  padding-left: 30px;
+  width: 100%;
+  height: 3rem;
+}
+.wrapContent .todoCreation .todoInput::placeholder {
+  color: whitesmoke;
+}
+
+.wrapContent .todoList {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1.5rem;
+}
+
+.wrapContent .todoList .todoItem {
+  background-color: rgb(15 144 236 / 55%);
+  padding: 0.5rem 1rem;
+  border-radius: 25px;
+  margin: 0.5rem;
+  display: flex;
+  transition: ease-in-out 0.4s;
+  align-items: center;
+}
+
+.wrapContent .todoList .todoItem.isComplete {
+  opacity: 0.5;
+}
+
+.todoList .todoItem > span {
+  flex: 1 1;
+  text-align: left;
+  margin-left: 8px;
+}
+
+.todoList .todoContent {
+  flex: 2;
+  text-align: left;
+  padding: 0 1rem;
+  align-items: center;
+  display: flex;
+  width: 100%;
+}
+
+.todoList .todoDelete {
+  outline: none;
+  border: none;
+  min-width: auto;
+  min-height: auto;
+  box-shadow: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  height: 20px;
+  font-size: 12px;
+  color: whitesmoke;
+  background: red;
+}
+
+
+
+
+.wrapContent .todoToolbar {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 24px;
+}
+
+.wrapContent .todoToolbar .isActiveType{
+  background-color: rgb(15 144 236 / 55%);
+}
+
+.wrapContent .todoTabs {
+  display: flex;
+  justify-content: center;
+}
+
+.wrapContent .todoTabs > *:not(:last-child) {
+  margin-right: 8px;
+}
+
+.deleteAllBtn{
+  background-color: red;
+  color: white;
+  border: none;
+  box-shadow: none;
+}
+
+.toggleBtn{
+  width: 91px;
+}
