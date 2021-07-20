@@ -18,7 +18,8 @@
 
 .app-table th,
 .app-table td {
-    padding: 5px 24px;
+    padding: 5px 15px;
+    vertical-align: middle;
 }
 
 .app-table td {
@@ -46,7 +47,8 @@
 }
 
 .app-table .th-seq-number {
-    width: 1%;
+    width: 5px;
+    padding: 5px 15px;
 }
 
 .app-table .align-center {
@@ -60,3 +62,8 @@
 .app-table .align-right {
     text-align: right;
 }
+
+.app-table .margin-right-10 {
+    margin-right: 10px;
+}
+

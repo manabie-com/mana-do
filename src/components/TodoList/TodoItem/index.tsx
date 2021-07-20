@@ -108,10 +108,8 @@ const TodoItem = ({ todo, itemNo }: ITodoItem) => {
             <td className="align-center">
                 { itemNo}
             </td>
-            <td className="align-center">
-                <AppCheckbox defaultChecked={todo.status===TodoStatus.COMPLETED} onChange={(e: React.ChangeEvent<HTMLInputElement>)=>onCheckboxChange(e)}></AppCheckbox>
-            </td>
             <td className="align-left">
+                <AppCheckbox className="margin-right-10" defaultChecked={todo.status===TodoStatus.COMPLETED} onChange={(e: React.ChangeEvent<HTMLInputElement>)=>onCheckboxChange(e)}></AppCheckbox>
                 {!isEditing && <AppText strikethrough={todo.status===TodoStatus.COMPLETED}>{todo.content}</AppText>}
                 {isEditing && <AppInput  className='edit-todo' onKeyDown={onKeyboardEnter} defaultValue={todo.content} onChange={(e: React.ChangeEvent<HTMLInputElement>)=>{onChangeField(e)}}></AppInput>}
             </td>

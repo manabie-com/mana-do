@@ -15,7 +15,6 @@ const TodoList = ({filter}:ITodoListProps) => {
             <thead>
                 <tr>
                     <th className="th-seq-number align-center">No</th>
-                    <th className="th-seq-number align-center">Done?</th>
                     <th className="th-300px align-left">Content</th>
                     <th className="th-100px align-center">Status</th>
                     <th className="th-100px align-center">Created</th>
