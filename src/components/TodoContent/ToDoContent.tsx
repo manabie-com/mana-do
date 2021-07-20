@@ -70,21 +70,18 @@ function ToDoContent(props:any) {
       <span
         ref={textRef}
         onDoubleClick={handleSpanClick}
-        className={`inlineTextSpan ${
-          !isInputActive ? "isActive" : "isHidden"
-        } ${props.isComplete && `isComplete`}`}
+        className={`${styles.inlineTextSpan} ${
+          !isInputActive ? styles.isActive : styles.isHidden
+        } ${props.isComplete && styles.isComplete}`}
       >
         {props.text}
       </span>
       <input
         ref={inputRef}
-        // set the width to the input length multiplied by the x height
-        // it's not quite right but gets it close
-        // style={{ minWidth: Math.ceil(inputValue.length) + "ch" }}
         value={inputValue}
         onChange={handleInputChange}
-        className={`inlineTextInput ${
-          isInputActive ? "isActive" : "isHidden"
+        className={`${styles.inlineTextInput} ${
+          isInputActive ? styles.isActive : styles.isHidden
         }`}
       />
     </span>

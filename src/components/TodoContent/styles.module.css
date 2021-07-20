@@ -1,3 +1,39 @@
 .inlineText{
     width: 100%;
 }
+.inlineTextSpan.isActive,
+.inlineTextInput.isActive {
+  font: inherit;
+  color: inherit;
+  text-align: inherit;
+  padding: 0;
+  background: none;
+  border: none;
+  outline: none;
+  overflow: hidden;
+  width: 100%;
+}
+.inlineTextInput.isActive:focus {
+  box-shadow: none;
+  border: none;
+  outline: none;
+  border-radius: 0;
+  border-bottom: 1px dashed #999999;
+}
+
+
+.inlineTextSpan.isHidden,
+.inlineTextInput.isHidden {
+  display: none;
+  visibility: hidden;
+}
+
+.inlineTextInput.isActive {
+  border-bottom: 1px solid #666666;
+  text-align: left;
+}
+
+.isComplete{
+  text-decoration: line-through;
+  color: hsl(0, 0%, 70%);
+}
