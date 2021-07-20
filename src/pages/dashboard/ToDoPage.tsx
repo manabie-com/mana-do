@@ -44,7 +44,7 @@ const ToDoPage = ({ history }: RouteComponentProps) => {
 
     const onCreateTodo = async (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter' && inputRef.current) {
-
+            if (!inputRef.current.value) return
             try {
                 const resp = await Service.createTodo(inputRef.current.value);
                 dispatch(createTodo(resp.data));
@@ -92,7 +92,7 @@ const ToDoPage = ({ history }: RouteComponentProps) => {
                     <AppInput
                         ref={inputRef}
                         className="Todo__input"
-                        placeholder="What need to be done?"
+                        placeholder="What need to be done? Type something and hit enter"
                         onKeyDown={onCreateTodo}
                         style={{marginBottom: 20}}
                     />

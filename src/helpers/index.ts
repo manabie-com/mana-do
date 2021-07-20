@@ -16,7 +16,7 @@ export const Classnames = (defaultClass: string = '', classes: IClassname ={}  )
 
 export const helpers = {
     validate : (key: string, value: string, password?:string) => {
-        if (key === 'username' || key === 'lastname' || key === 'firstnamed' ) {
+        if (key === 'username') {
             if (!value.length) {
                 return 'Username is required';
             }
