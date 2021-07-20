@@ -3,8 +3,7 @@ import React, {useState} from 'react';
 import {useHistory} from 'react-router-dom'
 import { toast } from 'react-toastify';
 
-
-import Service from './service'
+import Service from './service/api-frontend';
 import {storeLoginToken} from './utils/storeageUtils';
 import {ROUTES} from './utils/constants';
 
@@ -15,9 +14,7 @@ const SignInPage = () => {
     });
     const history = useHistory();
 
-    const notify = (message: string) => toast.error(message, {
-      hideProgressBar: true,
-    });
+    const notify = (message: string) => toast.error(message);
 
     // Show the error message when the user input failed their username or password
     const signIn = async (e: React.FormEvent<HTMLFormElement>) => {
