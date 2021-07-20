@@ -79,9 +79,9 @@ const ToDoPage = ({ history }: RouteComponentProps) => {
     }
   });
 
-  const activeTodos:number = todos.reduce(function (accum, todo) {
+  const activeTodos: number = todos.reduce(function (accum, todo) {
     return isTodoCompleted(todo) ? accum : accum + 1;
-  }, 0);  
+  }, 0);
 
   return (
     <div className={styles.container}>
@@ -99,7 +99,12 @@ const ToDoPage = ({ history }: RouteComponentProps) => {
         <div className={styles.todoList}>
           {showTodos.map((todo, index) => {
             return (
-              <div key={index} className={`${styles.todoItem} ${isTodoCompleted(todo) && styles.isComplete}`}>
+              <div
+                key={index}
+                className={`${styles.todoItem} ${
+                  isTodoCompleted(todo) && styles.isComplete
+                }`}
+              >
                 <input
                   type="checkbox"
                   checked={isTodoCompleted(todo)}
@@ -122,38 +127,55 @@ const ToDoPage = ({ history }: RouteComponentProps) => {
             );
           })}
         </div>
-        <div className={styles.todoToolbar}>
-          {todos.length > 0 ? (
-            
+        {todos.length > 0 ? (
+          <div className={styles.todoToolbar}>
             <button
-              onClick={()=>onToggleAllTodo(activeTodos===0)}
+              onClick={() => onToggleAllTodo(activeTodos === 0)}
               className={styles.toggleBtn}
-              style={activeTodos!==0?{backgroundColor: 'rgb(15 144 236 / 55%)'}:{backgroundColor: '#30f251c7'}}
+              style={
+                activeTodos !== 0
+                  ? { backgroundColor: "rgb(15 144 236 / 55%)" }
+                  : { backgroundColor: "#30f251c7" }
+              }
             >
-              {activeTodos===0?'Activate all':'Complete all'}
+              {activeTodos === 0 ? "Activate all" : "Complete all"}
             </button>
-          ): <div/>}
-          <div className={styles.todoTabs}>
-            <button className={`${styles.actionBtn} ${showing === 'ALL' && styles.isActiveType}`} onClick={() => setShowing("ALL")}>
-              All
-            </button>
+            <div className={styles.todoTabs}>
+              <button
+                className={`${styles.actionBtn} ${
+                  showing === "ALL" && styles.isActiveType
+                }`}
+                onClick={() => setShowing("ALL")}
+              >
+                All
+              </button>
+              <button
+                className={`${styles.actionBtn} ${
+                  showing === "ACTIVE" && styles.isActiveType
+                }`}
+                onClick={() => setShowing(TodoStatus.ACTIVE)}
+              >
+                Active
+              </button>
+              <button
+                className={`${styles.actionBtn} ${
+                  showing === "COMPLETED" && styles.isActiveType
+                }`}
+                onClick={() => setShowing(TodoStatus.COMPLETED)}
+              >
+                Completed
+              </button>
+            </div>
             <button
-              className={`${styles.actionBtn} ${showing === 'ACTIVE' && styles.isActiveType}`} 
-              onClick={() => setShowing(TodoStatus.ACTIVE)}
+              className={`${styles.actionbtn} ${styles.deleteAllBtn}`}
+              onClick={onDeleteAllTodo}
             >
-              Active
-            </button>
-            <button
-              className={`${styles.actionBtn} ${showing === 'COMPLETED' && styles.isActiveType}`} 
-              onClick={() => setShowing(TodoStatus.COMPLETED)}
-            >
-              Completed
+              Clear all todos
             </button>
           </div>
-          <button className={`${styles.actionbtn} ${styles.deleteAllBtn}`} onClick={onDeleteAllTodo}>
-            Clear all todos
-          </button>
-        </div>
+        ) : (
+          <h2> <br/><br/> There's no task on your list !!! </h2>
+        )}
       </div>
     </div>
   );
