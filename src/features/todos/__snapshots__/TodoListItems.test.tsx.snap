@@ -1,0 +1,66 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snapshot should return snapshot 1`] = `
+<li
+  className="ToDo__item visible "
+>
+  <input
+    checked={false}
+    data-testid="toggle-all"
+    onChange={[Function]}
+    type="checkbox"
+  />
+  <span
+    className="Todo__content_wrap"
+    onDoubleClick={[Function]}
+  >
+    <input
+      className="Todo__content_live_edit"
+      data-testid="live-edit-todo-content"
+      onBlur={[Function]}
+      onChange={[Function]}
+      onKeyDown={[Function]}
+      style={
+        Object {
+          "left": "-9999px",
+        }
+      }
+      type="text"
+      value="todo 1"
+    />
+    <span
+      style={
+        Object {
+          "display": "inline-block",
+        }
+      }
+    >
+      todo 1
+    </span>
+  </span>
+  <button
+    className="Todo__delete"
+    data-testid="delete-all-todo-item"
+    onClick={[Function]}
+  >
+    <svg
+      fill="currentColor"
+      height="1em"
+      stroke="currentColor"
+      strokeWidth="0"
+      style={
+        Object {
+          "color": undefined,
+        }
+      }
+      viewBox="0 0 448 512"
+      width="1em"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16zM53.2 467a48 48 0 0 0 47.9 45h245.8a48 48 0 0 0 47.9-45L416 128H32z"
+      />
+    </svg>
+  </button>
+</li>
+`;

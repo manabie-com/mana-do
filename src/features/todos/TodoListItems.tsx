@@ -80,6 +80,7 @@ const TodoListItems = ({id}: TodoListItemsProps) => {
     <li ref={listRef} className={`ToDo__item visible ${toggle[id] ? 'border-blue' : ''}`}>
       <input
         type="checkbox"
+        data-testid="toggle-all"
         checked={isTodoCompleted(todo)}
         onChange={(e) => onUpdateTodoStatus(e, todo.id)}
       />
@@ -99,6 +100,7 @@ const TodoListItems = ({id}: TodoListItemsProps) => {
           onChange={onChangeLiveEdit}
           onBlur={onBlurLiveEdit}
           onKeyDown={onLiveEditKeydown}
+          data-testid="live-edit-todo-content"
         />
         <span
           style={{display: toggle[id] ? 'none' : 'inline-block'}}>
@@ -107,6 +109,7 @@ const TodoListItems = ({id}: TodoListItemsProps) => {
       </span>
       <button
         className="Todo__delete"
+        data-testid="delete-all-todo-item"
         onClick={() => onDeleteTodoItem(id)}
       >
         <FaTrash/>
