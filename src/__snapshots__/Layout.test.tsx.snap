@@ -1,0 +1,51 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Layout /> should return snapshot logged-in 1`] = `
+Array [
+  <nav
+    className="main-nav"
+  >
+    <div
+      className="nav-inner"
+    >
+      <button
+        className="basic red"
+        onClick={[Function]}
+      >
+        Logout
+      </button>
+    </div>
+  </nav>,
+  <section>
+    <div>
+      Layout Children
+    </div>
+  </section>,
+]
+`;
+
+exports[`<Layout /> should return snapshot not logged-in yet 1`] = `
+Array [
+  <nav
+    className="main-nav"
+  >
+    <div
+      className="nav-inner"
+    >
+      <button
+        className="basic green"
+      >
+        Login
+      </button>
+      <button>
+        Sign up
+      </button>
+    </div>
+  </nav>,
+  <section>
+    <div>
+      Layout Children
+    </div>
+  </section>,
+]
+`;
