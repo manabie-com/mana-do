@@ -4,10 +4,10 @@ import StatusFilter from '../filters/StatusFilter';
 import {TodoStatus} from "../../models/todo";
 import {isTodoCompleted} from "../../utils";
 import {deleteAllTodos, setFilterStatusChanged, toggleAllTodos} from "../../store/actions";
-import {GlobalContextType, StateContext} from "../../App";
+import {useAppContext} from "../../AppContext";
 
 const Footer = () => {
-  const {state: { todos }, dispatch} = React.useContext<GlobalContextType>(StateContext);
+  const {state: { todos }, dispatch} = useAppContext();
   const [showing, setShowing] = useState<TodoStatus>(TodoStatus.All);
 
   const activeTodos = todos.reduce(function (accum, todo) {

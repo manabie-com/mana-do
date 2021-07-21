@@ -1,10 +1,11 @@
 import React from 'react';
-import {GlobalContextType, StateContext} from "../../App";
+
 import {TodoLoadingStatus, TodoStatus} from "../../models/todo";
 import TodoListItems from "./TodoListItems";
+import {useAppContext} from "../../AppContext";
 
 const TodoList = () => {
-  const {state: { todos, todosLoadStatus, filter: {status} }} = React.useContext<GlobalContextType>(StateContext);
+  const {state: { todos, todosLoadStatus, filter: {status} }} = useAppContext();
 
   if (todosLoadStatus === TodoLoadingStatus.Loading) {
     return <div className="loader">Loading...</div>

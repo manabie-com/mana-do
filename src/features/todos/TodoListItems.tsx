@@ -2,17 +2,17 @@ import React, {useRef, useState} from 'react';
 import {FaTrash} from "react-icons/fa";
 
 import {findTodoById, findTodoIndexById, updateTodoContent} from '../../utils/todoUtils';
-import {GlobalContextType, StateContext} from "../../App";
 import {isTodoCompleted} from "../../utils";
 import {deleteTodo, updateTodoContent as updateTodoContentAction, updateTodoStatus} from "../../store/actions";
 import {getTodosFromStorage} from "../../utils/storeageUtils";
+import {useAppContext} from "../../AppContext";
 
 interface TodoListItemsProps {
   id: string;
 }
 
 const TodoListItems = ({id}: TodoListItemsProps) => {
-  const {state: {todos}, dispatch} = React.useContext<GlobalContextType>(StateContext);
+  const {state: {todos}, dispatch} = useAppContext();
   const [todosValue, setTodosValue] = useState(todos);
   const listRef = useRef(null);
   const todoItemRef = useRef<Array<HTMLInputElement | null>>([]);

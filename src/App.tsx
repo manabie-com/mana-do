@@ -8,17 +8,10 @@ import ToDoPage from './ToDoPage';
 import PrivateRoute from './PrivateRoute';
 
 import './App.css';
-import reducer, {AppState, initialState} from "./store/reducer";
+import reducer, {initialState} from "./store/reducer";
 import {initializerState} from "./utils/storeageUtils";
 import {ROUTES} from "./utils/constants";
-
-export type GlobalContextType = {
-  state: AppState
-  dispatch: Function
-}
-
-// @ts-ignore
-export const StateContext = React.createContext<GlobalContextType>(initialState);
+import StateContext from './AppContext';
 
 function App() {
   const [state, dispatch] = useReducer(reducer, initialState, initializerState);

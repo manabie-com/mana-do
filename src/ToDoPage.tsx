@@ -3,15 +3,17 @@ import {useHistory} from 'react-router-dom';
 import {FaPlus} from "react-icons/fa";
 
 import {createTodo, setTodos, todosLoading} from './store/actions';
-import Service from './service';
+import Service from './service/api-frontend';
+
 import Footer from './features/footer/Footer';
-import {GlobalContextType, StateContext} from "./App";
 import TodoList from "./features/todos/TodoList";
 import Layout from "./Layout";
+import {useAppContext} from './AppContext';
+import {ROUTES} from "./utils/constants";
 
 const ToDoPage = () => {
   const history = useHistory();
-  const {state: {todos}, dispatch} = React.useContext<GlobalContextType>(StateContext);
+  const {state: {todos}, dispatch} = useAppContext();
   const inputRef = useRef<HTMLInputElement>(null);
   const [todosValue, setTodosValue] = useState(todos);
 
@@ -45,12 +47,11 @@ const ToDoPage = () => {
         const newTodosValue = [...todosValue]
         newTodosValue.unshift(resp);
         setTodosValue(newTodosValue);
-        // setTodosValue(todosValue.concat(resp));
         dispatch(createTodo(resp));
         inputRef.current.value = '';
       } catch (e) {
         if (e.response.status === 401) {
-          history.push('/')
+          history.push(ROUTES.SIGN_IN)
         }
       }
     }

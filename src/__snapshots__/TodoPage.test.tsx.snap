@@ -1,0 +1,47 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snapshot should return snapshot 1`] = `
+<Layout>
+  <section
+    className="ToDo__container"
+  >
+    <h2>
+      Todos
+    </h2>
+    <div
+      className="ToDo__app"
+    >
+      <div
+        className="Todo__creation"
+      >
+        <svg
+          className="Todo__creation_icon"
+          fill="currentColor"
+          height="1em"
+          stroke="currentColor"
+          strokeWidth="0"
+          style={
+            Object {
+              "color": undefined,
+            }
+          }
+          viewBox="0 0 448 512"
+          width="1em"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"
+          />
+        </svg>
+        <input
+          className="Todo__input"
+          onKeyDown={[Function]}
+          placeholder="Add a Task"
+        />
+      </div>
+      <TodoList />
+      <Footer />
+    </div>
+  </section>
+</Layout>
+`;
