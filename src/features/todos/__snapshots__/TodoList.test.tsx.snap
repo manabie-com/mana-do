@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snapshot should return snapshot when fetched data done 1`] = `
+<ul
+  className="ToDo__list"
+>
+  <TodoListItems
+    id="hfuwyr"
+  />
+  <TodoListItems
+    id="orislaj"
+  />
+  <TodoListItems
+    id="jiwuro"
+  />
+  <TodoListItems
+    id="iejals"
+  />
+  <TodoListItems
+    id="jfuqos"
+  />
+  <TodoListItems
+    id="ahsyel"
+  />
+</ul>
+`;
+
+exports[`snapshot should return snapshot when fetching data not done yet 1`] = `
+<div
+  className="loader"
+>
+  Loading...
+</div>
+`;

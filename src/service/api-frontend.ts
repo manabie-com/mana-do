@@ -1,8 +1,10 @@
-import {IAPI} from './types';
-import {Todo, TodoStatus} from '../models/todo';
 import shortid from 'shortid';
 
-const mockToken = 'testabc.xyz.ahk'
+import {IAPI} from './types';
+import {Todo, TodoStatus} from '../models/todo';
+import {getTodosFromStorage} from "../utils/storeageUtils";
+
+export const mockToken = 'testabc.xyz.ahk'
 
 class ApiFrontend extends IAPI {
     async signIn(username: string, password: string): Promise<string>{
@@ -17,14 +19,18 @@ class ApiFrontend extends IAPI {
         return Promise.resolve({
             content: content,
             created_date: new Date().toISOString(),
-            status: TodoStatus.ACTIVE,
+            status: TodoStatus.Active,
             id: shortid(),
             user_id: 'firstUser'
         } as Todo);
     }
 
     async getTodos(): Promise<Todo[]>{
-        return []
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+                resolve(getTodosFromStorage());
+            }, 1500);
+        })
     }
 }
 
