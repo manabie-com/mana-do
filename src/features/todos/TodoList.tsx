@@ -1,8 +1,9 @@
 import React from 'react';
 
 import {TodoLoadingStatus, TodoStatus} from "../../models/todo";
-import TodoListItems from "./TodoListItems";
 import {useAppContext} from "../../AppContext";
+
+import TodoListItems from "./TodoListItems";
 
 const TodoList = () => {
   const {state: { todos, todosLoadStatus, filter: {status} }} = useAppContext();
