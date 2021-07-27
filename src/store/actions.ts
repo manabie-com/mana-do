@@ -21,12 +21,12 @@ export function setTodos(todos: Array<Todo>): SetTodoAction {
 }
 
 ///////////
-export interface CreateTodoAction {
+export interface CreateTodoAction {  
   type: typeof CREATE_TODO,
   payload: Todo
 }
 
-export function createTodo(newTodo: Todo): CreateTodoAction {
+export function createTodo(newTodo: Todo): CreateTodoAction {  
   return {
     type: CREATE_TODO,
     payload: newTodo

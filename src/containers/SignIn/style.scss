@@ -1,0 +1,23 @@
+.sign-in {
+  &__logo{
+    padding-top: 12%;
+    img{
+      width: 40%;
+    }
+  }
+  &__content {
+    width: 486px;
+    margin: 0px auto;
+    .isErr{
+      color: red;
+      font-weight: bold;
+    }
+    &__form {
+      text-align: left;
+      padding: 40px;
+      &__item{
+        margin-top: 12px;
+      }
+    }
+  }
+}

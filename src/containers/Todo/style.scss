@@ -1,0 +1,64 @@
+.todo {
+  &__container {
+    .header {
+      display: flex;
+      align-items: center;
+      h1 {
+        width: 100%;
+        text-align: left;
+      }
+    }
+    height: 77%;
+    background-color: white;
+    border: 1px solid rgba(0, 0, 0, 0.13);
+    border-radius: 8px;
+    width: 500px;
+    font-weight: bold;
+    margin-top: 5rem;
+    padding: 24px;
+    color: #395ad2;
+    box-shadow: 2px 2px 1px rgba(0, 0, 0, 0.09), 3px 2px 3px rgba(0, 0, 0, 0.05);
+  }
+  &__list {
+    display: flex;
+    flex-direction: column;
+    margin-top: 1.5rem;
+    .item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      &--completed {
+        color: gray;
+        text-decoration: line-through
+      }
+    }
+  }
+  &__creation {
+    display: flex;
+    align-items: center;
+    input {
+      padding: 12px;
+      width: 50%;
+      margin-right: 10px;
+      box-shadow: none;
+      border: none;
+      border-bottom: 1px solid #395ad2;
+      &:focus {
+        outline: 0;
+      }
+    }
+  }
+  &__tabs {
+    display: flex;
+    button {
+      margin-right: 5px;
+      padding: 12px 8px;
+    }
+  }
+  &__toolbar {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 24px;
+    align-items: center;
+  }
+}

@@ -5,7 +5,8 @@ import {
   DELETE_ALL_TODOS,
   DELETE_TODO,
   TOGGLE_ALL_TODOS,
-  UPDATE_TODO_STATUS
+  UPDATE_TODO_STATUS,
+  SET_TODO
 } from './actions';
 
 export interface AppState {
@@ -15,7 +16,6 @@ export interface AppState {
 export const initialState: AppState = {
   todos: []
 }
-
 function reducer(state: AppState, action: AppActions): AppState {
   switch (action.type) {
     case CREATE_TODO:
@@ -58,6 +58,11 @@ function reducer(state: AppState, action: AppActions): AppState {
       return {
         ...state,
         todos: []
+      }
+    case SET_TODO:
+      return {
+        ...state,
+        todos: action.payload
       }
     default:
       return state;

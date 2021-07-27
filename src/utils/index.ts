@@ -7,3 +7,11 @@ export function isTodoCompleted(todo: Todo): boolean {
 export function isTodoActive(todo: Todo): boolean {
   return todo.status === TodoStatus.ACTIVE;
 }
+export const isAuthentication = () => {
+  let token;
+  if (typeof window !== 'undefined') {
+    token = localStorage.getItem('token');
+  }
+
+  return !!token;
+};
