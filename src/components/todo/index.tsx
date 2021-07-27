@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer, useRef, useState } from 'react';
+import React, { useEffect, useReducer, useRef, useState, useMemo, useCallback } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 
 import reducer, { initialState } from 'root/store/reducer';
@@ -30,7 +30,7 @@ const TodoComponent = ({ history }: RouteComponentProps) => {
     })()
   }, [])
 
-  const onCreateTodo = async (e: React.KeyboardEvent<HTMLInputElement>) => {
+  const onCreateTodo = useCallback(async (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter' && inputRef.current) {
       try {
         const resp = await Service.createTodo(inputRef.current.value);
@@ -42,37 +42,37 @@ const TodoComponent = ({ history }: RouteComponentProps) => {
         }
       }
     }
-  }
+  }, [Service.createTodo, dispatch, createTodo])
 
-  const onUpdateTodoStatus: Function = (e: React.ChangeEvent<HTMLInputElement>, todoId: string) => {
+  const onUpdateTodoStatus: Function = useCallback((e: React.ChangeEvent<HTMLInputElement>, todoId: string) => {
     dispatch(updateTodoStatus(todoId, e.target.checked));
-  }
+  }, [dispatch, updateTodoStatus])
 
-  const onToggleAllTodo = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onToggleAllTodo = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(toggleAllTodos(e.target.checked))
-  }
+  }, [dispatch, toggleAllTodos])
 
-  const onDeleteAllTodo = () => {
+  const onDeleteAllTodo = useCallback(() => {
     dispatch(deleteAllTodos());
-  }
+  }, [dispatch, deleteAllTodos])
 
-  const handleDeleteTodo = (todoId: string) => {
+  const handleDeleteTodo = useCallback((todoId: string) => {
     dispatch(deleteTodo(todoId));
-  }
+  }, [dispatch, deleteTodo])
 
-  const handleShowingAll = () => {
+  const handleShowingAll = useCallback(() => {
     setShowing('ALL')
-  }
+  }, [setShowing])
 
-  const handleShowingActive = () => {
+  const handleShowingActive = useCallback(() => {
     setShowing(TodoStatus.ACTIVE)
-  }
+  }, [setShowing])
 
-  const handleShowingCompleted = () => {
+  const handleShowingCompleted = useCallback(() => {
     setShowing(TodoStatus.COMPLETED)
-  }
+  }, [setShowing])
 
-  const showTodos = todos.filter((todo) => {
+  const getShowTodos = useCallback(() => todos.filter((todo) => {
     switch (showing) {
       case TodoStatus.ACTIVE:
         return todo.status === TodoStatus.ACTIVE;
@@ -81,17 +81,17 @@ const TodoComponent = ({ history }: RouteComponentProps) => {
       default:
         return true;
     }
-  });
+  }), [showing, todos])
 
-  const activeTodos = todos.reduce(function (accum, todo) {
+  const activeTodos = useMemo(() => todos.reduce(function (accum, todo) {
     return isTodoCompleted(todo) ? accum : accum + 1;
-  }, 0);
+  }, 0), [todos])
 
   return (
     <TodoPresentation
       inputRef={inputRef}
       onCreateTodo={onCreateTodo}
-      showTodos={showTodos}
+      showTodos={getShowTodos()}
       onUpdateTodoStatus={onUpdateTodoStatus}
       deleteTodo={handleDeleteTodo}
       todos={todos}
