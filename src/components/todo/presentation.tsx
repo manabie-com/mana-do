@@ -1,13 +1,14 @@
 import React from 'react';
 import TodoItem from './subPresentations/todoItem';
+import { Todo } from 'root/models/todo';
 
 export type TodoProps = {
   inputRef: any,
   onCreateTodo: React.KeyboardEventHandler,
-  showTodos: Array<any>,
+  showTodos: Array<Todo>,
   onUpdateTodoStatus: Function,
   deleteTodo: Function,
-  todos: Array<any>,
+  todos: Array<Todo>,
   activeTodos: Number,
   onToggleAllTodo: React.ChangeEventHandler,
   handleShowingAll: React.MouseEventHandler,
@@ -46,7 +47,7 @@ const TodoPresentation = (props: TodoProps) => {
       </div>
       <div className='ToDo__list'>
         {
-          showTodos.map((todo: any, index: number) => (
+          showTodos.map((todo: Todo, index: number) => (
             <TodoItem key={`show-todo-item-${index}`}
               todo={todo}
               deleteItemText={text.x}

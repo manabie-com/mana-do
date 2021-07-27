@@ -1,8 +1,9 @@
 import React, { useCallback } from 'react'
 import { isTodoCompleted } from 'root/utils'
+import { Todo } from 'root/models/todo';
 
 export type TodoItemProps = {
-  todo: any,
+  todo: Todo,
   deleteTodo: Function,
   onUpdateTodoStatus: Function,
   deleteItemText: string
