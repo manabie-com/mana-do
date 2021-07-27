@@ -16,8 +16,7 @@
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
-    "shortid": "^2.2.15",
-    "typescript": "~3.7.2"
+    "shortid": "^2.2.15"
   },
   "scripts": {
     "start:fullstack": "cross-env REACT_APP_WHOAMI=fullstack react-scripts start",
@@ -43,6 +42,7 @@
   },
   "devDependencies": {
     "@types/react-router-dom": "^5.1.5",
-    "@types/shortid": "^0.0.29"
+    "@types/shortid": "^0.0.29",
+    "typescript": "^3.7.5"
   }
 }
