@@ -1,9 +1,13 @@
 import React, {useState} from 'react';
 
 import {useHistory} from 'react-router-dom'
-import Service from './service'
+import Service from 'root/service'
 
-const SignInPage = () => {
+export type SignInProps = {
+
+}
+
+const SignInComponent = (props: SignInProps) => {
     const [form, setForm] = useState({
         userId: '',
         password: ''
@@ -60,4 +64,4 @@ const SignInPage = () => {
     );
 };
 
-export default SignInPage;
+export default SignInComponent;
