@@ -1,3 +1,4 @@
+
 import {Todo} from "../models/todo";
 
 export const SET_TODO = 'SET_TODO';
@@ -38,7 +39,8 @@ export interface UpdateTodoStatusAction {
   type: typeof UPDATE_TODO_STATUS,
   payload: {
     todoId: string,
-    checked: boolean
+    checked: boolean,
+ 
   }
 }
 
@@ -48,6 +50,7 @@ export function updateTodoStatus(todoId: string, checked: boolean): UpdateTodoSt
     payload: {
       todoId,
       checked
+      
     }
   }
 }
@@ -89,10 +92,11 @@ export function toggleAllTodos(checked: boolean): ToggleAllTodosAction {
   }
 }
 
+
 export type AppActions =
   SetTodoAction |
   CreateTodoAction |
   UpdateTodoStatusAction |
   DeleteTodoAction |
   DeleteAllTodosAction |
-  ToggleAllTodosAction;
+  ToggleAllTodosAction ;
