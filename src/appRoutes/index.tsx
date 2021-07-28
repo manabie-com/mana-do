@@ -10,7 +10,7 @@ function App() {
         <React.Suspense fallback={<Loading />}>
           <Switch>
             {appRoutes.map((route: IAppRoute) => (
-              <Route path={route.path} exact={route.exact} component={route.component} />
+              <Route key={route.key} path={route.path} exact={route.exact} component={route.component} />
             ))}
           </Switch>
         </React.Suspense>

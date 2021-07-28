@@ -1,4 +1,4 @@
-import {Todo, TodoStatus} from '../models/todo';
+import { Todo, TodoStatus } from '../models/todo';
 import {
   AppActions,
   CREATE_TODO,
@@ -19,40 +19,41 @@ export const initialState: AppState = {
 function reducer(state: AppState, action: AppActions): AppState {
   switch (action.type) {
     case CREATE_TODO:
-      state.todos.push(action.payload);
       return {
-        ...state
+        ...state,
+        // remove directly editing the state.
+        todos: [...state.todos, action.payload]
       };
 
     case UPDATE_TODO_STATUS:
-      const index2 = state.todos.findIndex((todo) => todo.id === action.payload.todoId);
-      state.todos[index2].status = action.payload.checked ? TodoStatus.COMPLETED : TodoStatus.ACTIVE;
-
       return {
         ...state,
-        todos: state.todos
+        // remove directly editing the state.
+        todos: state.todos.map((todo) => {
+          if (todo.id === action.payload.todoId) {
+            todo.status = action.payload.checked ? TodoStatus.COMPLETED : TodoStatus.ACTIVE
+          }
+          return todo
+        })
       }
 
     case TOGGLE_ALL_TODOS:
-      const tempTodos = state.todos.map((e)=>{
-        return {
-          ...e,
-          status: action.payload ? TodoStatus.COMPLETED : TodoStatus.ACTIVE
-        }
-      })
-
       return {
         ...state,
-        todos: tempTodos
+        // remove directly editing the state.
+        todos: state.todos.map((todo) => {
+          return {
+            ...todo,
+            status: action.payload ? TodoStatus.COMPLETED : TodoStatus.ACTIVE
+          }
+        })
       }
 
     case DELETE_TODO:
-      const index1 = state.todos.findIndex((todo) => todo.id === action.payload);
-      state.todos.splice(index1, 1);
-
       return {
         ...state,
-        todos: state.todos
+        // remove directly editing the state.
+        todos: state.todos.filter((todo) => todo.id !== action.payload)
       }
     case DELETE_ALL_TODOS:
       return {
