@@ -44,4 +44,5 @@ const TodoItem = (props: TodoItemProps) => {
   )
 }
 
+//use shallowly compare complex objects in the props object
 export default React.memo(TodoItem)

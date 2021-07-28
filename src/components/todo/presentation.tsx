@@ -90,4 +90,5 @@ const TodoPresentation = (props: TodoProps) => {
   );
 };
 
+//use shallowly compare complex objects in the props object
 export default React.memo(TodoPresentation)
