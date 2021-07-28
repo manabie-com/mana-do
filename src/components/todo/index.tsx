@@ -8,7 +8,8 @@ import {
   deleteTodo,
   toggleAllTodos,
   deleteAllTodos,
-  updateTodoStatus
+  updateTodoStatus,
+  updateTodoContent
 } from 'root/store/actions';
 import Service from 'root/service';
 import { TodoStatus } from 'root/models/todo';
@@ -52,28 +53,39 @@ const TodoComponent = ({ history }: RouteComponentProps) => {
   const onUpdateTodoStatus: Function = useCallback((e: React.ChangeEvent<HTMLInputElement>, todoId: string) => {
     dispatch(updateTodoStatus(todoId, e.target.checked));
     Service.updateTodoStatus(todoId, e.target.checked);
-  }, [dispatch, updateTodoStatus])
+  }, [Service.updateTodoStatus, dispatch, updateTodoStatus])
 
   const onToggleAllTodo = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     /**
      * reduce rebinding function. Does not rebind when dependencies has not changed
      */
     dispatch(toggleAllTodos(e.target.checked))
-  }, [dispatch, toggleAllTodos])
+    Service.toggleAllTodos(e.target.checked)
+  }, [Service.toggleAllTodos, dispatch, toggleAllTodos])
 
   const onDeleteAllTodo = useCallback(() => {
     /**
      * reduce rebinding function. Does not rebind when dependencies has not changed
      */
     dispatch(deleteAllTodos());
-  }, [dispatch, deleteAllTodos])
+    Service.deleteAllTodo()
+  }, [Service.deleteAllTodo, dispatch, deleteAllTodos])
 
   const handleDeleteTodo = useCallback((todoId: string) => {
     /**
      * reduce rebinding function. Does not rebind when dependencies has not changed
      */
     dispatch(deleteTodo(todoId));
-  }, [dispatch, deleteTodo])
+    Service.deleteTodo(todoId)
+  }, [Service.deleteTodo, dispatch, deleteTodo])
+
+  const handleUpdateTodoContent = useCallback((todoId: string, content: string) => {
+    /**
+     * reduce rebinding function. Does not rebind when dependencies has not changed
+     */
+    dispatch(updateTodoContent(todoId, content));
+    Service.updateTodoContent(todoId, content)
+  }, [Service.updateTodoContent, dispatch, updateTodoContent])
 
   const handleShowingAll = useCallback(() => {
     /**
@@ -132,6 +144,7 @@ const TodoComponent = ({ history }: RouteComponentProps) => {
       handleShowingActive={handleShowingActive}
       handleShowingCompleted={handleShowingCompleted}
       onDeleteAllTodo={onDeleteAllTodo}
+      onUpdateTodoContent={handleUpdateTodoContent}
     />
   );
 };

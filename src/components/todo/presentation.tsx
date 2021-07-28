@@ -19,6 +19,7 @@ export type TodoProps = {
   handleShowingActive: React.MouseEventHandler,
   handleShowingCompleted: React.MouseEventHandler,
   onDeleteAllTodo: React.MouseEventHandler,
+  onUpdateTodoContent: Function
 }
 
 const text = {
@@ -36,7 +37,7 @@ const TodoPresentation = (props: TodoProps) => {
   const {
     inputRef, onCreateTodo, showTodos
     , onUpdateTodoStatus, deleteTodo, todos
-    , activeTodos, onToggleAllTodo
+    , activeTodos, onToggleAllTodo, onUpdateTodoContent
     , handleShowingAll, handleShowingActive
     , handleShowingCompleted, onDeleteAllTodo
   } = props
@@ -53,12 +54,13 @@ const TodoPresentation = (props: TodoProps) => {
       </div>
       <div className='ToDo__list'>
         {
-          showTodos.map((todo: Todo, index: number) => (
-            <TodoItem key={`show-todo-item-${index}`}
+          showTodos.map((todo: Todo) => (
+            <TodoItem key={`show-todo-item-${todo.id}`}
               todo={todo}
               deleteItemText={text.x}
               deleteTodo={deleteTodo}
               onUpdateTodoStatus={onUpdateTodoStatus}
+              onUpdateTodoContent={onUpdateTodoContent}
             />
           ))
         }
