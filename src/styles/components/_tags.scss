@@ -1,0 +1,12 @@
+.components {
+  &__tags {
+    background-color: rgba(1, 18, 34, 0.05);
+    border: none;
+    color: #22313f;
+    padding: 8px 10px;
+    border-radius: 20px;
+    margin-right: 5px;
+    display: inline-block;
+    cursor: pointer;
+  }
+}

@@ -1,0 +1,15 @@
+.btn {
+  border-radius: 8px;
+  box-sizing: border-box;
+  display: block;
+  font-size: 16px;
+  margin: 8px 0;
+  padding: 8px;
+  width: 100%;
+  border: 1px solid black;
+  cursor: pointer;
+  &__danger {
+    background-color: red;
+    color: white;
+  }
+}
