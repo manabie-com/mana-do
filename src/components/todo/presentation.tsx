@@ -84,4 +84,4 @@ const TodoPresentation = (props: TodoProps) => {
   );
 };
 
-export default TodoPresentation;
+export default React.memo(TodoPresentation)

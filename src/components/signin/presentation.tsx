@@ -60,4 +60,4 @@ const SignInPresentation = (props: SignInProps) => {
   );
 };
 
-export default SignInPresentation;
+export default React.memo(SignInPresentation);

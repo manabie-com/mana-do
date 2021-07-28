@@ -38,4 +38,4 @@ const TodoItem = (props: TodoItemProps) => {
   )
 }
 
-export default TodoItem
+export default React.memo(TodoItem)

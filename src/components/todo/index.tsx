@@ -15,6 +15,8 @@ import { TodoStatus } from 'root/models/todo';
 import { isTodoCompleted } from 'root/utils';
 import TodoPresentation from './presentation';
 
+import './_todo.css'
+
 type EnhanceTodoStatus = TodoStatus | 'ALL';
 
 
