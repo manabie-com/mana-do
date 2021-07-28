@@ -19,6 +19,7 @@ input[type="checkbox"] {
   box-shadow: none;
   border: none;
   outline: none;
+  cursor: pointer;
 }
 
 input[type="checkbox"]:focus {
@@ -40,18 +41,36 @@ input:focus {
   box-shadow: 1px 0 9px rgba(0,0,0, 0.25);
 }
 
+.ToDo__Wrapper {
+  background: url('./../../assets/images/bg_ocean.jpeg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .ToDo__container {
-  border: 1px solid rgba(0,0,0, 0.13);
+  border: 1px solid rgba(0,0,0, 0.4);
   border-radius: 8px;
-  width: 500px;
+  max-width: 700px;
+  min-width: 350px;
+  max-height: 570px;
+  width: 50vw;
   margin-top: 5rem;
   padding: 24px;
   box-shadow: 2px 2px 1px rgba(0,0,0, 0.09),
               3px 2px 3px rgba(0,0,0, 0.05);
+  display: flex;
+  flex-direction: column;
+  background-color: rgba(70,130,180, 0.25);
 }
 
 .Todo__creation {
   display: flex;
+  width: 100%;
 }
 
 .Todo__input {
@@ -62,6 +81,10 @@ input:focus {
   display: flex;
   flex-direction: column;
   margin-top: 1.5rem;
+  width: 100%;
+  min-height: 250px;
+  max-height: 550px;
+  overflow-y: auto;
 }
 
 .ToDo__item {
@@ -122,4 +145,23 @@ input:focus {
 
 .Action__btn:disabled {
   cursor: not-allowed;
+}
+
+
+
+@media screen and (min-width: 1201px) {
+}
+@media screen and (max-width: 1200px) {
+}
+@media screen and (max-width: 1024px) {
+  .ToDo__container {
+    width: 70vw;
+  }
+}
+@media screen and (max-width: 768px) {
+  .ToDo__container {
+    width: 100vw;
+  }
+}
+@media screen and (max-width: 480px) {
 }

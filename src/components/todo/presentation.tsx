@@ -43,50 +43,52 @@ const TodoPresentation = (props: TodoProps) => {
   } = props
 
   return (
-    <div className='ToDo__container'>
-      <div className='Todo__creation'>
-        <input
-          ref={inputRef}
-          className='Todo__input'
-          placeholder={text.whatNeedToBeDone}
-          onKeyDown={onCreateTodo}
-        />
-      </div>
-      <div className='ToDo__list'>
-        {
-          showTodos.map((todo: Todo) => (
-            <TodoItem key={`show-todo-item-${todo.id}`}
-              todo={todo}
-              deleteItemText={text.x}
-              deleteTodo={deleteTodo}
-              onUpdateTodoStatus={onUpdateTodoStatus}
-              onUpdateTodoContent={onUpdateTodoContent}
-            />
-          ))
-        }
-      </div>
-      <div className='Todo__toolbar'>
-        {todos.length > 0 ?
+    <div className='ToDo__Wrapper'>
+      <div className='ToDo__container'>
+        <div className='Todo__creation'>
           <input
-            type='checkbox'
-            checked={activeTodos === 0}
-            onChange={onToggleAllTodo}
-          /> : <div />
-        }
-        <div className='Todo__tabs'>
-          <button className='Action__btn' onClick={handleShowingAll}>
-            {text.all}
-          </button>
-          <button className='Action__btn' onClick={handleShowingActive}>
-            {text.active}
-          </button>
-          <button className='Action__btn' onClick={handleShowingCompleted}>
-            {text.completed}
+            ref={inputRef}
+            className='Todo__input'
+            placeholder={text.whatNeedToBeDone}
+            onKeyDown={onCreateTodo}
+          />
+        </div>
+        <div className='ToDo__list'>
+          {
+            showTodos.map((todo: Todo) => (
+              <TodoItem key={`show-todo-item-${todo.id}`}
+                todo={todo}
+                deleteItemText={text.x}
+                deleteTodo={deleteTodo}
+                onUpdateTodoStatus={onUpdateTodoStatus}
+                onUpdateTodoContent={onUpdateTodoContent}
+              />
+            ))
+          }
+        </div>
+        <div className='Todo__toolbar'>
+          {todos.length > 0 ?
+            <input
+              type='checkbox'
+              checked={activeTodos === 0}
+              onChange={onToggleAllTodo}
+            /> : <div />
+          }
+          <div className='Todo__tabs'>
+            <button className='Action__btn' onClick={handleShowingAll}>
+              {text.all}
+            </button>
+            <button className='Action__btn' onClick={handleShowingActive}>
+              {text.active}
+            </button>
+            <button className='Action__btn' onClick={handleShowingCompleted}>
+              {text.completed}
+            </button>
+          </div>
+          <button className='Action__btn' onClick={onDeleteAllTodo}>
+            {text.clearAllTodos}
           </button>
         </div>
-        <button className='Action__btn' onClick={onDeleteAllTodo}>
-          {text.clearAllTodos}
-        </button>
       </div>
     </div>
   );

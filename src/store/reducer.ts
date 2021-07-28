@@ -24,7 +24,7 @@ function reducer(state: AppState, action: AppActions): AppState {
       return {
         ...state,
         // remove directly editing the state.
-        todos: [...state.todos, action.payload]
+        todos: [action.payload, ...state.todos]
       };
 
     case UPDATE_TODO_STATUS:
