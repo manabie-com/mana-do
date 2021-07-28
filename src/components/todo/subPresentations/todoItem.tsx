@@ -16,11 +16,6 @@ export type TodoItemProps = {
   deleteItemText: string
 }
 
-const text = {
-  save: 'Save',
-  edit: 'Edit'
-}
-
 const TodoItem = (props: TodoItemProps) => {
   const { todo, deleteTodo, onUpdateTodoStatus
     , deleteItemText, onUpdateTodoContent

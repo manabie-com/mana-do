@@ -48,12 +48,12 @@ const TodoComponent = ({ history }: RouteComponentProps) => {
         }
       }
     }
-  }, [Service.createTodo, dispatch, createTodo])
+  }, [dispatch, history])
 
   const onUpdateTodoStatus: Function = useCallback((e: React.ChangeEvent<HTMLInputElement>, todoId: string) => {
     dispatch(updateTodoStatus(todoId, e.target.checked));
     Service.updateTodoStatus(todoId, e.target.checked);
-  }, [Service.updateTodoStatus, dispatch, updateTodoStatus])
+  }, [dispatch])
 
   const onToggleAllTodo = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     /**
@@ -61,7 +61,7 @@ const TodoComponent = ({ history }: RouteComponentProps) => {
      */
     dispatch(toggleAllTodos(e.target.checked))
     Service.toggleAllTodos(e.target.checked)
-  }, [Service.toggleAllTodos, dispatch, toggleAllTodos])
+  }, [dispatch])
 
   const onDeleteAllTodo = useCallback(() => {
     /**
@@ -69,7 +69,7 @@ const TodoComponent = ({ history }: RouteComponentProps) => {
      */
     dispatch(deleteAllTodos());
     Service.deleteAllTodo()
-  }, [Service.deleteAllTodo, dispatch, deleteAllTodos])
+  }, [dispatch])
 
   const handleDeleteTodo = useCallback((todoId: string) => {
     /**
@@ -77,7 +77,7 @@ const TodoComponent = ({ history }: RouteComponentProps) => {
      */
     dispatch(deleteTodo(todoId));
     Service.deleteTodo(todoId)
-  }, [Service.deleteTodo, dispatch, deleteTodo])
+  }, [dispatch])
 
   const handleUpdateTodoContent = useCallback((todoId: string, content: string) => {
     /**
@@ -85,7 +85,7 @@ const TodoComponent = ({ history }: RouteComponentProps) => {
      */
     dispatch(updateTodoContent(todoId, content));
     Service.updateTodoContent(todoId, content)
-  }, [Service.updateTodoContent, dispatch, updateTodoContent])
+  }, [dispatch])
 
   const handleShowingAll = useCallback(() => {
     /**
