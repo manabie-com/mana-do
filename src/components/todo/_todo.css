@@ -71,6 +71,18 @@ input:focus {
   display: flex;
   flex-direction: column;
   background-color: rgba(70,130,180, 0.25);
+  animation: form-appear 2s;
+  opacity: 1;
+}
+
+@keyframes form-appear {
+  from {
+    opacity: 0;
+    transform: translateY(-70px);
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .Todo__creation {
@@ -78,8 +90,34 @@ input:focus {
   width: 100%;
 }
 
+input.TodoItem__input {
+  width: 80%;
+  background-color: rgba(255,255,255, 0.1);
+  color: white;
+  transition: 1s;
+}
+
+input.TodoItem__input:focus {
+  box-shadow: 2px 0 4px rgba(213, 250, 1, 0.7);
+}
+
+input.TodoItem__input:hover {
+  box-shadow: 2px 0 4px rgba(250, 113, 1, 0.7);
+}
+
 .Todo__input {
   flex: 1 1;
+  background-color: rgba(255,255,255, 0.1);
+  color: white;
+  transition: 1s;
+}
+
+.Todo__input:focus {
+  box-shadow: 2px 0 4px rgba(213, 250, 1, 0.7);
+}
+
+.Todo__input:hover {
+  box-shadow: 2px 0 4px rgba(250, 113, 1, 0.7);
 }
 
 .ToDo__list {
@@ -102,6 +140,17 @@ input:focus {
   border-radius: 8px;
   background-color: rgba(70,130,180, 0.4);
   color: white;
+  animation: item-appear 0.7s;
+}
+
+@keyframes item-appear {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .ToDo__item > span {
@@ -156,6 +205,12 @@ input:focus {
 
 .Action__btn {
   cursor: pointer;
+  background-color: aquamarine;
+  transition-duration: 0.5s;
+}
+
+.Action__btn:hover {
+  transform: translateY(-5px);
 }
 
 .Action__btn.active {
@@ -166,8 +221,6 @@ input:focus {
 .Action__btn:disabled {
   cursor: not-allowed;
 }
-
-
 
 @media screen and (min-width: 1201px) {
 }

@@ -4,7 +4,7 @@
  * - Break the UI into a component hierarchy.
  * - Identify the minimal (but complete) representation of UI state.
  */
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { isTodoCompleted } from 'root/utils'
 import { Todo } from 'root/models/todo';
 
@@ -20,6 +20,8 @@ const TodoItem = (props: TodoItemProps) => {
   const { todo, deleteTodo, onUpdateTodoStatus
     , deleteItemText, onUpdateTodoContent
   } = props
+
+  const inputRef  = useRef<HTMLInputElement>(document.createElement('input'))
 
   const [isEditMode, setIsEditMode] = useState(false)
 
@@ -40,20 +42,23 @@ const TodoItem = (props: TodoItemProps) => {
     deleteTodo(todo.id)
   }, [deleteTodo, todo.id])
 
+  useEffect(() => {
+    isEditMode && inputRef !== null && inputRef.current.focus()
+  }, [isEditMode])
+
   return (
     <div className='ToDo__item'
       onDoubleClick={handleDoubleClickItem}
     >
       <input
         type='checkbox'
+        ref={inputRef}
         checked={isTodoCompleted(todo)}
         onChange={handleUpdateTodoStatus}
       />
       {
         isEditMode ? <input
-        style={{
-          width: '80%'
-        }}
+          className='TodoItem__input'
           onBlur={handleUpdateTodoContent}
           defaultValue={todo.content}
         />
