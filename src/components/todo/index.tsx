@@ -51,6 +51,7 @@ const TodoComponent = ({ history }: RouteComponentProps) => {
 
   const onUpdateTodoStatus: Function = useCallback((e: React.ChangeEvent<HTMLInputElement>, todoId: string) => {
     dispatch(updateTodoStatus(todoId, e.target.checked));
+    Service.updateTodoStatus(todoId, e.target.checked);
   }, [dispatch, updateTodoStatus])
 
   const onToggleAllTodo = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {

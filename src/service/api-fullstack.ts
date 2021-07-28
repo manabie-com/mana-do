@@ -4,6 +4,9 @@ import axios from '../utils/axios';
 import {AxiosResponse} from 'axios';
 
 class ApiFullstack extends IAPI {
+    updateTodoStatus(todoId: string, isCompleted: boolean): Promise<Todo> {
+        throw new Error('Method not implemented.');
+    }
     async signIn(username: string, password: string): Promise<string> {
         const resp = await axios.get<AxiosResponse<string>>(`/login?user_id=${username}&password=${password}`);
 
