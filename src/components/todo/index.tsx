@@ -145,6 +145,7 @@ const TodoComponent = ({ history }: RouteComponentProps) => {
       handleShowingCompleted={handleShowingCompleted}
       onDeleteAllTodo={onDeleteAllTodo}
       onUpdateTodoContent={handleUpdateTodoContent}
+      showing={showing}
     />
   );
 };

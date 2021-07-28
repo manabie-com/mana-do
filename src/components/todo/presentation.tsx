@@ -4,7 +4,7 @@
  */
 import React from 'react';
 import TodoItem from './subPresentations/todoItem';
-import { Todo } from 'root/models/todo';
+import { Todo, TodoStatus } from 'root/models/todo';
 
 export type TodoProps = {
   inputRef: any,
@@ -19,7 +19,8 @@ export type TodoProps = {
   handleShowingActive: React.MouseEventHandler,
   handleShowingCompleted: React.MouseEventHandler,
   onDeleteAllTodo: React.MouseEventHandler,
-  onUpdateTodoContent: Function
+  onUpdateTodoContent: Function,
+  showing: string
 }
 
 const text = {
@@ -35,7 +36,7 @@ const text = {
 
 const TodoPresentation = (props: TodoProps) => {
   const {
-    inputRef, onCreateTodo, showTodos
+    inputRef, onCreateTodo, showTodos, showing
     , onUpdateTodoStatus, deleteTodo, todos
     , activeTodos, onToggleAllTodo, onUpdateTodoContent
     , handleShowingAll, handleShowingActive
@@ -75,13 +76,13 @@ const TodoPresentation = (props: TodoProps) => {
             /> : <div />
           }
           <div className='Todo__tabs'>
-            <button className='Action__btn' onClick={handleShowingAll}>
+            <button className={`Action__btn ${showing === 'ALL' && 'active'}`} onClick={handleShowingAll}>
               {text.all}
             </button>
-            <button className='Action__btn' onClick={handleShowingActive}>
+            <button className={`Action__btn ${showing === TodoStatus.ACTIVE && 'active'}`} onClick={handleShowingActive}>
               {text.active}
             </button>
-            <button className='Action__btn' onClick={handleShowingCompleted}>
+            <button className={`Action__btn ${showing === TodoStatus.COMPLETED && 'active'}`} onClick={handleShowingCompleted}>
               {text.completed}
             </button>
           </div>
