@@ -5,7 +5,6 @@ const TodoContainer = React.lazy(() => import('root/containers/ToDoPage'))
 export type IAppRoute = {
   key: string,
   path: string,
-  lazyLoad: boolean,
   component: any, //React.FC,
   exact: boolean
 }
@@ -14,15 +13,13 @@ const appRoutes = [
   {
     key: 'login',
     path: '/',
-    lazyLoad: true,
     exact: true,
     component: LoginContainer
   },
   {
     key: 'todo',
     path: '/todo',
-    lazyLoad: true,
-    exact: false,
+    exact: true,
     component: TodoContainer
   }
 ]

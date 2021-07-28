@@ -7,14 +7,13 @@ function App() {
   return (
     <main className='App'>
       <BrowserRouter>
-        <Switch>
-          {appRoutes.map((route: IAppRoute) => (
-            route.lazyLoad ? <React.Suspense key={route.key} fallback={<Loading />}>
+        <React.Suspense fallback={<Loading />}>
+          <Switch>
+            {appRoutes.map((route: IAppRoute) => (
               <Route path={route.path} exact={route.exact} component={route.component} />
-            </React.Suspense>
-            : <Route path={route.path} exact={route.exact} component={route.component} />
-          ))}
-        </Switch>
+            ))}
+          </Switch>
+        </React.Suspense>
       </BrowserRouter>
     </main>
   );
