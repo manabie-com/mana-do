@@ -1,3 +1,7 @@
+/**
+ * For applying presentation component pattern
+ * Split UI process and logic process.
+ */
 import React from 'react';
 
 import './_signin.css'
@@ -13,6 +17,7 @@ export type SignInProps = {
 }
 
 const text = {
+  /** help to concentrate all text, easy to edit text or apply multi-language feature */
   userId: 'User id',
   password: 'Password',
   signIn: 'Sign in'
@@ -32,7 +37,6 @@ const SignInPresentation = (props: SignInProps) => {
               id='user_id'
               name='userId'
               value={form.userId}
-              style={{ marginTop: 12 }}
               onChange={onChangeField}
             />
           </label>
@@ -43,7 +47,6 @@ const SignInPresentation = (props: SignInProps) => {
               id='password'
               name='password'
               type='password'
-              style={{ marginTop: 12 }}
               value={form.password}
               onChange={onChangeField}
             />

@@ -33,6 +33,9 @@ const TodoComponent = ({ history }: RouteComponentProps) => {
   }, [])
 
   const onCreateTodo = useCallback(async (e: React.KeyboardEvent<HTMLInputElement>) => {
+    /**
+     * reduce rebinding function. Does not rebind when dependencies has not changed
+     */
     if (e.key === 'Enter' && inputRef.current) {
       try {
         const resp = await Service.createTodo(inputRef.current.value);
@@ -51,30 +54,51 @@ const TodoComponent = ({ history }: RouteComponentProps) => {
   }, [dispatch, updateTodoStatus])
 
   const onToggleAllTodo = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    /**
+     * reduce rebinding function. Does not rebind when dependencies has not changed
+     */
     dispatch(toggleAllTodos(e.target.checked))
   }, [dispatch, toggleAllTodos])
 
   const onDeleteAllTodo = useCallback(() => {
+    /**
+     * reduce rebinding function. Does not rebind when dependencies has not changed
+     */
     dispatch(deleteAllTodos());
   }, [dispatch, deleteAllTodos])
 
   const handleDeleteTodo = useCallback((todoId: string) => {
+    /**
+     * reduce rebinding function. Does not rebind when dependencies has not changed
+     */
     dispatch(deleteTodo(todoId));
   }, [dispatch, deleteTodo])
 
   const handleShowingAll = useCallback(() => {
+    /**
+     * reduce rebinding function. Does not rebind when dependencies has not changed
+     */
     setShowing('ALL')
   }, [setShowing])
 
   const handleShowingActive = useCallback(() => {
+    /**
+     * reduce rebinding function. Does not rebind when dependencies has not changed
+     */
     setShowing(TodoStatus.ACTIVE)
   }, [setShowing])
 
   const handleShowingCompleted = useCallback(() => {
+    /**
+     * reduce rebinding function. Does not rebind when dependencies has not changed
+     */
     setShowing(TodoStatus.COMPLETED)
   }, [setShowing])
 
   const getShowTodos = useCallback(() => todos.filter((todo) => {
+    /**
+     * reduce rebinding function. Does not rebind when dependencies has not changed
+     */
     switch (showing) {
       case TodoStatus.ACTIVE:
         return todo.status === TodoStatus.ACTIVE;
@@ -86,6 +110,9 @@ const TodoComponent = ({ history }: RouteComponentProps) => {
   }), [showing, todos])
 
   const activeTodos = useMemo(() => todos.reduce(function (accum, todo) {
+    /**
+     * Reduce re-calculating activeTodos, Does not recalculate active todos when todos has not changed
+    */
     return isTodoCompleted(todo) ? accum : accum + 1;
   }, 0), [todos])
 

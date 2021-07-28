@@ -1,3 +1,9 @@
+/**
+ * This sub-item help:
+ * - Remove binding on render function.
+ * - Break the UI into a component hierarchy.
+ * - Identify the minimal (but complete) representation of UI state.
+ */
 import React, { useCallback } from 'react'
 import { isTodoCompleted } from 'root/utils'
 import { Todo } from 'root/models/todo';

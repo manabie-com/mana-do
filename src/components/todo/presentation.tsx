@@ -1,3 +1,7 @@
+/**
+ * For applying presentation component pattern
+ * Split UI process and logic process.
+ */
 import React from 'react';
 import TodoItem from './subPresentations/todoItem';
 import { Todo } from 'root/models/todo';
@@ -18,6 +22,7 @@ export type TodoProps = {
 }
 
 const text = {
+  /** help to concentrate all text, easy to edit text or apply multi-language feature */
   x: 'X',
   all: 'All',
   active: 'Active',
@@ -25,6 +30,7 @@ const text = {
   clearAllTodos: 'Clear all todos',
   whatNeedToBeDone: 'What need to be done?'
 }
+
 
 const TodoPresentation = (props: TodoProps) => {
   const {
