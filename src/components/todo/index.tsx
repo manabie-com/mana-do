@@ -95,15 +95,16 @@ const TodoComponent = ({ history }: RouteComponentProps) => {
     setShowing(TodoStatus.COMPLETED)
   }, [setShowing])
 
-  const getShowTodos = useCallback(() => todos.filter((todo) => {
+  const showTodos = useMemo(() => todos.filter((todo) => {
     /**
-     * reduce rebinding function. Does not rebind when dependencies has not changed
+     * Reduce recalculating showing todos, Does not recalculate showing todos when todos and showing state have not changed
      */
     switch (showing) {
       case TodoStatus.ACTIVE:
         return todo.status === TodoStatus.ACTIVE;
       case TodoStatus.COMPLETED:
         return todo.status === TodoStatus.COMPLETED;
+      case 'ALL':
       default:
         return true;
     }
@@ -111,7 +112,7 @@ const TodoComponent = ({ history }: RouteComponentProps) => {
 
   const activeTodos = useMemo(() => todos.reduce(function (accum, todo) {
     /**
-     * Reduce re-calculating activeTodos, Does not recalculate active todos when todos has not changed
+     * Reduce recalculating activeTodos, Does not recalculate active todos when todos has not changed
     */
     return isTodoCompleted(todo) ? accum : accum + 1;
   }, 0), [todos])
@@ -120,7 +121,7 @@ const TodoComponent = ({ history }: RouteComponentProps) => {
     <TodoPresentation
       inputRef={inputRef}
       onCreateTodo={onCreateTodo}
-      showTodos={getShowTodos()}
+      showTodos={showTodos}
       onUpdateTodoStatus={onUpdateTodoStatus}
       deleteTodo={handleDeleteTodo}
       todos={todos}

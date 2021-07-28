@@ -117,4 +117,9 @@ input:focus {
 }
 
 .Action__btn {
+  cursor: pointer;
+}
+
+.Action__btn:disabled {
+  cursor: not-allowed;
 }
