@@ -1,12 +1,17 @@
 import React from 'react'
 
 export type ILoadingProps = {
-  loading: boolean
 }
 
 const Loading = (props: ILoadingProps) => {
   return (
-    <div></div>
+    <div style={{
+      width: '100vw',
+      height: '100vh',
+      pointerEvents: 'none',
+      display: 'flex',
+      alignContent: 'center'
+    }}>Loading...</div>
   )
 }
 

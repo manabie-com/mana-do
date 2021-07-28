@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import appRoutes, { IAppRoute } from './routes'
+import Loading from 'root/components/loading'
 
 function App() {
   return (
@@ -8,7 +9,10 @@ function App() {
       <BrowserRouter>
         <Switch>
           {appRoutes.map((route: IAppRoute) => (
-            <Route key={route.key} path={route.path} exact={route.exact} component={route.component} />
+            route.lazyLoad ? <React.Suspense key={route.key} fallback={<Loading />}>
+              <Route path={route.path} exact={route.exact} component={route.component} />
+            </React.Suspense>
+            : <Route path={route.path} exact={route.exact} component={route.component} />
           ))}
         </Switch>
       </BrowserRouter>
