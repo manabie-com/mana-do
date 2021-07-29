@@ -2,8 +2,6 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import Todo from 'root/components/todo/presentation';
 
-import { createLocation, createBrowserHistory } from 'history';
-import { match } from 'react-router';
 import userEvent from '@testing-library/user-event';
 
 const renderTodo = (props: any) => {
