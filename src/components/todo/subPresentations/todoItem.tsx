@@ -56,6 +56,7 @@ const TodoItem = (props: TodoItemProps) => {
         data-testid={'checkbox-status'}
         type='checkbox'
         ref={inputRef}
+        autoFocus
         checked={isTodoCompleted(todo)}
         onChange={handleUpdateTodoStatus}
       />
