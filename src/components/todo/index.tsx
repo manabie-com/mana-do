@@ -33,15 +33,6 @@ const TodoComponent = ({ history }: RouteComponentProps) => {
     })()
   }, [])
 
-  useEffect(() => {
-    if (todos.length > 0) {
-      const lastItem = document.getElementById(`todo-item-${todos[todos.length - 1].id}`)
-      if (lastItem) setTimeout(() => {
-        lastItem.scrollIntoView({ block: 'end',  behavior: 'smooth' })
-      }, 401) // delay to wait for css animation work first
-    }
-  }, [todos, showing])
-
   const onCreateTodo = useCallback(async (e: React.KeyboardEvent<HTMLInputElement>) => {
     /**
      * reduce rebinding function. Does not rebind when dependencies has not changed
@@ -148,15 +139,28 @@ const TodoComponent = ({ history }: RouteComponentProps) => {
         return todo.status === TodoStatus.COMPLETED;
       case 'ALL':
       default:
-        return true;
+        return true
     }
   }), [showing, todos])
+  
+  const prevCountRef = useRef(showTodos.length)
+  const prevCount = prevCountRef.current
+
+  useEffect(() => {
+    prevCountRef.current = showTodos.length
+    if (todos.length > 0) {
+      const lastItem = document.getElementById(`todo-item-${todos[todos.length - 1].id}`)
+      if (lastItem && prevCount !== showTodos.length) setTimeout(() => {
+        lastItem.scrollIntoView({ block: 'end',  behavior: 'smooth' })
+      }, 401) // delay to wait for css animation work first
+    }
+  }, [showTodos])
 
   const activeTodos = useMemo(() => todos.reduce(function (accum, todo) {
     /**
      * Reduce recalculating activeTodos, Does not recalculate active todos when todos has not changed
     */
-    return isTodoCompleted(todo) ? accum : accum + 1;
+    return isTodoCompleted(todo) ? accum : accum + 1
   }, 0), [todos])
 
   return (
@@ -176,7 +180,7 @@ const TodoComponent = ({ history }: RouteComponentProps) => {
       onUpdateTodoContent={handleUpdateTodoContent}
       showing={showing}
     />
-  );
-};
+  )
+}
 
-export default TodoComponent;
+export default TodoComponent
