@@ -42,6 +42,7 @@ const TodoComponent = ({ history }: RouteComponentProps) => {
         const resp = await Service.createTodo(inputRef.current.value);
         dispatch(createTodo(resp));
         inputRef.current.value = '';
+        inputRef.current.focus()
       } catch (e) {
         if (e.response.status === 401) {
           history.push('/')

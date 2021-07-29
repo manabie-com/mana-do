@@ -154,6 +154,8 @@ input.TodoItem__input:hover {
   animation: item-appear 0.4s;
   cursor: pointer;
   transition: 0.5s;
+  font-size: 16px;
+  min-height: 2em;
 }
 
 .ToDo__item:hover {
@@ -175,6 +177,13 @@ input.TodoItem__input:hover {
   text-align: left;
   margin-left: 8px;
   margin-right: 8px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  word-break: break-word;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 5px;
 }
 
 .Todo__content {
