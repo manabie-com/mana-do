@@ -26,6 +26,7 @@ const TodoItem = (props: TodoItemProps) => {
   const [isEditMode, setIsEditMode] = useState(false)
 
   const handleUpdateTodoStatus = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault()
     onUpdateTodoStatus(e, todo.id)
   }, [onUpdateTodoStatus, todo.id])
 
@@ -42,10 +43,6 @@ const TodoItem = (props: TodoItemProps) => {
     deleteTodo(todo.id)
   }, [deleteTodo, todo.id])
 
-  useEffect(() => {
-    isEditMode && inputRef !== null && inputRef.current.focus()
-  }, [isEditMode])
-
   return (
     <div className='ToDo__item'
       data-testid={'todo-item'}
@@ -55,19 +52,19 @@ const TodoItem = (props: TodoItemProps) => {
       <input
         data-testid={'checkbox-status'}
         type='checkbox'
-        ref={inputRef}
-        autoFocus
         checked={isTodoCompleted(todo)}
         onChange={handleUpdateTodoStatus}
       />
       {
         isEditMode ? <input
+          ref={inputRef}
+          autoFocus
           data-testid={'input-edit-todo'}
           className='TodoItem__input'
           onBlur={handleUpdateTodoContent}
           defaultValue={todo.content}
         />
-        : <span>{todo.content}</span>
+        : <span className='use-tooltip'>{todo.content}<span className='tooltip'>{todo.content}</span></span>
       }
       <button
         data-testid={'btn-delete-todo'}

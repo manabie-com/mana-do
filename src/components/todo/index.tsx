@@ -53,10 +53,12 @@ const TodoComponent = ({ history }: RouteComponentProps) => {
 
   const onUpdateTodoStatus: Function = useCallback(async (e: React.ChangeEvent<HTMLInputElement>, todoId: string) => {
     try {
-      await Service.updateTodoStatus(todoId, e.target.checked);
-      dispatch(updateTodoStatus(todoId, e.target.checked));
+      await Service.updateTodoStatus(todoId, e.target?.checked);
+      dispatch(updateTodoStatus(todoId, e.target?.checked));
     } catch (error) {
-
+      if (error?.response?.status === 401) {
+        history.push('/')
+      }
     }
   }, [dispatch])
 
@@ -68,7 +70,9 @@ const TodoComponent = ({ history }: RouteComponentProps) => {
       await Service.toggleAllTodos(e.target.checked)
       dispatch(toggleAllTodos(e.target.checked))
     } catch (error) {
-
+      if (error?.response?.status === 401) {
+        history.push('/')
+      }
     }
   }, [dispatch])
 
@@ -80,7 +84,9 @@ const TodoComponent = ({ history }: RouteComponentProps) => {
       await Service.deleteAllTodo()
       dispatch(deleteAllTodos());
     } catch (error) {
-
+      if (error?.response?.status === 401) {
+        history.push('/')
+      }
     }
   }, [dispatch])
 
@@ -92,7 +98,9 @@ const TodoComponent = ({ history }: RouteComponentProps) => {
       await Service.deleteTodo(todoId)
       dispatch(deleteTodo(todoId));
     } catch (error) {
-
+      if (error?.response?.status === 401) {
+        history.push('/')
+      }
     }
   }, [dispatch])
 
@@ -104,7 +112,9 @@ const TodoComponent = ({ history }: RouteComponentProps) => {
       await Service.updateTodoContent(todoId, content)
       dispatch(updateTodoContent(todoId, content));
     } catch (error) {
-
+      if (error?.response?.status === 401) {
+        history.push('/')
+      }
     }
   }, [dispatch])
 

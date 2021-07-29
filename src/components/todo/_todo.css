@@ -155,7 +155,7 @@ input.TodoItem__input:hover {
   cursor: pointer;
   transition: 0.5s;
   font-size: 16px;
-  min-height: 2em;
+  min-height: 2.5em;
 }
 
 .ToDo__item:hover {
@@ -178,12 +178,14 @@ input.TodoItem__input:hover {
   margin-left: 8px;
   margin-right: 8px;
   display: -webkit-box;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 2;
   word-break: break-word;
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
   padding: 5px;
+  font-size: 16px;
+  line-height: 24px;
 }
 
 .Todo__content {
@@ -246,6 +248,41 @@ input.TodoItem__input:hover {
 
 .Action__btn:disabled {
   cursor: not-allowed;
+}
+
+.use-tooltip {
+  position: relative;
+  display: inline;
+}
+  
+.use-tooltip:hover .tooltip {
+  display: block;
+  position: fixed;
+  z-index: 3;
+  left: 50%;
+  top: -20px;
+  transform: translateX(-50%);
+  min-width: 80vw;
+  text-align: left;
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  word-break: break-word;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 0.5em;
+  font-size: 16px;
+  line-height: 24px;
+  color: steelblue;
+  font-weight: 500;
+}
+  
+.tooltip {
+  display: none;
+  color: white;
+  background-color: rgb(240, 247, 181, 0.7);
+  border-radius: 20px;
+  margin: 2em;
 }
 
 @media screen and (min-width: 1201px) {
