@@ -20,10 +20,11 @@ export type TodoProps = {
   handleShowingCompleted: React.MouseEventHandler,
   onDeleteAllTodo: React.MouseEventHandler,
   onUpdateTodoContent: Function,
-  showing: string
+  showing: string,
+  text?: any
 }
 
-const text = {
+const defaultText = {
   /** help to concentrate all text, easy to edit text or apply multi-language feature */
   x: 'X',
   all: 'All',
@@ -36,7 +37,7 @@ const text = {
 
 const TodoPresentation = (props: TodoProps) => {
   const {
-    inputRef, onCreateTodo, showTodos, showing
+    inputRef, onCreateTodo, showTodos, showing, text = defaultText
     , onUpdateTodoStatus, deleteTodo, todos
     , activeTodos, onToggleAllTodo, onUpdateTodoContent
     , handleShowingAll, handleShowingActive

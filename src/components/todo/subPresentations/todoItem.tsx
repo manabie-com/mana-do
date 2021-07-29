@@ -4,7 +4,7 @@
  * - Break the UI into a component hierarchy.
  * - Identify the minimal (but complete) representation of UI state.
  */
-import React, { useCallback, useEffect, useRef, useState } from 'react'
+import React, { useCallback, useRef, useState } from 'react'
 import { isTodoCompleted } from 'root/utils'
 import { Todo } from 'root/models/todo';
 
@@ -13,12 +13,17 @@ export type TodoItemProps = {
   deleteTodo: Function,
   onUpdateTodoStatus: Function,
   onUpdateTodoContent: Function,
-  deleteItemText: string
+  deleteItemText: string,
+  text?: any
+}
+
+const defaultText = {
+  enterTodoName: 'Enter todo name...'
 }
 
 const TodoItem = (props: TodoItemProps) => {
   const { todo, deleteTodo, onUpdateTodoStatus
-    , deleteItemText, onUpdateTodoContent
+    , deleteItemText, onUpdateTodoContent, text = defaultText
   } = props
 
   const inputRef = useRef<HTMLInputElement>(document.createElement('input'))
@@ -61,6 +66,7 @@ const TodoItem = (props: TodoItemProps) => {
           autoFocus //improve UX, user does not need to click into the input again to edit todo
           data-testid={'input-edit-todo'}
           className='TodoItem__input'
+          placeholder={text.enterTodoName}
           onBlur={handleUpdateTodoContent}
           defaultValue={todo.content}
         />
