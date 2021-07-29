@@ -8,51 +8,56 @@ const SignInPage = () => {
         userId: '',
         password: ''
     });
+    const [warning, setWarning] = useState("");
     const history = useHistory();
 
     const signIn = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-        const resp = await Service.signIn(form.userId, form.password)
-
-        localStorage.setItem('token', resp)
-        history.push('/todo')
+        Service.signIn(form.userId, form.password).then(resp =>{
+            localStorage.setItem('token', resp)
+            history.push('/todo')
+        }).catch((error) => {
+             setWarning(error);
+        });
     }
 
     const onChangeField = (e: React.ChangeEvent<HTMLInputElement>) => {
         e.persist()
-        setForm(prev=>({
+        setForm((prev:any)=>({
             ...prev,
             [e.target.name]: e.target.value
         }))
     }
 
     return (
-        <div style={{marginTop: '3rem', textAlign: 'left'}}>
-            <form onSubmit={signIn}>
+        <div className={"sign-in-form"} style={{ textAlign: 'left'}}>
+           <img src={"/logo.png"} width={"100%"} height={"auto"}   />
+            <form onSubmit={signIn} style={{padding: "25px"}}>
                 <label htmlFor="user_id">
-                    User id
                     <input
                         id="user_id"
                         name="userId"
+                        placeholder="user id"
                         value={form.userId}
-                        style={{marginTop: 12}}
+                        style={{marginTop: 12, width:"calc(100% - 20px)"}}
                         onChange={onChangeField}
                     />
                 </label>
                 <br/>
-                <label htmlFor="password" >
-                    Password
+                <label htmlFor="password">
                     <input
                         id="password"
                         name="password"
+                        placeholder="password"
                         type="password"
-                        style={{marginTop: 12}}
+                        style={{marginTop: 12 ,width:"calc(100% - 20px)"}}
                         value={form.password}
                         onChange={onChangeField}
                     />
                 </label>
                 <br />
-                <button type="submit" style={{marginTop: 12}}>
+                <p className={"warning"}>{warning}</p>
+                <button className={"sign-in-btn"}  type="submit" >
                     Sign in
                 </button>
             </form>

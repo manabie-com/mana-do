@@ -5,7 +5,9 @@ import {
   DELETE_ALL_TODOS,
   DELETE_TODO,
   TOGGLE_ALL_TODOS,
-  UPDATE_TODO_STATUS
+  UPDATE_TODO_STATUS,
+  UPDATE_TODO,
+  SET_TODO
 } from './actions';
 
 export interface AppState {
@@ -19,10 +21,17 @@ export const initialState: AppState = {
 function reducer(state: AppState, action: AppActions): AppState {
   switch (action.type) {
     case CREATE_TODO:
-      state.todos.push(action.payload);
+      //state.todos.push(action.payload);
       return {
-        ...state
+        ...state,
+        todos: [  ... state.todos , action.payload ]
       };
+
+    case SET_TODO:
+        return {
+          ...state,
+          todos: [  ... state.todos , ...action.payload ]
+        };
 
     case UPDATE_TODO_STATUS:
       const index2 = state.todos.findIndex((todo) => todo.id === action.payload.todoId);
@@ -32,6 +41,14 @@ function reducer(state: AppState, action: AppActions): AppState {
         ...state,
         todos: state.todos
       }
+
+     case UPDATE_TODO:
+      const index3 = state.todos.findIndex((todo) => todo.id === action.payload.todoId);
+      state.todos[index3].content = action.payload.content ;
+        return {
+          ...state,
+          todos: state.todos
+        }
 
     case TOGGLE_ALL_TODOS:
       const tempTodos = state.todos.map((e)=>{
@@ -47,12 +64,12 @@ function reducer(state: AppState, action: AppActions): AppState {
       }
 
     case DELETE_TODO:
-      const index1 = state.todos.findIndex((todo) => todo.id === action.payload);
-      state.todos.splice(index1, 1);
-
+      // const index1 = state.todos.findIndex((todo) => todo.id === action.payload);
+      // state.todos.splice(index1, 1);
+      const deleteList = state.todos.filter(i=> i.id !== action.payload );
       return {
         ...state,
-        todos: state.todos
+        todos: [...deleteList]
       }
     case DELETE_ALL_TODOS:
       return {

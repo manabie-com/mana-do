@@ -8,34 +8,56 @@ import {
     deleteTodo,
     toggleAllTodos,
     deleteAllTodos,
-    updateTodoStatus
+    updateTodoStatus,
+    updateTodo
 } from './store/actions';
 import Service from './service';
-import {TodoStatus} from './models/todo';
+import {TodoStatus , Todo} from './models/todo';
 import {isTodoCompleted} from './utils';
+
+import {ToDoContainer , ToDoTabs , ToDoItem} from './components';
 
 type EnhanceTodoStatus = TodoStatus | 'ALL';
 
+const version = "1.0";
 
 const ToDoPage = ({history}: RouteComponentProps) => {
     const [{todos}, dispatch] = useReducer(reducer, initialState);
     const [showing, setShowing] = useState<EnhanceTodoStatus>('ALL');
     const inputRef = useRef<HTMLInputElement>(null);
 
-    useEffect(()=>{
-        (async ()=>{
-            const resp = await Service.getTodos();
-
+  useEffect(() => {
+    const _token = localStorage.getItem('token');
+    if(_token){
+        const keyStorage = _token + "-" + version + "-todos";
+        const getTodos = () =>{
+            const  resp =  JSON.parse(localStorage.getItem(keyStorage) as string);
             dispatch(setTodos(resp || []));
-        })()
-    }, [])
+        };
+        getTodos();
+    }else{
+        history.push('/')
+    }
+  }, []);
+
+   const saveTodos = () =>{
+    const keyStorage = localStorage.getItem('token') + "-" + version  + "-todos";
+    const _beforeunload = () =>{
+        localStorage.setItem(keyStorage, JSON.stringify(todos));
+    }
+    window.removeEventListener("beforeunload",_beforeunload);
+    window.addEventListener('beforeunload',_beforeunload);
+    }
+    saveTodos();
+
 
     const onCreateTodo = async (e: React.KeyboardEvent<HTMLInputElement>) => {
-        if (e.key === 'Enter' && inputRef.current) {
+        if (e.key === 'Enter' && inputRef.current && inputRef.current.value !== "" && inputRef.current.value !== null  && inputRef.current.value !== undefined  ) {
             try {
                 const resp = await Service.createTodo(inputRef.current.value);
                 dispatch(createTodo(resp));
                 inputRef.current.value = '';
+                inputRef.current.focus();
             } catch (e) {
                 if (e.response.status === 401) {
                     history.push('/')
@@ -56,7 +78,7 @@ const ToDoPage = ({history}: RouteComponentProps) => {
         dispatch(deleteAllTodos());
     }
 
-    const showTodos = todos.filter((todo) => {
+    const showTodos = todos.filter((todo : Todo) => {
         switch (showing) {
             case TodoStatus.ACTIVE:
                 return todo.status === TodoStatus.ACTIVE;
@@ -67,64 +89,38 @@ const ToDoPage = ({history}: RouteComponentProps) => {
         }
     });
 
-    const activeTodos = todos.reduce(function (accum, todo) {
+    const activeTodos = todos.reduce(function (accum: any, todo : Todo) {
         return isTodoCompleted(todo) ? accum : accum + 1;
     }, 0);
 
     return (
         <div className="ToDo__container">
-            <div className="Todo__creation">
-                <input
-                    ref={inputRef}
-                    className="Todo__input"
-                    placeholder="What need to be done?"
-                    onKeyDown={onCreateTodo}
-                />
-            </div>
+          <ToDoContainer _ref={inputRef} onCreateTodo={onCreateTodo}/>
+          <ToDoTabs  
+            todos={todos}
+            activeTodos={activeTodos}
+            onToggleAllTodo={onToggleAllTodo}
+            TodoStatus={TodoStatus}
+            onDeleteAllTodo={onDeleteAllTodo}
+            setShowing={setShowing}
+            showing={showing}
+          />
             <div className="ToDo__list">
                 {
-                    showTodos.map((todo, index) => {
+                    showTodos.map((todo: Todo) => {
                         return (
-                            <div key={index} className="ToDo__item">
-                                <input
-                                    type="checkbox"
-                                    checked={isTodoCompleted(todo)}
-                                    onChange={(e) => onUpdateTodoStatus(e, todo.id)}
-                                />
-                                <span>{todo.content}</span>
-                                <button
-                                    className="Todo__delete"
-                                    onClick={() => dispatch(deleteTodo(todo.id))}
-                                >
-                                    X
-                                </button>
-                            </div>
+                        <ToDoItem 
+                            key={todo.id}
+                            todo={todo}
+                            isTodoCompleted={isTodoCompleted}
+                            onUpdateTodoStatus={onUpdateTodoStatus}
+                            dispatch={dispatch}
+                            updateTodo={updateTodo}
+                            deleteTodo={deleteTodo}
+                        ></ToDoItem>
                         );
                     })
                 }
-            </div>
-            <div className="Todo__toolbar">
-                {todos.length > 0 ?
-                    <input
-                        type="checkbox"
-                        checked={activeTodos === 0}
-                        onChange={onToggleAllTodo}
-                    /> : <div/>
-                }
-                <div className="Todo__tabs">
-                    <button className="Action__btn" onClick={()=>setShowing('ALL')}>
-                        All
-                    </button>
-                    <button className="Action__btn" onClick={()=>setShowing(TodoStatus.ACTIVE)}>
-                        Active
-                    </button>
-                    <button className="Action__btn" onClick={()=>setShowing(TodoStatus.COMPLETED)}>
-                        Completed
-                    </button>
-                </div>
-                <button className="Action__btn" onClick={onDeleteAllTodo}>
-                    Clear all todos
-                </button>
             </div>
         </div>
     );

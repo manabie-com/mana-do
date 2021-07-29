@@ -1,0 +1,10 @@
+- xuất thông báo cho login
+- chặn onCreateTodo, updateTodo khi nhập ''
+- chỉnh sửa CREATE_TODO , DELETE_TODO trong reducer.ts
+- dùng localStorage (key username) thay cho api service
+- button (All , Active , Completed) -> đổi tên , và hiển thị màu
+// maxLength cho input create ToDo , hiển thị tối đa cho item todo và tooltip cho item todo
+- responsive
+- css
+- double click và chỉnh sửa todo
+- hạn chế rerender
