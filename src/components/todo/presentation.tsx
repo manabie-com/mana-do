@@ -44,11 +44,12 @@ const TodoPresentation = (props: TodoProps) => {
   } = props
 
   return (
-    <div className='ToDo__Wrapper'>
+    <div data-testid={'todo-wrapper'} className='ToDo__Wrapper'>
       <div className='ToDo__container'>
         <div className='Todo__creation'>
           <input
             ref={inputRef}
+            data-testid={'todo-input'}
             className='Todo__input'
             placeholder={text.whatNeedToBeDone}
             onKeyDown={onCreateTodo}
@@ -70,23 +71,24 @@ const TodoPresentation = (props: TodoProps) => {
         <div className='Todo__toolbar'>
           {todos.length > 0 ?
             <input
+              data-testid={'checkbox-toggle-all-todo'}
               type='checkbox'
               checked={activeTodos === 0}
               onChange={onToggleAllTodo}
             /> : <div />
           }
           <div className='Todo__tabs'>
-            <button className={`Action__btn ${showing === 'ALL' && 'active'}`} onClick={handleShowingAll}>
+            <button data-testid='btn-showing-all' className={`Action__btn ${showing === 'ALL' && 'active'}`} onClick={handleShowingAll}>
               {text.all}
             </button>
-            <button className={`Action__btn ${showing === TodoStatus.ACTIVE && 'active'}`} onClick={handleShowingActive}>
+            <button data-testid='btn-showing-active' className={`Action__btn ${showing === TodoStatus.ACTIVE && 'active'}`} onClick={handleShowingActive}>
               {text.active}
             </button>
-            <button className={`Action__btn ${showing === TodoStatus.COMPLETED && 'active'}`} onClick={handleShowingCompleted}>
+            <button data-testid='btn-showing-completed' className={`Action__btn ${showing === TodoStatus.COMPLETED && 'active'}`} onClick={handleShowingCompleted}>
               {text.completed}
             </button>
           </div>
-          <button className='Action__btn' onClick={onDeleteAllTodo}>
+          <button data-testid='btn-delete-all-todo' className='Action__btn' onClick={onDeleteAllTodo}>
             {text.clearAllTodos}
           </button>
         </div>

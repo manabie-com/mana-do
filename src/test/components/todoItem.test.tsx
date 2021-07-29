@@ -16,9 +16,9 @@ const renderTodoItem = (props: any) => {
           created_date: '',
         }
       }
-      deleteTodo={() => { }}
-      onUpdateTodoStatus={() => { }}
-      onUpdateTodoContent={() => { }}
+      deleteTodo={jest.fn()}
+      onUpdateTodoStatus={jest.fn()}
+      onUpdateTodoContent={jest.fn()}
       deleteItemText='X'
       {...props}
     />,
@@ -76,14 +76,18 @@ describe("<TodoItem />", () => {
     expect(deleteTodo).toBeCalledTimes(1);
   });
 
-  test('Should call onUpdateTodoContent once', async () => {
+  test('Should open edit todo and call onUpdateTodoContent once', async () => {
     const onUpdateTodoContent = jest.fn()
     const component = renderTodoItem({ onUpdateTodoContent })
     const todoItem = await component.findByTestId('todo-item')
     userEvent.dblClick(todoItem);
     const inputUpdateTodo = await component.findByTestId('input-edit-todo')
-    expect(inputUpdateTodo).toHaveValue('test-content')
-    fireEvent.keyPress(inputUpdateTodo, { key: "Enter", code: 13, charCode: 13 });
-    // expect(onUpdateTodoContent).toBeCalledTimes(1)
+    userEvent.clear(inputUpdateTodo)
+    expect(inputUpdateTodo).toHaveValue('')
+    userEvent.type(inputUpdateTodo, 'edited-todo')
+    expect(inputUpdateTodo).toHaveValue('edited-todo')
+    const checkboxStatus = await component.findByTestId('checkbox-status')
+    userEvent.click(checkboxStatus)
+    expect(onUpdateTodoContent).toBeCalledTimes(1)
   });
 })
