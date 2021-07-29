@@ -29,10 +29,10 @@ describe("<TodoItem />", () => {
   
   test('TodoItem is rendered successful with status completed', async () => {
     const component = renderTodoItem({})
-    const getItemContent = component.getByText('test-content')
-    expect(getItemContent).toBeInTheDocument();
+    const contentElement = await component.findByTestId('span-item-content')
+    expect(contentElement).toBeInTheDocument();
 
-    const deleteButton = component.getByText('X')
+    const deleteButton = await component.findByTestId('btn-delete-todo')
     expect(deleteButton).toBeInTheDocument();
 
     const checkboxStatus = await component.findByTestId('checkbox-status')
@@ -50,10 +50,10 @@ describe("<TodoItem />", () => {
         created_date: '',
       }
     })
-    const getItemContent = component.getByText('test-content')
-    expect(getItemContent).toBeInTheDocument();
+    const contentElement = await component.findByTestId('span-item-content')
+    expect(contentElement).toBeInTheDocument();
 
-    const deleteButton = component.getByText('X')
+    const deleteButton = await component.findByTestId('btn-delete-todo')
     expect(deleteButton).toBeInTheDocument();
 
     const checkboxStatus = await component.findByTestId('checkbox-status')

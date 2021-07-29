@@ -21,7 +21,7 @@ const TodoItem = (props: TodoItemProps) => {
     , deleteItemText, onUpdateTodoContent
   } = props
 
-  const inputRef  = useRef<HTMLInputElement>(document.createElement('input'))
+  const inputRef = useRef<HTMLInputElement>(document.createElement('input'))
 
   const [isEditMode, setIsEditMode] = useState(false)
 
@@ -64,7 +64,10 @@ const TodoItem = (props: TodoItemProps) => {
           onBlur={handleUpdateTodoContent}
           defaultValue={todo.content}
         />
-        : <span className='use-tooltip'>{todo.content}<span className='tooltip'>{todo.content}</span></span>
+          : <span className='use-tooltip' data-testid='span-item-content'>
+            {todo.content}
+            <span className='tooltip'>{todo.content}</span>
+          </span>
       }
       <button
         data-testid={'btn-delete-todo'}
