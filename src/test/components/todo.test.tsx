@@ -3,6 +3,7 @@ import { render } from '@testing-library/react';
 import Todo from 'root/components/todo/presentation';
 
 import userEvent from '@testing-library/user-event';
+import { TodoStatusExtend } from 'root/models/todo';
 
 const renderTodo = (props: any) => {
   return render(
@@ -20,7 +21,7 @@ const renderTodo = (props: any) => {
       handleShowingCompleted={jest.fn()}
       onDeleteAllTodo={jest.fn()}
       onUpdateTodoContent={jest.fn()}
-      showing={'ALL'}
+      showing={TodoStatusExtend.ALL}
       {...props}
     />
   )

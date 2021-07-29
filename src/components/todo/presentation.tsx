@@ -4,7 +4,7 @@
  */
 import React from 'react';
 import TodoItem from './subPresentations/todoItem';
-import { Todo, TodoStatus } from 'root/models/todo';
+import { Todo, TodoStatus, TodoStatusExtend } from 'root/models/todo';
 
 export type TodoProps = {
   inputRef: any,
@@ -78,7 +78,7 @@ const TodoPresentation = (props: TodoProps) => {
             /> : <div />
           }
           <div className='Todo__tabs'>
-            <button data-testid='btn-showing-all' className={`Action__btn ${showing === 'ALL' && 'active'}`} onClick={handleShowingAll}>
+            <button data-testid='btn-showing-all' className={`Action__btn ${showing === TodoStatusExtend.ALL && 'active'}`} onClick={handleShowingAll}>
               {text.all}
             </button>
             <button data-testid='btn-showing-active' className={`Action__btn ${showing === TodoStatus.ACTIVE && 'active'}`} onClick={handleShowingActive}>

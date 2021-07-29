@@ -12,18 +12,15 @@ import {
   updateTodoContent
 } from 'root/store/actions';
 import Service from 'root/service';
-import { TodoStatus } from 'root/models/todo';
+import { TodoStatus, EnhanceTodoStatus, TodoStatusExtend } from 'root/models/todo';
 import { isTodoCompleted } from 'root/utils';
 import TodoPresentation from './presentation';
 
 import './_todo.css'
 
-type EnhanceTodoStatus = TodoStatus | 'ALL';
-
-
 const TodoComponent = ({ history }: RouteComponentProps) => {
   const [{ todos }, dispatch] = useReducer(reducer, initialState);
-  const [showing, setShowing] = useState<EnhanceTodoStatus>('ALL');
+  const [showing, setShowing] = useState<EnhanceTodoStatus>(TodoStatusExtend.ALL);
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -125,7 +122,7 @@ const TodoComponent = ({ history }: RouteComponentProps) => {
     /**
      * reduce rebinding function. Does not rebind when dependencies has not changed
      */
-    setShowing('ALL')
+    setShowing(TodoStatusExtend.ALL)
   }, [setShowing])
 
   const handleShowingActive = useCallback(() => {
@@ -151,7 +148,7 @@ const TodoComponent = ({ history }: RouteComponentProps) => {
         return todo.status === TodoStatus.ACTIVE;
       case TodoStatus.COMPLETED:
         return todo.status === TodoStatus.COMPLETED;
-      case 'ALL':
+      case TodoStatusExtend.ALL:
       default:
         return true
     }
