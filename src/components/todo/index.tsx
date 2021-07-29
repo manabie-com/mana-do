@@ -42,6 +42,7 @@ const TodoComponent = ({ history }: RouteComponentProps) => {
         const resp = await Service.createTodo(inputRef.current.value);
         dispatch(createTodo(resp));
         inputRef.current.value = '';
+        //improve UX, user does not need to click into the input again to add todo
         inputRef.current.focus()
       } catch (e) {
         if (e.response.status === 401) {

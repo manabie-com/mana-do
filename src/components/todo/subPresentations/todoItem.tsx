@@ -58,7 +58,7 @@ const TodoItem = (props: TodoItemProps) => {
       {
         isEditMode ? <input
           ref={inputRef}
-          autoFocus
+          autoFocus //improve UX, user does not need to click into the input again to edit todo
           data-testid={'input-edit-todo'}
           className='TodoItem__input'
           onBlur={handleUpdateTodoContent}
