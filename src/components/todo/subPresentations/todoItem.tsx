@@ -48,9 +48,11 @@ const TodoItem = (props: TodoItemProps) => {
 
   return (
     <div className='ToDo__item'
+      data-testid={'todo-item'}
       onDoubleClick={handleDoubleClickItem}
     >
       <input
+        data-testid={'checkbox-status'}
         type='checkbox'
         ref={inputRef}
         checked={isTodoCompleted(todo)}
@@ -58,6 +60,7 @@ const TodoItem = (props: TodoItemProps) => {
       />
       {
         isEditMode ? <input
+          data-testid={'input-edit-todo'}
           className='TodoItem__input'
           onBlur={handleUpdateTodoContent}
           defaultValue={todo.content}
@@ -65,6 +68,7 @@ const TodoItem = (props: TodoItemProps) => {
         : <span>{todo.content}</span>
       }
       <button
+        data-testid={'btn-delete-todo'}
         className='Todo__delete'
         onClick={handleDeleteTodo}
       >
