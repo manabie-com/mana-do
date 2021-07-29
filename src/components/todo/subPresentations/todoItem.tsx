@@ -26,8 +26,8 @@ const TodoItem = (props: TodoItemProps) => {
   const [isEditMode, setIsEditMode] = useState(false)
 
   const handleUpdateTodoStatus = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault()
-    onUpdateTodoStatus(e, todo.id)
+    e.persist()
+    onUpdateTodoStatus(todo.id, e.target.checked)
   }, [onUpdateTodoStatus, todo.id])
 
   const handleDoubleClickItem = useCallback((e: React.MouseEvent<HTMLDivElement>) => {

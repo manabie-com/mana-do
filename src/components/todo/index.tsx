@@ -51,10 +51,10 @@ const TodoComponent = ({ history }: RouteComponentProps) => {
     }
   }, [dispatch, history])
 
-  const onUpdateTodoStatus: Function = useCallback(async (e: React.ChangeEvent<HTMLInputElement>, todoId: string) => {
+  const onUpdateTodoStatus: Function = useCallback(async (todoId: string, value: boolean) => {
     try {
-      await Service.updateTodoStatus(todoId, e.target?.checked);
-      dispatch(updateTodoStatus(todoId, e.target?.checked));
+      await Service.updateTodoStatus(todoId, value);
+      dispatch(updateTodoStatus(todoId, value));
     } catch (error) {
       if (error?.response?.status === 401) {
         history.push('/')
@@ -67,8 +67,10 @@ const TodoComponent = ({ history }: RouteComponentProps) => {
      * reduce rebinding function. Does not rebind when dependencies has not changed
      */
     try {
-      await Service.toggleAllTodos(e.target.checked)
-      dispatch(toggleAllTodos(e.target.checked))
+      e.persist()
+      const checked = e.target.checked
+      await Service.toggleAllTodos(checked)
+      dispatch(toggleAllTodos(checked))
     } catch (error) {
       if (error?.response?.status === 401) {
         history.push('/')
