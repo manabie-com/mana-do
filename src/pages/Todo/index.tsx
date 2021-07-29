@@ -1,7 +1,6 @@
-import React, { useEffect, useReducer, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { useUser } from "../../auth/useUser";
-import { Button, Tags } from "../../components";
 
 import reducer, { initialState } from "../../store/reducer";
 import {
@@ -11,12 +10,15 @@ import {
   toggleAllTodos,
   deleteAllTodos,
   updateTodoStatus,
+  editTodoContent,
 } from "../../store/actions";
 import Service from "../../service";
 import { TodoStatus } from "../../models/todo";
 import { isTodoCompleted } from "../../utils";
-
-type EnhanceTodoStatus = TodoStatus | "ALL";
+import useReducerWithLocalStorage from "../../hooks/useReducerWithLocalStorage";
+import TodoList from "./components/TodoList";
+import TodoCreate from "./components/TodoCreate";
+import TodoToolBar from "./components/TodoToolbar";
 
 const FILTER_MAP = {
   All: () => true,
@@ -42,12 +44,19 @@ function FilterButton(props: any) {
 const ToDoPage = () => {
   const history = useHistory();
   const user = useUser();
-  const [{ todos }, dispatch] = useReducer(reducer, initialState);
-  const [showing, setShowing] = useState<EnhanceTodoStatus>("ALL");
+
+  // const [showing, setShowing] = useState<EnhanceTodoStatus>("ALL");
   const inputRef = useRef<HTMLInputElement>(null);
   const [errorMessage, setErrorMessage] = useState("");
   const [filter, setFilter] = useState("All");
-
+  const [{ todos }, dispatch] = useReducerWithLocalStorage({
+    blacklist: ["status"],
+    initializerArg: initialState,
+    key: "REACT_APP_STATE",
+    reducer,
+  });
+  // const [{ todos }, dispatch] = useReducer(reducer, initialState);
+  console.log(todos);
   useEffect(() => {
     // (async () => {
     //   const resp = await Service.getTodos();
@@ -66,12 +75,11 @@ const ToDoPage = () => {
     };
 
     loadTodos();
-  }, []);
+  }, [dispatch]);
 
   const onCreateTodo = async (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter" && inputRef.current) {
       try {
-        console.log("key enter===============>");
         const resp = await Service.createTodo(inputRef.current.value);
         dispatch(createTodo(resp));
         inputRef.current.value = "";
@@ -106,65 +114,41 @@ const ToDoPage = () => {
     />
   ));
 
-  const showTodos = todos.filter(FILTER_MAP[filter]);
+  const showTodos = todos && todos.filter(FILTER_MAP[filter]);
 
-  const activeTodos = todos.reduce(function (accum, todo) {
-    return isTodoCompleted(todo) ? accum : accum + 1;
-  }, 0);
+  const activeTodos =
+    todos &&
+    todos.reduce(function (accum: any, todo: any) {
+      return isTodoCompleted(todo) ? accum : accum + 1;
+    }, 0);
+
+  const handleDeleteTodo = (id: string) => {
+    dispatch(deleteTodo(id));
+  };
+
+  const handleEditTodo = (value: string, id: string) => {
+    dispatch(editTodoContent(id, value));
+  };
 
   return (
     <div className="content-container">
       <h1>TodoMatic for {user.name}</h1>
       {errorMessage && <div className="fail">{errorMessage}</div>}
-      <div className="Todo__creation">
-        <input
-          ref={inputRef}
-          className="Todo__input"
-          placeholder="What need to be done?"
-          onKeyPress={onCreateTodo}
-        />
-      </div>
+      <TodoCreate ref={inputRef} onCreateTodo={onCreateTodo} />
       <div className="ToDo__tagsList">{filterList}</div>
-      <ul className="ToDo__list">
-        {showTodos.map((todo, index) => {
-          return (
-            <div key={index} className="ToDo__item">
-              <input
-                type="checkbox"
-                checked={isTodoCompleted(todo)}
-                onChange={(e) => onUpdateTodoStatus(e, todo.id)}
-              />
-              <span>{todo.content}</span>
-              <button
-                className="ToDo__delete"
-                onClick={() => dispatch(deleteTodo(todo.id))}
-              >
-                &#215;
-              </button>
-            </div>
-          );
-        })}
-      </ul>
-      <div className="ToDo__toolbar">
-        {todos.length > 0 ? (
-          <label htmlFor="selectall" className="ToDo__selectall">
-            <input
-              name="selectall"
-              id="selectall"
-              type="checkbox"
-              checked={activeTodos === 0}
-              onChange={onToggleAllTodo}
-            />
-            <span>Complete all todos</span>
-          </label>
-        ) : null}
-
-        <Button
-          classNames="btn btn__danger"
-          onClick={onDeleteAllTodo}
-          text="Clear all todos"
-        />
-      </div>
+      <TodoList
+        showTodos={showTodos}
+        isTodoCompleted={isTodoCompleted}
+        onUpdateTodoStatus={onUpdateTodoStatus}
+        handleDeleteTodo={handleDeleteTodo}
+        handleEditTodo={handleEditTodo}
+      />
+      <TodoToolBar
+        todos={todos}
+        activeTodos={activeTodos}
+        onToggleAllTodo={onToggleAllTodo}
+        onDeleteAllTodo={onDeleteAllTodo}
+      />
     </div>
   );
 };

@@ -4,7 +4,7 @@ interface IInputProps {
   label: string;
   name: string;
   variant: "password" | "email" | "text";
-  placeholder: string;
+  placeholder?: string;
   classNames?: string;
   valueExternal: string;
   style?: object;

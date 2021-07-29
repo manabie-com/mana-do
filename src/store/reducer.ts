@@ -6,6 +6,7 @@ import {
   DELETE_TODO,
   TOGGLE_ALL_TODOS,
   UPDATE_TODO_STATUS,
+  EDIT_TODO_CONTENT,
 } from "./actions";
 
 export interface AppState {
@@ -20,6 +21,7 @@ function reducer(state: AppState, action: AppActions): AppState {
   switch (action.type) {
     case CREATE_TODO:
       // state.todos.push(action.payload);
+      console.log("state creates==============>", state.todos);
       return {
         ...state,
         todos: [...state.todos, action.payload],
@@ -42,6 +44,17 @@ function reducer(state: AppState, action: AppActions): AppState {
               ? TodoStatus.COMPLETED
               : TodoStatus.ACTIVE;
 
+            return item;
+          }
+          return item;
+        }),
+      };
+    case EDIT_TODO_CONTENT:
+      return {
+        ...state,
+        todos: state.todos.map((item) => {
+          if (item.id === action.payload.todoId) {
+            item.content = action.payload.value;
             return item;
           }
           return item;
