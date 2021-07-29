@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 
 import { useHistory } from "react-router-dom";
-import Service from "../service";
+import Service from "../../service";
 
-import { Button, Input } from "../components";
+import { Button, Input } from "../../components";
 
 const SignInPage = () => {
   const [form, setForm] = useState({
@@ -59,7 +59,8 @@ const SignInPage = () => {
         />
         <hr />
         <Button
-          type="button"
+          type="submit"
+          classNames="btn__primary"
           disabled={!form.userId || !form.password}
           text="Sign in"
         />

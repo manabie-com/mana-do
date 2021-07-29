@@ -13,7 +13,7 @@ const Button: React.FunctionComponent<IButtonProps> = ({
   text,
   type,
   style,
-  classNames,
+  classNames = "",
   disabled = false,
   onClick,
 }) => {

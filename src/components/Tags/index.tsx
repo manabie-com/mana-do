@@ -5,7 +5,18 @@ interface ITagsProps {
 }
 
 const Tags: React.FunctionComponent<ITagsProps> = ({ text }) => {
-  return <span className="components__tags">{text}</span>;
+  const [active, setActive] = React.useState(false);
+  const handleOnClick = () => {
+    setActive(true);
+  };
+  return (
+    <span
+      className={`components__tags ${active ? "components__tags--active" : ""}`}
+      onClick={handleOnClick}
+    >
+      {text}
+    </span>
+  );
 };
 
 export default Tags;

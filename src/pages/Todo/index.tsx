@@ -1,9 +1,9 @@
 import React, { useEffect, useReducer, useRef, useState } from "react";
 import { useHistory } from "react-router-dom";
-import { useUser } from "../auth/useUser";
-import { Button, Tags } from "../components";
+import { useUser } from "../../auth/useUser";
+import { Button, Tags } from "../../components";
 
-import reducer, { initialState } from "../store/reducer";
+import reducer, { initialState } from "../../store/reducer";
 import {
   setTodos,
   createTodo,
@@ -11,12 +11,33 @@ import {
   toggleAllTodos,
   deleteAllTodos,
   updateTodoStatus,
-} from "../store/actions";
-import Service from "../service";
-import { TodoStatus } from "../models/todo";
-import { isTodoCompleted } from "../utils";
+} from "../../store/actions";
+import Service from "../../service";
+import { TodoStatus } from "../../models/todo";
+import { isTodoCompleted } from "../../utils";
 
 type EnhanceTodoStatus = TodoStatus | "ALL";
+
+const FILTER_MAP = {
+  All: () => true,
+  Active: (task: any) => task.status === TodoStatus.ACTIVE,
+  Completed: (task: any) => task.status === TodoStatus.COMPLETED,
+} as any;
+
+const FILTER_NAMES = Object.keys(FILTER_MAP);
+
+function FilterButton(props: any) {
+  return (
+    <button
+      type="button"
+      className="btn btn__tags"
+      aria-pressed={props.isPressed}
+      onClick={() => props.setFilter(props.name)}
+    >
+      <span>{props.name}</span>
+    </button>
+  );
+}
 
 const ToDoPage = () => {
   const history = useHistory();
@@ -25,6 +46,7 @@ const ToDoPage = () => {
   const [showing, setShowing] = useState<EnhanceTodoStatus>("ALL");
   const inputRef = useRef<HTMLInputElement>(null);
   const [errorMessage, setErrorMessage] = useState("");
+  const [filter, setFilter] = useState("All");
 
   useEffect(() => {
     // (async () => {
@@ -75,17 +97,16 @@ const ToDoPage = () => {
   const onDeleteAllTodo = () => {
     dispatch(deleteAllTodos());
   };
+  const filterList = FILTER_NAMES.map((name) => (
+    <FilterButton
+      key={name}
+      name={name}
+      isPressed={name === filter}
+      setFilter={setFilter}
+    />
+  ));
 
-  const showTodos = todos.filter((todo) => {
-    switch (showing) {
-      case TodoStatus.ACTIVE:
-        return todo.status === TodoStatus.ACTIVE;
-      case TodoStatus.COMPLETED:
-        return todo.status === TodoStatus.COMPLETED;
-      default:
-        return true;
-    }
-  });
+  const showTodos = todos.filter(FILTER_MAP[filter]);
 
   const activeTodos = todos.reduce(function (accum, todo) {
     return isTodoCompleted(todo) ? accum : accum + 1;
@@ -103,7 +124,8 @@ const ToDoPage = () => {
           onKeyUpCapture={onCreateTodo}
         />
       </div>
-      <div className="ToDo__list">
+      <div className="ToDo__tagsList">{filterList}</div>
+      <ul className="ToDo__list">
         {showTodos.map((todo, index) => {
           return (
             <div key={index} className="ToDo__item">
@@ -114,45 +136,31 @@ const ToDoPage = () => {
               />
               <span>{todo.content}</span>
               <button
-                className="Todo__delete"
+                className="ToDo__delete"
                 onClick={() => dispatch(deleteTodo(todo.id))}
               >
-                X
+                &#215;
               </button>
             </div>
           );
         })}
-      </div>
-      <div className="Todo__toolbar">
+      </ul>
+      <div className="ToDo__toolbar">
         {todos.length > 0 ? (
-          <input
-            type="checkbox"
-            checked={activeTodos === 0}
-            onChange={onToggleAllTodo}
-          />
+          <label htmlFor="selectall" className="ToDo__selectall">
+            <input
+              name="selectall"
+              id="selectall"
+              type="checkbox"
+              checked={activeTodos === 0}
+              onChange={onToggleAllTodo}
+            />
+            <span>Complete all todos</span>
+          </label>
         ) : null}
-        <div className="Todo__tagsList">
-          <Tags text="All" />
-          <Tags text="Active" />
-          <Tags text="Completed" />
-          {/* <button className="Action__btn" onClick={() => setShowing("ALL")}>
-            All
-          </button>
-          <button
-            className="Action__btn"
-            onClick={() => setShowing(TodoStatus.ACTIVE)}
-          >
-            Active
-          </button>
-          <button
-            className="Action__btn"
-            onClick={() => setShowing(TodoStatus.COMPLETED)}
-          >
-            Completed
-          </button> */}
-        </div>
+
         <Button
-          classNames="btn btn-danger"
+          classNames="btn btn__danger"
           onClick={onDeleteAllTodo}
           text="Clear all todos"
         />

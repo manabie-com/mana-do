@@ -1,5 +1,48 @@
-.Todo {
+.ToDo {
+  &__item {
+    display: flex;
+    width: 100%;
+    padding: 10px 0;
+    align-items: center;
+    border-bottom: solid 1px #ccc;
+    input {
+      width: 20px;
+      margin: 0;
+    }
+    span {
+      padding: 3px 10px;
+      flex: 2 1;
+      text-overflow: ellipsis;
+      max-width: 600px;
+      overflow: hidden;
+    }
+    button {
+      cursor: pointer;
+    }
+  }
+  &__delete {
+    width: 30px;
+    height: 30px;
+    background-color: red;
+    color: #fff;
+    border-radius: 4px;
+  }
   &__tagsList {
     margin: 12px 0;
+    display: flex;
+
+    [aria-pressed="true"] {
+      border: solid 2px #2f6bff;
+      color: #2f6bff;
+      background-color: #fff;
+    }
+  }
+
+  &__selectall {
+    display: flex;
+    input {
+      width: 20px;
+      margin-right: 10px;
+    }
   }
 }

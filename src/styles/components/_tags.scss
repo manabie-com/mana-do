@@ -8,5 +8,11 @@
     margin-right: 5px;
     display: inline-block;
     cursor: pointer;
+
+    &--active {
+      border: solid 2px #2f6bff;
+      color: #2f6bff;
+      background-color: #fff;
+    }
   }
 }
