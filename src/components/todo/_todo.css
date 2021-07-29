@@ -151,7 +151,7 @@ input.TodoItem__input:hover {
   border-radius: 15px;
   background-color: rgba(70,130,180, 0.4);
   color: white;
-  animation: item-appear 0.7s;
+  animation: item-appear 0.4s;
   cursor: pointer;
   transition: 0.5s;
 }
@@ -163,7 +163,7 @@ input.TodoItem__input:hover {
 @keyframes item-appear {
   from {
     opacity: 0;
-    transform: translateY(-30px);
+    transform: translateY(30px);
   }
   to {
     opacity: 1;

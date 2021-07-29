@@ -49,6 +49,7 @@ const TodoItem = (props: TodoItemProps) => {
   return (
     <div className='ToDo__item'
       data-testid={'todo-item'}
+      id={`todo-item-${todo.id}`}
       onDoubleClick={handleDoubleClickItem}
     >
       <input

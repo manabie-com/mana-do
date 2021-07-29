@@ -33,6 +33,15 @@ const TodoComponent = ({ history }: RouteComponentProps) => {
     })()
   }, [])
 
+  useEffect(() => {
+    if (todos.length > 0) {
+      const lastItem = document.getElementById(`todo-item-${todos[todos.length - 1].id}`)
+      if (lastItem) setTimeout(() => {
+        lastItem.scrollIntoView({ block: 'end',  behavior: 'smooth' })
+      }, 401) // delay to wait for css animation work first
+    }
+  }, [todos, showing])
+
   const onCreateTodo = useCallback(async (e: React.KeyboardEvent<HTMLInputElement>) => {
     /**
      * reduce rebinding function. Does not rebind when dependencies has not changed
@@ -50,41 +59,61 @@ const TodoComponent = ({ history }: RouteComponentProps) => {
     }
   }, [dispatch, history])
 
-  const onUpdateTodoStatus: Function = useCallback((e: React.ChangeEvent<HTMLInputElement>, todoId: string) => {
-    dispatch(updateTodoStatus(todoId, e.target.checked));
-    Service.updateTodoStatus(todoId, e.target.checked);
+  const onUpdateTodoStatus: Function = useCallback(async (e: React.ChangeEvent<HTMLInputElement>, todoId: string) => {
+    try {
+      await Service.updateTodoStatus(todoId, e.target.checked);
+      dispatch(updateTodoStatus(todoId, e.target.checked));
+    } catch (error) {
+
+    }
   }, [dispatch])
 
-  const onToggleAllTodo = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+  const onToggleAllTodo = useCallback(async (e: React.ChangeEvent<HTMLInputElement>) => {
     /**
      * reduce rebinding function. Does not rebind when dependencies has not changed
      */
-    dispatch(toggleAllTodos(e.target.checked))
-    Service.toggleAllTodos(e.target.checked)
+    try {
+      await Service.toggleAllTodos(e.target.checked)
+      dispatch(toggleAllTodos(e.target.checked))
+    } catch (error) {
+
+    }
   }, [dispatch])
 
-  const onDeleteAllTodo = useCallback(() => {
+  const onDeleteAllTodo = useCallback(async () => {
     /**
      * reduce rebinding function. Does not rebind when dependencies has not changed
      */
-    dispatch(deleteAllTodos());
-    Service.deleteAllTodo()
+    try {
+      await Service.deleteAllTodo()
+      dispatch(deleteAllTodos());
+    } catch (error) {
+
+    }
   }, [dispatch])
 
-  const handleDeleteTodo = useCallback((todoId: string) => {
+  const handleDeleteTodo = useCallback(async (todoId: string) => {
     /**
      * reduce rebinding function. Does not rebind when dependencies has not changed
      */
-    dispatch(deleteTodo(todoId));
-    Service.deleteTodo(todoId)
+    try {
+      await Service.deleteTodo(todoId)
+      dispatch(deleteTodo(todoId));
+    } catch (error) {
+
+    }
   }, [dispatch])
 
-  const handleUpdateTodoContent = useCallback((todoId: string, content: string) => {
+  const handleUpdateTodoContent = useCallback(async (todoId: string, content: string) => {
     /**
      * reduce rebinding function. Does not rebind when dependencies has not changed
      */
-    dispatch(updateTodoContent(todoId, content));
-    Service.updateTodoContent(todoId, content)
+    try {
+      await Service.updateTodoContent(todoId, content)
+      dispatch(updateTodoContent(todoId, content));
+    } catch (error) {
+
+    }
   }, [dispatch])
 
   const handleShowingAll = useCallback(() => {
