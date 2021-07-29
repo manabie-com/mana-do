@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, cleanup } from '@testing-library/react';
+import { render, fireEvent  } from '@testing-library/react';
 import userEvent from '@testing-library/user-event'
 import TodoItem from 'root/components/todo/subPresentations/todoItem';
 import { TodoStatus } from 'root/models/todo';
@@ -37,7 +37,7 @@ describe("<TodoItem />", () => {
 
     const checkboxStatus = await component.findByTestId('checkbox-status')
     expect(checkboxStatus).toBeInTheDocument();
-    expect(checkboxStatus.value).toEqual('on');
+    expect(checkboxStatus).toBeChecked();
   });
 
   test('TodoItem is rendered successful with status active', async () => {
@@ -58,7 +58,6 @@ describe("<TodoItem />", () => {
 
     const checkboxStatus = await component.findByTestId('checkbox-status')
     expect(checkboxStatus).toBeInTheDocument();
-    expect(checkboxStatus.value).toEqual('on');
   });
 
   test('Should call onUpdateTodoStatus once', async () => {
@@ -83,10 +82,8 @@ describe("<TodoItem />", () => {
     const todoItem = await component.findByTestId('todo-item')
     userEvent.dblClick(todoItem);
     const inputUpdateTodo = await component.findByTestId('input-edit-todo')
-    userEvent.type(inputUpdateTodo, 'test-todo')  
-    expect(inputUpdateTodo).toHaveValue('test-todo')
-    // userEvent.keyboard('{enter}')
-    // fireEvent.keyPress(inputUpdateTodo, { key: "Enter", code: 13, charCode: 13 });
+    expect(inputUpdateTodo).toHaveValue('test-content')
+    fireEvent.keyPress(inputUpdateTodo, { key: "Enter", code: 13, charCode: 13 });
     // expect(onUpdateTodoContent).toBeCalledTimes(1)
   });
 })
