@@ -1,5 +1,4 @@
 import React, { useCallback } from 'react'
-import { ModelType, FormType } from './types'
 
 export type FormProps = {
   model: any,
