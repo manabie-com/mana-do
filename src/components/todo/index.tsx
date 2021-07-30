@@ -1,7 +1,7 @@
 import React, { useEffect, useReducer, useRef, useState, useMemo, useCallback } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 
-import reducer, { initialState } from 'root/store/reducer';
+import reducer, { initialState } from 'root/store/reducers/todo.reducer';
 import {
   setTodos,
   createTodo,
@@ -10,7 +10,7 @@ import {
   deleteAllTodos,
   updateTodoStatus,
   updateTodoContent
-} from 'root/store/actions';
+} from 'root/store/actions/todo.actions';
 import Service from 'root/service';
 import { TodoStatus, EnhanceTodoStatus, TodoStatusExtend } from 'root/models/todo';
 import { isTodoCompleted } from 'root/utils';

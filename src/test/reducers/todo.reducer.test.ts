@@ -1,4 +1,4 @@
-import TodoReducer, { initialState } from 'root/store/reducer';
+import TodoReducer, { initialState } from 'root/store/reducers/todo.reducer';
 import {
   CREATE_TODO,
   DELETE_ALL_TODOS,
@@ -7,7 +7,7 @@ import {
   TOGGLE_ALL_TODOS,
   UPDATE_TODO_STATUS,
   UPDATE_TODO_CONTENT
-} from 'root/store/actions';
+} from 'root/store/actions/todo.actions';
 import { TodoStatus } from 'root/models/todo';
 
 const createTodo = (data: any) => ({

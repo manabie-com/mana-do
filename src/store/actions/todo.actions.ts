@@ -1,4 +1,4 @@
-import { Todo } from "../models/todo";
+import { Todo } from "../../models/todo";
 
 export const SET_TODO = 'SET_TODO';
 export const CREATE_TODO = 'CREATE_TODO';
@@ -89,7 +89,6 @@ export function toggleAllTodos(checked: boolean): ToggleAllTodosAction {
   }
 }
 
-
 ///////////
 export interface UpdateTodoContentAction {
   type: typeof UPDATE_TODO_CONTENT,
@@ -106,7 +105,7 @@ export function updateTodoContent(todoId: string, content: string): UpdateTodoCo
   }
 }
 
-export type AppActions =
+export type TodoActions =
   SetTodoAction |
   CreateTodoAction |
   UpdateTodoStatusAction |
