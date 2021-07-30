@@ -1,4 +1,5 @@
 import React, { useCallback } from 'react'
+import './_form.css'
 
 export type FormProps = {
   model: any,
@@ -7,6 +8,7 @@ export type FormProps = {
   onUpdateField: Function,
   submitText?: string
 }
+
 
 const Form = (props: FormProps) => {
   const { model, formData, onSubmit

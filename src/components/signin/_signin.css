@@ -54,31 +54,7 @@
   font-size: 18px;
   font-weight: bold;
 }
-.login-container .right-panel form label {
-  width: 100%;
-  padding-top: 10px;
-  margin-top: 10px;
-  display: flex;
-  justify-content: center;
-}
-.login-container .right-panel form label h2 {
-  margin-right: 1em;
-  display: flex;
-  align-items: center;
-  text-align: center;
-}
-.login-container .right-panel form label input {
-  min-width: 325px;
-  height: 50px;
-  border: solid 1px;
-  border-radius: 25px;
-  padding-left: 25px;
-  font-size: 18px;
-  font-weight: bold;
-}
-.login-container .right-panel form label input:hover {
-  border-color: yellow;
-}
+
 
 @media screen and (min-width: 1201px) {
   .login-container .left-panel {
@@ -115,18 +91,6 @@
 @media screen and (max-width: 480px) {
   .login-container .left-panel {
     display: none;
-  }
-  .login-container .right-panel form {
-    font-size: 12px;
-  }
-  .login-container .right-panel form label input {
-    min-width: 200px;
-    height: 30px;
-    padding-left: 15px;
-  }
-  .login-container .right-panel form .actions button {
-    min-width: 150px;
-    width: auto;
   }
   .login-container .right-panel {
     width: 100%;
