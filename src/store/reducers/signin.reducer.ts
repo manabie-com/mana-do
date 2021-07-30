@@ -1,5 +1,4 @@
-import { IField, Modeling } from 'root/components/commons/types';
-import signinModel, { ISigninModel, signinKeys } from '../../models/signIn';
+import { signinKeys } from 'root/models/signin';
 import {
   SigninActions,
   UPDATE_USERNAME,
@@ -7,19 +6,34 @@ import {
 } from '../actions/signin.actions'
 
 export interface SigninState {
-  [signinKeys.username]: IField,
-  [signinKeys.password]: IField
+  [signinKeys.userId]: any,
+  [signinKeys.password]: any,
+  validated: boolean,
+  error: any
 }
 
-export const initialState: Modeling<ISigninModel> = signinModel
+export const initialState = {
+  [signinKeys.userId]: {
+    value: '',
+    error: {},
+    validated: false
+  },
+  [signinKeys.password]: {
+    value: '',
+    error: {},
+    validated: false
+  },
+  validated: false,
+  error: {}
+}
 
 function reducer(state: SigninState, action: SigninActions): SigninState {
   switch (action.type) {
     case UPDATE_USERNAME:
       return {
         ...state,
-        [signinKeys.username]: {
-          ...state[signinKeys.username],
+        [signinKeys.userId]: {
+          ...state[signinKeys.userId],
           value: action.payload.value
         }
       };

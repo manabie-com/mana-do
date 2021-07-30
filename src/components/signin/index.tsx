@@ -1,40 +1,36 @@
-import React, { useState, useCallback } from 'react';
-
+import React, { useCallback, useReducer } from 'react';
 import { useHistory } from 'react-router-dom'
+import signInModel, { SigninFieldName } from 'root/models/signin'
+
+import signinReducer, { initialState } from 'root/store/reducers/signin.reducer'
 import Service from 'root/service'
-import SignInPresentation from './presentation';
+import SigninPresentation from './presentation';
 
 const SignInComponent = () => {
-	const [form, setForm] = useState({
-		userId: '',
-		password: ''
-	});
+	const [signinData, dispatch] = useReducer(signinReducer, initialState);
 	const history = useHistory();
 
-	const signIn = async (e: React.FormEvent<HTMLFormElement>) => {
-		e.preventDefault()
-		const resp = await Service.signIn(form.userId, form.password)
+	const handleUpdateField = useCallback((name: SigninFieldName, value) => {
+		const { actionUpdate } = signInModel[name]
+		dispatch(actionUpdate({ value }))
+	}, [dispatch])
 
-		localStorage.setItem('token', resp)
-		history.push('/todo')
-	}
+	const handleLogin = useCallback(async () => {
+		try {
+			const res = await Service.signIn(signinData.userId.value, signinData.password.value)
+			localStorage.setItem('token', res)
+			history.push('/todo')
+		} catch (error) {
 
-	const onChangeField = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-		/**
- 		* reduce rebinding function. Does not rebind when dependencies has not changed
- 		*/
-		e.persist()
-		setForm(prev => ({
-			...prev,
-			[e.target.name]: e.target.value
-		}))
-	}, [])
+		}
+	}, [history, signinData])
 
 	return (
-		<SignInPresentation
-			signIn={signIn}
-			form={form}
-			onChangeField={onChangeField}
+		<SigninPresentation
+			signin={handleLogin}
+			onChangeField={handleUpdateField}
+			form={signinData}
+			model={signInModel}
 		/>
 	);
 };

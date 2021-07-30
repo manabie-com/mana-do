@@ -5,8 +5,7 @@ export type SigninActionTypes = typeof UPDATE_USERNAME
   | typeof UPDATE_PASSWORD
 
 export type UpdateUsernamePayload = {
-  name: string,
-  value: any
+  value: string
 }
 
 export interface UpdateUsernameAction {
@@ -24,8 +23,7 @@ export function updateUsername(payload: UpdateUsernamePayload): UpdateUsernameAc
 //------
 
 export type UpdatePasswordPayload = {
-  name: string,
-  value: any
+  value: string
 }
 
 export interface UpdatePasswordAction {
@@ -41,4 +39,4 @@ export function updatePassword(payload: UpdatePasswordPayload): UpdatePasswordAc
 }
 
 export type SigninActions = UpdateUsernameAction
-  | UpdatePasswordAction 
+  | UpdatePasswordAction
