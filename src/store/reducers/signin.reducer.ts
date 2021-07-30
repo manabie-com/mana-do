@@ -1,4 +1,4 @@
-import { signinKeys } from 'root/models/signin';
+import { signinKeys, Error, TextField } from 'root/models/signin';
 import {
   SigninActions,
   UPDATE_USERNAME,
@@ -6,25 +6,31 @@ import {
 } from '../actions/signin.actions'
 
 export interface SigninState {
-  [signinKeys.userId]: any,
-  [signinKeys.password]: any,
+  [signinKeys.userId]: TextField,
+  [signinKeys.password]: TextField,
   validated: boolean,
-  error: any
+  error: Error
 }
 
 export const initialState = {
   [signinKeys.userId]: {
     value: '',
-    error: {},
+    error: {
+      message: ''
+    },
     validated: false
   },
   [signinKeys.password]: {
     value: '',
-    error: {},
+    error: {
+      message: ''
+    },
     validated: false
   },
   validated: false,
-  error: {}
+  error: {
+    message: ''
+  }
 }
 
 function reducer(state: SigninState, action: SigninActions): SigninState {

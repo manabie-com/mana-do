@@ -6,8 +6,21 @@ export enum signinKeys {
   password = 'password'
 }
 
+export type TextField = {
+  value: string,
+  error: Error
+  validated: boolean
+}
+
+export type SigninField = TextField 
+
+
 export type SigninFieldName = typeof signinKeys.userId
   | typeof signinKeys.password
+
+export type Error = {
+  message: string
+}
 
 const text = {
   userId: 'User ID',
