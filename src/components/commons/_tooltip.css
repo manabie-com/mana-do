@@ -1,0 +1,100 @@
+.use-tooltip {
+  position: relative;
+  display: inline;
+  text-align: left;
+  width: 100%;
+}
+  
+.use-tooltip:hover .tooltip {
+  display: block;
+  z-index: 3;
+  transform: translateX(-50%);
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  word-break: break-word;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 0.5em;
+  font-size: 16px;
+  line-height: 24px;
+  color: steelblue;
+  font-weight: 500;
+}
+
+.use-tooltip:hover .tooltip.top {
+  position: fixed;
+  top: -20px;
+  left: 50%;
+  min-width: 80vw;
+}
+
+.use-tooltip:hover .tooltip.center {
+  text-align: center;
+}
+
+.use-tooltip:hover .tooltip.left {
+  text-align: left;
+}
+
+.use-tooltip:hover .tooltip.right {
+  text-align: right;
+}
+
+.use-tooltip:hover .tooltip.current {
+  
+}
+  
+.tooltip {
+  display: none;
+  color: white;
+  background-color: rgb(240, 247, 181, 0.7);
+  border-radius: 20px;
+  margin: 2em;
+  max-width: 80vw;
+}
+
+.typewriter {
+  border: 3px solid black;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.typewriter .tooltip-text {
+  text-align: right;
+  white-space: nowrap;
+
+  /* animation properties */
+  -moz-transform: translateX(-100%);
+  -webkit-transform: translateX(-100%);
+  transform: translateX(-100%);
+  
+  -moz-animation: running-text 20s linear infinite;
+  -webkit-animation: running-text 20s linear infinite;
+  animation: running-text 20s linear infinite;
+}
+
+/* for Firefox */
+@-moz-keyframes running-text {
+  from { -moz-transform: translateX(-100%); }
+  to { -moz-transform: translateX(100%); }
+}
+
+/* for Chrome */
+@-webkit-keyframes running-text {
+  from { -webkit-transform: translateX(-100%); }
+  to { -webkit-transform: translateX(100%); }
+}
+
+@keyframes running-text {
+  from {
+    -moz-transform: translateX(-100%);
+    -webkit-transform: translateX(-100%);
+    transform: translateX(-100%);
+  }
+  to {
+    -moz-transform: translateX(100%);
+    -webkit-transform: translateX(100%);
+    transform: translateX(100%);
+  }
+}

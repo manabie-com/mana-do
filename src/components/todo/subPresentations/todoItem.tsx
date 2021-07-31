@@ -6,7 +6,8 @@
  */
 import React, { useCallback, useRef, useState } from 'react'
 import { isTodoCompleted } from 'root/utils'
-import { Todo } from 'root/models/todo';
+import { Todo } from 'root/models/todo'
+import WithTooltip from 'root/components/commons/tooltip'
 
 export type TodoItemProps = {
   todo: Todo,
@@ -70,10 +71,10 @@ const TodoItem = (props: TodoItemProps) => {
           onBlur={handleUpdateTodoContent}
           defaultValue={todo.content}
         />
-          : <span className='use-tooltip' data-testid='span-item-content'>
-            {todo.content}
-            <span className='tooltip'>{todo.content}</span>
-          </span>
+          : <WithTooltip
+            tooltipText={todo.content}
+            id={'span-item-content'}
+          ><span className={'item-text'}>{todo.content}</span></WithTooltip>
       }
       <button
         data-testid={'btn-delete-todo'}
