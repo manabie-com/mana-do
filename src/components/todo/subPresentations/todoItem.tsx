@@ -74,6 +74,7 @@ const TodoItem = (props: TodoItemProps) => {
           : <WithTooltip
             tooltipText={todo.content}
             id={'span-item-content'}
+            useAnimation={todo.content.length > 50}
           ><span className={'item-text'}>{todo.content}</span></WithTooltip>
       }
       <button

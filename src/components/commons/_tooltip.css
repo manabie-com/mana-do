@@ -49,15 +49,14 @@
   display: none;
   color: white;
   background-color: rgb(240, 247, 181, 0.7);
-  border-radius: 20px;
   margin: 2em;
   max-width: 80vw;
-}
-
-.typewriter {
   border: 1px solid rgba(0, 0, 0, 0.4);
   border-radius: 5px;
   box-shadow: 4px 2px rgba(0,0,0, 0.4);
+}
+
+.typewriter {
 }
 
 .typewriter .tooltip-text {
