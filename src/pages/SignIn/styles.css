@@ -1,0 +1,75 @@
+.SignIn__wrapper {
+  background-color: #e5e5e5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+.SignIn__form {
+  background-color: white;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12),
+    0 1px 2px rgba(0, 0, 0, 0.24);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 400px;
+  padding: 32px;
+}
+
+.SignIn__formControl {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.SignIn__formControl:not(:first-child) {
+  margin-top: 16px;
+}
+
+.SignIn__label {
+  margin-bottom: 4px;
+  font-weight: 600;
+}
+
+.SignIn__input {
+  border: 1px solid #cbd5dc;
+  border-radius: 0;
+  height: 40px;
+  outline: none;
+  padding-inline: 16px;
+}
+
+.SignIn__btnSubmit {
+  background-color: black;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+  color: white;
+  cursor: pointer;
+  font-size: 24px;
+  font-weight: 900;
+  margin-top: 24px;
+  height: 48px;
+  width: 100%;
+}
+
+.SignIn__error {
+  border: 1px solid;
+  color: #dc3545;
+  margin-top: 24px;
+  padding: 16px;
+  text-align: center;
+  width: 100%;
+}
+
+@media (max-width: 575px) {
+  .SignIn__wrapper {
+    background-color: white;
+  }
+  .SignIn__form {
+    background-color: transparent;
+    box-shadow: none;
+  }
+}

@@ -1,0 +1,80 @@
+.Todo__wrapper {
+  background-color: #e5e5e5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  min-width: 100vw;
+}
+
+.Todo__container {
+  background-color: white;
+  border: 1px solid rgba(0, 0, 0, 0.13);
+  border-radius: 0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12),
+  0 1px 2px rgba(0, 0, 0, 0.24);
+  width: 500px;
+  padding: 24px;
+}
+
+.Todo__button {
+  background-color: black;
+  border: none;
+  color: white;
+  cursor: pointer;
+  height: 40px;
+  margin-left: auto;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-inline: 16px;
+}
+
+.Todo__list {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1.5rem;
+}
+
+.Todo__checkbox {
+  margin-right: 8px;
+}
+
+.Todo__toolbar {
+  display: flex;
+  align-items: center;
+  margin-top: 16px;
+}
+
+.Todo__tag {
+  background-color: #e5e5e5;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  margin-right: 8px;
+  padding: 8px;
+  width: 90px;
+}
+
+.Todo__tag.active {
+  background-color: black;
+  color: white;
+}
+
+.Todo__tag:last-child {
+  margin-right: 0;
+}
+
+.Todo__select {
+  margin-left: auto;
+}
+
+@media (max-width: 575px) {
+  .Todo__container {
+    width: auto;
+    max-width: calc(100vw - 16px);
+  }
+  .Todo__buttonRemoveAll {
+    width: 100%;
+    padding-inline: 4px;
+  }
+}

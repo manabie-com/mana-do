@@ -1,0 +1,39 @@
+.Item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.Checkbox {
+  margin-right: 8px;
+}
+
+.Input {
+  border: 1px solid #cbd5dc;
+  border-radius: 0;
+  height: 40px;
+  margin-right: 8px;
+  outline: none;
+  padding-inline: 16px;
+  width: 100%;
+}
+
+.Content {
+  cursor: pointer;
+  flex-grow: 1;
+  text-align: left;
+}
+
+.Button {
+  background-color: black;
+  border: none;
+  color: white;
+  cursor: pointer;
+  height: 40px;
+  margin-left: auto;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  width: 40px;
+  flex-shrink: 0;
+  font-size: 20px;
+}
