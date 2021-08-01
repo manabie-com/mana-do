@@ -1,14 +1,10 @@
-import React, { useEffect, useReducer, useRef, useState } from "react";
-import { RouteComponentProps } from "react-router-dom";
+import React from "react";
 import TodoAction from "./todo-action/TodoAction";
 import TodoList from "./todo-list/TodoList";
+import TodoToolbar from "./todo-toolbar/TodoToolbar";
 import useTodoReducer from "./store";
-import { TodoStatus } from "./store/todo.constant";
-
 import { TodoContext } from "./TodoContext";
-import './styles.scss'
-import TodoFilter from "./todo-toolbar/TodoToolbar";
-type EnhanceTodoStatus = TodoStatus | "ALL";
+import "./styles.scss";
 
 const ModuleTodo = () => {
   const [state, dispatch] = useTodoReducer();
@@ -19,7 +15,7 @@ const ModuleTodo = () => {
         <article className="container__box">
           <h1>To-Do List</h1>
           <TodoAction />
-          <TodoFilter />
+          <TodoToolbar />
           <TodoList />
         </article>
       </main>

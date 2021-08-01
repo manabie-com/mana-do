@@ -1,5 +1,5 @@
 import {
-  AUTH,
+  ACTION_TYPES,
   IAuthActions,
   IAuthState,
   ILoginFailureAction,
@@ -16,14 +16,14 @@ const authReducer = (
   action: IAuthActions
 ) => {
   switch (action.type) {
-    case AUTH.LOGIN_REQUEST: {
+    case ACTION_TYPES.LOGIN_REQUEST: {
       return {
         ...state,
         isAuthenticated: false,
         isLoading: true,
       };
     }
-    case AUTH.LOGIN_SUCCESS: {
+    case ACTION_TYPES.LOGIN_SUCCESS: {
       return {
         ...state,
         isLoading: false,
@@ -31,7 +31,7 @@ const authReducer = (
         errorMessage: "",
       };
     }
-    case AUTH.LOGIN_FAILURE: {
+    case ACTION_TYPES.LOGIN_FAILURE: {
       return {
         ...state,
         isLoading: false,
@@ -39,7 +39,7 @@ const authReducer = (
         errorMessage: (action as ILoginFailureAction).payload.errorMessage,
       };
     }
-    case AUTH.VERIFY_TOKEN: {
+    case ACTION_TYPES.VERIFY_TOKEN: {
       return {
         ...state,
         isAuthenticated: true,

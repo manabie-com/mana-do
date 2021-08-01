@@ -1,13 +1,17 @@
 import React, { useState } from "react";
 import { useAuthContext } from "./AuthContext";
 import authAction from "./store/auth.action";
+import "./styles.scss";
 
 const ModuleLogin = () => {
   const [form, setForm] = useState({
     username: "",
     password: "",
   });
-  const {state: { errorMessage }, dispatch} = useAuthContext();
+  const {
+    state: { errorMessage },
+    dispatch,
+  } = useAuthContext();
 
   const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -24,39 +28,36 @@ const ModuleLogin = () => {
   };
 
   return (
-    <>
-      <div style={{ marginTop: "3rem", textAlign: "left" }}>
+    <div className="Login__container">
+      <div className="Login__form">
         <form onSubmit={handleLogin}>
-          <label htmlFor="username">
-            User name
-            <input
-              id="username"
-              name="username"
-              value={form.username}
-              style={{ marginTop: 12 }}
-              onChange={onChangeField}
-            />
-          </label>
+          <input
+            id="username"
+            name="username"
+            value={form.username}
+            style={{ marginTop: 12 }}
+            onChange={onChangeField}
+            placeholder="User name"
+          />
           <br />
-          <label htmlFor="password">
-            Password
-            <input
-              id="password"
-              name="password"
-              type="password"
-              style={{ marginTop: 12 }}
-              value={form.password}
-              onChange={onChangeField}
-            />
-          </label>
+          <input
+            id="password"
+            name="password"
+            type="password"
+            style={{ marginTop: 12 }}
+            value={form.password}
+            onChange={onChangeField}
+            placeholder="Password"
+          />
           <br />
-          {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
           <button type="submit" style={{ marginTop: 12 }}>
             Login
           </button>
+          {errorMessage && <p style={{ color: "red" }}>{errorMessage}</p>}
+
         </form>
       </div>
-    </>
+    </div>
   );
 };
 

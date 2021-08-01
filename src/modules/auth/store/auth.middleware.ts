@@ -1,9 +1,9 @@
 import { Dispatch } from "react";
 import service from "../../../service";
 import authAction from "./auth.action";
-import { AUTH, IAuthActions, ILoginRequestAction } from "./auth.constant";
+import { ACTION_TYPES, IAuthActions, ILoginRequestAction } from "./auth.constant";
 
-const handleLogin = (
+export const handleLogin = (
   dispatch: Dispatch<IAuthActions>,
   action: IAuthActions
 ) => {
@@ -39,11 +39,11 @@ export const applyMiddleware =
   (dispatch: Dispatch<IAuthActions>) => (action: IAuthActions) => {
     dispatch(action);
     switch (action.type) {
-      case AUTH.LOGIN_REQUEST: {
+      case ACTION_TYPES.LOGIN_REQUEST: {
         handleLogin(dispatch, action);
         break;
       }
-      case AUTH.VERIFY_TOKEN: {
+      case ACTION_TYPES.VERIFY_TOKEN: {
         handleVerifyToken(dispatch);
         break;
       }

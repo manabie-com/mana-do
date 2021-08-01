@@ -1,5 +1,5 @@
 import {
-  AUTH,
+  ACTION_TYPES,
   ILoginFailureAction,
   ILoginRequestAction,
   ILoginRequestPayload,
@@ -10,25 +10,25 @@ import {
 const loginRequest = (
   payload: ILoginRequestPayload
 ): ILoginRequestAction => ({
-  type: AUTH.LOGIN_REQUEST,
+  type: ACTION_TYPES.LOGIN_REQUEST,
   payload,
 });
 
 const loginSuccess = (): ILoginSuccessAction => {
   return {
-    type: AUTH.LOGIN_SUCCESS,
+    type: ACTION_TYPES.LOGIN_SUCCESS,
   };
 };
 
 const loginFailure = (errorMessage: string): ILoginFailureAction => ({
-  type: AUTH.LOGIN_FAILURE,
+  type: ACTION_TYPES.LOGIN_FAILURE,
   payload: {
     errorMessage,
   },
 });
 
 const verifyToken = (): IVerifyTokenAction => ({
-  type: AUTH.VERIFY_TOKEN,
+  type: ACTION_TYPES.VERIFY_TOKEN,
 });
 
 export default {

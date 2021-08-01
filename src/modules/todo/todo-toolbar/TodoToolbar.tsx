@@ -43,6 +43,7 @@ const TodoToolbar = () => {
           type="checkbox"
           checked={activeTodos === 0}
           onChange={onToggleAllTodo}
+          disabled={activeTab !== TodoStatus.ALL}
         />
       ) : (
         <div />
