@@ -1,23 +1,33 @@
-import React from 'react';
+import React, { Suspense, useEffect } from "react";
 
-import {BrowserRouter, Switch, Route} from 'react-router-dom';
+import { Switch, Route, BrowserRouter } from "react-router-dom";
 
-import SignInPage from './SignInPage';
-import ToDoPage from './ToDoPage';
+import "./App.css";
+import { AppRoutes } from "./configs/routers";
+import { AuthContext } from "./modules/auth/AuthContext";
+import useAuthReducer from "./modules/auth/store";
+import authAction from "./modules/auth/store/auth.action";
 
-import './App.css';
+const App = () => {
+  const [state, dispatch] = useAuthReducer();
 
-function App() {
+  useEffect(() => {
+    dispatch(authAction.verifyToken());
+  }, []);
+
+  const routes = AppRoutes.getRoutes().map((route) => {
+    return <Route key={route.path} {...route} />;
+  });
+
   return (
-    <main className="App">
+    <AuthContext.Provider value={{ state, dispatch }}>
       <BrowserRouter>
-        <Switch>
-          <Route path="/" exact component={SignInPage}/>
-          <Route path="/todo" component={ToDoPage}/>
-        </Switch>
+        <Suspense fallback={<p>Loading</p>}>
+          <Switch>{routes}</Switch>
+        </Suspense>
       </BrowserRouter>
-    </main>
+    </AuthContext.Provider>
   );
-}
+};
 
 export default App;

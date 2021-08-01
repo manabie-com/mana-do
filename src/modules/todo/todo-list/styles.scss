@@ -1,0 +1,45 @@
+.Todo {
+  &__list {
+    padding: 0;
+
+    &__empty {
+      padding: 150px;
+      border: 1px solid #000;
+      background-color: antiquewhite;
+      text-align: center;
+    }
+
+    input[type="checkbox"] {
+      display: block;
+      width: 50px;
+      min-width: 50px;
+    }
+
+    input[type="checkbox"]:checked + span {
+      color: rgb(141, 137, 137);
+      text-decoration: line-through;
+    }
+  }
+
+  &__item {
+    margin-bottom: 0;
+    position: relative;
+    display: flex;
+    list-style-type: none;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid #000;
+    padding: 10px 15px 10px 0;
+
+    &__section {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+  }
+
+  &__delete {
+    font-weight: 200;
+    cursor: pointer;
+  }
+}

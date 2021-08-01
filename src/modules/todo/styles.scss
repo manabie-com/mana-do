@@ -1,0 +1,14 @@
+.container {
+  width: 100vw;
+  height: 100vh;
+  font-size: 1.2rem;
+
+  &__box {
+    width: 40rem;
+    height: 100%;
+    padding: 2rem 1.5rem;
+    margin: 0 auto;
+    background: white;
+    box-shadow: 3px 3px 10px #eee;
+  }
+}

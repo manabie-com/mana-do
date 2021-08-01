@@ -1,0 +1,16 @@
+.Todo {
+  &__creation {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    gap: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  &__input {
+    width: 100%;
+    padding: 0.3rem 0.5rem;
+    border: none;
+    border: 3px solid #333;
+  }
+}
