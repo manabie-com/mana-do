@@ -1,0 +1,1 @@
+export const hasLocalStorage = !!(typeof window !== 'undefined' && window.localStorage);

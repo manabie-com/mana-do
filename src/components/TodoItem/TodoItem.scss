@@ -1,0 +1,50 @@
+@import "../../styles/color";
+.TodoItem {
+    background-color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    cursor: pointer;
+    p,
+    div {
+        flex-basis: 30%;
+        padding: 0 1rem;
+    }
+    p {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        text-align: left;
+        &:last-of-type {
+            text-align: center;
+        }
+        span {
+            font-weight: bold;
+        }
+    }
+    div {
+        display: flex;
+        align-items: stretch;
+        justify-content: flex-end;
+        button {
+            color: #fff;
+            font-weight: bold;
+            cursor: pointer;
+            &:not(:last-child) {
+                margin-right: 1rem;
+            }
+            &.green {
+                background-color: $green;
+            }
+            &.red {
+                background-color: $red;
+            }
+        }
+    }
+    &:hover {
+        box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.4);
+        border-color: #86b7fe;
+        transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    }
+}

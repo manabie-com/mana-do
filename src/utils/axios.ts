@@ -5,7 +5,7 @@ const ins = axios.create({
     timeout: 10000
 })
 
-ins.interceptors.request.use((request)=>{
+ins.interceptors.request.use((request) => {
     request.headers.Authorization = localStorage.getItem('token')
 
     return request
