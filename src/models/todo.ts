@@ -9,4 +9,5 @@ export interface Todo {
   content : string
   status?: TodoStatus
   created_date: string
+  updated_date?: string
 }

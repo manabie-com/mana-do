@@ -8,10 +8,11 @@ import {
     deleteTodo,
     toggleAllTodos,
     deleteAllTodos,
-    updateTodoStatus
+    updateTodoStatus,
+    updateTodo
 } from './store/actions';
 import Service from './service';
-import {TodoStatus} from './models/todo';
+import {Todo, TodoStatus} from './models/todo';
 import {isTodoCompleted} from './utils';
 
 type EnhanceTodoStatus = TodoStatus | 'ALL';
@@ -21,6 +22,7 @@ const ToDoPage = ({history}: RouteComponentProps) => {
     const [{todos}, dispatch] = useReducer(reducer, initialState);
     const [showing, setShowing] = useState<EnhanceTodoStatus>('ALL');
     const inputRef = useRef<HTMLInputElement>(null);
+    const [isEditingId, setIsEditingId] = useState<string>('');
 
     useEffect(()=>{
         (async ()=>{
@@ -71,6 +73,30 @@ const ToDoPage = ({history}: RouteComponentProps) => {
         return isTodoCompleted(todo) ? accum : accum + 1;
     }, 0);
 
+    const onDoubleClickTodoItem = (e: any, id: string) => {
+      setIsEditingId(id);
+    };
+
+    const onUpdateTodo = async (e: any, todo: Todo) => {
+      if (e.key === 'Enter') {
+        try {
+            const value = e.target.value;
+            const newTodo: Todo = {...todo, content: value}
+            const resp = await Service.updateTodo(newTodo);
+            dispatch(updateTodo(resp));
+            setIsEditingId('');
+        } catch (e) {
+            if (e.response.status === 401) {
+                history.push('/')
+            }
+        }
+      }
+    };
+
+    const onBlurToCancelEditing = () => {
+      setIsEditingId('');
+    }
+
     return (
         <div className="ToDo__container">
             <div className="Todo__creation">
@@ -91,7 +117,20 @@ const ToDoPage = ({history}: RouteComponentProps) => {
                                     checked={isTodoCompleted(todo)}
                                     onChange={(e) => onUpdateTodoStatus(e, todo.id)}
                                 />
-                                <span>{todo.content}</span>
+                                {
+                                  isEditingId !== todo.id && 
+                                  <span onDoubleClick={(e) => onDoubleClickTodoItem(e, todo.id)}>{todo.content}</span>
+                                }
+                                {
+                                  isEditingId === todo.id && 
+                                  <input
+                                      autoFocus
+                                      className="Todo__input"
+                                      onKeyDown={(e) => onUpdateTodo(e, todo)}
+                                      onBlur={onBlurToCancelEditing}
+                                      defaultValue={todo.content}
+                                  />
+                                }
                                 <button
                                     className="Todo__delete"
                                     onClick={() => dispatch(deleteTodo(todo.id))}
