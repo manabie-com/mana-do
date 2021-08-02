@@ -20,8 +20,5 @@ describe("Todo Page", () => {
     await fireEvent.keyDown(inputText, { key: "Enter", charCode: 13 });
     const text = screen.queryByText("Hello world 123");
     expect(text).toBeNull();
-    await waitFor(() => {
-      screen.debug();
-    });
   });
 });
