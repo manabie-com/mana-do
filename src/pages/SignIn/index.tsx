@@ -19,9 +19,8 @@ const SignInPage = () => {
       const resp = await Service.signIn(form.userId, form.password);
 
       localStorage.setItem("token", resp);
-      history.push("/todo");
+      history.push("/");
     } catch (error) {
-      console.log(error);
       setErrorMessage(error);
     }
   };
@@ -36,7 +35,7 @@ const SignInPage = () => {
 
   return (
     <div className="content-container">
-      <h1>Sign In</h1>
+      <h1 data-testid="header">Sign In</h1>
       {errorMessage && <div className="fail">{errorMessage}</div>}
       <form onSubmit={signIn}>
         <Input
@@ -60,6 +59,7 @@ const SignInPage = () => {
         <hr />
         <Button
           type="submit"
+          testId="btnSignin"
           classNames="btn__primary"
           disabled={!form.userId || !form.password}
           text="Sign in"

@@ -25,7 +25,7 @@ class ApiFrontend extends IAPI {
   }
 
   async getTodos(): Promise<Todo[]> {
-    return [];
+    return Promise.resolve([]);
   }
 }
 

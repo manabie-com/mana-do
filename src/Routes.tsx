@@ -8,7 +8,7 @@ const ToDoPage = React.lazy(() => import("./pages/Todo"));
 export const Routes = () => {
   return (
     <Switch>
-      <PrivateRoute path="/todo" exact>
+      <PrivateRoute path="/" exact>
         <ToDoPage />
       </PrivateRoute>
       <Route path="/login">

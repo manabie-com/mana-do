@@ -56,38 +56,23 @@ const ToDoPage = () => {
     reducer,
   });
   // const [{ todos }, dispatch] = useReducer(reducer, initialState);
-  console.log(todos);
   useEffect(() => {
     // (async () => {
     //   const resp = await Service.getTodos();
-
     //   dispatch(setTodos(resp || []));
     // })();
-
-    const loadTodos = async () => {
-      try {
-        const resp = await Service.getTodos();
-
-        dispatch(setTodos(resp || []));
-      } catch (error) {
-        setErrorMessage(error);
-      }
-    };
-
-    loadTodos();
+    // const loadTodos = async () => {
+    //   const resp = await Service.getTodos();
+    //   dispatch(setTodos(resp || []));
+    // };
+    // loadTodos();
   }, [dispatch]);
 
   const onCreateTodo = async (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter" && inputRef.current) {
-      try {
-        const resp = await Service.createTodo(inputRef.current.value);
-        dispatch(createTodo(resp));
-        inputRef.current.value = "";
-      } catch (e) {
-        if (e.response.status === 401) {
-          history.push("/");
-        }
-      }
+      const resp = await Service.createTodo(inputRef.current.value);
+      dispatch(createTodo(resp));
+      inputRef.current.value = "";
     }
   };
 
@@ -132,7 +117,8 @@ const ToDoPage = () => {
 
   return (
     <div className="content-container">
-      <h1>TodoMatic for {user.name}</h1>
+      <h1>TodoMatic</h1>
+      {user ? <h3>Hi, {user.name}</h3> : null}
       {errorMessage && <div className="fail">{errorMessage}</div>}
       <TodoCreate ref={inputRef} onCreateTodo={onCreateTodo} />
       <div className="ToDo__tagsList">{filterList}</div>
