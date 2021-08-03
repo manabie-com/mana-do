@@ -17,9 +17,17 @@ class ApiFrontend extends IAPI {
         return Promise.resolve({
             content: content,
             created_date: new Date().toISOString(),
+            updated_date: new Date().toISOString(),
             status: TodoStatus.ACTIVE,
             id: shortid(),
             user_id: 'firstUser'
+        } as Todo);
+    }
+
+    async updateTodo(todo: Todo): Promise<Todo> {
+        return Promise.resolve({
+            ...todo,
+            updated_date: new Date().toISOString(),
         } as Todo);
     }
 

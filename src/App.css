@@ -2,16 +2,16 @@
   text-align: center;
   display: flex;
   justify-content: center;
+  background-image: linear-gradient(to top, #fbc2eb 0%, #a6c1ee 100%);
+  width: 100vw;
+  min-height: 100vh;
+  overflow: hidden;
 }
 
 button {
   outline: none;
   border: none;
-  box-shadow: 2px 0 2px currentColor;
-  border-radius: 4px;
-  min-height: 32px;
-  min-width: 80px;
-  padding: 4px 8px;
+  background-color: transparent;
 }
 
 button:hover {
@@ -19,8 +19,8 @@ button:hover {
 }
 
 input[type="checkbox"] {
-  width: 24px;
-  height: 24px;
+  width: 2.4rem;
+  height: 2.4rem;
   box-shadow: none;
   border: none;
   outline: none;
@@ -33,83 +33,174 @@ input[type="checkbox"]:focus {
 }
 
 input {
-  min-height: 36px;
   border: none;
   outline: none;
-  padding: 0 12px;
-  box-shadow: 2px 0 4px rgba(0,0,0, 0.2);
-  border-radius: 4px;
 }
 
 input:focus {
-  box-shadow: 1px 0 9px rgba(0,0,0, 0.25);
+  /* box-shadow: 1px 0 9px rgba(0,0,0, 0.25); */
 }
 
-.ToDo__container {
-  border: 1px solid rgba(0,0,0, 0.13);
-  border-radius: 8px;
-  width: 500px;
-  margin-top: 5rem;
-  padding: 24px;
-  box-shadow: 2px 2px 1px rgba(0,0,0, 0.09),
-              3px 2px 3px rgba(0,0,0, 0.05);
+.Todo__container {
+  width: 90%;
+  max-width: 50rem;
+  padding: 8rem 0;
+}
+
+.Todo__title {
+  color: white;
+  letter-spacing: 1.4rem;
+  font-weight: 700;
+  font-size: 3.2rem;
+  text-align: left;
+}
+
+.Todo__card {
+  background-color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem;
 }
 
 .Todo__creation {
-  display: flex;
+  border-radius: 0.4rem;
+  margin: 4rem 0 2.4rem 0;
 }
 
+.Todo__creation .Todo__cb_container {
+  transition: background 0.3s ease;
+}
+
+.Todo__item input[type="text"],
 .Todo__input {
   flex: 1 1;
+  font-weight: 700;
+  color: #383842;
+  font-size: 1.4rem;
 }
 
-.ToDo__list {
+.Todo__list {
   display: flex;
   flex-direction: column;
-  margin-top: 1.5rem;
 }
 
-.ToDo__item {
+.Todo__list > * + * {
+  border-top: 0.2rem solid #eeecf3;
+}
+
+.Todo__item {
+
+}
+
+.Todo__item.completed > span {
+  text-decoration: line-through;
+  color: #d2d1d6;
+}
+
+.Todo__cb_container {
+  width: 2.4rem;
+  height: 2.4rem;
+  border: 0.1rem solid #b6b4c0;
+  border-radius: 50%;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
+  position: relative;
+  margin-right: 2rem;
 }
 
-.ToDo__item > span {
+.Todo__checkbox {
+  transform: scale(1.8);
+  opacity: 0;
+}
+
+.Todo__check {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+.Todo__cb_container .Todo__checkbox:checked + .Todo__check {
+  background: url(./assets/images/icon-check.svg), linear-gradient(45deg, #fbc2eb, #a6c1ee);
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.Todo__item:first-child {
+  border-radius: 0.4rem 0.4rem 0 0;
+}
+
+.Todo__item:hover .Todo__delete {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.Todo__item > span {
   flex: 1 1;
   text-align: left;
-  margin-left: 8px;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #383842;
 }
 
 .Todo__content {
   flex: 1 1;
 }
 
+.Todo__create {
+  color: #444356;
+  font-size: 1.2rem;
+  font-weight: 700;
+}
+
+.Todo__create:hover {
+  background-color: #3a7bfd;
+  color: white;
+}
+
 .Todo__delete {
   outline: none;
   border: none;
-  width: 32px;
-  height: 32px;
-  min-width: auto;
-  min-height: auto;
+  width: 3.2rem;
+  height: 3.2rem;
   box-shadow: none;
+  background-color: transparent;
   border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
 }
 
 .Todo__action, .Todo__delete {
-  width: 24px;
-  height: 24px;
+  width: 2.4rem;
+  height: 2.4rem;
   flex-shrink: 0;
 }
 
 .Todo__toolbar {
+  border-radius: 0 0 0.4rem 0.4rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  border-top: 0.2rem solid #eeecf3;
+}
+
+.Todo__toolbar .Todo__corner {
   display: flex;
-  justify-content: space-between;
-  margin-top: 24px;
+  justify-content: flex-start;
+}
+
+.Todo__toolbar .Todo__corner:last-child {
+  display: flex;
+  justify-content: flex-end;
 }
 
 .Todo__tabs {
@@ -118,8 +209,78 @@ input:focus {
 }
 
 .Todo__tabs > *:not(:last-child) {
-  margin-right: 8px;
+  margin-right: 0.8rem;
 }
 
 .Action__btn {
+  background: transparent;
+  color: #9a9bac;
+  font-weight: 700;
+}
+
+.Action__btn.active {
+  color: #3a7bfd;
+}
+
+.Action__btn:hover {
+  color: #444356;
+}
+
+/* SignIn */
+.SignIn__container {
+  width: 90%;
+  max-width: 50rem;
+  padding-top: 8rem;
+}
+
+.SignIn__form {
+  background-color: white;
+  padding: 4rem;
+  margin: 4rem 0;
+  border-radius: 0.4rem;
+}
+
+.SignIn__title {
+  color: white;
+  letter-spacing: 1.4rem;
+  font-weight: 700;
+  font-size: 3.2rem;
+  text-align: left;
+}
+
+.SignIn__form_item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 2rem;
+}
+
+.SignIn__form_item label {
+  font-size: 1.4rem;
+}
+
+.SignIn__form_item input {
+  width: 100%;
+  height: 44px;
+  background-color: transparent;
+  border: 1px solid #eeecf3;
+  margin-top: 1rem;
+  padding: 0 2rem;
+  font-size: 1.4rem;
+}
+
+.SignIn__btn_submit {
+  width: 100%;
+  height: 44px;
+  background-image: linear-gradient(45deg, #fbc2eb, #a6c1ee);
+  font-size: 2rem;
+  font-weight: 700;
+  color: white;
+}
+
+.SignIn__form_error {
+  color: #ff5572;
+  text-align: left;
+  margin-bottom: 2rem;
+  font-size: 1.4rem;
 }
