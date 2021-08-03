@@ -1,0 +1,46 @@
+.ToDo__container {
+  position: relative;
+  .Todo__input--active {
+    margin-right: 8px;
+    flex: 1 1;
+  }
+  .--tab {
+    border: none;
+    box-shadow: unset;
+    margin-right: unset !important;
+    min-width: 56px;
+    font-size: 1rem;
+    color: #83756f;
+  }
+  .--selected {
+    font-weight: bold;
+  }
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    height: 15px;
+    z-index: 2;
+    border-bottom: 1px solid #6c615c;
+    background: #8d7d77;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+  }
+  .Todo__creation {
+    margin-top: 16px;
+  }
+  h1 {
+    position: absolute;
+    top: -176px;
+    right: 0;
+    left: 0;
+    width: 100%;
+    font-size: 70px;
+    font-weight: bold;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.3);
+    text-shadow: -1px -1px rgba(0, 0, 0, 0.2);
+  }
+}

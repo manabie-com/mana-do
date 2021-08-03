@@ -76,7 +76,7 @@ class DBStore {
 
 			todos.push(updateData);
 			localStorage[this._dbName] = JSON.stringify(data);
-			callback.call(this, [updateData]);
+			callback.call(this, JSON.parse(localStorage[this._dbName]).todos);
 		}
 	};
   
@@ -99,6 +99,22 @@ class DBStore {
   drop(callback: any) {
 		localStorage[this._dbName] = JSON.stringify({todos: []});
 		callback.call(this, JSON.parse(localStorage[this._dbName]).todos);
+	};
+
+  updateAll(updateData: any, callback: any) {
+    var data = JSON.parse(localStorage[this._dbName]);
+		var todos = data.todos;
+		callback = callback || function () {};
+
+    for (var i = 0; i < todos.length; i++) {
+      for (var key in updateData) {
+        todos[i][key] = updateData[key];
+      }
+      todos[i].updated_date = new Date().toISOString();
+    }
+
+		localStorage[this._dbName] = JSON.stringify(data);
+    callback.call(this, JSON.parse(localStorage[this._dbName]).todos);
 	};
 }
 

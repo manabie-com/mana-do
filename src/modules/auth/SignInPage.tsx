@@ -1,21 +1,23 @@
 import React, {useState} from 'react';
 
-import {useHistory} from 'react-router-dom'
-import Service from './service'
+import { useAuthContext } from './AuthContext';
+import { requestLogin } from './store/actions';
+import './auth.scss';
 
 const SignInPage = () => {
     const [form, setForm] = useState({
-        userId: '',
+        username: '',
         password: ''
     });
-    const history = useHistory();
+    const {
+      state: { error },
+      dispatch,
+    } = useAuthContext();
 
     const signIn = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-        const resp = await Service.signIn(form.userId, form.password)
-
-        localStorage.setItem('token', resp)
-        history.push('/todo')
+        const { username, password } = form;
+        dispatch(requestLogin({ username, password }));
     }
 
     const onChangeField = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -27,34 +29,33 @@ const SignInPage = () => {
     }
 
     return (
-        <div style={{marginTop: '3rem', textAlign: 'left'}}>
+        <div className='signin__container' style={{marginTop: '3rem', textAlign: 'left'}}>
             <form onSubmit={signIn}>
-                <label htmlFor="user_id">
+                <label htmlFor="user_id" className='form__label' style={{marginTop: '16px'}}>
                     User id
                     <input
                         id="user_id"
-                        name="userId"
-                        value={form.userId}
-                        style={{marginTop: 12}}
+                        name="username"
+                        value={form.username}
                         onChange={onChangeField}
                     />
                 </label>
                 <br/>
-                <label htmlFor="password" >
+                <label htmlFor="password" className='form__label'>
                     Password
                     <input
                         id="password"
                         name="password"
                         type="password"
-                        style={{marginTop: 12}}
                         value={form.password}
                         onChange={onChangeField}
                     />
                 </label>
                 <br />
-                <button type="submit" style={{marginTop: 12}}>
+                <button type="submit" className='form__btn'>
                     Sign in
                 </button>
+                {error && <p id='error' style={{ color: "red" }}>{error}</p>}
             </form>
         </div>
     );

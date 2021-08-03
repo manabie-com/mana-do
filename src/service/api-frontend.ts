@@ -1,6 +1,5 @@
 import {IAPI} from './types';
 import {Todo, TodoStatus} from '../models/todo';
-// import shortid from 'shortid';
 import DBStore from './api-store';
 
 const mockToken = 'testabc.xyz.ahk'
@@ -15,7 +14,7 @@ class ApiFrontend extends IAPI {
         return Promise.reject('Incorrect username/password')
     }
 
-    async createTodo(content: string): Promise<Todo> {
+    async createTodo(content: string): Promise<Todo[]> {
         const newTodoItem = {
           content,
           user_id: 'firstUser',
@@ -23,16 +22,9 @@ class ApiFrontend extends IAPI {
         }
         return new Promise((resolve, reject) => {
           this.dbStore.save(newTodoItem, (resp: any) => {
-            return resolve(resp[0]);
+            return resolve(resp);
           }, null);
         })
-        // return Promise.resolve({
-        //     content: content,
-        //     created_date: new Date().toISOString(),
-        //     status: TodoStatus.ACTIVE,
-        //     id: shortid(),
-        //     user_id: 'firstUser'
-        // } as Todo);
     }
 
     async getTodos(): Promise<Todo[]>{
@@ -43,18 +35,59 @@ class ApiFrontend extends IAPI {
         })
     }
 
-    async updateTodo(todo: Todo): Promise<Todo> {
+    async updateTodo(todo: Partial<Todo>): Promise<Todo[]> {
       const updatedData = {
         content: todo.content
       }
       return new Promise((resolve, reject) => {
         this.dbStore.save(updatedData, (resp: any) => {
-          const newTodoItem = resp.find((item:any) => item.id === todo.id);
-          return resolve(newTodoItem);
+          return resolve(resp);
         }, todo.id);
       })
     }
 
+    async verifyToken(token: string): Promise<string> {
+      if (token === mockToken) {
+        return Promise.resolve(token);
+      }
+  
+      return Promise.reject("Token is invalid");
+    }
+    async deleteTodo(id: string): Promise<Todo[]> {
+      return new Promise((resolve, reject) => {
+        this.dbStore.delete((resp: any) => {
+          return resolve(resp);
+        }, id);
+      })
+    }
+
+    async deleteAllTodos(): Promise<Todo[]> {
+      return new Promise((resolve, reject) => {
+        this.dbStore.drop((resp: any) => {
+          return resolve(resp);
+        });
+      })
+    }
+
+    async toggleAllTodos(status: TodoStatus): Promise<Todo[]> {
+      const updatedData = {status}
+      return new Promise((resolve, reject) => {
+        this.dbStore.updateAll(updatedData, (resp: any) => {
+          return resolve(resp);
+        });
+      })
+    }
+
+    async updateTodoStatus(todo: Partial<Todo>): Promise<Todo[]> {
+      const updatedData = {
+        status: todo.status
+      }
+      return new Promise((resolve, reject) => {
+        this.dbStore.save(updatedData, (resp: any) => {
+          return resolve(resp);
+        }, todo.id);
+      })
+    }
 }
 
 export default new ApiFrontend();

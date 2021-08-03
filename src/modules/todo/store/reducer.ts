@@ -1,25 +1,32 @@
-import {Todo, TodoStatus} from '../models/todo';
+import {Todo} from '../../../models/todo';
 import {
-  AppActions,
+  TodoActions,
   CREATE_TODO,
   DELETE_ALL_TODOS,
   DELETE_TODO,
+  FAILURE,
   SET_TODO,
+  SUCCESS,
   TOGGLE_ALL_TODOS,
   UPDATE_TODO_CONTENT,
   UPDATE_TODO_STATUS
 } from './actions';
 
-export interface AppState {
-  todos: Array<Todo>
+export interface TodoState {
+  todos: Array<Todo>,
+  isLoading: boolean,
+  error: string;
 }
 
-export const initialState: AppState = {
-  todos: []
+export const initialState: TodoState = {
+  isLoading: false,
+  error: "",
+  todos: [],
 }
 
-function reducer(state: AppState, action: AppActions): AppState {
+function reducer(state: TodoState, action: TodoActions): TodoState {
   switch (action.type) {
+   /*
     case CREATE_TODO:
       // bug found: should keep the reducer as a pure function to avoid side effect
       // state.todos.push(action.payload);
@@ -85,6 +92,32 @@ function reducer(state: AppState, action: AppActions): AppState {
         ...state,
         todos: action.payload
       }
+    */
+    // -------------
+    case SET_TODO:
+    case CREATE_TODO:
+    case DELETE_TODO:
+    case DELETE_ALL_TODOS:
+    case TOGGLE_ALL_TODOS:
+    case UPDATE_TODO_STATUS:
+    case UPDATE_TODO_CONTENT:
+      return {
+        ...state,
+        isLoading: true
+      };
+    case SUCCESS:
+      return {
+        ...state,
+        todos: action.payload,
+        isLoading: false,
+        error: ''
+      };
+    case FAILURE:
+      return {
+        ...state,
+        isLoading: false,
+        error: action.payload
+      };
     default:
       return state;
   }

@@ -1,4 +1,4 @@
-import {Todo} from "../models/todo";
+import { Todo } from "../../../models/todo";
 
 export const SET_TODO = 'SET_TODO';
 export const CREATE_TODO = 'CREATE_TODO';
@@ -7,30 +7,29 @@ export const DELETE_ALL_TODOS = 'DELETE_ALL_TODOS';
 export const TOGGLE_ALL_TODOS = 'TOGGLE_ALL_TODOS';
 export const UPDATE_TODO_STATUS = 'UPDATE_TODO_STATUS';
 export const UPDATE_TODO_CONTENT = 'UPDATE_TODO_CONTENT';
-
+export const SUCCESS = 'SUCCESS';
+export const FAILURE = 'FAILURE';
 
 export interface SetTodoAction {
-  type: typeof SET_TODO,
-  payload: Array<Todo>
+  type: typeof SET_TODO
 }
 
-export function setTodos(todos: Array<Todo>): SetTodoAction {
+export function setTodos(): SetTodoAction {
   return {
-    type: SET_TODO,
-    payload: todos
+    type: SET_TODO
   }
 }
 
 ///////////
 export interface CreateTodoAction {
   type: typeof CREATE_TODO,
-  payload: Todo
+  payload: string
 }
 
-export function createTodo(newTodo: Todo): CreateTodoAction {
+export function createTodo(content: string): CreateTodoAction {
   return {
     type: CREATE_TODO,
-    payload: newTodo
+    payload: content
   }
 }
 
@@ -93,21 +92,55 @@ export function toggleAllTodos(checked: boolean): ToggleAllTodosAction {
 ///////////
 export interface UpdateTodoAction {
   type: typeof UPDATE_TODO_CONTENT,
-  payload: Todo
-}
-
-export function updateTodo(newTodo: Todo): UpdateTodoAction {
-  return {
-    type: UPDATE_TODO_CONTENT,
-    payload: newTodo
+  payload: {
+    todoId: string,
+    content: string
   }
 }
 
-export type AppActions =
+export function updateTodo(todoId: string, content: string): UpdateTodoAction {
+  return {
+    type: UPDATE_TODO_CONTENT,
+    payload: {
+      todoId,
+      content
+    }
+  }
+}
+
+//////////
+
+export interface CallApiSuccessfullyAction {
+  type: typeof SUCCESS,
+  payload: Todo[]
+}
+
+export function callApiSuccessfully(todos: Array<Todo>): CallApiSuccessfullyAction {
+  return {
+    type: SUCCESS,
+    payload: todos
+  }
+}
+
+export interface CallApiUnSuccessfullyAction {
+  type: typeof FAILURE,
+  payload: string
+}
+
+export function callApiUnSuccessfully(error: string): CallApiUnSuccessfullyAction {
+  return {
+    type: FAILURE,
+    payload: error
+  }
+}
+
+export type TodoActions =
   SetTodoAction |
   CreateTodoAction |
   UpdateTodoStatusAction |
   DeleteTodoAction |
   DeleteAllTodosAction |
   ToggleAllTodosAction |
+  CallApiSuccessfullyAction |
+  CallApiUnSuccessfullyAction |
   UpdateTodoAction;

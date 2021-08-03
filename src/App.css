@@ -1,12 +1,23 @@
+body {
+  height: 100%;
+  width: 100%;
+  font-family: 'Roboto';
+  -webkit-overflow-scrolling: touch;
+  margin: 0;
+  padding: 0;
+}
+
 .App {
   text-align: center;
   display: flex;
   justify-content: center;
+  height: 100vh;
+  align-items: center;
 }
 
 button {
   outline: none;
-  border: none;
+  /* border: none; */
   box-shadow: 2px 0 2px currentColor;
   border-radius: 4px;
   min-height: 32px;
