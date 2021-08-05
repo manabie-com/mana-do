@@ -1,3 +1,10 @@
+### TypeScript error in file is a module
+- 'React' refers to a UMD global, but the current file is a module. Consider adding an import instead.  TS2686
+- Create React App supports the new JSX transformation out of the box in version 4 but if you are using a custom setup, the following is needed to remove the TypeScript error when writing jsx without import React from 'react'
+- Ref: https://stackoverflow.com/questions/64656055/react-refers-to-a-umd-global-but-the-current-file-is-a-module
+
+### NOT authenticated 
+
 ## Welcome to Manabie coding challenge
 
 *Hello!*

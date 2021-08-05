@@ -10,7 +10,7 @@ const SignInPage = () => {
     });
     const history = useHistory();
 
-    const signIn = async (e: React.FormEvent<HTMLFormElement>) => {
+    const signIn = async (e: React.FormEvent) => { // no need return format response for HTMLInputElement
         e.preventDefault()
         const resp = await Service.signIn(form.userId, form.password)
 
