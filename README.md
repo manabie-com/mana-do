@@ -5,6 +5,10 @@
 
 ### NOT authenticated 
 
+### Fix anti-patterns
+- Duplicate while adding item
+- Delete double items
+
 ## Welcome to Manabie coding challenge
 
 *Hello!*
