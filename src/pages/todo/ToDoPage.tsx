@@ -80,7 +80,7 @@ const ToDoPage = ({history}: RouteComponentProps) => {
                     ref={inputRef}
                     className="Todo__input"
                     placeholder="What need to be done?"
-                    onKeyDown={onCreateTodo}
+                    onKeyDown={e => onCreateTodo(e)}
                 />
             </div>
             <div className="ToDo__list">
