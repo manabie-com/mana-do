@@ -1,7 +1,7 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 
 import {useHistory} from 'react-router-dom'
-import Service from './service'
+import Service from 'service'
 
 const SignInPage = () => {
     const [form, setForm] = useState({
@@ -9,6 +9,12 @@ const SignInPage = () => {
         password: ''
     });
     const history = useHistory();
+
+    useEffect(() => {
+        if (localStorage.token) {
+            history.push('/todo')
+        }
+    }, [history])
 
     const signIn = async (e: React.FormEvent) => { // no need return format response for HTMLInputElement
         e.preventDefault()
