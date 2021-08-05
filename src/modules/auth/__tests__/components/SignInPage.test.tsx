@@ -15,7 +15,7 @@ describe("SignIn Page", () => {
       error: ""
     }
     jest.spyOn(AuthContextFile, 'useAuthContext').mockImplementation(() => {
-      return {state, dispatch: null };
+      return {state, dispatch: () => {} };
     });
     const wrapper = shallow(
       <SignInPage />
@@ -31,7 +31,7 @@ describe("SignIn Page", () => {
       error: "Token is invalid"
     }
     jest.spyOn(AuthContextFile, 'useAuthContext').mockImplementation(() => {
-      return {state, dispatch: null };
+      return {state, dispatch: () => {} };
     });
     const wrapper = shallow(
       <SignInPage />
