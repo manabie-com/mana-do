@@ -1,11 +1,11 @@
-import {IAPI} from './types';
-import {Todo, TodoStatus} from '../models/todo';
+import { IAPI } from './types';
+import { Todo, TodoStatus, UpdatedTodo } from '../models/todo';
 import shortid from 'shortid';
 
 const mockToken = 'testabc.xyz.ahk'
 
 class ApiFrontend extends IAPI {
-    async signIn(username: string, password: string): Promise<string>{
+    async signIn(username: string, password: string): Promise<string> {
         if (username === 'firstUser' && password === 'example') {
             return Promise.resolve(mockToken)
         }
@@ -22,8 +22,14 @@ class ApiFrontend extends IAPI {
             user_id: 'firstUser'
         } as Todo);
     }
+    async updateTodo(id: string, content: string): Promise<UpdatedTodo> {
+        return Promise.resolve({
+            id,
+            content
+        } as UpdatedTodo);
+    }
 
-    async getTodos(): Promise<Todo[]>{
+    async getTodos(): Promise<Todo[]> {
         return []
     }
 }

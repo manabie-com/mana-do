@@ -73,3 +73,10 @@
   .Todo__tabs > *:not(:last-child) {
     margin-right: 8px;
   }
+
+  .ToDo__item input + input {
+    box-shadow: 4px 0px 5px rgb(0 0 0 / 20%);
+    flex: 1 1;
+    margin-left: 0;
+    margin-right: 10px;
+  }
