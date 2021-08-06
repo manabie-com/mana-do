@@ -1,7 +1,6 @@
-import React, {useEffect, useReducer, useRef, useState} from 'react';
-import {RouteComponentProps} from 'react-router-dom';
+import React, {useEffect, useState} from 'react';
+import {useHistory} from 'react-router-dom';
 
-import reducer, {initialState} from './store/reducer';
 import {
     setTodos,
     createTodo,
@@ -9,36 +8,46 @@ import {
     toggleAllTodos,
     deleteAllTodos,
     updateTodoStatus
-} from './store/actions';
-import Service from './service';
-import {TodoStatus} from './models/todo';
-import {isTodoCompleted} from './utils';
+} from '../../store/todoActions';
+import Service from '../../service';
+import {TodoStatus} from '../../models/todo';
+import {isTodoCompleted} from '../../utils';
+
+import ButtonBase from '../../components/atoms/ButtonBase';
+import TextFields from '../../components/atoms/TextFields'
+
+import {useSelector,useDispatch} from 'react-redux'
+import {todoSelector} from '../../selectors/todo.selector'
 
 type EnhanceTodoStatus = TodoStatus | 'ALL';
 
+export type IHistory = {
+    push(url: string): void;
+    replace(url: string): void;
+  };
 
-const ToDoPage = ({history}: RouteComponentProps) => {
-    const [{todos}, dispatch] = useReducer(reducer, initialState);
+const ToDo: React.FunctionComponent = () => {
+    const {todos}:any = useSelector(todoSelector)
+    const dispatch = useDispatch()
     const [showing, setShowing] = useState<EnhanceTodoStatus>('ALL');
-    const inputRef = useRef<HTMLInputElement>(null);
-
+    const [value, setValue] = useState('');
+    const history = useHistory()
     useEffect(()=>{
         (async ()=>{
             const resp = await Service.getTodos();
-
             dispatch(setTodos(resp || []));
         })()
     }, [])
 
     const onCreateTodo = async (e: React.KeyboardEvent<HTMLInputElement>) => {
-        if (e.key === 'Enter' && inputRef.current) {
+        if (e.key === 'Enter' && value !== "") {
             try {
-                const resp = await Service.createTodo(inputRef.current.value);
+                const resp = await Service.createTodo(value);
                 dispatch(createTodo(resp));
-                inputRef.current.value = '';
+                setValue('')
             } catch (e) {
                 if (e.response.status === 401) {
-                    history.push('/')
+                    history.push('/login')
                 }
             }
         }
@@ -56,7 +65,7 @@ const ToDoPage = ({history}: RouteComponentProps) => {
         dispatch(deleteAllTodos());
     }
 
-    const showTodos = todos.filter((todo) => {
+    const showTodos = todos.length>0 && todos?.filter((todo:any) => {
         switch (showing) {
             case TodoStatus.ACTIVE:
                 return todo.status === TodoStatus.ACTIVE;
@@ -67,23 +76,27 @@ const ToDoPage = ({history}: RouteComponentProps) => {
         }
     });
 
-    const activeTodos = todos.reduce(function (accum, todo) {
+    const activeTodos = todos.reduce(function (accum:any, todo:any) {
         return isTodoCompleted(todo) ? accum : accum + 1;
     }, 0);
+    
+    const onChangeTodo = (e: React.ChangeEvent<HTMLInputElement>)=>{
+        setValue(e.target.value)
+    }
 
     return (
         <div className="ToDo__container">
             <div className="Todo__creation">
-                <input
-                    ref={inputRef}
+                <TextFields
                     className="Todo__input"
                     placeholder="What need to be done?"
+                    onChange={onChangeTodo}
                     onKeyDown={onCreateTodo}
                 />
             </div>
             <div className="ToDo__list">
                 {
-                    showTodos.map((todo, index) => {
+                    showTodos.length>0 && showTodos.map((todo:any, index:number) => {
                         return (
                             <div key={index} className="ToDo__item">
                                 <input
@@ -92,12 +105,10 @@ const ToDoPage = ({history}: RouteComponentProps) => {
                                     onChange={(e) => onUpdateTodoStatus(e, todo.id)}
                                 />
                                 <span>{todo.content}</span>
-                                <button
-                                    className="Todo__delete"
-                                    onClick={() => dispatch(deleteTodo(todo.id))}
-                                >
-                                    X
-                                </button>
+                                <ButtonBase
+                                    handleSubmit={() => dispatch(deleteTodo(todo.id))}
+                                    text="X"
+                                />
                             </div>
                         );
                     })
@@ -112,22 +123,14 @@ const ToDoPage = ({history}: RouteComponentProps) => {
                     /> : <div/>
                 }
                 <div className="Todo__tabs">
-                    <button className="Action__btn" onClick={()=>setShowing('ALL')}>
-                        All
-                    </button>
-                    <button className="Action__btn" onClick={()=>setShowing(TodoStatus.ACTIVE)}>
-                        Active
-                    </button>
-                    <button className="Action__btn" onClick={()=>setShowing(TodoStatus.COMPLETED)}>
-                        Completed
-                    </button>
+                    <ButtonBase handleSubmit={()=>setShowing('ALL')} text="All"/>
+                    <ButtonBase handleSubmit={()=>setShowing(TodoStatus.ACTIVE)} text="Active"/>
+                    <ButtonBase handleSubmit={()=>setShowing(TodoStatus.COMPLETED)} text="Completed"/>
                 </div>
-                <button className="Action__btn" onClick={onDeleteAllTodo}>
-                    Clear all todos
-                </button>
+                <ButtonBase textColor="#ecf0f1" bgColor="#c0392b" handleSubmit={onDeleteAllTodo} text="Clear All Todos"/>
             </div>
         </div>
     );
 };
 
-export default ToDoPage;
+export default ToDo;

@@ -1,21 +1,19 @@
+body {
+  text-transform: lowercase!important;
+}
+
 .App {
   text-align: center;
   display: flex;
   justify-content: center;
 }
 
-button {
-  outline: none;
-  border: none;
-  box-shadow: 2px 0 2px currentColor;
-  border-radius: 4px;
-  min-height: 32px;
-  min-width: 80px;
-  padding: 4px 8px;
-}
 
 button:hover {
   opacity: 0.85;
+}
+button {
+  text-transform: none!important;
 }
 
 input[type="checkbox"] {
@@ -36,7 +34,7 @@ input {
   min-height: 36px;
   border: none;
   outline: none;
-  padding: 0 12px;
+  padding: 0 12px!important;
   box-shadow: 2px 0 4px rgba(0,0,0, 0.2);
   border-radius: 4px;
 }
@@ -119,7 +117,4 @@ input:focus {
 
 .Todo__tabs > *:not(:last-child) {
   margin-right: 8px;
-}
-
-.Action__btn {
 }
