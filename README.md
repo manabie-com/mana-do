@@ -9,6 +9,9 @@
 - Duplicate while adding item
 - Delete double items
 
+### Get error when testing: TypeError: MutationObserver is not a constructor
+- Upgrade react-scripts to v4
+
 ## Welcome to Manabie coding challenge
 
 *Hello!*

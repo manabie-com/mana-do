@@ -1,5 +1,5 @@
 import React, { ChangeEvent, Fragment, useEffect, useReducer, useRef, useState } from 'react';
-import { RouteComponentProps } from 'react-router-dom';
+import { RouteComponentProps, useHistory } from 'react-router-dom';
 
 import reducer, { initialState } from 'store/reducer';
 import {
@@ -23,13 +23,14 @@ type ItemEditing = string
 type TextChange = string
 type EventClickOut = boolean
 
-const ToDoPage = ({ history }: RouteComponentProps) => {
+const ToDoPage = () => {
     const [{todos}, dispatch] = useReducer(reducer, initialState);
     const [showing, setShowing] = useState<EnhanceTodoStatus>('ALL');
     const [isEditted, setIsEditted] = useState<ItemEditing>('');
     const [text, setText] = useState<TextChange>('');
     const [clickOut, setClickOut] = useState<EventClickOut>(true);
     const inputRef = useRef<HTMLInputElement>(null);
+    const history = useHistory()
 
     useEffect(() => {
         (async () => {
