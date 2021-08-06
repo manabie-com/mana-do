@@ -33,9 +33,16 @@ const ToDoPage = ({ history }: RouteComponentProps) => {
 
     useEffect(() => {
         (async () => {
-            const resp = await Service.getTodos();
+            if (localStorage.getItem('todos')?.length === 0) {
+                const resp = await Service.getTodos();
 
-            dispatch(setTodos(resp || []));
+                dispatch(setTodos(resp || []));
+            } else {
+                const getListTodos = localStorage.getItem('todos')
+                const parseTodos = getListTodos && JSON.parse(getListTodos) || []
+
+                dispatch(setTodos(parseTodos));
+            }
         })()
     }, [])
 
@@ -106,7 +113,7 @@ const ToDoPage = ({ history }: RouteComponentProps) => {
 
     const renderTodo = (todo: Todo) => {
         let htmlContent = null
-        
+
         if (isEditted && todo.id === isEditted) {
             htmlContent = (
                 <input
