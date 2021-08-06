@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useEffect, useReducer, useRef, useState } from 'react';
+import React, { ChangeEvent, Fragment, useEffect, useReducer, useRef, useState } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 
 import reducer, { initialState } from 'store/reducer';
@@ -12,7 +12,7 @@ import {
     updatedItem
 } from 'store/actions';
 import Service from 'service';
-import { TodoStatus, UpdatedTodo, UpdatedTodoStatus } from 'models/todo';
+import { Todo, TodoStatus, UpdatedTodo, UpdatedTodoStatus } from 'models/todo';
 import { isTodoCompleted } from 'utils';
 
 import 'pages/todo/index.css'
@@ -104,18 +104,31 @@ const ToDoPage = ({ history }: RouteComponentProps) => {
         return isTodoCompleted(todo) ? accum : accum + 1;
     }, 0);
 
-    const renderTodo = (i: number) => {
-        if (isEditted && todos[i].id === isEditted) {
-            return (
+    const renderTodo = (todo: Todo) => {
+        let htmlContent = null
+        
+        if (isEditted && todo.id === isEditted) {
+            htmlContent = (
                 <input
-                    defaultValue={todos[i].content}
+                    defaultValue={todo.content}
                     type='text'
-                    onKeyUp={e => onUpdateTodo(e, todos[i].id)}
+                    onKeyUp={e => onUpdateTodo(e, todo.id)}
                 />
             )
+        } else {
+            htmlContent = <span onDoubleClick={() => setIsEditted(todo.id)}>{todo.content}</span>
         }
 
-        return <span onDoubleClick={() => setIsEditted(todos[i].id)}>{todos[i].content}</span>
+        return (
+            <Fragment>
+                <input
+                    type="checkbox"
+                    checked={isTodoCompleted(todo)}
+                    onChange={(e) => onUpdateTodoStatus(e, todo.id)}
+                />
+                {htmlContent}
+            </Fragment>
+        )
     }
 
     return (
@@ -133,12 +146,7 @@ const ToDoPage = ({ history }: RouteComponentProps) => {
                     showTodos.map((todo, index) => {
                         return (
                             <div key={todo.id} className="ToDo__item">
-                                <input
-                                    type="checkbox"
-                                    checked={isTodoCompleted(todo)}
-                                    onChange={(e) => onUpdateTodoStatus(e, todo.id)}
-                                />
-                                {renderTodo(index)}
+                                {renderTodo(todo)}
                                 <ButtonField className="Todo__delete" label="X" onClick={() => dispatch(deleteTodo(todo.id))} />
                             </div>
                         );
