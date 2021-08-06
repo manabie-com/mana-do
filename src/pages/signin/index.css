@@ -1,0 +1,9 @@
+.form_element {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.form_element + .form_element {
+    margin-top: 12px;
+}

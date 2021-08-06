@@ -12,10 +12,11 @@ import {
     updatedItem
 } from 'store/actions';
 import Service from 'service';
-import { TodoStatus, UpdatedTodo } from 'models/todo';
+import { TodoStatus, UpdatedTodo, UpdatedTodoStatus } from 'models/todo';
 import { isTodoCompleted } from 'utils';
 
 import 'pages/todo/index.css'
+import ButtonField from 'components/button/ButtonField';
 
 type EnhanceTodoStatus = TodoStatus | 'ALL';
 type ItemEditing = string
@@ -23,7 +24,7 @@ type TextChange = string
 type EventClickOut = boolean
 
 const ToDoPage = ({ history }: RouteComponentProps) => {
-    const [{ todos }, dispatch] = useReducer(reducer, initialState);
+    const [{todos}, dispatch] = useReducer(reducer, initialState);
     const [showing, setShowing] = useState<EnhanceTodoStatus>('ALL');
     const [isEditted, setIsEditted] = useState<ItemEditing>('');
     const [text, setText] = useState<TextChange>('');
@@ -75,8 +76,9 @@ const ToDoPage = ({ history }: RouteComponentProps) => {
         }
     }
 
-    const onUpdateTodoStatus = (e: React.ChangeEvent<HTMLInputElement>, todoId: string) => {
-        dispatch(updateTodoStatus(todoId, e.target.checked))
+    const onUpdateTodoStatus = async (e: React.ChangeEvent<HTMLInputElement>, todoId: string) => {
+        const resp: UpdatedTodoStatus = await Service.updateTodoStatus(todoId, e.target.checked);
+        dispatch(updateTodoStatus(resp.id, resp.checked));
     }
 
     const onToggleAllTodo = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -130,19 +132,14 @@ const ToDoPage = ({ history }: RouteComponentProps) => {
                 {
                     showTodos.map((todo, index) => {
                         return (
-                            <div key={index} className="ToDo__item">
+                            <div key={todo.id} className="ToDo__item">
                                 <input
                                     type="checkbox"
                                     checked={isTodoCompleted(todo)}
                                     onChange={(e) => onUpdateTodoStatus(e, todo.id)}
                                 />
                                 {renderTodo(index)}
-                                <button
-                                    className="Todo__delete"
-                                    onClick={() => dispatch(deleteTodo(todo.id))}
-                                >
-                                    X
-                                </button>
+                                <ButtonField className="Todo__delete" label="X" onClick={() => dispatch(deleteTodo(todo.id))} />
                             </div>
                         );
                     })
@@ -157,19 +154,11 @@ const ToDoPage = ({ history }: RouteComponentProps) => {
                     /> : <div />
                 }
                 <div className="Todo__tabs">
-                    <button className="Action__btn" onClick={() => setShowing('ALL')}>
-                        All
-                    </button>
-                    <button className="Action__btn" onClick={() => setShowing(TodoStatus.ACTIVE)}>
-                        Active
-                    </button>
-                    <button className="Action__btn" onClick={() => setShowing(TodoStatus.COMPLETED)}>
-                        Completed
-                    </button>
+                    <ButtonField className="Action__btn" label="All" onClick={() => setShowing('ALL')} />
+                    <ButtonField className="Action__btn" label="Active" onClick={() => setShowing(TodoStatus.ACTIVE)} />
+                    <ButtonField className="Action__btn" label="Completed" onClick={() => setShowing(TodoStatus.COMPLETED)} />
                 </div>
-                <button className="Action__btn" onClick={onDeleteAllTodo}>
-                    Clear all todos
-                </button>
+                <ButtonField className="Action__btn" label="Clear all todos" onClick={onDeleteAllTodo} />
             </div>
         </div>
     );

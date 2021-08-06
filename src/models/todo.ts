@@ -15,3 +15,7 @@ export interface UpdatedTodo {
   id: string
   content : string
 }
+export interface UpdatedTodoStatus {
+  id: string
+  checked : boolean
+}

@@ -1,5 +1,5 @@
 import { IAPI } from './types';
-import { Todo, TodoStatus, UpdatedTodo } from '../models/todo';
+import { Todo, TodoStatus, UpdatedTodo, UpdatedTodoStatus } from '../models/todo';
 import shortid from 'shortid';
 
 const mockToken = 'testabc.xyz.ahk'
@@ -27,6 +27,12 @@ class ApiFrontend extends IAPI {
             id,
             content
         } as UpdatedTodo);
+    }
+    async updateTodoStatus(id: string, checked: boolean): Promise<UpdatedTodoStatus> {
+        return Promise.resolve({
+            id,
+            checked
+        } as UpdatedTodoStatus);
     }
 
     async getTodos(): Promise<Todo[]> {
