@@ -1,0 +1,45 @@
+.login {
+  width: 400px;
+  height: 500px;
+  background: #FFFFFF;
+  position: relative;
+  text-align: center;
+}
+
+.login input {
+  width: 300px;
+  height: 40px;
+}
+
+.login input:focus {
+  border-bottom: 2px solid #4250cc;
+}
+
+.login .login__bottom {
+  position: absolute;
+  bottom: 50px;
+  left: 20%;
+}
+
+.login button {
+  width: 326px;
+  height: 44px;
+}
+
+.btn-grad {background-image: linear-gradient(to right, #DA22FF 0%, #9733EE  51%, #DA22FF  100%)}
+.btn-grad {
+  margin: 0px;
+  padding: 15px 45px;
+  text-align: center;
+  text-transform: uppercase;
+  transition: 0.5s;
+  background-size: 200% auto;
+  color: white;
+  box-shadow: 0 0 20px #eee;
+ }
+
+ .btn-grad:hover {
+   background-position: right center; /* change the direction of the change here */
+   color: #fff;
+   text-decoration: none;
+ }

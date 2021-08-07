@@ -1,8 +1,8 @@
 import React, { FC, useState, useRef } from 'react';
-
-import { Todo, TodoStatus } from './models/todo';
 import classnames from 'classnames';
-import useClickOutside from './hooks/useClickOutside';
+
+import { Todo, TodoStatus } from '../../models/todo';
+import useClickOutside from '../../hooks/useClickOutside';
 
 interface IContentTodo {
   todo: Todo;

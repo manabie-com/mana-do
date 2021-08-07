@@ -1,8 +1,7 @@
 import React, { useEffect, useReducer, useRef, useState } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
-import classnames from 'classnames';
 
-import reducer, { initialState } from './store/reducer';
+import reducer, { initialState } from '../../store/reducer';
 import {
   setTodos,
   createTodo,
@@ -11,12 +10,16 @@ import {
   deleteAllTodos,
   updateTodoStatus,
   editTodo,
-} from './store/actions';
-import Service from './service';
-import { Todo, TodoStatus } from './models/todo';
-import { isTodoCompleted } from './utils';
+} from '../../store/actions';
+import Service from '../../service';
+import { Todo, TodoStatus } from '../../models/todo';
+import { isTodoCompleted } from '../../utils';
 
-import ContentTodo from './ContentTodo';
+import Actions from './Actions';
+import TodoItem from './TodoItem';
+
+import { ButtonDanger } from '../../components/button/Button';
+import './styles.css';
 
 type EnhanceTodoStatus = TodoStatus | 'ALL';
 
@@ -33,9 +36,14 @@ const ToDoPage = ({ history }: RouteComponentProps) => {
   }, []);
 
   const onCreateTodo = async (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter' && inputRef.current) {
+    console.log('vao day khong: ', inputRef.current?.value);
+    if (
+      e.key === 'Enter' &&
+      inputRef.current &&
+      inputRef.current?.value !== ''
+    ) {
       try {
-        const resp = await Service.createTodo(inputRef.current.value);
+        const resp = await Service.createTodo(inputRef.current.value.trim());
         dispatch(createTodo(resp));
         inputRef.current.value = '';
       } catch (e) {
@@ -85,6 +93,10 @@ const ToDoPage = ({ history }: RouteComponentProps) => {
     return isTodoCompleted(todo) ? accum : accum + 1;
   }, 0);
 
+  const onDeleteTodo = (id: string) => {
+    dispatch(deleteTodo(id));
+  };
+
   return (
     <div className='ToDo__container'>
       <div className='Todo__creation'>
@@ -96,24 +108,16 @@ const ToDoPage = ({ history }: RouteComponentProps) => {
         />
       </div>
       <div className='ToDo__list'>
-        {showTodos.map((todo, index) => {
-          return (
-            <div key={index} className='ToDo__item'>
-              <input
-                type='checkbox'
-                checked={isTodoCompleted(todo)}
-                onChange={(e) => onUpdateTodoStatus(e, todo.id)}
-              />
-              <ContentTodo todo={todo} handleEditTodo={handleEditTodo} />
-              <button
-                className='Todo__delete'
-                onClick={() => dispatch(deleteTodo(todo.id))}
-              >
-                X
-              </button>
-            </div>
-          );
-        })}
+        {showTodos.reverse().map((todo, index) => (
+          <TodoItem
+            key={index}
+            todo={todo}
+            handleEditTodo={handleEditTodo}
+            isTodoCompleted={isTodoCompleted}
+            onUpdateTodoStatus={onUpdateTodoStatus}
+            onDeleteTodo={onDeleteTodo}
+          />
+        ))}
       </div>
       <div className='Todo__toolbar'>
         {todos.length > 0 ? (
@@ -125,32 +129,8 @@ const ToDoPage = ({ history }: RouteComponentProps) => {
         ) : (
           <div />
         )}
-        <div className='Todo__tabs'>
-          <button className='Action__btn' onClick={() => setShowing('ALL')}>
-            All
-          </button>
-          <button
-            className='Action__btn'
-            onClick={() => setShowing(TodoStatus.ACTIVE)}
-          >
-            Active
-          </button>
-          <button
-            className='Action__btn'
-            onClick={() => setShowing(TodoStatus.COMPLETED)}
-          >
-            Completed
-          </button>
-          <button
-            className='Action__btn'
-            onClick={() => setShowing(TodoStatus.DELETED)}
-          >
-            Deleted
-          </button>
-        </div>
-        <button className='Action__btn' onClick={onDeleteAllTodo}>
-          Clear all todos
-        </button>
+        <Actions setShowing={setShowing} />
+        <ButtonDanger title='Clear all' onClick={onDeleteAllTodo} />
       </div>
     </div>
   );
