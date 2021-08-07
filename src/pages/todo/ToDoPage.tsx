@@ -39,8 +39,8 @@ const ToDoPage = () => {
 
                 dispatch(setTodos(resp || []));
             } else {
-                const getListTodos = localStorage.getItem('todos') || ''
-                const parseTodos = JSON.parse(getListTodos)
+                const getListTodos = localStorage.getItem('todos')
+                const parseTodos = (getListTodos && JSON.parse(getListTodos)) || []
 
                 dispatch(setTodos(parseTodos));
             }
