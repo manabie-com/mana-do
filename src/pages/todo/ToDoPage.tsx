@@ -1,5 +1,5 @@
-import React, { ChangeEvent, Fragment, useEffect, useReducer, useRef, useState } from 'react';
-import { RouteComponentProps, useHistory } from 'react-router-dom';
+import React, { Fragment, useEffect, useReducer, useRef, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
 import reducer, { initialState } from 'store/reducer';
 import {
@@ -39,8 +39,8 @@ const ToDoPage = () => {
 
                 dispatch(setTodos(resp || []));
             } else {
-                const getListTodos = localStorage.getItem('todos')
-                const parseTodos = getListTodos && JSON.parse(getListTodos) || []
+                const getListTodos = localStorage.getItem('todos') || ''
+                const parseTodos = JSON.parse(getListTodos)
 
                 dispatch(setTodos(parseTodos));
             }
