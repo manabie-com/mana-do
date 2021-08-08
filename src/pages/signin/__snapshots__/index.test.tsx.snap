@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Signin />  ..... 1`] = `ShallowWrapper {}`;
+
+exports[`<Signin />  Match snapshot 1`] = `ShallowWrapper {}`;

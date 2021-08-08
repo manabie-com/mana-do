@@ -59,6 +59,7 @@ const ContentTodo: FC<IContentTodo> = ({
           ref={inputRef}
           defaultValue={todo.content}
           onKeyDown={onUpdateTodo}
+          style={{ width: '100%' }}
         />
       )}
     </>

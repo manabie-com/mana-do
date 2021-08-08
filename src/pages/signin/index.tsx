@@ -39,6 +39,7 @@ const SignInPage = () => {
       <form onSubmit={signIn}>
         <input
           id='user_id'
+          aria-label='user_id'
           name='userId'
           value={form.userId}
           style={{ marginTop: 12 }}
@@ -62,7 +63,9 @@ const SignInPage = () => {
           Sign in
         </button>
       </form>
-      <div className='login__bottom'>Don't have an account, Sign up!</div>
+      <div className='login__bottom'>
+        Feel free to signin &#9786; <strong>firstUser/example</strong>
+      </div>
     </div>
   );
 };

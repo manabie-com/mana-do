@@ -1,5 +1,5 @@
 import React from 'react';
-import ContentTodo from './ContentTodo';
+import ContentTodo from './TodoContent';
 
 const TodoItem = ({
   todo,
@@ -14,9 +14,15 @@ const TodoItem = ({
         type='checkbox'
         checked={isTodoCompleted(todo)}
         onChange={(e) => onUpdateTodoStatus(e, todo.id)}
+        role='checkbox'
+        aria-checked='false'
       />
       <ContentTodo todo={todo} handleEditTodo={handleEditTodo} />
-      <button className='Todo__delete' onClick={() => onDeleteTodo(todo.id)}>
+      <button
+        className='Todo__delete'
+        data-testid='todo__delete'
+        onClick={() => onDeleteTodo(todo.id)}
+      >
         X
       </button>
     </div>

@@ -1,6 +1,4 @@
 import React, { useEffect, useReducer, useRef, useState } from 'react';
-import { RouteComponentProps } from 'react-router-dom';
-
 import reducer, { initialState } from '../../store/reducer';
 import {
   setTodos,
@@ -15,15 +13,14 @@ import Service from '../../service';
 import { Todo, TodoStatus } from '../../models/todo';
 import { isTodoCompleted } from '../../utils';
 
-import Actions from './Actions';
+import Actions from './TodoActions';
 import TodoItem from './TodoItem';
-
 import { ButtonDanger } from '../../components/button/Button';
 import './styles.css';
 
 type EnhanceTodoStatus = TodoStatus | 'ALL';
 
-const ToDoPage = ({ history }: RouteComponentProps) => {
+const ToDoPage = () => {
   const [{ todos }, dispatch] = useReducer(reducer, initialState);
   const [showing, setShowing] = useState<EnhanceTodoStatus>('ALL');
   const inputRef = useRef<HTMLInputElement>(null);
@@ -36,7 +33,6 @@ const ToDoPage = ({ history }: RouteComponentProps) => {
   }, []);
 
   const onCreateTodo = async (e: React.KeyboardEvent<HTMLInputElement>) => {
-    console.log('vao day khong: ', inputRef.current?.value);
     if (
       e.key === 'Enter' &&
       inputRef.current &&
@@ -48,7 +44,7 @@ const ToDoPage = ({ history }: RouteComponentProps) => {
         inputRef.current.value = '';
       } catch (e) {
         if (e.response.status === 401) {
-          history.push('/');
+          // history.push('/');
         }
       }
     }
