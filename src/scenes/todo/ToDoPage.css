@@ -1,0 +1,108 @@
+#Page__ToDo {
+  background: url("/assets/background/todo-bg.jpeg");
+  background-repeat: no-repeat,no-repeat;
+  background-position: center center,center center;
+  background-size: cover,cover;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.ToDo__container {
+  width: 500px;
+  padding: 24px;
+  margin-top: 3rem;
+}
+
+.Todo__creation {
+  display: flex;
+}
+
+.Todo__input {
+  flex: 1 1;
+}
+
+.ToDo__list {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1.5rem;
+  overflow-y: auto;
+  height: 400px;
+}
+
+.ToDo__item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.ToDo__item > span {
+  flex: 1 1;
+  text-align: left;
+  margin-left: 8px;
+}
+
+.Todo__content {
+  flex: 1 1;
+}
+
+.Todo__delete {
+  outline: none;
+  border: none;
+  width: 32px;
+  height: 32px;
+  min-width: auto;
+  min-height: auto;
+  box-shadow: none;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.Todo__action, .Todo__delete {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+.Todo__toolbar {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 24px;
+  align-items: center;
+}
+
+.Todo__tabs {
+  display: flex;
+  justify-content: center;
+}
+
+.Todo__tabs > *:not(:last-child) {
+  margin-right: 8px;
+}
+
+.Action__btn {
+}
+
+.Page__Todo__empty_background {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.Page__Todo__empty_background > img {
+  height: 250px;
+  width: auto;
+}
+.Page__Todo__empty_background > .description {
+  font-size: 11px;
+}
