@@ -7,6 +7,7 @@ import {portalLayouts} from "../../navigation/router.config"
 import FormInput from "../../components/Molecules/FormInput"
 import Button from "../../components/Atoms/Button"
 import './SignInPage.css'
+import Background from "../../components/Background"
 
 const SignInPage = () => {
   const [form, setForm] = useState({
@@ -52,9 +53,7 @@ const SignInPage = () => {
             <Button text="Sign in" type="submit" className="Form__btn_submit"/>
         </div>
       </form>
-      <div className="Page__Login__background">
-        <img src="/assets/background/login-bg.svg"/>
-      </div>
+      <Background wrapClass="Page__Login__background" url="/assets/background/login-bg.svg"/>
     </div>
   );
 };

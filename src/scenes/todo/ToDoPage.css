@@ -45,6 +45,10 @@
   margin-left: 8px;
 }
 
+.Todo__item_complete {
+  text-decoration: line-through;
+}
+
 .Todo__content {
   flex: 1 1;
 }
