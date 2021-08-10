@@ -1,5 +1,5 @@
 import {IAPI} from './types';
-import {Todo, TodoStatus} from '../models/todo';
+import {Todo, TodoStatus} from '../types/todo';
 import shortid from 'shortid';
 
 const mockToken = 'testabc.xyz.ahk'

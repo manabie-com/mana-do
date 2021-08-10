@@ -1,5 +1,5 @@
 import {IAPI} from './types';
-import {Todo} from '../models/todo';
+import {Todo} from '../types/todo';
 import axios from '../utils/axios';
 import {AxiosResponse} from 'axios';
 

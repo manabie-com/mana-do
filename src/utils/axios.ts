@@ -1,14 +1,14 @@
-import axios from 'axios';
+import axios from 'axios'
+import { store } from "src/redux"
 
-const ins = axios.create({
+const client = axios.create({
     baseURL: 'http://localhost:5050',
     timeout: 10000
 })
 
-ins.interceptors.request.use((request)=>{
-    request.headers.Authorization = localStorage.getItem('token')
-
+client.interceptors.request.use((request) => {
+    request.headers.Authorization = store.getState()?.auth?.token
     return request
 })
 
-export default ins
+export default client
