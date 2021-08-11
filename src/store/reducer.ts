@@ -15,7 +15,7 @@ export interface AppState {
 }
 
 export const initialState: AppState = {
-  todos: JSON.parse(localStorage.getItem(APP_STORAGE_KEYS.todos) || '') || []
+  todos: JSON.parse(localStorage.getItem(APP_STORAGE_KEYS.todos) || '[]') || []
 }
 
 function reducer(state: AppState, action: AppActions): AppState {

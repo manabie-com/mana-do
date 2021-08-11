@@ -10,7 +10,8 @@ const ToDoItem = ({todo, wrapClass= 'ToDo__item', onSelect, onDelete, onSelectEd
       checked={isTodoCompleted(todo)}
       onChange={(e: any) => onSelect(e, todo.id)}
     />
-    <span className={todoStateClass} onDoubleClick={() => onSelectEditTodo(todo)}>{todo.content}</span>
+    <span className={todoStateClass} onDoubleClick={() => onSelectEditTodo(todo)}
+          data-testid="todo-content">{todo.content}</span>
     <Button className="Todo__delete" showIcon={false}
       onClick={() => onDelete(todo.id)} text="x" />
   </div>;

@@ -1,0 +1,214 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Todo render correct content 1`] = `
+Object {
+  "asFragment": [Function],
+  "baseElement": <body>
+    <div>
+      <div
+        id="Page__ToDo"
+      >
+        <div
+          class="ToDo__container card"
+        >
+          <div
+            class="Todo__creation"
+          >
+            <input
+              class="Todo__input"
+              placeholder="What need to be done?"
+            />
+          </div>
+          <div
+            class="ToDo__list"
+          >
+            <div
+              class="Page__Todo__empty_background"
+            >
+              <img
+                src="/assets/background/empty-bg.svg"
+              />
+              <div>
+                It's seem you don't have urgent task today
+              </div>
+            </div>
+          </div>
+          <div
+            class="Todo__toolbar"
+          >
+            <div />
+            <div
+              class="Todo__tabs"
+            >
+              <button
+                class="Action__btn active"
+              >
+                <span>
+                  ✓
+                </span>
+                 
+                All
+              </button>
+              <button
+                class="Action__btn "
+              >
+                <span>
+                  ✓
+                </span>
+                 
+                Active
+              </button>
+              <button
+                class="Action__btn "
+              >
+                <span>
+                  ✓
+                </span>
+                 
+                Completed
+              </button>
+            </div>
+            <button
+              class="Action__btn"
+            >
+              <span>
+                ✓
+              </span>
+               
+              Clear all todos
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>,
+  "container": <div>
+    <div
+      id="Page__ToDo"
+    >
+      <div
+        class="ToDo__container card"
+      >
+        <div
+          class="Todo__creation"
+        >
+          <input
+            class="Todo__input"
+            placeholder="What need to be done?"
+          />
+        </div>
+        <div
+          class="ToDo__list"
+        >
+          <div
+            class="Page__Todo__empty_background"
+          >
+            <img
+              src="/assets/background/empty-bg.svg"
+            />
+            <div>
+              It's seem you don't have urgent task today
+            </div>
+          </div>
+        </div>
+        <div
+          class="Todo__toolbar"
+        >
+          <div />
+          <div
+            class="Todo__tabs"
+          >
+            <button
+              class="Action__btn active"
+            >
+              <span>
+                ✓
+              </span>
+               
+              All
+            </button>
+            <button
+              class="Action__btn "
+            >
+              <span>
+                ✓
+              </span>
+               
+              Active
+            </button>
+            <button
+              class="Action__btn "
+            >
+              <span>
+                ✓
+              </span>
+               
+              Completed
+            </button>
+          </div>
+          <button
+            class="Action__btn"
+          >
+            <span>
+              ✓
+            </span>
+             
+            Clear all todos
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>,
+  "debug": [Function],
+  "findAllByAltText": [Function],
+  "findAllByDisplayValue": [Function],
+  "findAllByLabelText": [Function],
+  "findAllByPlaceholderText": [Function],
+  "findAllByRole": [Function],
+  "findAllByTestId": [Function],
+  "findAllByText": [Function],
+  "findAllByTitle": [Function],
+  "findByAltText": [Function],
+  "findByDisplayValue": [Function],
+  "findByLabelText": [Function],
+  "findByPlaceholderText": [Function],
+  "findByRole": [Function],
+  "findByTestId": [Function],
+  "findByText": [Function],
+  "findByTitle": [Function],
+  "getAllByAltText": [Function],
+  "getAllByDisplayValue": [Function],
+  "getAllByLabelText": [Function],
+  "getAllByPlaceholderText": [Function],
+  "getAllByRole": [Function],
+  "getAllByTestId": [Function],
+  "getAllByText": [Function],
+  "getAllByTitle": [Function],
+  "getByAltText": [Function],
+  "getByDisplayValue": [Function],
+  "getByLabelText": [Function],
+  "getByPlaceholderText": [Function],
+  "getByRole": [Function],
+  "getByTestId": [Function],
+  "getByText": [Function],
+  "getByTitle": [Function],
+  "queryAllByAltText": [Function],
+  "queryAllByDisplayValue": [Function],
+  "queryAllByLabelText": [Function],
+  "queryAllByPlaceholderText": [Function],
+  "queryAllByRole": [Function],
+  "queryAllByTestId": [Function],
+  "queryAllByText": [Function],
+  "queryAllByTitle": [Function],
+  "queryByAltText": [Function],
+  "queryByDisplayValue": [Function],
+  "queryByLabelText": [Function],
+  "queryByPlaceholderText": [Function],
+  "queryByRole": [Function],
+  "queryByTestId": [Function],
+  "queryByText": [Function],
+  "queryByTitle": [Function],
+  "rerender": [Function],
+  "unmount": [Function],
+}
+`;

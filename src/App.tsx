@@ -4,7 +4,7 @@ import './App.css';
 
 function App() {
   return (
-    <main className="App">
+    <main className="App" data-testid="root-app">
       <Router />
     </main>
   );
