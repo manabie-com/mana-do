@@ -7,49 +7,52 @@ import {
   TOGGLE_ALL_TODOS,
   UPDATE_TODO_STATUS
 } from './actions';
+import {APP_STORAGE_KEYS} from "../utils/appConst"
 
 export interface AppState {
   todos: Array<Todo>
 }
 
 export const initialState: AppState = {
-  todos: []
+  todos: JSON.parse(localStorage.getItem(APP_STORAGE_KEYS.todos) || '') || []
 }
 
 function reducer(state: AppState, action: AppActions): AppState {
+  let todos = state.todos;
   switch (action.type) {
     case CREATE_TODO: {
-      const todos = [...state.todos, action.payload]
-      return {...state, todos};
+      todos = [...todos, action.payload]
+      break;
     }
     case UPDATE_TODO_STATUS: {
-      const index2 = state.todos.findIndex((todo) => todo.id === action.payload.todoId);
-      state.todos[index2].status = action.payload.checked ? TodoStatus.COMPLETED : TodoStatus.ACTIVE;
+      const index2 = todos.findIndex((todo) => todo.id === action.payload.todoId);
+      todos[index2].status = action.payload.checked ? TodoStatus.COMPLETED : TodoStatus.ACTIVE;
 
-      return {...state, todos: [...state.todos]}
+      todos = [...state.todos]
+      break;
     }
     case TOGGLE_ALL_TODOS: {
-      const todos = state.todos.map((e)=>{
+      todos = todos.map((e)=>{
         return {...e, status: action.payload ? TodoStatus.COMPLETED : TodoStatus.ACTIVE}
       })
-
-      return {...state, todos}
+      break;
     }
     case DELETE_TODO: {
-      const todos = state.todos.filter((todo) => todo.id !== action.payload);
+      todos = todos.filter((todo) => todo.id !== action.payload);
 
-      return {
-        ...state,
-        todos: [...todos]
-      }
+      break;
     }
     case DELETE_ALL_TODOS: {
-      return {...state, todos: []}
+      todos = []
+      break;
     }
     default: {
       return state;
     }
   }
+
+  localStorage.setItem(APP_STORAGE_KEYS.todos, JSON.stringify(todos))
+  return {...state, todos}
 }
 
 export default reducer;

@@ -5,7 +5,7 @@ import {accountLayout} from './router.config'
 import {APP_STORAGE_KEYS} from "../utils/appConst"
 
 const ProtectedRoute = ({path, component: Component, permission, render, ...rest}: any) => {
-  let isLoggedIn = localStorage.getItem(APP_STORAGE_KEYS.token)
+  let isLoggedIn = localStorage.getItem(APP_STORAGE_KEYS.token) !== undefined && localStorage.getItem(APP_STORAGE_KEYS.token) !== null
   return (
     <Route
       {...rest}

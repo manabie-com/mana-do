@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 
 import {useHistory} from 'react-router-dom'
 import Service from '../../service'
@@ -16,12 +16,20 @@ const SignInPage = () => {
   });
   const history = useHistory();
 
+  useEffect(() => {
+    //
+    if (localStorage.getItem(APP_STORAGE_KEYS.token) !== undefined
+      && localStorage.getItem(APP_STORAGE_KEYS.token) !== null) {
+      history.push(portalLayouts.todoPage.path)
+    }
+  }, [])
+
   const signIn = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const resp = await Service.signIn(form.userId, form.password)
 
     localStorage.setItem(APP_STORAGE_KEYS.token, resp)
-    history.push(portalLayouts.todoPage)
+    history.push(portalLayouts.todoPage.path)
   }
 
   const onChangeField = (e: React.ChangeEvent<HTMLInputElement>) => {
