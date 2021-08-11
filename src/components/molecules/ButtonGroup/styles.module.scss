@@ -1,0 +1,41 @@
+.Todo__toolbar{
+    display: flex;
+}
+.group_btn{
+    flex-grow: 1;
+}
+.btn_all{
+    background-color: #007bff;
+    border-color: #007bff;
+    color: white;
+    padding: 5px 10px;
+    margin: 8px 4px 0px 0px;
+}
+
+.btn_active{
+    background-color: #ffc107;
+    border-color: #ffc107;
+    color: white;
+    padding: 5px 10px;
+    margin: 8px 4px 0px 0px;
+}
+
+.btn_complete{
+    background-color: #28a745;
+    border-color: #28a745;
+    color: white;
+    padding: 5px 10px;
+    margin: 8px 0px 0px 0px ;
+}
+
+.btn_delete{
+    background-color: #dc3545;
+    border-color: #dc3545;
+    color: white;
+    padding: 5px 10px;
+    margin: 8px 0px 0px 0px;
+}
+.label{
+    vertical-align: bottom;
+    font-weight: 400;
+}

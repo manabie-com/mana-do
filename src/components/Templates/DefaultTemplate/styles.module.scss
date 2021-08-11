@@ -1,0 +1,19 @@
+
+
+$offsetResultCard: -117px;
+
+.ResultCard {
+  position: absolute;
+  top: $offsetResultCard;
+  width: 100%;
+  top: 167px;
+  left: 0;
+  z-index: 500;
+
+  @media (min-width: $breakpoint-desktop){
+    top: 200px;
+    max-width: 1100px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}

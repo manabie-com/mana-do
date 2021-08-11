@@ -1,0 +1,41 @@
+.ToDo__item{
+    display: flex;
+    margin-bottom: 6px;
+    position: relative;
+}
+.input{
+    z-index: 10;
+    width: 18px;
+    height: 18px;
+    border-radius: 5px;
+    position: absolute;
+    bottom: 7px;
+    left: 3px;
+}
+.label_item{
+    display: block;
+    position: relative;
+    cursor: pointer;
+    flex-grow: 1;
+    padding: 5px 45px 5px 31px;
+    background: #f2f2f2;
+    border-radius: 6px;
+    cursor: pointer;
+    overflow: hidden;
+    word-break: break-all;
+}
+
+.delete{
+    position: absolute;
+    right: 10px;
+    top: 4px;
+    background-color: #9e9e9e;
+    border-color: #9e9e9e;
+    color: white;
+    padding: 3px 8px;
+    border-radius: 6px;
+}
+.todo{
+    display: block;
+    position: relative;
+}

@@ -13,6 +13,10 @@ class ApiFrontend extends IAPI {
         return Promise.reject('Incorrect username/password')
     }
 
+    async toggleAllTodo(checked: boolean): Promise<boolean> {
+        return true;
+    }
+
     async createTodo(content: string): Promise<Todo> {
         return Promise.resolve({
             content: content,
@@ -23,8 +27,22 @@ class ApiFrontend extends IAPI {
         } as Todo);
     }
 
+    async editTodoStatus(id: string, status: string): Promise<boolean> {
+        return true;
+    }
+    async editTodo(id: string, content: string): Promise<boolean> {
+        return true;
+    }
+    async deleteTodo(id: string): Promise<boolean> {
+        return true;
+    }
+    async deleteAll(): Promise<boolean> {
+        return true;
+    }
+    
+
     async getTodos(): Promise<Todo[]>{
-        return []
+        return  JSON.parse(localStorage.getItem('todos') || '[]');
     }
 }
 

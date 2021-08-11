@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@reduxjs/toolkit": "^1.5.0",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
@@ -14,10 +15,14 @@
     "cross-env": "^7.0.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-redux": "^7.2.2",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
+    "react-toast": "^1.0.3",
+    "sass": "^1.35.2",
     "shortid": "^2.2.15",
-    "typescript": "~3.7.2"
+    "styled-components": "^5.2.1",
+    "typescript": "^4.1.2"
   },
   "scripts": {
     "start:fullstack": "cross-env REACT_APP_WHOAMI=fullstack react-scripts start",
@@ -42,7 +47,10 @@
     ]
   },
   "devDependencies": {
+    "@types/react-redux": "^7.1.11",
     "@types/react-router-dom": "^5.1.5",
-    "@types/shortid": "^0.0.29"
+    "@types/shortid": "^0.0.29",
+    "@types/styled-components": "^5.1.4",
+    "redux-devtools": "^3.7.0"
   }
 }
