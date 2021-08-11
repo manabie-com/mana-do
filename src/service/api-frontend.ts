@@ -23,6 +23,10 @@ class ApiFrontend extends IAPI {
         } as Todo);
     }
 
+    async updateTodo(todo: Todo): Promise<Todo> {
+        return Promise.resolve(todo);
+    }
+
     async getTodos(): Promise<Todo[]>{
         return []
     }

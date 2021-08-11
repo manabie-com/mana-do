@@ -90,7 +90,13 @@
   margin-right: 8px;
 }
 
-.Action__btn {
+.Action__btn.active {}
+.Action__btn > span {
+  display: none
+}
+.Action__btn.active > span {
+  display: inline-block!important;
+  color: var(--primary)
 }
 
 .Page__Todo__empty_background {

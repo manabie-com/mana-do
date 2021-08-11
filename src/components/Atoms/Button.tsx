@@ -1,7 +1,9 @@
 import React from 'react';
 
-const Button = ({text, ...props}: any) => {
-  return <button {...props}>{text}</button>
+const Button = ({text, showIcon = true, ...props}: any) => {
+  return <button {...props}>
+    {showIcon && <span>✓</span>} {text}
+  </button>
 }
 
 export default Button

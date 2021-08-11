@@ -2,9 +2,8 @@ import React, {useReducer} from 'react';
 import Background from "../Background"
 import ToDoItem from "./ToDoItem"
 import {deleteTodo, updateTodoStatus} from "../../store/actions"
-import reducer, {initialState} from "../../store/reducer"
 
-const ToDoList = ({todos, wrapClass = 'ToDo__list', dispatch}: any) => {
+const ToDoList = ({todos, onSelectEditTodo, wrapClass = 'ToDo__list', dispatch}: any) => {
   const onUpdateTodoStatus = (e: React.ChangeEvent<HTMLInputElement>, todoId: string) => {
     dispatch(updateTodoStatus(todoId, e.target.checked))
   }
@@ -18,6 +17,7 @@ const ToDoList = ({todos, wrapClass = 'ToDo__list', dispatch}: any) => {
         return <ToDoItem key={index} todo={todo}
                          onSelect={onUpdateTodoStatus}
                          onDelete={onDeleteTodo}
+                         onSelectEditTodo={onSelectEditTodo}
         />
       })
     }

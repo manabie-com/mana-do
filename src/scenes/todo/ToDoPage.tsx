@@ -5,10 +5,10 @@ import {
   setTodos,
   createTodo,
   toggleAllTodos,
-  deleteAllTodos,
+  deleteAllTodos, updateTodo,
 } from '../../store/actions';
 import Service from '../../service';
-import {TodoStatus} from '../../models/todo';
+import {Todo, TodoStatus} from '../../models/todo';
 import {isTodoCompleted} from '../../utils';
 import './ToDoPage.css'
 import Checkbox from "../../components/Atoms/Checkbox"
@@ -19,27 +19,63 @@ type EnhanceTodoStatus = TodoStatus | 'ALL';
 
 const ToDoPage = ({history}: RouteComponentProps) => {
   const [{todos}, dispatch] = useReducer(reducer, initialState);
+  const [editTodo, setEditTodo] = useState();
+  const [loading, setLoading] = useState(false);
   const [showing, setShowing] = useState<EnhanceTodoStatus>('ALL');
   const inputRef = useRef<HTMLInputElement>(null);
 
-  // useEffect(() => {
-  //   (async () => {
-  //     const resp = await Service.getTodos();
-  //     dispatch(setTodos(resp || []));
-  //   })()
-  // }, [])
+  const validateBeforeSave = (subject: string | undefined) => {
+    return !(!subject || !subject.length);
+  }
 
-  const onCreateTodo = async (e: React.KeyboardEvent<HTMLInputElement>) => {
+  const selectTodoForEdit = (todo: Todo) => {
+    if (inputRef.current) {
+      inputRef.current.value = todo.content
+      inputRef.current.focus()
+      setEditTodo(todo)
+    }
+  }
+
+  const onCreateOrUpdateTodo = async (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (loading) {
+      return
+    }
+
     if (e.key === 'Enter' && inputRef.current) {
+      let {value} = inputRef.current
       try {
-        const resp = await Service.createTodo(inputRef.current.value);
-        dispatch(createTodo(resp));
-        inputRef.current.value = '';
-      } catch (e) {
-        if (e.response.status === 401) {
+        if (!validateBeforeSave(value)) {
+          return
+        }
+
+        setLoading(true)
+        editTodo ? onUpdateTodo(value) : onCreateTodo(value)
+        inputRef.current.value = ''
+        setLoading(false)
+      } catch (error) {
+        setLoading(false)
+        if (error.response.status === 401) {
           history.push('/')
         }
       }
+    }
+  }
+
+  const onCreateTodo = async (value: string) => {
+    const resp = await Service.createTodo(value);
+    dispatch(createTodo(resp))
+  }
+
+  const onUpdateTodo = async (value: string) => {
+    const resp = await Service.updateTodo({...editTodo, content: value});
+    dispatch(updateTodo(resp))
+    setEditTodo(undefined)
+  }
+
+  const onCancelEdit = () => {
+    setEditTodo(undefined)
+    if (inputRef.current) {
+      inputRef.current.value = ''
     }
   }
 
@@ -74,18 +110,30 @@ const ToDoPage = ({history}: RouteComponentProps) => {
             ref={inputRef}
             className="Todo__input"
             placeholder="What need to be done?"
-            onKeyDown={onCreateTodo}
+            onKeyDown={onCreateOrUpdateTodo}
+            onBlur={onCancelEdit}
           />
+          {editTodo && <span>
+            <Button className={`Action__btn ml-2`} text="Cancel" showIcon={false}
+                    onClick={onCancelEdit}/>
+          </span>
+          }
         </div>
-        <ToDoList wrapClass="ToDo__list" todos={showTodos} dispatch={dispatch} />
+        <ToDoList wrapClass="ToDo__list"
+                  todos={showTodos}
+                  onSelectEditTodo={selectTodoForEdit}
+                  dispatch={dispatch}/>
         <div className="Todo__toolbar">
           {todos.length > 0 ?
             <Checkbox checked={activeTodos === 0 && showTodos.length > 0} onChange={onToggleAllTodo}/> : <div/>
           }
           <div className="Todo__tabs">
-            <Button className="Action__btn" text="All" onClick={() => setShowing('ALL')}/>
-            <Button className="Action__btn" text="Active" onClick={() => setShowing(TodoStatus.ACTIVE)}/>
-            <Button className="Action__btn" text="Completed" onClick={() => setShowing(TodoStatus.COMPLETED)}/>
+            <Button className={`Action__btn ${showing === 'ALL' ? 'active' : ''}`} text="All"
+                    onClick={() => setShowing('ALL')}/>
+            <Button className={`Action__btn ${showing === TodoStatus.ACTIVE ? 'active' : ''}`} text="Active"
+                    onClick={() => setShowing(TodoStatus.ACTIVE)}/>
+            <Button className={`Action__btn ${showing === TodoStatus.COMPLETED ? 'active' : ''}`} text="Completed"
+                    onClick={() => setShowing(TodoStatus.COMPLETED)}/>
           </div>
           <Button className="Action__btn" text="Clear all todos" onClick={onDeleteAllTodo}/>
         </div>

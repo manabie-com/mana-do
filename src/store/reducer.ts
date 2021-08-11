@@ -2,6 +2,7 @@ import {Todo, TodoStatus} from '../models/todo';
 import {
   AppActions,
   CREATE_TODO,
+  UPDATE_TODO,
   DELETE_ALL_TODOS,
   DELETE_TODO,
   TOGGLE_ALL_TODOS,
@@ -24,11 +25,19 @@ function reducer(state: AppState, action: AppActions): AppState {
       todos = [...todos, action.payload]
       break;
     }
+    case UPDATE_TODO: {
+      const index = todos.findIndex((todo) => todo.id === action.payload.id);
+      if (index > -1) {
+        todos[index].content = action.payload.content;
+      }
+      break;
+    }
     case UPDATE_TODO_STATUS: {
-      const index2 = todos.findIndex((todo) => todo.id === action.payload.todoId);
-      todos[index2].status = action.payload.checked ? TodoStatus.COMPLETED : TodoStatus.ACTIVE;
-
-      todos = [...state.todos]
+      const index = todos.findIndex((todo) => todo.id === action.payload.todoId);
+      if (index > -1) {
+        todos[index].status = action.payload.checked ? TodoStatus.COMPLETED : TodoStatus.ACTIVE;
+        todos = [...state.todos]
+      }
       break;
     }
     case TOGGLE_ALL_TODOS: {
