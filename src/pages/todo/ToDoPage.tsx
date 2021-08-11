@@ -88,7 +88,6 @@ const ToDoPage = ({history}: RouteComponentProps) => {
     const activeTodos = todos.reduce(function (accum: number, todo: Todo) {
         return isTodoCompleted(todo) ? accum : accum + 1;
     }, 0);
-    
     return (
        
         <div className="ToDo__container">

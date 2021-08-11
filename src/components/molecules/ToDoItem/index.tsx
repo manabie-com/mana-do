@@ -66,7 +66,7 @@ const ToDoItem: React.FC<ToDoItemProps> = ({ index, todo, onDelete, onCheck, onE
                     />
                 </>
                 :
-                <div onDoubleClick={() => {
+                <div title={todo.content} onDoubleClick={() => {
                     setEdit(true);
                 }}  className={styles.label_item}>{todo.content}</div>
             }

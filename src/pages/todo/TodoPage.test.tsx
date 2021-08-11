@@ -12,5 +12,9 @@ test('Test add todo', async () => {
         target: {value: 'Do test'},
     })
     fireEvent.keyDown(input, { key: 'Enter', code: 'Enter' });
-    // expect(screen.getByDisplayValue('Do test')).toBeInTheDocument();
+    setTimeout(() =>{
+        expect(screen.getByTitle('Do test')).toBeInTheDocument();
+    },1000)
+    
+   
 })
