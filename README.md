@@ -3,4 +3,4 @@
 - Use redux-toolkit to manage state
 - Apply atomic design
 - Css
-- Test case not completed yet
+- Test case sign in and add new to do
