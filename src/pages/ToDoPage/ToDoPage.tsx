@@ -50,10 +50,12 @@ export const ToDoPage = () => {
   //onCreateTodo
   const onCreateTodo = async (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter" && inputRef.current) {
+      console.log("Enter");
       if (!inputRef.current.value) {
         alert("Your todo is empty!!!");
         return;
       }
+
       try {
         const resp = await Service.createTodo(inputRef.current.value);
         inputRef.current.value = "";

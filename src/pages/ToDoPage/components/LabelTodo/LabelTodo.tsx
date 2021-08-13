@@ -14,7 +14,12 @@ export const LabelTodo: FC<ILabelTodo> = ({
       {hasCheckAll && (
         <div>
           {todos && todos.length > 0 && (
-            <input type="checkbox" checked={checked} onChange={onChange} />
+            <input
+              type="checkbox"
+              checked={checked}
+              onChange={onChange}
+              data-testid="label-todo-checked"
+            />
           )}
           <span>Tất cả</span>
         </div>

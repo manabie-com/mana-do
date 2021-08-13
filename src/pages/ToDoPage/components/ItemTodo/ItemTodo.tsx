@@ -18,9 +18,18 @@ export const ItemTodo = forwardRef<any, IItemTodo>(
     ref
   ) => {
     return (
-      <div onDoubleClick={onDoubleClick} className="item-todo">
+      <div
+        onDoubleClick={onDoubleClick}
+        className="item-todo"
+        data-testid="item-todo"
+      >
         <div className="item-todo__content">
-          <input type="checkbox" checked={checked} onChange={onChangeChecbox} />
+          <input
+            type="checkbox"
+            checked={checked}
+            onChange={onChangeChecbox}
+            data-testid="item-todo-checked"
+          />
           {editing ? (
             <input
               value={valueContent === null ? toDoContent : valueContent}
@@ -30,12 +39,20 @@ export const ItemTodo = forwardRef<any, IItemTodo>(
               ref={ref}
             />
           ) : (
-            <span style={{ textDecoration: checked ? "line-through" : "" }}>
+            <span
+              style={{ textDecoration: checked ? "line-through" : "" }}
+              data-testid="item-tod-span"
+            >
               {toDoContent}
             </span>
           )}
         </div>
-        <div onClick={onDelete} style={{ cursor: "pointer" }}>
+        <div
+          onClick={onDelete}
+          data-testid="item-todo-delete"
+          style={{ cursor: "pointer" }}
+          className="item-todo__delete"
+        >
           <SvgDelete />
         </div>
       </div>

@@ -1,0 +1,3 @@
+interface IFormLogin {
+  onSubmit: any;
+}
