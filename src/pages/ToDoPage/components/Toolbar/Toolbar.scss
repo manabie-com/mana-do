@@ -1,0 +1,8 @@
+.toolbar {
+  width: 100%;
+  max-width: 600px;
+  &__container {
+    display: flex;
+    justify-content: space-between;
+  }
+}

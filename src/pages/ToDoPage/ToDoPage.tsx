@@ -1,5 +1,5 @@
 import React, { useEffect, useReducer, useRef, useState } from "react";
-import { RouteComponentProps } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import "./ToDoPage.scss";
 
 import reducer, { initialState } from "../../store/reducer";
@@ -16,10 +16,13 @@ import Service from "../../service";
 import { TodoStatus } from "../../constants/todo";
 import { isTodoCompleted } from "../../utils";
 import { useClickOutside } from "../../hooks";
+import { BlockShadow, Button } from "../../components";
+import { Banner, ItemTodo, LabelTodo, Toolbar } from "./components";
 
 type EnhanceTodoStatus = TodoStatus | "ALL";
 
-export const ToDoPage = ({ history }: RouteComponentProps) => {
+export const ToDoPage = () => {
+  const history = useHistory();
   const [{ todos }, dispatch] = useReducer(reducer, initialState);
 
   const [showing, setShowing] = useState<EnhanceTodoStatus>("ALL");
@@ -31,15 +34,12 @@ export const ToDoPage = ({ history }: RouteComponentProps) => {
 
   //intital state
   useEffect(() => {
-    // (async () => {
-
     //you can use localStorage instead of calling remote APIs
-
-    // const resp = await Service.getTodos();
-
-    const resp: Array<Todo> = JSON.parse(localStorage.getItem("todos") || "");
-    dispatch(setTodos(resp || []));
-    // })();
+    const localTodos = localStorage.getItem("todos");
+    if (localTodos) {
+      const resp: Array<Todo> = JSON.parse(localTodos);
+      dispatch(setTodos(resp || []));
+    }
   }, []);
 
   // Anytime, when todos is update new state, this useffect will run to update localStorage
@@ -50,10 +50,14 @@ export const ToDoPage = ({ history }: RouteComponentProps) => {
   //onCreateTodo
   const onCreateTodo = async (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter" && inputRef.current) {
+      if (!inputRef.current.value) {
+        alert("Your todo is empty!!!");
+        return;
+      }
       try {
         const resp = await Service.createTodo(inputRef.current.value);
-        dispatch(createTodo(resp));
         inputRef.current.value = "";
+        dispatch(createTodo(resp));
       } catch (e) {
         if (e.response.status === 401) {
           history.push("/");
@@ -124,80 +128,48 @@ export const ToDoPage = ({ history }: RouteComponentProps) => {
   }, 0);
 
   return (
-    <div className="ToDo__container">
-      <div className="Todo__creation">
-        <input
-          ref={inputRef}
-          className="Todo__input"
-          placeholder="What need to be done?"
-          onKeyDown={onCreateTodo}
-        />
-      </div>
-      <div className="ToDo__list">
-        {showTodos.map((todo, index) => {
-          return (
-            <div
-              key={index}
-              className="ToDo__item"
-              onDoubleClick={() => {
-                setEditing(index);
-              }}
-            >
-              <input
-                type="checkbox"
-                checked={isTodoCompleted(todo)}
-                onChange={(e) => onUpdateTodoStatus(e, todo.id)}
-              />
-              {editing === index ? (
-                <input
-                  value={valueContent === null ? todo.content : valueContent}
-                  ref={outSideInput}
-                  onChange={handleChangeContentTodo}
-                  onKeyDown={(e) => handleUpdateContentTodo(e, todo.id)}
-                />
-              ) : (
-                <span>{todo.content}</span>
-              )}
-              <button
-                className="Todo__delete"
-                onClick={() => dispatch(deleteTodo(todo.id))}
-              >
-                X
-              </button>
-            </div>
-          );
-        })}
-      </div>
-      <div className="Todo__toolbar">
-        {todos.length > 0 ? (
-          <input
-            type="checkbox"
+    <div className="to-do">
+      <Banner ref={inputRef} onKeyDown={onCreateTodo} />
+      <div className="to-do__container">
+        <BlockShadow className="to-do__main">
+          <LabelTodo
+            title="Your list todos"
+            hasCheckAll
+            todos={todos}
             checked={activeTodos === 0}
             onChange={onToggleAllTodo}
           />
-        ) : (
-          <div />
-        )}
-        <div className="Todo__tabs">
-          <button className="Action__btn" onClick={() => setShowing("ALL")}>
-            All
-          </button>
-          <button
-            className="Action__btn"
-            onClick={() => setShowing(TodoStatus.ACTIVE)}
-          >
-            Active
-          </button>
-          <button
-            className="Action__btn"
-            onClick={() => setShowing(TodoStatus.COMPLETED)}
-          >
-            Completed
-          </button>
-        </div>
-        <button className="Action__btn" onClick={onDeleteAllTodo}>
-          Clear all todos
-        </button>
+
+          {showTodos.map((todo, index) => {
+            return (
+              <ItemTodo
+                key={index}
+                checked={isTodoCompleted(todo)}
+                editing={editing === index}
+                onDelete={() => dispatch(deleteTodo(todo.id))}
+                valueContent={valueContent}
+                toDoContent={todo.content}
+                ref={outSideInput}
+                handleChangeContentTodo={handleChangeContentTodo}
+                handleUpdateContentTodo={(e) =>
+                  handleUpdateContentTodo(e, todo.id)
+                }
+                onChangeChecbox={(e) => onUpdateTodoStatus(e, todo.id)}
+                onDoubleClick={() => setEditing(index)}
+              />
+            );
+          })}
+
+          <Button onClick={onDeleteAllTodo} isRed>
+            Clear all todos
+          </Button>
+        </BlockShadow>
+        <Toolbar
+          onClickAll={() => setShowing("ALL")}
+          onClickActive={() => setShowing(TodoStatus.ACTIVE)}
+          onClickCompleted={() => setShowing(TodoStatus.COMPLETED)}
+          showing={showing}
+        />
       </div>
     </div>
   );

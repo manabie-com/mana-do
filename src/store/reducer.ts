@@ -30,6 +30,8 @@ function reducer(state: AppState, action: AppActions): AppState {
       // State  should immutable
       // state.todos.push(action.payload);
       const addNewTodo = [...state.todos, action.payload];
+      console.log("addNewTodo", addNewTodo);
+
       return {
         ...state,
         todos: addNewTodo,

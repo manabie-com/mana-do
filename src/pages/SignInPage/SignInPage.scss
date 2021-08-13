@@ -1,0 +1,45 @@
+@import "../../assets/scss/variables";
+@import "../../assets/scss/mixins";
+
+.sign-in {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  h1 {
+    color: $primiry-color;
+  }
+
+  &__container {
+    padding: 8px 24px 28px 24px !important;
+  }
+  &__form {
+    flex: 3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    @include max-respond-to(md) {
+      flex: 1;
+    }
+  }
+  &__img {
+    width: 50%;
+    flex: 2;
+    @include max-respond-to(md) {
+      display: none;
+      flex: 0;
+    }
+  }
+  &__input {
+    width: 300px !important;
+  }
+  &__action {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  &__welcome {
+    margin-bottom: 32px;
+  }
+}

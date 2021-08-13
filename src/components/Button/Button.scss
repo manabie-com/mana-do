@@ -1,0 +1,32 @@
+@import "../../assets/scss/variables";
+
+.btn {
+  background-color: $primiry-color;
+  font-weight: 700;
+  height: 46px;
+  width: 100%;
+  max-width: 150px;
+  border: none;
+  font-size: 16px;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+  &--red {
+    background-color: white;
+    margin-top: 16px;
+    color: $error-color;
+    border: solid 1px $error-color;
+    transition: all 500ms;
+    &:hover {
+      background-color: $error-color;
+      color: white;
+      border-color: $error-color;
+      transition: all 500ms;
+    }
+  }
+  &--white {
+    background-color: white;
+    color: $primiry-color;
+    border: solid 1px $primiry-color;
+  }
+}

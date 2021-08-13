@@ -1,62 +1,73 @@
-import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+
 import "./SignInPage.scss";
 
 import Service from "../../service";
+import { BlockShadow, Input, Button } from "../../components";
+import { ImageLogin } from "../../constants/images";
 
 export const SignInPage = () => {
-  const [form, setForm] = useState({
-    userId: "",
-    password: "",
+  const SignupSchema = Yup.object().shape({
+    userId: Yup.string().min(2, "Ít nhất 2 kí tự").required("Bất buộc"),
+    password: Yup.string().min(4, "Ít nhất 4 kí tự").required("Bất buộc"),
   });
-  const history = useHistory();
 
-  const signIn = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const resp = await Service.signIn(form.userId, form.password);
-
-    localStorage.setItem("token", resp);
-    history.push("/todo");
-  };
-
-  const onChangeField = (e: React.ChangeEvent<HTMLInputElement>) => {
-    e.persist();
-    setForm((prev) => ({
-      ...prev,
-      [e.target.name]: e.target.value,
-    }));
-  };
+  //formik
+  const formik = useFormik({
+    initialValues: {
+      userId: "",
+      password: "",
+    },
+    validationSchema: SignupSchema,
+    onSubmit: async (values) => {
+      try {
+        const resp = await Service.signIn(values.userId, values.password);
+        localStorage.setItem("token", resp);
+        window.location.replace("/");
+      } catch (error) {
+        alert(error);
+      }
+    },
+  });
 
   return (
-    <div style={{ marginTop: "3rem", textAlign: "left" }}>
-      <form onSubmit={signIn}>
-        <label htmlFor="user_id">
-          User id
-          <input
-            id="user_id"
+    <div className="sign-in">
+      <form onSubmit={formik.handleSubmit} className="sign-in__form">
+        <BlockShadow className="sign-in__container">
+          <h1>Manabie,</h1>
+          <p>Sign to continue!</p>
+          <br />
+          <br />
+          <Input
+            id="userId"
             name="userId"
-            value={form.userId}
-            style={{ marginTop: 12 }}
-            onChange={onChangeField}
+            value={formik.values.userId}
+            label="User id"
+            onChange={formik.handleChange}
+            className="sign-in__input"
+            error={formik.touched.userId && formik.errors.userId}
           />
-        </label>
-        <br />
-        <label htmlFor="password">
-          Password
-          <input
+          <br />
+          <br />
+          <Input
             id="password"
             name="password"
-            type="password"
-            style={{ marginTop: 12 }}
-            value={form.password}
-            onChange={onChangeField}
+            value={formik.values.password}
+            label="Password"
+            onChange={formik.handleChange}
+            className="sign-in__input"
+            type={"password"}
+            error={formik.touched.password && formik.errors.password}
           />
-        </label>
-        <br />
-        <button type="submit" style={{ marginTop: 12 }}>
-          Sign in
-        </button>
+          <br />
+          <br />
+          <div className="sign-in__action">
+            <Button type="submit">Sign in</Button>
+          </div>
+        </BlockShadow>
       </form>
+      <img src={ImageLogin} alt="login" className="sign-in__img" />
     </div>
   );
 };
