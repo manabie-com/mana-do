@@ -1,0 +1,85 @@
+@media screen and (max-width: 900px) and (min-width: 1px) {
+  .ToDo__container {
+    width: calc(100% - 32px);
+  }
+  .ma-sign-in-page-wrapper {
+    margin-left: 16px;
+    margin-right: 16px;
+  }
+  .ma-content-value,
+  .ma-date-create-value,
+  .Action__btn {
+    font-size: 13px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .ma-content-label,
+  .ma-date-create-label,
+  .ma-text {
+    font-size: 12px;
+  }
+  .ToDo__list {
+    height: 400px;
+  }
+  .Todo__item_sec4 {
+    flex: 6;
+  }
+  .ma-input::placeholder {
+    font-size: 13px;
+  }
+  .ma-popup-content,
+  .Todo__creation .ma-input {
+    margin: 0 16px;
+  }
+  .Todo__creation .ma-input {
+    height: 36px;
+    line-height: 36px;
+  }
+  .todo-toolbar-sec1 {
+    display: none;
+  }
+  .todo-toolbar-sec1-mobile {
+    display: flex;
+    justify-content: flex-end;
+    position: relative;
+    position: relative;
+  }
+  .ma-more-button {
+    width: 20px;
+    height: 20px;
+  }
+  .menu-more-wrapper {
+    position: absolute;
+    width: 160px;
+    background-color: #f4f8fc;
+    top: -17px;
+    right: 17px;
+    display: flex;
+    flex-direction: column;
+    padding: 0 16px;
+    border-radius: 8px;
+    z-index: 1;
+  }
+  .ma-mark-all {
+    color: #395ad2;
+  }
+  .menu-more-item {
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    height: 30px;
+    line-height: 30px;
+    cursor: pointer;
+  }
+  .menu-more-item span {
+    padding-left: 8px;
+  }
+  .ma-delete-all-mobile {
+    color: #ee4064;
+  }
+  .menu-more-item img {
+    width: 16px;
+    height: 16px;
+  }
+}

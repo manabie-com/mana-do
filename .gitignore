@@ -21,5 +21,10 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-
+yarn.lock
+clear
 .idea/
+firebase.json
+package-lock.json
+.firebase/
+.firebaserc
