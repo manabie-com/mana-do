@@ -1,7 +1,7 @@
-## Welcome to Manabie coding challenge
+## Manabie coding challenge
 
 *Hi everyone!*
-*This is mini challenge I have made, contact with me via email: nguyenkaoky.ai1@gmail.com if you have any troulbe or interesting.*
+*This is mini challenge I have made, contact with me via email: nguyenkaoky.ai1@gmail.com if you have any trouble or interesting.*
 
 ### Notes: 
 - New component is have .js extend, I was keep old ts file and edit on them.
