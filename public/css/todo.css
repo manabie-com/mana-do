@@ -2,11 +2,16 @@
   flex: 1;
   padding: 0 60px;
   height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .ToDo__list {
   overflow-y: scroll;
   height: 500px;
+  max-width: 800px;
+  min-width: 600px;
 }
 .ToDo__item {
   height: 64px;
@@ -163,14 +168,24 @@
 .todo-toolbar-sec1 span {
   padding: 0 16px;
 }
-.Todo__creation .ma-input {
+.Todo__creation > div {
   width: 600px;
+  position: relative;
 }
-
+.Todo__creation .ma-input {
+  border-radius: 20px;
+}
 .Todo__creation {
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
+}
+.ma-add-todo-icon {
+  height: 40px;
+  position: absolute;
+  right: 6px;
+  top: 6px;
 }
 .ma-header-sub {
   font-family: Roboto-Medium;

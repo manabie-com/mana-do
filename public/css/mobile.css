@@ -30,11 +30,19 @@
   }
   .ma-popup-content,
   .Todo__creation .ma-input {
-    margin: 0 16px;
   }
   .Todo__creation .ma-input {
     height: 36px;
     line-height: 36px;
+  }
+
+  .ma-add-todo-icon {
+    height: 30px;
+    top: 3px;
+    right: 3px;
+  }
+  .Todo__creation .ma-input {
+    border-radius: 16px;
   }
   .todo-toolbar-sec1 {
     display: none;
@@ -52,14 +60,15 @@
   .menu-more-wrapper {
     position: absolute;
     width: 160px;
-    background-color: #f4f8fc;
     top: -17px;
     right: 17px;
     display: flex;
     flex-direction: column;
     padding: 0 16px;
-    border-radius: 8px;
     z-index: 1;
+    background-color: #fff;
+    border-radius: 8px;
+    border: 1px solid #e4e8ec;
   }
   .ma-mark-all {
     color: #395ad2;

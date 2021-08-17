@@ -22,12 +22,22 @@ export default function CreateTodo(props) {
 
   return (
     <div className="Todo__creation">
-      <input
-        ref={inputRef}
-        className="ma-input"
-        placeholder={t("what_need_to_be_done")}
-        onKeyDown={onKeyDownAction}
-      />
+      <div>
+        <input
+          ref={inputRef}
+          className="ma-input"
+          placeholder={t("what_need_to_be_done")}
+          onKeyDown={onKeyDownAction}
+        />
+        <img
+          onClick={() => {
+            onKeyDownAction({ key: "Enter" });
+          }}
+          alt="add-todo"
+          className="ma-add-todo-icon"
+          src="/img/add.svg"
+        ></img>
+      </div>
     </div>
   );
 }

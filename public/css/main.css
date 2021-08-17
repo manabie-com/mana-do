@@ -1,18 +1,16 @@
 @font-face {
   font-family: "Roboto-Regular";
-  src: local("Roboto-Regular"),
-    url("/public/font/Roboto-Regular.ttf") format("ttf");
+  src: local("Roboto-Regular"), url("../font/Roboto-Regular.ttf") format("ttf");
 }
 
 @font-face {
   font-family: "Roboto-Medium";
-  src: local("Roboto-Medium"),
-    url("/public/font/Roboto-Medium.ttf") format("ttf");
+  src: local("Roboto-Medium"), url("../font/Roboto-Medium.ttf") format("ttf");
 }
 
 @font-face {
   font-family: "Roboto-Bold";
-  src: local("Roboto-Bold"), url("/public/font/Roboto-Bold.ttf") format("ttf");
+  src: local("Roboto-Bold"), url("../font/Roboto-Bold.ttf") format("ttf");
 }
 
 .App {
@@ -66,7 +64,7 @@
   color: #395ad2;
 }
 .ma-alert-color {
-  color: #EE4064;
+  color: #ee4064;
 }
 .ma-input {
   width: 100%;
@@ -127,12 +125,12 @@
   text-transform: capitalize;
 }
 .ma-shadow {
-  box-shadow: 0px 3px 8px -3px rgb(0 0 0 / 4%), 0px 3px 1px 0px rgb(0 0 0 / 6%),
-    0px 1px 3px 0px rgb(0 0 0 / 8%);
-  color: rgba(10, 8, 8, 0.87);
+  box-shadow: 0px 2px 1px -1px rgb(0 0 0 / 20%),
+    0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%);
+  color: #E4E8EC ;
   transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-  /* background-color: #fff; */
 }
+/* background-color: #fff; */
 
 .ma-message {
   height: 24px;
@@ -183,19 +181,17 @@
   background-color: #fff;
 } */
 
-
-
 .ma-noti-default {
   position: absolute;
-    top: 8px;
-    height: 40px;
-    width: 600px;
-    text-align: center;
-    line-height: 40px;
-    transform: translateY(-100%);
-    transition: all 0.3s ease-out;
-    font-family: Roboto-Medium;
-    z-index: 4;
+  top: 8px;
+  height: 40px;
+  width: 600px;
+  text-align: center;
+  line-height: 40px;
+  transform: translateY(-100%);
+  transition: all 0.3s ease-out;
+  font-family: Roboto-Medium;
+  z-index: 4;
 }
 .ma-noti-alert {
   border: 1px solid #ee4064;
@@ -229,13 +225,13 @@
 .ma-popup-content {
   width: 364px;
   height: 230px;
-  background: #f6f7f7;
+  background: #fff;
   display: flex;
   justify-content: space-between;
   flex-direction: column;
   align-items: center;
   z-index: 4;
-  border: 1px solid #f1bdbd;
+  border: 1px solid #E4E8EC;
   border-radius: 16px;
   padding: 16px;
 }
@@ -287,7 +283,6 @@
 .ma-user-menu-title {
   font-family: Roboto-Medium;
   color: #395ad2;
-  border-bottom: 1px solid;
 }
 .ma-user-menu-item {
   font-size: 16px;
@@ -307,7 +302,6 @@
   width: 100%;
 }
 .ma-user-avatar {
-  margin-bottom: 8px;
   display: flex;
   flex-direction: row-reverse;
 }
@@ -337,9 +331,10 @@
   justify-content: center;
   z-index: 3;
   opacity: 1;
-  background-color: #f4f8fc;
-  padding: 16px;
-  border-radius: 16px;
+  background-color: #fff;
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid #e4e8ec;
 }
 /*
 --- custom checkbox here
@@ -359,6 +354,9 @@
   right: 0px;
   top: 26px;
   width: 90px;
+  background-color: #fff;
+  border-radius: 8px;
+  border: 1px solid #e4e8ec;
 }
 .dropdown-items-lang {
   display: flex;

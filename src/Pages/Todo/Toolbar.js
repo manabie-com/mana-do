@@ -86,7 +86,7 @@ export default function Toolbar(props) {
           src="/img/more.svg"
         />
         {show ? (
-          <div className="menu-more-wrapper">
+          <div className="menu-more-wrapper ma-shadow">
             <div
               onClick={() => {
                 onToggleAllTodo(!activeTodos);

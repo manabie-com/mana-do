@@ -27,18 +27,22 @@ export default function ButtonChangeLang({ ...rest }) {
     i18n.changeLanguage(activeLang);
   };
   const onMouseEnterWrap = (event) => {
-    changeShowMenu(true);
+    if (!isShowMenu) {
+      changeShowMenu(true);
+    }
   };
   const onMouseLeaveWrap = (event) => {
-    changeShowMenu(false);
+    if (isShowMenu) {
+      changeShowMenu(false);
+    }
   };
   return (
-    <div
-      className={"group-change-lang-light"}
-      onMouseEnter={onMouseEnterWrap}
-      onMouseLeave={onMouseLeaveWrap}
-    >
-      <img alt="mana-do" src="/img/LoginScreen/globe.svg" />
+    <div className={"group-change-lang-light"} onMouseLeave={onMouseLeaveWrap}>
+      <img
+        onMouseEnter={onMouseEnterWrap}
+        alt="mana-do"
+        src="/img/LoginScreen/globe.svg"
+      />
       <div
         className={
           isShowMenu

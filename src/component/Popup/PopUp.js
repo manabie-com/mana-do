@@ -10,7 +10,7 @@ export default function PopUp(props) {
     type = "",
   } = props;
   const { t } = useTranslation();
-  let customClass = "ma-popup-content";
+  let customClass = "ma-popup-content ma-shadow";
   switch (type) {
     case "alert":
       customClass = customClass + " ma-alert-popup";
