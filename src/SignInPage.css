@@ -1,0 +1,69 @@
+.Signin__form {
+  background-color: white;
+  padding: 1rem 1.2rem;
+  box-shadow: 0.2px 2px 12px rgba(0, 0, 0, 0.2);
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 250px;
+}
+
+.Signin__form h2 {
+  font-size: 2rem;
+  font-weight: 400;
+  user-select: none;
+  text-shadow: 0.2px 0.2px 2px rgba(0, 0, 0, 0.2);
+}
+
+.Input__group {
+  margin: 1.6rem 0;
+  position: relative;
+}
+
+.Input__group label {
+  position: absolute;
+  left: 4px;
+  top: 4px;
+  font-weight: 300;
+  font-size: 15px;
+  pointer-events: none;
+  color: gray;
+  transition: ease-out 200ms;
+}
+.Signin__form input:focus + label,
+.Signin__form input:valid + label {
+  top: -16px;
+  left: 0px;
+  font-size: 14px;
+  color: dodgerblue;
+}
+
+.Signin__form input {
+  border: none;
+  border-bottom: 1px solid dodgerblue;
+  outline: none;
+  padding: 6px 4px;
+  display: block;
+  margin: auto;
+  width: 100%;
+}
+.Signin__form button {
+  background-color: dodgerblue;
+  padding: 0.5rem 1rem;
+  border: none;
+  color: white;
+  width: 100%;
+  border-radius: 2rem;
+  box-shadow: none;
+  cursor: pointer;
+  transition: ease-in-out 200ms;
+}
+
+.Signin__form button:hover {
+  opacity: 80%;
+}
+
+.Signin__form a {
+  color: dodgerblue;
+}

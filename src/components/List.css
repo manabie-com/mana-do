@@ -1,0 +1,59 @@
+/* Todo List */
+.ToDo__list {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1.5rem;
+  overflow: scroll;
+  max-height: 380px;
+  border-top: 0.5px solid #e3e6e4;
+}
+
+.ToDo__list::-webkit-scrollbar {
+  display: none;
+}
+
+.ToDo__item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  border-top: 0.5px solid #e3e6e4;
+}
+.todo__item__input {
+  flex: 1 1;
+}
+input[type="checkbox"] {
+  width: 24px;
+  height: 24px;
+  box-shadow: none;
+  border: none;
+  outline: none;
+}
+
+input[type="checkbox"]:focus {
+  box-shadow: none;
+  border: none;
+  outline: none;
+}
+
+/* TEXT OVERFLOW */
+
+.Todo__delete {
+  outline: none;
+  border: none;
+  width: 32px;
+  height: 32px;
+  min-width: auto;
+  min-height: auto;
+  box-shadow: none;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: ease-out 200ms;
+}
+.Todo__delete:hover {
+  background-color: red;
+  color: white;
+}

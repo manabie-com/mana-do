@@ -1,0 +1,57 @@
+/* Footer */
+
+.Todo__action,
+.Todo__delete {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+.Todo__toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 24px;
+}
+
+.Todo__tabs {
+  display: flex;
+  justify-content: center;
+}
+
+.Todo__tabs > *:not(:last-child) {
+  margin-right: 8px;
+}
+
+.Action__btn {
+  padding: 4px;
+  text-align: center;
+  border: 1px solid white;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.8em;
+  transition: ease-out 200ms;
+}
+.Action__btn:hover {
+  border: 1px solid #707073;
+}
+
+.Action__btn__active {
+  border: 1px solid #707073;
+  color: blue;
+}
+
+button {
+  outline: none;
+  border: none;
+  box-shadow: 2px 0 2px gray;
+  border-radius: 4px;
+  min-height: 32px;
+  min-width: 80px;
+}
+
+button:hover {
+  opacity: 0.85;
+  cursor: pointer;
+}

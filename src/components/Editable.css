@@ -1,0 +1,42 @@
+.Todo__content {
+  flex: 1 1;
+  text-align: left;
+  margin-left: 8px;
+  text-overflow: ellipsis;
+  max-width: 80%;
+  white-space: nowrap;
+  overflow: hidden;
+  font-size: 1.2em;
+}
+.Todo__content__completed {
+  flex: 1 1;
+  text-align: left;
+  margin-left: 8px;
+  text-overflow: ellipsis;
+  max-width: 80%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-decoration: line-through;
+  color: lightgray;
+}
+
+.Todo__content__edit {
+  flex: 1 1;
+  text-align: left;
+  margin-left: 8px;
+  text-overflow: ellipsis;
+  max-width: 80%;
+  white-space: nowrap;
+  overflow: hidden;
+  display: flex;
+}
+
+.Todo__content__edit input {
+  font-size: 1.2em;
+  padding: 5px;
+  outline: none;
+  border: none;
+  color: blue;
+  flex: 1 1;
+  border-bottom: 1px solid lightgray;
+}
