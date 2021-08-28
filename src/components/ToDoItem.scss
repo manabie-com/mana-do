@@ -1,0 +1,37 @@
+.toDoItem{
+  display:flex;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  align-items: center;
+  border-bottom: 1px solid #c3c3c3;
+  &__checkBox{
+    display:flex;
+    align-content: center;
+    margin-right: 20px;
+    flex: 1;
+  }
+  &__content{
+    font-weight: 500;
+    font-size: 20px;
+    display: flex;
+    flex: 20;
+  }
+  &__delete{
+    flex: 1;
+    button{
+      border-radius: 30%;
+      cursor: pointer;
+      background-color: white;
+      border: 1px solid #c3c3c3;
+      padding: 4px 8px;
+    }
+  }
+  input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    box-shadow: none;
+    border: none;
+    outline: none;
+    cursor: pointer;
+  }
+}

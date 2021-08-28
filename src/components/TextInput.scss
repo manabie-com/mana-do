@@ -1,0 +1,20 @@
+.input{
+  display: flex;
+  flex-direction: column;
+  font-weight: 500;
+  width: 100%;
+  input[type="text"] {
+    width: 100%;
+    padding: 10px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    box-sizing: border-box;
+    &:focus {
+      outline: none !important;
+      border:1px solid #395AD2;
+      box-shadow: 0 0 10px #719ECE;
+    }
+  }
+}

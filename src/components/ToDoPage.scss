@@ -1,0 +1,25 @@
+.toDo {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  height: 100vh;
+  &__inputContainer {
+    width: 40%;
+  }
+  &__buttonContainer{
+    width: 40%;
+    display: flex;
+    align-items: center;
+    input[type="checkbox"] {
+      width: 20px;
+      height: 20px;
+      box-shadow: none;
+      border: none;
+      outline: none;
+      cursor: pointer;
+    }
+  }
+  &__itemContainer{
+    width: 40%;
+  }
+}

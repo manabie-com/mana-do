@@ -1,64 +1,88 @@
-import {Todo, TodoStatus} from '../models/todo';
+import { Todo, TodoStatus } from "../models/todo";
 import {
   AppActions,
   CREATE_TODO,
   DELETE_ALL_TODOS,
   DELETE_TODO,
   TOGGLE_ALL_TODOS,
-  UPDATE_TODO_STATUS
-} from './actions';
+  UPDATE_TODO_STATUS,
+  SET_TODO, UPDATE_TODO_CONTENT,
+} from "./actions";
 
-export interface AppState {
-  todos: Array<Todo>
+export interface ToDoState {
+  todos: Array<Todo>;
 }
 
-export const initialState: AppState = {
-  todos: []
-}
+export const initialState: ToDoState = {
+  todos: [],
+};
 
-function reducer(state: AppState, action: AppActions): AppState {
+function reducer(state: ToDoState, action: AppActions): ToDoState {
+  let newToDo = [...state.todos]
   switch (action.type) {
-    case CREATE_TODO:
-      state.todos.push(action.payload);
+    case SET_TODO: {
       return {
-        ...state
+        todos: [...action.payload],
+      };
+    }
+    case CREATE_TODO:
+      return {
+        todos: [...state.todos, action.payload],
+      };
+    case UPDATE_TODO_STATUS:
+      const index2 = state.todos.findIndex(
+        (todo) => todo.id === action.payload.todoId
+      );
+
+      newToDo[index2].status = action.payload.checked
+        ? TodoStatus.COMPLETED
+        : TodoStatus.ACTIVE;
+
+      return {
+        ...state,
+        todos: newToDo,
       };
 
-    case UPDATE_TODO_STATUS:
-      const index2 = state.todos.findIndex((todo) => todo.id === action.payload.todoId);
-      state.todos[index2].status = action.payload.checked ? TodoStatus.COMPLETED : TodoStatus.ACTIVE;
-
-      return {
-        ...state,
-        todos: state.todos
-      }
-
     case TOGGLE_ALL_TODOS:
-      const tempTodos = state.todos.map((e)=>{
+      const tempTodos = state.todos.map((e) => {
         return {
           ...e,
-          status: action.payload ? TodoStatus.COMPLETED : TodoStatus.ACTIVE
-        }
-      })
+          status: action.payload ? TodoStatus.COMPLETED : TodoStatus.ACTIVE,
+        };
+      });
 
       return {
         ...state,
-        todos: tempTodos
-      }
+        todos: tempTodos,
+      };
 
     case DELETE_TODO:
-      const index1 = state.todos.findIndex((todo) => todo.id === action.payload);
-      state.todos.splice(index1, 1);
+      const newState = [...state.todos];
+      const index1 = newState.findIndex(
+        (todo) => todo.id === action.payload
+      );
+      newState.splice(index1, 1);
 
       return {
         ...state,
-        todos: state.todos
-      }
+        todos: newState,
+      };
     case DELETE_ALL_TODOS:
       return {
         ...state,
-        todos: []
-      }
+        todos: [],
+      };
+    case UPDATE_TODO_CONTENT:
+      let index = state.todos.findIndex(
+        (todo) => todo.id === action.payload.todoId
+      );
+
+      newToDo[index].content = action.payload.content;
+
+      return {
+        ...state,
+        todos: newToDo,
+      };
     default:
       return state;
   }

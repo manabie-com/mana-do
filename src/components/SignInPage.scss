@@ -1,0 +1,21 @@
+.signIn{
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  &__titleContainer{
+    width: 30%;
+    display: flex;
+    &__text{
+      justify-content: flex-start;
+      font-size: 25px;
+      font-weight: bold;
+      color: #395AD2;
+    }
+  }
+  &__form{
+    width: 30%;
+    padding-top: 40px;
+  }
+}
