@@ -2,8 +2,8 @@ import React from 'react';
 
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
 
-import SignInPage from './SignInPage';
-import ToDoPage from './ToDoPage';
+import SignInPage from './modules/signin/index';
+import ToDoPage from './modules/todo/index';
 
 import './App.css';
 

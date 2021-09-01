@@ -1,0 +1,23 @@
+.sign-in-page {
+
+  .header {
+    margin-top: 100px;
+  }
+
+  .form-login {
+    margin: auto;
+    padding: 30px 40px;
+    margin-top: 20px;
+    min-width: 300px;
+    border: 1px solid gray;
+    border-radius: 2px;
+  }
+
+  .button {
+    margin-top: 12px;
+    align-items: center;
+    color: white;
+    font-weight: bold;
+    background-color: #33A5FF;
+  }
+}

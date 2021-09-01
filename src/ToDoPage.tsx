@@ -36,8 +36,8 @@ const ToDoPage = ({history}: RouteComponentProps) => {
                 const resp = await Service.createTodo(inputRef.current.value);
                 dispatch(createTodo(resp));
                 inputRef.current.value = '';
-            } catch (e) {
-                if (e.response.status === 401) {
+            } catch (e: any) {
+                if (e && e.response && e.response.status === 401) {
                     history.push('/')
                 }
             }
