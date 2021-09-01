@@ -6,7 +6,7 @@ import {
   DELETE_TODO,
   TOGGLE_ALL_TODOS,
   UPDATE_TODO_STATUS
-} from './actions';
+} from 'actions/TodoListAction';
 
 export interface AppState {
   todos: Array<Todo>
