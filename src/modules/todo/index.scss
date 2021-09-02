@@ -1,0 +1,70 @@
+.ToDo__container {
+  border: 1px solid rgba(0, 0, 0, 0.13);
+  border-radius: 8px;
+  width: 500px;
+  margin-top: 5rem;
+  padding: 24px;
+  box-shadow: 2px 2px 1px rgba(0, 0, 0, 0.09),
+    3px 2px 3px rgba(0, 0, 0, 0.05);
+}
+
+.Todo__creation {
+  display: flex;
+}
+
+.Todo__input {
+  flex: 1 1;
+}
+
+.ToDo__list {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1rem;
+}
+
+.Todo__delete {
+  outline: none;
+  border: none;
+  width: 32px;
+  height: 32px;
+  min-width: auto;
+  min-height: auto;
+  box-shadow: none;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.Todo__action,
+.Todo__delete {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+.Todo__toolbar {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 24px;
+}
+
+.status-selector {
+  margin-right: 12px;
+  #todo-status {
+    height: 32px;
+    padding: 6px;
+  }
+}
+
+.Todo__tabs>*:not(:last-child) {
+  margin-right: 8px;
+}
+
+.Action__btn {
+  align-items: center;
+  color: white;
+  font-weight: bold;
+  background-color: #33A5FF;
+}

@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from 'react-router-dom';
 
 import "./index.scss";
-import Input from './components/input/input';
+import Input from '../../components/common/input/input';
 import { signIn, resetError } from './signin.slice';
 
 import { ToastContainer, toast } from 'react-toastify';
@@ -55,8 +55,8 @@ const SignInPage = () => {
     <div className="sign-in-page">
       <h3 className="header">Sign In</h3>
       <form className="form-login" onSubmit={onClickSignIn}>
-        <Input id="username" name="username" label="Username" type="text" onChangeValue={(name, value) => onChangeField(name, value)} />
-        <Input id="password" name="password" label="Password" type="text" onChangeValue={(name, value) => onChangeField(name, value)} />
+        <Input id="username" name="username" label="Username" type="text" value="" onChangeValue={(name, value) => onChangeField(name, value)} />
+        <Input id="password" name="password" label="Password" type="password" value="" onChangeValue={(name, value) => onChangeField(name, value)} />
 
         <button id="btn-signin" className="button" type="submit" disabled={signInRequesting}>
           { signInRequesting ? "Sign In" : "Signing In"}

@@ -1,0 +1,23 @@
+
+
+.content-input {
+  margin-left: 10px;
+  flex: 1;
+  margin-right: 20px;
+}
+
+.ToDo__item {
+  display: flex;
+  align-items: center;
+  padding: 6px 0;
+}
+
+.ToDo__item>span {
+  flex: 1 1;
+  text-align: left;
+  margin-left: 8px;
+}
+
+.Todo__content {
+  flex: 1 1;
+}

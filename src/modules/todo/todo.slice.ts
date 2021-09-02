@@ -26,7 +26,7 @@ export const todoSlice = createSlice({
     loadTodoListSuccess: (state, action) => {
       state.todos = action.payload;
     },
-    updateTodo: (state, action) => {
+    updateTodoStatus: (state, action) => {
       const index = state.todos.findIndex((todo) => todo.id === action.payload.todoId);
       if (index > -1) {
         state.todos[index].status = action.payload.checked ? TodoStatus.COMPLETED : TodoStatus.ACTIVE;
@@ -36,6 +36,13 @@ export const todoSlice = createSlice({
     },
     updateTodoFailed: (state, action) => {
       state.updateTodoFailed = action.payload;
+    },
+    updateTodoContent: (state, action) => {
+      const index = state.todos.findIndex((todo) => todo.id === action.payload.todoId);
+      if (index > -1) {
+        state.todos[index].content = action.payload.content;
+      }
+      storeItem(TODOS_KEY, state.todos);
     },
     toggleAllTodos: (state, action) => {
       const todos = state.todos.map(item => {
@@ -57,7 +64,7 @@ export const todoSlice = createSlice({
         state.todos.splice(index, 1);
       }
       storeItem(TODOS_KEY, state.todos);
-    }
+    },
   }
 });
 
@@ -79,14 +86,25 @@ export const getTodoList = () => async (dispatch: any) => {
   dispatch(loadTodoListSuccess(response));
 };
 
-const { updateTodo, updateTodoFailed, toggleAllTodos, deleteAllTodos, deleteTodoItem } = todoSlice.actions
+const { updateTodoStatus, updateTodoFailed, toggleAllTodos, deleteAllTodos, deleteTodoItem, updateTodoContent } = todoSlice.actions
 
-export const updateTodoItem = (todoId: string, checked: boolean) => async (dispatch: any) => {
+export const updateTodoItemStatus = (todoId: string, checked: boolean) => async (dispatch: any) => {
   try {
     const todoRequest = {
       todoId, checked
     }
-    dispatch(updateTodo(todoRequest));
+    dispatch(updateTodoStatus(todoRequest));
+  } catch (err) {
+    dispatch(updateTodoFailed(err));
+  }
+};
+
+export const updateTodoItemContent = (todoId: string, content: string) => async (dispatch: any) => {
+  try {
+    const todoRequest = {
+      todoId, content
+    }
+    dispatch(updateTodoContent(todoRequest));
   } catch (err) {
     dispatch(updateTodoFailed(err));
   }
