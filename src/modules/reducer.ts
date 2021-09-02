@@ -5,7 +5,7 @@ export interface GlobalState {
 }
 
 const initialState: GlobalState = {
-  isLogined: localStorage.getItem('token') !== "",
+  isLogined: localStorage.getItem("token") !== "",
 };
 
 const globalReducer = (state = initialState, action: Actions): GlobalState => {
@@ -19,6 +19,7 @@ const globalReducer = (state = initialState, action: Actions): GlobalState => {
     case types.LOGOUT:
       newState.isLogined = false;
       localStorage.removeItem("token");
+      localStorage.removeItem("todo");
       return newState;
     default:
       return state;

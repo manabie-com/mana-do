@@ -1,0 +1,152 @@
+.ToDo__container {
+  width: 500px;
+  margin-top: 5rem;
+  padding: 24px;
+  border: 1px solid rgb(220, 220, 220);
+}
+
+.Todo__creation {
+  display: flex;
+  margin-top: 1.5rem;
+}
+
+.Todo__input {
+  flex: 1 1;
+  border: 1px solid rgb(220, 220, 220);
+  border-radius: 3px;
+  padding: 0 10px;
+}
+
+.ToDo__list {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1.5rem;
+}
+
+.ToDo__item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid rgb(220, 220, 220);
+  border-radius: 3px;
+  padding: 0 10px;
+  margin-top: 0.5rem;
+}
+
+.ToDo__item > button {
+  margin-left: 5px;
+}
+
+.Todo__content {
+  flex: 1 1;
+}
+.Todo__action--edit,
+.Todo__action--delete {
+  outline: none;
+  border: none;
+  width: 32px;
+  height: 32px;
+  min-width: auto;
+  min-height: auto;
+  box-shadow: none;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.Todo__action,
+.Todo__item--delete,
+.Todo__item--edit {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+  padding: 0;
+  background-color: transparent;
+}
+
+.Todo__toolbar {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1.5rem;
+  align-items: center;
+  padding-left: 10px;
+}
+
+.Todo__tabs {
+  display: flex;
+  justify-content: center;
+}
+
+.Todo__tabs > *:not(:last-child) {
+  margin-right: 8px;
+}
+
+.Action__btn {
+  background-color: #ffffff;
+  box-shadow: none;
+  border: 1px solid var(--primary);
+  min-width: 60px;
+  height: 32px;
+  color: var(--primary);
+  border-radius: 2px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.Action__btn--active {
+  background-color: var(--primary);
+  border: 1px solid #ffffff;
+  color: #ffffff;
+}
+
+.Action__btn--delete {
+  background-color: var(--delete);
+  color: #ffffff;
+  border-color: var(--delete);
+}
+
+.Action__btn > .Note__btn {
+  background-color: #ffffff;
+  color: var(--primary);
+  border: 1px solid var(--primary);
+  border-radius: 50%;
+  min-width: 12px;
+  min-height: 12px;
+  text-align: center;
+  font-size: 9px;
+  font-weight: bold;
+  padding: 2px;
+  line-height: 12px;
+  margin-left: 4px;
+  margin-top: 1px;
+}
+
+.Action__btn--delete > .Note__btn {
+  color: var(--delete);
+}
+
+.ToDo__title {
+  font-size: 24px;
+}
+
+.Todo__empty__message {
+  color: var(--grey);
+  font-size: 12px;
+}
+
+.Todo__actions{
+  display: inline-flex;
+}
+
+.Todo__action:not(:last-of-type){
+  margin-right: 5px;
+}
+
+.ToDo__item--edit{
+  border: 0;
+  padding: 0;
+}
