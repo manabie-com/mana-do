@@ -1,21 +1,29 @@
 import React, {useState} from 'react';
+import { useDispatch } from 'react-redux';
 
 import {useHistory} from 'react-router-dom'
 import Service from 'service';
+import * as globalActions from "modules/actions";
 
 const SignInPage = () => {
     const [form, setForm] = useState({
         userId: '',
         password: ''
     });
+    const [errorMsg, setErrorMsg] = useState("")
     const history = useHistory();
+    const dispatch = useDispatch();
 
     const signIn = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-        const resp = await Service.signIn(form.userId, form.password)
-
-        localStorage.setItem('token', resp)
-        history.push('/todo')
+        try {
+            const resp = await Service.signIn(form.userId, form.password);
+            dispatch(globalActions.login(resp))
+            history.push('/todo');
+        } catch (error) {
+            setErrorMsg(error);
+        }
+       
     }
 
     const onChangeField = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -52,6 +60,12 @@ const SignInPage = () => {
                     />
                 </label>
                 <br />
+                {errorMsg && (
+                    <React.Fragment>
+                        <label className="Message--error">{errorMsg}</label>
+                        <br/>
+                    </React.Fragment>
+                )}
                 <button type="submit" style={{marginTop: 12}}>
                     Sign in
                 </button>

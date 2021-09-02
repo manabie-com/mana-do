@@ -1,3 +1,15 @@
+:root{
+  --error: #f44336;
+}
+
+nav{
+  text-align: right;
+  padding: 20px 30px;
+}
+.nav__logout{
+  font-size: 14px;
+}
+
 .App {
   text-align: center;
   display: flex;
@@ -122,4 +134,9 @@ input:focus {
 }
 
 .Action__btn {
+}
+
+.Message--error{
+  font-size: 12px;
+  color: var(--error);
 }
