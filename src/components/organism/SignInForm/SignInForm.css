@@ -1,0 +1,26 @@
+.Login__label {
+  display: inline-block;
+  width: 100px;
+  font-size: 14px;
+  text-align: left;
+}
+.Login__label + input{
+  margin-top: 12px;
+  border: 1px solid rgb(220, 220, 220);
+  width: 200px;
+}
+
+.Login__submit {
+  background-color: var(--primary);
+  box-shadow: none;
+  border: 1px solid var(--primary);
+  min-width: 60px;
+  height: 32px;
+  color: #ffffff;
+  border-radius: 2px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin-top: 12px;
+}

@@ -52,7 +52,6 @@ input {
   outline: none;
   padding: 0 12px;
   border-radius: 4px;
-  height: 42px;
 }
 
 input:focus {
