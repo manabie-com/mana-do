@@ -55,11 +55,17 @@ const SignInPage = () => {
     <div className="sign-in-page">
       <h3 className="header">Sign In</h3>
       <form className="form-login" onSubmit={onClickSignIn}>
-        <Input id="username" name="username" label="Username" type="text" value="" onChangeValue={(name, value) => onChangeField(name, value)} />
-        <Input id="password" name="password" label="Password" type="password" value="" onChangeValue={(name, value) => onChangeField(name, value)} />
+
+        <div className="username-input">
+          <Input id="username" name="username" label="Username" type="text" value="" onChangeValue={(name, value) => onChangeField(name, value)} />
+        </div>
+
+        <div className="password-input">
+          <Input id="password" name="password" label="Password" type="password" value="" onChangeValue={(name, value) => onChangeField(name, value)} />
+        </div>
 
         <button id="btn-signin" className="button" type="submit" disabled={signInRequesting}>
-          { signInRequesting ? "Sign In" : "Signing In"}
+          {signInRequesting ? "Sign In" : "Signing In"}
         </button>
       </form>
 
