@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useEffect, useState } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 
 import { useDispatch, useSelector } from "react-redux";
@@ -43,7 +43,7 @@ const ToDoPage = ({ history }: RouteComponentProps) => {
     });
     setShowTodos(showTodos);
 
-    const isAllCompleted = showTodos.every((todo: any) => todo.status == "COMPLETED");
+    const isAllCompleted = showTodos.every((todo: any) => todo.status === "COMPLETED");
     setAllCompleted(isAllCompleted);
   }, [todos, status]);
 
