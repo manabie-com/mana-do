@@ -16,6 +16,7 @@ button {
 
 button:hover {
   opacity: 0.85;
+  cursor: pointer;
 }
 
 input[type="checkbox"] {
@@ -66,7 +67,7 @@ input:focus {
 .ToDo__list {
   display: flex;
   flex-direction: column;
-  margin-top: 1.5rem;
+  margin-top: 1rem;
 }
 
 .ToDo__item {
@@ -109,12 +110,12 @@ input:focus {
 .Todo__toolbar {
   display: flex;
   justify-content: space-between;
-  margin-top: 24px;
+  border-bottom: 1px solid #dddddd;
 }
 
-.Todo__tabs {
+.Todo__tabs, .Action__btn {
   display: flex;
-  justify-content: center;
+  align-items: center;
 }
 
 .Todo__tabs > *:not(:last-child) {
@@ -122,4 +123,39 @@ input:focus {
 }
 
 .Action__btn {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.ToDo__item input[type='checkbox'], .Todo__toolbar input[type='checkbox'] {
+  cursor: pointer;
+}
+
+.Todo__tabs input[type='radio'] {
+  box-shadow: none;
+  cursor: pointer;
+}
+
+.Todo__tabs {
+  font-size: 14px;
+}
+
+.ToDo_selectAll {
+  display: flex;
+}
+
+.ToDo_selectAll .label {
+  display: flex;
+  align-items: center;
+  margin-left: 8px;
+}
+
+.Todo__control_btn {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+}
+
+.Todo__control_btn button {
+  margin: 0 10px;
 }

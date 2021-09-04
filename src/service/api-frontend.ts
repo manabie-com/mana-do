@@ -1,8 +1,14 @@
 import {IAPI} from './types';
 import {Todo, TodoStatus} from '../models/todo';
 import shortid from 'shortid';
+import { getStorage } from '../utils';
+import { TODO_STORAGE } from '../utils/constants';
 
 const mockToken = 'testabc.xyz.ahk'
+
+function wait(milliseconds: number) {
+    return new Promise(resolve => setTimeout(resolve, milliseconds));
+  }
 
 class ApiFrontend extends IAPI {
     async signIn(username: string, password: string): Promise<string>{
@@ -24,7 +30,11 @@ class ApiFrontend extends IAPI {
     }
 
     async getTodos(): Promise<Todo[]>{
-        return []
+        // Fake delay from call api
+        await wait(500);
+
+        const data: Todo[] = getStorage(TODO_STORAGE)
+        return await data || []
     }
 }
 
