@@ -8,5 +8,6 @@ export interface Todo {
   user_id: string
   content : string
   status?: TodoStatus
-  created_date: string
+  created_date: string,
+  color: string
 }
