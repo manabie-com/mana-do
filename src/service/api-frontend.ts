@@ -6,10 +6,6 @@ import { TODO_STORAGE } from '../utils/constants';
 
 const mockToken = 'testabc.xyz.ahk'
 
-function wait(milliseconds: number) {
-    return new Promise(resolve => setTimeout(resolve, milliseconds));
-  }
-
 class ApiFrontend extends IAPI {
     async signIn(username: string, password: string): Promise<string>{
         if (username === 'firstUser' && password === 'example') {
@@ -36,9 +32,6 @@ class ApiFrontend extends IAPI {
     }
 
     async getTodos(): Promise<Todo[]>{
-        // Fake delay from call api
-        await wait(500);
-
         const data: Todo[] = getStorage(TODO_STORAGE)
         return await data || []
     }
