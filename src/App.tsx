@@ -1,19 +1,25 @@
-import React from 'react';
+import React from "react";
 
-import {BrowserRouter, Switch, Route} from 'react-router-dom';
+import { BrowserRouter, Switch, Route } from "react-router-dom";
 
-import SignInPage from './SignInPage';
-import ToDoPage from './ToDoPage';
+import PrivateRoute from "./layouts/PrivateRoute";
 
-import './App.css';
+import SignInPage from "./layouts/SignInPage";
+import ToDoPage from "./layouts/ToDoPage";
+
+import "./App.css";
 
 function App() {
   return (
-    <main className="App">
+    <main className="main_visual">
       <BrowserRouter>
         <Switch>
-          <Route path="/" exact component={SignInPage}/>
-          <Route path="/todo" component={ToDoPage}/>
+          <Route path="/login">
+            <SignInPage />
+          </Route>
+          <PrivateRoute path="/">
+            <ToDoPage />
+          </PrivateRoute>
         </Switch>
       </BrowserRouter>
     </main>
