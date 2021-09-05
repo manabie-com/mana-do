@@ -1,13 +1,13 @@
 import React from "react";
-import { BrowserRouter } from "react-router-dom";
+import { HashRouter } from "react-router-dom";
 import LoginRoutes from "./LoginRoutes";
 import TodoRoutes from "./TodoRoutes";
 
 export default function Routes() {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <TodoRoutes />
       <LoginRoutes />
-    </BrowserRouter>
+    </HashRouter>
   );
 }
