@@ -127,12 +127,12 @@ export function deleteAllTodoList(): DeleteAllTodoListAction {
 }
 
 ///////////
-export interface ToggleAllTodosAction {
+export interface ToggleAllTodoAction {
   type: typeof types.TOGGLE_ALL_TODO_LIST,
   payload: boolean
 }
 
-export function toggleAllTodos(checked: boolean): ToggleAllTodosAction {
+export function toggleAllTodo(checked: boolean): ToggleAllTodoAction {
   return {
     type: types.TOGGLE_ALL_TODO_LIST,
     payload: checked

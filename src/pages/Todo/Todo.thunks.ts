@@ -1,5 +1,5 @@
 import Service from "service"
-import * as actions from "./Todo.actions"
+import * as actions from "./Todo.actions";
 import { TodoStatus } from 'models/todo';
 
 export const getTodoList = () => dispatch => {
@@ -50,13 +50,11 @@ export const updateTodo = (payload) => dispatch => {
     })
 }
 
-export const updateAllTodo = (status: any, fnCallback?: any) => dispatch => {
+export const updateAllTodo = (status: any) => dispatch => {
   dispatch(actions.updateAllTodo(status))
   return Service.updateAllTodo(status)
     .then((res: any) => {
-     
-      fnCallback?.()
-      return dispatch(actions.toggleAllTodos(status));
+      return dispatch(actions.toggleAllTodo(status));
     })
    .catch((err: any) => {
       return Promise.reject(err);
