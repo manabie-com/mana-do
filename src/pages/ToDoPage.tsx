@@ -8,16 +8,15 @@ import {
   deleteTodo,
   toggleAllTodos,
   deleteAllTodos,
-  updateTodoStatus,
+  updateTodo,
 } from "../store/actions";
 import Service from "../service";
-import { TodoStatus } from "../models/todo";
-import { getStorage, isTodoCompleted } from "../utils";
+import { Todo, TodoStatus } from "../models/todo";
+import { isTodoCompleted } from "../utils";
 import ToDoList from "../components/ToDo/list";
 import TodoTabs from "../components/ToDo/tabs";
 import ToDoToolbar from "../components/ToDo/toolbar";
 import ToDoSearch from "../components/ToDo/search";
-import { TODO_STORAGE } from "../utils/constants";
 
 type EnhanceTodoStatus = TodoStatus | "ALL";
 
@@ -29,9 +28,9 @@ const ToDoPage = ({ history }: RouteComponentProps) => {
 
   useEffect(() => {
     (async () => {
-      setLoading(true)
+      setLoading(true);
       const resp = await Service.getTodos();
-      setLoading(false)
+      setLoading(false);
 
       dispatch(setTodos(resp || []));
     })();
@@ -51,22 +50,30 @@ const ToDoPage = ({ history }: RouteComponentProps) => {
     }
   };
 
-  const onUpdateTodoStatus = async (
-    e: React.ChangeEvent<HTMLInputElement>,
-    todoId: string
-  ) => {
-    dispatch(updateTodoStatus(todoId, e.target.checked));
+  const onUpdateTodo = async (todo: Todo) => {
+    const updateItem = todos.find((x) => x.id === todo.id);
+
+    if (!updateItem) {
+      return;
+    }
+
+    await Service.updateTodo(todo);
+    dispatch(updateTodo(todo));
   };
 
-  const onToggleAllTodo = (e: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch(toggleAllTodos(e.target.checked));
+  const onToggleAllTodo = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const completed = e.target.checked
+    await Service.toggleAll(!completed);
+    dispatch(toggleAllTodos(completed));
   };
 
-  const onDeleteAllTodo = () => {
+  const onDeleteAllTodo = async () => {
+    await Service.deleteAll('uid');
     dispatch(deleteAllTodos());
   };
 
-  const onDeleteTodo = (todoId: string) => {
+  const onDeleteTodo = async (todoId: string) => {
+    await Service.deleteTodo(todoId);
     dispatch(deleteTodo(todoId));
   };
 
@@ -77,22 +84,13 @@ const ToDoPage = ({ history }: RouteComponentProps) => {
       case TodoStatus.COMPLETED:
         return todo.status === TodoStatus.COMPLETED;
       default:
-        return true;
+        return [];
     }
   });
 
   const activeTodos = todos.reduce(function (accum, todo) {
     return isTodoCompleted(todo) ? accum : accum + 1;
   }, 0);
-
-  const handleSubmit = () => {
-    dispatch(setTodos(todos || []));
-  };
-
-  const handleReset = () => {
-    const todo = getStorage(TODO_STORAGE);
-    dispatch(setTodos(todo || []));
-  };
 
   return (
     <div className="ToDo__container">
@@ -108,16 +106,12 @@ const ToDoPage = ({ history }: RouteComponentProps) => {
         <ToDoList
           showTodos={showTodos}
           isTodoCompleted={isTodoCompleted}
-          onUpdateTodoStatus={onUpdateTodoStatus}
+          onUpdateTodo={onUpdateTodo}
           onDeleteTodo={onDeleteTodo}
         />
       ) : (
         "Loading..."
       )}
-      <div className="Todo__control_btn">
-        <button onClick={handleSubmit}>Submit</button>
-        <button onClick={handleReset}>Reset</button>
-      </div>
     </div>
   );
 };

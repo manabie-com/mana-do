@@ -80,6 +80,13 @@ input:focus {
   flex: 1 1;
   text-align: left;
   margin-left: 8px;
+  cursor: pointer;
+}
+
+.ToDo__item .ToDo__item_content {
+  flex: 1 1;
+  text-align: left;
+  margin: 0 8px;
 }
 
 .Todo__content {

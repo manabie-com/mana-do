@@ -35,11 +35,13 @@ function reducer(state: AppState, action: AppActions): AppState {
       };
 
     case UPDATE_TODO_STATUS:
-      const foundIndex = state.todos.findIndex((todo) => todo.id === action.payload.todoId);
+      const foundIndex = state.todos.findIndex((todo) => todo.id === action.payload.id);
       let newState = {...state}
-      newState.todos[foundIndex].status = action.payload.checked ? TodoStatus.COMPLETED : TodoStatus.ACTIVE;
+      newState.todos[foundIndex] = action.payload;
 
-      return newState
+      return {
+        ...newState
+      }
 
     case TOGGLE_ALL_TODOS:
       const tempTodos = state.todos.map((e)=>{

@@ -36,19 +36,13 @@ export function createTodo(newTodo: Todo): CreateTodoAction {
 //////////////
 export interface UpdateTodoStatusAction {
   type: typeof UPDATE_TODO_STATUS,
-  payload: {
-    todoId: string,
-    checked: boolean
-  }
+  payload: Todo
 }
 
-export function updateTodoStatus(todoId: string, checked: boolean): UpdateTodoStatusAction {
+export function updateTodo(todo: Todo): UpdateTodoStatusAction {
   return {
     type: UPDATE_TODO_STATUS,
-    payload: {
-      todoId,
-      checked
-    }
+    payload: todo
   }
 }
 
