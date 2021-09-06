@@ -5,7 +5,9 @@ import {
   DELETE_ALL_TODOS,
   DELETE_TODO,
   TOGGLE_ALL_TODOS,
-  UPDATE_TODO_STATUS
+  UPDATE_TODO_STATUS,
+  SET_TODO,
+  UPDATE_TODO
 } from './actions';
 
 export interface AppState {
@@ -19,18 +21,23 @@ export const initialState: AppState = {
 function reducer(state: AppState, action: AppActions): AppState {
   switch (action.type) {
     case CREATE_TODO:
-      state.todos.push(action.payload);
+      const todos = [...state.todos, action.payload];
       return {
-        ...state
+        ...state,
+        todos
       };
 
     case UPDATE_TODO_STATUS:
       const index2 = state.todos.findIndex((todo) => todo.id === action.payload.todoId);
-      state.todos[index2].status = action.payload.checked ? TodoStatus.COMPLETED : TodoStatus.ACTIVE;
+      const status = action.payload.checked ? TodoStatus.COMPLETED : TodoStatus.ACTIVE;
 
       return {
         ...state,
-        todos: state.todos
+        todos: [
+          ...state.todos.slice(0, index2),
+          Object.assign({}, state.todos[index2], {status: status}),
+          ...state.todos.slice(index2+1)
+        ]
       }
 
     case TOGGLE_ALL_TODOS:
@@ -47,18 +54,33 @@ function reducer(state: AppState, action: AppActions): AppState {
       }
 
     case DELETE_TODO:
-      const index1 = state.todos.findIndex((todo) => todo.id === action.payload);
-      state.todos.splice(index1, 1);
+      const list = state.todos.filter((todo) => todo.id !== action.payload);
 
       return {
         ...state,
-        todos: state.todos
+        todos: list
       }
     case DELETE_ALL_TODOS:
       return {
         ...state,
         todos: []
       }
+    case UPDATE_TODO:
+      const index = state.todos.findIndex(todo => {
+        return todo.id === action.payload.todoId
+      });
+      return {
+        ...state,
+        todos: [
+          ...state.todos.slice(0, index),
+          Object.assign({}, state.todos[index], {content: action.payload.content}),
+          ...state.todos.slice(index+1)
+        ]
+      };
+      case SET_TODO:
+        return {
+          todos: action.payload
+        }
     default:
       return state;
   }

@@ -1,0 +1,47 @@
+
+
+.ToDo__list {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1.5rem;
+}
+
+.Todo__list__motion {
+  overflow: hidden;
+}
+
+.ToDo__item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.Todo__input-wrapper {
+  flex: 1 1;
+  margin-left: 8px;
+  text-align: left;
+}
+
+.ToDo__item > span {
+  flex: 1 1;
+  margin-left: 8px;
+}
+
+.item-enter {
+  opacity: 0;
+  transform: translateX(-100px);
+}
+.item-enter-active {
+  opacity: 1;
+  transform: translateX(0px);
+  transition: all 500ms ease-in;
+}
+.item-exit {
+  opacity: 1;
+  transform: translateX(0);
+}
+.item-exit-active {
+  opacity: 0;
+  transform: translateX(-100px);
+  transition: all 500ms ease-in;
+}

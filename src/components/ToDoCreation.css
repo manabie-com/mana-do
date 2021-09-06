@@ -1,0 +1,12 @@
+.Todo__creation {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.Todo__input {
+  flex: 1 1;
+}
+
+.Todo__input--required {
+  border: 1px solid #ff0000;
+}
