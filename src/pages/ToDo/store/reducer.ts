@@ -1,13 +1,13 @@
-// import { combineReducers } from "redux";
-import { Todo, TodoStatus } from "../models/todo";
+import { Todo, TodoStatus } from "../../../models/todo";
 import {
   AppActions,
   CREATE_TODO,
   DELETE_ALL_TODOS,
   DELETE_TODO,
+  SET_TODO,
   TOGGLE_ALL_TODOS,
-  UPDATE_TODO_CONTENT,
   UPDATE_TODO_STATUS,
+  UPDATE_TODO,
 } from "./actions";
 
 export interface AppState {
@@ -18,12 +18,33 @@ export const initialState: AppState = {
   todos: [],
 };
 
-function reducer(state = initialState, action: AppActions): AppState {
+function reducer(state: AppState, action: AppActions): AppState {
   switch (action.type) {
+    case SET_TODO:
+      return {
+        ...state,
+        todos: action.payload,
+      };
+
     case CREATE_TODO:
       state.todos.push(action.payload);
       return {
         ...state,
+      };
+
+    case UPDATE_TODO:
+      const updatedTodos = state.todos.map((todo) => {
+        if (todo.id === action.payload.todoId) {
+          return {
+            ...todo,
+            content: action.payload.content,
+          };
+        } else return todo;
+      });
+
+      return {
+        ...state,
+        todos: updatedTodos,
       };
 
     case UPDATE_TODO_STATUS:
@@ -52,27 +73,22 @@ function reducer(state = initialState, action: AppActions): AppState {
         todos: tempTodos,
       };
 
-    case UPDATE_TODO_CONTENT:
-      const index3 = state.todos.findIndex(
-        (todo) => todo.id === action.payload.todoId
-      );
-      state.todos[index3].content = action.payload.content;
-
-      return {
-        ...state,
-        todos: state.todos,
-      };
-
     case DELETE_TODO:
-      const index1 = state.todos.findIndex(
-        (todo) => todo.id === action.payload
-      );
-      state.todos.splice(index1, 1);
+      const newTodos = state.todos.filter((todo) => todo.id !== action.payload);
 
       return {
         ...state,
-        todos: state.todos,
+        todos: newTodos,
       };
+    // const index1 = state.todos.findIndex(
+    //   (todo) => todo.id === action.payload
+    // );
+    // state.todos.splice(index1, 1);
+
+    // return {
+    //   ...state,
+    //   todos: state.todos,
+    // };
     case DELETE_ALL_TODOS:
       return {
         ...state,
@@ -82,9 +98,5 @@ function reducer(state = initialState, action: AppActions): AppState {
       return state;
   }
 }
-
-// export const reducers = combineReducers({
-//   reducer,
-// });
 
 export default reducer;

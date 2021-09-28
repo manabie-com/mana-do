@@ -3,6 +3,12 @@ export enum TodoStatus {
   COMPLETED = "COMPLETED",
 }
 
+export enum TodoFilters {
+  ACTIVE = "ACTIVE",
+  COMPLETED = "COMPLETED",
+  ALL = "ALL",
+}
+
 export interface Todo {
   id: string;
   user_id: string;
