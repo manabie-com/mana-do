@@ -1,0 +1,41 @@
+.signin {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  width: 100%;
+  flex-direction: column;
+  .signin__form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2rem;
+    width: 20rem;
+    flex-direction: column;
+    .signin__form__btn-signin {
+      width: 100%;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      .signin__form__btn__child-signin {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 5rem;
+      }
+    }
+  }
+  .signin-choose {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 10rem;
+    div {
+      font-size: 1rem;
+      font-weight: 700;
+      color: black;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+  }
+}
