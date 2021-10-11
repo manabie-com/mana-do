@@ -1,0 +1,33 @@
+.Todo__toolbar {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 24px;
+}
+
+.Todo__toolbar .Action__checkAll {
+  display: flex;
+  align-items: center;
+}
+
+.Todo__tabs {
+  display: flex;
+  justify-content: center;
+}
+
+.Todo__tabs > *:not(:last-child) {
+  margin-right: 20px;
+}
+
+.Todo__tabs .Action__btn {
+  color: var(--primary-color);
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+  border-radius: 8px;
+}
+
+.Todo__tabs .Action__btn-selected {
+  background: var(--primary-color);
+  color: white;
+}

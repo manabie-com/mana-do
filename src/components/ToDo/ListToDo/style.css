@@ -1,0 +1,58 @@
+.ToDo__list {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1.5rem;
+}
+
+.ToDo__item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+.ToDo__item > span {
+  flex: 1 1;
+  text-align: left;
+  margin-left: 8px;
+}
+
+.Todo__content {
+  flex: 1 1;
+}
+
+.Todo__delete {
+  outline: none;
+  border: none;
+  width: 32px;
+  height: 32px;
+  min-width: auto;
+  min-height: auto;
+  box-shadow: none;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.Todo__action,
+.Todo__delete {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+input[type="checkbox"] {
+  width: 24px;
+  height: 24px;
+  box-shadow: none;
+  border: none;
+  outline: none;
+}
+
+input[type="checkbox"]:focus {
+  box-shadow: none;
+  border: none;
+  outline: none;
+}

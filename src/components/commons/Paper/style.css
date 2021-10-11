@@ -1,0 +1,21 @@
+.paper-custom {
+  background-color: var(--paper-bg);
+  border-radius: 10px;
+}
+
+.paper-custom-elevation-0 {
+  box-shadow: none;
+}
+.paper-custom-elevation-1 {
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+}
+.paper-custom-elevation-2 {
+  box-shadow: 0 -4px 16px 0 rgba(0, 0, 0, 0.1), 0 8px 16px 0 rgba(0, 0, 0, 0.1);
+}
+.paper-custom-elevation-3 {
+  box-shadow: 0 -8px 32px 0 rgba(0, 0, 0, 0.1), 0 16px 32px 0 rgba(0, 0, 0, 0.1);
+}
+.paper-custom-elevation-4 {
+  box-shadow: 0 -16px 64px 0 rgba(0, 0, 0, 0.1),
+    0 32px 64px 0 rgba(0, 0, 0, 0.1);
+}

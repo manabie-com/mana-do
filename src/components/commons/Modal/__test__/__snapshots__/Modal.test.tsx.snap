@@ -1,0 +1,88 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Modal: match snapshot 1`] = `
+<div
+  className="modal-custom display-block"
+>
+  <section
+    className="modal-main"
+    style={
+      Object {
+        "width": "300px",
+      }
+    }
+  >
+    <div
+      className="header-modal mb40"
+    >
+      <span
+        className="title"
+      >
+        Title modal
+      </span>
+      <span
+        className="icon-close"
+        onClick={
+          [MockFunction] {
+            "calls": Array [
+              Array [
+                Class {
+                  "_dispatchInstances": null,
+                  "_dispatchListeners": null,
+                  "_targetInst": null,
+                  "altKey": null,
+                  "bubbles": null,
+                  "button": null,
+                  "buttons": null,
+                  "cancelable": null,
+                  "clientX": null,
+                  "clientY": null,
+                  "ctrlKey": null,
+                  "currentTarget": [Function],
+                  "defaultPrevented": null,
+                  "detail": null,
+                  "dispatchConfig": null,
+                  "eventPhase": null,
+                  "getModifierState": [Function],
+                  "isDefaultPrevented": [Function],
+                  "isPropagationStopped": [Function],
+                  "isTrusted": null,
+                  "metaKey": null,
+                  "movementX": [Function],
+                  "movementY": [Function],
+                  "nativeEvent": null,
+                  "pageX": null,
+                  "pageY": null,
+                  "relatedTarget": [Function],
+                  "screenX": null,
+                  "screenY": null,
+                  "shiftKey": null,
+                  "target": null,
+                  "timeStamp": [Function],
+                  "type": null,
+                  "view": null,
+                },
+              ],
+            ],
+            "results": Array [
+              Object {
+                "type": "return",
+                "value": undefined,
+              },
+            ],
+          }
+        }
+      >
+        <img
+          alt="icon-close"
+          src="images/cancel.png"
+          width="30"
+        />
+      </span>
+    </div>
+    <div
+      className="content-modal mt30"
+    />
+  </section>
+</div>
+`;

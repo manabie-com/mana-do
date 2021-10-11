@@ -1,0 +1,26 @@
+.root-input {
+  display: flex;
+  box-sizing: border-box;
+  align-items: stretch;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 5px;
+  border: 1px solid var(--input-color-border);
+  background: var(--input-background);
+}
+
+.input-custom {
+  border: none;
+  outline: none;
+  width: 100%;
+  background-color: inherit;
+  font-size: inherit;
+  color: inherit;
+  font-weight: inherit;
+}
+
+.input-size-md {
+  padding: 8px 20px;
+  font-size: var(--input-font-size);
+  line-height: 36px;
+}

@@ -1,0 +1,44 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Input: match snapshot 1`] = `
+<div
+  className="root-input Input-Custom"
+>
+  <input
+    className="input-custom input-size-md"
+    onChange={
+      [MockFunction] {
+        "calls": Array [
+          Array [
+            SyntheticEvent {
+              "_dispatchInstances": null,
+              "_dispatchListeners": null,
+              "_targetInst": null,
+              "bubbles": null,
+              "cancelable": null,
+              "currentTarget": [Function],
+              "defaultPrevented": null,
+              "dispatchConfig": null,
+              "eventPhase": null,
+              "isDefaultPrevented": [Function],
+              "isPropagationStopped": [Function],
+              "isTrusted": null,
+              "nativeEvent": null,
+              "target": null,
+              "timeStamp": [Function],
+              "type": null,
+            },
+          ],
+        ],
+        "results": Array [
+          Object {
+            "type": "return",
+            "value": undefined,
+          },
+        ],
+      }
+    }
+    value="Value test"
+  />
+</div>
+`;

@@ -1,0 +1,72 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SignInPage: match snapshot 1`] = `
+<div
+  className="sign-in-page"
+>
+  <div
+    className="paper-custom form-login p30 paper-custom-elevation-1"
+  >
+    <div
+      className="text-center header"
+    >
+      <img
+        alt="logo"
+        src="images/SignIn/logo.svg"
+      />
+    </div>
+    <form
+      onSubmit={[Function]}
+    >
+      <div
+        className="form-control"
+      >
+        <label>
+          Username
+        </label>
+        <div
+          className="root-input"
+        >
+          <input
+            className="input-custom input-size-md"
+            id="user_id"
+            name="userId"
+            onChange={[Function]}
+            value=""
+          />
+        </div>
+      </div>
+      <div
+        className="form-control"
+      >
+        <label>
+          Password
+        </label>
+        <div
+          className="root-input"
+        >
+          <input
+            className="input-custom input-size-md"
+            id="password"
+            name="password"
+            onChange={[Function]}
+            type="password"
+            value=""
+          />
+        </div>
+      </div>
+      <div
+        className="text-right"
+      >
+        <button
+          className="btn-custom btn-custom-primary"
+          disabled={false}
+          type="submit"
+        >
+          Sign in
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+`;

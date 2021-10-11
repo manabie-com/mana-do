@@ -1,0 +1,29 @@
+.btn-custom {
+  outline: none;
+  box-sizing: border-box;
+  font-weight: bold;
+  border: 1px solid transparent;
+  border-radius: 3px;
+  transition: background 0.25s ease, color 0.25s ease;
+  padding: 15px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.btn-custom:hover {
+  opacity: 0.85;
+}
+
+.btn-custom-primary {
+  color: var(--btn-primary-color);
+  background-color: var(--btn-primary-bg);
+}
+
+.btn-custom-danger {
+  color: var(--btn-danger-color);
+  background-color: var(--btn-danger-bg);
+}
+.btn-custom-disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}

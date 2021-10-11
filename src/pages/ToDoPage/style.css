@@ -1,0 +1,16 @@
+.ToDo__container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  min-height: 100vh;
+  background: var(--primary-color-lightest);
+}
+.ToDo_content {
+  width: 50%;
+}
+
+.ToDo_content__header {
+  color: var(--primary-color);
+  font-weight: bold;
+  font-size: 30px;
+}

@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SignInPage: match snapshot 1`] = `
+<div
+  className="Todo__creation"
+>
+  <div
+    className="root-input Todo__input"
+  >
+    <input
+      className="input-custom input-size-md"
+      onKeyDown={[Function]}
+      placeholder="What need to be done?"
+    />
+  </div>
+</div>
+`;

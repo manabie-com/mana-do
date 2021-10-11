@@ -1,0 +1,31 @@
+.sign-in-page {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url("/images/SignIn/background.webp");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.sign-in-page .form-login {
+  width: 30%;
+}
+
+.form-login .header {
+  margin-bottom: 20px;
+}
+
+.form-control {
+  margin-bottom: 20px;
+}
+
+.form-control label {
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.form-control div {
+  margin-top: 5px;
+}

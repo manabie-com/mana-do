@@ -1,0 +1,21 @@
+:root {
+  --primary-color: #1caba0;
+  --primary-color-lightest: #effaf9;
+  /* input */
+  --input-color-border: var(--primary-color);
+  --input-font-size: 14px;
+  --input-background: white;
+  /* end input */
+
+  /* button */
+  --btn-primary-bg: var(--primary-color);
+  --btn-primary-color: white;
+
+  --btn-danger-bg: red;
+  --btn-danger-color: white;
+  /* end button */
+
+  /* Paper */
+  --paper-bg: white;
+  /* end paper */
+}

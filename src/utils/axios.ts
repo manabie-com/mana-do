@@ -1,14 +1,14 @@
-import axios from 'axios';
+import axios from "axios";
+import { getTokenLocalStorage } from "./storage";
 
 const ins = axios.create({
-    baseURL: 'http://localhost:5050',
-    timeout: 10000
-})
+  baseURL: "http://localhost:5050",
+  timeout: 10000,
+});
 
-ins.interceptors.request.use((request)=>{
-    request.headers.Authorization = localStorage.getItem('token')
+ins.interceptors.request.use((request) => {
+  request.headers.Authorization = getTokenLocalStorage();
+  return request;
+});
 
-    return request
-})
-
-export default ins
+export default ins;

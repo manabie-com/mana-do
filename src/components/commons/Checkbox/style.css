@@ -1,0 +1,12 @@
+.checkbox-custom {
+  cursor: pointer;
+  display: inline-flex;
+  position: relative;
+  align-items: center;
+  height: 24px;
+  transition: all 0.25s ease;
+}
+
+.checkbox-custom-input {
+  display: none;
+}
