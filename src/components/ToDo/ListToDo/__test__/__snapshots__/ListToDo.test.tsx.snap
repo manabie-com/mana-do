@@ -6,7 +6,7 @@ exports[`List todo: match snapshot 1`] = `
   data-testid="testid_ToDo__list"
 >
   <div
-    className="paper-custom ToDo__item p10 ToDo__item0 paper-custom-elevation-1"
+    className="paper-custom ToDo__item p10 paper-custom-elevation-1"
   >
     <label
       className="checkbox-custom"
@@ -38,9 +38,12 @@ exports[`List todo: match snapshot 1`] = `
         />
       </div>
     </label>
-    <span>
+    <div
+      className="mx10 ToDo__item-edit"
+      onDoubleClick={[Function]}
+    >
       content
-    </span>
+    </div>
     <button
       className="btn-custom btn-custom-danger"
       disabled={false}
@@ -49,67 +52,67 @@ exports[`List todo: match snapshot 1`] = `
     >
       X
     </button>
-  </div>
-  <div
-    className="modal-custom display-none"
-  >
-    <section
-      className="modal-main"
-      style={
-        Object {
-          "width": "30%",
-        }
-      }
+    <div
+      className="modal-custom display-none"
     >
-      <div
-        className="header-modal mb40"
-      >
-        <span
-          className="title"
-        >
-          Are you sure delete ?
-        </span>
-        <span
-          className="icon-close"
-          onClick={[Function]}
-        >
-          <img
-            alt="icon-close"
-            src="images/cancel.png"
-            width="30"
-          />
-        </span>
-      </div>
-      <div
-        className="content-modal mt30"
+      <section
+        className="modal-main"
+        style={
+          Object {
+            "width": "30%",
+          }
+        }
       >
         <div
-          className="content-modal-confirm"
+          className="header-modal mb40"
         >
-          Item will be permanently deleted?
+          <span
+            className="title"
+          >
+            Are you sure delete ?
+          </span>
+          <span
+            className="icon-close"
+            onClick={[Function]}
+          >
+            <img
+              alt="icon-close"
+              src="images/cancel.png"
+              width="30"
+            />
+          </span>
         </div>
         <div
-          className="action-modal-confirm"
+          className="content-modal mt30"
         >
-          <button
-            className="mr10 btn-custom btn-custom-danger"
-            disabled={false}
-            onClick={[Function]}
-            type="button"
+          <div
+            className="content-modal-confirm"
           >
-            Yes
-          </button>
-          <button
-            className="btn-custom btn-custom-primary"
-            disabled={false}
-            onClick={[Function]}
-            type="button"
+            Item will be permanently deleted?
+          </div>
+          <div
+            className="action-modal-confirm"
           >
-            No
-          </button>
+            <button
+              className="mr10 btn-custom btn-custom-danger"
+              disabled={false}
+              onClick={[Function]}
+              type="button"
+            >
+              Yes
+            </button>
+            <button
+              className="btn-custom btn-custom-primary"
+              disabled={false}
+              onClick={[Function]}
+              type="button"
+            >
+              No
+            </button>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </div>
   </div>
 </div>
 `;

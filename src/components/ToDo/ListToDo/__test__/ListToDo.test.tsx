@@ -5,7 +5,6 @@ import { render, cleanup } from "@testing-library/react";
 import ToDoList from "components/ToDo/ListToDo";
 import { TodoStatus } from "models/todo";
 import { EnhanceTodoStatus } from "pages/ToDoPage";
-import userEvent from "@testing-library/user-event";
 import renderer from "react-test-renderer";
 import "@testing-library/jest-dom";
 
@@ -23,6 +22,7 @@ const propsTest = {
   showing: TodoStatus.ACTIVE,
   onUpdateTodoStatus: (id: string, checked: boolean) => null,
   onDeleteTodo: (id: string) => null,
+  onUpdateTodo: (id: string, content: string) => Promise.resolve(true),
 };
 
 let container: HTMLElement;
@@ -38,14 +38,6 @@ test("List todo: render without crashing", () => {
   ReactDOM.render(<ToDoList {...propsTest} />, div);
   ReactDOM.unmountComponentAtNode(div);
 });
-
-test("List todo: click update todo item", () => {
-  const todoItemEl = container.querySelector(".ToDo__item0") as HTMLDivElement;
-  const buttonEl = todoItemEl.querySelector("button") as HTMLButtonElement;
-  expect(todoItemEl).toHaveTextContent("content");
-  userEvent.click(buttonEl);
-});
-
 test("List todo: match snapshot", () => {
   const tree = renderer.create(<ToDoList {...propsTest} />).toJSON();
   expect(tree).toMatchSnapshot();

@@ -1,0 +1,16 @@
+.ToDo__item {
+  display: flex;
+  align-items: center;
+  /* justify-content: space-between; */
+  margin-bottom: 15px;
+}
+.ToDo__item-edit {
+  flex: 1;
+  cursor: pointer;
+}
+
+.ToDo__item > span {
+  flex: 1 1;
+  text-align: left;
+  margin-left: 8px;
+}

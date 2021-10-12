@@ -18,9 +18,7 @@ interface InputProps {
 
 const Input = forwardRef((props: InputProps, ref: any) => {
   const { value, className, disabled, ...rest } = props;
-
   const classOfRoot = cn("root-input", className);
-
   const classOfInputBase = cn(
     "input-custom",
     "input-size-md",

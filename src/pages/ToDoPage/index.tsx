@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   createTodo,
   setTodos,
@@ -6,9 +6,13 @@ import {
   toggleAllTodos,
   deleteAllTodos,
   updateTodoStatus,
+  updateTodo,
 } from "states/todo/actions";
-import reducer, { initialState } from "states/todo/reducer";
 import { useHistory } from "react-router-dom";
+
+import { TodoState } from "states/todo/reducer";
+import { todoName } from "states/todo";
+import { useDispatch, useSelector } from "react-redux";
 
 import Service from "service";
 import { TodoStatus } from "models/todo";
@@ -17,36 +21,48 @@ import { TO_DO_KEY } from "constants/const";
 import { FormToDo, ListToDo, ToolbarToDo } from "components/ToDo";
 import { Button, ModalConfirm, Paper } from "components/commons";
 
+import { removeTokenLocalStorage } from "utils/storage";
 import "./style.css";
-import { getTokenLocalStorage, removeTokenLocalStorage } from "utils/storage";
 
 export type EnhanceTodoStatus = TodoStatus | "ALL";
 
-let initial = false;
 const ToDoPage = () => {
   const history = useHistory();
-  const [{ todos }, dispatch] = useReducer(reducer, initialState);
+  const dispatch = useDispatch();
+
+  const firstLoad = useRef<boolean>(true);
+  const todos = useSelector(
+    (state: { [key: string]: TodoState }) => state[todoName].todos
+  );
+
   const [showing, setShowing] = useState<EnhanceTodoStatus>("ALL");
   const [showModalConfirm, setModalConfirm] = useState(false);
   useEffect(() => {
     (async () => {
       const resp = await Service.getTodos();
-      dispatch(setTodos(resp || []));
+      dispatch(setTodos(resp));
     })();
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
-    if (!initial) {
-      initial = true;
+    if (firstLoad.current) {
+      firstLoad.current = false;
       return;
     }
-    const token = getTokenLocalStorage();
-    localStorage.setItem(TO_DO_KEY, JSON.stringify({ [token]: todos }));
+    localStorage.setItem(TO_DO_KEY, JSON.stringify(todos));
   }, [todos]);
 
   async function _handleCreateToDo(value: string): Promise<boolean> {
     const resp = await Service.createTodo(value);
     dispatch(createTodo(resp));
+    return true;
+  }
+
+  async function _handleUpdateToDo(
+    todoId: string,
+    content: string
+  ): Promise<boolean> {
+    dispatch(updateTodo(todoId, content));
     return true;
   }
 
@@ -106,6 +122,7 @@ const ToDoPage = () => {
         <ListToDo
           onDeleteTodo={_handleDeleteToDo}
           onUpdateTodoStatus={_handleUpdateToDoStatus}
+          onUpdateTodo={_handleUpdateToDo}
           showing={showing}
           onFilter={_filterByStatus}
           todos={todos}

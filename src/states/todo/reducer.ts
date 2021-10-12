@@ -1,6 +1,5 @@
 import { TO_DO_KEY } from "constants/const";
 import { Todo, TodoStatus } from "models/todo";
-import { getTokenLocalStorage } from "utils/storage";
 import { TodoActions } from "./actions";
 import * as types from "./constants";
 
@@ -9,14 +8,12 @@ export interface TodoState {
 }
 
 function _getInitialData() {
-  const todoData: string = localStorage.getItem(TO_DO_KEY) || "";
-  const token = getTokenLocalStorage();
+  const todoData: string = localStorage.getItem(TO_DO_KEY) || "[]";
 
-  if (!todoData || !token) {
+  if (!todoData) {
     return [];
   }
-  const todoDataParse: { [key: string]: Todo[] } = JSON.parse(todoData || "[]");
-  return todoDataParse[token] || [];
+  return JSON.parse(todoData);
 }
 export const initialState: TodoState = {
   todos: _getInitialData(),
@@ -28,6 +25,20 @@ const todoReducer = (state: TodoState = initialState, action: TodoActions) => {
       return {
         ...state,
         todos: [...state.todos, action.payload],
+      };
+
+    case types.UPDATE_TODO:
+      return {
+        ...state,
+        todos: state.todos.map((todo) => {
+          if (todo.id !== action.payload.todoId) {
+            return todo;
+          }
+          return {
+            ...todo,
+            content: action.payload.content,
+          };
+        }),
       };
 
     case types.UPDATE_TODO_STATUS:

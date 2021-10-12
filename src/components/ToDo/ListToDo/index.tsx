@@ -1,14 +1,7 @@
-import React, { useState, useRef } from "react";
+import React from "react";
 import { Todo, TodoStatus } from "models/todo";
 import { EnhanceTodoStatus } from "pages/ToDoPage";
-import { isTodoCompleted } from "utils";
-import {
-  Button,
-  ButtonColors,
-  Checkbox,
-  ModalConfirm,
-  Paper,
-} from "components/commons";
+import TodoItem from "../TodoItem";
 import "./style.css";
 
 interface Props {
@@ -16,14 +9,13 @@ interface Props {
   onFilter: (status: EnhanceTodoStatus) => void;
   showing: EnhanceTodoStatus;
   onUpdateTodoStatus: (id: string, checked: boolean) => void;
+  onUpdateTodo: (id: string, content: string) => Promise<boolean>;
   onDeleteTodo: (id: string) => void;
 }
 
 const ListToDo = (props: Props) => {
-  const { todos, showing, onUpdateTodoStatus, onDeleteTodo } = props;
-  const [showModalConfirm, setShowModalConfirm] = useState(false);
-  const idSelected = useRef<string>("");
-
+  const { todos, showing, onUpdateTodoStatus, onDeleteTodo, onUpdateTodo } =
+    props;
   const showTodos = todos.filter((todo) => {
     switch (showing) {
       case TodoStatus.ACTIVE:
@@ -35,47 +27,19 @@ const ListToDo = (props: Props) => {
     }
   });
 
-  function _toggleModal(id?: string) {
-    setShowModalConfirm((prev) => !prev);
-    idSelected.current = id || "";
-  }
-
-  function _handleDelete() {
-    if (!idSelected.current) {
-      return;
-    }
-    onDeleteTodo(idSelected.current);
-    _toggleModal();
-  }
-
   return (
     <div data-testid="testid_ToDo__list" className="ToDo__list">
       {showTodos.map((todo, index) => {
         return (
-          <Paper
-            elevation={1}
+          <TodoItem
             key={index}
-            className={`ToDo__item p10 ToDo__item${index}`}
-          >
-            <Checkbox
-              checked={isTodoCompleted(todo)}
-              onChange={(e) => onUpdateTodoStatus(todo.id, e.target.checked)}
-            />
-            <span>{todo.content}</span>
-            <Button
-              onClick={() => _toggleModal(todo.id)}
-              color={ButtonColors.danger}
-            >
-              X
-            </Button>
-          </Paper>
+            todo={todo}
+            onUpdateTodoStatus={onUpdateTodoStatus}
+            onUpdateTodo={onUpdateTodo}
+            onDeleteTodo={onDeleteTodo}
+          />
         );
       })}
-      <ModalConfirm
-        onConfirm={_handleDelete}
-        onClose={_toggleModal}
-        show={showModalConfirm}
-      />
     </div>
   );
 };

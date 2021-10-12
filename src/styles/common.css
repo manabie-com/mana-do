@@ -37,3 +37,13 @@
 .mr10 {
   margin-right: 10px;
 }
+
+.mx5 {
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.mx10 {
+  margin-left: 10px;
+  margin-right: 10px;
+}
