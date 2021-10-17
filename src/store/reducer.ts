@@ -20,6 +20,8 @@ function reducer(state: AppState, action: AppActions): AppState {
   switch (action.type) {
     case CREATE_TODO:
       state.todos.push(action.payload);
+      const todos = JSON.stringify(state.todos);
+      localStorage.setItem('todos', todos);
       return {
         ...state
       };
