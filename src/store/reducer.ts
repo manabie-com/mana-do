@@ -48,13 +48,19 @@ function reducer(state: AppState, action: AppActions): AppState {
       const index2 = state.todos.findIndex(
         (todo) => todo.id === action.payload.todoId
       );
-      state.todos[index2].status = action.payload.checked
+      // state.todos[index2].status = action.payload.checked
+      //   ? TodoStatus.COMPLETED
+      //   : TodoStatus.ACTIVE;
+      // ==> WRONG. Should clone the new state before updating
+
+      const updateToDosTemp = [...state.todos];
+      updateToDosTemp[index2].status = action.payload.checked
         ? TodoStatus.COMPLETED
         : TodoStatus.ACTIVE;
 
       return {
         ...state,
-        todos: state.todos,
+        todos: updateToDosTemp,
       };
 
     case TOGGLE_ALL_TODOS:
