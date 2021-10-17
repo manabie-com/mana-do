@@ -128,29 +128,29 @@ const ToDoPage = ({history}: RouteComponentProps) => {
 
   const renderActionsToolbar = () => (
         <div className='Todo__toolbar'>
-        {todos.length > 0 ? (
-            <Checkbox
-            text={`${todos.length} items`}
-            colorText='#'
-            checked={activeTodos === 0}
-            onChange={onToggleAllTodo}
-            />
-        ) : (
-            <p>{todos.length} items</p>
-        )}
-        <div className='Todo__tabs'>
-            {actions.map((action) => (
-            <p
-                className={`Action__btn ${className(action.active)}`}
-                onClick={action.onclick}
-            >
-                {action.tab}
+            {todos.length > 0 ? (
+                <Checkbox
+                text={`${todos.length} items`}
+                colorText='#'
+                checked={activeTodos === 0}
+                onChange={onToggleAllTodo}
+                />
+            ) : (
+                <p>{todos.length} items</p>
+            )}
+            <div className='Todo__tabs'>
+                {actions.map((action) => (
+                <p
+                    className={`Action__btn ${className(action.active)}`}
+                    onClick={action.onclick}
+                >
+                    {action.tab}
+                </p>
+                ))}
+            </div>
+            <p className='Action__btn' onClick={onDeleteAllTodo}>
+                Clear all todos
             </p>
-            ))}
-        </div>
-        <p className='Action__btn' onClick={onDeleteAllTodo}>
-            Clear all todos
-        </p>
         </div>
     );
 
