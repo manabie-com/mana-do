@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 
-import { Switch, Route, useHistory } from 'react-router-dom';
-import { IRoutes, routes, ROUTE_SIGNIN } from './routes';
+import { Switch, Route, useHistory, useLocation } from 'react-router-dom';
+import { IRoutes, routes, ROUTE_SIGNIN, ROUTE_TODO } from './routes';
 
 import './App.css';
 
@@ -17,18 +17,25 @@ const RouteWithSubRoutes = (route: IRoutes) => {
 
 function App() {
   const history = useHistory();
+  const { pathname = '' } = useLocation();
 
   const isAuthenticated = () => {
     const token = localStorage.getItem('token');
 
     if (!token) {
       history.replace(ROUTE_SIGNIN);
+    } else {
+      if (pathname === ROUTE_SIGNIN) {
+        // if go to Login page, app will redirect to ToDo page
+        history.replace(ROUTE_TODO);
+      }
     }
   };
 
   useEffect(() => {
     isAuthenticated();
   }, []);
+  
   return (
     <main className='App'>
       <Switch>
