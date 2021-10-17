@@ -89,53 +89,56 @@ const ToDoPage = ({history}: RouteComponentProps) => {
     }, 0);
 
     return (
-        <div className="ToDo__container">
-            <div className="Todo__creation">
-                <input
-                    ref={inputRef}
-                    className="Todo__input"
-                    placeholder="What need to be done?"
-                    onKeyDown={onCreateTodo}
-                />
-            </div>
-            <div className="ToDo__list">
-                {
-                    // React don't recommened using index for keys because the order of items may change
-                    showTodos.map((todo) => {
-                        return (
-                          <ToDo
-                            key={todo.id}
-                            todo={todo}
-                            onDeleteTodo={onDeleteTodo}
-                            onUpdateTodoStatus={onUpdateTodoStatus}
-                            onEditTodo={onEditTodo}
-                          />
-                        );
-                    })
-                }
-            </div>
-            <div className="Todo__toolbar">
-                {todos.length > 0 ?
+        <div className='Todo-page'>
+            <div className="ToDo__container">
+                <h1>To do list</h1>
+                <div className="Todo__creation">
                     <input
-                        type="checkbox"
-                        checked={activeTodos === 0}
-                        onChange={onToggleAllTodo}
-                    /> : <div/>
-                }
-                <div className="Todo__tabs">
-                    <button className="Action__btn" onClick={()=>setShowing('ALL')}>
-                        All
-                    </button>
-                    <button className="Action__btn" onClick={()=>setShowing(TodoStatus.ACTIVE)}>
-                        Active
-                    </button>
-                    <button className="Action__btn" onClick={()=>setShowing(TodoStatus.COMPLETED)}>
-                        Completed
+                        ref={inputRef}
+                        className="Todo__input"
+                        placeholder="What need to be done?"
+                        onKeyDown={onCreateTodo}
+                    />
+                </div>
+                <div className="ToDo__list">
+                    {
+                        // React don't recommened using index for keys because the order of items may change
+                        showTodos.map((todo) => {
+                            return (
+                            <ToDo
+                                key={todo.id}
+                                todo={todo}
+                                onDeleteTodo={onDeleteTodo}
+                                onUpdateTodoStatus={onUpdateTodoStatus}
+                                onEditTodo={onEditTodo}
+                            />
+                            );
+                        })
+                    }
+                </div>
+                <div className="Todo__toolbar">
+                    {todos.length > 0 ?
+                        <input
+                            type="checkbox"
+                            checked={activeTodos === 0}
+                            onChange={onToggleAllTodo}
+                        /> : <div/>
+                    }
+                    <div className="Todo__tabs">
+                        <button className="Action__btn" onClick={()=>setShowing('ALL')}>
+                            All
+                        </button>
+                        <button className="Action__btn" onClick={()=>setShowing(TodoStatus.ACTIVE)}>
+                            Active
+                        </button>
+                        <button className="Action__btn" onClick={()=>setShowing(TodoStatus.COMPLETED)}>
+                            Completed
+                        </button>
+                    </div>
+                    <button className="Action__btn" onClick={onDeleteAllTodo}>
+                        Clear all todos
                     </button>
                 </div>
-                <button className="Action__btn" onClick={onDeleteAllTodo}>
-                    Clear all todos
-                </button>
             </div>
         </div>
     );

@@ -4,11 +4,22 @@
   justify-content: space-between;
 }
 
-.ToDo__item > span {
+.label > input[type="checkbox"] {
+  border: none !important;
+}
+
+.content {
   flex: 1 1;
   text-align: left;
   margin-left: 8px;
   cursor: pointer;
+  color: #fff !important;
+  letter-spacing: 2px;
+  font-weight: 500;
+}
+
+.content-checked{
+  text-decoration: line-through;
 }
 
 .Todo__edit {

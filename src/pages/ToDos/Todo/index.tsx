@@ -74,12 +74,19 @@ const ToDo: React.FC<IToDo> = ({
         </>
       ) : (
         <>
-          <input
-            type='checkbox'
-            checked={isTodoCompleted(todo)}
-            onChange={(e) => onUpdateTodoStatus(e, todo.id)}
-          />
-          <span onDoubleClick={() => setEditMode(true)}>{todo.content}</span>
+          <label className='label'>
+            <input
+              type='checkbox'
+              checked={isTodoCompleted(todo)}
+              onChange={(e) => onUpdateTodoStatus(e, todo.id)}
+            />
+            <span
+              className={`${isTodoCompleted(todo) ? `content-checked` : ''} content`}
+              onDoubleClick={() => setEditMode(true)}
+            >
+                {todo.content}
+            </span>
+          </label>
           <button
             className='Todo__delete'
             onClick={() => onDeleteTodo(todo.id)}

@@ -67,12 +67,12 @@ input::placeholder {
     justify-content: space-between;
 }
 
-.remember{
+.label{
     display: flex;
     align-items: center;
 }
 
-.remember > input[type="checkbox"] {
+.label > input[type="checkbox"] {
     width: 18px;
     height: 18px;
 }
@@ -83,48 +83,8 @@ input::placeholder {
     cursor: pointer;
 }
 
-.remember {
-    display: inline-flex;
-    cursor: pointer;
-    position: relative;
-}
-
-/* CUSTOM CHECKBOX */
-.remember > span {
-    color: lightcoral;
-    font-weight: 700;
-    cursor: pointer;
-    padding: 0.5rem 0.25rem;
-}
-
-.remember > input[type="checkbox"] {
-    height: 18px;
-    width: 18px;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    -o-appearance: none;
-    appearance: none;
-    border: 1px solid lightcoral !important;
-    border-radius: 4px;
-    outline: none;
-    transition-duration: 0.3s;
-    background-color: #fff;
-    cursor: pointer;
-  }
-
-.remember > input:checked {
-    border: 1px solid lightcoral;
-    background-color: lightcoral;
-}
-
-.remember > input:checked + span::before {
-    content: '\2713';
-    display: block;
-    text-align: center;
-    color: #fff;
-    position: absolute;
-    left: 8px;
-    top: 8px;
+.label > input:checked + span::before {
+    top: 8px !important;
 }
 
 /* WELCOM SECTION */

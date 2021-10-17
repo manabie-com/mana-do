@@ -61,7 +61,7 @@ const SignInPage = () => {
                 Sign in
             </button>
             <div className='form-action'>
-                <label className='remember'>
+                <label className='label'>
                 <input type='checkbox' />
                 <span>Remember</span>
                 </label>
