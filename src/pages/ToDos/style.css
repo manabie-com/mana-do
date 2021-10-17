@@ -11,7 +11,7 @@
 
   background-color: #3c424a;
   border: 1px solid rgba(0,0,0, 0.13);
-  border-radius: 8px;
+  border-radius: 24px;
 
   padding: 24px;
   box-shadow: 2px 2px 1px rgba(0,0,0, 0.09),
@@ -87,7 +87,7 @@
   font-weight: 700 !important;
 }
 
-.Todo__toolbar .label > input:checked + span::before{
+.Todo__tabs .label > input:checked + span::before{
   top: 2px;
 }
 
