@@ -27,18 +27,22 @@ const ToDo: React.FC<IToDo> = ({
 
   const editTodo = async (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter' && inputRef.current) {
-      setLoading(true);
-      const payload = {
-        ...todo,
-        content: inputRef.current.value,
-      };
+      if(inputRef.current.value === todo.content) {
+        alert('Nothing to update !');
+      } else {
+        setLoading(true);
+        const payload = {
+          ...todo,
+          content: inputRef.current.value,
+        };
 
-      // CALL API UPDATE TODO IN BACKEND DATABASE
-      await Service.editTodo(payload).then((todo) => {
-        setEditMode(false);
-        setLoading(false);
-        onEditTodo(todo);
-      });
+        // CALL API UPDATE TODO IN BACKEND DATABASE
+        await Service.editTodo(payload).then((todo) => {
+          setEditMode(false);
+          setLoading(false);
+          onEditTodo(todo);
+        });
+      }
     }
   };
 
