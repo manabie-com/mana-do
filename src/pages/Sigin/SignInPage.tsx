@@ -30,7 +30,7 @@ const SignInPage = () => {
     }
 
     const renderFormSignin = () => (
-        <form onSubmit={signIn} className='form-signin'>
+        <form onSubmit={signIn} className='form-signin res-form-signin'>
             <h1 className='form-signin-label'>Sign in</h1>
             <label htmlFor='user_id' className='form-input'>
                 Username
@@ -71,7 +71,7 @@ const SignInPage = () => {
     );
 
     const renderWelcome = () => (
-      <div className='welcome-section'>
+      <div className='welcome-section res-welcome'>
         <h1 className='welcome-label text'>Welcome to signin</h1>
         <p className='sub-text text'>Don't have an account?</p>
         <button className='btn-signup'>Sign up</button>
