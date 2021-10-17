@@ -32,7 +32,7 @@ class ApiFrontend extends IAPI {
         return new Promise((resolve, reject) => {
             setTimeout(() => {
                 resolve(todo as Todo);
-            }, 2000)
+            }, 1000)
         });
     }
 }

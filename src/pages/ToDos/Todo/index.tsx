@@ -3,6 +3,7 @@ import React, { useRef, useState } from 'react';
 import { Todo } from '../../../models/todo';
 import Service from '../../../service';
 import { isTodoCompleted } from '../../../utils';
+import Loading from '../../../components/Loading';
 
 interface IToDo {
   todo: Todo;
@@ -60,7 +61,7 @@ const ToDo: React.FC<IToDo> = ({
             className='Todo__edit'
           />
           {loading ? (
-            <span>loading</span>
+            <Loading />
           ) : (
             <span onClick={() => onCancelEdit(todo.content)}>Cancel</span>
           )}
