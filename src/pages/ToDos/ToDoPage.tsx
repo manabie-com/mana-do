@@ -16,6 +16,8 @@ import {Todo, TodoStatus} from '../../models/todo';
 import {isTodoCompleted, setToLocalStorage} from '../../utils';
 import ToDo from './Todo';
 
+import './style.css';
+
 type EnhanceTodoStatus = TodoStatus | 'ALL';
 
 

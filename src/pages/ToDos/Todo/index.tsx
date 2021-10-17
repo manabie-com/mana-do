@@ -5,6 +5,8 @@ import Service from '../../../service';
 import { isTodoCompleted } from '../../../utils';
 import Loading from '../../../components/Loading';
 
+import './style.css';
+
 interface IToDo {
   todo: Todo;
   onUpdateTodoStatus: (
