@@ -15,15 +15,21 @@ import Service from '../../service';
 import {Todo, TodoStatus} from '../../models/todo';
 import {isTodoCompleted, setToLocalStorage} from '../../utils';
 import ToDo from './Todo';
+import Checkbox from '../../components/Checkbox';
 
 import './style.css';
 
 type EnhanceTodoStatus = TodoStatus | 'ALL';
-
+interface IActions {
+  tab: string;
+  onclick: () => void;
+  active: number;
+}
 
 const ToDoPage = ({history}: RouteComponentProps) => {
     const [{todos}, dispatch] = useReducer(reducer, initialState);
     const [showing, setShowing] = useState<EnhanceTodoStatus>('ALL');
+    const [active, setActive] = useState<number>(1);
     const inputRef = useRef<HTMLInputElement>(null);
 
     useEffect(()=>{
@@ -88,6 +94,38 @@ const ToDoPage = ({history}: RouteComponentProps) => {
         return isTodoCompleted(todo) ? accum : accum + 1;
     }, 0);
 
+    const className = (tab: number) => {
+        if(active === tab) return 'active';
+        return '';
+    }
+
+  const actions: IActions[] = [
+    {
+      tab: 'All',
+      onclick: () => {
+        setShowing('ALL');
+        setActive(1);
+      },
+      active: 1,
+    },
+    {
+      tab: 'Active',
+      onclick: () => {
+        setShowing(TodoStatus.ACTIVE);
+        setActive(2);
+      },
+      active: 2,
+    },
+    {
+      tab: 'Completed',
+      onclick: () => {
+        setShowing(TodoStatus.COMPLETED)
+        setActive(3);
+      },
+      active: 3,
+    },
+  ];
+
     return (
         <div className='Todo-page'>
             <div className="ToDo__container">
@@ -116,28 +154,30 @@ const ToDoPage = ({history}: RouteComponentProps) => {
                         })
                     }
                 </div>
+                <div className='Todo__divider' />
                 <div className="Todo__toolbar">
                     {todos.length > 0 ?
-                        <input
-                            type="checkbox"
+                        <Checkbox
+                            text={`${todos.length} items`}
+                            colorText='#'
                             checked={activeTodos === 0}
                             onChange={onToggleAllTodo}
-                        /> : <div/>
+                        /> : (
+                            <p>{todos.length} items</p>
+                        )
                     }
                     <div className="Todo__tabs">
-                        <button className="Action__btn" onClick={()=>setShowing('ALL')}>
-                            All
-                        </button>
-                        <button className="Action__btn" onClick={()=>setShowing(TodoStatus.ACTIVE)}>
-                            Active
-                        </button>
-                        <button className="Action__btn" onClick={()=>setShowing(TodoStatus.COMPLETED)}>
-                            Completed
-                        </button>
+                        {
+                            actions.map((action)=> (
+                                <p className={`Action__btn ${className(action.active)}`} onClick={action.onclick}>
+                                {action.tab}
+                                </p>
+                            ))
+                        }
                     </div>
-                    <button className="Action__btn" onClick={onDeleteAllTodo}>
+                    <p className="Action__btn" onClick={onDeleteAllTodo}>
                         Clear all todos
-                    </button>
+                    </p>
                 </div>
             </div>
         </div>

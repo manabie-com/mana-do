@@ -70,11 +70,6 @@ input::placeholder {
     justify-content: space-between;
 }
 
-/* OVERRIED CSS CHECKBOX */
-/* .label > span {
-    color: lightcoral !important;
-}  */
-
 .forgot{
     color: #b2b2b2;
     font-weight: 700;
