@@ -88,22 +88,23 @@ const ToDoPage = ({history}: RouteComponentProps) => {
             </div>
             <div className="ToDo__list">
                 {
-                    showTodos.map((todo, index) => {
+                    // React don't recommened using index for keys because the order of items may change
+                    showTodos.map((todo) => {
                         return (
-                            <div key={index} className="ToDo__item">
-                                <input
-                                    type="checkbox"
-                                    checked={isTodoCompleted(todo)}
-                                    onChange={(e) => onUpdateTodoStatus(e, todo.id)}
-                                />
-                                <span>{todo.content}</span>
-                                <button
-                                    className="Todo__delete"
-                                    onClick={() => dispatch(deleteTodo(todo.id))}
-                                >
-                                    X
-                                </button>
-                            </div>
+                          <div key={todo.id} className='ToDo__item'>
+                            <input
+                              type='checkbox'
+                              checked={isTodoCompleted(todo)}
+                              onChange={(e) => onUpdateTodoStatus(e, todo.id)}
+                            />
+                            <span>{todo.content}</span>
+                            <button
+                              className='Todo__delete'
+                              onClick={() => dispatch(deleteTodo(todo.id))}
+                            >
+                              X
+                            </button>
+                          </div>
                         );
                     })
                 }

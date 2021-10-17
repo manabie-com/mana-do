@@ -35,12 +35,12 @@ function App() {
   useEffect(() => {
     isAuthenticated();
   }, []);
-  
+
   return (
     <main className='App'>
       <Switch>
         {routes.map((route, index) => (
-          <RouteWithSubRoutes key={`${index + 0}`} {...route} />
+          <RouteWithSubRoutes key={`${index}`} {...route} />
         ))}
       </Switch>
     </main>
