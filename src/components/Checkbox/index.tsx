@@ -7,16 +7,16 @@ interface ICheckbox {
   colorText?: string;
   checked?: boolean;
   onChange?: (...parrams: any) => void;
-  onDoubleClick?: () => void;
+  // onDoubleClick?: () => void;
 }
 
-const Checkbox = ({ text, colorText, checked, onChange, onDoubleClick }: ICheckbox) => {
+const Checkbox = ({ text, colorText, checked, onChange }: ICheckbox) => {
   return (
     <label className='label'>
       <input type='checkbox' checked={checked} onChange={onChange} />
       <span
         className={`${checked ? `content-checked` : ''} content`}
-        onDoubleClick={onDoubleClick}
+        // onDoubleClick={onDoubleClick}
         style={{ color: `${colorText}` }}
       >
         {text}

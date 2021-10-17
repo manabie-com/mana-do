@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { FaTrashAlt, FaRegTimesCircle } from 'react-icons/fa';
+import { FaTrashAlt, FaRegTimesCircle, FaPen } from 'react-icons/fa';
 
 import { Todo } from '../../../models/todo';
 import Service from '../../../service';
@@ -71,7 +71,9 @@ const ToDo: React.FC<IToDo> = ({
           {loading ? (
             <Loading />
           ) : (
-            <span onClick={() => onCancelEdit(todo.content)}><FaRegTimesCircle className='cancel' /></span>
+            <span onClick={() => onCancelEdit(todo.content)}>
+              <FaRegTimesCircle className='cancel' />
+            </span>
           )}
         </>
       ) : (
@@ -81,14 +83,19 @@ const ToDo: React.FC<IToDo> = ({
             colorText='#fff'
             checked={isTodoCompleted(todo)}
             onChange={(e) => onUpdateTodoStatus(e, todo.id)}
-            onDoubleClick={() => setEditMode(true)}
+            // onDoubleClick={() => setEditMode(true)}
           />
-          <button
-            className='Todo__delete'
-            onClick={() => onDeleteTodo(todo.id)}
-          >
-            <FaTrashAlt />
-          </button>
+          <div className='Todo__actions'>
+            <button
+              className='Todo__delete'
+              onClick={() => onDeleteTodo(todo.id)}
+            >
+              <FaTrashAlt />
+            </button>
+            <button className='Todo__update' onClick={() => setEditMode(true)}>
+              <FaPen />
+            </button>
+          </div>
         </>
       )}
     </div>
