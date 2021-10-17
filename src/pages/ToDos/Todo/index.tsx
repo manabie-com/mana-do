@@ -4,6 +4,7 @@ import { Todo } from '../../../models/todo';
 import Service from '../../../service';
 import { isTodoCompleted } from '../../../utils';
 import Loading from '../../../components/Loading';
+import Checkbox from '../../../components/Checkbox';
 
 import './style.css';
 
@@ -74,19 +75,12 @@ const ToDo: React.FC<IToDo> = ({
         </>
       ) : (
         <>
-          <label className='label'>
-            <input
-              type='checkbox'
-              checked={isTodoCompleted(todo)}
-              onChange={(e) => onUpdateTodoStatus(e, todo.id)}
-            />
-            <span
-              className={`${isTodoCompleted(todo) ? `content-checked` : ''} content`}
-              onDoubleClick={() => setEditMode(true)}
-            >
-                {todo.content}
-            </span>
-          </label>
+          <Checkbox
+            text={todo.content}
+            checked={isTodoCompleted(todo)}
+            onChange={(e) => onUpdateTodoStatus(e, todo.id)}
+            onDoubleClick={() => setEditMode(true)}
+          />
           <button
             className='Todo__delete'
             onClick={() => onDeleteTodo(todo.id)}

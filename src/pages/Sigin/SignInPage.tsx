@@ -1,8 +1,9 @@
 import React, {useState} from 'react';
-
 import {useHistory} from 'react-router-dom'
+
 import { ROUTE_TODO } from '../../routes';
 import Service from '../../service'
+import Checkbox from '../../components/Checkbox';
 
 import './style.css';
 
@@ -61,10 +62,7 @@ const SignInPage = () => {
                 Sign in
             </button>
             <div className='form-action'>
-                <label className='label'>
-                <input type='checkbox' />
-                <span>Remember</span>
-                </label>
+                <Checkbox text='Remember' />
                 <p className='forgot'>Forgot password</p>
             </div>
         </form>

@@ -7,15 +7,18 @@
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
     background-color: #fff;
     border-radius: 24px;
+
 }
 
 /* GENERAL */
+
 .form-signin, .welcome-section{
     padding: 30px;
     width: 400px;
 }
 
 /* SIGN IN FORM */
+
 .form-input{
     width: 100%;
     display: flex;
@@ -67,15 +70,10 @@ input::placeholder {
     justify-content: space-between;
 }
 
-.label{
-    display: flex;
-    align-items: center;
-}
-
-.label > input[type="checkbox"] {
-    width: 18px;
-    height: 18px;
-}
+/* OVERRIED CSS CHECKBOX */
+.label > span {
+    color: lightcoral !important;
+} 
 
 .forgot{
     color: #b2b2b2;
@@ -83,9 +81,6 @@ input::placeholder {
     cursor: pointer;
 }
 
-.label > input:checked + span::before {
-    top: 8px !important;
-}
 
 /* WELCOM SECTION */
 .welcome-section{
@@ -139,3 +134,4 @@ input::placeholder {
       width: 100%;
     }
 }
+
