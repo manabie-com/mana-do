@@ -54,7 +54,7 @@
   margin: 24px 0;
 }
 
-.Todo__action, .Todo__delete {
+.Todo__action {
   width: 24px;
   height: 24px;
   flex-shrink: 0;

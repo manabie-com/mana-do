@@ -1,4 +1,5 @@
 import React, { useRef, useState } from 'react';
+import { FaTrashAlt } from 'react-icons/fa';
 
 import { Todo } from '../../../models/todo';
 import Service from '../../../service';
@@ -86,7 +87,7 @@ const ToDo: React.FC<IToDo> = ({
             className='Todo__delete'
             onClick={() => onDeleteTodo(todo.id)}
           >
-            X
+            <FaTrashAlt />
           </button>
         </>
       )}
