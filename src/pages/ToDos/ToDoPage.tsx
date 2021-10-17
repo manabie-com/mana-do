@@ -1,5 +1,6 @@
 import React, {useEffect, useReducer, useRef, useState} from 'react';
 import {RouteComponentProps} from 'react-router-dom';
+import { RiLogoutCircleRLine } from 'react-icons/ri';
 
 import reducer, {initialState} from '../../store/reducer';
 import {
@@ -18,6 +19,7 @@ import ToDo from './Todo';
 import Checkbox from '../../components/Checkbox';
 
 import './style.css';
+import { ROUTE_SIGNIN } from '../../routes';
 
 type EnhanceTodoStatus = TodoStatus | 'ALL';
 interface IActions {
@@ -94,6 +96,11 @@ const ToDoPage = ({history}: RouteComponentProps) => {
         return isTodoCompleted(todo) ? accum : accum + 1;
     }, 0);
 
+    const onLogout = () => {
+        localStorage.removeItem('token');
+        history.replace(ROUTE_SIGNIN)
+    }
+
     const className = (tab: number) => {
         if(active === tab) return 'active';
         return '';
@@ -155,39 +162,40 @@ const ToDoPage = ({history}: RouteComponentProps) => {
     );
 
     return (
-        <div className='Todo-page'>
-            <div className="ToDo__container">
-                <h1>To do list</h1>
-                <div className="Todo__creation">
-                    <input
-                        ref={inputRef}
-                        className="Todo__input"
-                        placeholder="What need to be done?"
-                        onKeyDown={onCreateTodo}
-                    />
-                </div>
-                <div className="ToDo__list">
-                    {
-                        // React don't recommened using index for keys because the order of items may change
-                        showTodos.map((todo) => {
-                            return (
-                            <ToDo
-                                key={todo.id}
-                                todo={todo}
-                                onDeleteTodo={onDeleteTodo}
-                                onUpdateTodoStatus={onUpdateTodoStatus}
-                                onEditTodo={onEditTodo}
-                            />
-                            );
-                        })
-                    }
-                </div>
-                <div className='Todo__divider' />
-                <div className="Todo__toolbar">
-                    {renderActionsToolbar()}
-                </div>
-            </div>
+      <div className='Todo-page'>
+        <div className='logout' onClick={onLogout}>
+          <RiLogoutCircleRLine className='logout-icon' />
         </div>
+        <div className='ToDo__container'>
+          <h1>To do list</h1>
+          <div className='Todo__creation'>
+            <input
+              ref={inputRef}
+              className='Todo__input'
+              placeholder='What need to be done?'
+              onKeyDown={onCreateTodo}
+            />
+          </div>
+          <div className='ToDo__list'>
+            {
+              // React don't recommened using index for keys because the order of items may change
+              showTodos.map((todo) => {
+                return (
+                  <ToDo
+                    key={todo.id}
+                    todo={todo}
+                    onDeleteTodo={onDeleteTodo}
+                    onUpdateTodoStatus={onUpdateTodoStatus}
+                    onEditTodo={onEditTodo}
+                  />
+                );
+              })
+            }
+          </div>
+          <div className='Todo__divider' />
+          <div className='Todo__toolbar'>{renderActionsToolbar()}</div>
+        </div>
+      </div>
     );
 };
 
