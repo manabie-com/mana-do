@@ -77,6 +77,7 @@ const ToDo: React.FC<IToDo> = ({
         <>
           <Checkbox
             text={todo.content}
+            colorText='#fff'
             checked={isTodoCompleted(todo)}
             onChange={(e) => onUpdateTodoStatus(e, todo.id)}
             onDoubleClick={() => setEditMode(true)}

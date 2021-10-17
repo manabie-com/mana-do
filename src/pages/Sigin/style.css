@@ -71,9 +71,9 @@ input::placeholder {
 }
 
 /* OVERRIED CSS CHECKBOX */
-.label > span {
+/* .label > span {
     color: lightcoral !important;
-} 
+}  */
 
 .forgot{
     color: #b2b2b2;

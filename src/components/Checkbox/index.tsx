@@ -4,18 +4,20 @@ import './style.css'
 
 interface ICheckbox {
   text: string;
+  colorText?: string;
   checked?: boolean;
   onChange?: (...parrams: any) => void;
   onDoubleClick?: () => void;
 }
 
-const Checkbox = ({ text, checked, onChange, onDoubleClick }: ICheckbox) => {
+const Checkbox = ({ text, colorText, checked, onChange, onDoubleClick }: ICheckbox) => {
   return (
     <label className='label'>
       <input type='checkbox' checked={checked} onChange={onChange} />
       <span
-        className={`${checked ? `content-checked` : ''}content`}
+        className={`${checked ? `content-checked` : ''} content`}
         onDoubleClick={onDoubleClick}
+        style={{ color: `${colorText}` }}
       >
         {text}
       </span>

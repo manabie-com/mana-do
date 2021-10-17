@@ -4,20 +4,6 @@
   justify-content: space-between;
 }
 
-.content {
-  flex: 1 1;
-  text-align: left;
-  margin-left: 8px;
-  cursor: pointer;
-  color: #fff !important;
-  letter-spacing: 2px;
-  font-weight: 500;
-}
-
-.content-checked{
-  text-decoration: line-through;
-}
-
 .Todo__edit {
   width: 100%;
   margin: 8px 0;

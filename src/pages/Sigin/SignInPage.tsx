@@ -62,7 +62,7 @@ const SignInPage = () => {
                 Sign in
             </button>
             <div className='form-action'>
-                <Checkbox text='Remember' />
+                <Checkbox text='Remember' colorText='lightcoral'/>
                 <p className='forgot'>Forgot password</p>
             </div>
         </form>

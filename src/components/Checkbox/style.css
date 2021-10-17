@@ -7,7 +7,7 @@
 }
 
 .label > span {
-  color: lightcoral;
+  color: #424242;
   font-weight: 700;
   cursor: pointer;
   padding: 0.5rem 0.25rem;
@@ -41,4 +41,17 @@
   position: absolute;
   left: 8px;
   top: 8px;
+}
+
+.content {
+  flex: 1 1;
+  text-align: left;
+  margin-left: 8px;
+  cursor: pointer;
+  letter-spacing: 2px;
+  font-weight: 500;
+}
+
+.content-checked{
+  text-decoration: line-through;
 }
