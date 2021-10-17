@@ -1,4 +1,5 @@
 import {Todo, TodoStatus} from '../models/todo';
+import { setToLocalStorage } from '../utils';
 import {
   AppActions,
   CREATE_TODO,
@@ -25,11 +26,24 @@ function reducer(state: AppState, action: AppActions): AppState {
         todos: action.payload,
       };
     case CREATE_TODO:
-      state.todos.push(action.payload);
-      const todos = JSON.stringify(state.todos);
-      localStorage.setItem('todos', todos);
+      /*
+        state.todos.push(action.payload);
+        return {
+          ...state,
+        };
+
+        ==> The code above is wrong
+        ==> Because Reducer is a pure function so we should not mutate the state directly
+      */
+
+      // => Fix by using spread operator to clone the new state based on the old one then return new state
+      const todosTemp = [...state.todos];
+      todosTemp.push(action.payload);
+      setToLocalStorage(JSON.stringify(todosTemp));
+
       return {
         ...state,
+        todos: todosTemp,
       };
 
     case UPDATE_TODO_STATUS:

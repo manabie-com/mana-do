@@ -7,3 +7,7 @@ export function isTodoCompleted(todo: Todo): boolean {
 export function isTodoActive(todo: Todo): boolean {
   return todo.status === TodoStatus.ACTIVE;
 }
+
+export const setToLocalStorage = (data: string) => {
+  localStorage.setItem('todos', data);
+};
