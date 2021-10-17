@@ -12,7 +12,7 @@ import {
 } from '../../store/actions';
 import Service from '../../service';
 import {TodoStatus} from '../../models/todo';
-import {isTodoCompleted} from '../../utils';
+import {isTodoCompleted, setToLocalStorage} from '../../utils';
 
 type EnhanceTodoStatus = TodoStatus | 'ALL';
 
@@ -29,6 +29,11 @@ const ToDoPage = ({history}: RouteComponentProps) => {
             dispatch(setTodos(resp || []));
         })()
     }, [])
+
+    useEffect(() => {
+        const newTodos = [...todos];
+        setToLocalStorage(JSON.stringify(newTodos));
+    },[todos]);
 
     const onCreateTodo = async (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter' && inputRef.current) {

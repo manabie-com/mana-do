@@ -1,5 +1,4 @@
 import {Todo, TodoStatus} from '../models/todo';
-import { setToLocalStorage } from '../utils';
 import {
   AppActions,
   CREATE_TODO,
@@ -39,7 +38,6 @@ function reducer(state: AppState, action: AppActions): AppState {
       // => Fix by using spread operator to clone the new state based on the old one then return new state
       const todosTemp = [...state.todos];
       todosTemp.push(action.payload);
-      setToLocalStorage(JSON.stringify(todosTemp));
 
       return {
         ...state,
@@ -73,14 +71,34 @@ function reducer(state: AppState, action: AppActions): AppState {
       };
 
     case DELETE_TODO:
+      /*
+        const index1 = state.todos.findIndex(
+          (todo) => todo.id === action.payload
+        );
+        state.todos.splice(index1, 1);
+
+        return {
+          ...state,
+          todos: state.todos,
+        };
+
+        ==> This code: 
+              state.todos.splice(index1, 1); 
+        ==> is wrong
+        ==> Because Reducer is a pure function so we should not mutate the state directly
+      */
       const index1 = state.todos.findIndex(
         (todo) => todo.id === action.payload
       );
-      state.todos.splice(index1, 1);
+
+      // => Fix by using spread operator to clone the new state based on the old one then return new state
+      const deteleToDosTemp = [...state.todos];
+      deteleToDosTemp.splice(index1, 1);
+      // setToLocalStorage(JSON.stringify(deteleToDosTemp));
 
       return {
         ...state,
-        todos: state.todos,
+        todos: deteleToDosTemp,
       };
     case DELETE_ALL_TODOS:
       return {
