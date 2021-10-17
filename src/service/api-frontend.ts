@@ -27,6 +27,14 @@ class ApiFrontend extends IAPI {
         const getToDos = JSON.parse(localStorage.getItem('todos') || '[]');
         return await Promise.resolve(getToDos as Todo[]).then((res) => res);
     }
+
+    async editTodo(todo: Todo): Promise<Todo> {
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+                resolve(todo as Todo);
+            }, 2000)
+        });
+    }
 }
 
 export default new ApiFrontend();

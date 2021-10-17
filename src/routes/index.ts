@@ -1,6 +1,6 @@
 import PageNotFound from '../pages/PageNotFound';
 import SignInPage from '../pages/Sigin/SignInPage';
-import ToDoPage from '../pages/ToDo/ToDoPage';
+import ToDoPage from '../pages/ToDos/ToDoPage';
 
 /**
  - This file will config routes so that we can easily manage and maintain.

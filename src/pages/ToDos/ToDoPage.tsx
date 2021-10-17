@@ -8,11 +8,13 @@ import {
     deleteTodo,
     toggleAllTodos,
     deleteAllTodos,
-    updateTodoStatus
+    updateTodoStatus,
+    editTodo
 } from '../../store/actions';
 import Service from '../../service';
-import {TodoStatus} from '../../models/todo';
+import {Todo, TodoStatus} from '../../models/todo';
 import {isTodoCompleted, setToLocalStorage} from '../../utils';
+import ToDo from './Todo';
 
 type EnhanceTodoStatus = TodoStatus | 'ALL';
 
@@ -53,6 +55,14 @@ const ToDoPage = ({history}: RouteComponentProps) => {
         dispatch(updateTodoStatus(todoId, e.target.checked))
     }
 
+    const onDeleteTodo = (todoId: string) => {
+        dispatch(deleteTodo(todoId));
+    };
+
+    const onEditTodo = async (todo: Todo) => {
+        dispatch(editTodo(todo));
+    };
+
     const onToggleAllTodo = (e: React.ChangeEvent<HTMLInputElement>) => {
         dispatch(toggleAllTodos(e.target.checked))
     }
@@ -91,20 +101,13 @@ const ToDoPage = ({history}: RouteComponentProps) => {
                     // React don't recommened using index for keys because the order of items may change
                     showTodos.map((todo) => {
                         return (
-                          <div key={todo.id} className='ToDo__item'>
-                            <input
-                              type='checkbox'
-                              checked={isTodoCompleted(todo)}
-                              onChange={(e) => onUpdateTodoStatus(e, todo.id)}
-                            />
-                            <span>{todo.content}</span>
-                            <button
-                              className='Todo__delete'
-                              onClick={() => dispatch(deleteTodo(todo.id))}
-                            >
-                              X
-                            </button>
-                          </div>
+                          <ToDo
+                            key={todo.id}
+                            todo={todo}
+                            onDeleteTodo={onDeleteTodo}
+                            onUpdateTodoStatus={onUpdateTodoStatus}
+                            onEditTodo={onEditTodo}
+                          />
                         );
                     })
                 }

@@ -79,6 +79,7 @@ input:focus {
   flex: 1 1;
   text-align: left;
   margin-left: 8px;
+  cursor: pointer;
 }
 
 .Todo__content {
@@ -119,6 +120,10 @@ input:focus {
 
 .Todo__tabs > *:not(:last-child) {
   margin-right: 8px;
+}
+
+.Todo__edit {
+  width: 100%;
 }
 
 .Action__btn {

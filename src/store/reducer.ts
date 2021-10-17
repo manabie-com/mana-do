@@ -6,7 +6,8 @@ import {
   DELETE_TODO,
   SET_TODO,
   TOGGLE_ALL_TODOS,
-  UPDATE_TODO_STATUS
+  UPDATE_TODO_STATUS,
+  UPDATE_TODO_CONTENT,
 } from './actions';
 
 export interface AppState {
@@ -53,14 +54,26 @@ function reducer(state: AppState, action: AppActions): AppState {
       //   : TodoStatus.ACTIVE;
       // ==> WRONG. Should clone the new state before updating
 
-      const updateToDosTemp = [...state.todos];
-      updateToDosTemp[index2].status = action.payload.checked
+      const updateToDosStatus = [...state.todos];
+      updateToDosStatus[index2].status = action.payload.checked
         ? TodoStatus.COMPLETED
         : TodoStatus.ACTIVE;
 
       return {
         ...state,
-        todos: updateToDosTemp,
+        todos: updateToDosStatus,
+      };
+
+    case UPDATE_TODO_CONTENT:
+      const index3 = state.todos.findIndex(
+        (todo) => todo.id === action.payload.id
+      );
+      const updateTodoContent = [...state.todos];
+      updateTodoContent[index3].content = action.payload.content; 
+
+      return {
+        ...state,
+        todos: updateTodoContent
       };
 
     case TOGGLE_ALL_TODOS:
@@ -100,7 +113,6 @@ function reducer(state: AppState, action: AppActions): AppState {
       // => Fix by using spread operator to clone the new state based on the old one then return new state
       const deteleToDosTemp = [...state.todos];
       deteleToDosTemp.splice(index1, 1);
-      // setToLocalStorage(JSON.stringify(deteleToDosTemp));
 
       return {
         ...state,
