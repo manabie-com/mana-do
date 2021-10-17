@@ -11,6 +11,7 @@
   font-weight: 700;
   cursor: pointer;
   padding: 0.5rem 0.25rem;
+  word-break: break-all;
 }
 
 .label > input[type="checkbox"] {

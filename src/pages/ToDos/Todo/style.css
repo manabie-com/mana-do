@@ -25,3 +25,9 @@
   background: transparent;
   color: #fff;
 }
+
+.cancel{
+  color: #fff;
+  width: 32px;
+  cursor: pointer;
+}

@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { FaTrashAlt } from 'react-icons/fa';
+import { FaTrashAlt, FaRegTimesCircle } from 'react-icons/fa';
 
 import { Todo } from '../../../models/todo';
 import Service from '../../../service';
@@ -71,7 +71,7 @@ const ToDo: React.FC<IToDo> = ({
           {loading ? (
             <Loading />
           ) : (
-            <span onClick={() => onCancelEdit(todo.content)}>Cancel</span>
+            <span onClick={() => onCancelEdit(todo.content)}><FaRegTimesCircle className='cancel' /></span>
           )}
         </>
       ) : (
