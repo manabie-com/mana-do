@@ -32,7 +32,7 @@ input[type="checkbox"]:focus {
   outline: none;
 }
 
-input {
+input:not([type="checkbox"]) {
   min-height: 36px;
   border: none;
   outline: none;

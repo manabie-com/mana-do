@@ -1,0 +1,166 @@
+.signin{
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: space-between;
+
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    background-color: #fff;
+    border-radius: 8px;
+
+}
+
+.form-signin, .welcome-section{
+    padding: 30px;
+    width: 400px;
+}
+
+.form-input{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 13px;
+    color: #424242;
+}
+
+.form-signin-label{
+    color: #b2b2b2;
+}
+
+.form-input__input{
+    min-width: 200px;
+    height: 40px;
+    margin-top: 12px;
+
+    border-radius: 30px !important;
+    border: 1px solid #f2f2f2;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 0px 4px !important;
+}
+
+input::placeholder {
+    color: #c7c6c6;
+}
+
+.btn-signin{
+    width: 100%;
+    border-radius: 30px;
+    height: 40px;
+    padding: 0 12px;
+    margin-top: 12px;
+    cursor: pointer;
+
+    background-color: lightcoral;
+    color: #fff;
+    font-size: 14px;
+    text-transform: capitalize;
+    font-weight: 600;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 0px 4px;
+}
+
+.form-action{
+    padding: 12px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.remember{
+    display: flex;
+    align-items: center;
+}
+
+.remember > input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+}
+
+.forgot{
+    color: #b2b2b2;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.remember {
+    display: inline-flex;
+    cursor: pointer;
+    position: relative;
+}
+
+/* CUSTOM CHECKBOX */
+.remember > span {
+    color: lightcoral;
+    font-weight: 700;
+    cursor: pointer;
+    padding: 0.5rem 0.25rem;
+}
+
+.remember > input[type="checkbox"] {
+    height: 18px;
+    width: 18px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -o-appearance: none;
+    appearance: none;
+    border: 1px solid lightcoral !important;
+    border-radius: 4px;
+    outline: none;
+    transition-duration: 0.3s;
+    background-color: #fff;
+    cursor: pointer;
+  }
+
+.remember > input:checked {
+    border: 1px solid lightcoral;
+    background-color: lightcoral;
+}
+
+.remember > input:checked + span::before {
+    content: '\2713';
+    display: block;
+    text-align: center;
+    color: #fff;
+    position: absolute;
+    left: 8px;
+    top: 8px;
+}
+
+/* WELCOM SECTION */
+.welcome-section{
+    background-color: lightcoral;
+    min-height: 400px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.text{
+    color: #fff;
+    margin: 0;
+}
+
+.sub-text {
+    padding-top: 12px;
+    font-weight: 500;
+}
+
+.btn-signup{
+    height: 40px;
+    padding: 0 12px;
+    margin-top: 12px;
+    cursor: pointer;
+    
+    background-color: transparent;
+    border: 1px solid #fff;
+    border-radius: 30px;
+
+    color: #fff;
+    font-size: 14px;
+    text-transform: capitalize;
+    font-weight: 600;
+    box-shadow: none;
+}
+
