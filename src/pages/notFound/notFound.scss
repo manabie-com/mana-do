@@ -1,0 +1,16 @@
+@import "../../styles/mixin.scss";
+@import "../../styles/variable.scss";
+
+.not-found {
+  &__text {
+    @include absCenter;
+    font-size: 4rem;
+    background-image: linear-gradient(
+      to right,
+      $color-primary-light,
+      $color-primary-dark
+    );
+    -webkit-background-clip: text;
+    color: transparent;
+  }
+}

@@ -1,0 +1,41 @@
+@import "styles/variable.scss";
+@import "styles/mixin.scss";
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%; // 1 rem = 10px
+
+  @include respond(tab-land) {
+    font-size: 56.25%; //1 rem = 9px
+  }
+
+  @include respond(tab-port) {
+    font-size: 50%; //1 rem = 8px
+  }
+
+  @include respond(big-desktop) {
+    font-size: 75%; //1rem = 12
+  }
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #f8f9fd;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}

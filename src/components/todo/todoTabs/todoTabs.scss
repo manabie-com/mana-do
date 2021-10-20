@@ -1,0 +1,8 @@
+.todo-tabs {
+  display: flex;
+  justify-content: center;
+
+  & > *:not(:last-child) {
+    margin-right: 1.5rem;
+  }
+}

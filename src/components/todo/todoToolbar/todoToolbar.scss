@@ -1,0 +1,12 @@
+.todo-toolbar {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 24px;
+  border-top: 1px solid #d7cfcf;
+  padding-top: 2rem;
+
+  &__checkbox {
+    width: 2rem;
+    height: 2rem;
+  }
+}

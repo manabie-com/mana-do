@@ -1,0 +1,12 @@
+@import "../../styles/mixin.scss";
+@import "../../styles/variable.scss";
+
+.todo-page {
+  @include absCenter;
+  width: 60rem;
+  height: 52rem;
+  box-shadow: 0 1.5rem 4rem rgba($color-black, 0.15);
+  border-radius: 0.5rem;
+  background-color: $color-white;
+  padding: 2rem;
+}

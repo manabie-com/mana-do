@@ -1,0 +1,31 @@
+@import "../../styles/variable.scss";
+
+.text-input {
+  margin-bottom: 1rem;
+
+  &__input {
+    font-size: 1.6rem;
+    font-family: inherit;
+    color: inherit;
+    padding: 1.5rem 2rem;
+    border-radius: 1rem;
+    background-color: $color-grey-light;
+    border: none;
+    width: 90%;
+    display: block;
+
+    &:focus {
+      outline: none;
+      box-shadow: 0 1rem 2rem rgba($color-black, 0.1);
+    }
+  }
+
+  &__label {
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin-left: 2rem;
+    margin-bottom: 0.7rem;
+    display: block;
+    transition: all 0.3s;
+  }
+}

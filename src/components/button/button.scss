@@ -1,0 +1,52 @@
+@import "../../styles/variable.scss";
+
+.btn {
+  &,
+  &:link,
+  &:visited {
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 0.8rem 1.5rem;
+    display: inline-block;
+    border-radius: 1rem;
+    transition: all 0.2s;
+    position: relative;
+    font-size: 1.4rem;
+
+    border: none;
+    cursor: pointer;
+  }
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 1rem 2rem rgba($color-black, 0.2);
+  }
+
+  &:active,
+  &:focus {
+    outline: none;
+    transform: translateY(-1px);
+    box-shadow: 0 0.5rem 1rem rgba($color-black, 0.2);
+    font-weight: 700;
+  }
+
+  &--blue {
+    background-color: #2998ff;
+    color: $color-white;
+  }
+
+  &--green {
+    background-color: #7ed56f;
+    color: $color-white;
+  }
+
+  &--red {
+    background-color: #eb3232;
+    color: $color-white;
+  }
+
+  &--yellow {
+    background-color: #ffb900;
+    color: $color-white;
+  }
+}
