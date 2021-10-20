@@ -14,6 +14,9 @@ button {
   padding: 4px 8px;
   color: #eee;
   font-family: "Avenir Next";
+  border-radius: 50px;
+  background: linear-gradient(45deg, #e59041, #c17a37);
+  box-shadow: -5px -5px 10px #584331, 5px 5px 10px #3c301bde;
 }
 
 button:hover {
@@ -21,17 +24,17 @@ button:hover {
 }
 
 input[type="checkbox"] {
-  width: 24px;
-  height: 24px;
-  box-shadow: none;
-  border: none;
-  outline: none;
+  min-width: 24px !important;
+  min-height: 24px !important;
+  /* border-radius: 8px; */
+  /* background: #3a8235 !important;
+  box-shadow: inset 5px -5px 6px #33722f, inset -5px 5px 6px #41923b; */
 }
 
 input[type="checkbox"]:focus {
-  box-shadow: none;
+  /* box-shadow: none;
   border: none;
-  outline: none;
+  outline: none; */
 }
 
 input {
@@ -43,15 +46,23 @@ input {
   color: #eb8e40;
   border-radius: 4px;
   caret-color: #eb8e40;
+  border-radius: 8px;
+  background: #343b41;
+  box-shadow: inset 8px -8px 16px #2b3035, inset -8px 8px 16px #3d464d;
+}
+
+.icon {
+  filter: invert(0.4);
 }
 
 .ToDo__container {
-  border: 1px solid rgba(0, 0, 0, 0.13);
-  border-radius: 8px;
   width: 500px;
   margin-top: 5rem;
   padding: 24px;
-  box-shadow: 2px 2px 1px rgba(0, 0, 0, 0.09), 3px 2px 3px rgba(0, 0, 0, 0.05);
+  border: 1px solid #ffffff08;
+  border-radius: 16px;
+  background: #343b41;
+  box-shadow: 24px -24px 48px #24292d, -24px 24px 48px #444d55;
 }
 
 .Todo__creation {
@@ -72,6 +83,7 @@ input {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin-bottom: 15px;
 }
 
 .ToDo__item > span {
@@ -97,12 +109,14 @@ input {
   justify-content: center;
   align-items: center;
   cursor: pointer;
+  background: #343b41;
+  box-shadow: 5px 5px 10px #24292d, -5px -5px 10px #444d55;
 }
 
 .Todo__action,
 .Todo__delete {
-  width: 24px;
-  height: 24px;
+  width: 32px;
+  height: 32px;
   flex-shrink: 0;
 }
 

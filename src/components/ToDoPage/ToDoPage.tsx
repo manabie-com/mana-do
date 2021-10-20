@@ -13,6 +13,7 @@ import {
 import Service from "../../service";
 import { TodoStatus } from "../../models/todo";
 import { isTodoCompleted } from "../../utils";
+import deleteIcon from "../../assets/imgs/trash-solid.svg";
 
 type EnhanceTodoStatus = TodoStatus | "ALL";
 
@@ -97,7 +98,8 @@ const ToDoPage = ({ history }: RouteComponentProps) => {
                 className="Todo__delete"
                 onClick={() => dispatch(deleteTodo(todo.id))}
               >
-                X
+                {/* <object data={deleteIcon} width="10" height="10"></object> */}
+                <img src={deleteIcon} width="10" height="10" className="icon"/>
               </button>
             </div>
           );
