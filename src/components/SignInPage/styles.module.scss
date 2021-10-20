@@ -1,0 +1,37 @@
+.content {
+  text-align: left;
+  display: block;
+  margin: auto;
+  margin-top: 3rem;
+  padding: 2rem;
+  border: 1px solid #ffffff08;
+  border-radius: 16px;
+  background: #343b41;
+  box-shadow: 24px -24px 48px #24292d, -24px 24px 48px #444d55;
+
+  &__form {
+    display: grid;
+    grid-gap: 20px 10px;
+    grid-template-columns: 1fr 2fr;
+  }
+
+  &__label {
+    align-self: center;
+  }
+
+  &__input {
+    border-radius: 8px;
+    background: #343b41;
+    box-shadow: inset 8px -8px 16px #2b3035, inset -8px 8px 16px #3d464d;
+  }
+
+  &__button {
+    border-radius: 50px;
+    background: linear-gradient(45deg, #e59041, #c17a37);
+    box-shadow: -5px -5px 10px #584331, 5px 5px 10px #3c301bde;
+    display: block;
+    margin: auto;
+    margin-top: 1rem;
+    grid-column: span 2;
+  }
+}

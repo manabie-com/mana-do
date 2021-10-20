@@ -9,9 +9,11 @@ button {
   border: none;
   box-shadow: 2px 0 2px currentColor;
   border-radius: 4px;
-  min-height: 32px;
-  min-width: 80px;
+  min-height: 36px;
+  min-width: 100px;
   padding: 4px 8px;
+  color: #eee;
+  font-family: "Avenir Next";
 }
 
 button:hover {
@@ -33,26 +35,23 @@ input[type="checkbox"]:focus {
 }
 
 input {
-  min-height: 36px;
+  min-height: 40px;
   border: none;
+  font-family: "Avenir Next Bold";
   outline: none;
-  padding: 0 12px;
-  box-shadow: 2px 0 4px rgba(0,0,0, 0.2);
+  padding: 0 18px;
+  color: #eb8e40;
   border-radius: 4px;
-}
-
-input:focus {
-  box-shadow: 1px 0 9px rgba(0,0,0, 0.25);
+  caret-color: #eb8e40;
 }
 
 .ToDo__container {
-  border: 1px solid rgba(0,0,0, 0.13);
+  border: 1px solid rgba(0, 0, 0, 0.13);
   border-radius: 8px;
   width: 500px;
   margin-top: 5rem;
   padding: 24px;
-  box-shadow: 2px 2px 1px rgba(0,0,0, 0.09),
-              3px 2px 3px rgba(0,0,0, 0.05);
+  box-shadow: 2px 2px 1px rgba(0, 0, 0, 0.09), 3px 2px 3px rgba(0, 0, 0, 0.05);
 }
 
 .Todo__creation {
@@ -100,7 +99,8 @@ input:focus {
   cursor: pointer;
 }
 
-.Todo__action, .Todo__delete {
+.Todo__action,
+.Todo__delete {
   width: 24px;
   height: 24px;
   flex-shrink: 0;
