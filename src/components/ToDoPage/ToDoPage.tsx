@@ -37,6 +37,7 @@ const ToDoPage = ({ history }: RouteComponentProps) => {
       try {
         const resp = await Service.createTodo(inputRef.current.value);
         dispatch(createTodo(resp));
+        await Service.updateTodo([...todos, resp]);
         inputRef.current.value = "";
       } catch (e) {
         if (e.response.status === 401) {
@@ -46,11 +47,13 @@ const ToDoPage = ({ history }: RouteComponentProps) => {
     }
   };
 
-  const onUpdateTodoStatus = (
+  const onUpdateTodoStatus = async (
     e: React.ChangeEvent<HTMLInputElement>,
     todoId: string
   ) => {
-    dispatch(updateTodoStatus(todoId, e.target.checked));
+    const data = e.target.checked;
+    await Service.updateTodo(todos);
+    dispatch(updateTodoStatus(todoId, data));
   };
 
   const onUpdateTodoItem = (
@@ -60,11 +63,12 @@ const ToDoPage = ({ history }: RouteComponentProps) => {
     setTodoItemEditing({ ...todo, content: e.target.value });
   };
 
-  const onUpdateTodoContent = (
+  const onUpdateTodoContent = async (
     e: React.KeyboardEvent<HTMLInputElement>,
     todoId: string
   ) => {
     if (e.key === "Enter" && todoItemEditing) {
+      await Service.updateTodo(todos);
       dispatch(updateTodoContent(todoItemEditing.id, todoItemEditing.content));
     }
   };
@@ -73,7 +77,13 @@ const ToDoPage = ({ history }: RouteComponentProps) => {
     dispatch(toggleAllTodos(e.target.checked));
   };
 
-  const onDeleteAllTodo = () => {
+  const onDeleteTodo = async (todoId: string) => {
+    await Service.updateTodo(todos);
+    dispatch(deleteTodo(todoId));
+  };
+
+  const onDeleteAllTodo = async () => {
+    await Service.deleteAll();
     dispatch(deleteAllTodos());
   };
 
@@ -120,7 +130,7 @@ const ToDoPage = ({ history }: RouteComponentProps) => {
               />
               <button
                 className="Todo__delete"
-                onClick={() => dispatch(deleteTodo(todo.id))}
+                onClick={() => onDeleteTodo(todo.id)}
               >
                 <img
                   src={deleteIcon}

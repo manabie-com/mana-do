@@ -7,6 +7,7 @@ import {
   TOGGLE_ALL_TODOS,
   UPDATE_TODO_STATUS,
   UPDATE_TODO_CONTENT,
+  SET_TODO,
 } from "./actions";
 
 export interface AppState {
@@ -19,6 +20,8 @@ export const initialState: AppState = {
 
 function reducer(state: AppState, action: AppActions): AppState {
   switch (action.type) {
+    case SET_TODO:
+      return { todos: action.payload };
     case CREATE_TODO:
       const tempTodo = [...state.todos, action.payload];
       return {
