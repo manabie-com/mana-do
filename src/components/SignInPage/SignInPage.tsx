@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import styles from "./styles.module.scss";
+import "./styles.scss";
 import { useHistory } from "react-router-dom";
 import Service from "../../service";
 
@@ -8,14 +8,20 @@ const SignInPage = () => {
     userId: "",
     password: "",
   });
+  const [error, setError] = useState(null);
   const history = useHistory();
 
   const signIn = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const resp = await Service.signIn(form.userId, form.password);
+    try {
+      const resp = await Service.signIn(form.userId, form.password);
 
-    localStorage.setItem("token", resp);
-    history.push("/todo");
+      localStorage.setItem("token", resp);
+      history.push("/todo");
+    } catch (error) {
+      console.log(error);
+      setError(error);
+    }
   };
 
   const onChangeField = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -27,26 +33,31 @@ const SignInPage = () => {
   };
 
   return (
-    <div className={styles.content}>
-      <form onSubmit={signIn} className={styles.content__form}>
-        <label htmlFor="user_id" className={styles.content__label}>Username</label>
+    <div className="content">
+      <form onSubmit={signIn} className="content__form">
+        <label htmlFor="user_id" className="content__label">
+          Username
+        </label>
         <input
           id="user_id"
           name="userId"
           value={form.userId}
           onChange={onChangeField}
-          className={styles.content__input}
+          className="content__input"
         />
-        <label htmlFor="password" className={styles.content__label}>Password</label>
+        <label htmlFor="password" className="content__label">
+          Password
+        </label>
         <input
           id="password"
           name="password"
           type="password"
           value={form.password}
           onChange={onChangeField}
-          className={styles.content__input}
+          className="content__input"
         />
-        <button type="submit" className={styles.content__button}>
+        {error && <p className="content__error">{error}</p>}
+        <button type="submit" className="content__button">
           Sign in
         </button>
       </form>

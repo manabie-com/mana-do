@@ -9,23 +9,25 @@ import {
   toggleAllTodos,
   deleteAllTodos,
   updateTodoStatus,
+  updateTodoContent,
 } from "../../store/actions";
 import Service from "../../service";
-import { TodoStatus } from "../../models/todo";
+import { TodoStatus, Todo } from "../../models/todo";
 import { isTodoCompleted } from "../../utils";
 import deleteIcon from "../../assets/imgs/trash-solid.svg";
+import "./styles.scss";
 
 type EnhanceTodoStatus = TodoStatus | "ALL";
 
 const ToDoPage = ({ history }: RouteComponentProps) => {
   const [{ todos }, dispatch] = useReducer(reducer, initialState);
+  const [todoItemEditing, setTodoItemEditing] = useState<Todo | null>(null);
   const [showing, setShowing] = useState<EnhanceTodoStatus>("ALL");
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     (async () => {
       const resp = await Service.getTodos();
-
       dispatch(setTodos(resp || []));
     })();
   }, []);
@@ -49,6 +51,22 @@ const ToDoPage = ({ history }: RouteComponentProps) => {
     todoId: string
   ) => {
     dispatch(updateTodoStatus(todoId, e.target.checked));
+  };
+
+  const onUpdateTodoItem = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    todo: Todo
+  ) => {
+    setTodoItemEditing({ ...todo, content: e.target.value });
+  };
+
+  const onUpdateTodoContent = (
+    e: React.KeyboardEvent<HTMLInputElement>,
+    todoId: string
+  ) => {
+    if (e.key === "Enter" && todoItemEditing) {
+      dispatch(updateTodoContent(todoItemEditing.id, todoItemEditing.content));
+    }
   };
 
   const onToggleAllTodo = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -93,13 +111,24 @@ const ToDoPage = ({ history }: RouteComponentProps) => {
                 checked={isTodoCompleted(todo)}
                 onChange={(e) => onUpdateTodoStatus(e, todo.id)}
               />
-              <span>{todo.content}</span>
+              <input
+                type="text"
+                className="ToDo__content--editable"
+                defaultValue={todo.content}
+                onChange={(e) => onUpdateTodoItem(e, todo)}
+                onKeyDown={(e) => onUpdateTodoContent(e, todo.id)}
+              />
               <button
                 className="Todo__delete"
                 onClick={() => dispatch(deleteTodo(todo.id))}
               >
-                {/* <object data={deleteIcon} width="10" height="10"></object> */}
-                <img src={deleteIcon} width="10" height="10" className="icon"/>
+                <img
+                  src={deleteIcon}
+                  width="10"
+                  height="10"
+                  className="icon"
+                  alt="icon-delete"
+                />
               </button>
             </div>
           );
