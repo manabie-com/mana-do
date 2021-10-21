@@ -15,11 +15,9 @@ const SignInPage = () => {
     e.preventDefault();
     try {
       const resp = await Service.signIn(form.userId, form.password);
-
       localStorage.setItem("token", resp);
       history.push("/todo");
     } catch (error) {
-      console.log(error);
       setError(error);
     }
   };

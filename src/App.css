@@ -15,8 +15,8 @@ button {
   color: #eee;
   font-family: "Avenir Next";
   border-radius: 50px;
-  background: linear-gradient(45deg, #e59041, #c17a37);
-  box-shadow: -5px -5px 10px #584331, 5px 5px 10px #3c301bde;
+  background: linear-gradient(45deg, #3d444b, #333a3f);
+  box-shadow: 5px -5px 10px #24292d, -5px 5px 10px #444d55;
 }
 
 button:hover {
@@ -48,7 +48,7 @@ input {
   caret-color: #eb8e40;
   border-radius: 8px;
   background: #343b41;
-  box-shadow: inset 8px -8px 16px #2b3035, inset -8px 8px 16px #3d464d;
+  box-shadow: inset 5px -5px 10px #2b3035, inset -5px 5px 10px #3d464d;
 }
 
 .icon {
@@ -110,7 +110,7 @@ input {
   align-items: center;
   cursor: pointer;
   background: #343b41;
-  box-shadow: 5px 5px 10px #24292d, -5px -5px 10px #444d55;
+  box-shadow: 5px -5px 10px #24292d, -5px 5px 10px #444d55;
 }
 
 .Todo__action,
@@ -135,5 +135,3 @@ input {
   margin-right: 8px;
 }
 
-.Action__btn {
-}
