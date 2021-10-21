@@ -31,9 +31,9 @@ const SignInPage = () => {
   };
 
   return (
-    <div className="content">
-      <form onSubmit={signIn} className="content__form">
-        <label htmlFor="user_id" className="content__label">
+    <div className="Content">
+      <form onSubmit={signIn} className="Content__form">
+        <label htmlFor="user_id" className="Content__label">
           Username
         </label>
         <input
@@ -41,9 +41,9 @@ const SignInPage = () => {
           name="userId"
           value={form.userId}
           onChange={onChangeField}
-          className="content__input"
+          className="Content__input"
         />
-        <label htmlFor="password" className="content__label">
+        <label htmlFor="password" className="Content__label">
           Password
         </label>
         <input
@@ -52,10 +52,10 @@ const SignInPage = () => {
           type="password"
           value={form.password}
           onChange={onChangeField}
-          className="content__input"
+          className="Content__input"
         />
-        {error && <p className="content__error">{error}</p>}
-        <button type="submit" className="content__button">
+        {error && <p className="Content__error">{error}</p>}
+        <button type="submit" className="Content__button">
           Sign in
         </button>
       </form>

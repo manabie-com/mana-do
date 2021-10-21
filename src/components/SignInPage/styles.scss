@@ -1,4 +1,4 @@
-.content {
+.Content {
   text-align: left;
   display: block;
   margin: auto;
@@ -19,13 +19,9 @@
     align-self: center;
   }
 
-  &__input {
-  }
-
   &__button {
     border-radius: 50px;
-    background: linear-gradient(45deg, #e59041, #c17a37);
-    box-shadow: 5px -5px 10px #584331, -5px 5px 10px #3c301bde;
+    background: linear-gradient(30deg, #d7752a, #a35a22) !important;
     display: block;
     margin: auto;
     margin-top: 1rem;

@@ -123,7 +123,11 @@ const ToDoPage = ({ history }: RouteComponentProps) => {
               />
               <input
                 type="text"
-                className="ToDo__content--editable"
+                className={`ToDo__content--editable ${
+                  todo.status === TodoStatus.COMPLETED
+                    ? `ToDo__content--completed`
+                    : ""
+                }`}
                 defaultValue={todo.content}
                 onChange={(e) => onUpdateTodoItem(e, todo)}
                 onKeyDown={(e) => onUpdateTodoContent(e, todo.id)}
