@@ -22,7 +22,7 @@
 
 #### Common (required for both positions)
 - Our code base has some strange bugs and anti-patterns, please help us find and fix these (please comment the reasons why you change it).
-- Write some tests (prefer unit tests as it can save your time) to persuade us that what you had ADDED or FIXED are correct.
+- Write some tests for Login and CRUD Todo item (prefer unit tests as it can save your time) to persuade us that what you had ADDED or FIXED are correct.
 
 #### Front-end engineer
 - For front-end engineer, you can use localStorage instead of calling remote APIs.
