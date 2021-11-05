@@ -1,4 +1,6 @@
 .App {
+  background: #ccc;
+  height: 100vh;
   text-align: center;
   display: flex;
   justify-content: center;
@@ -18,14 +20,6 @@ button:hover {
   opacity: 0.85;
 }
 
-input[type="checkbox"] {
-  width: 24px;
-  height: 24px;
-  box-shadow: none;
-  border: none;
-  outline: none;
-}
-
 input[type="checkbox"]:focus {
   box-shadow: none;
   border: none;
@@ -36,23 +30,23 @@ input {
   min-height: 36px;
   border: none;
   outline: none;
-  padding: 0 12px;
-  box-shadow: 2px 0 4px rgba(0,0,0, 0.2);
+  box-shadow: 2px 0 4px rgba(0, 0, 0, 0.2);
   border-radius: 4px;
 }
 
 input:focus {
-  box-shadow: 1px 0 9px rgba(0,0,0, 0.25);
+  box-shadow: 1px 0 9px rgba(0, 0, 0, 0.25);
 }
 
 .ToDo__container {
-  border: 1px solid rgba(0,0,0, 0.13);
+  background-color: #232439;
+  max-height: 500px;
+  border: 1px solid rgba(0, 0, 0, 0.13);
   border-radius: 8px;
   width: 500px;
   margin-top: 5rem;
   padding: 24px;
-  box-shadow: 2px 2px 1px rgba(0,0,0, 0.09),
-              3px 2px 3px rgba(0,0,0, 0.05);
+  margin: auto;
 }
 
 .Todo__creation {
@@ -67,18 +61,39 @@ input:focus {
   display: flex;
   flex-direction: column;
   margin-top: 1.5rem;
+  max-height: 300px;
+  overflow-y: scroll;
+  padding: 0 10px;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  border-radius: 5px;
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+  background: #888;
 }
 
 .ToDo__item {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding: 5px 0;
 }
 
-.ToDo__item > span {
+.ToDo__item>span {
   flex: 1 1;
   text-align: left;
   margin-left: 8px;
+  color: #ebe7f9;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .Todo__content {
@@ -101,9 +116,13 @@ input:focus {
 }
 
 .Todo__action, .Todo__delete {
-  width: 24px;
-  height: 24px;
+  width: 20px;
+  height: 20px;
   flex-shrink: 0;
+}
+
+.Todo__action, .Todo__delete:hover {
+  color: red;
 }
 
 .Todo__toolbar {
@@ -117,9 +136,137 @@ input:focus {
   justify-content: center;
 }
 
-.Todo__tabs > *:not(:last-child) {
+.Todo__tabs>*:not(:last-child) {
   margin-right: 8px;
 }
 
-.Action__btn {
+.Action__btn:hover {
+  margin-top: -5px;
+}
+
+.ToDo__item>span[contenteditable="true"] {
+  outline: none;
+  background-color: #ddd;
+  border-radius: 5px;
+  padding: 5px;
+  margin: 0 5px;
+}
+
+.ToDo__item>.compeleted {
+  opacity: 0.5;
+}
+
+label, input[type="checkbox"]+span, input[type="checkbox"]+span::before {
+  vertical-align: middle;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+label *, label * {
+  cursor: pointer;
+}
+
+input[type="checkbox"] {
+  opacity: 0;
+  position: absolute;
+}
+
+input[type="checkbox"]+span {
+  font: normal 11px/14px Arial, Sans-serif;
+  color: #fff;
+}
+
+label:hover span::before, label:hover span::before {
+  box-shadow: 0 0 2px #ccc;
+}
+
+label:hover span, label:hover span {
+  color: #000;
+}
+
+input[type="checkbox"]+span::before {
+  content: "";
+  width: 15px;
+  height: 15px;
+  margin: 0 4px 0 0;
+  border: solid 1px #a8a8a8;
+  line-height: 14px;
+  text-align: center;
+  border-radius: 100%;
+  background: #f6f6f6;
+  background: radial-gradient(#f6f6f6, #dfdfdf);
+}
+
+input[type="checkbox"]:checked+span::before {
+  color: #666;
+}
+
+input[type="checkbox"]:disabled+span {
+  cursor: default;
+  opacity: .4;
+}
+
+input[type="checkbox"]+span::before {
+  border-radius: 50%;
+}
+
+input[type="checkbox"]:checked+span::before {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  content: "\2714";
+  font-size: 15px;
+}
+
+input[class="check-box"]+span::before {
+  border: solid 1px blue;
+  background: #B2DBFF;
+  background: radial-gradient(#B2DBFF, #dfdfdf);
+}
+
+input[class="check-box"]:checked+span::before {
+  color: darkblue;
+}
+
+.activeBtnCss {
+  margin-top: -5px;
+  opacity: 0.5;
+  font-weight: bold;
+}
+
+/* Sign in page */
+
+.sign-in {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.sign-in-form {
+  background-color: #232439;
+  color: #fff;
+  max-width: 400px;
+  width: 50%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+}
+
+.sign-in-form input {
+  width: 80%;
+  min-height: 26px;
+  margin: 10px;
+  border: 1px solid #ccc;
+}
+
+.error {
+  border: 1px solid red !important;
+}
+
+.error-text {
+  color: red;
 }

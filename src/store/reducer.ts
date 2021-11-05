@@ -1,13 +1,15 @@
-import {Todo, TodoStatus} from '../models/todo';
+import { Todo, TodoStatus } from '../models/todo';
 import {
   AppActions,
   CREATE_TODO,
   DELETE_ALL_TODOS,
   DELETE_TODO,
   TOGGLE_ALL_TODOS,
-  UPDATE_TODO_STATUS
+  UPDATE_TODO_STATUS,
+  SET_TODO,
+  EDIT_TODO
 } from './actions';
-
+import { TODOS } from '../constants'
 export interface AppState {
   todos: Array<Todo>
 }
@@ -16,45 +18,74 @@ export const initialState: AppState = {
   todos: []
 }
 
-function reducer(state: AppState, action: AppActions): AppState {
+function setLocalTodo(data: Array<Todo>) {
+  localStorage.setItem(TODOS, JSON.stringify(data))
+}
+
+function reducer(state = initialState, action: AppActions): AppState {
   switch (action.type) {
-    case CREATE_TODO:
-      state.todos.push(action.payload);
-      return {
-        ...state
-      };
-
-    case UPDATE_TODO_STATUS:
-      const index2 = state.todos.findIndex((todo) => todo.id === action.payload.todoId);
-      state.todos[index2].status = action.payload.checked ? TodoStatus.COMPLETED : TodoStatus.ACTIVE;
-
+    case SET_TODO:
       return {
         ...state,
-        todos: state.todos
+        todos: action.payload
       }
 
-    case TOGGLE_ALL_TODOS:
-      const tempTodos = state.todos.map((e)=>{
+    case CREATE_TODO: {
+      const newTodos = [...state.todos, action.payload];
+      setLocalTodo(newTodos)
+      return { ...state, todos: newTodos }
+    }
+
+    case EDIT_TODO: {
+      const newTodos = [...state.todos]
+      newTodos.forEach((item: { id: string; content: string; }) => {
+        if (item.id === action.payload.todoId) {
+          item.content = action.payload.content
+        }
+      })
+      setLocalTodo(newTodos)
+      return { ...state, todos: newTodos }
+    }
+
+    case UPDATE_TODO_STATUS: {
+      const newTodos = [...state.todos]
+      newTodos.forEach(item => {
+        if (item.id === action.payload.todoId) {
+          item.status = action.payload.checked ? TodoStatus.COMPLETED : TodoStatus.ACTIVE;
+        }
+      })
+      setLocalTodo(newTodos)
+      return {
+        ...state,
+        todos: newTodos
+      }
+    }
+
+    case TOGGLE_ALL_TODOS: {
+      const tempTodos = state.todos.map((e) => {
         return {
           ...e,
           status: action.payload ? TodoStatus.COMPLETED : TodoStatus.ACTIVE
         }
       })
-
+      setLocalTodo(tempTodos)
       return {
         ...state,
         todos: tempTodos
       }
+    }
 
-    case DELETE_TODO:
-      const index1 = state.todos.findIndex((todo) => todo.id === action.payload);
-      state.todos.splice(index1, 1);
-
+    case DELETE_TODO: {
+      let newTodos = state.todos.filter(item => item.id !== action.payload)
+      setLocalTodo(newTodos)
       return {
         ...state,
-        todos: state.todos
+        todos: newTodos
       }
+    }
+
     case DELETE_ALL_TODOS:
+      localStorage.removeItem(TODOS)
       return {
         ...state,
         todos: []
