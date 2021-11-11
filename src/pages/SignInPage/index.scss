@@ -1,0 +1,20 @@
+@import "../../shared/variables";
+
+.signIn-container {
+    margin-top: 5rem;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    justify-content: center;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+    background-color: $purple;
+
+    .app-title {
+        color: white;
+        font-family: cursive;
+        font-weight: bold;
+        font-size: 30px;
+        padding-bottom: 40px;
+    }
+}

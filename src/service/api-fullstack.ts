@@ -1,9 +1,9 @@
-import {IAPI} from './types';
-import {Todo} from '../models/todo';
+import { IAPI } from './types';
+import { Todo } from '../models/todo';
 import axios from '../utils/axios';
-import {AxiosResponse} from 'axios';
+import { AxiosResponse } from 'axios';
 
-class ApiFullstack extends IAPI {
+class ApiFullstack {
     async signIn(username: string, password: string): Promise<string> {
         const resp = await axios.get<AxiosResponse<string>>(`/login?user_id=${username}&password=${password}`);
 

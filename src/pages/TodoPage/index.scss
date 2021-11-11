@@ -1,0 +1,84 @@
+@import '../../shared/variables';
+
+.container {
+    border: 1px solid rgba(0, 0, 0, 0.13);
+    border-radius: 8px;
+    width: 500px;
+    margin-top: 5rem;
+    padding: 24px;
+    box-shadow: 2px 2px 1px rgba(0, 0, 0, 0.09),
+        3px 2px 3px rgba(0, 0, 0, 0.05);
+    background-color: $purple;
+
+    .sign-out-content {
+        display: flex;
+        justify-content: flex-end;
+        padding-bottom: 20px;
+
+        .btn-sign-out {
+            color: white;
+            font-weight: bold;
+            font-size: 14px;
+            cursor: pointer;
+            background: #ffffff21;
+            padding: 0px 8px 2px 8px;
+            border-radius: 30px;
+        }
+    }
+
+    .list-todo {
+        display: flex;
+        flex-direction: column;
+        margin-top: 1.5rem;
+    }
+
+    .todo-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .value-container {
+            display: flex;
+            align-items: center;
+            width: 100%;
+
+            .value-content {
+                padding-left: 10px;
+                color: $textColor;
+                width: 100%;
+                text-align: start;
+                padding-right: 10px;
+            }
+        }
+    }
+
+    .delete-todo {
+        outline: none;
+        border: none;
+        width: 18px;
+        height: 18px;
+        min-width: auto;
+        min-height: auto;
+        box-shadow: none;
+        border-radius: 50%;
+        display: flex;
+        font-size: 10px;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        background-color: #ec2626;
+        color: white;
+    }
+
+
+    .toolbar {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 24px;
+    }
+
+    .todo-tabs {
+        display: flex;
+        justify-content: center;
+    }
+}

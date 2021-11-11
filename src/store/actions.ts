@@ -1,4 +1,4 @@
-import {Todo} from "../models/todo";
+import { Todo } from "../models/todo";
 
 export const SET_TODO = 'SET_TODO';
 export const CREATE_TODO = 'CREATE_TODO';
@@ -76,7 +76,7 @@ export function deleteAllTodos(): DeleteAllTodosAction {
   }
 }
 
-///////////
+//////////////
 export interface ToggleAllTodosAction {
   type: typeof TOGGLE_ALL_TODOS,
   payload: boolean

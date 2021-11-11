@@ -6,7 +6,13 @@ export enum TodoStatus {
 export interface Todo {
   id: string
   user_id: string
-  content : string
+  content: string
   status?: TodoStatus
   created_date: string
+}
+
+// Add UserLogin Interface
+export interface UserLogin {
+  userId: string;
+  password: string;
 }
