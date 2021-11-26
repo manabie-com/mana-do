@@ -43,6 +43,8 @@
   },
   "devDependencies": {
     "@types/react-router-dom": "^5.1.5",
-    "@types/shortid": "^0.0.29"
+    "@types/react-test-renderer": "^17.0.1",
+    "@types/shortid": "^0.0.29",
+    "@types/uuid": "^8.3.3"
   }
 }
