@@ -1,4 +1,5 @@
-import { Todo } from '../models/todo';
+import { Todo, TodoStatus } from '../models/todo';
+import Service from '../service';
 
 export const SET_TODO = 'SET_TODO';
 export const CREATE_TODO = 'CREATE_TODO';
@@ -22,12 +23,10 @@ export function setTodos(todos: Array<Todo>): SetTodoAction {
 ///////////
 export interface CreateTodoAction {
     type: typeof CREATE_TODO;
-    payload: Todo | Todo[];
+    payload: Todo[];
 }
 
-// Đưa việc thêm newTodo ra ngoài reducer, tránh trường hợp reducer thực thi 2 lần trong 1 lần gọi dispatch
-// Có thể bỏ <React.StrictMode> trong file index.tsx để hàm reducer chỉ thực thi 1 lần, tuy nhiên không nên
-export function createTodo(todos: Array<Todo>, newTodo: Todo): CreateTodoAction {
+export function addTodo(todos: Todo[], newTodo: Todo): CreateTodoAction {
     return {
         type: CREATE_TODO,
         payload: [...todos, newTodo],
@@ -37,32 +36,40 @@ export function createTodo(todos: Array<Todo>, newTodo: Todo): CreateTodoAction 
 //////////////
 export interface UpdateTodoStatusAction {
     type: typeof UPDATE_TODO_STATUS;
-    payload: {
-        todoId: string;
-        checked: boolean;
-    };
+    payload: Todo[];
 }
 
-export function updateTodoStatus(todoId: string, checked: boolean): UpdateTodoStatusAction {
+export function updateTodoStatus(
+    todos: Todo[],
+    todoId: string,
+    checked: boolean
+): UpdateTodoStatusAction {
+    const todo = todos.find((todo) => todo.id === todoId);
+    if (todo) {
+        todo.status = checked ? TodoStatus.COMPLETED : TodoStatus.ACTIVE;
+        Service.updateTodos(todos);
+    }
+
     return {
         type: UPDATE_TODO_STATUS,
-        payload: {
-            todoId,
-            checked,
-        },
+        payload: todos,
     };
 }
 
 //////////////
 export interface DeleteTodoAction {
     type: typeof DELETE_TODO;
-    payload: string;
+    payload: Todo[];
 }
 
-export function deleteTodo(todoId: string): DeleteTodoAction {
+export function deleteTodo(todos: Todo[], todoId: string): DeleteTodoAction {
+    const index = todos.findIndex((todo: Todo) => todo.id === todoId);
+    todos.splice(index, 1);
+    Service.deleteTodo(todoId);
+
     return {
         type: DELETE_TODO,
-        payload: todoId,
+        payload: todos,
     };
 }
 
@@ -72,6 +79,7 @@ export interface DeleteAllTodosAction {
 }
 
 export function deleteAllTodos(): DeleteAllTodosAction {
+    Service.deleteAll();
     return {
         type: DELETE_ALL_TODOS,
     };
@@ -80,13 +88,19 @@ export function deleteAllTodos(): DeleteAllTodosAction {
 ///////////
 export interface ToggleAllTodosAction {
     type: typeof TOGGLE_ALL_TODOS;
-    payload: boolean;
+    payload: Todo[];
 }
 
-export function toggleAllTodos(checked: boolean): ToggleAllTodosAction {
+export function toggleAllTodos(todos: Todo[], checked: boolean): ToggleAllTodosAction {
+    todos.forEach((todo) => {
+        todo.status = checked ? TodoStatus.COMPLETED : TodoStatus.ACTIVE;
+    });
+
+    Service.updateTodos(todos);
+
     return {
         type: TOGGLE_ALL_TODOS,
-        payload: checked,
+        payload: todos,
     };
 }
 
