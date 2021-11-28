@@ -1,16 +1,18 @@
 import React, { useEffect, useReducer, useRef, useState } from 'react';
-import { RouteComponentProps } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
+import './TodoPage.css';
+import Service from '../service';
+import { isTodoCompleted } from '../utils';
+import { TodoStatus } from '../models/todo';
+import TodoItem from '../components/TodoItem';
 import reducer, { initialState } from '../store/reducer';
 import { setTodos, addTodo, toggleAllTodos, deleteAllTodos } from '../store/actions';
-import Service from '../service';
-import { TodoStatus } from '../models/todo';
-import { isTodoCompleted } from '../utils';
-import TodoItem from '../components/TodoItem';
 
 type EnhanceTodoStatus = TodoStatus | 'ALL';
 
-const ToDoPage = ({ history }: RouteComponentProps) => {
+const ToDoPage = () => {
+    const history = useHistory();
     const [{ todos }, dispatch] = useReducer(reducer, initialState);
     const [showing, setShowing] = useState<EnhanceTodoStatus>('ALL');
     const inputRef = useRef<HTMLInputElement>(null);

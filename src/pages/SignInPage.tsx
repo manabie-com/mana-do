@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 import { useHistory } from 'react-router-dom';
 import Service from '../service';
+import './SignInPage.css';
 
 const SignInPage = () => {
     const [form, setForm] = useState({
@@ -27,10 +28,11 @@ const SignInPage = () => {
     };
 
     return (
-        <div style={{ marginTop: '3rem', textAlign: 'left' }}>
+        <div id="login-container">
+            <h1>Login</h1>
             <form onSubmit={signIn}>
                 <label htmlFor="user_id">
-                    User id
+                    <h3>User id</h3>
                     <input
                         id="user_id"
                         name="userId"
@@ -41,7 +43,7 @@ const SignInPage = () => {
                 </label>
                 <br />
                 <label htmlFor="password">
-                    Password
+                    <h3>Password</h3>
                     <input
                         id="password"
                         name="password"
@@ -52,7 +54,7 @@ const SignInPage = () => {
                     />
                 </label>
                 <br />
-                <button type="submit" style={{ marginTop: 12 }}>
+                <button type="submit" data-testid="submit" style={{ marginTop: 12 }}>
                     Sign in
                 </button>
             </form>

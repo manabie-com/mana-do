@@ -1,8 +1,9 @@
+import Service from '../service';
+import { Todo } from '../models/todo';
+import { isTodoCompleted } from '../utils';
 import React, { useEffect, useRef, useState } from 'react';
 import { AppActions, deleteTodo, updateTodoStatus } from '../store/actions';
-import { isTodoCompleted } from '../utils';
-import { Todo } from '../models/todo';
-import Service from '../service';
+import './TodoItem.css';
 
 interface ITodoItem {
     todos: Todo[];
