@@ -11,7 +11,7 @@ import {
     updateTodoStatus
 } from './store/actions';
 import Service from './service';
-import {TodoStatus} from './models/todo';
+import {Todo, TodoStatus} from './models/todo';
 import {isTodoCompleted} from './utils';
 
 type EnhanceTodoStatus = TodoStatus | 'ALL';
@@ -22,19 +22,30 @@ const ToDoPage = ({history}: RouteComponentProps) => {
     const [showing, setShowing] = useState<EnhanceTodoStatus>('ALL');
     const inputRef = useRef<HTMLInputElement>(null);
 
-    useEffect(()=>{
-        (async ()=>{
-            const resp = await Service.getTodos();
+    const loadDataFromLocal = () => {
+        const raw = localStorage.getItem('my-todo')
+        try {
+            const data = JSON.parse(raw as any);
+            if (data && data.length) {
+                dispatch(setTodos(data));
+            }
+        } catch (e) {
 
-            dispatch(setTodos(resp || []));
-        })()
+        }
+    }
+
+    useEffect(() => {
+        loadDataFromLocal()
     }, [])
 
     const onCreateTodo = async (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter' && inputRef.current) {
             try {
                 const resp = await Service.createTodo(inputRef.current.value);
-                dispatch(createTodo(resp));
+                const newTodos= [resp,...todos];
+                dispatch(createTodo(newTodos));
+                localStorage.setItem('my-todo', JSON.stringify(newTodos))
+
                 inputRef.current.value = '';
             } catch (e) {
                 if (e.response.status === 401) {
@@ -53,6 +64,7 @@ const ToDoPage = ({history}: RouteComponentProps) => {
     }
 
     const onDeleteAllTodo = () => {
+        localStorage.setItem('my-todo', '[]')
         dispatch(deleteAllTodos());
     }
 
@@ -94,7 +106,11 @@ const ToDoPage = ({history}: RouteComponentProps) => {
                                 <span>{todo.content}</span>
                                 <button
                                     className="Todo__delete"
-                                    onClick={() => dispatch(deleteTodo(todo.id))}
+                                    onClick={() => {
+                                        const newTodos = todos.filter((todoItem) => todoItem.id !== todo.id) as Todo[]
+                                        localStorage.setItem('my-todo', JSON.stringify(newTodos))
+                                        dispatch(deleteTodo(newTodos))
+                                    }}
                                 >
                                     X
                                 </button>
@@ -112,13 +128,13 @@ const ToDoPage = ({history}: RouteComponentProps) => {
                     /> : <div/>
                 }
                 <div className="Todo__tabs">
-                    <button className="Action__btn" onClick={()=>setShowing('ALL')}>
+                    <button className="Action__btn" onClick={() => setShowing('ALL')}>
                         All
                     </button>
-                    <button className="Action__btn" onClick={()=>setShowing(TodoStatus.ACTIVE)}>
+                    <button className="Action__btn" onClick={() => setShowing(TodoStatus.ACTIVE)}>
                         Active
                     </button>
-                    <button className="Action__btn" onClick={()=>setShowing(TodoStatus.COMPLETED)}>
+                    <button className="Action__btn" onClick={() => setShowing(TodoStatus.COMPLETED)}>
                         Completed
                     </button>
                 </div>

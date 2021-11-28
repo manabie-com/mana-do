@@ -1,124 +1,345 @@
+:root {
+    --btn-link-color: #8699DA;
+    --text-primary: #444B59;
+    --text-white: white;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@200&display=swap');
 .App {
-  text-align: center;
-  display: flex;
-  justify-content: center;
+    color: var(--text-primary);
+}
+
+.login-page {
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+}
+.input-item {
+    margin-bottom: 28px;
+}
+.input-item label {
+    font-family: Nunito;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 28px;
+    line-height: 38px;
+    letter-spacing: 0.1em;
+
+    color: var(--text-primary);
+}
+
+.input-item input {
+    width: 100%;
+    border: 2px solid #789ADE;
+    box-sizing: border-box;
+    border-radius: 80px;
+    height: 50px;
+    padding: 15px;
+}
+.input-item input:hover {
+    opacity: 0.7
+}
+.method-section {
+    width: 200px;
+    margin: 0 auto;
+}
+
+.other-method {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.sign-in-btn {
+    cursor: pointer;
+    width: 100%;
+    height: 50px;
+    background: var(--btn-link-color);
+    box-shadow: 4px 8px 12px rgba(78, 99, 141, 0.06), inset 0px 4px 12px rgba(200, 211, 249, 0.6);
+    border-radius: 80px;
+
+    font-family: Nunito;
+    font-style: normal;
+    font-size: 18px;
+    letter-spacing: 0.1em;
+
+    color: var(--text-white);
+    margin-bottom: 18px;
+}
+.other-label {
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin: 16px 0;
+    color: #000000d9;
+    font-weight: 500;
+    font-size: 16px;
+    white-space: nowrap;
+    border-top: 0;
+    border-top-color: #0000000f;
+}
+.divider-inner-text {
+    display: inline-block;
+    padding: 0 1em;
+}
+.other-label:before{
+    position: relative;
+    top: 50%;
+    width: 50%;
+    height: 1px;
+    border-top: 1px solid transparent;
+    border-top-color: inherit;
+    border-bottom: 0;
+    transform: translateY(50%);
+    content: "";
+    background: var(--btn-link-color);
+}
+.other-label:after{
+    position: relative;
+    top: 50%;
+    width: 50%;
+    height: 1px;
+    border-top: 1px solid transparent;
+    border-top-color: inherit;
+    border-bottom: 0;
+    transform: translateY(50%);
+    content: "";
+    background: var(--btn-link-color);
+}
+.method-item {
+    cursor: pointer;
+}
+.method-item:hover {
+    opacity: 0.7;
+}
+.sign-in-btn:hover {
+    opacity: 0.7
+}
+.txt-center {
+    text-align: center;
+}
+
+.col {
+    position: relative;
+    max-width: 100%;
+    min-height: 1px;
+}
+
+.login-wrapper {
+    display: flex;
+    align-items: center;
+    margin: 0 auto;
+    width: 80%;
+    justify-content: center;
+}
+
+.sign-up {
+    font-family: Nunito;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 24px;
+    line-height: 33px;
+    letter-spacing: 0.1em;
+}
+
+.btn:hover {
+    opacity: 0.7;
+}
+
+.login-form-section {
+    padding: 20px;
+}
+
+.login-image img {
+    width: 100%;
+}
+
+.row {
+    display: flex;
+    flex-flow: row wrap;
+}
+.forgot-section {
+    font-family: Nunito;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    margin-bottom: 24px;
+    letter-spacing: 0.1em;
+
+    cursor: pointer;
+
+    color: var(--btn-link-color);
+}
+.forgot-section:hover {
+    opacity: 0.7;
+}
+.login-title {
+    font-family: Nunito;
+    font-weight: 800;
+    font-size: 36px;
+    line-height: 55px;
+    letter-spacing: 0.1em;
+    margin-bottom: 8px;
+    color: var(--text-primary);
+}
+
+.col-12 {
+    display: block;
+    max-width: 50%;
+}
+
+.title-section {
+    margin-bottom: 18px;
+}
+
+@media (min-width: 992px) {
+    .container {
+        max-width: 960px;
+    }
+}
+
+@media (min-width: 768px) {
+    .container {
+        max-width: 720px;
+    }
+}
+
+@media (min-width: 576px) {
+    .container {
+        max-width: 540px;
+    }
+}
+
+.container {
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
 }
 
 button {
-  outline: none;
-  border: none;
-  box-shadow: 2px 0 2px currentColor;
-  border-radius: 4px;
-  min-height: 32px;
-  min-width: 80px;
-  padding: 4px 8px;
+    outline: none;
+    border: none;
+    box-shadow: 2px 0 2px currentColor;
+    border-radius: 4px;
+    min-height: 32px;
+    min-width: 80px;
+    padding: 4px 8px;
+}
+.label-wrapper{
+    margin-bottom: 16px;
+}
+.btn {
+    line-height: 1.5715;
+    position: relative;
+    display: inline-block;
+    font-weight: 400;
+    white-space: nowrap;
+    text-align: center;
+    background-image: none;
+    border: 1px solid transparent;
+    box-shadow: 0 2px #00000004;
+    cursor: pointer;
+    transition: all .3s cubic-bezier(.645, .045, .355, 1);
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    touch-action: manipulation;
+    height: 32px;
+    padding: 4px 15px;
+    font-size: 24px;
+    border-radius: 2px;
+    color: #000000d9;
+    border-color: #d9d9d9;
+    background: #fff;
+
 }
 
-button:hover {
-  opacity: 0.85;
-}
-
-input[type="checkbox"] {
-  width: 24px;
-  height: 24px;
-  box-shadow: none;
-  border: none;
-  outline: none;
-}
-
-input[type="checkbox"]:focus {
-  box-shadow: none;
-  border: none;
-  outline: none;
-}
-
-input {
-  min-height: 36px;
-  border: none;
-  outline: none;
-  padding: 0 12px;
-  box-shadow: 2px 0 4px rgba(0,0,0, 0.2);
-  border-radius: 4px;
-}
-
-input:focus {
-  box-shadow: 1px 0 9px rgba(0,0,0, 0.25);
+.btn-link {
+    color: var(--btn-link-color);
+    border-color: transparent;
+    background: 0 0;
+    box-shadow: none;
 }
 
 .ToDo__container {
-  border: 1px solid rgba(0,0,0, 0.13);
-  border-radius: 8px;
-  width: 500px;
-  margin-top: 5rem;
-  padding: 24px;
-  box-shadow: 2px 2px 1px rgba(0,0,0, 0.09),
-              3px 2px 3px rgba(0,0,0, 0.05);
+    border: 1px solid rgba(0, 0, 0, 0.13);
+    border-radius: 8px;
+    width: 500px;
+    margin-top: 5rem;
+    padding: 24px;
+    box-shadow: 2px 2px 1px rgba(0, 0, 0, 0.09),
+    3px 2px 3px rgba(0, 0, 0, 0.05);
 }
 
 .Todo__creation {
-  display: flex;
+    display: flex;
 }
 
 .Todo__input {
-  flex: 1 1;
+    flex: 1 1;
 }
 
 .ToDo__list {
-  display: flex;
-  flex-direction: column;
-  margin-top: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    margin-top: 1.5rem;
 }
 
 .ToDo__item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .ToDo__item > span {
-  flex: 1 1;
-  text-align: left;
-  margin-left: 8px;
+    flex: 1 1;
+    text-align: left;
+    margin-left: 8px;
 }
 
 .Todo__content {
-  flex: 1 1;
+    flex: 1 1;
 }
 
 .Todo__delete {
-  outline: none;
-  border: none;
-  width: 32px;
-  height: 32px;
-  min-width: auto;
-  min-height: auto;
-  box-shadow: none;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
+    outline: none;
+    border: none;
+    width: 32px;
+    height: 32px;
+    min-width: auto;
+    min-height: auto;
+    box-shadow: none;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
 }
 
 .Todo__action, .Todo__delete {
-  width: 24px;
-  height: 24px;
-  flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
 }
 
 .Todo__toolbar {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 24px;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 24px;
 }
 
 .Todo__tabs {
-  display: flex;
-  justify-content: center;
+    display: flex;
+    justify-content: center;
 }
 
 .Todo__tabs > *:not(:last-child) {
-  margin-right: 8px;
+    margin-right: 8px;
 }
 
 .Action__btn {

@@ -23,13 +23,13 @@ export function setTodos(todos: Array<Todo>): SetTodoAction {
 ///////////
 export interface CreateTodoAction {
   type: typeof CREATE_TODO,
-  payload: Todo
+  payload: Todo[];
 }
 
-export function createTodo(newTodo: Todo): CreateTodoAction {
+export function createTodo(todos: Array<Todo>): CreateTodoAction {
   return {
     type: CREATE_TODO,
-    payload: newTodo
+    payload: [...todos]
   }
 }
 
@@ -55,13 +55,13 @@ export function updateTodoStatus(todoId: string, checked: boolean): UpdateTodoSt
 //////////////
 export interface DeleteTodoAction {
   type: typeof DELETE_TODO,
-  payload: string
+  payload: Todo[]
 }
 
-export function deleteTodo(todoId: string): DeleteTodoAction {
+export function deleteTodo(todos: Todo[]): DeleteTodoAction {
   return {
     type: DELETE_TODO,
-    payload: todoId
+    payload: todos
   }
 }
 
