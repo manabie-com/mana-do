@@ -312,10 +312,17 @@
 .ToDo__item {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-
     border-bottom: 1px solid var(--btn-link-color);
-    padding: 10px 0;
+    padding: 8px 0;
+    line-height: 40px;
+}
+.input-todo-item input {
+    width: 100%;
+    border: 2px solid #789ADE;
+    box-sizing: border-box;
+    border-radius: 80px;
+    height: 36px;
+    padding: 8px;
 }
 .active {
     background: #0037ff !important;
@@ -370,4 +377,11 @@
     width: 24px;
     height: 24px;
     flex-shrink: 0;
+}
+.todo-wrapper {
+    margin-left: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
 }

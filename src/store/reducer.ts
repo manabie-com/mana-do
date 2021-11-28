@@ -2,6 +2,7 @@ import {Todo} from '../models/todo';
 import {
     AppActions,
     CREATE_TODO,
+    EDIT_TODO,
     DELETE_ALL_TODOS,
     DELETE_TODO, SET_TODO,
     TOGGLE_ALL_TODOS,
@@ -20,6 +21,13 @@ function reducer(state: AppState, action: AppActions): AppState {
     switch (action.type) {
         case CREATE_TODO:
             return {
+                ...state,
+                todos: action.payload as Todo[],
+            }
+
+        case EDIT_TODO:
+            return {
+                ...state,
                 todos: action.payload as Todo[],
             }
 

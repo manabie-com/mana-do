@@ -2,6 +2,7 @@ import {Todo} from "../models/todo";
 
 export const SET_TODO = 'SET_TODO';
 export const CREATE_TODO = 'CREATE_TODO';
+export const EDIT_TODO = 'EDIT_TODO';
 export const DELETE_TODO = 'DELETE_TODO';
 export const DELETE_ALL_TODOS = 'DELETE_ALL_TODOS';
 export const TOGGLE_ALL_TODOS = 'TOGGLE_ALL_TODOS';
@@ -9,84 +10,97 @@ export const UPDATE_TODO_STATUS = 'UPDATE_TODO_STATUS';
 
 
 export interface SetTodoAction {
-  type: typeof SET_TODO,
-  payload: Array<Todo>
+    type: typeof SET_TODO,
+    payload: Array<Todo>
 }
 
 export function setTodos(todos: Array<Todo>): SetTodoAction {
-  return {
-    type: SET_TODO,
-    payload: todos
-  }
+    return {
+        type: SET_TODO,
+        payload: todos
+    }
 }
 
 ///////////
 export interface CreateTodoAction {
-  type: typeof CREATE_TODO,
-  payload: Todo[]
+    type: typeof CREATE_TODO,
+    payload: Todo[]
 }
 
 export function createTodo(todos: Array<Todo>): CreateTodoAction {
-  return {
-    type: CREATE_TODO,
-    payload: [...todos]
-  }
+    return {
+        type: CREATE_TODO,
+        payload: [...todos]
+    }
+}
+
+export interface EditTodoAction {
+    type: typeof EDIT_TODO,
+    payload: Todo[]
+}
+
+export function editTodo(todos: Array<Todo>): EditTodoAction {
+    return {
+        type: EDIT_TODO,
+        payload: [...todos]
+    }
 }
 
 //////////////
 export interface UpdateTodoStatusAction {
-  type: typeof UPDATE_TODO_STATUS,
-  payload: Todo[]
+    type: typeof UPDATE_TODO_STATUS,
+    payload: Todo[]
 }
 
 export function updateTodoStatus(updatedTodos: Todo[]): UpdateTodoStatusAction {
-  return {
-    type: UPDATE_TODO_STATUS,
-    payload: updatedTodos
-  }
+    return {
+        type: UPDATE_TODO_STATUS,
+        payload: updatedTodos
+    }
 }
 
 //////////////
 export interface DeleteTodoAction {
-  type: typeof DELETE_TODO,
-  payload: Todo[]
+    type: typeof DELETE_TODO,
+    payload: Todo[]
 }
 
 export function deleteTodo(todos: Todo[]): DeleteTodoAction {
-  return {
-    type: DELETE_TODO,
-    payload: todos
-  }
+    return {
+        type: DELETE_TODO,
+        payload: todos
+    }
 }
 
 //////////////
 export interface DeleteAllTodosAction {
-  type: typeof DELETE_ALL_TODOS,
+    type: typeof DELETE_ALL_TODOS,
 }
 
 export function deleteAllTodos(): DeleteAllTodosAction {
-  return {
-    type: DELETE_ALL_TODOS,
-  }
+    return {
+        type: DELETE_ALL_TODOS,
+    }
 }
 
 ///////////
 export interface ToggleAllTodosAction {
-  type: typeof TOGGLE_ALL_TODOS,
-  payload: Todo[]
+    type: typeof TOGGLE_ALL_TODOS,
+    payload: Todo[]
 }
 
 export function toggleAllTodos(updatedTodos: Todo[]): ToggleAllTodosAction {
-  return {
-    type: TOGGLE_ALL_TODOS,
-    payload: updatedTodos
-  }
+    return {
+        type: TOGGLE_ALL_TODOS,
+        payload: updatedTodos
+    }
 }
 
 export type AppActions =
-  SetTodoAction |
-  CreateTodoAction |
-  UpdateTodoStatusAction |
-  DeleteTodoAction |
-  DeleteAllTodosAction |
-  ToggleAllTodosAction;
+    SetTodoAction |
+    EditTodoAction |
+    CreateTodoAction |
+    UpdateTodoStatusAction |
+    DeleteTodoAction |
+    DeleteAllTodosAction |
+    ToggleAllTodosAction;
