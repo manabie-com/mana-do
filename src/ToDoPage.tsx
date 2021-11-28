@@ -157,7 +157,7 @@ const ToDoPage = ({history}: RouteComponentProps) => {
                             <div className="task-list">
                                 Task List
                             </div>
-                            <div className="ToDo__item header">
+                            <div className="header">
                                 {todos.length > 0 ?
                                     <input
                                         type="checkbox"

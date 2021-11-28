@@ -182,6 +182,15 @@
 .header {
     border-bottom: 1px solid var(--btn-link-color);
     padding-bottom: 10px;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid var(--btn-link-color);
+    line-height: 40px;
+}
+.header > span {
+    flex: 1 1;
+    text-align: left;
+    margin-left: 8px;
 }
 .forgot-section {
     font-family: Nunito;
