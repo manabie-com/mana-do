@@ -1,4 +1,4 @@
-import {Todo, TodoStatus} from '../models/todo';
+import {Todo} from '../models/todo';
 import {
     AppActions,
     CREATE_TODO,
@@ -24,25 +24,15 @@ function reducer(state: AppState, action: AppActions): AppState {
             }
 
         case UPDATE_TODO_STATUS:
-            const index2 = state.todos.findIndex((todo) => todo.id === action.payload.todoId);
-            state.todos[index2].status = action.payload.checked ? TodoStatus.COMPLETED : TodoStatus.ACTIVE;
-
             return {
                 ...state,
-                todos: state.todos
+                todos: action.payload as Todo[],
             }
 
         case TOGGLE_ALL_TODOS:
-            const tempTodos = state.todos.map((e) => {
-                return {
-                    ...e,
-                    status: action.payload ? TodoStatus.COMPLETED : TodoStatus.ACTIVE
-                }
-            })
-
             return {
                 ...state,
-                todos: tempTodos
+                todos: action.payload as Todo[],
             }
 
         case DELETE_TODO:

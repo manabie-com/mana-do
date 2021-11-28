@@ -56,11 +56,22 @@ const ToDoPage = ({history}: RouteComponentProps) => {
     }
 
     const onUpdateTodoStatus = (e: React.ChangeEvent<HTMLInputElement>, todoId: string) => {
-        dispatch(updateTodoStatus(todoId, e.target.checked))
+        const index2 = todos.findIndex((todo) => todo.id === todoId);
+        let tmp = todos;
+        tmp[index2].status = e.target.checked ? TodoStatus.COMPLETED : TodoStatus.ACTIVE;
+        localStorage.setItem('my-todo', JSON.stringify(tmp))
+        dispatch(updateTodoStatus(tmp as Todo[]))
     }
 
     const onToggleAllTodo = (e: React.ChangeEvent<HTMLInputElement>) => {
-        dispatch(toggleAllTodos(e.target.checked))
+        const tempTodos = todos.map((task : Todo) => {
+            return ({
+                ...task,
+                status: e.target.checked ? TodoStatus.COMPLETED : TodoStatus.ACTIVE
+            } as Todo)
+        })
+        localStorage.setItem('my-todo', JSON.stringify(tempTodos))
+        dispatch(toggleAllTodos(tempTodos as Todo[]))
     }
 
     const onDeleteAllTodo = () => {
