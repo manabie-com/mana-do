@@ -321,6 +321,9 @@
     background: #0037ff !important;
     opacity: 1 !important;
 }
+.btn-right {
+    float: right;
+}
 .Todo__tabs .btn-primary {
     opacity: 0.7;
 }

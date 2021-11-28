@@ -138,7 +138,7 @@ const ToDoPage = ({history}: RouteComponentProps) => {
                                     Completed
                                 </button>
                             </div>
-                            <button className="btn btn-primary" onClick={onDeleteAllTodo}>
+                            <button className="btn btn-primary btn-right" onClick={onDeleteAllTodo}>
                                 Clear all
                             </button>
                         </div>
