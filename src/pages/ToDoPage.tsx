@@ -1,7 +1,7 @@
 import React, { useEffect, useReducer, useRef, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
-import './TodoPage.css';
+import './ToDoPage.css';
 import Service from '../service';
 import { isTodoCompleted } from '../utils';
 import { TodoStatus } from '../models/todo';
@@ -69,7 +69,7 @@ const ToDoPage = () => {
                     className="Todo__input"
                     placeholder="What need to be done?"
                     onKeyDown={onCreateTodo}
-                />
+                ></input>
             </div>
             <div className="ToDo__list">
                 {showTodos.map((todo, index) => {

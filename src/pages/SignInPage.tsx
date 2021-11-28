@@ -54,7 +54,7 @@ const SignInPage = () => {
                     />
                 </label>
                 <br />
-                <button type="submit" data-testid="submit" style={{ marginTop: 12 }}>
+                <button type="submit" style={{ marginTop: 12 }}>
                     Sign in
                 </button>
             </form>
