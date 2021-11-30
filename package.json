@@ -24,7 +24,7 @@
     "start:frontend": "cross-env REACT_APP_WHOAMI=frontend react-scripts start",
     "cypress:open": "cypress open",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "cypress open",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
