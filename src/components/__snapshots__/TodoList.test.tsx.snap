@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TodoList component test TodoList render 1`] = `
+<DocumentFragment>
+  <div
+    class="ToDo__list"
+    data-testid="todo-list"
+  >
+    <p>
+      All to-do list: 
+      <strong>
+        0
+      </strong>
+    </p>
+  </div>
+</DocumentFragment>
+`;

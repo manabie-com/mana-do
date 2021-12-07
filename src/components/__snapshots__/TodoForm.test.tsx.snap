@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TodoForm component test TodoForm render 1`] = `
+<DocumentFragment>
+  <div
+    class="Todo__creation"
+    data-testid="todo-form"
+  >
+    <input
+      class="Todo__input"
+      placeholder="What need to be done?"
+    />
+  </div>
+</DocumentFragment>
+`;

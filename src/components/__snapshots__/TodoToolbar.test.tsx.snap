@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TodoToolbar component test TodoToolbar render 1`] = `
+<DocumentFragment>
+  <div
+    class="Todo__toolbar"
+    data-testid="todo-toolbar"
+  >
+    <div />
+    <div
+      class="Todo__tabs"
+    >
+      <button
+        class=""
+      >
+        All
+      </button>
+      <button
+        class=""
+      >
+        Active
+      </button>
+      <button
+        class=""
+      >
+        Completed
+      </button>
+    </div>
+    <button>
+      Clear all todos
+    </button>
+  </div>
+</DocumentFragment>
+`;

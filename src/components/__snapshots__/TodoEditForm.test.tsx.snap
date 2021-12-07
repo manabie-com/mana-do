@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TodoEditForm component test TodoEditForm render 1`] = `
+<DocumentFragment>
+  <div
+    data-testid="todo-edit-form"
+  >
+    <input
+      class="Todo__input__edit"
+      data-testid="input-todo-edit"
+      value="Test"
+    />
+  </div>
+</DocumentFragment>
+`;

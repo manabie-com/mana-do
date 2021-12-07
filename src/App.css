@@ -1,3 +1,7 @@
+html, body {
+  margin:0px;
+  height:100%;
+}
 .App {
   text-align: center;
   display: flex;
@@ -6,16 +10,19 @@
 
 button {
   outline: none;
-  border: none;
-  box-shadow: 2px 0 2px currentColor;
+  border: 1px solid transparent;
   border-radius: 4px;
   min-height: 32px;
   min-width: 80px;
-  padding: 4px 8px;
+  cursor: pointer;
+  padding: 8px;
+  transition: 0.3s
 }
 
+button:active,
 button:hover {
-  opacity: 0.85;
+  color: #409eff;
+  border: 1px solid #409eff;
 }
 
 input[type="checkbox"] {
@@ -33,16 +40,16 @@ input[type="checkbox"]:focus {
 }
 
 input {
-  min-height: 36px;
-  border: none;
+  min-height: 34px;
+  border: 1px solid gray;
   outline: none;
   padding: 0 12px;
-  box-shadow: 2px 0 4px rgba(0,0,0, 0.2);
   border-radius: 4px;
+  width: auto;
 }
 
 input:focus {
-  box-shadow: 1px 0 9px rgba(0,0,0, 0.25);
+  border: 1px solid blue
 }
 
 .ToDo__container {
@@ -63,22 +70,32 @@ input:focus {
   flex: 1 1;
 }
 
+.Todo__input__edit {
+  width: -webkit-fill-available;
+}
+
 .ToDo__list {
   display: flex;
   flex-direction: column;
   margin-top: 1.5rem;
 }
 
+.ToDo__list p {
+  text-align: left;
+}
+
 .ToDo__item {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding: 4px 0;
 }
 
 .ToDo__item > span {
   flex: 1 1;
   text-align: left;
   margin-left: 8px;
+  cursor: pointer;
 }
 
 .Todo__content {
@@ -122,4 +139,40 @@ input:focus {
 }
 
 .Action__btn {
+  background-color: #409eff;
+  color: white;
+}
+
+.btn-submit {
+  background-color: #409eff;
+  color: white;
+}
+
+.btn-submit:hover,
+.Action__btn:hover {
+  opacity: 0.85;
+  color: #fff;
+}
+
+.login__container {
+  border: 1px solid rgba(0,0,0, 0.13);
+  border-radius: 8px;
+  width: 320px;
+  margin-top: 5rem;
+  padding: 24px 32px;
+  font-size: 14px;
+  box-shadow: 2px 2px 1px rgba(0,0,0, 0.09),
+              3px 2px 3px rgba(0,0,0, 0.05);
+}
+
+.login-form {
+  display: flex;
+  flex-flow: column;
+  justify-content: flex-start;
+}
+
+.login-form__label {
+  padding-bottom: 4px;
+  display: block;
+  text-align: left;
 }

@@ -1,0 +1,59 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Login component tests Login Form render 1`] = `
+<DocumentFragment>
+  <div
+    class="login__container"
+  >
+    <h2
+      style="margin-top: 4px;"
+    >
+      Login
+    </h2>
+    <form
+      class="login-form"
+      data-testid="login-form"
+    >
+      <label
+        class="login-form__label"
+        for="user_id"
+      >
+        User id
+      </label>
+      <input
+        data-testid="input-userId"
+        id="user_id"
+        name="userId"
+        placeholder="Enter user id"
+        required=""
+        style="margin-bottom: 16px;"
+        value=""
+      />
+      <label
+        class="login-form__label"
+        for="password"
+      >
+        Password
+      </label>
+      <input
+        data-testid="input-password"
+        id="password"
+        name="password"
+        placeholder="Enter password"
+        required=""
+        style="margin-bottom: 16px;"
+        type="password"
+        value=""
+      />
+      <button
+        class="btn-submit"
+        data-testid="btn-submit"
+        style="margin-top: 4px;"
+        type="submit"
+      >
+        Sign in
+      </button>
+    </form>
+  </div>
+</DocumentFragment>
+`;

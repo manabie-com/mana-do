@@ -27,32 +27,34 @@ const SignInPage = () => {
     }
 
     return (
-        <div style={{marginTop: '3rem', textAlign: 'left'}}>
-            <form onSubmit={signIn}>
-                <label htmlFor="user_id">
-                    User id
-                    <input
-                        id="user_id"
-                        name="userId"
-                        value={form.userId}
-                        style={{marginTop: 12}}
-                        onChange={onChangeField}
-                    />
-                </label>
-                <br/>
-                <label htmlFor="password" >
-                    Password
-                    <input
-                        id="password"
-                        name="password"
-                        type="password"
-                        style={{marginTop: 12}}
-                        value={form.password}
-                        onChange={onChangeField}
-                    />
-                </label>
-                <br />
-                <button type="submit" style={{marginTop: 12}}>
+        <div className="login__container">
+            <h2 style={{marginTop: 4}}>Login</h2>
+            <form className="login-form" data-testid='login-form' onSubmit={signIn}>
+                <label className="login-form__label" htmlFor="user_id">User id</label>
+                <input
+                    id="user_id"
+                    name="userId"
+                    required
+                    placeholder='Enter user id'
+                    data-testid="input-userId"
+                    value={form.userId}
+                    style={{marginBottom: 16}}
+                    onChange={onChangeField}
+                />
+                <label className="login-form__label" htmlFor="password" >Password</label>
+
+                <input
+                    id="password"
+                    name="password"
+                    type="password"
+                    required
+                    placeholder='Enter password'
+                    data-testid="input-password"
+                    style={{marginBottom: 16}}
+                    value={form.password}
+                    onChange={onChangeField}
+                />
+                <button className="btn-submit" data-testid="btn-submit" type="submit" style={{marginTop: 4}}>
                     Sign in
                 </button>
             </form>

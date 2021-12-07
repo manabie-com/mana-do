@@ -1,11 +1,13 @@
 import {Todo, TodoStatus} from '../models/todo';
 import {
   AppActions,
+  SET_TODO,
   CREATE_TODO,
   DELETE_ALL_TODOS,
   DELETE_TODO,
   TOGGLE_ALL_TODOS,
-  UPDATE_TODO_STATUS
+  UPDATE_TODO_STATUS,
+  UPDATE_TODO_CONTENT,
 } from './actions';
 
 export interface AppState {
@@ -18,19 +20,44 @@ export const initialState: AppState = {
 
 function reducer(state: AppState, action: AppActions): AppState {
   switch (action.type) {
+    case SET_TODO:
+      return { ...state, todos: action.payload }
+
     case CREATE_TODO:
-      state.todos.push(action.payload);
-      return {
-        ...state
-      };
+      // Don't modify directly the current state in reducer
+      const todoData = [...state.todos, action.payload]
+      localStorage.setItem('todos', JSON.stringify(todoData))
+      return { ...state, todos: todoData }
 
     case UPDATE_TODO_STATUS:
       const index2 = state.todos.findIndex((todo) => todo.id === action.payload.todoId);
-      state.todos[index2].status = action.payload.checked ? TodoStatus.COMPLETED : TodoStatus.ACTIVE;
-
+      const updatedTodo = state.todos.map((todo, index) => {
+        if (index !== index2) return todo
+        return {
+          ...todo,
+          status: action.payload.checked ? TodoStatus.COMPLETED : TodoStatus.ACTIVE
+        }
+      })
+      localStorage.setItem('todos', JSON.stringify(updatedTodo))
       return {
         ...state,
-        todos: state.todos
+        todos: updatedTodo
+      }
+
+    case UPDATE_TODO_CONTENT:
+      const position = state.todos.findIndex((todo) => todo.id === action.payload.todoId);
+      const newTodos = state.todos.map((todo, index) => {
+        if (index !== position) return todo
+        return {
+          ...todo,
+          content: action.payload.newTodo
+        }
+        
+      })
+      localStorage.setItem('todos', JSON.stringify(newTodos))
+      return {
+        ...state,
+        todos: newTodos
       }
 
     case TOGGLE_ALL_TODOS:
@@ -40,25 +67,24 @@ function reducer(state: AppState, action: AppActions): AppState {
           status: action.payload ? TodoStatus.COMPLETED : TodoStatus.ACTIVE
         }
       })
-
+      localStorage.setItem('todos', JSON.stringify(tempTodos))
       return {
         ...state,
         todos: tempTodos
       }
 
     case DELETE_TODO:
-      const index1 = state.todos.findIndex((todo) => todo.id === action.payload);
-      state.todos.splice(index1, 1);
+      const todos = state.todos.filter((todo) => todo.id !== action.payload);
+      localStorage.setItem('todos', JSON.stringify(todos))
+      return { ...state, todos }
 
-      return {
-        ...state,
-        todos: state.todos
-      }
     case DELETE_ALL_TODOS:
+      localStorage.removeItem('todos')
       return {
         ...state,
         todos: []
       }
+
     default:
       return state;
   }
