@@ -1,5 +1,4 @@
 import React, {useEffect, useReducer, useRef, useState} from 'react';
-import {RouteComponentProps} from 'react-router-dom';
 
 import reducer, {initialState} from './store/reducer';
 import {
@@ -17,7 +16,7 @@ import {isTodoCompleted} from './utils';
 type EnhanceTodoStatus = TodoStatus | 'ALL';
 
 
-const ToDoPage = ({history}: RouteComponentProps) => {
+const ToDoPage = () => {
     const [{todos}, dispatch] = useReducer(reducer, initialState);
     const [showing, setShowing] = useState<EnhanceTodoStatus>('ALL');
     const inputRef = useRef<HTMLInputElement>(null);
@@ -32,15 +31,9 @@ const ToDoPage = ({history}: RouteComponentProps) => {
 
     const onCreateTodo = async (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter' && inputRef.current) {
-            try {
-                const resp = await Service.createTodo(inputRef.current.value);
-                dispatch(createTodo(resp));
-                inputRef.current.value = '';
-            } catch (e) {
-                if (e.response.status === 401) {
-                    history.push('/')
-                }
-            }
+            const resp = await Service.createTodo(inputRef.current.value);
+            dispatch(createTodo(resp));
+            inputRef.current.value = '';
         }
     }
 
