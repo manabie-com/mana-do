@@ -68,5 +68,5 @@ Delete.args = {
 Delete.play = ({ canvasElement }) => {
   const canvas = within(canvasElement)
   userEvent.click(canvas.getByRole('button'))
-  expect(Delete.args?.handleUpdateTodo).toHaveBeenCalled()
+  expect(Delete.args?.handleDeleteTodo).toHaveBeenCalled()
 }
