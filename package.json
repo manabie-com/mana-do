@@ -15,9 +15,9 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "3.4.1",
+    "react-scripts": "4.0.3",
     "shortid": "^2.2.15",
-    "typescript": "~3.7.2"
+    "typescript": "~4.5.3"
   },
   "scripts": {
     "start:fullstack": "cross-env REACT_APP_WHOAMI=fullstack react-scripts start",
@@ -68,6 +68,7 @@
     "@types/react-router-dom": "^5.1.5",
     "@types/shortid": "^0.0.29",
     "chromatic": "^6.2.0",
+    "eslint-config-react-app": "^6.0.0",
     "ts-standard": "^10.0.0"
   },
   "ts-standard": {
