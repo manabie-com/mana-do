@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@storybook/addon-interactions": "^6.4.9",
+    "@storybook/jest": "^0.0.5",
+    "@storybook/testing-library": "^0.0.7",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
@@ -27,7 +30,7 @@
     "eject": "react-scripts eject",
     "lint": "ts-standard",
     "lint:fix": "ts-standard --fix",
-    "storybook": "start-storybook -p 6006 -s public",
+    "storybook": "cross-env TS_NODE_PROJECT=.storybook/tsconfig.json start-storybook -p 6006 -s public",
     "build-storybook": "build-storybook -s public"
   },
   "eslintConfig": {
