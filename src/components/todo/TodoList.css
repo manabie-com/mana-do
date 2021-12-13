@@ -1,0 +1,13 @@
+.ToDoList__container {
+  display: flex;
+  flex-direction: column;
+}
+
+.ToDoList__header {
+  margin-top: 1.5rem;
+}
+
+.ToDoList__text {
+  text-align: center;
+  margin-top: 8px;
+}

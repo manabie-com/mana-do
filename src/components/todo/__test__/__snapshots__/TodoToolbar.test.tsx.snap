@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Todo toolbar matches snapshots with todos 1`] = `
+<DocumentFragment>
+  <div
+    class="ToDoToolbar__container"
+  >
+    <div
+      class="ToDoToolbar__actions"
+    >
+      <input
+        data-testid="todo-toolbar-checkbox"
+        type="checkbox"
+      />
+      <button
+        class="ToDoToolbar__actions--hide ToDoToolbar__actions--active button button__primary"
+        data-testid="todo-toolbar-complete-button"
+        type="button"
+      >
+        Completed Tasks
+      </button>
+      <button
+        class="ToDoToolbar__actions--delete button button__primary"
+        data-testid="todo-toolbar-delete-button"
+        type="button"
+      >
+        Clear all todos
+      </button>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Todo toolbar matches snapshots without todos 1`] = `
+<DocumentFragment>
+  <div
+    class="ToDoToolbar__container"
+  />
+</DocumentFragment>
+`;

@@ -1,0 +1,42 @@
+.ToDoToolbar__container {
+  margin-top: 16px;
+  width: 100%;
+}
+
+/* .ToDoToolbar__tabs {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.ToDoToolbar__tabs--active {
+  background-color: darkcyan;
+}
+
+.ToDoToolbar__tabs > *:not(:last-child) {
+  margin-right: 8px;
+} */
+
+.ToDoToolbar__actions {
+  display: flex;
+  margin-top: 16px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ToDoToolbar__actions--hide {
+  height: 48px;
+  width: fit-content;
+  margin-left: 8px;
+}
+
+.ToDoToolbar__actions--delete {
+  height: 48px;
+  width: fit-content;
+  margin-left: 8px;
+  background-color: rgb(211, 35, 35);
+}
+
+.ToDoToolbar__actions--active {
+  background-color: darkcyan;
+}

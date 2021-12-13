@@ -1,0 +1,68 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Sign in page matches snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="formContainer"
+  >
+    <h1>
+      Mana Do Application
+    </h1>
+    <form
+      data-testid="sign-in-form"
+    >
+      <div
+        class="formItem"
+      >
+        <label
+          class="formItemLabel"
+          for="user_id"
+        >
+          Username
+        </label>
+        <input
+          data-testid="sign-in-input-userid"
+          id="user_id"
+          name="userId"
+          placeholder="Type in your username"
+          required=""
+          value=""
+        />
+      </div>
+      <div
+        class="formItem"
+      >
+        <label
+          class="formItemLabel"
+          for="password"
+        >
+          Password
+        </label>
+        <input
+          data-testid="sign-in-input-password"
+          id="password"
+          name="password"
+          placeholder="Type in your password"
+          required=""
+          type="password"
+          value=""
+        />
+      </div>
+      <div>
+        <p
+          class="formError"
+        >
+           
+        </p>
+      </div>
+      <button
+        class="formButton button button__primary"
+        data-testid="sign-in-button"
+        type="submit"
+      >
+        Log In
+      </button>
+    </form>
+  </div>
+</DocumentFragment>
+`;

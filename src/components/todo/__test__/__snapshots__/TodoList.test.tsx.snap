@@ -1,0 +1,195 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Todo list matches snapshot both active and completed tasks 1`] = `
+<DocumentFragment>
+  <div
+    class="ToDoList__container"
+  >
+    <div
+      class="ToDoList__header"
+    >
+      <h2>
+        Active Tasks
+      </h2>
+    </div>
+    <div
+      class="ToDoItem__container"
+    >
+      <input
+        data-testid="todo-item-checkbox"
+        type="checkbox"
+      />
+      <span
+        class=""
+        data-testid="todo-item-span"
+      >
+        content
+      </span>
+      <button
+        class="ToDoItem__delete"
+        data-testid="todo-item-delete"
+      >
+        delete
+      </button>
+    </div>
+    <div
+      class="ToDoList__header"
+    >
+      <h2>
+        Completed Tasks
+      </h2>
+    </div>
+    <div
+      class="ToDoItem__container"
+    >
+      <input
+        checked=""
+        data-testid="todo-item-checkbox"
+        type="checkbox"
+      />
+      <span
+        class="ToDoItem__input--completed"
+        data-testid="todo-item-span"
+      >
+        content
+      </span>
+      <button
+        class="ToDoItem__delete"
+        data-testid="todo-item-delete"
+      >
+        delete
+      </button>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Todo list matches snapshot no tasks 1`] = `
+<DocumentFragment>
+  <div
+    class="ToDoList__container"
+  >
+    <div
+      class="ToDoList__header"
+    >
+      <h2>
+        Active Tasks
+      </h2>
+    </div>
+    <div
+      class="ToDoList__text"
+    >
+      No Todo Tasks
+    </div>
+    <div
+      class="ToDoList__header"
+    >
+      <h2>
+        Completed Tasks
+      </h2>
+    </div>
+    <div
+      class="ToDoList__text"
+    >
+      No Todo Tasks
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Todo list matches snapshot only active tasks 1`] = `
+<DocumentFragment>
+  <div
+    class="ToDoList__container"
+  >
+    <div
+      class="ToDoList__header"
+    >
+      <h2>
+        Active Tasks
+      </h2>
+    </div>
+    <div
+      class="ToDoItem__container"
+    >
+      <input
+        data-testid="todo-item-checkbox"
+        type="checkbox"
+      />
+      <span
+        class=""
+        data-testid="todo-item-span"
+      >
+        content
+      </span>
+      <button
+        class="ToDoItem__delete"
+        data-testid="todo-item-delete"
+      >
+        delete
+      </button>
+    </div>
+    <div
+      class="ToDoList__header"
+    >
+      <h2>
+        Completed Tasks
+      </h2>
+    </div>
+    <div
+      class="ToDoList__text"
+    >
+      No Todo Tasks
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`Todo list matches snapshot only completed tasks 1`] = `
+<DocumentFragment>
+  <div
+    class="ToDoList__container"
+  >
+    <div
+      class="ToDoList__header"
+    >
+      <h2>
+        Active Tasks
+      </h2>
+    </div>
+    <div
+      class="ToDoList__text"
+    >
+      No Todo Tasks
+    </div>
+    <div
+      class="ToDoList__header"
+    >
+      <h2>
+        Completed Tasks
+      </h2>
+    </div>
+    <div
+      class="ToDoItem__container"
+    >
+      <input
+        checked=""
+        data-testid="todo-item-checkbox"
+        type="checkbox"
+      />
+      <span
+        class="ToDoItem__input--completed"
+        data-testid="todo-item-span"
+      >
+        content
+      </span>
+      <button
+        class="ToDoItem__delete"
+        data-testid="todo-item-delete"
+      >
+        delete
+      </button>
+    </div>
+  </div>
+</DocumentFragment>
+`;

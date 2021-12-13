@@ -1,0 +1,37 @@
+.formContainer {
+  height: 100%;
+  width: 100%;
+  color: #e5e5e5;
+  max-width: 500px;
+  margin: auto;
+  background-color: rgba(255, 255, 255, 0.13);
+  padding: 60px;
+  border-radius: 8px;
+}
+
+.formContainer > h1 {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.formItem {
+  display: flex;
+  flex-direction: column;
+  margin-top: 16px;
+}
+
+.formItemLabel {
+  margin-bottom: 4px;
+  font-weight: 500;
+}
+
+.formError {
+  margin-top: 4px;
+  color: red;
+  font-size: 0.75rem;
+  min-height: 18px;
+}
+
+.formButton {
+  margin-top: 24px;
+}
