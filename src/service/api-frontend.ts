@@ -2,7 +2,7 @@ import {IAPI} from './types';
 import {Todo, TodoStatus} from '../models/todo';
 import shortid from 'shortid';
 
-const mockToken = 'testabc.xyz.ahk'
+export const mockToken = 'testabc.xyz.ahk'
 
 class ApiFrontend extends IAPI {
     async signIn(username: string, password: string): Promise<string>{

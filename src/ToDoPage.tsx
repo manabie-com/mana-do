@@ -1,6 +1,6 @@
-import React, {useEffect, useReducer, useRef, useState} from 'react';
+import React, {useEffect, useReducer, useRef, useState} from 'react'
 
-import reducer, {initialState} from './store/reducer';
+import reducer, {initialState} from './store/reducer'
 import {
     setTodos,
     createTodo,
@@ -8,32 +8,32 @@ import {
     toggleAllTodos,
     deleteAllTodos,
     updateTodoStatus
-} from './store/actions';
-import Service from './service';
-import {TodoStatus} from './models/todo';
-import {isTodoCompleted} from './utils';
+} from './store/actions'
+import Service from './service'
+import {TodoStatus} from './models/todo'
+import {isTodoCompleted} from './utils'
 
-type EnhanceTodoStatus = TodoStatus | 'ALL';
+type EnhanceTodoStatus = TodoStatus | 'ALL'
 
 
 const ToDoPage = () => {
-    const [{todos}, dispatch] = useReducer(reducer, initialState);
-    const [showing, setShowing] = useState<EnhanceTodoStatus>('ALL');
-    const inputRef = useRef<HTMLInputElement>(null);
+    const [{todos}, dispatch] = useReducer(reducer, initialState)
+    const [showing, setShowing] = useState<EnhanceTodoStatus>('ALL')
+    const inputRef = useRef<HTMLInputElement>(null)
 
     useEffect(()=>{
         (async ()=>{
-            const resp = await Service.getTodos();
+            const resp = await Service.getTodos()
 
-            dispatch(setTodos(resp || []));
+            dispatch(setTodos(resp || []))
         })()
     }, [])
 
     const onCreateTodo = async (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter' && inputRef.current) {
-            const resp = await Service.createTodo(inputRef.current.value);
-            dispatch(createTodo(resp));
-            inputRef.current.value = '';
+            const resp = await Service.createTodo(inputRef.current.value)
+            dispatch(createTodo(resp))
+            inputRef.current.value = ''
         }
     }
 
@@ -46,23 +46,23 @@ const ToDoPage = () => {
     }
 
     const onDeleteAllTodo = () => {
-        dispatch(deleteAllTodos());
+        dispatch(deleteAllTodos())
     }
 
     const showTodos = todos.filter((todo) => {
         switch (showing) {
             case TodoStatus.ACTIVE:
-                return todo.status === TodoStatus.ACTIVE;
+                return todo.status === TodoStatus.ACTIVE
             case TodoStatus.COMPLETED:
-                return todo.status === TodoStatus.COMPLETED;
+                return todo.status === TodoStatus.COMPLETED
             default:
-                return true;
+                return true
         }
-    });
+    })
 
     const activeTodos = todos.reduce(function (accum, todo) {
-        return isTodoCompleted(todo) ? accum : accum + 1;
-    }, 0);
+        return isTodoCompleted(todo) ? accum : accum + 1
+    }, 0)
 
     return (
         <div className="ToDo__container">
@@ -92,7 +92,7 @@ const ToDoPage = () => {
                                     X
                                 </button>
                             </div>
-                        );
+                        )
                     })
                 }
             </div>
@@ -120,7 +120,7 @@ const ToDoPage = () => {
                 </button>
             </div>
         </div>
-    );
-};
+    )
+}
 
 export default ToDoPage;

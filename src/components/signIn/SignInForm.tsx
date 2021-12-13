@@ -12,10 +12,10 @@ const SignInForm = () => {
   const [form, setForm] = useState({
     userId: '',
     password: ''
-  });
+  })
   //Adding error handling for form
   const [error, setError] = useState<string>(' ')
-  const history = useHistory();
+  const history = useHistory()
 
   const signIn = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
