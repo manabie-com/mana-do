@@ -1,0 +1,65 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ActionButton/> should match snapshot 1`] = `
+<div>
+  <div
+    class="header"
+  >
+    <img
+      alt="m-logo"
+      src="m-logo.jpg"
+    />
+    <h1
+      data-testid="Header__title"
+    >
+      MANA-DO
+    </h1>
+  </div>
+  <div
+    class="ToDo__container"
+  >
+    <div
+      class="Todo__creation"
+    >
+      <input
+        class="Todo__input"
+        data-testid="MainToDo_input"
+        placeholder="What need to be done?"
+      />
+    </div>
+    <div
+      class="ToDo__list"
+    />
+    <div
+      class="Todo__toolbar"
+    >
+      <div />
+      <div
+        class="Todo__tabs"
+      >
+        <button
+          class="Action__btn Action__btn--checked"
+        >
+          All
+        </button>
+        <button
+          class="Action__btn "
+        >
+          Active
+        </button>
+        <button
+          class="Action__btn "
+        >
+          Completed
+        </button>
+      </div>
+      <button
+        class="Action__btn "
+        style="border: 1px solid #f44336; box-shadow: 2px 0 2px #f44336;"
+      >
+        Clear all todos
+      </button>
+    </div>
+  </div>
+</div>
+`;

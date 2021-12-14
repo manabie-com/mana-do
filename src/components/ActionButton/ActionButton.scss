@@ -1,0 +1,16 @@
+.Action__btn {
+  outline: none;
+  border: none;
+  box-shadow: 2px 0 2px currentColor;
+  border-radius: 4px;
+  min-height: 32px;
+  min-width: 80px;
+  padding: 4px 8px;
+
+  &--checked {
+    background-color: #a5def2;
+  }
+  &:hover {
+    opacity: 0.6;
+  }
+}

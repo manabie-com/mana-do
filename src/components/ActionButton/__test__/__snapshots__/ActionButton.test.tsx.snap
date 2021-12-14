@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ActionButton/> should be render more button in Array 1`] = `
+<div>
+  <button
+    class="Action__btn "
+  >
+    All
+  </button>
+  <button
+    class="Action__btn Action__btn--checked"
+  >
+    Active
+  </button>
+  <button
+    class="Action__btn "
+  >
+    Completed
+  </button>
+</div>
+`;
+
+exports[`<ActionButton/> should match snapshot 1`] = `
+<div>
+  <button
+    class="Action__btn "
+  >
+    All
+  </button>
+</div>
+`;
+
+exports[`<ActionButton/> should match snapshot-clearButton 1`] = `
+<div>
+  <button
+    class="Action__btn "
+  >
+    Clear all todos
+  </button>
+</div>
+`;

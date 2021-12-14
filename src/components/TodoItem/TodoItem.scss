@@ -1,0 +1,61 @@
+.todoitem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgb(0 0 0 / 20%);
+  padding-bottom: 5px;
+  margin-bottom: 5px;
+  span {
+    flex: 1 1;
+    text-align: left;
+    margin-left: 8px;
+  }
+  &__delete {
+    outline: none;
+    border: none;
+    width: 32px;
+    height: 32px;
+    min-width: auto;
+    min-height: auto;
+    box-shadow: none;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+  }
+  &__option {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    background: linear-gradient(
+      16.76deg,
+      rgba(255, 255, 255, 0.9) 7.93%,
+      rgba(196, 196, 196, 0.9) 81.39%
+    );
+    border-radius: 50%;
+
+    &--checked {
+      background: linear-gradient(136.67deg, #395ef2 10.93%, #67d1fa 89.03%);
+      border: none;
+      position: relative;
+      &::after {
+        content: "";
+        position: absolute;
+        left: 9px;
+        top: 5px;
+        width: 5px;
+        height: 10px;
+        border: solid #ffffff;
+        border-color: #ffffff;
+        border-width: 0px 3px 3px 0;
+        -webkit-transform: rotate(40deg);
+        -ms-transform: rotate(40deg);
+        transform: rotate(40deg);
+      }
+    }
+  }
+  &__input {
+    margin-bottom: 5px;
+  }
+}

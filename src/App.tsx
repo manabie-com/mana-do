@@ -1,12 +1,14 @@
-import React from 'react';
+import React from "react";
 
-import ToDoPage from './ToDoPage';
+import ToDoPage from "./containers/ToDoPage/ToDoPage";
 
-import './App.css';
+import "./App.css";
 
 function App() {
   return (
     <main className="App">
+      <div className="circle__top"></div>
+      <div className="circle__bottom"></div>
       <ToDoPage />
     </main>
   );

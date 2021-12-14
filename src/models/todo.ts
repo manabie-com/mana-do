@@ -10,3 +10,6 @@ export interface Todo {
   status?: TodoStatus
   created_date: string
 }
+
+//I just need id and content passed to Edit Todo
+export type TodoEdited  = Pick<Todo, "id" | "content">;

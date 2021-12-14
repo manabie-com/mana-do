@@ -1,4 +1,4 @@
-import {Todo} from "../models/todo";
+import {Todo, TodoEdited} from "../models/todo";
 
 export const SET_TODO = 'SET_TODO';
 export const CREATE_TODO = 'CREATE_TODO';
@@ -6,6 +6,7 @@ export const DELETE_TODO = 'DELETE_TODO';
 export const DELETE_ALL_TODOS = 'DELETE_ALL_TODOS';
 export const TOGGLE_ALL_TODOS = 'TOGGLE_ALL_TODOS';
 export const UPDATE_TODO_STATUS = 'UPDATE_TODO_STATUS';
+export const EDIT_TODOS = 'EDIT_TODOS';
 
 
 export interface SetTodoAction {
@@ -89,10 +90,24 @@ export function toggleAllTodos(checked: boolean): ToggleAllTodosAction {
   }
 }
 
+/** Edit Feature Action */
+export interface EditTodosAction {
+  type: typeof EDIT_TODOS,
+  payload: TodoEdited
+}
+
+export function editTodos(todo: TodoEdited): EditTodosAction {
+  return {
+    type: EDIT_TODOS,
+    payload: todo
+  }
+}
+
 export type AppActions =
   SetTodoAction |
   CreateTodoAction |
   UpdateTodoStatusAction |
   DeleteTodoAction |
   DeleteAllTodosAction |
-  ToggleAllTodosAction;
+  ToggleAllTodosAction | 
+  EditTodosAction;
