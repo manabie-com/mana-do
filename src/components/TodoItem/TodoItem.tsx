@@ -41,8 +41,8 @@ const TodoItem = (props: ITodoItem) => {
     setIsEdit(false)
   }
 
-  const onUpdate = async (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter' && inputRef.current) {
+  const onUpdate = async (key: string) => {
+    if (key === 'Enter' && inputRef.current) {
       onUpdateTodoContent({
         todoId: todo.id,
         content: inputRef.current.value
@@ -74,7 +74,8 @@ const TodoItem = (props: ITodoItem) => {
               onBlur={onBlur}
               ref={inputRef}
               className="Todo__input"
-              placeholder="What need to be done?"
+              name={todo.id}
+              placeholder="Edit todo content?"
               onKeyDown={onUpdate}
             />
             :

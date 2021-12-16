@@ -57,6 +57,7 @@ const ToDoPage = () => {
         const { todoId, content } = data
         if (!content) {
             alert("Todo content should not empty")
+            return
         }
         const resp = await Service.updateTodo({
             todoId: todoId,
@@ -129,6 +130,7 @@ const ToDoPage = () => {
                 <Input
                     ref={inputRef}
                     className="Todo__input"
+                    name="todoInput"
                     placeholder="What need to be done?"
                     onKeyDown={onCreateTodo}
                 />
