@@ -54,7 +54,9 @@ test("Edit todo item", async () => {
   await waitFor(() => screen.getByText("aaa"))
   expect(screen.getByText("aaa")).toBeInTheDocument()
   const oldValue = screen.queryByText("abc")
-  expect(oldValue).toBeNull()
+  const input = screen.queryByPlaceholderText("Edit todo content?")
+  expect(oldValue).not.toBeInTheDocument()
+  expect(input).not.toBeInTheDocument()
   storageService.todoList = undefined
 })
 
@@ -76,7 +78,7 @@ test("Delete todo item", async () => {
   userEvent.click(screen.getByText("X"))
   await waitFor( () => {} )
   const oldValue = screen.queryByText("abc")
-  expect(oldValue).toBeNull()
+  expect(oldValue).not.toBeInTheDocument()
   storageService.todoList = undefined
 })
 
@@ -105,7 +107,7 @@ test("Delete all todo item", async () => {
   await waitFor( () => {} )
   const oldValue1 = screen.queryByText("abc")
   const oldValue2 = screen.queryByText("xyz")
-  expect(oldValue1).toBeNull()
-  expect(oldValue2).toBeNull()
+  expect(oldValue1).not.toBeInTheDocument()
+  expect(oldValue2).not.toBeInTheDocument()
   storageService.todoList = undefined
 })
