@@ -97,7 +97,7 @@ const todoList3 = [
   },
 ]
 
-test("Delete todo item", async () => {
+test("Delete all todo item", async () => {
   storageService.todoList = todoList3
   render(<TodoPage />);
   await waitFor(() => screen.getByText("xyz"))
