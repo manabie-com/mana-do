@@ -2,6 +2,8 @@
   text-align: center;
   display: flex;
   justify-content: center;
+  height: 100vh;
+  background-color: #0093E9; background-image: linear-gradient(160deg, #0093E9 0%, #80D0C7 100%);
 }
 
 button {
@@ -19,8 +21,8 @@ button:hover {
 }
 
 input[type="checkbox"] {
-  width: 24px;
-  height: 24px;
+  width: 16px;
+  height: 16px;
   box-shadow: none;
   border: none;
   outline: none;
@@ -32,6 +34,10 @@ input[type="checkbox"]:focus {
   outline: none;
 }
 
+input[type="checkbox"]:checked + .ToDo__content {
+  text-decoration: line-through;
+}
+
 input {
   min-height: 36px;
   border: none;
@@ -39,6 +45,10 @@ input {
   padding: 0 12px;
   box-shadow: 2px 0 4px rgba(0,0,0, 0.2);
   border-radius: 4px;
+}
+
+.Todo__creation input:hover {
+  box-shadow: 4px 0 8px rgba(0,0,0, 0.4);
 }
 
 input:focus {
@@ -49,8 +59,10 @@ input:focus {
   border: 1px solid rgba(0,0,0, 0.13);
   border-radius: 8px;
   width: 500px;
+  height: fit-content;
+  background-color: #f8f9fd;
   margin-top: 5rem;
-  padding: 24px;
+  padding: 0 24px 24px;
   box-shadow: 2px 2px 1px rgba(0,0,0, 0.09),
               3px 2px 3px rgba(0,0,0, 0.05);
 }
@@ -73,6 +85,17 @@ input:focus {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  border-radius: 4px;
+  height: 36px;
+  line-height: 36px;
+  margin-bottom: 4px;
+  padding-left: 8px;
+  background-color: white;
+  cursor: pointer;
+}
+
+.ToDo__item:hover {
+  box-shadow: 1px 2px 10px -1px rgba(0, 0, 0, 0.2);
 }
 
 .ToDo__item > span {
@@ -100,6 +123,31 @@ input:focus {
   cursor: pointer;
 }
 
+.Todo_delete {
+  width: 36px;
+  height: 36px;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  border-radius: 4px;
+  cursor: pointer;
+  border-radius: 50%;
+  opacity: 0.5;
+}
+
+.ToDo__item:hover .Todo_delete {
+  display: flex;
+}
+
+.Todo_delete:hover {
+  opacity: 1;
+}
+
+.Todo_delete > img {
+  width: 16px;
+  height: 16px;
+}
+
 .Todo__action, .Todo__delete {
   width: 24px;
   height: 24px;
@@ -122,4 +170,6 @@ input:focus {
 }
 
 .Action__btn {
+  background-color: #0093E9; background-image: linear-gradient(160deg, #0093E9 0%, #80D0C7 100%);
+  color: white;
 }
