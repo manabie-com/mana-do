@@ -4,7 +4,9 @@ import {
   CREATE_TODO,
   DELETE_ALL_TODOS,
   DELETE_TODO,
+  SET_TODO,
   TOGGLE_ALL_TODOS,
+  UPDATE_TODO_CONTENT,
   UPDATE_TODO_STATUS
 } from './actions';
 
@@ -18,6 +20,12 @@ export const initialState: AppState = {
 
 function reducer(state: AppState, action: AppActions): AppState {
   switch (action.type) {
+    case SET_TODO:
+      state.todos = action.payload
+      return {
+        ...state
+      }
+
     case CREATE_TODO:
       state.todos.push(action.payload);
       return {
@@ -32,6 +40,16 @@ function reducer(state: AppState, action: AppActions): AppState {
         ...state,
         todos: state.todos
       }
+
+    case UPDATE_TODO_CONTENT: {
+      const updatedIndex = state.todos.findIndex((todo) => todo.id === action.payload.todoId)
+      state.todos[updatedIndex].content = action.payload.newContent
+
+      return {
+        ...state,
+        todos: state.todos
+      }
+    }
 
     case TOGGLE_ALL_TODOS:
       const tempTodos = state.todos.map((e)=>{

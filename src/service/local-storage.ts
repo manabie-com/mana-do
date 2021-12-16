@@ -2,7 +2,7 @@ import {IAPI} from './types';
 import {Todo, TodoStatus} from '../models/todo';
 import shortid from 'shortid';
 
-class ApiFrontend extends IAPI {
+class LocalStorage extends IAPI {
     async createTodo(content: string): Promise<Todo> {
         return Promise.resolve({
             content: content,
@@ -13,11 +13,13 @@ class ApiFrontend extends IAPI {
         } as Todo);
     }
 
-    async getTodos(): Promise<Todo[]>{
-        return []
+    async getTodos(): Promise<Todo[]> {
+        return Promise.resolve(JSON.parse(localStorage.getItem('todos') || ''))
     }
 
-    async storeTodos(todos: Todo[]) {}   
+    async storeTodos(todos: Todo[]) {
+        localStorage.setItem('todos', JSON.stringify(todos))
+    }   
 }
 
-export default new ApiFrontend();
+export default new LocalStorage();
