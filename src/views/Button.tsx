@@ -9,7 +9,7 @@ interface ButtonInterface {
 
 const Button = ({ attr, label, onClick, className }: ButtonInterface) => {
     return (
-        <button data-test={`${attr}-button`} className={className} onClick={onClick}>
+        <button className={className} onClick={onClick}>
             {label}
         </button>
     )
