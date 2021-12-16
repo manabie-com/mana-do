@@ -9,7 +9,7 @@ import TodoToolbar from './TodoToolbar';
 import Input from './Input';
 
 const ToDoPage = () => {
-    const [{ todos }, dispatch] = React.useReducer(reducer, initialState);
+    const [{ todos }, dispatch] = useReducer(reducer, initialState);
     const [showing, setShowing] = useState<EnhanceTodoStatus>('ALL');
     const [todoEditingId, setTodoEditingId] = useState<string | null>(null)
     const inputRef = useRef<HTMLInputElement>(null);
