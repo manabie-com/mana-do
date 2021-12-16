@@ -5,9 +5,6 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
-  // with react strict mode, useReducer will always runs twice since the second dispatch
-  // and it causes us bug when we create new todo
-  // but it will work fine on 'production' mode
   <React.StrictMode>
     <App />
   </React.StrictMode>,
