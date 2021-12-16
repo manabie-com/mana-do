@@ -1,0 +1,21 @@
+.root {
+  display: flex;
+  justify-content: center;
+}
+
+.root > *:not(:last-child) {
+  margin-right: 8px;
+}
+
+.active {
+  color: #fff;
+  border-color: #1890ff;
+  background: #1890ff;
+  text-shadow: 0 -1px 0 rgba(0,0,0,.12);
+  box-shadow: 0 2px 0 rgba(0,0,0,.045);
+}
+.active:hover {
+  color: #fff;
+  border-color: #40a9ff;
+  background: #40a9ff;
+}

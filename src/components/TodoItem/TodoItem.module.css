@@ -1,0 +1,32 @@
+.root {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 36px;
+  margin-bottom: 6px;
+}
+.root:last-child {
+  margin-bottom: 0;
+}
+
+.root > p {
+  flex: 1 1;
+  text-align: left;
+  margin: 0;
+  margin-left: 8px;
+  cursor: pointer;
+}
+.todoDelete {
+  outline: none;
+  border: none;
+  width: 32px;
+  height: 32px;
+  min-width: auto;
+  min-height: auto;
+  box-shadow: none;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}

@@ -1,0 +1,21 @@
+.root {
+  line-height: 1.5;
+  font-weight: 400;
+  text-align: center;
+  box-shadow: 0 2px 0 rgba(0,0,0,.015);
+  cursor: pointer;
+  transition: all .3s linear;
+  height: 36px;
+  padding: 4px 18px;
+  font-size: 14px;
+  border-radius: 2px;
+  color: rgba(0,0,0,.85);
+  border: 1px solid #d9d9d9;
+  background: #fff;
+}
+
+.root:hover {
+  color: #40a9ff;
+  border-color: #40a9ff;
+  background: #fff;
+}
