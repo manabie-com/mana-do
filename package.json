@@ -24,9 +24,10 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
+  "extends": [
+    "react-app",
+    "plugin:cypress/recommended"
+  ],
   "browserslist": {
     "production": [
       ">0.2%",
