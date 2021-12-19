@@ -37,22 +37,21 @@ input {
   border: none;
   outline: none;
   padding: 0 12px;
-  box-shadow: 2px 0 4px rgba(0,0,0, 0.2);
+  box-shadow: 2px 0 4px rgba(0, 0, 0, 0.2);
   border-radius: 4px;
 }
 
 input:focus {
-  box-shadow: 1px 0 9px rgba(0,0,0, 0.25);
+  box-shadow: 1px 0 9px rgba(0, 0, 0, 0.25);
 }
 
 .ToDo__container {
-  border: 1px solid rgba(0,0,0, 0.13);
+  border: 1px solid rgba(0, 0, 0, 0.13);
   border-radius: 8px;
   width: 500px;
-  margin-top: 5rem;
+  /* margin-top: 5rem; */
   padding: 24px;
-  box-shadow: 2px 2px 1px rgba(0,0,0, 0.09),
-              3px 2px 3px rgba(0,0,0, 0.05);
+  box-shadow: 2px 2px 1px rgba(0, 0, 0, 0.09), 3px 2px 3px rgba(0, 0, 0, 0.05);
 }
 
 .Todo__creation {
@@ -67,12 +66,33 @@ input:focus {
   display: flex;
   flex-direction: column;
   margin-top: 1.5rem;
+  max-height: 600px;
+  overflow: auto;
 }
 
 .ToDo__item {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin: 5px 0;
+  color: #fff;
+  border-radius: 5px;
+}
+
+.ToDo__item:nth-child(even) {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 118, 20, 1) 0%,
+    rgba(255, 84, 17, 1) 100%
+  );
+}
+
+.ToDo__item:nth-child(odd) {
+  background: linear-gradient(
+    90deg,
+    rgba(20, 159, 255, 1) 0%,
+    rgba(17, 122, 255, 1) 100%
+  );
 }
 
 .ToDo__item > span {
@@ -98,9 +118,11 @@ input:focus {
   justify-content: center;
   align-items: center;
   cursor: pointer;
+  margin-right: 5px;
 }
 
-.Todo__action, .Todo__delete {
+.Todo__action,
+.Todo__delete {
   width: 24px;
   height: 24px;
   flex-shrink: 0;
@@ -122,4 +144,85 @@ input:focus {
 }
 
 .Action__btn {
+  cursor: pointer;
+  background-color: red;
+  color: white;
+}
+
+.ToDo_theme {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  margin-bottom: 10px;
+  margin-top: 5rem;
+}
+
+.ToDo_theme input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.ToDo_theme span {
+  position: absolute;
+  outline: none;
+  border: none;
+  width: 25px;
+  height: 25px;
+  min-width: auto;
+  min-height: auto;
+  box-shadow: none;
+  border-radius: 50%;
+  cursor: pointer;
+  background-color: blueviolet;
+}
+
+.ToDo_theme label input[type="radio"]:checked ~ span:after {
+  display: block;
+}
+
+.ToDo_theme label span:after {
+  content: "";
+  position: absolute;
+  display: none;
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+.ToDo_theme > .ToDo_middle {
+  width: 30px;
+}
+
+.ToDo_theme > .ToDo_middle:nth-child(1) > span {
+  background-color: darkgreen;
+}
+
+.ToDo_theme > .ToDo_middle:nth-child(2) > span {
+  background-color: blueviolet;
+}
+
+.ToDo_theme > .ToDo_middle:nth-child(3) > span {
+  background-color: violet;
+}
+
+.ToDo_theme > .ToDo_middle:nth-child(4) > span {
+  background-color: blue;
+}
+
+.ToDo_theme > .ToDo_middle {
+  display: flex;
+  justify-content: center;
+}
+
+.Todo_filter {
+  text-align: right;
 }
