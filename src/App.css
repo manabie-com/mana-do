@@ -18,15 +18,16 @@ button:hover {
   opacity: 0.85;
 }
 
-input[type="checkbox"] {
+input[type='checkbox'] {
   width: 24px;
   height: 24px;
   box-shadow: none;
   border: none;
   outline: none;
+  cursor: pointer;
 }
 
-input[type="checkbox"]:focus {
+input[type='checkbox']:focus {
   box-shadow: none;
   border: none;
   outline: none;
@@ -37,22 +38,21 @@ input {
   border: none;
   outline: none;
   padding: 0 12px;
-  box-shadow: 2px 0 4px rgba(0,0,0, 0.2);
-  border-radius: 4px;
+  border-radius: 3rem;
+  border: 1px solid lightgray;
 }
 
 input:focus {
-  box-shadow: 1px 0 9px rgba(0,0,0, 0.25);
+  box-shadow: 1px 0 9px rgba(0, 0, 0, 0.25);
 }
 
 .ToDo__container {
-  border: 1px solid rgba(0,0,0, 0.13);
+  border: 1px solid rgba(0, 0, 0, 0.13);
   border-radius: 8px;
   width: 500px;
   margin-top: 5rem;
   padding: 24px;
-  box-shadow: 2px 2px 1px rgba(0,0,0, 0.09),
-              3px 2px 3px rgba(0,0,0, 0.05);
+  box-shadow: 2px 2px 1px rgba(0, 0, 0, 0.09), 3px 2px 3px rgba(0, 0, 0, 0.05);
 }
 
 .Todo__creation {
@@ -75,7 +75,7 @@ input:focus {
   justify-content: space-between;
 }
 
-.ToDo__item > span {
+.ToDo__item > div {
   flex: 1 1;
   text-align: left;
   margin-left: 8px;
@@ -83,6 +83,20 @@ input:focus {
 
 .Todo__content {
   flex: 1 1;
+}
+
+.Todo__content--edit {
+  width: calc(100% - 32px);
+  border-radius: 4px;
+}
+
+.Todo__content--edit:focus {
+  box-shadow: none;
+}
+
+.Todo__content--completed {
+  text-decoration: line-through;
+  color: lightgray;
 }
 
 .Todo__delete {
@@ -98,9 +112,16 @@ input:focus {
   justify-content: center;
   align-items: center;
   cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
-.Todo__action, .Todo__delete {
+.Todo__delete:hover {
+  color: white;
+  background-color: crimson;
+}
+
+.Todo__action,
+.Todo__delete {
   width: 24px;
   height: 24px;
   flex-shrink: 0;
@@ -122,4 +143,28 @@ input:focus {
 }
 
 .Action__btn {
+  min-height: 42px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.Action__btn--default {
+  color: white;
+  background-color: gray;
+}
+
+.Action__btn--primary {
+  color: white;
+  background-color: cornflowerblue;
+}
+
+.Action__btn--success {
+  color: white;
+  background-color: green;
+}
+
+.Action__btn--danger {
+  color: white;
+  background-color: crimson;
 }
