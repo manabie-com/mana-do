@@ -20,8 +20,10 @@ function reducer(state: AppState, action: AppActions): AppState {
   switch (action.type) {
     case CREATE_TODO:
       state.todos.push(action.payload);
+      localStorage.setItem("TodoList", JSON.stringify(state.todos));
       return {
-        ...state
+        ...state,
+        todos: state.todos,
       };
 
     case UPDATE_TODO_STATUS:

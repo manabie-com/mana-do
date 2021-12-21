@@ -12,6 +12,8 @@ import {
 import Service from './service';
 import {TodoStatus} from './models/todo';
 import {isTodoCompleted} from './utils';
+import TodoList from './components/TodoList';
+import TodoInput from './components/TodoInput';
 
 type EnhanceTodoStatus = TodoStatus | 'ALL';
 
@@ -49,6 +51,10 @@ const ToDoPage = () => {
         dispatch(deleteAllTodos());
     }
 
+    const onDeleteTodo = (todoId: string)=>{
+        dispatch(deleteTodo(todoId))
+    }
+
     const showTodos = todos.filter((todo) => {
         switch (showing) {
             case TodoStatus.ACTIVE:
@@ -66,36 +72,8 @@ const ToDoPage = () => {
 
     return (
         <div className="ToDo__container">
-            <div className="Todo__creation">
-                <input
-                    ref={inputRef}
-                    className="Todo__input"
-                    placeholder="What need to be done?"
-                    onKeyDown={onCreateTodo}
-                />
-            </div>
-            <div className="ToDo__list">
-                {
-                    showTodos.map((todo, index) => {
-                        return (
-                            <div key={index} className="ToDo__item">
-                                <input
-                                    type="checkbox"
-                                    checked={isTodoCompleted(todo)}
-                                    onChange={(e) => onUpdateTodoStatus(e, todo.id)}
-                                />
-                                <span>{todo.content}</span>
-                                <button
-                                    className="Todo__delete"
-                                    onClick={() => dispatch(deleteTodo(todo.id))}
-                                >
-                                    X
-                                </button>
-                            </div>
-                        );
-                    })
-                }
-            </div>
+            <TodoInput onCreateTodo={onCreateTodo} inputRef={inputRef}/>
+            <TodoList todoList={showTodos} onUpdateTodoStatus={onUpdateTodoStatus} deleteTodo={onDeleteTodo}/>
             <div className="Todo__toolbar">
                 {todos.length > 0 ?
                     <input
