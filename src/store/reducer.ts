@@ -1,6 +1,7 @@
 import {Todo, TodoStatus} from '../models/todo';
 import {
   AppActions,
+  SET_TODO,
   CREATE_TODO,
   DELETE_ALL_TODOS,
   DELETE_TODO,
@@ -8,16 +9,23 @@ import {
   UPDATE_TODO_STATUS
 } from './actions';
 
-export interface AppState {
+export interface TodoState {
   todos: Array<Todo>
 }
 
-export const initialState: AppState = {
+export const initialState: TodoState = {
   todos: []
 }
 
-function reducer(state: AppState, action: AppActions): AppState {
+function reducer(state: TodoState, action: AppActions): TodoState {
   switch (action.type) {
+    case SET_TODO:
+  
+      return {
+        ...state,
+        todos: action.payload
+      };
+
     case CREATE_TODO:
       state.todos.push(action.payload);
       return {
@@ -49,6 +57,7 @@ function reducer(state: AppState, action: AppActions): AppState {
     case DELETE_TODO:
       const index1 = state.todos.findIndex((todo) => todo.id === action.payload);
       state.todos.splice(index1, 1);
+      console.log('Todo:', index1)
 
       return {
         ...state,

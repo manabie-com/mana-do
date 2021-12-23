@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const ins = axios.create({
-    baseURL: 'http://localhost:5050',
+    baseURL: "//localhost:8080",
     timeout: 10000
 })
 
@@ -10,5 +10,6 @@ ins.interceptors.request.use((request)=>{
 
     return request
 })
+
 
 export default ins

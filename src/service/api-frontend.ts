@@ -2,7 +2,7 @@ import {IAPI} from './types';
 import {Todo, TodoStatus} from '../models/todo';
 import shortid from 'shortid';
 
-class ApiFrontend extends IAPI {
+class ApiFrontend  {
     async createTodo(content: string): Promise<Todo> {
         return Promise.resolve({
             content: content,
