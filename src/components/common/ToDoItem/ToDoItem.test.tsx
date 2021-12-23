@@ -5,21 +5,14 @@ import ToDoItem from './ToDoItem.components';
 
 describe('ToDoItem testing', () => {
   const container = document.createElement('div');
-  const handleOnChangeCheckBox = (
-    e: React.ChangeEvent<HTMLInputElement>
-  ): void => {};
-  const handleOnChangeDelete = (): void => {};
   it('Render ToDoItem correctly', () => {
+    const props = {
+      id: '123456',
+      checked: true,
+      content: 'something',
+    };
     act(() => {
-      ReactDOM.render(
-        <ToDoItem
-          checked={true}
-          content='something'
-          handleOnChangeCheckBox={handleOnChangeCheckBox}
-          handleOnClickDelete={handleOnChangeDelete}
-        />,
-        container
-      );
+      ReactDOM.render(<ToDoItem {...props} />, container);
     });
     const input = container.querySelector('input');
     const span = container.querySelector('span');

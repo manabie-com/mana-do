@@ -1,60 +1,41 @@
-import React, { useEffect, useReducer, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
-import reducer, { initialState } from '../../store/reducer';
-import {
-  setTodos,
-  createTodo,
-  deleteTodo,
-  toggleAllTodos,
-  deleteAllTodos,
-  updateTodoStatus,
-} from '../../store/actions';
+import { setTodos, toggleAllTodos, deleteAllTodos } from '../../store/actions';
 import Service from '../../service';
 import { TodoStatus } from '../../models/todo';
 import { isTodoCompleted } from '../../utils';
 import ToDoInput from '../common/ToDoInput/ToDoInput.components';
 import ToDoItem from '../common/ToDoItem/ToDoItem.components';
+import ActionButton from '../common/ActionButton/ActionButton.components';
+import ToDoTabs from '../common/ToDoToolbar/ToDoTabs.components';
+import { useToDoPageContext } from '../../context/ToDoPageProvider';
 
-type EnhanceTodoStatus = TodoStatus | 'ALL';
+export type EnhanceTodoStatus = TodoStatus | 'ALL';
 
 const ToDoPage = () => {
-  const [{ todos }, dispatch] = useReducer(reducer, initialState);
+  const { todos, dispatch } = useToDoPageContext();
   const [showing, setShowing] = useState<EnhanceTodoStatus>('ALL');
   // create error message state for error handling
   const [error, setError] = React.useState<String>('');
   useEffect(() => {
     (async () => {
-      const resp = await Service.getTodos();
-
-      dispatch(setTodos(resp || []));
+      try {
+        const resp = await Service.getTodos();
+        dispatch(setTodos(resp));
+      } catch (error) {
+        setError('Have an error when getTodos');
+      }
     })();
-  }, []);
-
-  // const handleOnSubmitTodoInput = async (value: string) => {};
-  const handleOnSubmitTodoInput = React.useCallback(async (value: string) => {
-    try {
-      const resp = await Service.createTodo(value);
-      dispatch(createTodo(resp));
-    } catch (err) {
-      setError('Have an error when submit Todo');
-    }
-  }, []);
-  const handleOnClickDeleteTodo = (id: string): void => {
-    dispatch(deleteTodo(id));
-  };
-
-  const onUpdateTodoStatus = (
-    e: React.ChangeEvent<HTMLInputElement>,
-    todoId: string
-  ) => {
-    dispatch(updateTodoStatus(todoId, e.target.checked));
-  };
+  }, [dispatch]);
 
   const onToggleAllTodo = (e: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch(toggleAllTodos(e.target.checked));
+    const { checked } = e.target;
+    Service.toggleAllTodos(checked);
+    dispatch(toggleAllTodos(checked));
   };
 
-  const onDeleteAllTodo = () => {
+  const onDeleteAllTodo = async () => {
+    await Service.deleteAllTodos();
     dispatch(deleteAllTodos());
   };
 
@@ -76,18 +57,18 @@ const ToDoPage = () => {
   return (
     <div className='ToDo__container'>
       <div className='Todo__creation'>
-        <ToDoInput handleOnSubmit={handleOnSubmitTodoInput} />
+        <ToDoInput />
       </div>
       <div className='ToDo__list'>
         {showTodos.map((todo) => {
           const { id, content } = todo;
+          console.log(todo);
           return (
             <ToDoItem
               key={id}
+              id={id}
               checked={isTodoCompleted(todo)}
               content={content}
-              handleOnChangeCheckBox={(e) => onUpdateTodoStatus(e, id)}
-              handleOnClickDelete={() => handleOnClickDeleteTodo(id)}
             />
           );
         })}
@@ -102,27 +83,16 @@ const ToDoPage = () => {
         ) : (
           <div />
         )}
-        <div className='Todo__tabs'>
-          <button className='Action__btn' onClick={() => setShowing('ALL')}>
-            All
-          </button>
-          <button
-            className='Action__btn'
-            onClick={() => setShowing(TodoStatus.ACTIVE)}
-          >
-            Active
-          </button>
-          <button
-            className='Action__btn'
-            onClick={() => setShowing(TodoStatus.COMPLETED)}
-          >
-            Completed
-          </button>
-        </div>
-        <button className='Action__btn' onClick={onDeleteAllTodo}>
+        <ToDoTabs setShowing={setShowing} />
+        <ActionButton className='Action__btn' onClick={onDeleteAllTodo}>
           Clear all todos
-        </button>
+        </ActionButton>
       </div>
+      {error && (
+        <div>
+          <p style={{ color: 'red' }}>{error}</p>
+        </div>
+      )}
     </div>
   );
 };
