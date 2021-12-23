@@ -12,6 +12,7 @@ interface Props {
   checked: boolean;
   content: string;
   id: string;
+  createdDate: Date;
 }
 
 /* I created a new component to separate the handling logic 
@@ -20,7 +21,7 @@ making us have as many stateless components as possible
 2. Capable of maintenance
 3. Flexibility
 */
-const ToDoItem: React.FC<Props> = ({ id, checked, content }) => {
+const ToDoItem: React.FC<Props> = ({ id, checked, content, createdDate }) => {
   const { dispatch } = useToDoPageContext();
   const [edit, setEdit] = React.useState<boolean>(false);
   const [inputError, setInputError] = React.useState<boolean>(false);
@@ -90,7 +91,12 @@ const ToDoItem: React.FC<Props> = ({ id, checked, content }) => {
           onKeyDown={handleOnKeyDown}
         />
       ) : (
-        <span className='ToDo__item--content'>{content}</span>
+        <>
+          <span className='ToDo__item--content'>{content}</span>
+          <span className='ToDo__item--content'>
+            {createdDate.toLocaleString()}
+          </span>
+        </>
       )}
       <button className='Todo__delete' onClick={handleOnClickDeleteTodo}>
         X

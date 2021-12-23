@@ -61,13 +61,14 @@ const ToDoPage = () => {
       </div>
       <div className='ToDo__list'>
         {showTodos.map((todo) => {
-          const { id, content } = todo;
+          const { id, content, created_date } = todo;
           return (
             <ToDoItem
               key={id}
               id={id}
               checked={isTodoCompleted(todo)}
               content={content}
+              createdDate={new Date(created_date)}
             />
           );
         })}

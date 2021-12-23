@@ -11,6 +11,7 @@ describe('ToDoItem testing', () => {
       id: '123456',
       checked: true,
       content: 'something',
+      createdDate: new Date(),
     };
     act(() => {
       ReactDOM.render(
