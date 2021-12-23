@@ -1,6 +1,6 @@
 import React, { useEffect, useReducer, useState } from 'react';
 
-import reducer, { initialState } from './store/reducer';
+import reducer, { initialState } from '../../store/reducer';
 import {
   setTodos,
   createTodo,
@@ -8,12 +8,12 @@ import {
   toggleAllTodos,
   deleteAllTodos,
   updateTodoStatus,
-} from './store/actions';
-import Service from './service';
-import { TodoStatus } from './models/todo';
-import { isTodoCompleted } from './utils';
-import ToDoInput from './components/common/ToDoInput/ToDoInput.components';
-import ToDoItem from './components/common/ToDoItem/ToDoItem.components';
+} from '../../store/actions';
+import Service from '../../service';
+import { TodoStatus } from '../../models/todo';
+import { isTodoCompleted } from '../../utils';
+import ToDoInput from '../common/ToDoInput/ToDoInput.components';
+import ToDoItem from '../common/ToDoItem/ToDoItem.components';
 
 type EnhanceTodoStatus = TodoStatus | 'ALL';
 

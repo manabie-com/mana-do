@@ -1,6 +1,6 @@
 import React from 'react';
 
-import ToDoPage from './ToDoPage';
+import ToDoPage from './components/page/ToDoPage';
 
 import './App.css';
 

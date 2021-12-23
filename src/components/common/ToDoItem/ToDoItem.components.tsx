@@ -7,6 +7,12 @@ interface Props {
   content: string;
 }
 
+/* I created a new component to separate the handling logic 
+making us have as many stateless components as possible
+1. Reusable
+2. Capable of maintenance
+3. Flexibility
+*/
 const ToDoItem: React.FC<Props> = ({
   checked,
   content,
