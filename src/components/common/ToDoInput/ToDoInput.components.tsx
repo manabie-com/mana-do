@@ -11,6 +11,7 @@ making us have as many stateless components as possible
 */
 const ToDoInput: React.FC = () => {
   const inputRef = React.useRef<HTMLInputElement>(null);
+  const [emptyInput, setEmptyInput] = React.useState<boolean>(false);
   const { dispatch } = useToDoPageContext();
   const handleOnSubmitTodoInput = React.useCallback(
     async (value: string) => {
@@ -21,16 +22,28 @@ const ToDoInput: React.FC = () => {
     [dispatch]
   );
   const onCreateTodo = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter' && inputRef.current) {
-      handleOnSubmitTodoInput(inputRef.current.value);
-      inputRef.current.value = '';
+    if (inputRef.current) {
+      const { value } = inputRef.current;
+      if (e.key === 'Enter') {
+        if (value) {
+          handleOnSubmitTodoInput(inputRef.current.value);
+          inputRef.current.value = '';
+        } else {
+          setEmptyInput(true);
+        }
+      }
+      if (value) {
+        setEmptyInput(false);
+      }
     }
   };
   return (
     <input
       ref={inputRef}
-      className='Todo__input'
-      placeholder='What need to be done?'
+      className={`Todo__input ${emptyInput ? 'Todo__input--error' : ''}`}
+      placeholder={
+        emptyInput ? 'This field cannot be left blank' : 'What need to be done?'
+      }
       onKeyDown={onCreateTodo}
     />
   );
