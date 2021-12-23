@@ -7,6 +7,7 @@ import {
   updateTodoContent,
   updateTodoStatus,
 } from '../../../store/actions';
+import Input from '../Input/Input.components';
 
 interface Props {
   checked: boolean;
@@ -81,12 +82,11 @@ const ToDoItem: React.FC<Props> = ({ id, checked, content, createdDate }) => {
         onChange={(e) => onUpdateTodoStatus(e)}
       />
       {edit ? (
-        <input
+        <Input
           onBlur={handleOnBlur}
           ref={inputRef}
-          className={`ToDo__item--text-input ${
-            inputError ? 'Todo__input--error' : ''
-          }`}
+          className='ToDo__item--text-input'
+          error={inputError}
           placeholder='This field require value'
           onKeyDown={handleOnKeyDown}
         />

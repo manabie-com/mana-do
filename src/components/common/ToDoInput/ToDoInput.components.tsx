@@ -2,6 +2,7 @@ import React from 'react';
 import { useToDoPageContext } from '../../../context/ToDoPageProvider';
 import Service from '../../../service';
 import { createTodo } from '../../../store/actions';
+import Input from '../Input/Input.components';
 
 /* I created a new component to separate the handling logic 
 making us have as many stateless components as possible
@@ -38,9 +39,10 @@ const ToDoInput: React.FC = () => {
     }
   };
   return (
-    <input
+    <Input
       ref={inputRef}
-      className={`Todo__input ${emptyInput ? 'Todo__input--error' : ''}`}
+      className='Todo__input'
+      error={emptyInput}
       placeholder={
         emptyInput ? 'This field cannot be left blank' : 'What need to be done?'
       }
