@@ -2,7 +2,11 @@ import React from 'react';
 import { useToDoPageContext } from '../../../context/ToDoPageProvider';
 import { TodoStatus } from '../../../models/todo';
 import Service from '../../../service';
-import { deleteTodo, updateTodoStatus } from '../../../store/actions';
+import {
+  deleteTodo,
+  updateTodoContent,
+  updateTodoStatus,
+} from '../../../store/actions';
 
 interface Props {
   checked: boolean;
@@ -18,6 +22,30 @@ making us have as many stateless components as possible
 */
 const ToDoItem: React.FC<Props> = ({ id, checked, content }) => {
   const { dispatch } = useToDoPageContext();
+  const [edit, setEdit] = React.useState<boolean>(false);
+  const [inputError, setInputError] = React.useState<boolean>(false);
+  const [focused, setFocused] = React.useState<boolean>(false);
+  const inputRef = React.useRef<HTMLInputElement>(null);
+  const handleOnBlur = () => {
+    setFocused(false);
+  };
+  const handleOnKeyDown = (e: React.KeyboardEvent<HTMLInputElement>): void => {
+    if (inputRef.current) {
+      const value = inputRef.current.value;
+      if (e.key === 'Enter') {
+        if (value) {
+          // optimis update
+          Service.updateContentTodo(id, value);
+          dispatch(updateTodoContent(id, value));
+          setEdit(false);
+        } else {
+          setInputError(true);
+        }
+      } else {
+        setInputError(false);
+      }
+    }
+  };
   const onUpdateTodoStatus = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { checked } = e.target;
     // optimis update
@@ -29,14 +57,41 @@ const ToDoItem: React.FC<Props> = ({ id, checked, content }) => {
     Service.deleteTodo(id);
     dispatch(deleteTodo(id));
   };
+  const handleOnDoubleClickToEdit = (): void => {
+    setEdit(true);
+    setFocused(true);
+  };
+  React.useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.value = content;
+      inputRef.current.focus();
+    }
+  }, [content, edit]);
+  React.useEffect(() => {
+    if (!focused) {
+      setEdit(false);
+    }
+  }, [focused]);
   return (
-    <div className='ToDo__item'>
+    <div className='ToDo__item' onDoubleClick={handleOnDoubleClickToEdit}>
       <input
         type='checkbox'
         checked={checked}
         onChange={(e) => onUpdateTodoStatus(e)}
       />
-      <span>{content}</span>
+      {edit ? (
+        <input
+          onBlur={handleOnBlur}
+          ref={inputRef}
+          className={`ToDo__item--text-input ${
+            inputError ? 'Todo__input--error' : ''
+          }`}
+          placeholder='This field require value'
+          onKeyDown={handleOnKeyDown}
+        />
+      ) : (
+        <span className='ToDo__item--content'>{content}</span>
+      )}
       <button className='Todo__delete' onClick={handleOnClickDeleteTodo}>
         X
       </button>

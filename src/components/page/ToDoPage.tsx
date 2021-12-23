@@ -62,7 +62,6 @@ const ToDoPage = () => {
       <div className='ToDo__list'>
         {showTodos.map((todo) => {
           const { id, content } = todo;
-          console.log(todo);
           return (
             <ToDoItem
               key={id}

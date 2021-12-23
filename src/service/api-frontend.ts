@@ -2,6 +2,7 @@ import { IAPI } from './types';
 import { Todo, TodoStatus } from '../models/todo';
 import shortid from 'shortid';
 
+const toDos = localStorage.getItem('todo-list');
 class ApiFrontend extends IAPI {
   async createTodo(content: string): Promise<Todo> {
     const newContent = {
@@ -11,7 +12,6 @@ class ApiFrontend extends IAPI {
       id: shortid(),
       user_id: 'firstUser',
     } as Todo;
-    const toDos = localStorage.getItem('todo-list');
     if (!toDos) {
       const newToDoList = [{ ...newContent }];
       console.log(newToDoList);
@@ -40,7 +40,6 @@ class ApiFrontend extends IAPI {
     return Promise.resolve({ id, status });
   }
   async deleteTodo(id: string): Promise<string> {
-    const toDos = localStorage.getItem('todo-list');
     if (!toDos) {
       return Promise.reject('Have an error when delete Todo');
     }
@@ -57,7 +56,6 @@ class ApiFrontend extends IAPI {
     return 'Deleted';
   }
   async getTodos(): Promise<Todo[]> {
-    const toDos = localStorage.getItem('todo-list');
     if (!toDos) {
       localStorage.setItem('todo-list', JSON.stringify([]));
       return [];
@@ -69,9 +67,8 @@ class ApiFrontend extends IAPI {
     return Promise.resolve('Delete all completed');
   }
   async toggleAllTodos(checkAll: boolean): Promise<string> {
-    const todos = localStorage.getItem('todo-list');
-    if (!todos) return Promise.reject('Have an error when toggle all todos');
-    const newTodos = JSON.parse(todos).map((todo: Todo): Todo => {
+    if (!toDos) return Promise.reject('Have an error when toggle all todos');
+    const newTodos = JSON.parse(toDos).map((todo: Todo): Todo => {
       return {
         ...todo,
         status: checkAll ? TodoStatus.COMPLETED : TodoStatus.ACTIVE,
@@ -79,6 +76,17 @@ class ApiFrontend extends IAPI {
     });
     localStorage.setItem('todo-list', JSON.stringify(newTodos));
     return Promise.resolve('Toggle all completed');
+  }
+  async updateContentTodo(id: string, content: string): Promise<string> {
+    if (!toDos) return Promise.reject('Have an error when update content todo');
+    const newToDoList = JSON.parse(toDos).map((todo: Todo): Todo => {
+      return {
+        ...todo,
+        content: id === todo.id ? content : todo.content,
+      };
+    });
+    localStorage.setItem('todo-list', JSON.stringify(newToDoList));
+    return Promise.resolve('ok');
   }
 }
 

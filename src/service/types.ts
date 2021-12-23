@@ -7,4 +7,5 @@ export abstract class IAPI {
   abstract deleteTodo(id: string): Promise<string>;
   abstract deleteAllTodos(): Promise<string>;
   abstract toggleAllTodos(checkAll: boolean): Promise<string>;
+  abstract updateContentTodo(id: string, content: string): Promise<string>;
 }

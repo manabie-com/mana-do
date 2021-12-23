@@ -6,6 +6,7 @@ import {
   DELETE_TODO,
   SET_TODO,
   TOGGLE_ALL_TODOS,
+  UPDATE_TODO_CONTENT,
   UPDATE_TODO_STATUS,
 } from './actions';
 
@@ -19,6 +20,19 @@ export const initialState: AppState = {
 
 function reducer(state: AppState, action: AppActions): AppState {
   switch (action.type) {
+    case UPDATE_TODO_CONTENT:
+      const newToDoList: Array<Todo> = state.todos.map((todo) => {
+        return {
+          ...todo,
+          content:
+            action.payload.id === todo.id
+              ? action.payload.content
+              : todo.content,
+        };
+      });
+      return {
+        todos: newToDoList,
+      };
     // Create SET_TODO for set todos
     case SET_TODO:
       return {
@@ -66,6 +80,7 @@ function reducer(state: AppState, action: AppActions): AppState {
         ...state,
         todos: [],
       };
+
     default:
       return state;
   }
