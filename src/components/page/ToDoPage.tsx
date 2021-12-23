@@ -76,6 +76,7 @@ const ToDoPage = () => {
       <div className='Todo__toolbar'>
         {todos.length > 0 ? (
           <input
+            data-testid='toggle-all-todos'
             type='checkbox'
             checked={activeTodos === 0}
             onChange={onToggleAllTodo}
@@ -84,7 +85,11 @@ const ToDoPage = () => {
           <div />
         )}
         <ToDoTabs setShowing={setShowing} />
-        <ActionButton className='Action__btn' onClick={onDeleteAllTodo}>
+        <ActionButton
+          data-testid='clear-all-todos'
+          className='Action__btn'
+          onClick={onDeleteAllTodo}
+        >
           Clear all todos
         </ActionButton>
       </div>

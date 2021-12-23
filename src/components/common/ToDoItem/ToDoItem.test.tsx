@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { act } from 'react-dom/test-utils';
+import ToDoPageProvider from '../../../context/ToDoPageProvider';
 import ToDoItem from './ToDoItem.components';
 
 describe('ToDoItem testing', () => {
@@ -12,7 +13,12 @@ describe('ToDoItem testing', () => {
       content: 'something',
     };
     act(() => {
-      ReactDOM.render(<ToDoItem {...props} />, container);
+      ReactDOM.render(
+        <ToDoPageProvider>
+          <ToDoItem {...props} />
+        </ToDoPageProvider>,
+        container
+      );
     });
     const input = container.querySelector('input');
     const span = container.querySelector('span');

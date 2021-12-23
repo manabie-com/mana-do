@@ -19,6 +19,7 @@ export const initialState: AppState = {
 
 function reducer(state: AppState, action: AppActions): AppState {
   switch (action.type) {
+    // Create SET_TODO for set todos
     case SET_TODO:
       return {
         todos: [...action.payload],
@@ -55,6 +56,7 @@ function reducer(state: AppState, action: AppActions): AppState {
       };
 
     case DELETE_TODO:
+      // using alternative function to avoid duplicate
       return {
         ...state,
         todos: state.todos.filter((todo) => todo.id !== action.payload),

@@ -6,11 +6,19 @@ import {
   isElementOfType,
   Simulate,
 } from 'react-dom/test-utils';
+import ToDoPageProvider from '../../../context/ToDoPageProvider';
+import { Todo } from '../../../models/todo';
 import ToDoInput from './ToDoInput.components';
+
+const toDoList = localStorage.getItem('todo-list');
 
 describe('ToDoInput testing', () => {
   const div = document.createElement('div');
-  const ToDoInputElement = <ToDoInput />;
+  const ToDoInputElement = (
+    <ToDoPageProvider>
+      <ToDoInput />
+    </ToDoPageProvider>
+  );
   it('Render ToDoInput correctly', () => {
     isElement(ToDoInputElement);
   });
@@ -32,5 +40,10 @@ describe('ToDoInput testing', () => {
       }
     });
     expect(input?.value).toBe('');
+    if (toDoList) {
+      expect(
+        JSON.parse(toDoList).find((todo: Todo) => todo.content === 'Something')
+      ).toBeTruthy();
+    }
   });
 });
