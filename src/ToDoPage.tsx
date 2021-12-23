@@ -30,14 +30,15 @@ const ToDoPage = () => {
     })();
   }, []);
 
-  const handleOnSubmitTodoInput = async (value: string) => {
+  // const handleOnSubmitTodoInput = async (value: string) => {};
+  const handleOnSubmitTodoInput = React.useCallback(async (value: string) => {
     try {
       const resp = await Service.createTodo(value);
       dispatch(createTodo(resp));
     } catch (err) {
       setError('Have an error when submit Todo');
     }
-  };
+  }, []);
   const handleOnClickDeleteTodo = (id: string): void => {
     dispatch(deleteTodo(id));
   };

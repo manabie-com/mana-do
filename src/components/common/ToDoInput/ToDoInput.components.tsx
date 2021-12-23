@@ -29,4 +29,4 @@ const ToDoInput: React.FC<Props> = ({ handleOnSubmit }) => {
   );
 };
 
-export default ToDoInput;
+export default React.memo(ToDoInput);
