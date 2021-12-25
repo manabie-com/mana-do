@@ -6,6 +6,7 @@ Architechture: please look at file architechture.png
 - Change user_id at file .env
 
 *** Run app
+ - yarn install
 
 - yarn start:fullstack
 
