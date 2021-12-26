@@ -7,27 +7,37 @@ import {
     deleteTodo,
     toggleAllTodos,
     deleteAllTodos,
-    updateTodoStatus
+    updateTodoStatus,
+    updateTodo
 } from './store/actions';
 import Service from './service';
-import {TodoStatus} from './models/todo';
-import {isTodoCompleted} from './utils';
+import {TodoStatus, LocalKey} from './models/todo';
+import {isTodoCompleted, isTodoActive, setLocalStorage, getLocalStorage} from './utils';
 
 type EnhanceTodoStatus = TodoStatus | 'ALL';
 
 
 const ToDoPage = () => {
-    const [{todos}, dispatch] = useReducer(reducer, initialState);
+    const [{todos}, dispatch] = useReducer(reducer, initialState, () => ({
+      todos: getLocalStorage(LocalKey.TODO_LIST)
+    }));
     const [showing, setShowing] = useState<EnhanceTodoStatus>('ALL');
+    const [editItem, setEditItem] = useState<string>('');
+    const [editingVal, setEditingVal] = useState<string>('');
     const inputRef = useRef<HTMLInputElement>(null);
 
     useEffect(()=>{
         (async ()=>{
             const resp = await Service.getTodos();
-
+            console.log('call 1');
+            
             dispatch(setTodos(resp || []));
         })()
     }, [])
+
+    useEffect(() => {
+      setLocalStorage(LocalKey.TODO_LIST, JSON.stringify(todos));
+    }, [todos])
 
     const onCreateTodo = async (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter' && inputRef.current) {
@@ -35,6 +45,14 @@ const ToDoPage = () => {
             dispatch(createTodo(resp));
             inputRef.current.value = '';
         }
+    }
+
+    const onUpdateTodo = async (e: React.KeyboardEvent<HTMLInputElement>, todoId: string) => {
+      if (e.key === 'Enter' && editingVal) {
+        const todo = await Service.updateTodo(todoId, editingVal);
+        dispatch(updateTodo(todo));
+        setEditItem('');
+      }
     }
 
     const onUpdateTodoStatus = (e: React.ChangeEvent<HTMLInputElement>, todoId: string) => {
@@ -60,9 +78,8 @@ const ToDoPage = () => {
         }
     });
 
-    const activeTodos = todos.reduce(function (accum, todo) {
-        return isTodoCompleted(todo) ? accum : accum + 1;
-    }, 0);
+    // Reason: easier to read, understand.
+    const isActive = todos.some((todo) => isTodoActive(todo));
 
     return (
         <div className="ToDo__container">
@@ -71,7 +88,7 @@ const ToDoPage = () => {
                     ref={inputRef}
                     className="Todo__input"
                     placeholder="What need to be done?"
-                    onKeyDown={onCreateTodo}
+                    onKeyPress={onCreateTodo}
                 />
             </div>
             <div className="ToDo__list">
@@ -84,7 +101,18 @@ const ToDoPage = () => {
                                     checked={isTodoCompleted(todo)}
                                     onChange={(e) => onUpdateTodoStatus(e, todo.id)}
                                 />
-                                <span>{todo.content}</span>
+                                { editItem === todo.id ?
+                                  <input
+                                    type="text"
+                                    autoFocus={true}
+                                    className="ToDo__message"
+                                    defaultValue={todo.content}
+                                    onChange={(e) => setEditingVal(e.target.value)}
+                                    onKeyPress={(e) => onUpdateTodo(e, todo.id)}
+                                    onBlur={() => setEditItem('')}
+                                  /> :
+                                  <span onDoubleClick={() => setEditItem(todo.id)}>{todo.content}</span>
+                                }
                                 <button
                                     className="Todo__delete"
                                     onClick={() => dispatch(deleteTodo(todo.id))}
@@ -100,7 +128,7 @@ const ToDoPage = () => {
                 {todos.length > 0 ?
                     <input
                         type="checkbox"
-                        checked={activeTodos === 0}
+                        checked={!isActive}
                         onChange={onToggleAllTodo}
                     /> : <div/>
                 }

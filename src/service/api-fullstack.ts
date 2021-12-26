@@ -17,6 +17,11 @@ class ApiFullstack extends IAPI {
 
         return resp.data.data;
     }
+
+    // Avoid abstract error
+    async updateTodo(id: string, content: string): Promise<Todo> {
+        return {} as Todo;
+    }
 }
 
 

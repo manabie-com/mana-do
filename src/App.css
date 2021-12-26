@@ -75,10 +75,11 @@ input:focus {
   justify-content: space-between;
 }
 
-.ToDo__item > span {
+.ToDo__item > span,
+.ToDo__message {
   flex: 1 1;
   text-align: left;
-  margin-left: 8px;
+  margin: 0 8px;
 }
 
 .Todo__content {
