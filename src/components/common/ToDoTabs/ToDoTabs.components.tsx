@@ -1,6 +1,6 @@
 import React from 'react';
 import { TodoStatus } from '../../../models/todo';
-import { EnhanceTodoStatus } from '../../page/ToDoPage';
+import { EnhanceTodoStatus } from '../../page/ToDoPage/ToDoPage';
 import ActionButton from '../ActionButton/ActionButton.components';
 
 interface Props {

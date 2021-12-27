@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM, { unmountComponentAtNode } from 'react-dom';
 import { act } from 'react-dom/test-utils';
-import ToDoPageProvider from '../../context/ToDoPageProvider';
-import { Todo, TodoStatus } from '../../models/todo';
+import ToDoPageProvider from '../../../context/ToDoPageProvider';
+import { Todo, TodoStatus } from '../../../models/todo';
 import ToDoPage from './ToDoPage';
 
 let container: Element | DocumentFragment | null = null;
