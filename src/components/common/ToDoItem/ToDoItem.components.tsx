@@ -75,7 +75,7 @@ const ToDoItem: React.FC<Props> = ({ id, checked, content, createdDate }) => {
     }
   }, [focused]);
   return (
-    <div className='ToDo__item' onDoubleClick={handleOnDoubleClickToEdit}>
+    <div className='ToDo__item'>
       <input
         type='checkbox'
         checked={checked}
@@ -92,8 +92,13 @@ const ToDoItem: React.FC<Props> = ({ id, checked, content, createdDate }) => {
         />
       ) : (
         <>
-          <span className='ToDo__item--content'>{content}</span>
-          <span className='ToDo__item--content'>
+          <span
+            className='ToDo__item--content'
+            onDoubleClick={handleOnDoubleClickToEdit}
+          >
+            {content}
+          </span>
+          <span className='ToDo__item'>
             {createdDate.toLocaleString()}
           </span>
         </>
