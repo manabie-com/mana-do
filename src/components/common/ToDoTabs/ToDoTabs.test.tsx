@@ -9,7 +9,7 @@ describe('ToDoToolbar testing', () => {
   it('Render correctly', () => {
     const props = { setShowing: jest.fn() };
     act(() => {
-      ReactDOM.render(<ToDoTabs {...props} />, container);
+      ReactDOM.render(<ToDoTabs {...props} activeTab='ALL' />, container);
     });
     const buttonList = container.querySelectorAll('button');
     expect(buttonList.length).toEqual(3);

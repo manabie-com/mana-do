@@ -7,11 +7,12 @@
 button {
   outline: none;
   border: none;
-  box-shadow: 2px 0 2px currentColor;
+  /* box-shadow: 2px 0 2px currentColor; */
   border-radius: 4px;
   min-height: 32px;
   min-width: 80px;
   padding: 4px 8px;
+  cursor: pointer;
 }
 
 button:hover {
@@ -140,4 +141,9 @@ input:focus {
 
 .Todo__input--error::placeholder {
   color: red;
+}
+
+.Todo__tabs--active {
+  background-color: black;
+  color: white;
 }

@@ -7,7 +7,7 @@ import { isTodoCompleted } from '../../utils';
 import ToDoInput from '../common/ToDoInput/ToDoInput.components';
 import ToDoItem from '../common/ToDoItem/ToDoItem.components';
 import ActionButton from '../common/ActionButton/ActionButton.components';
-import ToDoTabs from '../common/ToDoToolbar/ToDoTabs.components';
+import ToDoTabs from '../common/ToDoTabs/ToDoTabs.components';
 import { useToDoPageContext } from '../../context/ToDoPageProvider';
 
 export type EnhanceTodoStatus = TodoStatus | 'ALL';
@@ -30,13 +30,18 @@ const ToDoPage = () => {
 
   const onToggleAllTodo = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { checked } = e.target;
+    // Optimis update
     Service.toggleAllTodos(checked);
     dispatch(toggleAllTodos(checked));
   };
 
   const onDeleteAllTodo = async () => {
-    await Service.deleteAllTodos();
-    dispatch(deleteAllTodos());
+    try {
+      await Service.deleteAllTodos();
+      dispatch(deleteAllTodos());
+    } catch (error) {
+      setError('Have error when delete all todos');
+    }
   };
 
   const showTodos = todos.filter((todo) => {
@@ -60,6 +65,7 @@ const ToDoPage = () => {
         <ToDoInput />
       </div>
       <div className='ToDo__list'>
+        {!showTodos.length && <span>Nothing to do</span>}
         {showTodos.map((todo) => {
           const { id, content, created_date } = todo;
           return (
@@ -84,7 +90,7 @@ const ToDoPage = () => {
         ) : (
           <div />
         )}
-        <ToDoTabs setShowing={setShowing} />
+        <ToDoTabs setShowing={setShowing} activeTab={showing} />
         <ActionButton
           data-testid='clear-all-todos'
           className='Action__btn'

@@ -5,11 +5,12 @@ import ActionButton from '../ActionButton/ActionButton.components';
 
 interface Props {
   setShowing: (value: React.SetStateAction<EnhanceTodoStatus>) => void;
+  activeTab: EnhanceTodoStatus;
 }
 const buttonTabs: Array<{ key: EnhanceTodoStatus; value: string }> = [
   {
     key: 'ALL',
-    value: 'ALL',
+    value: 'All',
   },
   {
     key: TodoStatus.ACTIVE,
@@ -20,13 +21,17 @@ const buttonTabs: Array<{ key: EnhanceTodoStatus; value: string }> = [
     value: 'Completed',
   },
 ];
-const ToDoTabs: React.FC<Props> = ({ setShowing }: Props) => {
+const ToDoTabs: React.FC<Props> = ({ setShowing, activeTab }: Props) => {
   return (
     <>
       <div className='Todo__tabs'>
         {buttonTabs.map(({ key, value }) => {
           return (
-            <ActionButton key={key} onClick={() => setShowing(key)}>
+            <ActionButton
+              className={`${activeTab === key ? 'Todo__tabs--active' : ''}`}
+              key={key}
+              onClick={() => setShowing(key)}
+            >
               {value}
             </ActionButton>
           );
