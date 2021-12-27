@@ -1,35 +1,44 @@
+:root {
+  --main-green: #64ae55;
+  --light-blue: rgba(0, 203, 253, 0.25);
+  --super-light-gray: rgb(253, 253, 253);
+  --danger-red: #dc3545;
+}
+
 .App {
-  text-align: center;
+  /* text-align: center; */
   display: flex;
   justify-content: center;
 }
 
 button {
   outline: none;
-  border: none;
-  box-shadow: 2px 0 2px currentColor;
+  border: none;  
   border-radius: 4px;
-  min-height: 32px;
-  min-width: 80px;
+  min-height: 32px;  
   padding: 4px 8px;
 }
 
 button:hover {
   opacity: 0.85;
+  cursor: pointer;
 }
 
 input[type="checkbox"] {
-  width: 24px;
-  height: 24px;
+  width: 18px;
+  height: 18px;
   box-shadow: none;
   border: none;
   outline: none;
+  margin: auto;
 }
 
 input[type="checkbox"]:focus {
   box-shadow: none;
   border: none;
   outline: none;
+  color: #64ae55;
+  background-color: #64ae55;
 }
 
 input {
@@ -37,57 +46,78 @@ input {
   border: none;
   outline: none;
   padding: 0 12px;
-  box-shadow: 2px 0 4px rgba(0,0,0, 0.2);
-  border-radius: 4px;
 }
 
-input:focus {
-  box-shadow: 1px 0 9px rgba(0,0,0, 0.25);
+.todo-item > div {
+  padding: 12px;
 }
 
-.ToDo__container {
+.todo-container {
+  background-color: var(--super-light-gray);
   border: 1px solid rgba(0,0,0, 0.13);
   border-radius: 8px;
-  width: 500px;
+  max-width: 500px;
+  width: 100%;
   margin-top: 5rem;
   padding: 24px;
-  box-shadow: 2px 2px 1px rgba(0,0,0, 0.09),
-              3px 2px 3px rgba(0,0,0, 0.05);
+  box-shadow: 2px 2px 1px rgba(0,0,0, 0.08),
+              3px 2px 3px rgba(0,0,0, 0.04);  
 }
 
-.Todo__creation {
+.todo-creation {
   display: flex;
 }
 
-.Todo__input {
+.todo-input {
   flex: 1 1;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  box-shadow: 2px 0 4px rgba(0,0,0, 0.1);
+  border-radius: 4px;  
 }
 
-.ToDo__list {
+.todo-input:focus {
+  box-shadow: 1px 0 8px var(--light-blue);
+}
+
+.todo-list {
   display: flex;
   flex-direction: column;
   margin-top: 1.5rem;
 }
 
-.ToDo__item {
+.todo-item {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  background-color: white;
+  border: 1px solid lightgray;
+  border-radius: 8px;
+  margin: 4px 0px 4px 0px;
+  padding: 6px;
 }
 
-.ToDo__item > span {
+.todo-item > .todo-item-content, .todo-item > div {
   flex: 1 1;
   text-align: left;
-  margin-left: 8px;
+  margin-left: 10px;
 }
 
-.Todo__content {
+.todo-item > .todo-item-content {
+  font-size: 1rem;
+}
+
+.on-toggle-todo-item {
+  background-color: rgb(193, 227, 255);
+}
+
+.todo-content {
   flex: 1 1;
 }
 
-.Todo__delete {
+.todo-delete {
   outline: none;
-  border: none;
+  border: none;  
   width: 32px;
   height: 32px;
   min-width: auto;
@@ -98,28 +128,111 @@ input:focus {
   justify-content: center;
   align-items: center;
   cursor: pointer;
+  color: white;
+  background-color: var(--danger-red);
 }
 
-.Todo__action, .Todo__delete {
+.todo-action, .todo-delete {
   width: 24px;
   height: 24px;
   flex-shrink: 0;
 }
 
-.Todo__toolbar {
+.todo-toolbar {
   display: flex;
   justify-content: space-between;
-  margin-top: 24px;
+  margin: 12px 0px 12px 0px;
+  padding: 10px 0px 10px 0px;
+  overflow-x: auto;
 }
 
-.Todo__tabs {
+.todo-tabs {
   display: flex;
-  justify-content: center;
+  justify-content: center;  
 }
 
-.Todo__tabs > *:not(:last-child) {
+.todo-tabs > *:not(:last-child) {
   margin-right: 8px;
 }
 
-.Action__btn {
+.todo-container > .todo-creation > .add-todo-btn {
+  color: white;
+  font-weight: bold;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  background-color: var(--main-green);
+  width: 10%;  
+}
+
+.todo-container > .todo-creation > .add-todo-btn:hover, .todo-item:hover {
+  cursor: pointer;
+  opacity: 0.85;
+}
+
+.todo-status-card {
+  background-color: white;
+  width: 120px;  
+  border: 1px solid lightgray;
+  border-radius: 8px;
+  padding: 10px;
+  color: rgb(105, 105, 105);
+}
+
+.todo-status-card:hover {
+  opacity: 0.85;
+  cursor: pointer;
+}
+
+.all-todo-status-card-active {  
+  border: 2px solid rgb(104, 187, 255);
+}
+
+.all-todo-status-card:hover {
+  background-color: rgb(104, 187, 255);
+  color: white;
+}
+
+.active-todo-status-card-active {
+  border: 2px solid rgb(255, 133, 174);
+}
+
+.active-todo-status-card:hover {
+  background-color: rgb(255, 133, 174);
+  color: white;
+}
+
+.completed-todo-status-card-active {
+  border: 2px solid #72c761;
+}
+
+.complete-todo-status-card:hover {
+  background-color:#72c761;
+  color: white;
+}
+
+.todo-status-card > .todo-status-card-title {
+  font-weight: bold;
+}
+
+.todo-status-card > .percent-value {
+  color: lightgray;
+}
+
+.todo-status-card:hover > .percent-value {
+  color: white;
+}
+
+.empty-data-notification {
+  text-align: center;
+  color: gray;
+}
+
+.action-section {
+  text-align: right;
+}
+
+.delete-btn {
+  color: white;
+  background-color: var(--danger-red);
+  font-weight: bold;  
 }
