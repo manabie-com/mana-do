@@ -122,5 +122,6 @@ input:focus {
   margin-right: 8px;
 }
 
-.Action__btn {
+.Action__btn.active {
+  background: #1cb7c9;
 }

@@ -29,7 +29,6 @@ const ToDoPage = () => {
     useEffect(()=>{
         (async ()=>{
             const resp = await Service.getTodos();
-            console.log('call 1');
             
             dispatch(setTodos(resp || []));
         })()
@@ -52,7 +51,13 @@ const ToDoPage = () => {
         const todo = await Service.updateTodo(todoId, editingVal);
         dispatch(updateTodo(todo));
         setEditItem('');
+        setEditingVal('');
       }
+    }
+
+    const onCancelEdit = () => {
+      setEditItem('');
+      setEditingVal('');
     }
 
     const onUpdateTodoStatus = (e: React.ChangeEvent<HTMLInputElement>, todoId: string) => {
@@ -67,7 +72,7 @@ const ToDoPage = () => {
         dispatch(deleteAllTodos());
     }
 
-    const showTodos = todos.filter((todo) => {
+    const showTodos = todos && todos.filter((todo) => {
         switch (showing) {
             case TodoStatus.ACTIVE:
                 return todo.status === TodoStatus.ACTIVE;
@@ -76,26 +81,29 @@ const ToDoPage = () => {
             default:
                 return true;
         }
-    });
+    }) || [];
 
     // Reason: easier to read, understand.
-    const isActive = todos.some((todo) => isTodoActive(todo));
+    const isActive = todos && todos.some((todo) => isTodoActive(todo));
 
     return (
         <div className="ToDo__container">
             <div className="Todo__creation">
                 <input
+                    data-testid="inputCreate"
                     ref={inputRef}
                     className="Todo__input"
                     placeholder="What need to be done?"
                     onKeyPress={onCreateTodo}
                 />
             </div>
+
             <div className="ToDo__list">
                 {
-                    showTodos.map((todo, index) => {
+                    showTodos.map((todo) => {
                         return (
-                            <div key={index} className="ToDo__item">
+                            // Reason: use unique todo id for key
+                            <div key={todo.id} className="ToDo__item">
                                 <input
                                     type="checkbox"
                                     checked={isTodoCompleted(todo)}
@@ -109,7 +117,7 @@ const ToDoPage = () => {
                                     defaultValue={todo.content}
                                     onChange={(e) => setEditingVal(e.target.value)}
                                     onKeyPress={(e) => onUpdateTodo(e, todo.id)}
-                                    onBlur={() => setEditItem('')}
+                                    onBlur={onCancelEdit}
                                   /> :
                                   <span onDoubleClick={() => setEditItem(todo.id)}>{todo.content}</span>
                                 }
@@ -125,7 +133,7 @@ const ToDoPage = () => {
                 }
             </div>
             <div className="Todo__toolbar">
-                {todos.length > 0 ?
+                {todos && todos.length > 0 ?
                     <input
                         type="checkbox"
                         checked={!isActive}
@@ -133,13 +141,22 @@ const ToDoPage = () => {
                     /> : <div/>
                 }
                 <div className="Todo__tabs">
-                    <button className="Action__btn" onClick={()=>setShowing('ALL')}>
+                    <button
+                      className={`Action__btn ${showing === 'ALL' ? 'active' : ''}`}
+                      onClick={()=>setShowing('ALL')}
+                    >
                         All
                     </button>
-                    <button className="Action__btn" onClick={()=>setShowing(TodoStatus.ACTIVE)}>
+                    <button
+                      className={`Action__btn ${showing === TodoStatus.ACTIVE ? 'active' : ''}`}
+                      onClick={()=>setShowing(TodoStatus.ACTIVE)}
+                    >
                         Active
                     </button>
-                    <button className="Action__btn" onClick={()=>setShowing(TodoStatus.COMPLETED)}>
+                    <button
+                      className={`Action__btn ${showing === TodoStatus.COMPLETED ? 'active' : ''}`}
+                      onClick={()=>setShowing(TodoStatus.COMPLETED)}
+                    >
                         Completed
                     </button>
                 </div>
