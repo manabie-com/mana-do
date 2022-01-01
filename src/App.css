@@ -24,6 +24,7 @@ input[type="checkbox"] {
   box-shadow: none;
   border: none;
   outline: none;
+  cursor: pointer;
 }
 
 input[type="checkbox"]:focus {
@@ -75,10 +76,11 @@ input:focus {
   justify-content: space-between;
 }
 
-.ToDo__item > span {
+/* add css for input tag name of todo item */
+.ToDo__item > span, .ToDo__item input[type="text"] {
   flex: 1 1;
   text-align: left;
-  margin-left: 8px;
+  margin: 0 12px;
 }
 
 .Todo__content {
@@ -122,4 +124,17 @@ input:focus {
 }
 
 .Action__btn {
+  box-shadow: none;
+  background: transparent;
+  color: var(--main-green);
+  border: solid 1px var(--main-green);
+}
+
+.Action__btn.current, .Action__btn:hover {
+  cursor: pointer;
+  background: var(--main-green);
+  color: var(--main-yellow);
+}
+.Action__btn.current, .Action__btn:active {
+  opacity: 1;
 }
