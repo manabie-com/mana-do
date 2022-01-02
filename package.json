@@ -39,6 +39,9 @@
     ]
   },
   "devDependencies": {
-    "@types/shortid": "^0.0.29"
+    "@babel/preset-typescript": "^7.16.7",
+    "@testing-library/react-hooks": "^7.0.2",
+    "@types/shortid": "^0.0.29",
+    "jest": "26.6.0"
   }
 }
