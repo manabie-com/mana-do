@@ -1,0 +1,25 @@
+  
+.Todo__toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 24px;
+    color: #757575;
+}
+  
+.Todo__tabs {
+    display: flex;
+    justify-content: center;
+}
+  
+.Todo__tabs > *:not(:last-child) {
+    margin-right: 8px;
+}
+.Action__btn {
+    color: currentColor;
+    background-color: #fff;
+    cursor: pointer;
+}
+.Action__btn--active {
+    border: 1px solid rgb(25, 118, 210);;
+}
