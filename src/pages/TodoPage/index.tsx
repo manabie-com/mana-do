@@ -1,46 +1,63 @@
-import { TodoItem, TodoToolbar } from 'components';
-import { EnhanceTodoStatus, TodoStatus } from 'models/todo';
-import React, { useEffect, useReducer, useRef, useState } from 'react';
+import {TodoItem, TodoToolbar} from 'components';
+import {EnhanceTodoStatus, TodoStatus} from 'models/todo';
+import React, {useEffect, useReducer, useRef, useState} from 'react';
 import Service from 'service';
 import {
-  createTodo, deleteAllTodos, deleteTodo, setTodos, toggleAllTodos, updateTodoContent, updateTodoStatus
+  createTodo,
+  deleteAllTodos,
+  deleteTodo,
+  setTodos,
+  toggleAllTodos,
+  updateTodoContent,
+  updateTodoStatus,
 } from 'store/actions';
-import reducer, { initialState } from 'store/reducer';
-import { isTodoCompleted } from 'utils';
+import reducer, {initialState} from 'store/reducer';
+import {isTodoCompleted} from 'utils';
 import './TodoPage.css';
 const ToDoPage = () => {
-  const [{todos}, dispatch] = useReducer(reducer, initialState)
-  const [showing, setShowing] = useState<EnhanceTodoStatus>('ALL')
+  const [{todos}, dispatch] = useReducer(reducer, initialState);
+  const [showing, setShowing] = useState<EnhanceTodoStatus>('ALL');
   const inputRef = useRef<HTMLInputElement>(null);
-  const [editing,setEditing] = useState<string>('')
+  const storageRef = useRef(false);
+  const [editing, setEditing] = useState<string>('');
 
   useEffect(() => {
     (async () => {
-      const resp = await Service.getTodos();
-      dispatch(setTodos(resp || []));
+      try {
+        const resp = await Service.getTodos();
+        dispatch(setTodos(resp || []));
+        storageRef.current = true;
+      } catch (error) {
+        // handle error
+      }
     })();
   }, []);
 
-  useEffect(()=>{
-    (()=>{
-      localStorage.setItem('todos',JSON.stringify(todos))
-    })()
-  },[todos])
+  useEffect(() => {
+    (() => {
+      // make sure this call back is always called after fetching data
+      if (storageRef.current) localStorage.setItem('todos', JSON.stringify(todos));
+    })();
+  }, [todos]);
 
   const onCreateTodo = async (e: React.KeyboardEvent<HTMLInputElement>) => {
-    // Kiểm tra thuộc tính value có phải chuỗi rỗng hay không
-    if (e.key === 'Enter' && inputRef.current?.value) {
-      const resp = await Service.createTodo(inputRef.current.value);
-      dispatch(createTodo(resp));
-      inputRef.current.value = '';
+    try {
+      // Kiểm tra thuộc tính value có phải chuỗi rỗng hay không
+      if (e.key === 'Enter' && inputRef.current?.value) {
+        const resp = await Service.createTodo(inputRef.current.value);
+        dispatch(createTodo(resp));
+        inputRef.current.value = '';
+      }
+    } catch (error) {
+      // handle error
     }
   };
 
-  const onUpdateTodoStatus = (todoId: string,value:boolean) => {
+  const onUpdateTodoStatus = (todoId: string, value: boolean) => {
     dispatch(updateTodoStatus(todoId, value));
   };
 
-  const onToggleAllTodo = (value:boolean) => {
+  const onToggleAllTodo = (value: boolean) => {
     dispatch(toggleAllTodos(value));
   };
 
@@ -56,15 +73,14 @@ const ToDoPage = () => {
     setShowing(option);
   };
   const onTodoDoubleClick = (editID: string) => {
-    setEditing(editID)
-  }
+    setEditing(editID);
+  };
   const onToggleEditTodo = () => {
-    if(editing)
-      setEditing('')
-  }
-  const onEditTodoContent = (todoID:string,content:string) => {
-    dispatch(updateTodoContent(todoID,content))
-  }
+    if (editing) setEditing('');
+  };
+  const onEditTodoContent = (todoID: string, content: string) => {
+    dispatch(updateTodoContent(todoID, content));
+  };
   const showTodos = todos.filter((todo) => {
     switch (showing) {
       case TodoStatus.ACTIVE:

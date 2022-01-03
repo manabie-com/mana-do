@@ -96,6 +96,12 @@ describe('TodoItem component', () => {
       const editElement:HTMLInputElement = screen.getByTestId('todo-item--edit')
       expect(editElement.value).toBe('some tasks');
     });
+    it('should not trigger edit event when the input is empty', () => {
+      const editElement:HTMLInputElement = screen.getByTestId('todo-item--edit')
+      fireEvent.change(editElement,{target: {value : ''}})
+      fireEvent.keyDown(editElement, {key: 'Enter', code: 'Enter', charCode: 13})
+      expect(mockOnEditTodoContent).toHaveBeenCalledTimes(0)
+    });
     it('trigger edit event when press enter', () => {
       const editElement:HTMLInputElement = screen.getByTestId('todo-item--edit')
       fireEvent.change(editElement,{target: {value : 'some tasks edited'}})
