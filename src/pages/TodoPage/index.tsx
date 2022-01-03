@@ -6,6 +6,7 @@ import {
   createTodo,
   deleteAllTodos,
   deleteTodo,
+  setError,
   setTodos,
   toggleAllTodos,
   updateTodoContent,
@@ -29,6 +30,7 @@ const ToDoPage = () => {
         storageRef.current = true;
       } catch (error) {
         // handle error
+        dispatch(setError())
       }
     })();
   }, []);
@@ -50,6 +52,7 @@ const ToDoPage = () => {
       }
     } catch (error) {
       // handle error
+      dispatch(setError())
     }
   };
 

@@ -7,6 +7,7 @@ export const DELETE_ALL_TODOS = 'DELETE_ALL_TODOS';
 export const TOGGLE_ALL_TODOS = 'TOGGLE_ALL_TODOS';
 export const UPDATE_TODO_STATUS = 'UPDATE_TODO_STATUS';
 export const UPDATE_TODO_CONTENT = 'UPDATE_TODO_CONTENT';
+export const SET_ERROR = 'SET_ERROR';
 
 
 export interface SetTodoAction {
@@ -106,7 +107,14 @@ export function toggleAllTodos(checked: boolean): ToggleAllTodosAction {
     payload: checked
   }
 }
-
+export interface SetErrorAction {
+  type: typeof SET_ERROR
+}
+export function setError(): SetErrorAction {
+  return {
+    type : SET_ERROR
+  }
+}
 export type AppActions =
   SetTodoAction |
   CreateTodoAction |
@@ -114,4 +122,5 @@ export type AppActions =
   DeleteTodoAction |
   DeleteAllTodosAction |
   ToggleAllTodosAction |
-  UpdateTodoContentAction
+  UpdateTodoContentAction |
+  SetErrorAction
