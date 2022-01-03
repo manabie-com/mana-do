@@ -4,9 +4,10 @@ import {
   CREATE_TODO,
   DELETE_ALL_TODOS,
   DELETE_TODO,
+  EDIT_TODO,
+  SET_TODO,
   TOGGLE_ALL_TODOS,
-  UPDATE_TODO_STATUS,
-  SET_TODO
+  UPDATE_TODO_STATUS
 } from './actions';
 
 export interface AppState {
@@ -54,12 +55,12 @@ function reducer(state: AppState, action: AppActions): AppState {
       }
 
     case DELETE_TODO:
-      const result = state.todos.filter(todo => todo.id !== action.payload)
-      localStorage.setItem('todoList', JSON.stringify(result))
+      const resultDeleteTodo = state.todos.filter(todo => todo.id !== action.payload)
+      localStorage.setItem('todoList', JSON.stringify(resultDeleteTodo))
 
       return {
         ...state,
-        todos: result
+        todos: resultDeleteTodo
       }
     case DELETE_ALL_TODOS:
       const todoEmpty:Todo[] = []
@@ -68,6 +69,18 @@ function reducer(state: AppState, action: AppActions): AppState {
         ...state,
         todos: todoEmpty
       }
+
+    case EDIT_TODO:
+      const resultEditTodo = state.todos.map(todo =>
+          todo.id === action.payload.todoId ? { ...todo, content: action.payload.content} : todo
+      )
+      localStorage.setItem('todoList', JSON.stringify(resultEditTodo))
+
+      return {
+        ...state,
+        todos: resultEditTodo
+      }
+
     default:
       return state;
   }

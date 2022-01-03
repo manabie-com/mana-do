@@ -4,7 +4,7 @@ import shortid from 'shortid';
 
 class ApiFrontend extends IAPI {
     async createTodo(content: string): Promise<Todo> {
-        const newTodo = {
+        const newTodo: Todo = {
             content: content,
             created_date: new Date().toISOString(),
             status: TodoStatus.ACTIVE,
@@ -20,7 +20,7 @@ class ApiFrontend extends IAPI {
             localStorage.setItem('todoList', JSON.stringify([newTodo]))
         }
 
-        return Promise.resolve(newTodo as Todo);
+        return Promise.resolve(newTodo);
     }
 
     async getTodos(): Promise<Todo[]>{

@@ -7,7 +7,8 @@ import {
     deleteTodo,
     toggleAllTodos,
     deleteAllTodos,
-    updateTodoStatus
+    updateTodoStatus,
+    editTodo
 } from './store/actions';
 import Service from './service';
 import {TodoStatus} from './models/todo';
@@ -19,8 +20,9 @@ type EnhanceTodoStatus = TodoStatus | 'ALL';
 const ToDoPage = () => {
     const [{todos}, dispatch] = useReducer(reducer, initialState);
     const [showing, setShowing] = useState<EnhanceTodoStatus>('ALL');
-    const [editing, setEditing] = useState(false);
     const inputRef = useRef<HTMLInputElement>(null);
+    const [todoContent, setTodoContent] = useState('');
+    const [editingId, setEditingId] = useState('')
 
     useEffect(()=>{
         (async ()=>{
@@ -65,18 +67,21 @@ const ToDoPage = () => {
         return isTodoCompleted(todo) ? accum : accum + 1;
     }, 0);
 
-    const handleDoubleClick = (valueTodo: string) => {
-        // console.log('handleDoubleClick')
-        // if (inputRef.current) {
-        //     inputRef.current.value = valueTodo
-        // }
-        // setEditing(true)
+    const handleDoubleClick = (valueTodo: string, todoId: string) => {
+        setEditingId(todoId)
+        setTodoContent(valueTodo)
+    }
+
+    const handleChangeContent = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setTodoContent(e.target.value)
     }
 
     const handleEditTodo = (e: React.KeyboardEvent<HTMLInputElement>) => {
-        // if (e.key === 'Enter' && inputRef.current) {
-        //     console.log('handleEditTodo')
-        // }
+        if (e.key === 'Enter') {
+            dispatch(editTodo(editingId, todoContent))
+            setEditingId('')
+            setTodoContent('')
+        }
     }
 
     return (
@@ -92,11 +97,13 @@ const ToDoPage = () => {
             <div className="ToDo__list">
                 {
                     showTodos.map((todo, index) => {
-                        if (editing) {
+                        if (todo.id === editingId) {
                             return (
                                 <input
                                     key={index}
-                                    ref={inputRef}
+                                    value={todoContent}
+                                    ref={inputEditContent => inputEditContent && inputEditContent.focus()}
+                                    onChange={handleChangeContent}
                                     onKeyDown={handleEditTodo}
                                 />
                             )
@@ -109,7 +116,7 @@ const ToDoPage = () => {
                                     checked={isTodoCompleted(todo)}
                                     onChange={(e) => onUpdateTodoStatus(e, todo.id)}
                                 />
-                                <span onDoubleClick={() => handleDoubleClick(todo.content)}>{todo.content}</span>
+                                <span onDoubleClick={() => handleDoubleClick(todo.content, todo.id)}>{todo.content}</span>
                                 <button
                                     className="Todo__delete"
                                     onClick={() => dispatch(deleteTodo(todo.id))}
