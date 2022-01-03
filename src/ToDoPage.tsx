@@ -19,6 +19,7 @@ type EnhanceTodoStatus = TodoStatus | 'ALL';
 const ToDoPage = () => {
     const [{todos}, dispatch] = useReducer(reducer, initialState);
     const [showing, setShowing] = useState<EnhanceTodoStatus>('ALL');
+    const [editing, setEditing] = useState(false);
     const inputRef = useRef<HTMLInputElement>(null);
 
     useEffect(()=>{
@@ -64,6 +65,20 @@ const ToDoPage = () => {
         return isTodoCompleted(todo) ? accum : accum + 1;
     }, 0);
 
+    const handleDoubleClick = (valueTodo: string) => {
+        // console.log('handleDoubleClick')
+        // if (inputRef.current) {
+        //     inputRef.current.value = valueTodo
+        // }
+        // setEditing(true)
+    }
+
+    const handleEditTodo = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        // if (e.key === 'Enter' && inputRef.current) {
+        //     console.log('handleEditTodo')
+        // }
+    }
+
     return (
         <div className="ToDo__container">
             <div className="Todo__creation">
@@ -77,6 +92,16 @@ const ToDoPage = () => {
             <div className="ToDo__list">
                 {
                     showTodos.map((todo, index) => {
+                        if (editing) {
+                            return (
+                                <input
+                                    key={index}
+                                    ref={inputRef}
+                                    onKeyDown={handleEditTodo}
+                                />
+                            )
+                        }
+
                         return (
                             <div key={index} className="ToDo__item">
                                 <input
@@ -84,7 +109,7 @@ const ToDoPage = () => {
                                     checked={isTodoCompleted(todo)}
                                     onChange={(e) => onUpdateTodoStatus(e, todo.id)}
                                 />
-                                <span>{todo.content}</span>
+                                <span onDoubleClick={() => handleDoubleClick(todo.content)}>{todo.content}</span>
                                 <button
                                     className="Todo__delete"
                                     onClick={() => dispatch(deleteTodo(todo.id))}
