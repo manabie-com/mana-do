@@ -39,6 +39,10 @@
     ]
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^5.16.1",
+    "@testing-library/react": "^12.1.2",
+    "@testing-library/react-hooks": "^7.0.2",
+    "@types/babel__core": "^7.1.17",
     "@types/shortid": "^0.0.29"
   }
 }

@@ -6,7 +6,7 @@ import './App.css';
 
 function App() {
   return (
-    <main className="App">
+    <main data-testid="app" className="App">
       <ToDoPage />
     </main>
   );

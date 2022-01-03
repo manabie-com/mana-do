@@ -12,9 +12,11 @@ button {
   min-height: 32px;
   min-width: 80px;
   padding: 4px 8px;
+  cursor: pointer;
 }
 
 button:hover {
+  background-color: #ddd;
   opacity: 0.85;
 }
 
@@ -78,11 +80,23 @@ input:focus {
 .ToDo__item > span {
   flex: 1 1;
   text-align: left;
-  margin-left: 8px;
+  margin: 0 8px;
+  padding-left: 5px;
 }
 
 .Todo__content {
   flex: 1 1;
+}
+
+.Todo__content:hover {
+  border: 1px solid #ddd;
+  padding: 4px;
+  cursor: text;
+}
+
+.Todo__input--editing {
+  flex: 1 1;
+  margin: 0 8px;
 }
 
 .Todo__delete {
@@ -121,5 +135,6 @@ input:focus {
   margin-right: 8px;
 }
 
-.Action__btn {
+.Action__btn.active {
+  background-color: #ddd;
 }

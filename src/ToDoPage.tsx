@@ -7,19 +7,26 @@ import {
     deleteTodo,
     toggleAllTodos,
     deleteAllTodos,
-    updateTodoStatus
+    updateTodoStatus,
+    changeTodoMode,
+    updateTodoContent
 } from './store/actions';
 import Service from './service';
-import {TodoStatus} from './models/todo';
+import {Todo, TodoStatus} from './models/todo';
 import {isTodoCompleted} from './utils';
 
 type EnhanceTodoStatus = TodoStatus | 'ALL';
 
+export function main() {
+    const mockMode = process.env.REACT_APP_WHOAMI;
+    return mockMode;
+}
 
 const ToDoPage = () => {
     const [{todos}, dispatch] = useReducer(reducer, initialState);
     const [showing, setShowing] = useState<EnhanceTodoStatus>('ALL');
     const inputRef = useRef<HTMLInputElement>(null);
+    const editingInputRef = useRef<HTMLInputElement>(null);
 
     useEffect(()=>{
         (async ()=>{
@@ -30,10 +37,17 @@ const ToDoPage = () => {
     }, [])
 
     const onCreateTodo = async (e: React.KeyboardEvent<HTMLInputElement>) => {
-        if (e.key === 'Enter' && inputRef.current) {
+        if (e.key === 'Enter' && inputRef.current?.value) {
             const resp = await Service.createTodo(inputRef.current.value);
             dispatch(createTodo(resp));
             inputRef.current.value = '';
+        }
+    }
+
+    const onUpdateTodoContent = (e: React.KeyboardEvent<HTMLInputElement>, todo: Todo) => {
+        if (e.key === 'Enter' && editingInputRef.current?.value) {
+            dispatch(updateTodoContent(todo.id, editingInputRef.current.value))
+            dispatch(changeTodoMode(todo.id, !todo.isEditing))
         }
     }
 
@@ -65,7 +79,7 @@ const ToDoPage = () => {
     }, 0);
 
     return (
-        <div className="ToDo__container">
+        <div data-testid="todo-page" className="ToDo__container">
             <div className="Todo__creation">
                 <input
                     ref={inputRef}
@@ -80,12 +94,32 @@ const ToDoPage = () => {
                         return (
                             <div key={index} className="ToDo__item">
                                 <input
+                                    data-testid={`${todo.id}__status`}
                                     type="checkbox"
                                     checked={isTodoCompleted(todo)}
                                     onChange={(e) => onUpdateTodoStatus(e, todo.id)}
                                 />
-                                <span>{todo.content}</span>
+                                    {todo.isEditing ?
+                                        <input 
+                                            type="text"
+                                            ref={editingInputRef}
+                                            autoFocus
+                                            name="editTodoInput"
+                                            className="Todo__input--editing"
+                                            defaultValue={todo.content}
+                                            onKeyDown={(e) => onUpdateTodoContent(e, todo)}
+                                            onBlur={() => dispatch(changeTodoMode(todo.id, !todo.isEditing))}
+                                        />
+                                        : 
+                                        <span 
+                                            className="Todo__content"
+                                            onDoubleClick={() => {dispatch(changeTodoMode(todo.id, !todo.isEditing))}}
+                                        >
+                                            {todo.content}
+                                        </span> 
+                                    }
                                 <button
+                                    data-testid={`${todo.id}__delete`}
                                     className="Todo__delete"
                                     onClick={() => dispatch(deleteTodo(todo.id))}
                                 >
@@ -99,20 +133,21 @@ const ToDoPage = () => {
             <div className="Todo__toolbar">
                 {todos.length > 0 ?
                     <input
+                        data-testid="toggle-all"
                         type="checkbox"
                         checked={activeTodos === 0}
                         onChange={onToggleAllTodo}
                     /> : <div/>
                 }
                 <div className="Todo__tabs">
-                    <button className="Action__btn" onClick={()=>setShowing('ALL')}>
-                        All
+                    <button className={`Action__btn ${showing === 'ALL' ? "active" : ""}`} onClick={()=>setShowing('ALL')}>
+                        All ({todos.length})
                     </button>
-                    <button className="Action__btn" onClick={()=>setShowing(TodoStatus.ACTIVE)}>
-                        Active
+                    <button className={`Action__btn ${showing === TodoStatus.ACTIVE ? "active" : ""}`} onClick={()=>setShowing(TodoStatus.ACTIVE)}>
+                        Active ({todos.filter((todo) => todo.status === TodoStatus.ACTIVE).length})
                     </button>
-                    <button className="Action__btn" onClick={()=>setShowing(TodoStatus.COMPLETED)}>
-                        Completed
+                    <button className={`Action__btn ${showing === TodoStatus.COMPLETED ? "active" : ""}`} onClick={()=>setShowing(TodoStatus.COMPLETED)}>
+                        Completed ({todos.filter((todo) => todo.status === TodoStatus.COMPLETED).length})
                     </button>
                 </div>
                 <button className="Action__btn" onClick={onDeleteAllTodo}>
