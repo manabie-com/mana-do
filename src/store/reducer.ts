@@ -4,7 +4,9 @@ import {
   CREATE_TODO,
   DELETE_ALL_TODOS,
   DELETE_TODO,
+  SET_TODO,
   TOGGLE_ALL_TODOS,
+  UPDATE_TODO_CONTENT,
   UPDATE_TODO_STATUS,
 } from './actions';
 
@@ -62,6 +64,20 @@ function reducer(state: AppState, action: AppActions): AppState {
       return {
         ...state,
         todos: [],
+      };
+
+    case SET_TODO:
+      return {
+        ...state,
+        todos: action.payload,
+      };
+
+    case UPDATE_TODO_CONTENT:
+      const updatedIndex = state.todos.findIndex((todo) => todo.id === action.payload.todoId);
+
+      return {
+        ...state,
+        todos: state.todos.map((todo, i) => (i === updatedIndex ? { ...todo, content: action.payload.content } : todo)),
       };
     default:
       return state;

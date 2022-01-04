@@ -19,5 +19,6 @@ module.exports = {
     'import/no-webpack-loader-syntax': 'off',
     'prettier/prettier': ['error'],
     '@typescript-eslint/no-var-requires': 'off',
+    '@typescript-eslint/ban-types': 'off',
   },
 };

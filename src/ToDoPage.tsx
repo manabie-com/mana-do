@@ -1,12 +1,61 @@
-import React, { useEffect, useReducer, useRef, useState } from 'react';
+import React, { ChangeEvent, useEffect, useReducer, useRef, useState } from 'react';
 
 import reducer, { initialState } from './store/reducer';
-import { createTodo, deleteAllTodos, deleteTodo, setTodos, toggleAllTodos, updateTodoStatus } from './store/actions';
+import {
+  createTodo,
+  deleteAllTodos,
+  deleteTodo,
+  setTodos,
+  toggleAllTodos,
+  updateTodoContent,
+  updateTodoStatus,
+} from './store/actions';
 import Service from './service';
-import { TodoStatus } from './models/todo';
+import { Todo, TodoStatus } from './models/todo';
 import { isTodoCompleted } from './utils';
 
 type EnhanceTodoStatus = TodoStatus | 'ALL';
+
+interface TodoItemProps {
+  todo: Todo;
+  onUpdateStatus(e: ChangeEvent<HTMLInputElement>, todo: Todo): void;
+  onUpdateContent(newContent: string, todo: Todo): void;
+  onDelete(todo: Todo): void;
+}
+
+const ToDoItem = ({ todo, onUpdateStatus, onUpdateContent, onDelete }: TodoItemProps) => {
+  const [editMode, setEditMode] = useState(false);
+  const [value, setValue] = useState('');
+
+  useEffect(() => {
+    setValue(todo.content || '');
+  }, [todo]);
+
+  const onDoubleClickTodoItem = () => {
+    setEditMode(true);
+  };
+
+  const onChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setValue(e.target.value);
+  };
+
+  const onBlurHandler = () => {
+    setEditMode(false);
+    onUpdateContent(value, todo);
+  };
+
+  return !editMode ? (
+    <div className='ToDo__item' onDoubleClick={onDoubleClickTodoItem}>
+      <input type='checkbox' checked={isTodoCompleted(todo)} onChange={(e) => onUpdateStatus(e, todo)} />
+      <span>{todo.content}</span>
+      <button className='Todo__delete' onClick={() => onDelete(todo)}>
+        X
+      </button>
+    </div>
+  ) : (
+    <input placeholder='Todo' value={value} onChange={onChangeInput} onBlur={onBlurHandler} />
+  );
+};
 
 const ToDoPage = () => {
   const [{ todos }, dispatch] = useReducer(reducer, initialState);
@@ -17,7 +66,7 @@ const ToDoPage = () => {
     (async () => {
       const resp = await Service.getTodos();
 
-      dispatch(setTodos(resp || []));
+      dispatch(setTodos(resp));
     })();
   }, []);
 
@@ -29,8 +78,12 @@ const ToDoPage = () => {
     }
   };
 
-  const onUpdateTodoStatus = (e: React.ChangeEvent<HTMLInputElement>, todoId: string) => {
-    dispatch(updateTodoStatus(todoId, e.target.checked));
+  const onUpdateTodoStatus = (e: React.ChangeEvent<HTMLInputElement>, todo: Todo) => {
+    const checked = e.target.checked;
+    (async () => {
+      await Service.updateTodo(todo.id, todo.content, checked ? TodoStatus.COMPLETED : TodoStatus.ACTIVE);
+      dispatch(updateTodoStatus(todo.id, checked));
+    })();
   };
 
   const onToggleAllTodo = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -56,6 +109,22 @@ const ToDoPage = () => {
     return isTodoCompleted(todo) ? accum : accum + 1;
   }, 0);
 
+  const deleteTodoHandler = async (todo: Todo) => {
+    try {
+      await Service.removeTodo(todo);
+      dispatch(deleteTodo(todo.id));
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  const onUpdateTodoItemContent = (newContent: string, todo: Todo) => {
+    (async () => {
+      await Service.updateTodo(todo.id, newContent, todo.status || TodoStatus.ACTIVE);
+      dispatch(updateTodoContent(todo.id, newContent));
+    })();
+  };
+
   return (
     <div className='ToDo__container'>
       <div className='Todo__creation'>
@@ -64,13 +133,13 @@ const ToDoPage = () => {
       <div className='ToDo__list'>
         {showTodos.map((todo, index) => {
           return (
-            <div key={index} className='ToDo__item'>
-              <input type='checkbox' checked={isTodoCompleted(todo)} onChange={(e) => onUpdateTodoStatus(e, todo.id)} />
-              <span>{todo.content}</span>
-              <button className='Todo__delete' onClick={() => dispatch(deleteTodo(todo.id))}>
-                X
-              </button>
-            </div>
+            <ToDoItem
+              key={index}
+              todo={todo}
+              onUpdateStatus={onUpdateTodoStatus}
+              onUpdateContent={onUpdateTodoItemContent}
+              onDelete={deleteTodoHandler}
+            />
           );
         })}
       </div>

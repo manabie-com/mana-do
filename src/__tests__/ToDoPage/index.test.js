@@ -91,4 +91,23 @@ describe('Todo Page', () => {
       expect(todoCheckbox).not.toBeInTheDocument();
     });
   });
+
+  it('should be able to edit the todo item', async () => {
+    const { queryByPlaceholderText, getByText, queryByRole } = renderView();
+
+    const todoInput = queryByPlaceholderText(/what need to be done?/i);
+    userEvent.type(todoInput, 'show edit');
+    fireEvent.keyDown(todoInput, {
+      keyCode: 13,
+    });
+
+    await waitFor(() => {
+      const todoItems = getByText(/show edit/i);
+      fireEvent.dblClick(todoItems);
+
+      const inputItem = queryByRole('input', { value: /show edit/i });
+      expect(todoItems).not.toBeInTheDocument();
+      expect(inputItem).toBeInTheDocument();
+    });
+  });
 });
