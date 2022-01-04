@@ -73,6 +73,13 @@ input:focus {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  cursor: pointer;
+  padding: 0 10px;
+  margin: 0 -10px;
+}
+
+.ToDo__item:hover {
+  background: lightgray;
 }
 
 .ToDo__item > span {
@@ -121,5 +128,7 @@ input:focus {
   margin-right: 8px;
 }
 
-.Action__btn {
+.Action__btn.active, .Action__btn:active  {
+  background-color: lightblue;
+  color: white;
 }

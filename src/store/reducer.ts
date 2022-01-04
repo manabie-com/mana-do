@@ -1,64 +1,73 @@
-import {Todo, TodoStatus} from '../models/todo';
+import { Todo, TodoStatus } from "../models/todo";
 import {
   AppActions,
   CREATE_TODO,
   DELETE_ALL_TODOS,
   DELETE_TODO,
   TOGGLE_ALL_TODOS,
-  UPDATE_TODO_STATUS
-} from './actions';
+  UPDATE_TODO_STATUS,
+} from "./actions";
 
 export interface AppState {
-  todos: Array<Todo>
+  todos: Array<Todo>;
 }
 
 export const initialState: AppState = {
-  todos: []
-}
+  todos: [],
+};
 
 function reducer(state: AppState, action: AppActions): AppState {
   switch (action.type) {
     case CREATE_TODO:
-      state.todos.push(action.payload);
+      // state.todos.push(action.payload); -> state is readonly, producing new state instead of modify them
+      state = { todos: [...state.todos, action.payload] };
       return {
-        ...state
+        ...state,
       };
 
-    case UPDATE_TODO_STATUS:
-      const index2 = state.todos.findIndex((todo) => todo.id === action.payload.todoId);
-      state.todos[index2].status = action.payload.checked ? TodoStatus.COMPLETED : TodoStatus.ACTIVE;
+    case UPDATE_TODO_STATUS: {
+      // naming convention: index2 -> todo
+      const todo = state.todos.findIndex(
+        (todo) => todo.id === action.payload.todoId
+      );
+      state.todos[todo].status = action.payload.checked
+        ? TodoStatus.COMPLETED
+        : TodoStatus.ACTIVE;
 
       return {
         ...state,
-        todos: state.todos
-      }
+        todos: state.todos,
+      };
+    }
 
     case TOGGLE_ALL_TODOS:
-      const tempTodos = state.todos.map((e)=>{
+      // naming convention: e -> todo
+      const tempTodos = state.todos.map((todo) => {
         return {
-          ...e,
-          status: action.payload ? TodoStatus.COMPLETED : TodoStatus.ACTIVE
-        }
-      })
+          ...todo,
+          status: action.payload ? TodoStatus.COMPLETED : TodoStatus.ACTIVE,
+        };
+      });
 
       return {
         ...state,
-        todos: tempTodos
-      }
+        todos: tempTodos,
+      };
 
     case DELETE_TODO:
-      const index1 = state.todos.findIndex((todo) => todo.id === action.payload);
-      state.todos.splice(index1, 1);
+      // naming convention: index1 -> todo
+      // state.todos.splice(todo, 1); -> state is readonly, producing new state instead of modify them
+      const filteredTodos = state.todos.filter((t) => t.id !== action.payload);
 
       return {
         ...state,
-        todos: state.todos
-      }
+        todos: filteredTodos,
+      };
     case DELETE_ALL_TODOS:
       return {
         ...state,
-        todos: []
-      }
+        todos: [],
+      };
     default:
       return state;
   }
