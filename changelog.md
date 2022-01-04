@@ -1,6 +1,6 @@
 # Errors
 - Error with tsconfig.json: "cannot find type definition file for 'babel__core'"
-  - run this command: `npm install @types/node --save-dev`
+- run this command: `npm install @types/node --save-dev`
 
 # Bugs to be fixed
 ## User is able to save empty todo
@@ -30,7 +30,7 @@
 - Run command `npm install --save-dev @testing-library/react @testing-library/jest-dom @testing-library/react-hooks`
 
 ## Test try
-- I have tested to make sure useReducer works and the App works properly as required.
+- I have tested to make sure useReducer works and the App works properly as required. I have to comment the lines in [Service File](src/service/index.ts)
 
 1. However, I got a **warning** which I tried different ways to find solutions to fixed it but I couldn't. Some of them still passed the test but have nothing to do with the warning.
 - If I remove the 
