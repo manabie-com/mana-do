@@ -17,8 +17,8 @@ export interface AppState {
 export const initialState: AppState = {
   todos: []
 }
-
-function reducer(state: AppState, action: AppActions): AppState {
+// define initial state when parameter is undefined
+function reducer(state: AppState = initialState, action: AppActions): AppState {
   switch (action.type) {
     case SET_TODO: 
       return {
@@ -26,15 +26,19 @@ function reducer(state: AppState, action: AppActions): AppState {
         todos : action.payload
       }
     case CREATE_TODO:
-      // Trong reducer không cho phép mutate object trực tiếp mà phải clone nó ra rồi mới chỉnh sửa.
+      // In reducer, it does not allow to mutate the object directly.
+      // We need to clone it and then modify it
       return {
         ...state,
         todos : [...state.todos,action.payload]
       };
 
     case UPDATE_TODO_STATUS:
-      // Clone mảng todos sang mảng mới tránh mutate mảng cũ
+      // Clone todos array to the new one to avoid mutating the old array
       const index2 = state.todos.findIndex((todo) => todo.id === action.payload.todoId);
+      // check the todo exists or not
+      if(index2 < 0)
+        return state
       const todoList = [...state.todos]
       todoList[index2].status = action.payload.checked ? TodoStatus.COMPLETED : TodoStatus.ACTIVE;
       return {
@@ -43,6 +47,8 @@ function reducer(state: AppState, action: AppActions): AppState {
       }
     case UPDATE_TODO_CONTENT:
       const todoIndex = state.todos.findIndex((todo) => todo.id === action.payload.todoID);
+      if(todoIndex < 0)
+        return state
       const todoList2 = [...state.todos]
       todoList2[todoIndex].content = action.payload.todoContent
 
@@ -65,7 +71,9 @@ function reducer(state: AppState, action: AppActions): AppState {
 
     case DELETE_TODO:
       const index1 = state.todos.findIndex((todo) => todo.id === action.payload);
-      // Clone todos sang mảng mới rồi xóa item, nếu không clone sẽ bị mảng cũ sẽ bị mutate. 
+      if(index1 < 0)
+        return state
+      // Clone todos array, then remove the item
       const newTodos = [...state.todos]
       newTodos.splice(index1,1)
       return {

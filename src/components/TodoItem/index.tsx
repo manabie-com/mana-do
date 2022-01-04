@@ -12,7 +12,7 @@ export interface TodoItemProps {
   onDeleteTodo(todoID: string): void;
   onTodoDoubleClick(todoID: string): void;
   onToggleEditTodo():void
-  onEditTodoContent(todoID:string,todoContent:string):void
+  onUpdateTodoContent(todoID:string,todoContent:string):void
 }
 
 export const TodoItem = ({
@@ -22,7 +22,7 @@ export const TodoItem = ({
   onDeleteTodo,
   onTodoDoubleClick,
   onToggleEditTodo,
-  onEditTodoContent
+  onUpdateTodoContent
 }: TodoItemProps) => {
 
   const editRef = useRef<HTMLInputElement>(null);
@@ -31,7 +31,7 @@ export const TodoItem = ({
   }
   const handleEditTodo = (e:React.KeyboardEvent<HTMLInputElement>) => {
     if(e.key === 'Enter' && editing === todo.id && editRef.current?.value) {
-      onEditTodoContent(todo.id,editRef.current.value)
+      onUpdateTodoContent(todo.id,editRef.current.value.trim())
       onToggleEditTodo()
     }
   }

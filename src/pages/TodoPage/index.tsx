@@ -30,48 +30,81 @@ const ToDoPage = () => {
         storageRef.current = true;
       } catch (error) {
         // handle error
-        dispatch(setError())
+        dispatch(setError());
       }
     })();
   }, []);
 
+  // using useEffect to watch todo list changed, then save it to local storage.
   useEffect(() => {
     (() => {
-      // make sure this call back is always called after fetching data
+      // make sure this call back is always called after fetching data in first useEffect.
       if (storageRef.current) localStorage.setItem('todos', JSON.stringify(todos));
     })();
   }, [todos]);
 
   const onCreateTodo = async (e: React.KeyboardEvent<HTMLInputElement>) => {
     try {
-      // Kiểm tra thuộc tính value có phải chuỗi rỗng hay không
+      // check the property value of inputRef is not empty
       if (e.key === 'Enter' && inputRef.current?.value) {
-        const resp = await Service.createTodo(inputRef.current.value);
+        const resp = await Service.createTodo(inputRef.current.value.trim());
         dispatch(createTodo(resp));
         inputRef.current.value = '';
       }
     } catch (error) {
       // handle error
-      dispatch(setError())
+      dispatch(setError());
     }
   };
 
-  const onUpdateTodoStatus = (todoId: string, value: boolean) => {
-    dispatch(updateTodoStatus(todoId, value));
+  const onUpdateTodoStatus = async (todoId: string, value: boolean) => {
+    try {
+      const resp = await Service.updateTodoStatus(todoId, value);
+      if (resp) dispatch(updateTodoStatus(todoId, value));
+    } catch (error) {
+      // handle error
+      dispatch(setError());
+    }
   };
 
-  const onToggleAllTodo = (value: boolean) => {
-    dispatch(toggleAllTodos(value));
+  const onToggleAllTodo = async (value: boolean) => {
+    try {
+      const resp = await Service.toggleAllTodo(value);
+      if (resp) dispatch(toggleAllTodos(value));
+    } catch (error) {
+      // handle error
+      dispatch(setError());
+    }
   };
 
-  const onDeleteAllTodo = () => {
-    dispatch(deleteAllTodos());
+  const onDeleteAllTodo = async () => {
+    try {
+      const resp = await Service.deleteAllTodo();
+      if (resp) dispatch(deleteAllTodos());
+    } catch (error) {
+      // handle error
+      dispatch(setError());
+    }
   };
 
-  const onDeleteTodo = (todoID: string) => {
-    dispatch(deleteTodo(todoID));
+  const onDeleteTodo = async (todoID: string) => {
+    try {
+      const resp = await Service.deleteTodo(todoID);
+      if (resp) dispatch(deleteTodo(todoID));
+    } catch (error) {
+      // handle error
+      dispatch(setError());
+    }
   };
-
+  const onUpdateTodoContent = async (todoID: string, value: string) => {
+    try {
+      const resp = await Service.updateTodoContent(todoID, value);
+      if (resp) dispatch(updateTodoContent(todoID, value));
+    } catch (error) {
+      // handle error
+      dispatch(setError());
+    }
+  };
   const onSetShowing = (option: EnhanceTodoStatus) => {
     setShowing(option);
   };
@@ -80,9 +113,6 @@ const ToDoPage = () => {
   };
   const onToggleEditTodo = () => {
     if (editing) setEditing('');
-  };
-  const onEditTodoContent = (todoID: string, content: string) => {
-    dispatch(updateTodoContent(todoID, content));
   };
   const showTodos = todos.filter((todo) => {
     switch (showing) {
@@ -118,7 +148,7 @@ const ToDoPage = () => {
               onDeleteTodo={onDeleteTodo}
               onTodoDoubleClick={onTodoDoubleClick}
               onToggleEditTodo={onToggleEditTodo}
-              onEditTodoContent={onEditTodoContent}
+              onUpdateTodoContent={onUpdateTodoContent}
             />
           );
         })}

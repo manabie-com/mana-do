@@ -12,7 +12,6 @@ class ApiFrontend extends IAPI {
             user_id: 'firstUser'
         } as Todo);
     }
-
     async getTodos(): Promise<Todo[]>{
         const todos = localStorage.getItem('todos')
         if(todos)
@@ -20,6 +19,21 @@ class ApiFrontend extends IAPI {
         else
             return  Promise.resolve([])
     }
-}
+    async updateTodoStatus(todoId: string, value: boolean) : Promise<any> {
+        return Promise.resolve({todoId,value})
+    }
+    async toggleAllTodo(value: boolean) : Promise<any> {
+        return Promise.resolve(true)
+    }
+    async deleteAllTodo(): Promise<any> {
+        return Promise.resolve(true)
+    }
+    async deleteTodo(todoId: string): Promise<any> {
+        return Promise.resolve(todoId)
+    }
+    async updateTodoContent(todoId: string, value: string): Promise<any> {
+        return Promise.resolve({todoId,value})
+    }
+}   
 
 export default new ApiFrontend();

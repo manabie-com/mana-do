@@ -15,12 +15,12 @@ const mockOnUpdateTodoStatus = jest.fn();
 const mockOnDeleteTodo = jest.fn();
 const mockOnTodoDoubleClick = jest.fn();
 const mockOnToggleEditTodo = jest.fn();
-const mockOnEditTodoContent = jest.fn();
+const mockOnUpdateTodoContent = jest.fn();
 const props: TodoItemProps = {
   todo: mockTodo,
   editing: mockEditing,
   onDeleteTodo: mockOnDeleteTodo,
-  onEditTodoContent: mockOnEditTodoContent,
+  onUpdateTodoContent: mockOnUpdateTodoContent,
   onTodoDoubleClick: mockOnTodoDoubleClick,
   onToggleEditTodo: mockOnToggleEditTodo,
   onUpdateTodoStatus: mockOnUpdateTodoStatus,
@@ -36,7 +36,7 @@ describe('TodoItem component', () => {
       expect(screen.queryByTestId('todo-item--edit')).not.toBeInTheDocument();
     });
     it('the todo content should be displayed', () => {
-      expect(screen.getByText('some tasks')).toBeInTheDocument();
+      expect(screen.getByText(mockTodo.content)).toBeInTheDocument();
     });
     it('the todo content should not have completed class', () => {
       expect(screen.getByTestId('todo-item')).not.toHaveClass('ToDo__item--completed');
@@ -48,13 +48,13 @@ describe('TodoItem component', () => {
       const statusCheckBox:HTMLInputElement = screen.getByRole('checkbox')
       fireEvent.click(statusCheckBox)
       expect(mockOnUpdateTodoStatus).toHaveBeenCalledTimes(1)
-      expect(mockOnUpdateTodoStatus).toHaveBeenCalledWith('231-s',true)
+      expect(mockOnUpdateTodoStatus).toHaveBeenCalledWith(mockTodo.id,true)
     });
     it('trigger delete todo event when click button', () => {
       const deleteBtn:HTMLButtonElement = screen.getByRole('button')
       fireEvent.click(deleteBtn)
       expect(mockOnDeleteTodo).toHaveBeenCalledTimes(1)
-      expect(mockOnDeleteTodo).toHaveBeenCalledWith('231-s')
+      expect(mockOnDeleteTodo).toHaveBeenCalledWith(mockTodo.id)
     });
   });
   describe('initialized with todo status is completed', () => {
@@ -70,22 +70,22 @@ describe('TodoItem component', () => {
       const statusCheckBox:HTMLInputElement = screen.getByRole('checkbox')
       fireEvent.click(statusCheckBox)
       expect(mockOnUpdateTodoStatus).toHaveBeenCalledTimes(1)
-      expect(mockOnUpdateTodoStatus).toHaveBeenCalledWith('231-s',false)
+      expect(mockOnUpdateTodoStatus).toHaveBeenCalledWith(mockTodo.id,false)
     });
     it('the todo content should have completed class', () => {
       expect(screen.getByTestId('todo-item')).toHaveClass('ToDo__item--completed');
     });
     it('change to edit mode when double click', () => {
-      const todoElement = screen.getByText('some tasks')
+      const todoElement = screen.getByText(mockTodo.content)
       fireEvent.doubleClick(todoElement)
       expect(mockOnTodoDoubleClick).toHaveBeenCalledTimes(1)
-      expect(mockOnTodoDoubleClick).toHaveBeenCalledWith('231-s')
+      expect(mockOnTodoDoubleClick).toHaveBeenCalledWith(mockTodo.id)
     });
   });
   describe('initialized with edit mode', () => {
     afterEach(cleanup);
     beforeEach(() => {
-      const newProps = {...props,editing:'231-s'}
+      const newProps = {...props,editing:mockTodo.id}
       render(<TodoItem {...newProps} />);
     });
     it('the component should not be edit mode', () => {
@@ -94,20 +94,20 @@ describe('TodoItem component', () => {
     });
     it('the edit input default value is the same with todo content', () => {
       const editElement:HTMLInputElement = screen.getByTestId('todo-item--edit')
-      expect(editElement.value).toBe('some tasks');
+      expect(editElement.value).toBe(mockTodo.content);
     });
     it('should not trigger edit event when the input is empty', () => {
       const editElement:HTMLInputElement = screen.getByTestId('todo-item--edit')
       fireEvent.change(editElement,{target: {value : ''}})
       fireEvent.keyDown(editElement, {key: 'Enter', code: 'Enter', charCode: 13})
-      expect(mockOnEditTodoContent).toHaveBeenCalledTimes(0)
+      expect(mockOnUpdateTodoContent).toHaveBeenCalledTimes(0)
     });
     it('trigger edit event when press enter', () => {
       const editElement:HTMLInputElement = screen.getByTestId('todo-item--edit')
       fireEvent.change(editElement,{target: {value : 'some tasks edited'}})
       fireEvent.keyDown(editElement, {key: 'Enter', code: 'Enter', charCode: 13})
-      expect(mockOnEditTodoContent).toHaveBeenCalledTimes(1)
-      expect(mockOnEditTodoContent).toHaveBeenCalledWith('231-s','some tasks edited')
+      expect(mockOnUpdateTodoContent).toHaveBeenCalledTimes(1)
+      expect(mockOnUpdateTodoContent).toHaveBeenCalledWith(mockTodo.id,'some tasks edited')
       expect(mockOnToggleEditTodo).toHaveBeenCalledTimes(1)
     });
   });
