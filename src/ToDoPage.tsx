@@ -7,7 +7,8 @@ import {
     deleteTodo,
     toggleAllTodos,
     deleteAllTodos,
-    updateTodoStatus
+    updateTodoStatus,
+    updateTodoContent
 } from './store/actions';
 import Service from './service';
 import {TodoStatus} from './models/todo';
@@ -15,22 +16,28 @@ import {isTodoCompleted} from './utils';
 
 type EnhanceTodoStatus = TodoStatus | 'ALL';
 
-
 const ToDoPage = () => {
     const [{todos}, dispatch] = useReducer(reducer, initialState);
     const [showing, setShowing] = useState<EnhanceTodoStatus>('ALL');
+    const [editing, setEditing] = useState<number>(-1);
     const inputRef = useRef<HTMLInputElement>(null);
+    const inputEditRef = useRef<HTMLInputElement>(null);
 
     useEffect(()=>{
         (async ()=>{
             const resp = await Service.getTodos();
-
             dispatch(setTodos(resp || []));
         })()
-    }, [])
+    }, []);
+
+    useEffect(() => {
+        if (editing) {
+            inputEditRef.current?.focus();
+        }
+    }, [editing]);
 
     const onCreateTodo = async (e: React.KeyboardEvent<HTMLInputElement>) => {
-        if (e.key === 'Enter' && inputRef.current) {
+        if (e.key === 'Enter' && inputRef.current && inputRef.current.value) {
             const resp = await Service.createTodo(inputRef.current.value);
             dispatch(createTodo(resp));
             inputRef.current.value = '';
@@ -41,12 +48,24 @@ const ToDoPage = () => {
         dispatch(updateTodoStatus(todoId, e.target.checked))
     }
 
+    const onUpdateTodoContent = (e: React.KeyboardEvent<HTMLInputElement>, todoId: string) => {
+        if (e.key === 'Enter' && inputEditRef.current && inputEditRef.current.value) {
+            dispatch(updateTodoContent(todoId, inputEditRef.current?.value || ''));
+            setEditing(-1);
+        }
+    }
+
     const onToggleAllTodo = (e: React.ChangeEvent<HTMLInputElement>) => {
         dispatch(toggleAllTodos(e.target.checked))
     }
 
     const onDeleteAllTodo = () => {
         dispatch(deleteAllTodos());
+    }
+
+    const fnOpenEditForm = (index: number) => {
+        setEditing(index);
+        inputEditRef.current?.focus();
     }
 
     const showTodos = todos.filter((todo) => {
@@ -74,28 +93,6 @@ const ToDoPage = () => {
                     onKeyDown={onCreateTodo}
                 />
             </div>
-            <div className="ToDo__list">
-                {
-                    showTodos.map((todo, index) => {
-                        return (
-                            <div key={index} className="ToDo__item">
-                                <input
-                                    type="checkbox"
-                                    checked={isTodoCompleted(todo)}
-                                    onChange={(e) => onUpdateTodoStatus(e, todo.id)}
-                                />
-                                <span>{todo.content}</span>
-                                <button
-                                    className="Todo__delete"
-                                    onClick={() => dispatch(deleteTodo(todo.id))}
-                                >
-                                    X
-                                </button>
-                            </div>
-                        );
-                    })
-                }
-            </div>
             <div className="Todo__toolbar">
                 {todos.length > 0 ?
                     <input
@@ -105,19 +102,48 @@ const ToDoPage = () => {
                     /> : <div/>
                 }
                 <div className="Todo__tabs">
-                    <button className="Action__btn" onClick={()=>setShowing('ALL')}>
+                    <button className="Action__btn Info__btn" onClick={()=>setShowing('ALL')}>
                         All
                     </button>
-                    <button className="Action__btn" onClick={()=>setShowing(TodoStatus.ACTIVE)}>
+                    <button className="Action__btn Primary__btn" onClick={()=>setShowing(TodoStatus.ACTIVE)}>
                         Active
                     </button>
-                    <button className="Action__btn" onClick={()=>setShowing(TodoStatus.COMPLETED)}>
+                    <button className="Action__btn Success__btn" onClick={()=>setShowing(TodoStatus.COMPLETED)}>
                         Completed
                     </button>
                 </div>
-                <button className="Action__btn" onClick={onDeleteAllTodo}>
+                <button className="Action__btn Error__btn" onClick={onDeleteAllTodo}>
                     Clear all todos
                 </button>
+            </div>
+            <div className="ToDo__list">
+                {showTodos.length > 0
+                    ? showTodos.map((todo, index) => {
+                        return (
+                            <div key={index} className="ToDo__item">
+                                <input
+                                    type="checkbox"
+                                    checked={isTodoCompleted(todo)}
+                                    onChange={(e) => onUpdateTodoStatus(e, todo.id)}
+                                />
+                                {editing === index ? <input
+                                    ref={inputEditRef}
+                                    className="Todo__input"
+                                    defaultValue={todo.content}
+                                    onKeyDown={(e) => onUpdateTodoContent(e, todo.id)}
+                                    onBlur={() => setEditing(-1)}
+                                ></input> : <span onDoubleClick={() => fnOpenEditForm(index)}>{todo.content}</span>}
+                                <button
+                                    className="Todo__delete"
+                                    onClick={() => dispatch(deleteTodo(todo.id))}
+                                >
+                                    X
+                                </button>
+                            </div>
+                        );
+                    })
+                    : <span className="Nodata__text">Nothing to see here</span>
+                }
             </div>
         </div>
     );

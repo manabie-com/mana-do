@@ -1,11 +1,13 @@
 import {Todo, TodoStatus} from '../models/todo';
 import {
   AppActions,
+  SET_TODO,
   CREATE_TODO,
   DELETE_ALL_TODOS,
   DELETE_TODO,
   TOGGLE_ALL_TODOS,
-  UPDATE_TODO_STATUS
+  UPDATE_TODO_STATUS,
+  UPDATE_TODO_CONTENT
 } from './actions';
 
 export interface AppState {
@@ -16,10 +18,21 @@ export const initialState: AppState = {
   todos: []
 }
 
+function mutationAPI(data: Array<Todo>) {
+  localStorage.setItem('todos', JSON.stringify(data));
+}
+
 function reducer(state: AppState, action: AppActions): AppState {
   switch (action.type) {
+    case SET_TODO:
+      state.todos = action.payload;
+      mutationAPI(state.todos);
+      return {
+        ...state
+      };
     case CREATE_TODO:
       state.todos.push(action.payload);
+      mutationAPI(state.todos);
       return {
         ...state
       };
@@ -27,7 +40,16 @@ function reducer(state: AppState, action: AppActions): AppState {
     case UPDATE_TODO_STATUS:
       const index2 = state.todos.findIndex((todo) => todo.id === action.payload.todoId);
       state.todos[index2].status = action.payload.checked ? TodoStatus.COMPLETED : TodoStatus.ACTIVE;
-
+      mutationAPI(state.todos);
+      return {
+        ...state,
+        todos: state.todos
+      }
+    
+    case UPDATE_TODO_CONTENT:
+      const indexMutation = state.todos.findIndex((todo) => todo.id === action.payload.todoId);
+      state.todos[indexMutation].content = action.payload.content;
+      mutationAPI(state.todos);
       return {
         ...state,
         todos: state.todos
@@ -40,7 +62,7 @@ function reducer(state: AppState, action: AppActions): AppState {
           status: action.payload ? TodoStatus.COMPLETED : TodoStatus.ACTIVE
         }
       })
-
+      mutationAPI(tempTodos);
       return {
         ...state,
         todos: tempTodos
@@ -49,12 +71,13 @@ function reducer(state: AppState, action: AppActions): AppState {
     case DELETE_TODO:
       const index1 = state.todos.findIndex((todo) => todo.id === action.payload);
       state.todos.splice(index1, 1);
-
+      mutationAPI(state.todos);
       return {
         ...state,
         todos: state.todos
       }
     case DELETE_ALL_TODOS:
+      mutationAPI([]);
       return {
         ...state,
         todos: []
