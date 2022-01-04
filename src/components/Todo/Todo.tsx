@@ -88,29 +88,6 @@ const Item: React.FC<propsItem> = (props) => {
             />
           </div>
         )}
-
-        {/* <input
-          type="checkbox"
-          checked={isTodoCompleted(todo)}
-          onChange={(e) => onUpdateTodoStatus(e, todo.id)}
-        /> */}
-        {/* {isEdit ? (
-          <input
-            value={text}
-            className="Todo__input"
-            placeholder="What need to be done?"
-            onKeyDown={(e) => onEditTodo(e, todo.id)}
-          />
-        ) : (
-          <span onDoubleClick={handleEditContent}>{todo.content}</span>
-        )}
-
-        <button
-          className="Todo__delete"
-          onClick={() => dispatch(deleteTodo(todo.id))}
-        >
-          X
-        </button> */}
       </li>
     </ToDoWrapper>
   );
