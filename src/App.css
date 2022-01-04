@@ -1,4 +1,4 @@
-.App {
+.app {
   text-align: center;
   display: flex;
   justify-content: center;
@@ -45,7 +45,7 @@ input:focus {
   box-shadow: 1px 0 9px rgba(0,0,0, 0.25);
 }
 
-.ToDo__container {
+.task-container {
   border: 1px solid rgba(0,0,0, 0.13);
   border-radius: 8px;
   width: 500px;
@@ -55,37 +55,45 @@ input:focus {
               3px 2px 3px rgba(0,0,0, 0.05);
 }
 
-.Todo__creation {
+.task-creation {
   display: flex;
 }
 
-.Todo__input {
+.task-input {
   flex: 1 1;
 }
 
-.ToDo__list {
+.user-list {
+  margin-bottom: 1.5rem;
+  display: block;
+  width: 100%;
+  padding: 0.375rem 2.25rem 0.375rem 0.75rem;
+  color: #212529;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+  min-height: 36px;
+  box-shadow: 2px 0 4px rgb(0 0 0 / 20%);
+}
+
+.task-list {
   display: flex;
   flex-direction: column;
   margin-top: 1.5rem;
 }
 
-.ToDo__item {
+.task-item {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
-.ToDo__item > span {
+.task-item > span {
   flex: 1 1;
   text-align: left;
   margin-left: 8px;
 }
 
-.Todo__content {
-  flex: 1 1;
-}
-
-.Todo__delete {
+.task-delete {
   outline: none;
   border: none;
   width: 32px;
@@ -100,26 +108,23 @@ input:focus {
   cursor: pointer;
 }
 
-.Todo__action, .Todo__delete {
+.task-delete {
   width: 24px;
   height: 24px;
   flex-shrink: 0;
 }
 
-.Todo__toolbar {
+.task-toolbar {
   display: flex;
   justify-content: space-between;
   margin-top: 24px;
 }
 
-.Todo__tabs {
+.task-tabs {
   display: flex;
   justify-content: center;
 }
 
-.Todo__tabs > *:not(:last-child) {
+.task-tabs > *:not(:last-child) {
   margin-right: 8px;
-}
-
-.Action__btn {
 }

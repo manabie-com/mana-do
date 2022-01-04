@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "target": "ES2017",
+    "module": "commonjs",
+    "sourceMap": true,
+    "moduleResolution": "node",
+    "baseUrl": ".",
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "allowJs": true,
+    "checkJs": true,
+    "removeComments": true,
+    "noEmit": false,
+    "skipDefaultLibCheck": true,
+    "skipLibCheck": true,
+    "isolatedModules": false,
+    "noImplicitThis": true,
+    "alwaysStrict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "strictFunctionTypes": true,
+    "typeRoots": ["./typings", "./node_modules/@types"]
+  },
+}

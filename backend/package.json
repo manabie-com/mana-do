@@ -1,0 +1,27 @@
+{
+  "name": "mana-todo-be",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Uyen Nguyen",
+  "license": "MIT",
+  "dependencies": {
+    "@koa/cors": "^3.1.0",
+    "@koa/router": "^10.1.1",
+    "dotenv": "^10.0.0",
+    "koa": "^2.13.4",
+    "koa-bodyparser": "^4.3.0",
+    "koa-combine-routers": "^4.0.2",
+    "koa-helmet": "^6.1.0",
+    "koa-router": "^10.1.1",
+    "lowdb": "github:dankreiger/lowdb#chore/esm-cjs-hybrid-WITH-LIB",
+    "shortid": "^2.2.16",
+    "winston": "^3.3.3"
+  },
+  "devDependencies": {
+    "@types/koa-bodyparser": "^4.3.5",
+    "@types/koa__cors": "^3.1.1"
+  }
+}
