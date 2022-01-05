@@ -100,6 +100,11 @@ input:focus {
   cursor: pointer;
 }
 
+.Todo__delete:hover {
+  color: red;
+  filter: brightness(0.9);
+}
+
 .Todo__action, .Todo__delete {
   width: 24px;
   height: 24px;
