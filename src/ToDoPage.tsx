@@ -1,7 +1,7 @@
 import React, { useEffect, useReducer, useState } from "react";
 
 import reducer, { initialState } from "./store/reducer";
-import { setTodos } from "./store/actions";
+import { deleteTodo, setTodos } from "./store/actions";
 import Service from "./service";
 import { EnhanceTodoStatus } from "./models/todo";
 import { CreateTodo } from "./components/CreateTodo";
@@ -23,7 +23,7 @@ const ToDoPage = () => {
   return (
     <div className="ToDo__container">
       <CreateTodo dispatch={dispatch} />
-      <TodoList dispatch={dispatch} todos={todos} showing={showing} />
+      <TodoList dispatch={dispatch} todos={todos} showing={showing} onRemove={(todoId)=> dispatch(deleteTodo(todoId))} />
       <FilterTodos todos={todos} dispatch={dispatch} setShowing={setShowing} showing={showing} />
     </div>
   );

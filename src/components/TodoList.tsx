@@ -8,10 +8,11 @@ interface TodoListProps extends React.HTMLAttributes<HTMLDivElement> {
   dispatch: React.Dispatch<AppActions>;
   todos: Array<Todo>;
   showing: EnhanceTodoStatus;
+  onRemove: (todoId:string) => void;
 }
 
 export const TodoList = (props: TodoListProps) => {
-  const { dispatch, todos, showing } = props;
+  const { dispatch, todos, showing, onRemove } = props;
 
   const onUpdateTodoStatus = (
     e: React.ChangeEvent<HTMLInputElement>,
@@ -44,7 +45,7 @@ export const TodoList = (props: TodoListProps) => {
             <span>{todo.content}</span>
             <button
               className="Todo__delete"
-              onClick={() => dispatch(deleteTodo(todo.id))}
+              onClick={() => onRemove(todo.id)}
             >
               X
             </button>
