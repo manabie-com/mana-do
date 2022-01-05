@@ -4,41 +4,35 @@ import { Todo, TodoStatus } from "models/todo";
 
 type EnhanceTodoStatus = TodoStatus | "ALL";
 
-interface Props {
+export interface Props {
   showing: EnhanceTodoStatus;
-  todos: Array<Todo>;
+  todoAmount: number;
   activeTodos: number;
-  setShowing: React.Dispatch<React.SetStateAction<EnhanceTodoStatus>>;
+  onSetShowing: (option: EnhanceTodoStatus) => void;
   onDeleteAllTodo: () => void;
-  onToggleAllTodo: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 const Footer: React.FC<Props> = (props) => {
-  const {
-    showing,
-    todos,
-    activeTodos,
-    onToggleAllTodo,
-    setShowing,
-    onDeleteAllTodo,
-  } = props;
+  const { showing, todoAmount, activeTodos, onSetShowing, onDeleteAllTodo } =
+    props;
 
   return (
     <ToDoWrapper>
       <div className="footer">
         <div className="footer__toolbar">
           <span className="footer__todo-count">
-            <strong>{todos.length}</strong>
+            <strong>{todoAmount}</strong>
             <span> </span>
-            <span>{todos.length > 1 ? "items" : "item"}</span>
+            <span>{todoAmount > 1 ? "items" : "item"}</span>
             <span> left</span>
           </span>
 
           <ul className="footer__tabs">
             <li>
               <a
+                data-testid="btn"
                 className={`${showing === "ALL" ? "selected" : ""}`}
-                onClick={() => setShowing("ALL")}
+                onClick={() => onSetShowing("ALL")}
               >
                 All
               </a>
@@ -46,8 +40,9 @@ const Footer: React.FC<Props> = (props) => {
             <span></span>
             <li>
               <a
+                data-testid="btn"
                 className={`${showing === "ACTIVE" ? "selected" : ""}`}
-                onClick={() => setShowing(TodoStatus.ACTIVE)}
+                onClick={() => onSetShowing(TodoStatus.ACTIVE)}
               >
                 Active
               </a>
@@ -55,8 +50,9 @@ const Footer: React.FC<Props> = (props) => {
             <span></span>
             <li>
               <a
+                data-testid="btn"
                 className={`${showing === "COMPLETED" ? "selected" : ""}`}
-                onClick={() => setShowing(TodoStatus.COMPLETED)}
+                onClick={() => onSetShowing(TodoStatus.COMPLETED)}
               >
                 Completed
               </a>

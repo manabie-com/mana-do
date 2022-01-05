@@ -1,4 +1,5 @@
 import { Todo, TodoStatus } from '../models/todo';
+import { setItem } from "utils/localStorage"
 import {
   AppActions,
   CREATE_TODO,
@@ -43,7 +44,8 @@ function reducer(state: AppState, action: AppActions): AppState {
     case EDIT_TODO:
       const currentIndex = state.todos.findIndex((todo) => todo.id === action.payload.todoId);
       state.todos[currentIndex].content = action.payload.content
-      localStorage.setItem("todos", JSON.stringify(state.todos))
+      setItem("todos", state.todos)
+
       return {
         ...state,
         todos: state.todos
@@ -52,7 +54,7 @@ function reducer(state: AppState, action: AppActions): AppState {
     case UPDATE_TODO_STATUS:
       const index1 = state.todos.findIndex((todo) => todo.id === action.payload.todoId);
       state.todos[index1].status = action.payload.checked ? TodoStatus.COMPLETED : TodoStatus.ACTIVE;
-      localStorage.setItem("todos", JSON.stringify(state.todos))
+      setItem("todos", state.todos)
       return {
         ...state,
         todos: state.todos
@@ -66,8 +68,7 @@ function reducer(state: AppState, action: AppActions): AppState {
           status: action.payload ? TodoStatus.COMPLETED : TodoStatus.ACTIVE
         }
       })
-
-      localStorage.setItem("todos", JSON.stringify(tempTodos))
+      setItem("todos", tempTodos)
       return {
         ...state,
         todos: tempTodos
@@ -87,7 +88,7 @@ function reducer(state: AppState, action: AppActions): AppState {
         todos: state.todos
       }
     case DELETE_ALL_TODOS:
-      localStorage.setItem("todos", JSON.stringify([]))
+      setItem("todos", [])
       return {
         ...state,
         todos: []

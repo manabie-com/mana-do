@@ -1,2 +1,2 @@
-import Item from "./Todo";
-export default Item;
+import Todo from "./Todo";
+export default Todo;

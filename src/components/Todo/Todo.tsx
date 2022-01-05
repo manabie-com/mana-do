@@ -5,37 +5,35 @@ import Service from "service";
 import { editTodo } from "store/actions";
 import { deleteTodo, updateTodoStatus } from "store/actions";
 import { ToDoWrapper } from "./Todo.styles";
+import { useOutSideClick } from "hooks";
 import { isTodoCompleted } from "utils";
 
-export interface propsItem {
+export interface PropsTodoItem {
   todo: Todo;
   index: number;
-  dispatch: React.Dispatch<AppActions>;
+  onUpdateTodoStatus: (
+    e: React.ChangeEvent<HTMLInputElement>,
+    todoId: string
+  ) => void;
+  onDeleteTodo: (id: string) => void;
+  onUpdateTodoContent: (
+    e: React.KeyboardEvent<HTMLInputElement>,
+    id: string,
+    content: string,
+    handler: () => void
+  ) => void;
 }
 
-const Item: React.FC<propsItem> = (props) => {
-  const { index, todo, dispatch } = props;
+const Item: React.FC<PropsTodoItem> = (props) => {
+  const { index, todo, onUpdateTodoContent, onUpdateTodoStatus, onDeleteTodo } =
+    props;
   const [text, setText] = useState<string>(todo.content);
   const [isEdit, setIsEdit] = useState<boolean>(false);
 
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const onUpdateTodoStatus = (
-    e: React.ChangeEvent<HTMLInputElement>,
-    todoId: string
-  ) => {
-    dispatch(updateTodoStatus(todoId, e.target.checked));
-  };
-
-  const onEditTodo = async (
-    e: React.KeyboardEvent<HTMLInputElement>,
-    id: string
-  ) => {
-    if (e.key === "Enter" && text) {
-      //   const resp = await Service.editTodo(inputRef.current.value, id);
-      dispatch(editTodo(id, text));
-      setIsEdit(false);
-    }
+  const handleToggleEdit = () => {
+    setIsEdit(false);
   };
 
   const handleEditContent = (event: React.MouseEvent<HTMLSpanElement>) => {
@@ -43,24 +41,7 @@ const Item: React.FC<propsItem> = (props) => {
     setIsEdit(true);
   };
 
-  useEffect(() => {
-    const checkIfClickedOutside = (e: MouseEvent) => {
-      if (
-        isEdit &&
-        inputRef.current &&
-        !inputRef.current.contains(e.target as Node)
-      ) {
-        setIsEdit(false);
-      }
-    };
-
-    document.addEventListener("mousedown", checkIfClickedOutside);
-
-    return () => {
-      // Cleanup the event listener
-      document.removeEventListener("mousedown", checkIfClickedOutside);
-    };
-  }, [isEdit]);
+  useOutSideClick(inputRef, handleToggleEdit);
 
   return (
     <ToDoWrapper status={todo.status as TodoStatus}>
@@ -68,13 +49,18 @@ const Item: React.FC<propsItem> = (props) => {
         {isEdit ? (
           <input
             ref={inputRef}
+            data-testid="todo-edit"
             className="Todo__edit"
             value={text}
             onChange={(e) => setText(e.target.value)}
-            onKeyDown={(e) => onEditTodo(e, todo.id)}
+            onKeyDown={(e) => {
+              onUpdateTodoContent(e, todo.id, text, () => {
+                handleToggleEdit();
+              });
+            }}
           />
         ) : (
-          <div className="Todo__view">
+          <div data-testid="todo-view" className="Todo__view">
             <input
               className="Todo__toggle"
               type="checkbox"
@@ -83,8 +69,9 @@ const Item: React.FC<propsItem> = (props) => {
             />
             <label onDoubleClick={handleEditContent}>{todo.content}</label>
             <button
+              data-testid="btn"
               className="Todo__destroy"
-              onClick={() => dispatch(deleteTodo(todo.id))}
+              onClick={() => onDeleteTodo(todo.id)}
             />
           </div>
         )}

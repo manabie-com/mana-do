@@ -6,6 +6,9 @@ import {
   createTodo,
   toggleAllTodos,
   deleteAllTodos,
+  deleteTodo,
+  updateTodoStatus,
+  editTodo,
 } from "store/actions";
 import Service from "service";
 import { TodoStatus } from "models/todo";
@@ -30,11 +33,16 @@ const ToDoPage = memo(() => {
   }, []);
 
   const onCreateTodo = async (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter" && inputRef.current) {
-      const resp = await Service.createTodo(inputRef.current.value);
+    // validate empty todo when press enter
+    try {
+      if (e.key === "Enter" && inputRef?.current && inputRef?.current?.value) {
+        const resp = await Service.createTodo(inputRef.current.value);
+        if (resp) dispatch(createTodo(resp));
 
-      dispatch(createTodo(resp));
-      inputRef.current.value = "";
+        inputRef.current.value = "";
+      }
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -47,6 +55,43 @@ const ToDoPage = memo(() => {
     dispatch(deleteAllTodos());
   };
 
+  const onUpdateTodoStatus = async (
+    e: React.ChangeEvent<HTMLInputElement>,
+    todoId: string
+  ) => {
+    try {
+      const resp = await Service.updateTodoStatus(todoId, e.target.checked);
+      if (resp) dispatch(updateTodoStatus(resp.id, resp.value));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const onDeleteTodo = async (id: string) => {
+    try {
+      const resp = await Service.deleteTodo(id);
+      if (resp) dispatch(deleteTodo(resp));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const onUpdateTodoContent = async (
+    e: React.KeyboardEvent<HTMLInputElement>,
+    id: string,
+    content: string,
+    handler: any
+  ) => {
+    try {
+      if (e.key === "Enter" && content) {
+        const resp = await Service.editTodo(content, id);
+        if (resp) dispatch(editTodo(resp.id, resp.content));
+        handler();
+      }
+    } catch (error) {
+      console.log("error");
+    }
+  };
+
   const showTodos = todos.filter((todo) => {
     switch (showing) {
       case TodoStatus.ACTIVE:
@@ -57,6 +102,10 @@ const ToDoPage = memo(() => {
         return true;
     }
   });
+
+  const onSetShowing = (option: EnhanceTodoStatus) => {
+    setShowing(option);
+  };
 
   const activeTodos = todos.reduce(function (accum, todo) {
     return isTodoCompleted(todo) ? accum : accum + 1;
@@ -87,16 +136,23 @@ const ToDoPage = memo(() => {
         <label htmlFor="Todo__toggle-all" onClick={onToggleAllTodo}></label>
         <ul className="ToDo__list">
           {showTodos.map((todo, index) => {
-            return <Todo index={index} todo={todo} dispatch={dispatch} />;
+            return (
+              <Todo
+                onUpdateTodoStatus={onUpdateTodoStatus}
+                onDeleteTodo={onDeleteTodo}
+                onUpdateTodoContent={onUpdateTodoContent}
+                index={index}
+                todo={todo}
+              />
+            );
           })}
         </ul>
         <Footer
           showing={showing}
-          todos={todos}
+          todoAmount={todos.length}
+          onSetShowing={onSetShowing}
           activeTodos={activeTodos}
-          setShowing={setShowing}
           onDeleteAllTodo={onDeleteAllTodo}
-          onToggleAllTodo={onToggleAllTodo}
         />
       </div>
     </ToDoWrapper>
