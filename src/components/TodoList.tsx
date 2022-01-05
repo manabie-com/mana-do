@@ -3,12 +3,11 @@ import { EnhanceTodoStatus, Todo, TodoStatus } from "../models/todo";
 import { AppActions, updateTodoStatus } from "../store/actions";
 import { isTodoCompleted } from "../utils";
 
-
 interface TodoListProps extends React.HTMLAttributes<HTMLDivElement> {
   dispatch: React.Dispatch<AppActions>;
   todos: Array<Todo>;
   showing: EnhanceTodoStatus;
-  onRemove: (todoId:string) => void;
+  onRemove: (todoId: string) => void;
 }
 
 export const TodoList = (props: TodoListProps) => {
@@ -43,10 +42,7 @@ export const TodoList = (props: TodoListProps) => {
               onChange={(e) => onUpdateTodoStatus(e, todo.id)}
             />
             <span>{todo.content}</span>
-            <button
-              className="Todo__delete"
-              onClick={() => onRemove(todo.id)}
-            >
+            <button className="Todo__delete" onClick={() => onRemove(todo.id)}>
               X
             </button>
           </div>

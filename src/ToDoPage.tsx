@@ -6,6 +6,7 @@ import Service from "./service";
 import { CreateTodo } from "./components/CreateTodo";
 import { TodoList } from "./components/TodoList";
 import { FilterTodos } from "./components/FilterTodos";
+import apiFrontend from "./service/api-frontend";
 
 const ToDoPage = () => {
   const [{ todos, showing }, dispatch] = useReducer(reducer, initialState);
@@ -17,6 +18,10 @@ const ToDoPage = () => {
       dispatch(setTodos(resp || []));
     })();
   }, []);
+
+  useEffect(()=> {
+    apiFrontend.persistTodos(todos)
+  }, [todos])
 
   return (
     <div className="ToDo__container">

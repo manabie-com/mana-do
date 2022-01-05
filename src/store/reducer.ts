@@ -4,6 +4,8 @@ import {
   CREATE_TODO,
   DELETE_ALL_TODOS,
   DELETE_TODO,
+  FILTER_TODO_STATUS,
+  SET_TODO,
   TOGGLE_ALL_TODOS,
   UPDATE_TODO_STATUS,
 } from "./actions";
@@ -22,25 +24,31 @@ function reducer(state: AppState, action: AppActions): AppState {
   switch (action.type) {
     case CREATE_TODO:
       // state.todos.push(action.payload); -> state is readonly, producing new state instead of modify them
-      return {...state, todos: [...state.todos, action.payload] };
+      return { ...state, todos: [...state.todos, action.payload] };
+
+    case SET_TODO:
+      return { ...state, todos: action.payload };
 
     case UPDATE_TODO_STATUS: {
-      // naming convention: index2 -> todo
-      const todo = state.todos.findIndex(
+      const todoIndex = state.todos.findIndex(
         (todo) => todo.id === action.payload.todoId
       );
-      state.todos[todo].status = action.payload.checked
-        ? TodoStatus.COMPLETED
-        : TodoStatus.ACTIVE;
+      const todos = [...state.todos];
+
+      state.todos[todoIndex] = {
+        ...state.todos[todoIndex],
+        status: action.payload.checked
+          ? TodoStatus.COMPLETED
+          : TodoStatus.ACTIVE,
+      };
 
       return {
         ...state,
-        todos: state.todos,
+        todos
       };
     }
 
     case TOGGLE_ALL_TODOS:
-      // naming convention: e -> todo
       const tempTodos = state.todos.map((todo) => {
         return {
           ...todo,
@@ -54,7 +62,6 @@ function reducer(state: AppState, action: AppActions): AppState {
       };
 
     case DELETE_TODO:
-      // naming convention: index1 -> todo
       // state.todos.splice(todo, 1); -> state is readonly, producing new state instead of modify them
       const filteredTodos = state.todos.filter((t) => t.id !== action.payload);
 
@@ -62,6 +69,7 @@ function reducer(state: AppState, action: AppActions): AppState {
         ...state,
         todos: filteredTodos,
       };
+
     case DELETE_ALL_TODOS:
       return {
         ...state,
@@ -71,7 +79,7 @@ function reducer(state: AppState, action: AppActions): AppState {
     case FILTER_TODO_STATUS:
       return {
         ...state,
-        showing: action.payload
+        showing: action.payload,
       };
     default:
       return state;
