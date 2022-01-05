@@ -7,6 +7,7 @@ import {
   FILTER_TODO_STATUS,
   SET_TODO,
   TOGGLE_ALL_TODOS,
+  UPDATE_TODO_CONTENT,
   UPDATE_TODO_STATUS,
 } from "./actions";
 
@@ -35,11 +36,28 @@ function reducer(state: AppState, action: AppActions): AppState {
       );
       const todos = [...state.todos];
 
-      state.todos[todoIndex] = {
+      todos[todoIndex] = {
         ...state.todos[todoIndex],
         status: action.payload.checked
           ? TodoStatus.COMPLETED
           : TodoStatus.ACTIVE,
+      };
+
+      return {
+        ...state,
+        todos
+      };
+    }
+
+    case UPDATE_TODO_CONTENT: {
+      const todoIndex = state.todos.findIndex(
+        (todo) => todo.id === action.payload.todoId
+      );
+      const todos = [...state.todos];
+
+      todos[todoIndex] = {
+        ...state.todos[todoIndex],
+        content: action.payload.content
       };
 
       return {
@@ -81,6 +99,7 @@ function reducer(state: AppState, action: AppActions): AppState {
         ...state,
         showing: action.payload,
       };
+
     default:
       return state;
   }

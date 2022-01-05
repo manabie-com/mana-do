@@ -17,6 +17,7 @@ export const CreateTodo = (props: CreateTodoProps) => {
       inputRef.current.value = "";
     }
   };
+
   return (
     <div className="Todo__creation">
       <input

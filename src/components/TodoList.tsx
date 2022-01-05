@@ -1,7 +1,7 @@
 import * as React from "react";
 import { EnhanceTodoStatus, Todo, TodoStatus } from "../models/todo";
-import { AppActions, updateTodoStatus } from "../store/actions";
-import { isTodoCompleted } from "../utils";
+import { AppActions, updateTodoContent, updateTodoStatus } from "../store/actions";
+import { TodoItem } from "./TodoItem";
 
 interface TodoListProps extends React.HTMLAttributes<HTMLDivElement> {
   dispatch: React.Dispatch<AppActions>;
@@ -33,21 +33,16 @@ export const TodoList = (props: TodoListProps) => {
 
   return (
     <div className="ToDo__list">
-      {showTodos.map((todo: Todo, index: number) => {
-        return (
-          <div key={index} className="ToDo__item">
-            <input
-              type="checkbox"
-              checked={isTodoCompleted(todo)}
-              onChange={(e) => onUpdateTodoStatus(e, todo.id)}
-            />
-            <span>{todo.content}</span>
-            <button className="Todo__delete" onClick={() => onRemove(todo.id)}>
-              X
-            </button>
-          </div>
-        );
-      })}
+      {showTodos.map((todo: Todo) => (
+        <TodoItem
+          key={todo.id}
+          todo={todo}
+          onUpdate={onUpdateTodoStatus}
+          onRemove={onRemove}
+          onToggle={(todoId, checked) => dispatch(updateTodoStatus(todoId, checked))}
+          onEdit={(todoId, content) => dispatch(updateTodoContent(todoId, content))}
+        />
+      ))}
     </div>
   );
 };

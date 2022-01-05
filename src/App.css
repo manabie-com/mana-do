@@ -72,7 +72,6 @@ input:focus {
 .ToDo__item {
   display: flex;
   align-items: center;
-  justify-content: space-between;
   cursor: pointer;
   padding: 0 10px;
   margin: 0 -10px;
@@ -86,6 +85,16 @@ input:focus {
   flex: 1 1;
   text-align: left;
   margin-left: 8px;
+}
+
+.ToDo__item > .Todo__edit {
+  flex: 1;
+  display: flex;
+  padding: 0 10px;
+}
+
+.ToDo__item > .Todo__edit > input {
+  flex: 1;
 }
 
 .Todo__content {
