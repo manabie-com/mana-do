@@ -1,4 +1,4 @@
-import { Todo, TodoStatus } from "../models/todo";
+import { Todo, TodoStatus, EnhanceTodoStatus } from "../models/todo";
 import {
   AppActions,
   CREATE_TODO,
@@ -10,20 +10,19 @@ import {
 
 export interface AppState {
   todos: Array<Todo>;
+  showing: EnhanceTodoStatus;
 }
 
 export const initialState: AppState = {
   todos: [],
+  showing: "ALL",
 };
 
 function reducer(state: AppState, action: AppActions): AppState {
   switch (action.type) {
     case CREATE_TODO:
       // state.todos.push(action.payload); -> state is readonly, producing new state instead of modify them
-      state = { todos: [...state.todos, action.payload] };
-      return {
-        ...state,
-      };
+      return {...state, todos: [...state.todos, action.payload] };
 
     case UPDATE_TODO_STATUS: {
       // naming convention: index2 -> todo
@@ -67,6 +66,12 @@ function reducer(state: AppState, action: AppActions): AppState {
       return {
         ...state,
         todos: [],
+      };
+
+    case FILTER_TODO_STATUS:
+      return {
+        ...state,
+        showing: action.payload
       };
     default:
       return state;

@@ -1,6 +1,6 @@
 import * as React from "react";
 import { EnhanceTodoStatus, Todo, TodoStatus } from "../models/todo";
-import { AppActions, deleteTodo, updateTodoStatus } from "../store/actions";
+import { AppActions, updateTodoStatus } from "../store/actions";
 import { isTodoCompleted } from "../utils";
 
 
