@@ -1,5 +1,5 @@
-import {IAPI} from './types';
-import {Todo, TodoStatus} from '../models/todo';
+import { IAPI } from './types';
+import { Todo, TodoStatus } from '../models/todo';
 import shortid from 'shortid';
 
 class ApiFrontend extends IAPI {
@@ -13,8 +13,9 @@ class ApiFrontend extends IAPI {
         } as Todo);
     }
 
-    async getTodos(): Promise<Todo[]>{
-        return []
+    async getTodos(): Promise<Todo[]> {
+        const todos = localStorage.getItem('todos');
+        return todos ? JSON.parse(todos) : [];
     }
 }
 

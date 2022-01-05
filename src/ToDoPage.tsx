@@ -1,36 +1,45 @@
-import React, {useEffect, useReducer, useRef, useState} from 'react';
+import React, { useEffect, useReducer, useRef, useState } from 'react';
 
-import reducer, {initialState} from './store/reducer';
+import reducer, { initialState, persistTodos } from './store/reducer';
 import {
     setTodos,
     createTodo,
     deleteTodo,
     toggleAllTodos,
     deleteAllTodos,
-    updateTodoStatus
+    updateTodoStatus,
+    updateTodoContent,
 } from './store/actions';
 import Service from './service';
-import {TodoStatus} from './models/todo';
-import {isTodoCompleted} from './utils';
+import { TodoStatus } from './models/todo';
+import { isTodoCompleted } from './utils';
 
 type EnhanceTodoStatus = TodoStatus | 'ALL';
 
 
 const ToDoPage = () => {
-    const [{todos}, dispatch] = useReducer(reducer, initialState);
+    const [{ todos }, dispatch] = useReducer(reducer, initialState);
     const [showing, setShowing] = useState<EnhanceTodoStatus>('ALL');
+    const [editing, setEditing] = useState<number>(-1);
     const inputRef = useRef<HTMLInputElement>(null);
+    const inputEditRef = useRef<HTMLInputElement>(null);
 
-    useEffect(()=>{
-        (async ()=>{
+    useEffect(() => {
+        (async () => {
             const resp = await Service.getTodos();
 
             dispatch(setTodos(resp || []));
+            persistTodos(todos);
         })()
-    }, [])
+    }, [todos]);
+
+    useEffect(() => {
+        if (editing) inputEditRef.current?.focus();
+    }, [editing]);
 
     const onCreateTodo = async (e: React.KeyboardEvent<HTMLInputElement>) => {
-        if (e.key === 'Enter' && inputRef.current) {
+        // Check whether input is empty, do not add todo
+        if (e.key === 'Enter' && inputRef.current && inputRef.current.value) {
             const resp = await Service.createTodo(inputRef.current.value);
             dispatch(createTodo(resp));
             inputRef.current.value = '';
@@ -39,6 +48,19 @@ const ToDoPage = () => {
 
     const onUpdateTodoStatus = (e: React.ChangeEvent<HTMLInputElement>, todoId: string) => {
         dispatch(updateTodoStatus(todoId, e.target.checked))
+    }
+
+    // Update todo by double click
+    const onUpdateTodoContent = (e: React.KeyboardEvent<HTMLInputElement>, todoId: string) => {
+        if (e.key === 'Enter' && inputEditRef.current && inputEditRef.current.value) {
+            dispatch(updateTodoContent(todoId, inputEditRef.current?.value || ''));
+            setEditing(-1);
+        }
+    }
+
+    const openEditForm = (index: number) => {
+        setEditing(index);
+        inputEditRef.current?.focus();
     }
 
     const onToggleAllTodo = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -84,7 +106,13 @@ const ToDoPage = () => {
                                     checked={isTodoCompleted(todo)}
                                     onChange={(e) => onUpdateTodoStatus(e, todo.id)}
                                 />
-                                <span>{todo.content}</span>
+                                {editing === index ? <input
+                                    ref={inputEditRef}
+                                    className="Todo__input"
+                                    defaultValue={todo.content}
+                                    onKeyDown={(e) => onUpdateTodoContent(e, todo.id)}
+                                    onBlur={() => setEditing(-1)}
+                                ></input> : <span onDoubleClick={() => openEditForm(index)}>{todo.content}</span>}
                                 <button
                                     className="Todo__delete"
                                     onClick={() => dispatch(deleteTodo(todo.id))}
@@ -102,16 +130,16 @@ const ToDoPage = () => {
                         type="checkbox"
                         checked={activeTodos === 0}
                         onChange={onToggleAllTodo}
-                    /> : <div/>
+                    /> : <div />
                 }
                 <div className="Todo__tabs">
-                    <button className="Action__btn" onClick={()=>setShowing('ALL')}>
+                    <button className="Action__btn" onClick={() => setShowing('ALL')}>
                         All
                     </button>
-                    <button className="Action__btn" onClick={()=>setShowing(TodoStatus.ACTIVE)}>
+                    <button className="Action__btn" onClick={() => setShowing(TodoStatus.ACTIVE)}>
                         Active
                     </button>
-                    <button className="Action__btn" onClick={()=>setShowing(TodoStatus.COMPLETED)}>
+                    <button className="Action__btn" onClick={() => setShowing(TodoStatus.COMPLETED)}>
                         Completed
                     </button>
                 </div>

@@ -75,6 +75,10 @@ input:focus {
   justify-content: space-between;
 }
 
+.Todo__input {
+  width: 20px;
+}
+
 .ToDo__item > span {
   flex: 1 1;
   text-align: left;
@@ -119,7 +123,4 @@ input:focus {
 
 .Todo__tabs > *:not(:last-child) {
   margin-right: 8px;
-}
-
-.Action__btn {
 }
