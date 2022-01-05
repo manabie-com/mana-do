@@ -41,7 +41,14 @@ const ToDoItem = ({ todo, onUpdateStatus, onUpdateContent, onDelete }: TodoItemP
 
   const onBlurHandler = () => {
     setEditMode(false);
-    onUpdateContent(value, todo);
+    setValue(todo.content || '');
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter' || e.keyCode === 13) {
+      onUpdateContent(value, todo);
+      setEditMode(false);
+    }
   };
 
   return !editMode ? (
@@ -53,7 +60,14 @@ const ToDoItem = ({ todo, onUpdateStatus, onUpdateContent, onDelete }: TodoItemP
       </button>
     </div>
   ) : (
-    <input placeholder='Todo' value={value} onChange={onChangeInput} onBlur={onBlurHandler} />
+    <input
+      autoFocus
+      placeholder='Todo'
+      value={value}
+      onKeyDown={handleKeyDown}
+      onChange={onChangeInput}
+      onBlur={onBlurHandler}
+    />
   );
 };
 
