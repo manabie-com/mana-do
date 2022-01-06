@@ -8,13 +8,14 @@ import {
   toggleAllTodos,
   deleteAllTodos,
   updateTodoStatus,
+  updateTodo,
 } from "./store/actions";
 import Service from "./service";
-import { TodoStatus } from "./models/todo";
 import { isTodoCompleted } from "./utils";
 import ToDoItem from "components/TodoItem";
 import TodoInput from "components/TodoInput";
-import { Todo } from "models/todo";
+import FilterButton from "components/FilterButton";
+import { Todo, TodoStatus } from "models/todo";
 
 type EnhanceTodoStatus = TodoStatus | "ALL";
 
@@ -46,15 +47,34 @@ const ToDoPage = () => {
   };
 
   function onDeleteTodo(todoId: string) {
-    dispatch(deleteTodo(todoId));
+    Service.deleteTodo(todoId).then(() => {
+      dispatch(deleteTodo(todoId));
+    });
+  }
+
+  function onUpdateTodo(todo: Todo) {
+    Service.updateTodo(todo).then(() => {
+      dispatch(updateTodo(todo));
+    });
   }
 
   const onUpdateTodoStatus = (todoId: string, checked: boolean) => {
-    dispatch(updateTodoStatus(todoId, checked));
+    const todo = todos.find((todo) => todo.id === todoId);
+    if (!todo) return;
+    const status = checked ? TodoStatus.COMPLETED : TodoStatus.ACTIVE;
+    Service.updateTodo({
+      ...todo,
+      status,
+    }).then(() => {
+      dispatch(updateTodoStatus(todoId, checked));
+    });
   };
 
   const onToggleAllTodo = (e: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch(toggleAllTodos(e.target.checked));
+    const checked = e.target.checked;
+    Service.toggleAllStatus(checked).then(() => {
+      dispatch(toggleAllTodos(checked));
+    });
   };
 
   const onDeleteAllTodo = () => {
@@ -83,21 +103,24 @@ const ToDoPage = () => {
           <div />
         )}
         <div className="Todo__tabs">
-          <button className="Action__btn" onClick={() => setShowing("ALL")}>
+          <FilterButton
+            active={showing === "ALL"}
+            onClick={() => setShowing("ALL")}
+          >
             All
-          </button>
-          <button
-            className="Action__btn"
+          </FilterButton>
+          <FilterButton
+            active={showing === TodoStatus.ACTIVE}
             onClick={() => setShowing(TodoStatus.ACTIVE)}
           >
             Active
-          </button>
-          <button
-            className="Action__btn"
+          </FilterButton>
+          <FilterButton
+            active={showing === TodoStatus.COMPLETED}
             onClick={() => setShowing(TodoStatus.COMPLETED)}
           >
             Completed
-          </button>
+          </FilterButton>
         </div>
         <button className="Action__btn" onClick={onDeleteAllTodo}>
           Clear all todos
@@ -110,6 +133,7 @@ const ToDoPage = () => {
             todo={todo}
             onUpdateStatus={onUpdateTodoStatus}
             onDelete={onDeleteTodo}
+            onUpdate={onUpdateTodo}
           />
         ))}
       </div>

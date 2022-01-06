@@ -1,4 +1,4 @@
-import { Todo } from "models/todo";
+import { Todo, TodoStatus } from "models/todo";
 
 export function getLocalTodos() {
   const todos = window.localStorage.getItem("todos");
@@ -30,6 +30,13 @@ export function deleteLocalTodo(todoId: string) {
   if (selectedId === -1) return;
   todos.splice(selectedId, 1);
   setLocalTodos(todos);
+}
+
+export function toggleAllLocalTodos(checked: boolean) {
+  const todos = getLocalTodos() as Todo[];
+  const status = checked ? TodoStatus.COMPLETED : TodoStatus.ACTIVE;
+  const newTodos = todos.map((todo) => ({ ...todo, status }));
+  setLocalTodos(newTodos);
 }
 
 export function deleteAllLocalTodos() {

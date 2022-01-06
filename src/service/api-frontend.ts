@@ -7,6 +7,7 @@ import {
   updateLocalTodo,
   deleteLocalTodo,
   deleteAllLocalTodos,
+  toggleAllLocalTodos,
 } from "utils/todos";
 
 class ApiFrontend extends IAPI {
@@ -59,6 +60,15 @@ class ApiFrontend extends IAPI {
       return Promise.resolve(todo);
     } catch (error) {
       return Promise.reject(new Error("Can not update todos"));
+    }
+  }
+
+  async toggleAllStatus(checked: boolean): Promise<void> {
+    try {
+      toggleAllLocalTodos(checked);
+      return Promise.resolve();
+    } catch (error) {
+      return Promise.reject(new Error("Can not toggle todos"));
     }
   }
 }

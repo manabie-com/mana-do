@@ -12,6 +12,7 @@ button {
   min-height: 32px;
   min-width: 80px;
   padding: 4px 8px;
+  cursor: pointer;
 }
 
 button:hover {
@@ -50,13 +51,14 @@ input:focus {
   border-radius: 8px;
   width: 500px;
   margin-top: 5rem;
-  padding: 24px;
+  padding: 24px 20px;
   box-shadow: 2px 2px 1px rgba(0,0,0, 0.09),
               3px 2px 3px rgba(0,0,0, 0.05);
 }
 
 .Todo__creation {
   display: flex;
+  padding: 0 10px;
 }
 
 .Todo__input {
@@ -73,6 +75,12 @@ input:focus {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding: 5px 10px;
+  transition: background-color 0.3s;
+}
+
+.ToDo__item:hover {
+  background-color: aliceblue;
 }
 
 .ToDo__item > span {
@@ -115,6 +123,7 @@ input:focus {
   display: flex;
   justify-content: space-between;
   margin-top: 24px;
+  padding: 0 10px;
 }
 
 .Todo__tabs {
@@ -127,4 +136,13 @@ input:focus {
 }
 
 .Action__btn {
+}
+
+.Todo__form input {
+  width: 100%;
+}
+
+.Filter__btn.active {
+  background-color: rgb(46, 71, 161);
+  color: white
 }

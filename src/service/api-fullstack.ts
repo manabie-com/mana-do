@@ -27,6 +27,11 @@ class ApiFullstack extends IAPI {
   async updateTodo(todo: Todo): Promise<Todo> {
     return todo;
   }
+
+  async toggleAllStatus(checked: boolean): Promise<void> {
+    console.log(checked);
+    return;
+  }
 }
 
 export default new ApiFullstack();

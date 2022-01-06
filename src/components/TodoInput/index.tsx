@@ -3,10 +3,12 @@ import React, { useRef } from "react";
 interface TodoInputProps {
   defaultValue?: string;
   onEnter?: (value: string) => void;
+  autoFocus?: boolean;
 }
 
 const TodoInput: React.FC<TodoInputProps> = ({
   defaultValue = "",
+  autoFocus = false,
   onEnter,
 }) => {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -25,6 +27,7 @@ const TodoInput: React.FC<TodoInputProps> = ({
       className="Todo__input"
       placeholder="What need to be done?"
       onKeyDown={handleKeyDown}
+      autoFocus={autoFocus}
     />
   );
 };
