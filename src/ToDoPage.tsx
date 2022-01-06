@@ -10,31 +10,40 @@ import {
     updateTodoStatus
 } from './store/actions';
 import Service from './service';
-import {TodoStatus} from './models/todo';
+import {Todo, TodoStatus} from './models/todo';
 import {isTodoCompleted} from './utils';
 
 type EnhanceTodoStatus = TodoStatus | 'ALL';
 
 
 const ToDoPage = () => {
-    const [{todos}, dispatch] = useReducer(reducer, initialState);
+    let [{todos}, dispatch] = useReducer(reducer, initialState);
     const [showing, setShowing] = useState<EnhanceTodoStatus>('ALL');
     const inputRef = useRef<HTMLInputElement>(null);
+    const updateInputRef = useRef<HTMLInputElement>(null);
+    let customColor = {display: "none"};
 
     useEffect(()=>{
         (async ()=>{
-            const resp = await Service.getTodos();
-
-            dispatch(setTodos(resp || []));
+            let init = todos.filter((ele, ind) => ind === todos.findIndex( elem => elem.id === ele.id))
+            dispatch(setTodos(init || []))
         })()
     }, [])
 
+
     const onCreateTodo = async (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter' && inputRef.current) {
-            const resp = await Service.createTodo(inputRef.current.value);
-            dispatch(createTodo(resp));
-            inputRef.current.value = '';
-        }
+            if(inputRef.current?.value === '') {
+                return;
+            } else {
+                await Service.createTodo(inputRef.current.value)
+                    .then((todo: Todo) => {
+                        dispatch(createTodo(todo));
+                        return;
+                    })
+                inputRef.current.value = '';
+            }
+        } 
     }
 
     const onUpdateTodoStatus = (e: React.ChangeEvent<HTMLInputElement>, todoId: string) => {
@@ -49,6 +58,18 @@ const ToDoPage = () => {
         dispatch(deleteAllTodos());
     }
 
+    const onUpdateTodo = (e: React.MouseEvent<HTMLSpanElement, MouseEvent>, todoId: string, content: string, index: number) => {
+        if(e.detail === 2) {
+            // TODO double click show input
+        }
+    }
+
+    const onSendUpdate = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === 'Enter' && updateInputRef.current) {
+            // TODO update todo when enter
+        }
+    }
+    
     const showTodos = todos.filter((todo) => {
         switch (showing) {
             case TodoStatus.ACTIVE:
@@ -84,7 +105,13 @@ const ToDoPage = () => {
                                     checked={isTodoCompleted(todo)}
                                     onChange={(e) => onUpdateTodoStatus(e, todo.id)}
                                 />
-                                <span>{todo.content}</span>
+                                <span onClick={(e) => onUpdateTodo(e, todo.id, todo.content, index)}>{todo.content}</span>
+                                <input type="text" className="ToDo__content"
+                                    ref={updateInputRef}
+                                    value={todo.content}
+                                    onKeyDown={onSendUpdate}
+                                />
+
                                 <button
                                     className="Todo__delete"
                                     onClick={() => dispatch(deleteTodo(todo.id))}
