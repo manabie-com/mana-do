@@ -12,9 +12,9 @@ import {
 } from "./store/actions";
 import Service from "./service";
 import { isTodoCompleted } from "./utils";
-import ToDoItem from "components/TodoItem";
 import TodoInput from "components/TodoInput";
 import FilterButton from "components/FilterButton";
+import TodoList from "components/TodoList";
 import { Todo, TodoStatus } from "models/todo";
 
 type EnhanceTodoStatus = TodoStatus | "ALL";
@@ -126,17 +126,12 @@ const ToDoPage = () => {
           Clear all todos
         </button>
       </div>
-      <div className="ToDo__list">
-        {showTodos.map((todo, index) => (
-          <ToDoItem
-            key={`todo-item-${index}`}
-            todo={todo}
-            onUpdateStatus={onUpdateTodoStatus}
-            onDelete={onDeleteTodo}
-            onUpdate={onUpdateTodo}
-          />
-        ))}
-      </div>
+      <TodoList
+        list={showTodos}
+        onUpdateTodoStatus={onUpdateTodoStatus}
+        onDeleteTodo={onDeleteTodo}
+        onUpdateTodo={onUpdateTodo}
+      />
     </div>
   );
 };

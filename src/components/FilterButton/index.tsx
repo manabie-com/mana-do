@@ -1,9 +1,9 @@
 import React from "react";
 
-interface FilterButtonProps {
+export interface FilterButtonProps {
   active?: boolean;
   onClick: () => void;
-  children: React.ReactElement | string;
+  children: string;
 }
 
 const FilterButton: React.FC<FilterButtonProps> = ({
@@ -13,6 +13,7 @@ const FilterButton: React.FC<FilterButtonProps> = ({
 }) => {
   return (
     <button
+      data-testid="btn-filter"
       className={`Action__btn Filter__btn ${active ? "active" : ""}`}
       onClick={() => onClick()}
     >

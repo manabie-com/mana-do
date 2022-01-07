@@ -22,7 +22,8 @@
     "start:fullstack": "cross-env REACT_APP_WHOAMI=fullstack react-scripts start",
     "start:frontend": "cross-env REACT_APP_WHOAMI=frontend react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "jest",
+    "test:watch": "jest --watch",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -41,7 +42,22 @@
     ]
   },
   "devDependencies": {
+    "@babel/preset-env": "^7.16.7",
+    "@babel/preset-react": "^7.16.7",
+    "@babel/preset-typescript": "^7.16.7",
+    "@testing-library/jest-dom": "^5.16.1",
     "@testing-library/react": "^12.1.2",
-    "@types/shortid": "^0.0.29"
+    "@testing-library/user-event": "^13.5.0",
+    "@types/jest": "^27.4.0",
+    "@types/shortid": "^0.0.29",
+    "jest": "26.6.0",
+    "ts-jest": "^27.1.2"
+  },
+  "jest": {
+    "verbose": true,
+    "rootDir": "src",
+    "setupFiles": [
+      "./setupJest.ts"
+    ]
   }
 }

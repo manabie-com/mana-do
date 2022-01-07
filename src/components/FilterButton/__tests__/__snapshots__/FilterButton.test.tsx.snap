@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FilterButton Snapshot should render with active status 1`] = `
+<button
+  class="Action__btn Filter__btn active"
+  data-testid="btn-filter"
+>
+  TEST
+</button>
+`;
+
+exports[`FilterButton Snapshot should render without active status 1`] = `
+<button
+  class="Action__btn Filter__btn "
+  data-testid="btn-filter"
+>
+  TEST
+</button>
+`;

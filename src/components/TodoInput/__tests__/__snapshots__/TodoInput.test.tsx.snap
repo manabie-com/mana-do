@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TodoInput snapshots should render with default text 1`] = `
+<input
+  class="Todo__input"
+  placeholder="What need to be done?"
+  value="Do homework"
+/>
+`;
+
+exports[`TodoInput snapshots should render with empty text 1`] = `
+<input
+  class="Todo__input"
+  placeholder="What need to be done?"
+  value=""
+/>
+`;

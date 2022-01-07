@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 
-interface TodoInputProps {
+export interface TodoInputProps {
   defaultValue?: string;
   onEnter?: (value: string) => void;
   autoFocus?: boolean;
