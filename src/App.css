@@ -83,6 +83,10 @@ input:focus {
   background-color: aliceblue;
 }
 
+.Todo__list--empty {
+  margin-top: 40px;
+}
+
 .ToDo__item > span {
   flex: 1 1;
   text-align: left;

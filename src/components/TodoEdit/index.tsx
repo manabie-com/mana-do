@@ -1,7 +1,7 @@
 import React, { useRef, useEffect } from "react";
 import TodoInput from "components/TodoInput";
 
-interface TodoEditProps {
+export interface TodoEditProps {
   value?: string;
   onSubmit: (value: string) => void;
   onCloseEdit: () => void;
@@ -28,7 +28,12 @@ const TodoEdit: React.FC<TodoEditProps> = ({
 
   return (
     <div ref={editRef}>
-      <TodoInput autoFocus={true} defaultValue={value} onEnter={onSubmit} />
+      <TodoInput
+        data-testid="todo-input"
+        autoFocus={true}
+        defaultValue={value}
+        onEnter={onSubmit}
+      />
     </div>
   );
 };

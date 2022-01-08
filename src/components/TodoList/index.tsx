@@ -16,7 +16,9 @@ const TodoList: React.FC<TodoListProps> = ({
   onUpdateTodo,
 }) => {
   if (list.length === 0) {
-    return <div>You have nothing to do today.</div>;
+    return (
+      <div className="Todo__list--empty">You have nothing to do today.</div>
+    );
   }
   return (
     <div className="ToDo__list">

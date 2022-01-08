@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TodoList snapshot should render snapshot when todo list has 1 element 1`] = `
+<div
+  className="ToDo__list"
+>
+  <TodoItem
+    onDelete={[MockFunction]}
+    onUpdate={[MockFunction]}
+    onUpdateStatus={[MockFunction]}
+    todo={
+      Object {
+        "content": "Feed the dog",
+        "created_date": "2022-01-08T12:52:01.655Z",
+        "id": "P-5aDjyEu",
+        "status": "ACTIVE",
+        "user_id": "1",
+      }
+    }
+  />
+</div>
+`;
+
+exports[`TodoList snapshot should render snapshot when todo list has no element 1`] = `
+<div
+  className="Todo__list--empty"
+>
+  You have nothing to do today.
+</div>
+`;

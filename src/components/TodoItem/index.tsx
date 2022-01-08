@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 import TodoEdit from "components/TodoEdit";
 
-interface TodoItemProps {
+export interface TodoItemProps {
   todo: Todo;
   onUpdateStatus: (todoId: string, checked: boolean) => void;
   onUpdate: (todo: Todo) => void;
@@ -43,7 +43,7 @@ const TodoItem: React.FC<TodoItemProps> = ({
 
   if (isEdit) {
     return (
-      <div className="Todo__form">
+      <div data-testid="todo-form" className="Todo__form">
         <TodoEdit
           value={todo.content}
           onSubmit={handleSubmit}
@@ -54,14 +54,22 @@ const TodoItem: React.FC<TodoItemProps> = ({
   }
 
   return (
-    <div onDoubleClick={() => setIsEdit(true)} className="ToDo__item">
+    <div
+      data-testid="todo-item"
+      onDoubleClick={() => setIsEdit(true)}
+      className="ToDo__item"
+    >
       <input
         type="checkbox"
         checked={isTodoCompleted(todo)}
         onChange={(e) => handleUpdateStatus(e, todo.id)}
       />
       <span>{todo.content}</span>
-      <button className="Todo__delete" onClick={() => onDelete(todo.id)}>
+      <button
+        data-testid="btn-delete"
+        className="Todo__delete"
+        onClick={() => onDelete(todo.id)}
+      >
         <FontAwesomeIcon icon={faTrashAlt} />
       </button>
     </div>
