@@ -4,7 +4,6 @@ import { fireEvent, render, screen } from "@testing-library/react";
 import TodoItem, { TodoItemProps } from "../index";
 import shortid from "shortid";
 import { Todo, TodoStatus } from "models/todo";
-import userEvent from "@testing-library/user-event";
 
 const mockedOnDelete = jest.fn();
 const mockedOnUpdate = jest.fn();

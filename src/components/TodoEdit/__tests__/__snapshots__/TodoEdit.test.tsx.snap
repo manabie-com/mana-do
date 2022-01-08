@@ -2,10 +2,11 @@
 
 exports[`TodoEdit Snapshots should render snapshot with no text 1`] = `
 <div>
-  <input
-    class="Todo__input"
-    placeholder="What need to be done?"
-    value=""
+  <TodoInput
+    autoFocus={true}
+    data-testid="todo-input"
+    defaultValue=""
+    onEnter={[MockFunction]}
   />
 </div>
 `;

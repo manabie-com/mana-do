@@ -2,7 +2,7 @@ import React from "react";
 import { expect, test, describe } from "@jest/globals";
 import { fireEvent, render, screen } from "@testing-library/react";
 import TodoEdit, { TodoEditProps } from "../index";
-import { isPropertySignature } from "typescript";
+import { createRenderer } from "react-test-renderer/shallow";
 
 const mockedOnSubmit = jest.fn();
 const mockedOnCloseEdit = jest.fn();
@@ -15,8 +15,9 @@ const defaultProps: TodoEditProps = {
 
 describe("TodoEdit Snapshots", () => {
   test("should render snapshot with no text", () => {
-    const { container } = render(<TodoEdit {...defaultProps} />);
-    expect(container.firstChild).toMatchSnapshot();
+    const r = createRenderer();
+    r.render(<TodoEdit {...defaultProps} />);
+    expect(r.getRenderOutput()).toMatchSnapshot();
   });
 
   test("should render snapshot with some text", () => {
