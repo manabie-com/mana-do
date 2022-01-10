@@ -5,9 +5,10 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  //StrictMode make app duplicate call dispatch 
+  // <React.StrictMode>
+    <App />,
+  // </React.StrictMode>,
   document.getElementById('root')
 );
 

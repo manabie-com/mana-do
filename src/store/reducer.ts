@@ -4,7 +4,9 @@ import {
   CREATE_TODO,
   DELETE_ALL_TODOS,
   DELETE_TODO,
+  SET_TODO,
   TOGGLE_ALL_TODOS,
+  UPDATE_TODO_CONTENT,
   UPDATE_TODO_STATUS
 } from './actions';
 
@@ -16,7 +18,7 @@ export const initialState: AppState = {
   todos: []
 }
 
-function reducer(state: AppState, action: AppActions): AppState {
+function  reducer(state: AppState, action: AppActions): AppState {
   switch (action.type) {
     case CREATE_TODO:
       state.todos.push(action.payload);
@@ -58,6 +60,23 @@ function reducer(state: AppState, action: AppActions): AppState {
       return {
         ...state,
         todos: []
+      }
+    
+    //SET_TODO use for setTodo, which i use for get data from localStorage
+    case SET_TODO:
+      return {
+        ...state,
+        todos: action.payload
+      }
+    
+    //UPDATE_TODO_CONTENT use for update todo content by todo.id
+    case UPDATE_TODO_CONTENT:
+      const index3 = state.todos.findIndex((todo) => todo.id === action.payload.todoId);
+      state.todos[index3].content = action.payload.content;
+
+      return {
+        ...state,
+        todos: state.todos
       }
     default:
       return state;
