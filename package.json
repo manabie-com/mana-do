@@ -40,6 +40,9 @@
     ]
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^5.16.1",
+    "@testing-library/react": "^12.1.2",
+    "@types/shortid": "^0.0.29",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.6"
   }
