@@ -30,6 +30,13 @@ const ToDoPage = () => {
     }, [])
 
     /*
+    * Added effect where the todo list in the local storage is also updated everytime the one in the state is updated
+    */
+    useEffect(()=>{
+        localStorage.setItem('todos', JSON.stringify(todos));
+    }, [todos])
+
+    /*
     * Revised condition since even empty objects always result in a truthy value.
     * Not to mention the original call did not access the correct property of the object (value)
     */

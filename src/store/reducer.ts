@@ -8,12 +8,19 @@ import {
   UPDATE_TODO_STATUS
 } from './actions';
 
+
 export interface AppState {
   todos: Array<Todo>
 }
 
+/*
+* Revised intial state declaration to incorporate stored todos state in the local storage
+*/
+
+const storedTodos = localStorage.getItem('todos');
+
 export const initialState: AppState = {
-  todos: []
+  todos: storedTodos? JSON.parse(storedTodos) : []
 }
 
 /*

@@ -13,8 +13,12 @@ class ApiFrontend extends IAPI {
         } as Todo);
     }
 
+    /*
+    * Revised getTodos() to incorporate stored todos state in the local storage
+    */
     async getTodos(): Promise<Todo[]>{
-        return []
+        const storedTodos = localStorage.getItem('todos');
+        return  storedTodos? JSON.parse(storedTodos) : [];
     }
 }
 
