@@ -16,12 +16,17 @@ export const initialState: AppState = {
   todos: []
 }
 
+/*
+* Revised reducer since creating and deleting list items mutated the state.
+*/
 function reducer(state: AppState, action: AppActions): AppState {
   switch (action.type) {
-    case CREATE_TODO:
-      state.todos.push(action.payload);
+    case CREATE_TODO: 
+      const newList = [...state.todos];
+      newList.push(action.payload);
       return {
-        ...state
+        ...state,
+        todos: newList,
       };
 
     case UPDATE_TODO_STATUS:
@@ -47,12 +52,11 @@ function reducer(state: AppState, action: AppActions): AppState {
       }
 
     case DELETE_TODO:
-      const index1 = state.todos.findIndex((todo) => todo.id === action.payload);
-      state.todos.splice(index1, 1);
+      const filteredList = state.todos.filter((todo) => todo.id !== action.payload);
 
       return {
         ...state,
-        todos: state.todos
+        todos: filteredList,
       }
     case DELETE_ALL_TODOS:
       return {

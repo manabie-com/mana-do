@@ -29,8 +29,12 @@ const ToDoPage = () => {
         })()
     }, [])
 
+    /*
+    * Revised condition since even empty objects always result in a truthy value.
+    * Not to mention the original call did not access the correct property of the object (value)
+    */
     const onCreateTodo = async (e: React.KeyboardEvent<HTMLInputElement>) => {
-        if (e.key === 'Enter' && inputRef.current) {
+        if (e.key === 'Enter' && inputRef.current?.value) {
             const resp = await Service.createTodo(inputRef.current.value);
             dispatch(createTodo(resp));
             inputRef.current.value = '';
