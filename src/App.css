@@ -1,3 +1,7 @@
+body {
+  background-color: #dee3f9;
+}
+
 .App {
   text-align: center;
   display: flex;
@@ -8,14 +12,12 @@ button {
   outline: none;
   border: none;
   box-shadow: 2px 0 2px currentColor;
-  border-radius: 4px;
+  border-radius: 10px;
   min-height: 32px;
   min-width: 80px;
   padding: 4px 8px;
-}
-
-button:hover {
-  opacity: 0.85;
+  cursor: pointer;
+  padding: 10px;
 }
 
 input[type="checkbox"] {
@@ -47,12 +49,24 @@ input:focus {
 
 .ToDo__container {
   border: 1px solid rgba(0,0,0, 0.13);
-  border-radius: 8px;
+  border-radius: 15px;
   width: 500px;
   margin-top: 5rem;
+  background-color: white;
   padding: 24px;
   box-shadow: 2px 2px 1px rgba(0,0,0, 0.09),
               3px 2px 3px rgba(0,0,0, 0.05);
+}
+
+.ToDo__title {
+  font-weight: bold;
+  color: #35446e;
+  font-size: 22px;
+  padding: 5px 0 25px;
+}
+
+.Todo__empty {
+  margin: 10px 0 15px;
 }
 
 .Todo__creation {
@@ -61,6 +75,7 @@ input:focus {
 
 .Todo__input {
   flex: 1 1;
+  font-size: 15px;
 }
 
 .ToDo__list {
@@ -73,12 +88,17 @@ input:focus {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  grid-gap: 10px;
 }
 
 .ToDo__item > span {
   flex: 1 1;
   text-align: left;
   margin-left: 8px;
+}
+
+.Todo__checkbox {
+  cursor: pointer;
 }
 
 .Todo__content {
@@ -122,4 +142,17 @@ input:focus {
 }
 
 .Action__btn {
+  background-color: #507cff;
+  transition-duration: 0.4s;
+  color: white;
+  font-weight: bold;
+  padding: 12px 13px;
+}
+
+.Action__btn:hover {
+  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+}
+
+.Active__btn {
+  background-color: #0e1b40;
 }
