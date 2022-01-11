@@ -75,10 +75,19 @@ input:focus {
   justify-content: space-between;
 }
 
-.ToDo__item > span {
+/*
+* Revised ToDo_item styling for better layout when editing list items
+*/
+.ToDo__item > .Todo__wrapper {
   flex: 1 1;
   text-align: left;
   margin-left: 8px;
+  padding: 0 10px;
+}
+
+.Todo__wrapper > .Todo__input {
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .Todo__content {

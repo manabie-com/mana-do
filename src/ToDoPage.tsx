@@ -7,10 +7,12 @@ import {
     deleteTodo,
     toggleAllTodos,
     deleteAllTodos,
-    updateTodoStatus
+    updateTodoStatus,
+    updateTodoContent,
+    updateEditingStatus
 } from './store/actions';
 import Service from './service';
-import {TodoStatus} from './models/todo';
+import {Todo, TodoStatus} from './models/todo';
 import {isTodoCompleted} from './utils';
 
 type EnhanceTodoStatus = TodoStatus | 'ALL';
@@ -20,6 +22,7 @@ const ToDoPage = () => {
     const [{todos}, dispatch] = useReducer(reducer, initialState);
     const [showing, setShowing] = useState<EnhanceTodoStatus>('ALL');
     const inputRef = useRef<HTMLInputElement>(null);
+    const editInputRef = useRef<HTMLInputElement>(null);
 
     useEffect(()=>{
         (async ()=>{
@@ -34,6 +37,9 @@ const ToDoPage = () => {
     */
     useEffect(()=>{
         localStorage.setItem('todos', JSON.stringify(todos));
+        if(editInputRef.current){
+            editInputRef.current.focus();
+        }
     }, [todos])
 
     /*
@@ -48,8 +54,36 @@ const ToDoPage = () => {
         }
     }
 
+    /*
+    * Added handlers for updating todo list item content on keypress
+    */
+    const onUpdateContentKey = async (e: React.KeyboardEvent<HTMLInputElement>, todo: Todo) => {
+        if (e.key === 'Enter' && editInputRef.current?.value) {
+            dispatch(updateTodoContent(todo.id, editInputRef.current?.value || ''));
+            dispatch(updateEditingStatus(todo.id, false))
+            editInputRef.current.value = '';
+        }
+    }
+
+    /*
+    * Added handlers for updating editing status on input blur to discard changes
+    */
+    const onUpdateContentBlur = async (e: React.FocusEvent<HTMLInputElement>, todo: Todo) => {
+        if(editInputRef.current?.value){
+            dispatch(updateEditingStatus(todo.id, false))
+            editInputRef.current.value = '';
+        }
+    }
+
     const onUpdateTodoStatus = (e: React.ChangeEvent<HTMLInputElement>, todoId: string) => {
         dispatch(updateTodoStatus(todoId, e.target.checked))
+    }
+
+    /*
+    * Added handlers for updating editing status on double click
+    */
+    const onUpdateEditingStatus = (e: React.MouseEvent<HTMLSpanElement>, todo: Todo) => {
+        dispatch(updateEditingStatus(todo.id, !todo.isBeingEdited))
     }
 
     const onToggleAllTodo = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -95,7 +129,25 @@ const ToDoPage = () => {
                                     checked={isTodoCompleted(todo)}
                                     onChange={(e) => onUpdateTodoStatus(e, todo.id)}
                                 />
-                                <span>{todo.content}</span>
+                                <span className='Todo__wrapper'>
+                                    {
+                                        todo.isBeingEdited?
+                                        <input
+                                            ref={editInputRef}
+                                            className="Todo__input"
+                                            defaultValue={todo.content}
+                                            onKeyDown={(event)=> {onUpdateContentKey(event, todo)}}
+                                            onBlur={(event)=> {onUpdateContentBlur(event, todo)}}
+                                        />
+                                        : 
+                                        <span 
+                                            className="Todo__content"
+                                            onDoubleClick={(event)=> {onUpdateEditingStatus(event, todo)}}
+                                        >
+                                            {todo.content}
+                                        </span>
+                                    }
+                                </span>
                                 <button
                                     className="Todo__delete"
                                     onClick={() => dispatch(deleteTodo(todo.id))}

@@ -5,7 +5,9 @@ import {
   DELETE_ALL_TODOS,
   DELETE_TODO,
   TOGGLE_ALL_TODOS,
-  UPDATE_TODO_STATUS
+  UPDATE_TODO_STATUS,
+  UPDATE_TODO_CONTENT,
+  UPDATE_TODO_EDITING,
 } from './actions';
 
 
@@ -25,24 +27,46 @@ export const initialState: AppState = {
 
 /*
 * Revised reducer since creating and deleting list items mutated the state.
+* Also revised most reducer action cases to properly update the todos state and initiate component updates.
 */
 function reducer(state: AppState, action: AppActions): AppState {
   switch (action.type) {
     case CREATE_TODO: 
-      const newList = [...state.todos];
-      newList.push(action.payload);
+      const newList1 = [...state.todos];
+      newList1.push(action.payload);
       return {
         ...state,
-        todos: newList,
+        todos: newList1,
       };
 
     case UPDATE_TODO_STATUS:
       const index2 = state.todos.findIndex((todo) => todo.id === action.payload.todoId);
-      state.todos[index2].status = action.payload.checked ? TodoStatus.COMPLETED : TodoStatus.ACTIVE;
+      const newList2 = [...state.todos]
+      newList2[index2].status = action.payload.checked ? TodoStatus.COMPLETED : TodoStatus.ACTIVE;
 
       return {
         ...state,
-        todos: state.todos
+        todos: newList2,
+      }
+
+    case UPDATE_TODO_CONTENT:
+      const index3 = state.todos.findIndex((todo) => todo.id === action.payload.todoId);
+      const newList3 = [...state.todos]
+      newList3[index3].content = action.payload.content;
+
+      return {
+        ...state,
+        todos: newList3,
+      }
+
+    case UPDATE_TODO_EDITING:
+      const index4 = state.todos.findIndex((todo) => todo.id === action.payload.todoId);
+      const newList4 = [...state.todos]
+      newList4[index4].isBeingEdited = action.payload.isBeingEdited;
+
+      return {
+        ...state,
+        todos: newList4,
       }
 
     case TOGGLE_ALL_TODOS:
