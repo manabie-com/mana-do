@@ -3,7 +3,9 @@ import React, { useEffect, useReducer, useRef, useState } from 'react';
 import reducer, { initialState, persistTodos } from '../store/reducer';
 import {
   setTodos,
+  deleteTodo,
   updateTodoStatus,
+  updateTodoContent,
   createTodo,
   toggleAllTodos,
   deleteAllTodos,
@@ -11,7 +13,7 @@ import {
 import Service from '../service';
 import { Todo, TodoStatus } from '../models/todo';
 import { isTodoCompleted } from '../utils';
-import TodoItem from './TodoItem';
+import ToDoItem from './ToDoItem';
 
 type EnhanceTodoStatus = TodoStatus | 'ALL';
 
@@ -79,10 +81,12 @@ const ToDoPage = () => {
       <div className="ToDo__list">
         {
           showTodos.map((todo: Todo) => (
-            <TodoItem
+            <ToDoItem
               key={todo.id}
               todo={todo}
               onUpdateTodoStatus={onUpdateTodoStatus}
+              onUpdateTodoContent={(todoId, content) => dispatch(updateTodoContent(todoId, content))}
+              onDeleteTodo={todoId => dispatch(deleteTodo(todoId))}
             />
           ))
         }

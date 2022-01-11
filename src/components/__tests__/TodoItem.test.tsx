@@ -1,7 +1,7 @@
-import { fireEvent, render, waitForElementToBeRemoved } from '@testing-library/react';
+import { render, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { TodoStatus } from '../../models/todo';
-import TodoItem from '../TodoItem';
+import ToDoItem from '../ToDoItem';
 
 const todoItem = {
   id: '1',
@@ -11,12 +11,14 @@ const todoItem = {
   status: TodoStatus.ACTIVE,
 };
 
-describe('TodoItem', () => {
+describe('ToDoItem', () => {
   it('test show todo item successfully', () => {
     const renderer = render(
-      <TodoItem
+      <ToDoItem
         todo={todoItem}
         onUpdateTodoStatus={() => { }}
+        onUpdateTodoContent={() => { }}
+        onDeleteTodo={() => { }}
       />
     );
     expect(renderer.getByRole('checkbox')).not.toBeChecked();
@@ -26,9 +28,11 @@ describe('TodoItem', () => {
   it('test checkbox is checked if status is COMPLETED', () => {
     const completedTodo = { ...todoItem, status: TodoStatus.COMPLETED };
     const renderer = render(
-      <TodoItem
+      <ToDoItem
         todo={completedTodo}
         onUpdateTodoStatus={() => { }}
+        onUpdateTodoContent={() => { }}
+        onDeleteTodo={() => { }}
       />
     );
     expect(renderer.getByRole('checkbox')).toBeChecked();
@@ -36,9 +40,11 @@ describe('TodoItem', () => {
 
   it('test delete todo', async () => {
     const renderer = render(
-      <TodoItem
+      <ToDoItem
         todo={todoItem}
         onUpdateTodoStatus={() => { }}
+        onUpdateTodoContent={() => { }}
+        onDeleteTodo={() => { }}
       />
     );
     fireEvent.click(renderer.getByText('X'));
@@ -46,17 +52,20 @@ describe('TodoItem', () => {
   });
 
   it('test update todo', async () => {
+    const onUpdateTodoContent = jest.fn();
     const renderer = render(
-      <TodoItem
+      <ToDoItem
         todo={todoItem}
         onUpdateTodoStatus={() => { }}
+        onUpdateTodoContent={onUpdateTodoContent}
+        onDeleteTodo={() => { }}
       />
     );
     fireEvent.doubleClick(renderer.getByTestId('Todo__content'));
-    const input = renderer.getByRole('textbox');
+    const input = await renderer.findByDisplayValue(todoItem.content);
     expect(input).toBeInTheDocument();
-    fireEvent.change(input, { target: { value: "changed" } });
+    fireEvent.change(input, { target: { value: 'changed' } });
     fireEvent.keyDown(input, { key: 'Enter' });
-    expect(renderer.queryByText('changed')).toBeInTheDocument();
+    expect(onUpdateTodoContent).toHaveBeenCalledTimes(1);
   });
 });
