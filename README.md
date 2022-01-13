@@ -19,7 +19,7 @@
 
 #### Common (required for both positions)
 - Our code base has some strange bugs and anti-patterns, please help us to find and fix these (please comments the reasons and your solutions).
-- We, Manabian, believe that engineers themselves should take care of the quality of their products. Please somehow convince us that your changes are correct, we'd prefer to have a few tests for important changes what you had **ADDED** or **FIXED** (unit test or integration test)
+- We, Manabian, believe that engineers themselves should take care of the quality of their products. Please somehow convince us that your changes are correct, we'd prefer to have a few tests for important changes that you had **ADDED** or **FIXED** (unit test or integration test)
 
 #### Front-end engineer
 - For front-end engineer, you can use localStorage instead of calling remote APIs.
