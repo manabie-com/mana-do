@@ -31,7 +31,7 @@
 #### Fullstack engineer
 - You have to make sure your code satisfy the back-end requirements in https://github.com/manabie-com/togo.
 - Keep the existing features in sync with backend. (create/toggle status/toggle all/delete).
-- We do not require you to enhance the UI, but it is preferable (have some small changes but meaningfull are great).
+- We do not require you to enhance the UI, but it is preferable (have some small changes but meaningful are great).
 - Done the common requirements above.
 
 ### How to run this code
