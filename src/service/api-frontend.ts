@@ -1,21 +1,39 @@
-import {IAPI} from './types';
-import {Todo, TodoStatus} from '../models/todo';
-import shortid from 'shortid';
+import { IAPI } from "./types";
+import Todo from "../models/todo";
+import shortid from "shortid";
+import LocalStorage from "../localStorage";
+import { TodoStatus } from "../constants/todo";
 
 class ApiFrontend extends IAPI {
-    async createTodo(content: string): Promise<Todo> {
-        return Promise.resolve({
-            content: content,
-            created_date: new Date().toISOString(),
-            status: TodoStatus.ACTIVE,
-            id: shortid(),
-            user_id: 'firstUser'
-        } as Todo);
-    }
+  async createTodo(content: string): Promise<Todo> {
+    const todo = new Todo(
+      shortid(),
+      "firstUser",
+      content,
+      new Date().toISOString(),
+      TodoStatus.ACTIVE
+    );
 
-    async getTodos(): Promise<Todo[]>{
-        return []
-    }
+    const todoList = await this.getTodoList();
+    todoList.push(todo);
+    LocalStorage.updateToDoToLocalStorage(todoList);
+    return Promise.resolve(todo);
+  }
+
+  async getTodoList(): Promise<Todo[]> {
+    return Promise.resolve(
+      LocalStorage.getTodoList().map(
+        (todo) =>
+          new Todo(
+            todo.id,
+            todo.user_id,
+            todo.content,
+            todo.created_date,
+            todo.status
+          )
+      )
+    );
+  }
 }
 
 export default new ApiFrontend();
