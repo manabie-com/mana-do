@@ -12,12 +12,3 @@ describe("Render component", () => {
     );
   });
 });
-
-describe("Test render empty todo list", () => {
-  test("will render text nothing to do if todo list is empty", () => {
-    let component = shallow(<ToDo />);
-    expect(findByTestAttribute(component, "nothing-to-do").exists()).toEqual(
-      true
-    );
-  });
-});
