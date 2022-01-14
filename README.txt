@@ -11,6 +11,5 @@ LOUEL LAGASCA - APPLICATION
 3. THINGS TO ADD IF GIVEN MORE TIME
     - Ordering feature to allow the user to change the order of the todo list by dragging items to different positions in the list
     - Separator feature so that active items are separated from completed ones
-    - Add toggle feedback on filter buttons to better indicate how the current list items are being filtered
     - Add dynamic displaying of edit and delete functionality to only show the functionality when items in the list are highlighted/selected
-    - Add animation and styling to improve app's look and feel
+    - Add more assets, animation, and styling to further improve app's look and feel

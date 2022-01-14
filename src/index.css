@@ -5,6 +5,16 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #ffb101;
+}
+
+*::-moz-selection {
+  color: #fff;
+  background: #000;
+}
+*::selection {
+  color: #fff;
+  background: #000;
 }
 
 code {

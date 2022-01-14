@@ -109,18 +109,49 @@ const ToDoPage = () => {
         return isTodoCompleted(todo) ? accum : accum + 1;
     }, 0);
 
+    const resolveBtnClasses = (type:string) => {
+        const actionBtn = 'Action__btn';
+        if(type === showing) return `${actionBtn} active`;
+        return actionBtn;
+    }
+
     return (
         <div className="ToDo__container">
+            <h1>Things To Do</h1>
             <div className="Todo__creation">
                 <input
                     ref={inputRef}
                     className="Todo__input"
-                    placeholder="What need to be done?"
+                    placeholder="What needs to be done?"
                     onKeyDown={onCreateTodo}
                 />
             </div>
+            <div className="Todo__toolbar">
+                {todos.length > 0 ?
+                    <input
+                        type="checkbox"
+                        checked={activeTodos === 0}
+                        onChange={onToggleAllTodo}
+                    /> : <div/>
+                }
+                <div className="Todo__tabs">
+                    <button className={resolveBtnClasses('ALL')} onClick={()=>setShowing('ALL')}>
+                        All
+                    </button>
+                    <button className={resolveBtnClasses('ACTIVE')} onClick={()=>setShowing(TodoStatus.ACTIVE)}>
+                        Active
+                    </button>
+                    <button className={resolveBtnClasses('COMPLETED')} onClick={()=>setShowing(TodoStatus.COMPLETED)}>
+                        Completed
+                    </button>
+                </div>
+                <button className="Action__btn clear-all" onClick={onDeleteAllTodo}>
+                    Clear all todos
+                </button>
+            </div>
             <div className="ToDo__list">
                 {
+                    showTodos.length ?
                     showTodos.map((todo, index) => {
                         return (
                             <div key={index} className="ToDo__item">
@@ -157,30 +188,11 @@ const ToDoPage = () => {
                             </div>
                         );
                     })
+                    :
+                    <div className='ToDo__empty'>
+                        Sorry, but there are no items to show :(
+                    </div>
                 }
-            </div>
-            <div className="Todo__toolbar">
-                {todos.length > 0 ?
-                    <input
-                        type="checkbox"
-                        checked={activeTodos === 0}
-                        onChange={onToggleAllTodo}
-                    /> : <div/>
-                }
-                <div className="Todo__tabs">
-                    <button className="Action__btn" onClick={()=>setShowing('ALL')}>
-                        All
-                    </button>
-                    <button className="Action__btn" onClick={()=>setShowing(TodoStatus.ACTIVE)}>
-                        Active
-                    </button>
-                    <button className="Action__btn" onClick={()=>setShowing(TodoStatus.COMPLETED)}>
-                        Completed
-                    </button>
-                </div>
-                <button className="Action__btn" onClick={onDeleteAllTodo}>
-                    Clear all todos
-                </button>
             </div>
         </div>
     );
