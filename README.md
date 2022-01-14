@@ -1,25 +1,25 @@
 ## Welcome to Manabie coding challenge
 
 *Hello!*
-*We're excited that you're interested in joining the Manabie. Below are the requirements and explanations for the challenge.*
+*We're excited that you're interested in joining Manabie. Below are the requirements and explanations for the challenge.*
 
 ### Notes: 
-- Our challenge codebase is based on create-react-app with typescript.
-- All provided codes are in this repository. Please fork, complete your challenge, and create a PR for us.
-- We judge your codes:
-    - Easy to understand.
-    - Well organized.
-    - Performance.
+- Our challenge codebase is bootstrapped by create-react-app with typescript.
+- All provided codes are in this repository. Please **fork**, complete your challenge, and create a PR to this repository.
+- We judge your codes by:
+    - Easy to read and understand.
+    - Well organized and consistent.
     - Test cases.
-    - Your behavior when approaching a new technology.
-- Dont worry if you can't complete the challenge in time. Just do your best in a mindful way.
+    - How do you approach new technologies?
+- Don't worry if you can't complete the challenge in time. Just do your best in a mindful way.
 - If you can't fully complete the challenge, please note the completed features.
+- We'd like too see some descriptions about your PR.
     
 ### Requirements
 
 #### Common (required for both positions)
-- Our code base has some strange bugs and anti-patterns, please help us find and fix these (please comment the reasons why you change it).
-- Write some tests to persuade us that what you had ADDED or FIXED are correct (choose your desired lib/framework).
+- Our code base has some strange bugs and anti-patterns, please help us to find and fix these (please comments the reasons and your solutions).
+- We, Manabian, believe that engineers themselves should take care of the quality of their products. Please somehow convince us that your changes are correct, we'd prefer to have a few tests for important changes that you had **ADDED** or **FIXED** (unit test or integration test)
 
 #### Front-end engineer
 - For front-end engineer, you can use localStorage instead of calling remote APIs.
@@ -30,7 +30,8 @@
 
 #### Fullstack engineer
 - You have to make sure your code satisfy the back-end requirements in https://github.com/manabie-com/togo.
-- We do not require you to enhance the UI, but it is preferable.
+- Keep the existing features in sync with backend. (create/toggle status/toggle all/delete).
+- We do not require you to enhance the UI, but it is preferable (have some small changes but meaningful are great).
 - Done the common requirements above.
 
 ### How to run this code
@@ -38,4 +39,4 @@
 - Run ```yarn start:fullstack``` in case you are doing a fullstack test, else run ```yarn start:frontend``` to start this project in development mode.
 - Sign in using username: `firstUser`, password: `example`
 
-Last updated: 2021/12/10
+Last updated: 2022/01/13
