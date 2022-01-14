@@ -28,6 +28,14 @@ class Todo {
   isTodoActive(): boolean {
     return this.status === TodoStatus.ACTIVE;
   }
+
+  set Status(value: boolean) {
+    this.status = value ? TodoStatus.COMPLETED : TodoStatus.ACTIVE;
+  }
+
+  set Content(content: string) {
+    this.content = content;
+  }
 }
 
 export default Todo;

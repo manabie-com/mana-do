@@ -5,12 +5,12 @@ import { TodoStatus } from "../../constants/todo";
 interface TodoActionInterface {
   todoList: Array<Todo>; 
   onToggleAllTodo: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  setShowing: (status: TodoStatus) => void;
+  setStatusFilter: (status: TodoStatus) => void;
   onDeleteAllTodo: () => void;
 }
 
 const TodoAction = (props: TodoActionInterface) => {
-  const { todoList, onToggleAllTodo, setShowing, onDeleteAllTodo } =
+  const { todoList, onToggleAllTodo, setStatusFilter, onDeleteAllTodo } =
     props;
 
   return (
@@ -29,19 +29,19 @@ const TodoAction = (props: TodoActionInterface) => {
       <div className="todo__tabs">
         <button
           className="todo__tabs-btn"
-          onClick={() => setShowing(TodoStatus.ALL)}
+          onClick={() => setStatusFilter(TodoStatus.ALL)}
         >
           All
         </button>
         <button
           className="todo__tabs-btn"
-          onClick={() => setShowing(TodoStatus.ACTIVE)}
+          onClick={() => setStatusFilter(TodoStatus.ACTIVE)}
         >
           Active
         </button>
         <button
           className="todo__tabs-btn"
-          onClick={() => setShowing(TodoStatus.COMPLETED)}
+          onClick={() => setStatusFilter(TodoStatus.COMPLETED)}
         >
           Completed
         </button>

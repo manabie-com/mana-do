@@ -4,16 +4,13 @@ import TotoItem from "./TodoItem";
 
 export interface TodoListInterface {
   todoList: Array<Todo>;
-  onUpdateTodoStatus: (
-    e: React.ChangeEvent<HTMLInputElement>,
-    todoId: string
-  ) => void;
-  handleUpdateTodo: (todoId: string, content: string) => void;
+  handleUpdateTodoStatus: (todo: Todo, checked: boolean) => void;
+  handleUpdateTodoContent: (todo: Todo, content: string) => void;
   handleDeleteTodo: (todoId: string) => void;
 }
 
 const TodoList = (props: TodoListInterface) => {
-  const { onUpdateTodoStatus, todoList, handleUpdateTodo, handleDeleteTodo } =
+  const { handleUpdateTodoStatus, todoList, handleUpdateTodoContent, handleDeleteTodo } =
     props;
 
   return (
@@ -27,9 +24,9 @@ const TodoList = (props: TodoListInterface) => {
               data-test="todo-item"
               key={index}
               todo={todo}
-              onUpdateTodoStatus={onUpdateTodoStatus}
+              handleUpdateTodoStatus={handleUpdateTodoStatus}
               deleteTodo={handleDeleteTodo}
-              updateTodo={handleUpdateTodo}
+              handleUpdateTodoContent={handleUpdateTodoContent}
             />
           );
         })

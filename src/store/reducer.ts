@@ -6,8 +6,7 @@ import {
   DELETE_ALL_TODO_LIST,
   DELETE_TODO,
   TOGGLE_ALL_TODO,
-  UPDATE_TODO,
-  UPDATE_TODO_STATUS,
+  UPDATE_TODO, 
   SET_TODO_LIST,
 } from "../constants/todoAction";
 import { AppActions } from "./actions";
@@ -31,19 +30,6 @@ function reducer(state: AppState, action: AppActions): AppState {
       return {
         ...state,
         todoList: newTodoList,
-      };
-
-    case UPDATE_TODO_STATUS:
-      const index2 = state.todoList.findIndex(
-        (todo) => todo.id === action.payload.todoId
-      );
-      state.todoList[index2].status = action.payload.checked
-        ? TodoStatus.COMPLETED
-        : TodoStatus.ACTIVE;
-
-      return {
-        ...state,
-        todoList: state.todoList,
       };
 
     case TOGGLE_ALL_TODO:
@@ -74,18 +60,9 @@ function reducer(state: AppState, action: AppActions): AppState {
         todoList: [],
       };
     case UPDATE_TODO:
-      const todoUpdate = [...state.todoList].map((todo) => {
-        if (todo.id === action.payload.todoId) {
-          return new Todo(
-            todo.id,
-            todo.user_id,
-            action.payload.content,
-            todo.created_date,
-            todo.status
-          );
-        }
-        return todo;
-      });
+      const todoUpdate = state.todoList.map((todo) =>
+        todo.id === action.payload.id ? action.payload : todo
+      );
 
       return {
         ...state,

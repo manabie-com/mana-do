@@ -1,19 +1,16 @@
 import React, { useEffect, useRef, useState } from "react";
 import Todo from "../../../models/todo";
-import "./todo-item.css"
+import "./todo-item.css";
 
 interface TodoItemInterface {
-  todo: Todo; 
-  onUpdateTodoStatus: (
-    e: React.ChangeEvent<HTMLInputElement>,
-    todoId: string
-  ) => void;
+  todo: Todo;
+  handleUpdateTodoStatus: (todo: Todo, checked: boolean) => void;
   deleteTodo: (todoID: string) => void;
-  updateTodo: (todoID: string, todoContent: string) => void;
+  handleUpdateTodoContent: (todo: Todo, todoContent: string) => void;
 }
 
 const TotoItem = (props: TodoItemInterface) => {
-  const { todo, onUpdateTodoStatus, deleteTodo, updateTodo } =
+  const { todo, handleUpdateTodoStatus, deleteTodo, handleUpdateTodoContent } =
     props;
   const [isEditing, setIsEditing] = useState(false);
   const [totoContent, setTotoContent] = useState(todo.content);
@@ -33,22 +30,22 @@ const TotoItem = (props: TodoItemInterface) => {
     setTotoContent(e.target.value);
   };
 
-  const onPressEnter = (e: React.KeyboardEvent<HTMLInputElement>) => { 
+  const onPressEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       saveTodo(totoContent);
     }
   };
 
   const saveTodo = (content: string) => {
-    updateTodo(todo.id, content);
+    handleUpdateTodoContent(todo, content);
     setIsEditing(false);
   };
 
   const handleClickOutside = (event: Event) => {
     const { current } = inputRef;
     const { target } = event;
- 
-    if (current && !current.contains(target as Node)) { 
+
+    if (current && !current.contains(target as Node)) {
       saveTodo(current.value);
     }
   };
@@ -58,7 +55,7 @@ const TotoItem = (props: TodoItemInterface) => {
       <input
         type="checkbox"
         checked={todo.isTodoCompleted()}
-        onChange={(e) => onUpdateTodoStatus(e, todo.id)}
+        onChange={(e) => handleUpdateTodoStatus(todo, e.target.checked)}
       />
       <span className="todo-item__content" onClick={handleEditTodo}>
         {isEditing ? (

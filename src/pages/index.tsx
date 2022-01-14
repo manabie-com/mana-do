@@ -8,7 +8,6 @@ import {
   deleteTodo,
   toggleAllTodo,
   clearTodoList,
-  updateTodoStatus,
   updateTodo,
 } from "../store/actions";
 import Service from "../service";
@@ -16,10 +15,12 @@ import { TodoStatus } from "../constants/todo";
 import LocalStorage from "../localStorage";
 import TodoAction from "./TodoAction";
 import TodoList from "./TodoList";
+import Todo from "../models/todo";
+import { filterTodoByStatus } from "../selectors/todo";
 
 const ToDo = () => {
   const [{ todoList }, dispatch] = useReducer(reducer, initialState);
-  const [showing, setShowing] = useState<TodoStatus>(TodoStatus.ALL);
+  const [statusFilter, setStatusFilter] = useState<TodoStatus>(TodoStatus.ALL);
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -41,13 +42,6 @@ const ToDo = () => {
     }
   };
 
-  const onUpdateTodoStatus = (
-    e: React.ChangeEvent<HTMLInputElement>,
-    todoId: string
-  ) => {
-    dispatch(updateTodoStatus(todoId, e.target.checked));
-  };
-
   const onToggleAllTodo = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(toggleAllTodo(e.target.checked));
   };
@@ -56,22 +50,18 @@ const ToDo = () => {
     dispatch(clearTodoList());
   };
 
-  const getTodoByStatus = () => {
-    if (showing === TodoStatus.ALL) {
-      return todoList;
-    } else {
-      return todoList.filter((todo) => {
-        return todo.status === showing;
-      });
-    }
-  };
-
   const handleDeleteTodo = (todoId: string) => {
     dispatch(deleteTodo(todoId));
   };
 
-  const handleUpdateTodo = (todoId: string, content: string) => {
-    dispatch(updateTodo(todoId, content));
+  const handleUpdateTodoStatus = (todo: Todo, checked: boolean) => {
+    todo.Status = checked;
+    dispatch(updateTodo(todo));
+  };
+
+  const handleUpdateTodoContent = (todo: Todo, content: string) => {
+    todo.Content = content;
+    dispatch(updateTodo(todo));
   };
 
   return (
@@ -85,15 +75,15 @@ const ToDo = () => {
         />
       </div>
       <TodoList
-        todoList={getTodoByStatus()}
-        onUpdateTodoStatus={onUpdateTodoStatus}
-        handleUpdateTodo={handleUpdateTodo}
+        todoList={filterTodoByStatus(statusFilter, todoList)}
+        handleUpdateTodoStatus={handleUpdateTodoStatus}
+        handleUpdateTodoContent={handleUpdateTodoContent}
         handleDeleteTodo={handleDeleteTodo}
       />
       <TodoAction
         todoList={todoList}
         onToggleAllTodo={onToggleAllTodo}
-        setShowing={setShowing}
+        setStatusFilter={setStatusFilter}
         onDeleteAllTodo={onDeleteAllTodo}
       />
     </div>
