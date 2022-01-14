@@ -25,7 +25,7 @@ const TodoList = (props: TodoListInterface) => {
               key={index}
               todo={todo}
               handleUpdateTodoStatus={handleUpdateTodoStatus}
-              deleteTodo={handleDeleteTodo}
+              handleDeleteTodo={handleDeleteTodo}
               handleUpdateTodoContent={handleUpdateTodoContent}
             />
           );

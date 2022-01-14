@@ -5,12 +5,12 @@ import "./todo-item.css";
 interface TodoItemInterface {
   todo: Todo;
   handleUpdateTodoStatus: (todo: Todo, checked: boolean) => void;
-  deleteTodo: (todoID: string) => void;
+  handleDeleteTodo: (todoID: string) => void;
   handleUpdateTodoContent: (todo: Todo, todoContent: string) => void;
 }
 
 const TotoItem = (props: TodoItemInterface) => {
-  const { todo, handleUpdateTodoStatus, deleteTodo, handleUpdateTodoContent } =
+  const { todo, handleUpdateTodoStatus, handleDeleteTodo, handleUpdateTodoContent } =
     props;
   const [isEditing, setIsEditing] = useState(false);
   const [totoContent, setTotoContent] = useState(todo.content);
@@ -71,7 +71,7 @@ const TotoItem = (props: TodoItemInterface) => {
           todo.content
         )}
       </span>
-      <button className="todo-item__delete" onClick={() => deleteTodo(todo.id)}>
+      <button className="todo-item__delete" onClick={() => handleDeleteTodo(todo.id)}>
         X
       </button>
     </div>
