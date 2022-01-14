@@ -35,8 +35,8 @@ describe("Test render empty todo list", () => {
     let component = shallow(
       <TodoList
         todoList={[]}
-        onUpdateTodoStatus={() => null}
-        handleUpdateTodo={() => null}
+        handleUpdateTodoStatus={() => null}
+        handleUpdateTodoContent={() => null}
         handleDeleteTodo={() => null}
       />
     );
@@ -51,8 +51,8 @@ describe("Test render todo list", () => {
     let component = shallow(
       <TodoList
         todoList={initialTodoList}
-        onUpdateTodoStatus={() => null}
-        handleUpdateTodo={() => null}
+        handleUpdateTodoStatus={() => null}
+        handleUpdateTodoContent={() => null}
         handleDeleteTodo={() => null}
       />
     );

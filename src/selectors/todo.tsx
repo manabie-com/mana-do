@@ -14,10 +14,10 @@ export const filterTodoByStatus = (
   }
 };
 
-export const sumTodoComplete = (todoList: Array<Todo>) => {
+export const sumTodoActive = (todoList: Array<Todo>) => {
   return todoList.reduce(
     (todoComplete, todo) =>
-      todo.isTodoCompleted() ? todoComplete : todoComplete + 1,
+      todo.isTodoActive() ? todoComplete + 1 : todoComplete,
     0
   );
 };

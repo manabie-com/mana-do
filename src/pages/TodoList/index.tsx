@@ -10,8 +10,12 @@ export interface TodoListInterface {
 }
 
 const TodoList = (props: TodoListInterface) => {
-  const { handleUpdateTodoStatus, todoList, handleUpdateTodoContent, handleDeleteTodo } =
-    props;
+  const {
+    handleUpdateTodoStatus,
+    todoList,
+    handleUpdateTodoContent,
+    handleDeleteTodo,
+  } = props;
 
   return (
     <div className="todo__list">

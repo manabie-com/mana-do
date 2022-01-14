@@ -10,8 +10,13 @@ interface TodoItemInterface {
 }
 
 const TotoItem = (props: TodoItemInterface) => {
-  const { todo, handleUpdateTodoStatus, handleDeleteTodo, handleUpdateTodoContent } =
-    props;
+  const {
+    todo,
+    handleUpdateTodoStatus,
+    handleDeleteTodo,
+    handleUpdateTodoContent,
+  } = props;
+  
   const [isEditing, setIsEditing] = useState(false);
   const [totoContent, setTotoContent] = useState(todo.content);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -71,7 +76,10 @@ const TotoItem = (props: TodoItemInterface) => {
           todo.content
         )}
       </span>
-      <button className="todo-item__delete" onClick={() => handleDeleteTodo(todo.id)}>
+      <button
+        className="todo-item__delete"
+        onClick={() => handleDeleteTodo(todo.id)}
+      >
         X
       </button>
     </div>

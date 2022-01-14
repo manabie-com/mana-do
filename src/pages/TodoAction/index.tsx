@@ -1,7 +1,7 @@
 import Todo from "../../models/todo";
 import React from "react";
 import { TodoStatus } from "../../constants/todo";
-import { sumTodoComplete } from "../../selectors/todo";
+import { sumTodoActive } from "../../selectors/todo";
 
 interface TodoActionInterface {
   todoList: Array<Todo>;
@@ -11,14 +11,13 @@ interface TodoActionInterface {
 }
 
 const TodoAction = (props: TodoActionInterface) => {
-  const { todoList, onToggleAllTodo, setStatusFilter, onDeleteAllTodo } = props;
-
+  const { todoList, onToggleAllTodo, setStatusFilter, onDeleteAllTodo } = props; 
   return (
     <div className="todo__toolbar">
       {todoList.length > 0 && (
         <input
           type="checkbox"
-          checked={sumTodoComplete(todoList) === 0}
+          checked={sumTodoActive(todoList) === 0}
           onChange={onToggleAllTodo}
         />
       )}
