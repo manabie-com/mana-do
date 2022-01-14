@@ -53,4 +53,4 @@ const TodoAction = (props: TodoActionInterface) => {
   );
 };
 
-export default TodoAction;
+export default React.memo(TodoAction);

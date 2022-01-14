@@ -30,4 +30,4 @@ const TodoItemContent = (props: TodoItemContentInterface) => {
   );
 };
 
-export default TodoItemContent;
+export default React.memo(TodoItemContent);

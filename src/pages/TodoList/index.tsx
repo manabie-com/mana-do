@@ -1,6 +1,6 @@
 import "./todo-list.css";
 
-import React from "react";
+import React, { useMemo } from "react";
 import Todo from "../../models/todo";
 import TotoItem from "./TodoItem";
 
@@ -19,26 +19,28 @@ const TodoList = (props: TodoListInterface) => {
     handleDeleteTodo,
   } = props;
 
+  const todListEmptyWithUseMemo = useMemo(() => {
+    return <span data-test="nothing-to-do">You dont have anything to do</span>;
+  }, []);
+
   return (
     <div className="todo__list">
-      {todoList.length === 0 ? (
-        <span data-test="nothing-to-do">You dont have anything to do</span>
-      ) : (
-        todoList.map((todo, index) => {
-          return (
-            <TotoItem
-              data-test="todo-item"
-              key={index}
-              todo={todo}
-              handleUpdateTodoStatus={handleUpdateTodoStatus}
-              handleDeleteTodo={handleDeleteTodo}
-              handleUpdateTodoContent={handleUpdateTodoContent}
-            />
-          );
-        })
-      )}
+      {todoList.length === 0
+        ? todListEmptyWithUseMemo
+        : todoList.map((todo, index) => {
+            return (
+              <TotoItem
+                data-test="todo-item"
+                key={index}
+                todo={todo}
+                handleUpdateTodoStatus={handleUpdateTodoStatus}
+                handleDeleteTodo={handleDeleteTodo}
+                handleUpdateTodoContent={handleUpdateTodoContent}
+              />
+            );
+          })}
     </div>
   );
 };
 
-export default TodoList;
+export default React.memo(TodoList);
