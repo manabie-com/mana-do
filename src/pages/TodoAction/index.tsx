@@ -1,4 +1,4 @@
-import './todo-action.css'
+import "./todo-action.css";
 
 import Todo from "../../models/todo";
 import React from "react";
@@ -7,7 +7,7 @@ import { sumTodoActive } from "../../selectors/todo";
 import classnames from "classnames";
 
 interface TodoActionInterface {
-  todoList: Array<Todo>;
+  todoList?: Array<Todo>;
   onToggleAllTodo: (e: React.ChangeEvent<HTMLInputElement>) => void;
   setStatusFilter: (status: TodoStatus) => void;
   onDeleteAllTodo: () => void;
@@ -25,7 +25,7 @@ const TodoAction = (props: TodoActionInterface) => {
 
   return (
     <div className="toolbar">
-      {todoList.length > 0 && (
+      {todoList && todoList.length > 0 && (
         <input
           type="checkbox"
           checked={sumTodoActive(todoList) === 0}
@@ -39,6 +39,7 @@ const TodoAction = (props: TodoActionInterface) => {
             className={classnames("toolbar__tabs-btn", {
               "toolbar__tabs--active": status === statusActive,
             })}
+            data-test={status}
             onClick={() => setStatusFilter(status)}
           >
             {status}
@@ -46,7 +47,7 @@ const TodoAction = (props: TodoActionInterface) => {
         ))}
       </div>
       <button className="toolbar__tabs-btn" onClick={onDeleteAllTodo}>
-        Clear all todos
+        Clear all todo
       </button>
     </div>
   );
