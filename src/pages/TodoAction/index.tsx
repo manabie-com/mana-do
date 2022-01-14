@@ -1,19 +1,30 @@
+import './todo-action.css'
+
 import Todo from "../../models/todo";
 import React from "react";
-import { TodoStatus } from "../../constants/todo";
+import { TodoStatus, TodoStatuses } from "../../constants/todo";
 import { sumTodoActive } from "../../selectors/todo";
+import classnames from "classnames";
 
 interface TodoActionInterface {
   todoList: Array<Todo>;
   onToggleAllTodo: (e: React.ChangeEvent<HTMLInputElement>) => void;
   setStatusFilter: (status: TodoStatus) => void;
   onDeleteAllTodo: () => void;
+  statusActive: TodoStatus;
 }
 
 const TodoAction = (props: TodoActionInterface) => {
-  const { todoList, onToggleAllTodo, setStatusFilter, onDeleteAllTodo } = props; 
+  const {
+    todoList,
+    onToggleAllTodo,
+    setStatusFilter,
+    onDeleteAllTodo,
+    statusActive,
+  } = props;
+
   return (
-    <div className="todo__toolbar">
+    <div className="toolbar">
       {todoList.length > 0 && (
         <input
           type="checkbox"
@@ -21,27 +32,20 @@ const TodoAction = (props: TodoActionInterface) => {
           onChange={onToggleAllTodo}
         />
       )}
-      <div className="todo__tabs">
-        <button
-          className="todo__tabs-btn"
-          onClick={() => setStatusFilter(TodoStatus.ALL)}
-        >
-          All
-        </button>
-        <button
-          className="todo__tabs-btn"
-          onClick={() => setStatusFilter(TodoStatus.ACTIVE)}
-        >
-          Active
-        </button>
-        <button
-          className="todo__tabs-btn"
-          onClick={() => setStatusFilter(TodoStatus.COMPLETED)}
-        >
-          Completed
-        </button>
+      <div className="toolbar__tabs">
+        {TodoStatuses.map((status) => (
+          <button
+            key={status}
+            className={classnames("toolbar__tabs-btn", {
+              "toolbar__tabs--active": status === statusActive,
+            })}
+            onClick={() => setStatusFilter(status)}
+          >
+            {status}
+          </button>
+        ))}
       </div>
-      <button className="todo__tabs-btn" onClick={onDeleteAllTodo}>
+      <button className="toolbar__tabs-btn" onClick={onDeleteAllTodo}>
         Clear all todos
       </button>
     </div>

@@ -82,6 +82,7 @@ const ToDo = () => {
       />
       <TodoAction
         todoList={todoList}
+        statusActive={statusFilter}
         onToggleAllTodo={onToggleAllTodo}
         setStatusFilter={setStatusFilter}
         onDeleteAllTodo={onDeleteAllTodo}

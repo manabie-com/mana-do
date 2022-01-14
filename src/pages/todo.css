@@ -14,24 +14,3 @@
 .todo__input {
   flex: 1 1;
 }
-
-.todo__list {
-  display: flex;
-  flex-direction: column;
-  margin-top: 1.5rem;
-}
-
-.todo__toolbar {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 24px;
-}
-
-.todo__tabs {
-  display: flex;
-  justify-content: center;
-}
-
-.todo__tabs > *:not(:last-child) {
-  margin-right: 8px;
-}
