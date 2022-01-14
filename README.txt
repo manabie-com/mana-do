@@ -4,6 +4,7 @@ LOUEL LAGASCA - APPLICATION
     - Fixed bugs and anti-patterns
     - Added functionality for data retention during refresh through the use of local storage
     - Revised and added handlers and UI elements for the editing feature
+    - Added new styling and layout for frontend requirements
 
 2. HOW TO RUN TESTS
     - Run `yarn test` on application root directory
