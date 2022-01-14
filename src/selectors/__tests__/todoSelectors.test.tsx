@@ -69,21 +69,21 @@ describe.each(testTodoListFilterProviders)(
 const testSumTodoListComplete = [
   [
     {
-      description: "Will return 2 if  if status complete is 2",
+      description: "Will return 2 if status active is 2",
       todoList: todoListAll,
       result: 2,
     },
   ],
   [
     {
-      description: "Will return 2 if  if status complete is 2",
+      description: "Will return 0 if status active is 0",
       todoList: todoListComplete,
       result: 0,
     },
   ],
   [
     {
-      description: "Will return 0 if  if status complete is 0",
+      description: "Will return 2 if status active is 0",
       todoList: todoListActive,
       result: todoListActive.length,
     },
