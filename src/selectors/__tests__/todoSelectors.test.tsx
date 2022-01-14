@@ -66,7 +66,7 @@ describe.each(testTodoListFilterProviders)(
   }
 );
 
-const testSumTodoListComplete = [
+const testSumTodoListActive = [
   [
     {
       description: "Will return 2 if status active is 2",
@@ -83,14 +83,14 @@ const testSumTodoListComplete = [
   ],
   [
     {
-      description: "Will return 2 if status active is 0",
+      description: "Will return 2 if status active is 2",
       todoList: todoListActive,
       result: todoListActive.length,
     },
   ],
 ];
 
-describe.each(testSumTodoListComplete)(
+describe.each(testSumTodoListActive)(
   "Test sum todo list complete",
   ({ description, todoList, result }) => {
     it(description, () => {
