@@ -8,15 +8,15 @@ import {
 } from "../constants/todoAction";
 import Todo from "../models/todo";
 
-export interface SetTodoAction {
+export interface SetTodoListAction {
   type: typeof SET_TODO_LIST;
   payload: Array<Todo>;
 }
 
-export function setTodo(todos: Array<Todo>): SetTodoAction {
+export function setTodo(todoList: Array<Todo>): SetTodoListAction {
   return {
     type: SET_TODO_LIST,
-    payload: todos,
+    payload: todoList,
   };
 }
 
@@ -84,7 +84,7 @@ export function updateTodo(todo: Todo): EditTodoAction {
 }
 
 export type AppActions =
-  | SetTodoAction
+  | SetTodoListAction
   | CreateTodoAction 
   | DeleteTodoAction
   | ClearTodoListAction

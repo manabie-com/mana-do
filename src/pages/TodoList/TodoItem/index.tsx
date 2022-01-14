@@ -20,7 +20,7 @@ const TotoItem = (props: TodoItemInterface) => {
     document.addEventListener("click", handleClickOutside, true);
   });
 
-  const handleEditTodo = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleOnClickTodo = (e: React.MouseEvent<HTMLButtonElement>) => {
     if (e.detail === 2) {
       setIsEditing(!isEditing);
     }
@@ -57,7 +57,7 @@ const TotoItem = (props: TodoItemInterface) => {
         checked={todo.isTodoCompleted()}
         onChange={(e) => handleUpdateTodoStatus(todo, e.target.checked)}
       />
-      <span className="todo-item__content" onClick={handleEditTodo}>
+      <span className="todo-item__content" onClick={handleOnClickTodo}>
         {isEditing ? (
           <input
             className="todo-item__input"
