@@ -6,7 +6,8 @@ import {
   DELETE_TODO,
   TOGGLE_ALL_TODOS,
   UPDATE_TODO_STATUS,
-  SET_TODO
+  SET_TODO,
+  UPDATE_TODO
 } from './actions';
 
 import produce from 'immer'
@@ -27,6 +28,17 @@ function reducer(state: AppState, action: AppActions): AppState {
       return produce(state, (draft) => {
         draft.todos = action.payload
       })
+
+    // Update a todo
+    case UPDATE_TODO: {
+      return produce(state, (draft) => {
+        const { todoId, todo } = action.payload
+        const index = state.todos.findIndex((item) =>  todoId === item.id)
+        if (index !== -1) {
+          draft.todos[index] = {...draft.todos[index], ...todo}
+        }
+      })
+    }
 
     // Create a todo
     case CREATE_TODO:

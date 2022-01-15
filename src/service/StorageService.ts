@@ -1,4 +1,4 @@
-class LocalStorageService<T> {
+class StorageService<T> {
 
   constructor(public key: string, public initialValue: T) {}
 
@@ -34,4 +34,4 @@ class LocalStorageService<T> {
   }
 }
 
-export default LocalStorageService
+export default StorageService

@@ -72,13 +72,19 @@ input:focus {
 .ToDo__item {
   display: flex;
   align-items: center;
-  justify-content: space-between;
 }
 
 .ToDo__item > span {
   flex: 1 1;
   text-align: left;
-  margin-left: 8px;
+  margin-left: 4px;
+  padding: 4px;
+  cursor: text;
+}
+
+.ToDo__item .Todo_form_edit, .ToDo__item .Todo__input__edit {
+  margin-left: 4px;
+  width: 100%;
 }
 
 .Todo__content {

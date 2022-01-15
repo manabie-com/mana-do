@@ -12,10 +12,11 @@ import {
     deleteTodo,
     toggleAllTodos,
     deleteAllTodos,
-    updateTodoStatus
+    updateTodoStatus,
+    updateTodo
 } from './store/actions';
 import Service from './service';
-import {TodoStatus} from './models/todo';
+import {Todo, TodoStatus} from './models/todo';
 import {isTodoCompleted} from './utils';
 
 type EnhanceTodoStatus = TodoStatus | 'ALL';
@@ -24,7 +25,7 @@ type EnhanceTodoStatus = TodoStatus | 'ALL';
 const ToDoPage = () => {
     const [{todos}, dispatch] = useReducer(reducer, initialState);
     const [showing, setShowing] = useState<EnhanceTodoStatus>('ALL');
-    const [todoName, setTodoName] = useState('')
+    const [todoContent, setTodoContent] = useState('')
 
     // This func is used to get todo-list
     const handleGetTodoList = async () => {
@@ -40,14 +41,20 @@ const ToDoPage = () => {
     // Submit to create todo-list
     const onCreateTodo = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
-        const resp = await Service.createTodo(todoName)
+        const resp = await Service.createTodo(todoContent)
         dispatch(createTodo(resp))
-        setTodoName('')
+        setTodoContent('')
     }
 
     // The change event to handle change todo-name
-    const handleChangeTodoName = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setTodoName(event.target.value)
+    const handleChangeTodoContent = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setTodoContent(event.target.value)
+    }
+
+    // This func is used to edit a todo based on todo-id
+    const handleEditTodo = async ({id, ...todo}: Todo) => {
+        await Service.updateTodo(id, todo)
+        dispatch(updateTodo(id, todo))
     }
 
     // The change event to handle change todo-status
@@ -96,21 +103,23 @@ const ToDoPage = () => {
             {/* Todo Form */}
             <form className="Todo__creation" onSubmit={onCreateTodo}>
                 <input
-                    value={todoName}
+                    value={todoContent}
                     required
                     name="todo_name"
                     className="Todo__input"
                     placeholder="What need to be done?"
-                    onChange={handleChangeTodoName}
+                    onChange={handleChangeTodoContent}
                 />
             </form>
             {/* Todo List */}
             <div className="ToDo__list">
                 {showTodos.map((todo) => (
-                    <TodoItem 
-                        todo={todo} 
+                    <TodoItem
+                        key={todo.id}
+                        data={todo} 
                         onChangeStatus={onUpdateTodoStatus} 
                         onDelete={handleDeleteTodo}
+                        onEdit={handleEditTodo}
                     />
                 ))}
             </div>
