@@ -1,13 +1,15 @@
 import React from 'react';
 
-import ToDoPage from './ToDoPage';
+// styles
+import "styles/theme.scss";
+import "styles/global.scss";
 
-import './App.css';
+import TodoPage from "pages/TodoPage";
 
 function App() {
   return (
-    <main className="App" data-test="app">
-      <ToDoPage />
+    <main className={`theme app light`} data-test="app">
+      <TodoPage />
     </main>
   );
 }

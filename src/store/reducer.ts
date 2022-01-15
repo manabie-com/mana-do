@@ -1,12 +1,12 @@
 import {Todo, TodoStatus} from '../models/todo';
+import { AppActions } from './actions';
 import {
-  AppActions,
   CREATE_TODO,
   DELETE_ALL_TODOS,
   DELETE_TODO,
   TOGGLE_ALL_TODOS,
   UPDATE_TODO_STATUS
-} from './actions';
+} from './action-types';
 
 export interface AppState {
   todos: Array<Todo>
@@ -17,7 +17,7 @@ export const initialState: AppState = {
 }
 
 function reducer(state: AppState, action: AppActions): AppState {
-  switch (action.type) {
+  switch (action?.type) {
     case CREATE_TODO: {
       const tempTodos = [
         ...state.todos, 

@@ -1,0 +1,16 @@
+.root {
+  border-radius: 20px;
+  overflow: hidden;
+  width: 90vw;
+  max-width: 600px;
+  margin-top: 5rem;
+  box-shadow: 0 2px 20px 0 rgba(0, 0, 0, 0.2), 
+              0 25px 50px 0 rgba(0, 0, 0, 0.1);
+  height: fit-content;
+  background-color: var(--card-background-color);
+
+  & .header {
+    display: flex;
+    padding: 10px 20px;
+  }
+}

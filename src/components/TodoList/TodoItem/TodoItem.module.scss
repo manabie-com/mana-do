@@ -1,0 +1,35 @@
+.root {
+  display: flex;
+  align-content: center;
+  padding: 20px 0;
+  &:hover {
+    & .deleteButton {
+      opacity: 1;
+      pointer-events: all;
+    }
+  }
+  & .content {
+    color: var(--text-color);
+    transition: all .2s;
+    font-size: 1.5rem;
+    &.active {
+      text-decoration: line-through;
+      opacity: .5;
+    }
+  }
+  & .deleteButton {
+    margin-left: auto;
+    cursor: pointer;
+    color: var(--danger);
+    transition: all .2s;
+    opacity: 0;
+    pointer-events: none;
+    font-size: 1.125rem;
+
+    display: flex;
+    align-items: center;
+    &:hover {
+      color: var(--danger-hover);
+    }
+  }
+}

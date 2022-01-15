@@ -1,0 +1,16 @@
+.root {
+  width: 100%;
+  border: none;
+  outline: none;
+  min-height: 46px;
+  border-radius: 4px;
+  font-size: 1.5rem;
+  color: var(--text-color);
+  background-color: var(--card-background-color);
+  
+  &::placeholder {
+    font-style: italic;
+    color: var(--text-color);
+    opacity: .5;
+  }
+}

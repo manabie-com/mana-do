@@ -1,0 +1,42 @@
+.root {
+  border-top: 1px solid var(--background-color);
+  padding: 20px;
+  display: flex;
+  position: relative;
+  font-size: 0.9375rem;
+  & .tabList {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    & .tabItem {
+      margin-right: 7px;
+      border: 1px solid var(--border-color);
+      border-radius: 5px;
+      cursor: pointer;
+      padding: 0 7px;
+      transition: all .3s;
+      &:last-child {
+        margin-right: 0;
+      }
+      &:hover {
+        border-color: var(--danger);
+        color: var(--danger);
+      }
+      &.active {
+        border-color: var(--danger);
+        color: var(--danger);
+      }
+    }
+  }
+  & .clearAllButton {
+    align-self: flex-end;
+    margin-left: auto;
+    color: var(--danger);
+    font-style: italic;
+    cursor: pointer;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
