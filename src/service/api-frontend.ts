@@ -14,6 +14,11 @@ class ApiFrontend extends IAPI {
         this.todoStorage = new StorageService<Todo[]>(STORAGE_TODO_LIST, [])
     }
 
+    async getTodos(): Promise<Todo[]>{
+        const todos = this.todoStorage.get()
+        return Promise.resolve(todos)
+    }
+
     async createTodo(content: string): Promise<Todo> {
         const newTodo: Todo = {
             content,
@@ -39,9 +44,21 @@ class ApiFrontend extends IAPI {
         return Promise.resolve(successResponse)
     }
 
-    async getTodos(): Promise<Todo[]>{
-        const todos = this.todoStorage.get()
-        return Promise.resolve(todos)
+    async removeTodo(id: string) {
+        const todos = await this.getTodos()
+        const newTodos = produce(todos, (draft) => {
+            const index = todos.findIndex(item => item.id === id)
+            if (index !== -1) {
+                draft.splice(index, 1)
+            }
+        })
+        this.todoStorage.set(newTodos)
+        return Promise.resolve(successResponse)
+    }
+
+    removeAllTodo() {
+        this.todoStorage.remove()
+        return Promise.resolve(successResponse)
     }
 }
 

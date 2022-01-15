@@ -20,9 +20,19 @@ class ApiFullstack extends IAPI {
     }
 
     async updateTodo(id: string, todo: Partial<Omit<Todo, 'id'>>) {
-        const resp = await axios.put<AxiosResponse<typeof successResponse>>(`/tasks`, {
+        const resp = await axios.put<AxiosResponse<typeof successResponse>>(`/tasks/${id}`, {
             todo
         });
+        return resp.data.data;
+    }
+
+    async removeTodo(id: string) {
+        const resp = await axios.delete<AxiosResponse<typeof successResponse>>(`/tasks/${id}`);
+        return resp.data.data;
+    }
+
+    async removeAllTodo() {
+        const resp = await axios.delete<AxiosResponse<typeof successResponse>>(`/tasks`);
         return resp.data.data;
     }
 }

@@ -1,5 +1,10 @@
-import React, {useEffect, useReducer, useRef, useState} from 'react';
+// hooks
+import React, {useEffect, useReducer, useState} from 'react';
 
+// components
+import {TodoItem} from './components/TodoItem'
+
+// utils
 import reducer, {initialState} from './store/reducer';
 import {
     setTodos,
@@ -58,8 +63,15 @@ const ToDoPage = () => {
     }
 
     // This func is used to DELETE ALL todo-item
-    const onDeleteAllTodo = () => {
+    const onDeleteAllTodo = async () => {
+        await Service.removeAllTodo()
         dispatch(deleteAllTodos());
+    }
+
+    // This func is used to DELETE a todo
+    const handleDeleteTodo = async (event: React.MouseEvent<HTMLButtonElement>, todoId: string) => {
+        await Service.removeTodo(todoId)
+        dispatch(deleteTodo(todoId))
     }
 
     // Filter todo-list based on "showing" variable
@@ -94,26 +106,13 @@ const ToDoPage = () => {
             </form>
             {/* Todo List */}
             <div className="ToDo__list">
-                {
-                    showTodos.map((todo, index) => {
-                        return (
-                            <div key={index} className="ToDo__item">
-                                <input
-                                    type="checkbox"
-                                    checked={isTodoCompleted(todo)}
-                                    onChange={(e) => onUpdateTodoStatus(e, todo.id)}
-                                />
-                                <span>{todo.content}</span>
-                                <button
-                                    className="Todo__delete"
-                                    onClick={() => dispatch(deleteTodo(todo.id))}
-                                >
-                                    X
-                                </button>
-                            </div>
-                        );
-                    })
-                }
+                {showTodos.map((todo) => (
+                    <TodoItem 
+                        todo={todo} 
+                        onChangeStatus={onUpdateTodoStatus} 
+                        onDelete={handleDeleteTodo}
+                    />
+                ))}
             </div>
             <div className="Todo__toolbar">
                 {todos.length > 0 ?
