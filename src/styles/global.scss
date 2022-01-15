@@ -32,6 +32,7 @@ ul, li {
 .app {
   color: var(--text-color);
   background-color: var(--background-color);
+  transition: all .3s;
   min-height: 100vh;
   text-align: center;
   display: flex;

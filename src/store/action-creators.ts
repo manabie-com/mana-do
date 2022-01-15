@@ -5,6 +5,7 @@ import {
   DELETE_TODO, 
   SET_TODO, 
   TOGGLE_ALL_TODOS, 
+  TOGGLE_THEME, 
   UPDATE_TODO_STATUS 
 } from "./action-types"
 import { 
@@ -13,6 +14,7 @@ import {
   DeleteTodoAction, 
   SetTodoAction, 
   ToggleAllTodosAction, 
+  ToggleThemeAction, 
   UpdateTodoStatusAction 
 } from "./actions";
 
@@ -57,5 +59,11 @@ export function toggleAllTodos(checked: boolean): ToggleAllTodosAction {
   return {
     type: TOGGLE_ALL_TODOS,
     payload: checked
+  }
+}
+
+export function toggleTheme(): ToggleThemeAction {
+  return {
+    type: TOGGLE_THEME,
   }
 }

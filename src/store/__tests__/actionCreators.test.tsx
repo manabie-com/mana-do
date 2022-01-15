@@ -1,11 +1,12 @@
 import { TodoStatus } from "models/todo"
-import { createTodo, deleteAllTodos, deleteTodo, setTodos, toggleAllTodos, updateTodoStatus } from "store/action-creators"
+import { createTodo, deleteAllTodos, deleteTodo, setTodos, toggleAllTodos, toggleTheme, updateTodoStatus } from "store/action-creators"
 import { 
   CREATE_TODO, 
   DELETE_ALL_TODOS, 
   DELETE_TODO, 
   SET_TODO, 
   TOGGLE_ALL_TODOS, 
+  TOGGLE_THEME, 
   UPDATE_TODO_STATUS 
 } from "store/action-types";
 import { 
@@ -14,6 +15,7 @@ import {
   DeleteTodoAction, 
   SetTodoAction, 
   ToggleAllTodosAction, 
+  ToggleThemeAction, 
   UpdateTodoStatusAction 
 } from "store/actions";
 
@@ -74,6 +76,13 @@ describe("app action creators tests", () => {
     const expectedAction: ToggleAllTodosAction = {
       type: TOGGLE_ALL_TODOS,
       payload: true
+    }
+    expect(action).toEqual(expectedAction);
+  })
+  test("returns an correct action when call `toggleTheme`", () => {
+    const action: ToggleThemeAction = toggleTheme();
+    const expectedAction: ToggleThemeAction = {
+      type: TOGGLE_THEME,
     }
     expect(action).toEqual(expectedAction);
   })

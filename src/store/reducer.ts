@@ -1,19 +1,23 @@
-import {Todo, TodoStatus} from '../models/todo';
+import { Todo, TodoStatus } from '../models/todo';
+import { ThemeType } from 'models/theme';
 import { AppActions } from './actions';
 import {
   CREATE_TODO,
   DELETE_ALL_TODOS,
   DELETE_TODO,
   TOGGLE_ALL_TODOS,
+  TOGGLE_THEME,
   UPDATE_TODO_STATUS
 } from './action-types';
 
 export interface AppState {
-  todos: Array<Todo>
+  todos: Array<Todo>,
+  theme?: ThemeType.DARK | ThemeType.LIGHT
 }
 
 export const initialState: AppState = {
-  todos: []
+  todos: [],
+  theme: ThemeType.LIGHT
 }
 
 function reducer(state: AppState, action: AppActions): AppState {
@@ -76,6 +80,13 @@ function reducer(state: AppState, action: AppActions): AppState {
       return {
         ...state,
         todos: []
+      }
+    }
+
+    case TOGGLE_THEME: {
+      return {
+        ...state,
+        theme: state.theme === ThemeType.LIGHT ? ThemeType.DARK : ThemeType.LIGHT
       }
     }
 

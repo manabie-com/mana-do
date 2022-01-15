@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer, useRef, useState } from 'react';
+import React, { memo, useEffect, useReducer, useRef, useState } from 'react';
 
 import reducer, { initialState } from '../store/reducer';
 import {
@@ -110,4 +110,4 @@ const TodoPage = () => {
   );
 };
 
-export default TodoPage;
+export default memo(TodoPage);

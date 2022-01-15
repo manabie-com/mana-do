@@ -7,6 +7,7 @@
   font-size: 1.5rem;
   color: var(--text-color);
   background-color: var(--card-background-color);
+  transition: all .3s;
   
   &::placeholder {
     font-style: italic;

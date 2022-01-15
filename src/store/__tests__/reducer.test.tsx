@@ -3,6 +3,7 @@ import {
   DELETE_ALL_TODOS, 
   DELETE_TODO, 
   TOGGLE_ALL_TODOS, 
+  TOGGLE_THEME, 
   UPDATE_TODO_STATUS 
 } from "store/action-types";
 import { 
@@ -10,10 +11,12 @@ import {
   DeleteAllTodosAction, 
   DeleteTodoAction, 
   ToggleAllTodosAction, 
+  ToggleThemeAction, 
   UpdateTodoStatusAction 
 } from "store/actions";
 import reducer, { AppState } from "store/reducer";
 import { TodoStatus } from "models/todo";
+import { ThemeType } from "models/theme";
 
 describe("app reducer tests", () => {
   const createdDate = new Date().toISOString();
@@ -178,6 +181,21 @@ describe("app reducer tests", () => {
     const newState = reducer(initialState, action);
     const expectedState: AppState = {
       todos: []
+    }
+    expect(newState).toEqual(expectedState);
+  })
+  test("return correct theme upon receiving an action of type `TOGGLE_THEME`", () => {
+    const initialState: AppState = {
+      todos: [],
+      theme: ThemeType.LIGHT
+    }
+    const action: ToggleThemeAction = {
+      type: TOGGLE_THEME,
+    }
+    const newState = reducer(initialState, action);
+    const expectedState: AppState = {
+      todos: [],
+      theme: ThemeType.DARK
     }
     expect(newState).toEqual(expectedState);
   })
