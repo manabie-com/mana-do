@@ -1,18 +1,23 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import useOnClickOutside from '../../hooks/useClickOutside'
 
 import produce from 'immer';
 import {isTodoCompleted} from '../../utils';
 
 import type {TodoItemProps} from './type'
+import type { Todo } from '../../models/todo';
 
 const TodoItem: React.FC<TodoItemProps> = (props) => {
   const { data, onChangeStatus, onDelete, onEdit } = props
 
   const [editMode, setEditMode] = useState(false)
-  const [todo, setTodo] = useState(data)
+  const [todo, setTodo] = useState({} as Todo)
 
   const inputRef = useRef<HTMLInputElement>(null)
+
+  useEffect(() => {
+    setTodo(data)
+  }, [data])
 
   // Handle click outside to discard all changes
   useOnClickOutside(inputRef, () => {
@@ -42,31 +47,35 @@ const TodoItem: React.FC<TodoItemProps> = (props) => {
     setEditMode(false)
   }
 
+  if (editMode) {
+    return (
+      <form className="Todo_form_edit" onSubmit={handleEditTodoContent}>
+        <input
+          autoFocus
+          required
+          className="Todo_input_edit" 
+          value={todo.content} 
+          onChange={handleChangeTodoContent}
+          ref={inputRef}
+        />
+      </form>
+    )
+  }
+
   return (
     <div className="ToDo__item">
-        <input
-            type="checkbox"
-            checked={isTodoCompleted(todo)}
-            onChange={(e) => onChangeStatus(e, todo.id)}
-        />
-        {editMode && (
-          <form className="Todo_form_edit" onSubmit={handleEditTodoContent}>
-            <input
-              autoFocus
-              className="Todo__input__edit" 
-              value={todo.content} 
-              onChange={handleChangeTodoContent}
-              ref={inputRef}
-            />
-          </form>
-        )}
-        {!editMode && <span onDoubleClick={handleChangeEditMode}>{todo.content}</span>}
-        <button
-            className="Todo__delete"
-            onClick={(e) => onDelete(e, todo.id)}
-        >
-            X
-        </button>
+      <input
+        type="checkbox"
+        checked={isTodoCompleted(todo)}
+        onChange={(e) => onChangeStatus(e, todo.id)}
+      />
+      <span onDoubleClick={handleChangeEditMode}>{todo.content}</span>
+      <button
+        className="Todo__delete"
+        onClick={(e) => onDelete(e, todo.id)}
+      >
+        X
+      </button>
     </div>
   )
 }

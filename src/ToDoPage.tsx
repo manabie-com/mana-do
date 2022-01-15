@@ -132,7 +132,7 @@ const ToDoPage = () => {
                     /> : <div/>
                 }
                 <div className="Todo__tabs">
-                    <button className="Action__btn" onClick={()=>setShowing('ALL')}>
+                    <button className="Action__btn active" onClick={()=>setShowing('ALL')}>
                         All
                     </button>
                     <button className="Action__btn" onClick={()=>setShowing(TodoStatus.ACTIVE)}>
@@ -142,7 +142,7 @@ const ToDoPage = () => {
                         Completed
                     </button>
                 </div>
-                <button className="Action__btn" onClick={onDeleteAllTodo}>
+                <button className="Action__btn delete" onClick={onDeleteAllTodo}>
                     Clear all todos
                 </button>
             </div>

@@ -1,3 +1,19 @@
+:root{
+  --primary: #1e90ff;
+  --red: #f44336;
+  --grey: rgb(220, 220, 220);
+  --white: #ffffff;
+  --border-radius: 2px;
+  --font-size: 14px;
+}
+
+html {
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
 .App {
   text-align: center;
   display: flex;
@@ -19,17 +35,12 @@ button:hover {
 }
 
 input[type="checkbox"] {
-  width: 24px;
-  height: 24px;
   box-shadow: none;
-  border: none;
-  outline: none;
+  cursor: pointer; 
 }
 
 input[type="checkbox"]:focus {
   box-shadow: none;
-  border: none;
-  outline: none;
 }
 
 input {
@@ -37,22 +48,22 @@ input {
   border: none;
   outline: none;
   padding: 0 12px;
-  box-shadow: 2px 0 4px rgba(0,0,0, 0.2);
-  border-radius: 4px;
+  border-radius: var(--border-radius);
+  border: 1px solid var(--grey)
 }
 
 input:focus {
-  box-shadow: 1px 0 9px rgba(0,0,0, 0.25);
+  border: 1px solid var(--primary)
 }
 
 .ToDo__container {
-  border: 1px solid rgba(0,0,0, 0.13);
+  border: 1px solid var(--grey);
   border-radius: 8px;
   width: 500px;
   margin-top: 5rem;
   padding: 24px;
-  box-shadow: 2px 2px 1px rgba(0,0,0, 0.09),
-              3px 2px 3px rgba(0,0,0, 0.05);
+  padding-top: 36px;
+  border-radius: var(--border-radius);
 }
 
 .Todo__creation {
@@ -66,25 +77,39 @@ input:focus {
 .ToDo__list {
   display: flex;
   flex-direction: column;
-  margin-top: 1.5rem;
+  margin-top: 30px;
+  max-height: 400px;
+  overflow-y: auto;
 }
 
 .ToDo__item {
   display: flex;
   align-items: center;
+  border: 1px solid var(--grey);
+  margin: 4px 0;
+  padding: 2px 10px;
 }
 
 .ToDo__item > span {
   flex: 1 1;
   text-align: left;
-  margin-left: 4px;
   padding: 4px;
   cursor: text;
+  display: inline-block;
+  width: 150px;
+  white-space: nowrap;
+  overflow: hidden !important;
+  text-overflow: ellipsis;
+  font-size: var(--font-size);
 }
 
-.ToDo__item .Todo_form_edit, .ToDo__item .Todo__input__edit {
-  margin-left: 4px;
+.Todo_form_edit, .Todo_input_edit {
   width: 100%;
+  margin: 2px 0;
+}
+
+.Todo_input_edit {
+  height: 45px;
 }
 
 .Todo__content {
@@ -107,15 +132,21 @@ input:focus {
 }
 
 .Todo__action, .Todo__delete {
-  width: 24px;
-  height: 24px;
+  width: 8px;
+  height: 16px;
   flex-shrink: 0;
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--white);
+  background-color: var(--red);
 }
 
 .Todo__toolbar {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   margin-top: 24px;
+  padding-left: 12px;
 }
 
 .Todo__tabs {
@@ -128,4 +159,26 @@ input:focus {
 }
 
 .Action__btn {
+  background-color: var(--white);
+  box-shadow: none;
+  border: 1px solid var(--primary);
+  min-width: 60px;
+  height: 32px;
+  color: var(--primary);
+  border-radius: var(--border-radius);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.Action__btn.active {
+  background-color: var(--primary);
+  color: var(--white);
+}
+
+.Action__btn.delete {
+  background-color: var(--red);
+  color: var(--white);
+  border-color: var(--red);
 }
