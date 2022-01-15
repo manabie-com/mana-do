@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import clsx from "clsx";
 
 import styles from "./Checkbox.module.scss";
@@ -30,4 +30,4 @@ const Checkbox = (props: ICheckboxProps) => {
   )
 }
 
-export default Checkbox
+export default memo(Checkbox);

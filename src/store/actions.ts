@@ -5,6 +5,7 @@ import {
   DELETE_TODO, SET_TODO, 
   TOGGLE_ALL_TODOS, 
   TOGGLE_THEME, 
+  UPDATE_TODO_CONTENT, 
   UPDATE_TODO_STATUS 
 } from "./action-types";
 
@@ -23,6 +24,14 @@ export interface UpdateTodoStatusAction {
   payload: {
     todoId: string,
     checked: boolean
+  }
+}
+
+export interface UpdateTodoContentAction {
+  type: typeof UPDATE_TODO_CONTENT,
+  payload: {
+    todoId: string,
+    content: string
   }
 }
 
@@ -51,5 +60,6 @@ export type AppActions =
   DeleteTodoAction |
   DeleteAllTodosAction |
   ToggleAllTodosAction | 
+  UpdateTodoContentAction |
   ToggleThemeAction | 
   undefined;

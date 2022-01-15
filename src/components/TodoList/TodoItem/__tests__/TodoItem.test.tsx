@@ -15,6 +15,7 @@ describe("<TodoItem /> rendering", () => {
   const props = {
     onDeleteTodo: jest.fn(),
     onUpdateTodoStatus: jest.fn(),
+    onUpdateTodoContent: jest.fn(),
     id: "id_1",
     user_id: "test",
     content : "test",
@@ -37,6 +38,10 @@ describe("<TodoItem /> rendering", () => {
     const deleteButton = findByTestAttr(wrapper, "delete-button");
     expect(deleteButton.length).toBe(1);
   })
+  test("render Todo Item Checkbox without errors", () => {
+    const todoItemCheckbox = findByTestAttr(wrapper, "todo-item-checkbox");
+    expect(todoItemCheckbox.length).toBe(1);
+  })
   test("render correct style if todo item status is `COMPLETED`", () => {
     const todoContent = findByTestAttr(wrapper, "content");
     const expectedClassName = "content active";
@@ -48,6 +53,7 @@ describe("<TodoItem /> interactions", () => {
   const props = {
     onDeleteTodo: jest.fn(),
     onUpdateTodoStatus: jest.fn(),
+    onUpdateTodoContent: jest.fn(),
     id: "id_1",
     user_id: "test",
     content : "test",
@@ -66,5 +72,19 @@ describe("<TodoItem /> interactions", () => {
     const checkboxInput = findByTestAttr(wrapper, "checkbox-input");
     checkboxInput.simulate("change", { e: { target: { checked: false }}});
     expect(props.onUpdateTodoStatus).toHaveBeenCalledWith(props.id, false)
+  })
+  test("renders correctly when double clicked content", () => {
+    const content = findByTestAttr(wrapper, "content");
+    content.simulate("doubleclick");
+
+    const editField = findByTestAttr(wrapper, "edit-field");
+    const updatedContent = findByTestAttr(wrapper, "content");
+    const deleteButton = findByTestAttr(wrapper, "delete-button");
+    const todoItemCheckbox = findByTestAttr(wrapper, "todo-item-checkbox");
+
+    expect(editField.length).toBe(1);
+    expect(updatedContent.length).toBe(0);
+    expect(deleteButton.length).toBe(0);
+    expect(todoItemCheckbox.prop("className")).toBe("checkbox hiddenCheckbox");
   })
 })

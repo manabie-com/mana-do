@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useReducer, useRef, useState } from 'react';
+import React, { memo, useCallback, useEffect, useMemo, useReducer, useRef, useState } from 'react';
 
 import reducer, { initialState } from '../store/reducer';
 import {
@@ -8,6 +8,7 @@ import {
   updateTodoStatus,
   deleteTodo,
   createTodo,
+  updateTodoContent,
 } from '../store/action-creators';
 import Service from '../service';
 import { TodoStatus } from '../models/todo';
@@ -34,7 +35,7 @@ const TodoPage = () => {
     })()
   }, [])
 
-  const onCreateTodo = async (e: React.KeyboardEvent<HTMLInputElement>): Promise<void> => {
+  const onCreateTodo = useCallback(async (e: React.KeyboardEvent<HTMLInputElement>): Promise<void> => {
     if (e.key === 'Enter' && inputRef.current) {
       const value = inputRef.current.value;
       if (!value) return; // do nothing if empty value
@@ -42,25 +43,29 @@ const TodoPage = () => {
       dispatch(createTodo(resp));
       inputRef.current.value = '';
     }
-  }
+  }, [])
 
-  const onToggleAllTodo = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onToggleAllTodo = useCallback((e: React.ChangeEvent<HTMLInputElement>): void => {
     dispatch(toggleAllTodos(e.target.checked))
-  }
+  }, [])
 
-  const onUpdateTodoStatus = (id: string, checked: boolean): void => {
+  const onUpdateTodoStatus = useCallback((id: string, checked: boolean): void => {
     dispatch(updateTodoStatus(id, checked))
-  }
+  }, [])
 
-  const onDeleteTodo = (id: string): void => {
+  const onUpdateTodoContent = useCallback((id: string, content: string): void => {
+    dispatch(updateTodoContent(id, content))
+  }, [])
+
+  const onDeleteTodo = useCallback((id: string): void => {
     dispatch(deleteTodo(id));
-  } 
+  }, []) 
 
-  const onDeleteAllTodo = () => {
+  const onDeleteAllTodo = useCallback((): void => {
     dispatch(deleteAllTodos());
-  }
+  }, [])
 
-  const showTodos = [...todos].filter((todo) => {
+  const showTodos = useMemo(() => [...todos].filter((todo) => {
     switch (showing) {
       case TodoStatus.ACTIVE:
         return todo.status === TodoStatus.ACTIVE;
@@ -69,11 +74,11 @@ const TodoPage = () => {
       default:
         return true;
     }
-  });
+  }), [showing, todos]);
 
-  const activeTodos = [...todos].reduce(function (accum, todo) {
+  const activeTodos = useMemo(() => [...todos].reduce(function (accum, todo) {
     return isTodoCompleted(todo.status) ? accum : accum + 1;
-  }, 0);
+  }, 0), [todos]);
 
   return (
     <div className={styles.root}>
@@ -95,6 +100,7 @@ const TodoPage = () => {
           items={showTodos} 
           onUpdateTodoStatus={onUpdateTodoStatus}
           onDeleteTodo={onDeleteTodo}
+          onUpdateTodoContent={onUpdateTodoContent}
         />
       }
       { todos.length > 0 &&
@@ -105,6 +111,7 @@ const TodoPage = () => {
           activeTodos={activeTodos}
         />
       }
+      <span className={styles.guide}>Double-click to edit a todo</span>
     </div>
   );
 };

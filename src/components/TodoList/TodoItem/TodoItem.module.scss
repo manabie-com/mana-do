@@ -1,17 +1,32 @@
 .root {
   display: flex;
   align-content: center;
-  padding: 20px 0;
+  padding: 20px;
+  border-bottom: 1px solid var(--background-color);
+  transition: all .3s;
+  &.editing {
+    border-color: var(--danger);
+  }
   &:hover {
     & .deleteButton {
       opacity: 1;
       pointer-events: all;
     }
   }
+  & .checkbox {
+    &.hiddenCheckbox {
+      opacity: 0;
+      pointer-events: none;
+    }
+  }
+  & .input {
+    width: 100%;
+  }
   & .content {
     color: var(--text-color);
     transition: all .2s;
     font-size: 1.5rem;
+    flex-grow: 1;
     &.active {
       text-decoration: line-through;
       opacity: .5;

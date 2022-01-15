@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import clsx from "clsx";
 
 import styles from "./Input.module.scss";
@@ -8,9 +8,12 @@ export interface IInputProps {
   placeholder?: string,
   type?: string,
   name?: string,
+  value?: string | number,
+  defaultValue?: string | number,
   disabled?: boolean,
   onChange?: Function,
-  onKeyDown?: Function
+  onKeyDown?: Function,
+  autoFocus?: boolean
 }
 
 const Input = React.forwardRef<HTMLInputElement, IInputProps>((props, ref) => {
@@ -18,12 +21,11 @@ const Input = React.forwardRef<HTMLInputElement, IInputProps>((props, ref) => {
     className, 
     placeholder,
     type = "text",
-    disabled = false,
+    disabled = false, autoFocus = true,
     name,
-    onChange,
-    onKeyDown
+    onChange, onKeyDown,
+    value, defaultValue,
   } = props;
-
   const hanleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>): void => {
     if (onKeyDown) {
       onKeyDown(e)
@@ -38,7 +40,6 @@ const Input = React.forwardRef<HTMLInputElement, IInputProps>((props, ref) => {
       })
     } 
   }
-
   return (
     <input
       data-test="input"
@@ -47,10 +48,13 @@ const Input = React.forwardRef<HTMLInputElement, IInputProps>((props, ref) => {
       placeholder={placeholder}
       type={type}
       disabled={disabled}
+      value={value}
+      defaultValue={defaultValue}
       onKeyDown={hanleKeyDown}
       onChange={handleChange}
+      autoFocus={autoFocus}
     />
   )
 })
 
-export default Input;
+export default memo(Input);

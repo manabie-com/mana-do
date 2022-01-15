@@ -8,7 +8,8 @@ import {
   DELETE_TODO,
   TOGGLE_ALL_TODOS,
   TOGGLE_THEME,
-  UPDATE_TODO_STATUS
+  UPDATE_TODO_STATUS,
+  UPDATE_TODO_CONTENT
 } from './action-types';
 import { STORAGED_THEME_KEY, STORAGED_TODOS_KEY } from 'constants/global';
 import { getFromLocalStorage, savetoLocalStorage } from 'storage';
@@ -50,6 +51,24 @@ function reducer(state: AppState, action: AppActions): AppState {
           return {
             ...todo,
             status: checked ? TodoStatus.COMPLETED : TodoStatus.ACTIVE
+          }
+        } 
+        return todo
+      });
+      savetoLocalStorage(STORAGED_TODOS_KEY, tempTodos);
+      return {
+        ...state,
+        todos: tempTodos
+      }
+    }
+
+    case UPDATE_TODO_CONTENT: {
+      const { todoId, content } = action.payload;
+      const tempTodos = state.todos.map(todo => {
+        if (todo.id === todoId) {
+          return {
+            ...todo,
+            content
           }
         } 
         return todo

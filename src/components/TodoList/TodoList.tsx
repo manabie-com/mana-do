@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import clsx from "clsx";
 
 import styles from "./TodoList.module.scss";
@@ -11,11 +11,12 @@ export interface ITodoListProps {
   className?: string,
   items: Todo[],
   onDeleteTodo: Function
-  onUpdateTodoStatus: Function
+  onUpdateTodoStatus: Function,
+  onUpdateTodoContent: Function
 }
 
 const TodoList = (props: ITodoListProps) => {
-  const { className, items, onDeleteTodo, onUpdateTodoStatus } = props;
+  const { className, items, onDeleteTodo, onUpdateTodoStatus, onUpdateTodoContent } = props;
 
   return (
     <div className={clsx(styles.root, className && className)} data-test="todo-list">
@@ -25,6 +26,7 @@ const TodoList = (props: ITodoListProps) => {
             {...item} 
             onUpdateTodoStatus={onUpdateTodoStatus}
             onDeleteTodo={onDeleteTodo}
+            onUpdateTodoContent={onUpdateTodoContent}
           />
         </div>
       )}
@@ -32,4 +34,4 @@ const TodoList = (props: ITodoListProps) => {
   )
 }
 
-export default TodoList
+export default memo(TodoList)

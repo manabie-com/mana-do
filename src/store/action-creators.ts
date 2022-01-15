@@ -6,6 +6,7 @@ import {
   SET_TODO, 
   TOGGLE_ALL_TODOS, 
   TOGGLE_THEME, 
+  UPDATE_TODO_CONTENT, 
   UPDATE_TODO_STATUS 
 } from "./action-types"
 import { 
@@ -15,6 +16,7 @@ import {
   SetTodoAction, 
   ToggleAllTodosAction, 
   ToggleThemeAction, 
+  UpdateTodoContentAction, 
   UpdateTodoStatusAction 
 } from "./actions";
 
@@ -38,6 +40,16 @@ export function updateTodoStatus(todoId: string, checked: boolean): UpdateTodoSt
     payload: {
       todoId,
       checked
+    }
+  }
+}
+
+export function updateTodoContent(todoId: string, content: string): UpdateTodoContentAction {
+  return {
+    type: UPDATE_TODO_CONTENT,
+    payload: {
+      todoId,
+      content
     }
   }
 }

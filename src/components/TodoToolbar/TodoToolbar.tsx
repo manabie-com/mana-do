@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import clsx from "clsx";
 
 import styles from "./TodoToolbar.module.scss";
@@ -49,4 +49,4 @@ const TodoToolbar = (props: ITodoToolbarProps) => {
   )
 }
 
-export default TodoToolbar
+export default memo(TodoToolbar)

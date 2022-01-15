@@ -28,6 +28,7 @@ describe("<TodoList /> rendering", () => {
   const props = {
     onDeleteTodo: jest.fn(),
     onUpdateTodoStatus: jest.fn(),
+    onUpdateTodoContent: jest.fn(),
     items: expectedItems
   }
   beforeEach(() => {
