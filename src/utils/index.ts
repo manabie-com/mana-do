@@ -1,11 +1,20 @@
-import { Todo, TodoStatus } from '../models/todo';
+import { Theme, ThemeType } from 'models/theme';
+import { TodoStatus } from '../models/todo';
 
 export function isTodoCompleted(status?: TodoStatus): boolean {
   return status === TodoStatus.COMPLETED;
 }
 
-export function isTodoActive(todo: Todo): boolean {
-  return todo.status === TodoStatus.ACTIVE;
+export function isTodoActive(status?: TodoStatus): boolean {
+  return status === TodoStatus.ACTIVE;
+}
+
+export function getTodoStatus(checked: boolean): TodoStatus {
+  return checked ? TodoStatus.COMPLETED : TodoStatus.ACTIVE;
+} 
+
+export function isDarkTheme(theme: Theme): boolean {
+  return theme === ThemeType.DARK;
 }
 
 export function getItemLeft(itemNumber: number): string {

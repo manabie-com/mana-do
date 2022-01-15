@@ -1,4 +1,5 @@
-import { Todo } from "../models/todo";
+import { Theme } from "models/theme";
+import { Todo, TodoStatusType } from "../models/todo";
 import { 
   CREATE_TODO, 
   DELETE_ALL_TODOS, 
@@ -23,7 +24,7 @@ export interface UpdateTodoStatusAction {
   type: typeof UPDATE_TODO_STATUS,
   payload: {
     todoId: string,
-    checked: boolean
+    status: TodoStatusType
   }
 }
 
@@ -46,11 +47,12 @@ export interface DeleteAllTodosAction {
 
 export interface ToggleAllTodosAction {
   type: typeof TOGGLE_ALL_TODOS,
-  payload: boolean
+  payload: TodoStatusType
 }
 
 export interface ToggleThemeAction {
   type: typeof TOGGLE_THEME,
+  payload: Theme
 }
 
 export type AppActions =
@@ -61,5 +63,4 @@ export type AppActions =
   DeleteAllTodosAction |
   ToggleAllTodosAction | 
   UpdateTodoContentAction |
-  ToggleThemeAction | 
-  undefined;
+  ToggleThemeAction;

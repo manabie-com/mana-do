@@ -4,7 +4,8 @@ import clsx from "clsx"
 import styles from "./TodoItem.module.scss"
 
 import { Todo } from "models/todo";
-import { isTodoCompleted } from "utils";
+import { getTodoStatus, isTodoCompleted } from "utils";
+import { deleteTodo, updateTodoContent, updateTodoStatus } from "store/action-creators";
 
 import Checkbox from "components/Checkbox";
 import Input from "components/Input";
@@ -12,33 +13,32 @@ import OutsideClickHandler from "components/OutsideClickHandler";
 
 export interface ITodoItemProps extends Todo {
   className?: string,
-  onDeleteTodo: Function
-  onUpdateTodoStatus: Function,
-  onUpdateTodoContent: Function
+  dispatch: Function,
 }
 
 const TodoItem = (props: ITodoItemProps) => {
   const { 
     className,
-    onUpdateTodoStatus, onDeleteTodo, onUpdateTodoContent,
+    dispatch,
     id, content, status
   } = props;
   const [editing, setEditing] = useState<boolean>(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
   const handleUpdateTodoStatus = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    onUpdateTodoStatus(id, e.target.checked)
+    const checked = e.target.checked;
+    dispatch(updateTodoStatus(id, getTodoStatus(checked)))
   }
 
   const handleDeleteTodo = (): void => {
-    onDeleteTodo(id);
+    dispatch(deleteTodo(id));
   } 
 
   const handleUpdateTodoContent = async (e: React.KeyboardEvent<HTMLInputElement>): Promise<void> => {
     if (e.key === 'Enter' && inputRef.current) {
       const value = inputRef.current.value;
       if (!value) return; // do nothing if empty value
-      onUpdateTodoContent(id, value);
+      dispatch(updateTodoContent(id, value))
       setEditing(false);
     }
   }

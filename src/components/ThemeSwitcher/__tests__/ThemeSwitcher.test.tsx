@@ -4,8 +4,10 @@ import { shallow, ShallowWrapper } from "enzyme";
 import { findByTestAttr } from "test/testUtils";
 import ThemeSwitcher, { IThemeSwitcherProps } from "..";
 import { ThemeType } from "models/theme";
+import { toggleTheme } from "store/action-creators";
+import { isDarkTheme } from "utils";
 
-const setUp = (props?: IThemeSwitcherProps): ShallowWrapper => {
+const setUp = (props: IThemeSwitcherProps): ShallowWrapper => {
  const wrapper = shallow(<ThemeSwitcher {...props} />)
  return wrapper;
 }
@@ -14,7 +16,7 @@ describe("<ThemeSwitcher /> redering", () => {
   let wrapper: ShallowWrapper;
   const props = {
     theme: ThemeType.DARK,
-    onChange: jest.fn()
+    dispatch: jest.fn()
   }
   beforeEach(() => {
     wrapper = setUp(props);
@@ -33,7 +35,7 @@ describe("<ThemeSwitcher /> interactions", () => {
   let wrapper: ShallowWrapper;
   const props = {
     theme: ThemeType.DARK,
-    onChange: jest.fn()
+    dispatch: jest.fn()
   }
   beforeEach(() => {
     wrapper = setUp(props);
@@ -41,6 +43,6 @@ describe("<ThemeSwitcher /> interactions", () => {
   test("call onChange function when clicked Switcher", () => {
     const themeSwitcher = findByTestAttr(wrapper, "theme-switcher")
     themeSwitcher.simulate("click");
-    expect(props.onChange).toHaveBeenCalled();
+    expect(props.dispatch).toHaveBeenLastCalledWith(toggleTheme(isDarkTheme(props.theme) ? ThemeType.LIGHT : ThemeType.DARK));
   })
 })

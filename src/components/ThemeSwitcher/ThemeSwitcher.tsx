@@ -2,26 +2,29 @@ import React from "react";
 import clsx from "clsx";
 
 import styles from "./ThemeSwitcher.module.scss";
-import { ThemeType } from "models/theme";
+
+import { Theme, ThemeType } from "models/theme";
+import { toggleTheme } from "store/action-creators";
+import { isDarkTheme } from "utils";
 
 export interface IThemeSwitcherProps {
   className?: string,
-  theme?: ThemeType.LIGHT | ThemeType.DARK,
-  onChange?: Function 
+  theme: Theme,
+  dispatch: Function 
 }
 
 const ThemeSwitcher = (props: IThemeSwitcherProps) => {
-  const { className, theme, onChange } = props;
+  const { className, theme, dispatch } = props;
 
   const handleChangeTheme = () => {
-    if (onChange) onChange()
+    dispatch(toggleTheme(isDarkTheme(theme) ? ThemeType.LIGHT : ThemeType.DARK))
   }
   return (
     <div 
       className={clsx(
         styles.root, 
         className && className,
-        theme === ThemeType.DARK && styles.darkMode
+        isDarkTheme(theme) && styles.darkMode
       )} 
       onClick={handleChangeTheme}
       data-test="theme-switcher"

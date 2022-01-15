@@ -4,22 +4,18 @@ import reducer, { initialState } from '../store/reducer';
 import {
   setTodos,
   toggleAllTodos,
-  deleteAllTodos,
-  updateTodoStatus,
-  deleteTodo,
   createTodo,
-  updateTodoContent,
 } from '../store/action-creators';
 import Service from '../service';
 import { TodoStatus } from '../models/todo';
-import { isTodoCompleted } from '../utils';
+import { getTodoStatus, isTodoActive, isTodoCompleted } from '../utils';
 
 import TodoList from 'components/TodoList';
 import Input from 'components/Input';
-
-import styles from "./TodoPage.module.scss";
 import Checkbox from 'components/Checkbox';
 import TodoToolBar from 'components/TodoToolbar';
+
+import styles from "./TodoPage.module.scss";
 
 type EnhanceTodoStatus = TodoStatus | 'ALL';
 
@@ -30,8 +26,12 @@ const TodoPage = () => {
 
   useEffect(() => {
     (async () => {
-      const resp = await Service.getTodos();
-      dispatch(setTodos(resp || []));
+      try {
+        const resp = await Service.getTodos();
+        dispatch(setTodos(resp || []));
+      } catch (error) {
+        alert(error)
+      }
     })()
   }, [])
 
@@ -39,38 +39,26 @@ const TodoPage = () => {
     if (e.key === 'Enter' && inputRef.current) {
       const value = inputRef.current.value;
       if (!value) return; // do nothing if empty value
-      const resp = await Service.createTodo(value);
-      dispatch(createTodo(resp));
-      inputRef.current.value = '';
+      try {
+        const resp = await Service.createTodo(value);
+        dispatch(createTodo(resp));
+        inputRef.current.value = '';
+      } catch (error) {
+        alert(error)
+      }
     }
   }, [])
 
   const onToggleAllTodo = useCallback((e: React.ChangeEvent<HTMLInputElement>): void => {
-    dispatch(toggleAllTodos(e.target.checked))
-  }, [])
-
-  const onUpdateTodoStatus = useCallback((id: string, checked: boolean): void => {
-    dispatch(updateTodoStatus(id, checked))
-  }, [])
-
-  const onUpdateTodoContent = useCallback((id: string, content: string): void => {
-    dispatch(updateTodoContent(id, content))
-  }, [])
-
-  const onDeleteTodo = useCallback((id: string): void => {
-    dispatch(deleteTodo(id));
-  }, []) 
-
-  const onDeleteAllTodo = useCallback((): void => {
-    dispatch(deleteAllTodos());
+    dispatch(toggleAllTodos(getTodoStatus(e.target.checked)))
   }, [])
 
   const showTodos = useMemo(() => [...todos].filter((todo) => {
     switch (showing) {
       case TodoStatus.ACTIVE:
-        return todo.status === TodoStatus.ACTIVE;
+        return isTodoActive(todo.status);
       case TodoStatus.COMPLETED:
-        return todo.status === TodoStatus.COMPLETED;
+        return isTodoCompleted(todo.status);
       default:
         return true;
     }
@@ -98,15 +86,13 @@ const TodoPage = () => {
       { showTodos.length > 0 &&
         <TodoList 
           items={showTodos} 
-          onUpdateTodoStatus={onUpdateTodoStatus}
-          onDeleteTodo={onDeleteTodo}
-          onUpdateTodoContent={onUpdateTodoContent}
+          dispatch={dispatch}
         />
       }
       { todos.length > 0 &&
         <TodoToolBar 
           onTabClick={setShowing} 
-          onClearAll={onDeleteAllTodo}
+          dispatch={dispatch}
           active={showing}
           activeTodos={activeTodos}
         />

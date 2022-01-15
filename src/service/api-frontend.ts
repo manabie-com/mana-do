@@ -1,8 +1,8 @@
 import { IAPI } from './types';
 import { Todo, TodoStatus } from '../models/todo';
 import shortid from 'shortid';
-import { STORAGED_TODOS_KEY } from 'constants/global';
 import { getFromLocalStorage } from 'storage';
+import { STORAGED_TODOS_KEY } from 'storage/constants';
 
 class ApiFrontend extends IAPI {
   async createTodo(content: string): Promise<Todo> {

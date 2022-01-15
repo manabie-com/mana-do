@@ -1,4 +1,5 @@
-import { Todo } from "models/todo"
+import { Theme } from "models/theme";
+import { Todo, TodoStatusType } from "models/todo"
 import { 
   CREATE_TODO, 
   DELETE_ALL_TODOS, 
@@ -34,12 +35,12 @@ export function createTodo(newTodo: Todo): CreateTodoAction {
   }
 }
 
-export function updateTodoStatus(todoId: string, checked: boolean): UpdateTodoStatusAction {
+export function updateTodoStatus(todoId: string, status: TodoStatusType): UpdateTodoStatusAction {
   return {
     type: UPDATE_TODO_STATUS,
     payload: {
       todoId,
-      checked
+      status
     }
   }
 }
@@ -67,15 +68,16 @@ export function deleteAllTodos(): DeleteAllTodosAction {
   }
 }
 
-export function toggleAllTodos(checked: boolean): ToggleAllTodosAction {
+export function toggleAllTodos(status: TodoStatusType): ToggleAllTodosAction {
   return {
     type: TOGGLE_ALL_TODOS,
-    payload: checked
+    payload: status
   }
 }
 
-export function toggleTheme(): ToggleThemeAction {
+export function toggleTheme(theme: Theme): ToggleThemeAction {
   return {
     type: TOGGLE_THEME,
+    payload: theme
   }
 }

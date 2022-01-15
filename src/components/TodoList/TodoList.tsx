@@ -10,13 +10,11 @@ import TodoItem from "./TodoItem";
 export interface ITodoListProps {
   className?: string,
   items: Todo[],
-  onDeleteTodo: Function
-  onUpdateTodoStatus: Function,
-  onUpdateTodoContent: Function
+  dispatch: Function,
 }
 
 const TodoList = (props: ITodoListProps) => {
-  const { className, items, onDeleteTodo, onUpdateTodoStatus, onUpdateTodoContent } = props;
+  const { className, items, dispatch } = props;
 
   return (
     <div className={clsx(styles.root, className && className)} data-test="todo-list">
@@ -24,9 +22,7 @@ const TodoList = (props: ITodoListProps) => {
         <div className={styles.item} key={item.id}>
           <TodoItem 
             {...item} 
-            onUpdateTodoStatus={onUpdateTodoStatus}
-            onDeleteTodo={onDeleteTodo}
-            onUpdateTodoContent={onUpdateTodoContent}
+            dispatch={dispatch}
           />
         </div>
       )}

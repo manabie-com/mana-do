@@ -23,16 +23,6 @@ import { ThemeType } from "models/theme";
 describe("app reducer tests", () => {
   const createdDate = new Date().toISOString();
 
-  test("return initial state if don't have action", () => {
-    const initialState: AppState = {
-      todos: []
-    }
-    const newState = reducer(initialState, undefined);
-    const expectedState: AppState = {
-      todos: []
-    }
-    expect(newState).toEqual(expectedState);
-  })
   test("return correct todos upon receiving an action of type `CREATE_TODO`", () => {
     const initialState: AppState = {
       todos: []
@@ -75,17 +65,17 @@ describe("app reducer tests", () => {
       type: UPDATE_TODO_STATUS,
       payload: {
         todoId: "id_1",
-        checked: true
+        status: TodoStatus.COMPLETED
       }
     }
     const newState = reducer(initialState, action);
     const expectedState: AppState = {
       todos: [
         {
-          id: "id_1",
+          id: action.payload.todoId,
           user_id: "test",
           content : "test",
-          status: TodoStatus.COMPLETED,
+          status: action.payload.status,
           created_date: createdDate,
         }
       ]
@@ -146,7 +136,7 @@ describe("app reducer tests", () => {
     }
     const action: ToggleAllTodosAction = {
       type: TOGGLE_ALL_TODOS,
-      payload: true
+      payload: TodoStatus.COMPLETED
     }
     const newState = reducer(initialState, action);
     const expectedState: AppState = {
@@ -155,14 +145,14 @@ describe("app reducer tests", () => {
           id: "id_1",
           user_id: "test",
           content : "test",
-          status: TodoStatus.COMPLETED,
+          status: action.payload,
           created_date: createdDate,
         },
         {
           id: "id_2",
           user_id: "test",
-          content : "test",
-          status: TodoStatus.COMPLETED,
+          content: "test",
+          status: action.payload,
           created_date: createdDate,
         }
       ]
@@ -226,11 +216,12 @@ describe("app reducer tests", () => {
     }
     const action: ToggleThemeAction = {
       type: TOGGLE_THEME,
+      payload: ThemeType.DARK
     }
     const newState = reducer(initialState, action);
     const expectedState: AppState = {
       todos: [],
-      theme: ThemeType.DARK
+      theme: action.payload
     }
     expect(newState).toEqual(expectedState);
   })

@@ -5,24 +5,25 @@ import styles from "./TodoToolbar.module.scss";
 
 import { tabsList } from "./constants";
 import { getItemLeft } from "utils";
+import { deleteAllTodos } from "store/action-creators";
 
 export interface ITodoToolbarProps {
   className?: string,
   onTabClick?: Function,
-  onClearAll?: Function,
+  dispatch: Function,
   active?: string,
   activeTodos?: number
 }
 
 const TodoToolbar = (props: ITodoToolbarProps) => {
-  const { className, onTabClick, onClearAll, active, activeTodos } = props;
+  const { className, onTabClick, dispatch, active, activeTodos } = props;
 
   const handleTabClick = (value: string): void => {
     if (onTabClick) onTabClick(value);
   } 
 
   const handleClearAll = (): void => {
-    if (onClearAll) onClearAll();
+    dispatch(deleteAllTodos());
   }
 
   return (

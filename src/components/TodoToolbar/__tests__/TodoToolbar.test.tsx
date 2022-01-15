@@ -4,8 +4,9 @@ import { shallow, ShallowWrapper } from "enzyme";
 import { findByTestAttr } from "test/testUtils";
 import TodoToolbar, { ITodoToolbarProps } from "..";
 import { tabsList } from "../constants";
+import { deleteAllTodos } from "store/action-creators";
 
-const setUp = (props?: ITodoToolbarProps): ShallowWrapper => {
+const setUp = (props: ITodoToolbarProps): ShallowWrapper => {
  const wrapper = shallow(<TodoToolbar {...props} />)
  return wrapper;
 }
@@ -14,7 +15,7 @@ describe("<TodoToolbar /> redering", () => {
   let wrapper: ShallowWrapper;
   const props = {
     onTabClick: jest.fn(),
-    onClearAll: jest.fn(),
+    dispatch: jest.fn(),
     active: "ALL",
     activeTodos: 4
   }
@@ -52,7 +53,7 @@ describe("<TodoToolbar /> interactions", () => {
   let wrapper: ShallowWrapper;
   const props = {
     onTabClick: jest.fn(),
-    onClearAll: jest.fn(),
+    dispatch: jest.fn(),
     active: "ALL",
     activeTodos: 4
   }
@@ -68,6 +69,6 @@ describe("<TodoToolbar /> interactions", () => {
   test("call onClearAll function when clicked Clear All Button", () => {
     const clearAllButton = findByTestAttr(wrapper, "clear-all-button");
     clearAllButton.simulate("click");
-    expect(props.onClearAll).toHaveBeenCalled();
+    expect(props.dispatch).toHaveBeenCalledWith(deleteAllTodos());
   })
 })

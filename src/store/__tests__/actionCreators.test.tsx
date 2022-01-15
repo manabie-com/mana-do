@@ -1,5 +1,15 @@
+import { ThemeType } from "models/theme";
 import { TodoStatus } from "models/todo"
-import { createTodo, deleteAllTodos, deleteTodo, setTodos, toggleAllTodos, toggleTheme, updateTodoContent, updateTodoStatus } from "store/action-creators"
+import { 
+  createTodo, 
+  deleteAllTodos, 
+  deleteTodo, 
+  setTodos, 
+  toggleAllTodos, 
+  toggleTheme, 
+  updateTodoContent, 
+  updateTodoStatus 
+} from "store/action-creators"
 import { 
   CREATE_TODO, 
   DELETE_ALL_TODOS, 
@@ -32,7 +42,7 @@ describe("app action creators tests", () => {
   }
   const config = {
     todoId: "test_id",
-    checked: true,
+    status: TodoStatus.COMPLETED,
   }
   test("returns an correct action when call `setTodos`", () => {
     const action: SetTodoAction = setTodos([ todoItem ]);
@@ -51,7 +61,7 @@ describe("app action creators tests", () => {
     expect(action).toEqual(expectedAction);
   })
   test("returns an correct action when call `updateTodoStatus`", () => {
-    const action: UpdateTodoStatusAction = updateTodoStatus(config.todoId, config.checked);
+    const action: UpdateTodoStatusAction = updateTodoStatus(config.todoId, config.status);
     const expectedAction: UpdateTodoStatusAction = {
       type: UPDATE_TODO_STATUS,
       payload: config
@@ -86,17 +96,18 @@ describe("app action creators tests", () => {
     expect(action).toEqual(expectedAction);
   })
   test("returns an correct action when call `toggleAllTodos`", () => {
-    const action: ToggleAllTodosAction = toggleAllTodos(true);
+    const action: ToggleAllTodosAction = toggleAllTodos(config.status);
     const expectedAction: ToggleAllTodosAction = {
       type: TOGGLE_ALL_TODOS,
-      payload: true
+      payload: config.status
     }
     expect(action).toEqual(expectedAction);
   })
   test("returns an correct action when call `toggleTheme`", () => {
-    const action: ToggleThemeAction = toggleTheme();
+    const action: ToggleThemeAction = toggleTheme(ThemeType.DARK);
     const expectedAction: ToggleThemeAction = {
       type: TOGGLE_THEME,
+      payload: ThemeType.DARK
     }
     expect(action).toEqual(expectedAction);
   })
