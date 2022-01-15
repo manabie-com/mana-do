@@ -11,3 +11,11 @@ export function isTodoActive(todo: Todo): boolean {
 export function getItemLeft(itemNumber: number): string {
   return `${itemNumber} ${itemNumber === 1 ? "item" : "items"} left`
 }
+export function isJsonString(string: string) {
+  try {
+      JSON.parse(string);
+  } catch (e) {
+      return false;
+  }
+  return true;
+}

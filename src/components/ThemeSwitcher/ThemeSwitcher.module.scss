@@ -3,7 +3,7 @@
   border-radius: 20px;
   
   position: fixed;
-  right: 100px;
+  right: 30px;
   top: 30px;
 
   cursor: pointer;
@@ -20,7 +20,8 @@
     height: 100%;
     border-radius: 20px;
     background-color: #fff;
-    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 2px 20px 0 rgba(0, 0, 0, 0.2), 
+              0 25px 50px 0 rgba(0, 0, 0, 0.1);
     transition: all .3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     z-index: 1;
   }
