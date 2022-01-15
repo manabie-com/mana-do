@@ -1,5 +1,5 @@
 import { TodoStatus } from "models/todo"
-import { createTodo, deleteAllTodos, deleteTodo, setTodos, toggleAllTodos, toggleTheme, updateTodoStatus } from "store/action-creators"
+import { createTodo, deleteAllTodos, deleteTodo, setTodos, toggleAllTodos, toggleTheme, updateTodoContent, updateTodoStatus } from "store/action-creators"
 import { 
   CREATE_TODO, 
   DELETE_ALL_TODOS, 
@@ -7,6 +7,7 @@ import {
   SET_TODO, 
   TOGGLE_ALL_TODOS, 
   TOGGLE_THEME, 
+  UPDATE_TODO_CONTENT, 
   UPDATE_TODO_STATUS 
 } from "store/action-types";
 import { 
@@ -16,6 +17,7 @@ import {
   SetTodoAction, 
   ToggleAllTodosAction, 
   ToggleThemeAction, 
+  UpdateTodoContentAction, 
   UpdateTodoStatusAction 
 } from "store/actions";
 
@@ -30,7 +32,7 @@ describe("app action creators tests", () => {
   }
   const config = {
     todoId: "test_id",
-    checked: true
+    checked: true,
   }
   test("returns an correct action when call `setTodos`", () => {
     const action: SetTodoAction = setTodos([ todoItem ]);
@@ -44,7 +46,7 @@ describe("app action creators tests", () => {
     const action: CreateTodoAction = createTodo(todoItem);
     const expectedAction: CreateTodoAction = {
       type: CREATE_TODO,
-      payload: todoItem
+      payload: todoItem,
     }
     expect(action).toEqual(expectedAction);
   })
@@ -53,6 +55,18 @@ describe("app action creators tests", () => {
     const expectedAction: UpdateTodoStatusAction = {
       type: UPDATE_TODO_STATUS,
       payload: config
+    }
+    expect(action).toEqual(expectedAction);
+  })
+  test("returns an correct action when call `updateTodoContent`", () => {
+    const content = "test content";
+    const action: UpdateTodoContentAction = updateTodoContent(config.todoId, content);
+    const expectedAction: UpdateTodoContentAction = {
+      type: UPDATE_TODO_CONTENT,
+      payload: {
+        todoId: config.todoId,
+        content: content,
+      }
     }
     expect(action).toEqual(expectedAction);
   })

@@ -46,7 +46,7 @@ function reducer(state: AppState, action: AppActions): AppState {
 
     case UPDATE_TODO_STATUS: {
       const { todoId, checked } = action.payload;
-      const tempTodos = state.todos.map(todo => {
+      const tempTodos = [...state.todos].map(todo => {
         if (todo.id === todoId) {
           return {
             ...todo,
@@ -64,7 +64,7 @@ function reducer(state: AppState, action: AppActions): AppState {
 
     case UPDATE_TODO_CONTENT: {
       const { todoId, content } = action.payload;
-      const tempTodos = state.todos.map(todo => {
+      const tempTodos = [...state.todos].map(todo => {
         if (todo.id === todoId) {
           return {
             ...todo,
@@ -81,7 +81,7 @@ function reducer(state: AppState, action: AppActions): AppState {
     }
 
     case TOGGLE_ALL_TODOS: {
-      const tempTodos = state.todos.map((e)=>{
+      const tempTodos = [...state.todos].map((e)=>{
         return {
           ...e,
           status: action.payload ? TodoStatus.COMPLETED : TodoStatus.ACTIVE

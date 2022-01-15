@@ -26,7 +26,10 @@
     color: var(--text-color);
     transition: all .2s;
     font-size: 1.5rem;
-    flex-grow: 1;
+    display: block;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
     &.active {
       text-decoration: line-through;
       opacity: .5;

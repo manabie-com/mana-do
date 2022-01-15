@@ -76,7 +76,8 @@ describe("<TodoItem /> interactions", () => {
   test("renders correctly when double clicked content", () => {
     const content = findByTestAttr(wrapper, "content");
     content.simulate("doubleclick");
-
+    
+    const todoItem = findByTestAttr(wrapper, "todo-item");
     const editField = findByTestAttr(wrapper, "edit-field");
     const updatedContent = findByTestAttr(wrapper, "content");
     const deleteButton = findByTestAttr(wrapper, "delete-button");
@@ -86,5 +87,6 @@ describe("<TodoItem /> interactions", () => {
     expect(updatedContent.length).toBe(0);
     expect(deleteButton.length).toBe(0);
     expect(todoItemCheckbox.prop("className")).toBe("checkbox hiddenCheckbox");
+    expect(todoItem.prop("className")).toBe("root editing");
   })
 })

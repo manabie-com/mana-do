@@ -4,6 +4,7 @@ import {
   DELETE_TODO, 
   TOGGLE_ALL_TODOS, 
   TOGGLE_THEME, 
+  UPDATE_TODO_CONTENT, 
   UPDATE_TODO_STATUS 
 } from "store/action-types";
 import { 
@@ -12,6 +13,7 @@ import {
   DeleteTodoAction, 
   ToggleAllTodosAction, 
   ToggleThemeAction, 
+  UpdateTodoContentAction, 
   UpdateTodoStatusAction 
 } from "store/actions";
 import reducer, { AppState } from "store/reducer";
@@ -84,6 +86,39 @@ describe("app reducer tests", () => {
           user_id: "test",
           content : "test",
           status: TodoStatus.COMPLETED,
+          created_date: createdDate,
+        }
+      ]
+    }
+    expect(newState).toEqual(expectedState);
+  })
+  test("return correct todos upon receiving an action of type `UPDATE_TODO_CONTENT`", () => {
+    const initialState: AppState = {
+      todos: [
+        {
+          id: "id_1",
+          user_id: "test",
+          content : "test",
+          status: TodoStatus.ACTIVE,
+          created_date: createdDate,
+        }
+      ]
+    }
+    const action: UpdateTodoContentAction = {
+      type: UPDATE_TODO_CONTENT,
+      payload: {
+        todoId: "id_1",
+        content: "update content"
+      }
+    }
+    const newState = reducer(initialState, action);
+    const expectedState: AppState = {
+      todos: [
+        {
+          id: "id_1",
+          user_id: "test",
+          content : action.payload.content,
+          status: TodoStatus.ACTIVE,
           created_date: createdDate,
         }
       ]

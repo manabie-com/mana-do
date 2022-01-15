@@ -17,7 +17,7 @@ class ApiFrontend extends IAPI {
 
   async getTodos(): Promise<Todo[]> {
     const todos = getFromLocalStorage(STORAGED_TODOS_KEY) as Todo[];
-    return Promise.resolve(todos);
+    return Promise.resolve(todos || []);
   }
 }
 

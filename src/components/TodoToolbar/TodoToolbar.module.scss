@@ -1,15 +1,21 @@
+@import "/src/styles/mixins";
 .root {
   border-top: 1px solid var(--background-color);
   transition: all .3s;
   padding: 20px;
   display: flex;
+  flex-wrap: wrap;
   position: relative;
   font-size: 0.9375rem;
   & .tabList {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
+    margin-left: auto;
     display: flex;
+    @include responsive(sm) {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      margin-left: unset;
+    }
     & .tabItem {
       margin-right: 7px;
       border: 1px solid var(--border-color);
