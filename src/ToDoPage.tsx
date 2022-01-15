@@ -46,8 +46,10 @@ const ToDoPage = () => {
     }
 
     // The change event to handle change todo-status
-    const onUpdateTodoStatus = (e: React.ChangeEvent<HTMLInputElement>, todoId: string) => {
-        dispatch(updateTodoStatus(todoId, e.target.checked))
+    const onUpdateTodoStatus = async (e: React.ChangeEvent<HTMLInputElement>, todoId: string) => {
+        const status = e.target.checked ? TodoStatus.COMPLETED : TodoStatus.ACTIVE;
+        await Service.updateTodo(todoId, { status })
+        dispatch(updateTodoStatus(todoId, status))
     }
 
     // This func is used to check/un-check all todo-item

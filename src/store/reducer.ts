@@ -5,7 +5,8 @@ import {
   DELETE_ALL_TODOS,
   DELETE_TODO,
   TOGGLE_ALL_TODOS,
-  UPDATE_TODO_STATUS
+  UPDATE_TODO_STATUS,
+  SET_TODO
 } from './actions';
 
 import produce from 'immer'
@@ -20,6 +21,13 @@ export const initialState: AppState = {
 
 function reducer(state: AppState, action: AppActions): AppState {
   switch (action.type) {
+
+    // Set todo-list
+    case SET_TODO:
+      return produce(state, (draft) => {
+        draft.todos = action.payload
+      })
+
     // Create a todo
     case CREATE_TODO:
       return produce(state, (draft) => {
@@ -30,7 +38,7 @@ function reducer(state: AppState, action: AppActions): AppState {
     case UPDATE_TODO_STATUS:
       return produce(state, (draft) => {
         const index2 = state.todos.findIndex((todo) => todo.id === action.payload.todoId);
-        draft.todos[index2].status = action.payload.checked ? TodoStatus.COMPLETED : TodoStatus.ACTIVE;
+        draft.todos[index2].status = action.payload.status;
       })
 
     // Check/un-check all todo-list
