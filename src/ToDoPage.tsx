@@ -19,36 +19,48 @@ type EnhanceTodoStatus = TodoStatus | 'ALL';
 const ToDoPage = () => {
     const [{todos}, dispatch] = useReducer(reducer, initialState);
     const [showing, setShowing] = useState<EnhanceTodoStatus>('ALL');
-    const inputRef = useRef<HTMLInputElement>(null);
+    const [todoName, setTodoName] = useState('')
 
-    useEffect(()=>{
-        (async ()=>{
-            const resp = await Service.getTodos();
-
-            dispatch(setTodos(resp || []));
-        })()
-    }, [])
-
-    const onCreateTodo = async (e: React.KeyboardEvent<HTMLInputElement>) => {
-        if (e.key === 'Enter' && inputRef.current) {
-            const resp = await Service.createTodo(inputRef.current.value);
-            dispatch(createTodo(resp));
-            inputRef.current.value = '';
-        }
+    // This func is used to get todo-list
+    const handleGetTodoList = async () => {
+        const resp = await Service.getTodos();
+        dispatch(setTodos(resp || []));
     }
 
+    // This hook is used to get todo-list
+    useEffect(()=>{
+        handleGetTodoList()
+    }, [])
+
+    // Submit to create todo-list
+    const onCreateTodo = async (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault()
+        const resp = await Service.createTodo(todoName)
+        dispatch(createTodo(resp))
+        setTodoName('')
+    }
+
+    // The change event to handle change todo-name
+    const handleChangeTodoName = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setTodoName(event.target.value)
+    }
+
+    // The change event to handle change todo-status
     const onUpdateTodoStatus = (e: React.ChangeEvent<HTMLInputElement>, todoId: string) => {
         dispatch(updateTodoStatus(todoId, e.target.checked))
     }
 
+    // This func is used to check/un-check all todo-item
     const onToggleAllTodo = (e: React.ChangeEvent<HTMLInputElement>) => {
         dispatch(toggleAllTodos(e.target.checked))
     }
 
+    // This func is used to DELETE ALL todo-item
     const onDeleteAllTodo = () => {
         dispatch(deleteAllTodos());
     }
 
+    // Filter todo-list based on "showing" variable
     const showTodos = todos.filter((todo) => {
         switch (showing) {
             case TodoStatus.ACTIVE:
@@ -60,20 +72,25 @@ const ToDoPage = () => {
         }
     });
 
+    // TBD
     const activeTodos = todos.reduce(function (accum, todo) {
         return isTodoCompleted(todo) ? accum : accum + 1;
     }, 0);
 
     return (
         <div className="ToDo__container">
-            <div className="Todo__creation">
+            {/* Todo Form */}
+            <form className="Todo__creation" onSubmit={onCreateTodo}>
                 <input
-                    ref={inputRef}
+                    value={todoName}
+                    required
+                    name="todo_name"
                     className="Todo__input"
                     placeholder="What need to be done?"
-                    onKeyDown={onCreateTodo}
+                    onChange={handleChangeTodoName}
                 />
-            </div>
+            </form>
+            {/* Todo List */}
             <div className="ToDo__list">
                 {
                     showTodos.map((todo, index) => {

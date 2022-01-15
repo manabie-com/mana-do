@@ -8,6 +8,8 @@ import {
   UPDATE_TODO_STATUS
 } from './actions';
 
+import produce from 'immer'
+
 export interface AppState {
   todos: Array<Todo>
 }
@@ -18,21 +20,20 @@ export const initialState: AppState = {
 
 function reducer(state: AppState, action: AppActions): AppState {
   switch (action.type) {
+    // Create a todo
     case CREATE_TODO:
-      state.todos.push(action.payload);
-      return {
-        ...state
-      };
+      return produce(state, (draft) => {
+        draft.todos.push(action.payload)
+      })
 
+    // Update a todo-status based on todo-id
     case UPDATE_TODO_STATUS:
-      const index2 = state.todos.findIndex((todo) => todo.id === action.payload.todoId);
-      state.todos[index2].status = action.payload.checked ? TodoStatus.COMPLETED : TodoStatus.ACTIVE;
+      return produce(state, (draft) => {
+        const index2 = state.todos.findIndex((todo) => todo.id === action.payload.todoId);
+        draft.todos[index2].status = action.payload.checked ? TodoStatus.COMPLETED : TodoStatus.ACTIVE;
+      })
 
-      return {
-        ...state,
-        todos: state.todos
-      }
-
+    // Check/un-check all todo-list
     case TOGGLE_ALL_TODOS:
       const tempTodos = state.todos.map((e)=>{
         return {
@@ -46,19 +47,20 @@ function reducer(state: AppState, action: AppActions): AppState {
         todos: tempTodos
       }
 
+    // DELETE a todo based on todo-id
     case DELETE_TODO:
-      const index1 = state.todos.findIndex((todo) => todo.id === action.payload);
-      state.todos.splice(index1, 1);
+      return produce(state, (draft) => {
+        const index1 = state.todos.findIndex((todo) => todo.id === action.payload);
+        draft.todos.splice(index1, 1)
+      })
 
-      return {
-        ...state,
-        todos: state.todos
-      }
+    // DELETE ALL todo list
     case DELETE_ALL_TODOS:
       return {
         ...state,
         todos: []
       }
+
     default:
       return state;
   }
