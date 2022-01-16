@@ -1,0 +1,66 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<TodoPage /> The TodoPage should be rendered without rendered 1`] = `
+<div>
+  <div
+    class="ToDo__container"
+  >
+    <form
+      class="Todo__creation"
+      data-testid="todo-form-create"
+    >
+      <input
+        class="Todo__input"
+        name="todo_name"
+        placeholder="What need to be done?"
+        required=""
+        value=""
+      />
+    </form>
+    <div
+      class="ToDo__list"
+      data-testid="todo-list"
+    >
+      <span
+        class="empty__message"
+      >
+        Nothing todo!
+      </span>
+    </div>
+    <div
+      class="Todo__toolbar"
+    >
+      <div />
+      <div
+        class="Todo__tabs"
+      >
+        <button
+          class="Action__btn active"
+          data-testid="filter-button"
+        >
+          All
+        </button>
+        <button
+          class="Action__btn"
+          data-testid="filter-button"
+        >
+          Active
+        </button>
+        <button
+          class="Action__btn"
+          data-testid="filter-button"
+        >
+          Completed
+        </button>
+      </div>
+      <button
+        class="Action__btn delete"
+        data-testid="clear-all"
+        disabled=""
+      >
+        Clear all todos
+      </button>
+    </div>
+  </div>
+</div>
+`;

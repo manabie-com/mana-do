@@ -7,6 +7,7 @@ exports[`<TodoItem /> should be rendered without crashing 1`] = `
     data-testid="todo-item"
   >
     <input
+      data-testid="todo-item-checkbox"
       type="checkbox"
     />
     <span>

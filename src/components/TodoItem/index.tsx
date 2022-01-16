@@ -74,6 +74,7 @@ const TodoItem: React.FC<TodoItemProps> = (props) => {
   return (
     <div className="ToDo__item" data-testid="todo-item">
       <input
+        data-testid="todo-item-checkbox"
         type="checkbox"
         checked={isTodoCompleted(todo)}
         onChange={(e) => onChangeStatus(e, todo.id)}

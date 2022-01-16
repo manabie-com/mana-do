@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<FilterButton /> Should be rendered without crashing 1`] = `
+<div>
+  <button
+    class="Action__btn"
+    data-testid="filter-button"
+  >
+    test
+  </button>
+</div>
+`;

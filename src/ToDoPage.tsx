@@ -3,6 +3,7 @@ import React, {useEffect, useReducer, useState} from 'react';
 
 // components
 import {TodoItem} from './components/TodoItem'
+import {FilterButton} from './components/FilterButton'
 
 // utils
 import reducer, {initialState} from './store/reducer';
@@ -100,15 +101,6 @@ const ToDoPage = () => {
         return isTodoCompleted(todo) ? accum : accum + 1;
     }, 0);
 
-    // Get classNames of filter button based on todo-status
-    const getClassesFilterButton = (status: EnhanceTodoStatus) =>  {
-        const generalClass = 'Action__btn'
-        if (status === showing) {
-            return `${generalClass} active`
-        }
-        return generalClass
-    }
-
     const renderTodoList = () => {
         if (showTodos.length === 0) {
             return <span className="empty__message">Nothing todo!</span>
@@ -127,7 +119,7 @@ const ToDoPage = () => {
     return (
         <div className="ToDo__container">
             {/* Todo Form */}
-            <form className="Todo__creation" onSubmit={onCreateTodo}>
+            <form className="Todo__creation" data-testid="todo-form-create" onSubmit={onCreateTodo}>
                 <input
                     value={todoContent}
                     required
@@ -138,7 +130,7 @@ const ToDoPage = () => {
                 />
             </form>
             {/* Todo List */}
-            <div className="ToDo__list">
+            <div className="ToDo__list" data-testid="todo-list">
                 {renderTodoList()}
             </div>
             <div className="Todo__toolbar">
@@ -147,20 +139,21 @@ const ToDoPage = () => {
                         type="checkbox"
                         checked={activeTodos === 0}
                         onChange={onToggleAllTodo}
+                        data-testid="todo-toggle-status"
                     /> : <div/>
                 }
                 <div className="Todo__tabs">
-                    <button className={getClassesFilterButton('ALL')} onClick={()=>setShowing('ALL')}>
+                    <FilterButton active={showing === 'ALL'} onClick={()=>setShowing('ALL')}>
                         All
-                    </button>
-                    <button className={getClassesFilterButton(TodoStatus.ACTIVE)} onClick={()=>setShowing(TodoStatus.ACTIVE)}>
+                    </FilterButton>
+                    <FilterButton active={showing === TodoStatus.ACTIVE} onClick={()=>setShowing(TodoStatus.ACTIVE)}>
                         Active
-                    </button>
-                    <button className={getClassesFilterButton(TodoStatus.COMPLETED)} onClick={()=>setShowing(TodoStatus.COMPLETED)}>
+                    </FilterButton>
+                    <FilterButton active={showing === TodoStatus.COMPLETED} onClick={()=>setShowing(TodoStatus.COMPLETED)}>
                         Completed
-                    </button>
+                    </FilterButton>
                 </div>
-                <button className="Action__btn delete" onClick={onDeleteAllTodo}>
+                <button disabled={todos.length === 0} className="Action__btn delete" data-testid="clear-all" onClick={onDeleteAllTodo}>
                     Clear all todos
                 </button>
             </div>
