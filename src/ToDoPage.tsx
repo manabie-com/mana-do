@@ -65,8 +65,10 @@ const ToDoPage = () => {
     }
 
     // This func is used to check/un-check all todo-item
-    const onToggleAllTodo = (e: React.ChangeEvent<HTMLInputElement>) => {
-        dispatch(toggleAllTodos(e.target.checked))
+    const onToggleAllTodo = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        const status = e.target.checked ? TodoStatus.COMPLETED : TodoStatus.ACTIVE;
+        await Service.changeTodosStatus(status)
+        dispatch(toggleAllTodos(status))
     }
 
     // This func is used to DELETE ALL todo-item
@@ -93,10 +95,34 @@ const ToDoPage = () => {
         }
     });
 
-    // TBD
+    // Total active todo
     const activeTodos = todos.reduce(function (accum, todo) {
         return isTodoCompleted(todo) ? accum : accum + 1;
     }, 0);
+
+    // Get classNames of filter button based on todo-status
+    const getClassesFilterButton = (status: EnhanceTodoStatus) =>  {
+        const generalClass = 'Action__btn'
+        if (status === showing) {
+            return `${generalClass} active`
+        }
+        return generalClass
+    }
+
+    const renderTodoList = () => {
+        if (showTodos.length === 0) {
+            return <span className="empty__message">Nothing todo!</span>
+        }
+        return showTodos.map((todo) => (
+                <TodoItem
+                    key={todo.id}
+                    data={todo} 
+                    onChangeStatus={onUpdateTodoStatus} 
+                    onDelete={handleDeleteTodo}
+                    onEdit={handleEditTodo}
+                />
+            ))
+    }
 
     return (
         <div className="ToDo__container">
@@ -113,15 +139,7 @@ const ToDoPage = () => {
             </form>
             {/* Todo List */}
             <div className="ToDo__list">
-                {showTodos.map((todo) => (
-                    <TodoItem
-                        key={todo.id}
-                        data={todo} 
-                        onChangeStatus={onUpdateTodoStatus} 
-                        onDelete={handleDeleteTodo}
-                        onEdit={handleEditTodo}
-                    />
-                ))}
+                {renderTodoList()}
             </div>
             <div className="Todo__toolbar">
                 {todos.length > 0 ?
@@ -132,13 +150,13 @@ const ToDoPage = () => {
                     /> : <div/>
                 }
                 <div className="Todo__tabs">
-                    <button className="Action__btn active" onClick={()=>setShowing('ALL')}>
+                    <button className={getClassesFilterButton('ALL')} onClick={()=>setShowing('ALL')}>
                         All
                     </button>
-                    <button className="Action__btn" onClick={()=>setShowing(TodoStatus.ACTIVE)}>
+                    <button className={getClassesFilterButton(TodoStatus.ACTIVE)} onClick={()=>setShowing(TodoStatus.ACTIVE)}>
                         Active
                     </button>
-                    <button className="Action__btn" onClick={()=>setShowing(TodoStatus.COMPLETED)}>
+                    <button className={getClassesFilterButton(TodoStatus.COMPLETED)} onClick={()=>setShowing(TodoStatus.COMPLETED)}>
                         Completed
                     </button>
                 </div>

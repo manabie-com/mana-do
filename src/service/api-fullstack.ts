@@ -1,5 +1,5 @@
 import {IAPI} from './types';
-import {Todo} from '../models/todo';
+import {Todo, TodoStatus} from '../models/todo';
 import axios from '../utils/axios';
 import {successResponse} from '../utils/constant'
 import {AxiosResponse} from 'axios';
@@ -34,6 +34,10 @@ class ApiFullstack extends IAPI {
     async removeAllTodo() {
         const resp = await axios.delete<AxiosResponse<typeof successResponse>>(`/tasks`);
         return resp.data.data;
+    }
+
+    async changeTodosStatus(status: TodoStatus) {
+        return Promise.resolve(successResponse)
     }
 }
 

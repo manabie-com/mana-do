@@ -60,6 +60,13 @@ class ApiFrontend extends IAPI {
         this.todoStorage.remove()
         return Promise.resolve(successResponse)
     }
+
+    async changeTodosStatus(status: TodoStatus) {
+        const todos = await this.getTodos()
+        const newTodos = todos.map((item) => ({...item, status }))
+        this.todoStorage.set(newTodos)
+        return Promise.resolve(successResponse)
+    }
 }
 
 export default new ApiFrontend();

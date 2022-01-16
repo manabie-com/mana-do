@@ -98,13 +98,13 @@ export function deleteAllTodos(): DeleteAllTodosAction {
 ///////////
 export interface ToggleAllTodosAction {
   type: typeof TOGGLE_ALL_TODOS,
-  payload: boolean
+  payload: TodoStatus
 }
 
-export function toggleAllTodos(checked: boolean): ToggleAllTodosAction {
+export function toggleAllTodos(status: TodoStatus): ToggleAllTodosAction {
   return {
     type: TOGGLE_ALL_TODOS,
-    payload: checked
+    payload: status
   }
 }
 

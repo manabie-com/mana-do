@@ -1,4 +1,4 @@
-import {Todo, TodoStatus} from '../models/todo';
+import {Todo} from '../models/todo';
 import {
   AppActions,
   CREATE_TODO,
@@ -58,7 +58,7 @@ function reducer(state: AppState, action: AppActions): AppState {
       const tempTodos = state.todos.map((e)=>{
         return {
           ...e,
-          status: action.payload ? TodoStatus.COMPLETED : TodoStatus.ACTIVE
+          status: action.payload
         }
       })
 

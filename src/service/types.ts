@@ -1,6 +1,6 @@
 import {successResponse} from '../utils/constant'
 
-import {Todo} from '../models/todo';
+import {Todo, TodoStatus} from '../models/todo';
 
 export type ParamsUpdateTodo = Partial<Omit<Todo, 'id'>>
 export abstract class IAPI {
@@ -9,4 +9,5 @@ export abstract class IAPI {
     abstract updateTodo(id: string, todo: ParamsUpdateTodo): Promise<typeof successResponse>
     abstract removeTodo(id: string): Promise<typeof successResponse>
     abstract removeAllTodo(): Promise<typeof successResponse>
+    abstract changeTodosStatus(status: TodoStatus): Promise<typeof successResponse>
 }
