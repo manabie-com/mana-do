@@ -9,16 +9,17 @@ import { isDarkTheme } from "utils";
 
 export interface IThemeSwitcherProps {
   className?: string,
-  theme: Theme,
+  theme?: Theme,
   dispatch: Function 
 }
 
 const ThemeSwitcher = (props: IThemeSwitcherProps) => {
-  const { className, theme, dispatch } = props;
+  const { className, theme = ThemeType.LIGHT, dispatch } = props;
 
   const handleChangeTheme = () => {
     dispatch(toggleTheme(isDarkTheme(theme) ? ThemeType.LIGHT : ThemeType.DARK))
   }
+  
   return (
     <div 
       className={clsx(

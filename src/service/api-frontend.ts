@@ -1,8 +1,6 @@
 import { IAPI } from './types';
 import { Todo, TodoStatus } from '../models/todo';
 import shortid from 'shortid';
-import { getFromLocalStorage } from 'storage';
-import { STORAGED_TODOS_KEY } from 'storage/constants';
 
 class ApiFrontend extends IAPI {
   async createTodo(content: string): Promise<Todo> {
@@ -16,8 +14,7 @@ class ApiFrontend extends IAPI {
   }
 
   async getTodos(): Promise<Todo[]> {
-    const todos = getFromLocalStorage(STORAGED_TODOS_KEY) as Todo[];
-    return Promise.resolve(todos || []);
+    return []
   }
 }
 

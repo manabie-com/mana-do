@@ -4,7 +4,6 @@ import {
   CREATE_TODO, 
   DELETE_ALL_TODOS, 
   DELETE_TODO, 
-  SET_TODO, 
   TOGGLE_ALL_TODOS, 
   TOGGLE_THEME, 
   UPDATE_TODO_CONTENT, 
@@ -14,19 +13,11 @@ import {
   CreateTodoAction, 
   DeleteAllTodosAction, 
   DeleteTodoAction, 
-  SetTodoAction, 
   ToggleAllTodosAction, 
   ToggleThemeAction, 
   UpdateTodoContentAction, 
   UpdateTodoStatusAction 
 } from "./actions";
-
-export function setTodos(todos: Array<Todo>): SetTodoAction {
-  return {
-    type: SET_TODO,
-    payload: todos
-  }
-}
 
 export function createTodo(newTodo: Todo): CreateTodoAction {
   return {

@@ -4,7 +4,6 @@ import {
   createTodo, 
   deleteAllTodos, 
   deleteTodo, 
-  setTodos, 
   toggleAllTodos, 
   toggleTheme, 
   updateTodoContent, 
@@ -14,7 +13,6 @@ import {
   CREATE_TODO, 
   DELETE_ALL_TODOS, 
   DELETE_TODO, 
-  SET_TODO, 
   TOGGLE_ALL_TODOS, 
   TOGGLE_THEME, 
   UPDATE_TODO_CONTENT, 
@@ -24,7 +22,6 @@ import {
   CreateTodoAction, 
   DeleteAllTodosAction, 
   DeleteTodoAction, 
-  SetTodoAction, 
   ToggleAllTodosAction, 
   ToggleThemeAction, 
   UpdateTodoContentAction, 
@@ -44,14 +41,6 @@ describe("app action creators tests", () => {
     todoId: "test_id",
     status: TodoStatus.COMPLETED,
   }
-  test("returns an correct action when call `setTodos`", () => {
-    const action: SetTodoAction = setTodos([ todoItem ]);
-    const expectedAction: SetTodoAction = {
-      type: SET_TODO,
-      payload: [ todoItem ]
-    }
-    expect(action).toEqual(expectedAction);
-  })
   test("returns an correct action when call `createTodo`", () => {
     const action: CreateTodoAction = createTodo(todoItem);
     const expectedAction: CreateTodoAction = {

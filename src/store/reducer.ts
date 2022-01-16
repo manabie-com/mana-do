@@ -2,17 +2,14 @@ import { Todo } from '../models/todo';
 import { Theme, ThemeType } from 'models/theme';
 import { AppActions } from './actions';
 import {
-  SET_TODO,
   CREATE_TODO,
   DELETE_ALL_TODOS,
   DELETE_TODO,
   TOGGLE_ALL_TODOS,
   TOGGLE_THEME,
   UPDATE_TODO_STATUS,
-  UPDATE_TODO_CONTENT
+  UPDATE_TODO_CONTENT,
 } from './action-types';
-import { getFromLocalStorage, savetoLocalStorage } from 'storage';
-import { STORAGED_THEME_KEY, STORAGED_TODOS_KEY } from 'storage/constants';
 
 export interface AppState {
   todos: Array<Todo>,
@@ -21,20 +18,13 @@ export interface AppState {
 
 export const initialState: AppState = {
   todos: [],
-  theme: getFromLocalStorage(STORAGED_THEME_KEY) as Theme || ThemeType.LIGHT
+  theme: ThemeType.LIGHT
 }
 
 function reducer(state: AppState, action: AppActions): AppState {
   switch (action.type) {
-    case SET_TODO: {
-      return {
-        ...state,
-        todos: action.payload
-      };
-    }
     case CREATE_TODO: {
       const tempTodos = [...state.todos, action.payload];
-      savetoLocalStorage(STORAGED_TODOS_KEY, tempTodos);
       return {
         ...state,
         todos: tempTodos
@@ -52,7 +42,6 @@ function reducer(state: AppState, action: AppActions): AppState {
         } 
         return todo
       });
-      savetoLocalStorage(STORAGED_TODOS_KEY, tempTodos);
       return {
         ...state,
         todos: tempTodos
@@ -70,7 +59,6 @@ function reducer(state: AppState, action: AppActions): AppState {
         } 
         return todo
       });
-      savetoLocalStorage(STORAGED_TODOS_KEY, tempTodos);
       return {
         ...state,
         todos: tempTodos
@@ -84,7 +72,6 @@ function reducer(state: AppState, action: AppActions): AppState {
           status: action.payload
         }
       })
-      savetoLocalStorage(STORAGED_TODOS_KEY, tempTodos);
       return {
         ...state,
         todos: tempTodos
@@ -95,7 +82,6 @@ function reducer(state: AppState, action: AppActions): AppState {
       const tempTodos = [...state.todos];
       const index = tempTodos.findIndex((todo) => todo.id === action.payload);
       tempTodos.splice(index, 1);
-      savetoLocalStorage(STORAGED_TODOS_KEY, tempTodos);
       return {
         ...state,
         todos: tempTodos
@@ -103,15 +89,12 @@ function reducer(state: AppState, action: AppActions): AppState {
     }
 
     case DELETE_ALL_TODOS: {
-      localStorage.removeItem(STORAGED_TODOS_KEY);
       return {
         ...state,
         todos: []
       }
     }
-
     case TOGGLE_THEME: {
-      savetoLocalStorage(STORAGED_THEME_KEY, action.payload);
       return {
         ...state,
         theme: action.payload

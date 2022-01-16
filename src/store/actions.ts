@@ -3,17 +3,12 @@ import { Todo, TodoStatusType } from "../models/todo";
 import { 
   CREATE_TODO, 
   DELETE_ALL_TODOS, 
-  DELETE_TODO, SET_TODO, 
+  DELETE_TODO, 
   TOGGLE_ALL_TODOS, 
   TOGGLE_THEME, 
   UPDATE_TODO_CONTENT, 
   UPDATE_TODO_STATUS 
 } from "./action-types";
-
-export interface SetTodoAction {
-  type: typeof SET_TODO,
-  payload: Array<Todo>
-}
 
 export interface CreateTodoAction {
   type: typeof CREATE_TODO,
@@ -56,7 +51,6 @@ export interface ToggleThemeAction {
 }
 
 export type AppActions =
-  SetTodoAction |
   CreateTodoAction |
   UpdateTodoStatusAction |
   DeleteTodoAction |

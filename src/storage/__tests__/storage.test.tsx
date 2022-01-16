@@ -1,4 +1,4 @@
-import { savetoLocalStorage } from "storage";
+import { saveToLocalStorage } from "storage";
 
 const fakeLocalStorage = (function () {
   let store: {[key: string]: any} = {};
@@ -29,7 +29,7 @@ describe('storage', () => {
   test('saves the key to the storage', () => {
     const key = "fake-key";
     const value = "fake-value";
-    savetoLocalStorage(key, value);
+    saveToLocalStorage(key, value);
     expect(localStorage.getItem(key)).toBe(value);
   });
 });

@@ -1,6 +1,6 @@
 import { isJsonString } from "utils";
 
-export function savetoLocalStorage<T = object>(key: string, storeState: T): boolean {
+export function saveToLocalStorage<T = object>(key: string, storeState: T): boolean {
   if (!localStorage) {
     return false;
   }
