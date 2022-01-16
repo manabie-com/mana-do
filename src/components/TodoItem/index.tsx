@@ -5,7 +5,7 @@ import produce from 'immer';
 import {isTodoCompleted} from '../../utils';
 
 import type {TodoItemProps} from './type'
-import type { Todo } from '../../models/todo';
+import type {Todo} from '../../models/todo';
 
 const TodoItem: React.FC<TodoItemProps> = (props) => {
   const { data, onChangeStatus, onDelete, onEdit } = props
@@ -27,7 +27,7 @@ const TodoItem: React.FC<TodoItemProps> = (props) => {
     setEditMode(false)
   })
 
-  // Handle doublick to edit a todo
+  // Handle dbclick to edit a todo
   const handleChangeEditMode = () => {
     setEditMode(true)
   }
@@ -47,9 +47,17 @@ const TodoItem: React.FC<TodoItemProps> = (props) => {
     setEditMode(false)
   }
 
+  // Handle click to remove a todo
+  const handleRemoveTodo = (todoId: string) => (event: React.MouseEvent<HTMLButtonElement>) => {
+    // eslint-disable-next-line no-restricted-globals
+    if (confirm('Do you want to delete this?')) {
+      onDelete(event, todoId)
+    }
+  }
+
   if (editMode) {
     return (
-      <form className="Todo_form_edit" onSubmit={handleEditTodoContent}>
+      <form className="Todo_form_edit" data-testid="todo-form-edit" onSubmit={handleEditTodoContent}>
         <input
           autoFocus
           required
@@ -57,13 +65,14 @@ const TodoItem: React.FC<TodoItemProps> = (props) => {
           value={todo.content} 
           onChange={handleChangeTodoContent}
           ref={inputRef}
+          data-testid="todo-input-edit"
         />
       </form>
     )
   }
 
   return (
-    <div className="ToDo__item">
+    <div className="ToDo__item" data-testid="todo-item">
       <input
         type="checkbox"
         checked={isTodoCompleted(todo)}
@@ -72,7 +81,7 @@ const TodoItem: React.FC<TodoItemProps> = (props) => {
       <span onDoubleClick={handleChangeEditMode}>{todo.content}</span>
       <button
         className="Todo__delete"
-        onClick={(e) => onDelete(e, todo.id)}
+        onClick={handleRemoveTodo(todo.id)}
       >
         X
       </button>

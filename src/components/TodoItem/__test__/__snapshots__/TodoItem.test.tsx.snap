@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<TodoItem /> should be rendered without crashing 1`] = `
+<div>
+  <div
+    class="ToDo__item"
+    data-testid="todo-item"
+  >
+    <input
+      type="checkbox"
+    />
+    <span>
+      New todo
+    </span>
+    <button
+      class="Todo__delete"
+    >
+      X
+    </button>
+  </div>
+</div>
+`;
