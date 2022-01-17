@@ -14,6 +14,10 @@ const ToDoPage = () => {
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
+    localStorage.setItem("todoList", JSON.stringify(todos));
+  }, [todos]);
+
+  useEffect(() => {
     (async () => {
       const resp = await Service.getTodos();
 

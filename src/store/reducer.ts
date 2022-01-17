@@ -11,9 +11,9 @@ import {
 export interface AppState {
   todos: Array<Todo>;
 }
-
+const todoList = localStorage.getItem("todoList");
 export const initialState: AppState = {
-  todos: [],
+  todos: todoList ? JSON.parse(todoList) : [],
 };
 
 function reducer(state: AppState, action: AppActions): AppState {
