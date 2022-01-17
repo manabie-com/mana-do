@@ -1,7 +1,15 @@
 import React, { useEffect, useReducer, useRef, useState } from "react";
 
 import reducer, { initialState } from "./store/reducer";
-import { setTodos, createTodo, deleteTodo, toggleAllTodos, deleteAllTodos, updateTodoStatus } from "./store/actions";
+import {
+  setTodos,
+  createTodo,
+  deleteTodo,
+  toggleAllTodos,
+  deleteAllTodos,
+  updateTodoStatus,
+  updateTodoContent,
+} from "./store/actions";
 import Service from "./service";
 import { TodoStatus } from "./models/todo";
 import { isTodoCompleted } from "./utils";
@@ -12,10 +20,8 @@ const ToDoPage = () => {
   const [{ todos }, dispatch] = useReducer(reducer, initialState);
   const [showing, setShowing] = useState<EnhanceTodoStatus>("ALL");
   const inputRef = useRef<HTMLInputElement>(null);
-
-  useEffect(() => {
-    localStorage.setItem("todoList", JSON.stringify(todos));
-  }, [todos]);
+  const [activeInput, setActiveInput] = useState<number | null>(null);
+  const [content, setContent] = useState<string>("");
 
   useEffect(() => {
     (async () => {
@@ -24,6 +30,10 @@ const ToDoPage = () => {
       dispatch(setTodos(resp || []));
     })();
   }, []);
+
+  useEffect(() => {
+    localStorage.setItem("todoList", JSON.stringify(todos));
+  }, [todos]);
 
   const onCreateTodo = async (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter" && inputRef.current && inputRef.current.value.trim()) {
@@ -35,6 +45,19 @@ const ToDoPage = () => {
 
   const onUpdateTodoStatus = (e: React.ChangeEvent<HTMLInputElement>, todoId: string) => {
     dispatch(updateTodoStatus(todoId, e.target.checked));
+  };
+
+  const onEditTodo = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setContent(e.target.value);
+  };
+
+  const exitEditMode = async (e: React.KeyboardEvent<HTMLInputElement>, todoId: string) => {
+    if (e.key === "Enter" || e.key === "Escape") {
+      if (e.key === "Enter") dispatch(updateTodoContent(todoId, content)); // save if enter key was pressed
+      setActiveInput(null);
+      e.preventDefault();
+      e.stopPropagation();
+    }
   };
 
   const onToggleAllTodo = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -70,7 +93,24 @@ const ToDoPage = () => {
           return (
             <div key={index} className="ToDo__item">
               <input type="checkbox" checked={isTodoCompleted(todo)} onChange={(e) => onUpdateTodoStatus(e, todo.id)} />
-              <span>{todo.content}</span>
+              {activeInput === index ? (
+                <input
+                  type="text"
+                  value={content}
+                  onKeyDown={(e) => exitEditMode(e, todo.id)}
+                  onChange={onEditTodo}
+                  autoFocus
+                />
+              ) : (
+                <p
+                  onDoubleClick={() => {
+                    setActiveInput(index);
+                    setContent(todo.content);
+                  }}
+                >
+                  {todo.content}
+                </p>
+              )}
               <button className="Todo__delete" onClick={() => dispatch(deleteTodo(todo.id))}>
                 X
               </button>

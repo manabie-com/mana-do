@@ -1,11 +1,13 @@
 import { Todo, TodoStatus } from "../models/todo";
 import {
   AppActions,
+  SET_TODO,
   CREATE_TODO,
   DELETE_ALL_TODOS,
   DELETE_TODO,
   TOGGLE_ALL_TODOS,
   UPDATE_TODO_STATUS,
+  UPDATE_TODO_CONTENT,
 } from "./actions";
 
 export interface AppState {
@@ -18,6 +20,13 @@ export const initialState: AppState = {
 
 function reducer(state: AppState, action: AppActions): AppState {
   switch (action.type) {
+    case SET_TODO: {
+      return {
+        ...state,
+        todos: action.payload,
+      };
+    }
+
     case CREATE_TODO: {
       const tempTodos = [...state.todos, action.payload];
       return {
@@ -30,6 +39,17 @@ function reducer(state: AppState, action: AppActions): AppState {
       const tempTodos = [...state.todos];
       const index = tempTodos.findIndex((todo) => todo.id === action.payload.todoId);
       tempTodos[index].status = action.payload.checked ? TodoStatus.COMPLETED : TodoStatus.ACTIVE;
+
+      return {
+        ...state,
+        todos: tempTodos,
+      };
+    }
+
+    case UPDATE_TODO_CONTENT: {
+      const tempTodos = [...state.todos];
+      const index = tempTodos.findIndex((todo) => todo.id === action.payload.todoId);
+      tempTodos[index].content = action.payload.content;
 
       return {
         ...state,
