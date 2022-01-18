@@ -85,18 +85,18 @@ const ToDoPage = () => {
 
   return (
     <div className="ToDo__container">
-      <div className="ToDo__creation flex flex-row">
+      <div className="ToDo__creation">
         <input ref={inputRef} className="ToDo__input" placeholder="What needs to be done?" onKeyDown={onCreateTodo} />
       </div>
       <div className="ToDo__card">
         <div className="ToDo__list flex flex-col">
-          <div className="ToDo__list__items flex flex-col justify-evenly">
-            {showTodos
+          {showTodos.length > 0 ? (
+            showTodos
               .slice(0)
               .reverse()
               .map((todo, index) => {
                 return (
-                  <>
+                  <div key={index} className="flex">
                     {activeInput === index ? (
                       <input
                         className="ToDo__item"
@@ -110,14 +110,14 @@ const ToDoPage = () => {
                         autoFocus
                       />
                     ) : (
-                      <div key={index} className="ToDo__item flex flex-row">
-                        <div className="ToDo__priority"></div>
+                      <div className="ToDo__item flex flex-row">
+                        <span className="ToDo__priority"></span>
                         <input
                           type="checkbox"
                           checked={isTodoCompleted(todo)}
                           onChange={(e) => onUpdateTodoStatus(e, todo.id)}
                         />
-                        <div className="ToDo__content flex-grow flex-wrap">
+                        <div className="ToDo__content flex-grow">
                           <p
                             onDoubleClick={() => {
                               setActiveInput(index);
@@ -134,10 +134,12 @@ const ToDoPage = () => {
                         </button>
                       </div>
                     )}
-                  </>
+                  </div>
                 );
-              })}
-          </div>
+              })
+          ) : (
+            <p className="ToDo__empty">No tasks here!</p>
+          )}
         </div>
         <div className="ToDo__toolbar flex justify-between">
           {todos.length > 0 ? (
