@@ -4,6 +4,7 @@ import React, {useEffect, useReducer, useState} from 'react';
 // components
 import {TodoItem} from '../components/TodoItem'
 import {FilterButton} from '../components/FilterButton'
+import {Navigation} from '../components/Navigation';
 
 // utils
 import reducer, {initialState} from '../store/reducer';
@@ -117,47 +118,50 @@ const ToDoPage = () => {
     }
 
     return (
-        <div className="ToDo__container">
-            {/* Todo Form */}
-            <form className="Todo__creation" data-testid="todo-form-create" onSubmit={onCreateTodo}>
-                <input
-                    value={todoContent}
-                    required
-                    name="todo_name"
-                    className="Todo__input"
-                    placeholder="What need to be done?"
-                    onChange={handleChangeTodoContent}
-                />
-            </form>
-            {/* Todo List */}
-            <div className="ToDo__list" data-testid="todo-list">
-                {renderTodoList()}
-            </div>
-            <div className="Todo__toolbar">
-                {todos.length > 0 ?
+       <>
+            <Navigation />
+            <div className="ToDo__container">
+                {/* Todo Form */}
+                <form className="Todo__creation" data-testid="todo-form-create" onSubmit={onCreateTodo}>
                     <input
-                        type="checkbox"
-                        checked={activeTodos === 0}
-                        onChange={onToggleAllTodo}
-                        data-testid="todo-toggle-status"
-                    /> : <div/>
-                }
-                <div className="Todo__tabs">
-                    <FilterButton active={showing === 'ALL'} onClick={()=>setShowing('ALL')}>
-                        All
-                    </FilterButton>
-                    <FilterButton active={showing === TodoStatus.ACTIVE} onClick={()=>setShowing(TodoStatus.ACTIVE)}>
-                        Active
-                    </FilterButton>
-                    <FilterButton active={showing === TodoStatus.COMPLETED} onClick={()=>setShowing(TodoStatus.COMPLETED)}>
-                        Completed
-                    </FilterButton>
+                        value={todoContent}
+                        required
+                        name="todo_name"
+                        className="Todo__input"
+                        placeholder="What need to be done?"
+                        onChange={handleChangeTodoContent}
+                    />
+                </form>
+                {/* Todo List */}
+                <div className="ToDo__list" data-testid="todo-list">
+                    {renderTodoList()}
                 </div>
-                <button disabled={todos.length === 0} className="Action__btn delete" data-testid="clear-all" onClick={onDeleteAllTodo}>
-                    Clear all todos
-                </button>
+                <div className="Todo__toolbar">
+                    {todos.length > 0 ?
+                        <input
+                            type="checkbox"
+                            checked={activeTodos === 0}
+                            onChange={onToggleAllTodo}
+                            data-testid="todo-toggle-status"
+                        /> : <div/>
+                    }
+                    <div className="Todo__tabs">
+                        <FilterButton active={showing === 'ALL'} onClick={()=>setShowing('ALL')}>
+                            All
+                        </FilterButton>
+                        <FilterButton active={showing === TodoStatus.ACTIVE} onClick={()=>setShowing(TodoStatus.ACTIVE)}>
+                            Active
+                        </FilterButton>
+                        <FilterButton active={showing === TodoStatus.COMPLETED} onClick={()=>setShowing(TodoStatus.COMPLETED)}>
+                            Completed
+                        </FilterButton>
+                    </div>
+                    <button disabled={todos.length === 0} className="Action__btn delete" data-testid="clear-all" onClick={onDeleteAllTodo}>
+                        Clear all todos
+                    </button>
+                </div>
             </div>
-        </div>
+       </>
     );
 };
 

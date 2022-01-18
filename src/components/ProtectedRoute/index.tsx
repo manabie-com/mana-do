@@ -6,12 +6,10 @@ import StorageService from '../../service/StorageService'
 import { STORAGE_TOKEN } from '../../utils/constant'
 
 const ProtectedRoute = (props: RouteProps) => {
-  const { children, ...routerProps } = props
+  const { children, path, ...routerProps } = props
 
   const authStorageService = new StorageService(STORAGE_TOKEN, '')
-
   const token = authStorageService.get()
-
 
   const renderComponent = () => {
     if (token) {
@@ -21,7 +19,7 @@ const ProtectedRoute = (props: RouteProps) => {
   }
 
   return (
-    <Route {...routerProps} render={renderComponent} />
+    <Route {...routerProps} path={path} render={renderComponent} />
   )
 }
 

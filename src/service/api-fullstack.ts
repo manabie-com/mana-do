@@ -1,4 +1,4 @@
-import {IAPI} from './types';
+import {ApiResponse, IAPI, ParamsLogin} from './types';
 import {Todo, TodoStatus} from '../models/todo';
 import axios from '../utils/axios';
 import {successResponse} from '../utils/constant'
@@ -36,7 +36,15 @@ class ApiFullstack extends IAPI {
         return resp.data.data;
     }
 
-    async changeTodosStatus(status: TodoStatus) {
+    changeTodosStatus(status: TodoStatus) {
+        return Promise.resolve(successResponse)
+    }
+
+    login(formData: ParamsLogin) {
+        return Promise.resolve(successResponse)
+    }
+
+    logout() {
         return Promise.resolve(successResponse)
     }
 }

@@ -3,11 +3,11 @@ import { render, waitFor } from "@testing-library/react";
 import userEvent from '@testing-library/user-event';
 import shortid from 'shortid';
 
-import {ToDoPage} from '../page/ToDoPage'
+import {ToDoPage} from '../ToDoPage'
 
-import Service from '../service'
-import { TodoStatus } from '../models/todo';
-import { successResponse } from '../utils/constant';
+import Service from '../../service'
+import { TodoStatus } from '../../models/todo';
+import { successResponse } from '../../utils/constant';
 
 import "@testing-library/jest-dom";
 

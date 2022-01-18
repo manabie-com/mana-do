@@ -18,16 +18,27 @@ html {
   text-align: center;
   display: flex;
   justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
 button {
-  outline: none;
-  border: none;
-  box-shadow: 2px 0 2px currentColor;
-  border-radius: 4px;
-  min-height: 32px;
-  min-width: 80px;
-  padding: 4px 8px;
+  background-color: var(--white);
+  box-shadow: none;
+  border: 1px solid var(--primary);
+  min-width: 60px;
+  height: 32px;
+  color: var(--primary);
+  border-radius: var(--border-radius);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+button.active {
+  background-color: var(--primary);
+  color: var(--white);
 }
 
 button:hover {
@@ -60,6 +71,31 @@ input {
 
 input:focus {
   border: 1px solid var(--primary)
+}
+
+.form-input {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+}
+
+.Alert {
+  text-align: center;
+  width: 100%;
+  padding: 8px;
+  border-radius: var(--border-radius);
+}
+
+.Alert.error {
+  color: var(--red);
+  border: 1px solid var(--red)
+}
+
+.Navigation__container {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  padding: 4px 12px;
 }
 
 .ToDo__container {
@@ -139,7 +175,7 @@ input:focus {
 }
 
 .Todo__action, .Todo__delete {
-  width: 8px;
+  width: 16px;
   height: 16px;
   flex-shrink: 0;
   font-size: 10px;
@@ -165,27 +201,40 @@ input:focus {
   margin-right: 8px;
 }
 
-.Action__btn {
-  background-color: var(--white);
-  box-shadow: none;
-  border: 1px solid var(--primary);
-  min-width: 60px;
-  height: 32px;
-  color: var(--primary);
-  border-radius: var(--border-radius);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-}
-
-.Action__btn.active {
-  background-color: var(--primary);
-  color: var(--white);
-}
-
 .Action__btn.delete {
   background-color: var(--red);
   color: var(--white);
   border-color: var(--red);
+}
+
+.LoginPage__container {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.LoginForm__container {
+  margin-top: 16px;
+  width: 400px;
+  height: 265px;
+  border: 1px solid var(--grey);
+  display: flex;
+  flex-direction: column;
+  padding: 24px;
+  border-radius: var(--border-radius);
+}
+
+.LoginForm__container input,
+.LoginForm__container button
+{
+  width: 100%;
+  margin: 12px 0;
+  min-height: 36px;
+}
+
+.LoginForm__container button {
+  background-color: var(--primary);
+  color: var(--white);
 }
