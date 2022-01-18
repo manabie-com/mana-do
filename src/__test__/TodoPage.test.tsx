@@ -3,7 +3,7 @@ import { render, waitFor } from "@testing-library/react";
 import userEvent from '@testing-library/user-event';
 import shortid from 'shortid';
 
-import TodoPage from '../ToDoPage'
+import {ToDoPage} from '../page/ToDoPage'
 
 import Service from '../service'
 import { TodoStatus } from '../models/todo';
@@ -13,8 +13,8 @@ import "@testing-library/jest-dom";
 
 /**
  * Test cases
- * 1. The TodoPage should be rendered without crashing
- * 2. The TodoPage should be display a input, a todo list and four buttons
+ * 1. The ToDoPage should be rendered without crashing
+ * 2. The ToDoPage should be display a input, a todo list and four buttons
  * 3. The todo list should be display
  * 4. The todo list should be displayed "Nothing to show" if it is empty
  * 5. The todo list should be filtered correctly
@@ -24,15 +24,15 @@ import "@testing-library/jest-dom";
  */
 
 
-describe('<TodoPage />', () => {
+describe('<ToDoPage />', () => {
 
-  test('The TodoPage should be rendered without crashing', () => {
-    const wrapper = render(<TodoPage />)
+  test('The ToDoPage should be rendered without crashing', () => {
+    const wrapper = render(<ToDoPage />)
     expect(wrapper.container).toMatchSnapshot()
   })
 
-  test('The TodoPage should be display a input, a todo list and four buttons', () => {
-    const wrapper = render(<TodoPage />)
+  test('The ToDoPage should be display a input, a todo list and four buttons', () => {
+    const wrapper = render(<ToDoPage />)
     expect(wrapper.getByTestId('todo-form-create')).toBeInTheDocument()
     expect(wrapper.getByTestId('todo-list')).toBeInTheDocument()
     expect(wrapper.getAllByTestId('filter-button')).toHaveLength(3)
@@ -49,7 +49,7 @@ describe('<TodoPage />', () => {
         status: TodoStatus.ACTIVE,
       }
     ])
-    const wrapper = render(<TodoPage />)
+    const wrapper = render(<ToDoPage />)
     await waitFor(() => {
       expect(wrapper.getAllByTestId('todo-item')).toHaveLength(1)
       expect(wrapper.getByTestId('todo-toggle-status')).toBeInTheDocument()
@@ -58,7 +58,7 @@ describe('<TodoPage />', () => {
 
   test('The todo list should be displayed "Nothing todo!" if it is empty', async () => {
     jest.spyOn(Service, 'getTodos').mockResolvedValueOnce([])
-    const wrapper = render(<TodoPage />)
+    const wrapper = render(<ToDoPage />)
     await waitFor(() => expect(wrapper.getByText('Nothing todo!')).toBeInTheDocument())
   })
 
@@ -86,7 +86,7 @@ describe('<TodoPage />', () => {
         status: TodoStatus.COMPLETED,
       }
     ])
-    const wrapper = render(<TodoPage />)
+    const wrapper = render(<ToDoPage />)
     const filterAllButton = wrapper.getAllByTestId('filter-button')[0]
     const filterActiveButton = wrapper.getAllByTestId('filter-button')[1]
     const filterCompleteButton = wrapper.getAllByTestId('filter-button')[2]
@@ -127,7 +127,7 @@ describe('<TodoPage />', () => {
         status: TodoStatus.COMPLETED,
       }
     ])
-    const wrapper = render(<TodoPage />)
+    const wrapper = render(<ToDoPage />)
     await waitFor(() => {
       expect(wrapper.getByTestId('todo-toggle-status')).toBeChecked()
     })
@@ -158,7 +158,7 @@ describe('<TodoPage />', () => {
       }
     ])
     jest.spyOn(Service, 'changeTodosStatus').mockResolvedValueOnce(successResponse)
-    const wrapper = render(<TodoPage />)
+    const wrapper = render(<ToDoPage />)
     await waitFor(() => {
       userEvent.click(wrapper.getByTestId('todo-toggle-status'))
     })
@@ -188,7 +188,7 @@ describe('<TodoPage />', () => {
       }
     ])
     jest.spyOn(Service, 'removeAllTodo').mockResolvedValueOnce(successResponse)
-    const wrapper = render(<TodoPage />)
+    const wrapper = render(<ToDoPage />)
     userEvent.click(wrapper.getByTestId('clear-all'))
     await waitFor(() => {
       expect(wrapper.getByText('Nothing todo!')).toBeInTheDocument()

@@ -2,11 +2,11 @@
 import React, {useEffect, useReducer, useState} from 'react';
 
 // components
-import {TodoItem} from './components/TodoItem'
-import {FilterButton} from './components/FilterButton'
+import {TodoItem} from '../components/TodoItem'
+import {FilterButton} from '../components/FilterButton'
 
 // utils
-import reducer, {initialState} from './store/reducer';
+import reducer, {initialState} from '../store/reducer';
 import {
     setTodos,
     createTodo,
@@ -15,10 +15,10 @@ import {
     deleteAllTodos,
     updateTodoStatus,
     updateTodo
-} from './store/actions';
-import Service from './service';
-import {Todo, TodoStatus} from './models/todo';
-import {isTodoCompleted} from './utils';
+} from '../store/actions';
+import Service from '../service';
+import {Todo, TodoStatus} from '../models/todo';
+import {isTodoCompleted} from '../utils';
 
 type EnhanceTodoStatus = TodoStatus | 'ALL';
 
@@ -161,4 +161,4 @@ const ToDoPage = () => {
     );
 };
 
-export default ToDoPage;
+export {ToDoPage};
