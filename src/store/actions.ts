@@ -52,6 +52,7 @@ export function updateTodoStatus(todoId: string, checked: boolean): UpdateTodoSt
   };
 }
 
+// Added: Edit feature here. Named it updateTodoContent since it only updates the content
 //////////////
 export interface UpdateTodoContentAction {
   type: typeof UPDATE_TODO_CONTENT;

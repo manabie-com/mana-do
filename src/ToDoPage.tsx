@@ -31,6 +31,7 @@ const ToDoPage = () => {
     })();
   }, []);
 
+  // update list upon change
   useEffect(() => {
     localStorage.setItem("todoList", JSON.stringify(todos));
   }, [todos]);
@@ -51,6 +52,7 @@ const ToDoPage = () => {
     setContent(e.target.value);
   };
 
+  // Added: Wait for Enter or Esc press to save or exit editing
   const exitEditMode = async (e: React.KeyboardEvent<HTMLInputElement>, todoId: string) => {
     if (e.key === "Enter" || e.key === "Escape") {
       if (e.key === "Enter") dispatch(updateTodoContent(todoId, content)); // save if enter key was pressed

@@ -13,11 +13,14 @@ import {
 export interface AppState {
   todos: Array<Todo>;
 }
+
+// Updated: Fetching of stored data and loading it to initial state
 const todoList = localStorage.getItem("todoList");
 export const initialState: AppState = {
   todos: todoList ? JSON.parse(todoList) : [],
 };
 
+// Fixed: added tempTodos variable to preserve original state of the list and not update it directly (which was the cause of the items being created twice)
 function reducer(state: AppState, action: AppActions): AppState {
   switch (action.type) {
     case SET_TODO: {
