@@ -1,0 +1,49 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<LoginPage /> should be rendered without crashing 1`] = `
+<div>
+  <div
+    class="LoginPage__container"
+  >
+    
+    <form
+      class="LoginForm__container"
+    >
+      <div
+        class="form-input"
+      >
+        <label
+          for="username"
+        >
+          Username:
+        </label>
+        <input
+          id="username"
+          name="username"
+          required=""
+        />
+      </div>
+      <div
+        class="form-input"
+      >
+        <label
+          for="password"
+        >
+          Password:
+        </label>
+        <input
+          id="password"
+          name="password"
+          required=""
+          type="password"
+        />
+      </div>
+      <button
+        type="submit"
+      >
+        Login
+      </button>
+    </form>
+  </div>
+</div>
+`;

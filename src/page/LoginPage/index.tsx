@@ -3,11 +3,11 @@ import { useHistory } from 'react-router-dom'
 
 import { Redirect } from "react-router-dom"
 
-import Service from "../service"
-import StorageService from "../service/StorageService"
-import { STORAGE_TOKEN } from "../utils/constant"
+import Service from "../../service"
+import StorageService from "../../service/StorageService"
+import { STORAGE_TOKEN } from "../../utils/constant"
 
-import type { ParamsLogin, ApiResponse } from '../service/types'
+import type { ParamsLogin, ApiResponse } from '../../service/types'
 
 const LoginPage = () => {
 
@@ -49,7 +49,7 @@ const LoginPage = () => {
   return (
     <div className="LoginPage__container">
       {error && (
-        <div className="Alert error">
+        <div className="Alert error" role="alert">
           {error}
         </div>
       )}

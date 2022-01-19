@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Navigation /> should be rendered without crashing 1`] = `
+<div>
+  <div
+    class="Navigation__container"
+  >
+    <a
+      href="/logout"
+    >
+      Logout
+    </a>
+  </div>
+</div>
+`;
