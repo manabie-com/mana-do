@@ -4,7 +4,6 @@ import reducer, {initialState} from './store/reducer';
 import {
     setTodos,
     createTodo,
-    deleteTodo,
     toggleAllTodos,
     deleteAllTodos,
     updateTodoStatus
@@ -19,7 +18,7 @@ type EnhanceTodoStatus = TodoStatus | 'ALL';
 const ToDoPage = () => {
     const [{todos}, dispatch] = useReducer(reducer, initialState);
     const [showing, setShowing] = useState<EnhanceTodoStatus>('ALL');
-    const inputRef = useRef<HTMLInputElement>(null);
+    const inputRef = useRef<any>(null);
 
     useEffect(()=>{
         (async ()=>{
@@ -30,14 +29,13 @@ const ToDoPage = () => {
     }, [])
 
     const onCreateTodo = async (e: React.KeyboardEvent<HTMLInputElement>) => {
-        if (e.key === 'Enter' && inputRef.current) {
+        if (e.key === 'Enter' ) {
             const resp = await Service.createTodo(inputRef.current.value);
             dispatch(createTodo(resp));
-            inputRef.current.value = '';
         }
     }
 
-    const onUpdateTodoStatus = (e: React.ChangeEvent<HTMLInputElement>, todoId: string) => {
+    const onUpdateTodoStatus = (e: React.ChangeEvent<HTMLInputElement>, todoId: any) => {
         dispatch(updateTodoStatus(todoId, e.target.checked))
     }
 
@@ -60,10 +58,6 @@ const ToDoPage = () => {
         }
     });
 
-    const activeTodos = todos.reduce(function (accum, todo) {
-        return isTodoCompleted(todo) ? accum : accum + 1;
-    }, 0);
-
     return (
         <div className="ToDo__container">
             <div className="Todo__creation">
@@ -82,12 +76,11 @@ const ToDoPage = () => {
                                 <input
                                     type="checkbox"
                                     checked={isTodoCompleted(todo)}
-                                    onChange={(e) => onUpdateTodoStatus(e, todo.id)}
+                                    onChange={(e) => onUpdateTodoStatus(e, index)}
                                 />
                                 <span>{todo.content}</span>
                                 <button
                                     className="Todo__delete"
-                                    onClick={() => dispatch(deleteTodo(todo.id))}
                                 >
                                     X
                                 </button>
@@ -100,12 +93,11 @@ const ToDoPage = () => {
                 {todos.length > 0 ?
                     <input
                         type="checkbox"
-                        checked={activeTodos === 0}
                         onChange={onToggleAllTodo}
                     /> : <div/>
                 }
                 <div className="Todo__tabs">
-                    <button className="Action__btn" onClick={()=>setShowing('ALL')}>
+                    <button className="Action__btn">
                         All
                     </button>
                     <button className="Action__btn" onClick={()=>setShowing(TodoStatus.ACTIVE)}>
