@@ -10,7 +10,6 @@ import {
 } from './store/actions';
 import Service from './service';
 import {TodoStatus} from './models/todo';
-import {isTodoCompleted} from './utils';
 
 type EnhanceTodoStatus = TodoStatus | 'ALL';
 
@@ -47,16 +46,6 @@ const ToDoPage = () => {
         dispatch(deleteAllTodos());
     }
 
-    const showTodos = todos.filter((todo) => {
-        switch (showing) {
-            case TodoStatus.ACTIVE:
-                return todo.status === TodoStatus.ACTIVE;
-            case TodoStatus.COMPLETED:
-                return todo.status === TodoStatus.COMPLETED;
-            default:
-                return true;
-        }
-    });
 
     return (
         <div className="ToDo__container">
@@ -70,12 +59,12 @@ const ToDoPage = () => {
             </div>
             <div className="ToDo__list">
                 {
-                    showTodos.map((todo, index) => {
+                    todos.map((todo, index) => {
                         return (
                             <div key={index} className="ToDo__item">
                                 <input
                                     type="checkbox"
-                                    checked={isTodoCompleted(todo)}
+                                    checked={showing === todo.status}
                                     onChange={(e) => onUpdateTodoStatus(e, index)}
                                 />
                                 <span>{todo.content}</span>
