@@ -27,6 +27,7 @@
 - Please help us to add some features to the application:
     - The persistent feature. After refreshing, our todos will be disappeared, that's annoying for our users, let's use localStorage (or API calls for fullstack engineer) to keep them.
     - The edit feature. Currently, users cannot edit the todos, please help them (user double-clicks the todo to edit, presses enter to apply the changes, or clicks outside to discard).
+    - The active/complete todo feature. Allows users to click on checkbox items they have completed
 
 #### Fullstack engineer
 - You have to make sure your code satisfy the back-end requirements in https://github.com/manabie-com/togo.
