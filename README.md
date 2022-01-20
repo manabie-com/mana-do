@@ -14,7 +14,7 @@
 - Don't worry if you can't complete the challenge in time. Just do your best in a mindful way.
 - If you can't fully complete the challenge, please note the completed features.
 - We'd like too see some descriptions about your PR.
-    
+- Typescript is a plus point. So we hope you can spend your time on this 
 ### Requirements
 
 #### Common (required for both positions)
