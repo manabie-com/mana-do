@@ -5,28 +5,28 @@ import shortid from "shortid"
 import { Todo, TodoStatus } from "../../models/todo"
 import TodoList from "../todo-page/todo-list/todo-list"
 
-const todos = [
+const todos: Todo[] = [
 	{
 		content: "todo_1",
 		created_date: new Date().toISOString(),
 		status: TodoStatus.ACTIVE,
 		id: shortid(),
 		user_id: "firstUser",
-	} as Todo,
+	},
 	{
 		content: "todo_2",
 		created_date: new Date().toISOString(),
 		status: TodoStatus.ACTIVE,
 		id: shortid(),
 		user_id: "firstUser",
-	} as Todo,
+	},
 	{
 		content: "todo_3",
 		created_date: new Date().toISOString(),
 		status: TodoStatus.ACTIVE,
 		id: shortid(),
 		user_id: "firstUser",
-	} as Todo,
+	},
 ]
 
 describe("todo-list", () => {
