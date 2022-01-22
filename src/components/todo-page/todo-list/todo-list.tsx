@@ -5,7 +5,7 @@ import TodoItem from "../todo-item/todo-item"
 
 interface ITodoListProps {
 	todos: Todo[]
-	updateStatus: (e: boolean, todoId: string) => void
+	updateStatus: (check: boolean, todoId: string) => void
 	removeTodo: (todoId: string) => void
 	updateTodo: (todoId: string, content: string) => void
 }

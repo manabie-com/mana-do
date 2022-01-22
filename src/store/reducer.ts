@@ -18,7 +18,7 @@ export const initialState: AppState = {
 	todos: [],
 }
 
-/* the reason generate bug */
+/* The reason generate bug */
 /**
  The function reducer below is impure reducer. So React.StrictMode intentionally calls your reducer twice to make any unexpected side effects more  apparent. And the result is created two to-dos when you press enter to create a todo.
  Solution: Make the function reducer is pure reducer.
