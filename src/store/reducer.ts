@@ -75,7 +75,7 @@ function reducer(state: AppState, action: AppActions): AppState {
 		}
 
 		case DELETE_TODO: {
-			const todo = [...state.todos.filter((t) => t.id !== action.payload)]
+			const todo = [...state.todos.filter((todo) => todo.id !== action.payload)]
 			return {
 				...state,
 				todos: todo,

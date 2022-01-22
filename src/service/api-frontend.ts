@@ -35,7 +35,7 @@ class ApiFrontend extends IAPI {
 
 	async deleteTodo(id: string): Promise<boolean> {
 		let todos = getListTodos()
-		todos = [...todos.filter((t) => t.id !== id)]
+		todos = [...todos.filter((todo) => todo.id !== id)]
 		storageTodos(todos)
 
 		return true
@@ -48,7 +48,7 @@ class ApiFrontend extends IAPI {
 
 	async toggleAll(isChecked: boolean): Promise<boolean> {
 		let todos = getListTodos()
-		todos = todos.map((t) => ({ ...t, status: isChecked ? TodoStatus.COMPLETED : TodoStatus.ACTIVE }))
+		todos = todos.map((todo) => ({ ...todo, status: isChecked ? TodoStatus.COMPLETED : TodoStatus.ACTIVE }))
 		storageTodos(todos)
 		return true
 	}

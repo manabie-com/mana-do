@@ -24,7 +24,7 @@ const ToDoPage = () => {
 	const inputRef = useRef<HTMLInputElement>(null)
 
 	useEffect(() => {
-		;(async () => {
+		(async () => {
 			const resp = await Service.getTodos()
 
 			dispatch(setTodos(resp || []))
