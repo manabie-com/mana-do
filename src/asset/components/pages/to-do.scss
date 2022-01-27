@@ -1,0 +1,96 @@
+.to-do {
+    &__container {
+        background-color: #4378dd;
+        border: 1px solid rgba(0, 0, 0, 0.13);
+        border-radius: 8px;
+        width: 500px;
+        margin-top: 5rem;
+        padding: 24px;
+        box-shadow: 2px 2px 1px rgba(0, 0, 0, 0.09),
+            3px 2px 3px rgba(0, 0, 0, 0.05);
+        height: 400px;
+    }
+
+    &__creation {
+        display: flex;
+    }
+
+    &__input {
+        flex: 1 1;
+    }
+
+    &__list {
+        background-color: white;
+        display: flex;
+        flex-direction: column;
+        margin-top: 1rem;
+        height: 280px;
+        border-radius: 4px;
+        overflow: scroll;
+        border: 1px solid #dddddd;
+    }
+
+    &__item {
+        width: 98%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        
+        &-content {
+            flex: 1 1;
+            text-align: left;
+            margin-left: 8px;
+            max-width: 80%;
+            margin-right: 5%;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+        }
+    }
+
+    &__check-all-btn {
+        &--hidden {
+            visibility: hidden;
+        }
+    }
+
+    &__delete {
+        outline: none;
+        border: none;
+        width: 32px;
+        height: 32px;
+        min-width: auto;
+        min-height: auto;
+        box-shadow: none;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        background-color: deeppink;
+        color: white;
+        font-weight: bold;
+    }
+
+    &__action,
+    &__delete {
+        width: 24px;
+        height: 24px;
+        flex-shrink: 0;
+    }
+
+    &__toolbar {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 1rem;
+    }
+
+    &__tabs {
+        display: flex;
+        justify-content: center;
+    }
+
+    &__tabs>*:not(:last-child) {
+        margin-right: 8px;
+    }
+}
