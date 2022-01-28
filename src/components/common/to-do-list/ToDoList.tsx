@@ -1,6 +1,7 @@
 import { FC } from "react";
 import { Todo } from "../../../models/todo";
 import ToDoItem from "../to-do-item/ToDoItem";
+import Image from "../../../asset/images/blank-state.png";
 
 interface ToDoListProps {
     todos: Array<Todo>;
@@ -24,6 +25,7 @@ const ToDoList: FC<ToDoListProps> = ({ todos, onUpdateTodoStatus, onDeleteTodo, 
             };
             return <ToDoItem key={todo.id} {...taskRowProps} />
         })}
+        {!todos.length && <img className="to-do__blank-img" src={Image} alt="no items found!"/>}
         </>
     )
 }

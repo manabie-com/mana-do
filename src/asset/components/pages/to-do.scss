@@ -93,4 +93,11 @@
     &__tabs>*:not(:last-child) {
         margin-right: 8px;
     }
+
+    &__blank-img {
+        width: auto;
+        height: 50%;
+        margin: auto;
+        object-fit: cover;
+    }
 }
