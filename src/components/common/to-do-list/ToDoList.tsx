@@ -5,12 +5,11 @@ import Image from "../../../asset/images/blank-state.png";
 
 interface ToDoListProps {
     todos: Array<Todo>;
-    onUpdateTodoStatus: Function;
-    onDeleteTodo: Function;
+    dispatch: Function;
     showing: string;
 }
 
-const ToDoList: FC<ToDoListProps> = ({ todos, onUpdateTodoStatus, onDeleteTodo, showing }) => {
+const ToDoList: FC<ToDoListProps> = ({ todos, dispatch, showing }) => {
     return (
         <>{todos.filter(todo => {
             if (showing === "ALL") {
@@ -20,8 +19,7 @@ const ToDoList: FC<ToDoListProps> = ({ todos, onUpdateTodoStatus, onDeleteTodo, 
         }).map((todo) => {
             const taskRowProps = {
                 todo,
-                onUpdateTodoStatus,
-                onDeleteTodo
+                dispatch
             };
             return <ToDoItem key={todo.id} {...taskRowProps} />
         })}

@@ -4,6 +4,7 @@ import {
   CREATE_TODO,
   DELETE_ALL_TODOS,
   DELETE_TODO,
+  SET_TODO,
   TOGGLE_ALL_TODOS,
   UPDATE_TODO_STATUS
 } from './actions';
@@ -18,11 +19,16 @@ export const initialState: AppState = {
 
 function reducer(state: AppState, action: AppActions): AppState {
   switch (action.type) {
-    case CREATE_TODO:
-      const { payload } = action;
+    case SET_TODO:
       return {
         ...state,
-        todos: [...state.todos, payload]
+        todos: action.payload
+      };
+
+    case CREATE_TODO:
+      return {
+        ...state,
+        todos: [...state.todos, action.payload]
       };
 
     case UPDATE_TODO_STATUS:
