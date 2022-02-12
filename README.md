@@ -41,4 +41,6 @@
 - go to localServer and create the new user with URL: `http://localhost:3000/register` to register a new User
 - The app will redirect to login page, login with the user credentials to access user Todo.
 
+- run `npm run test` to run the tests
+
 Last updated: 2022/01/13
