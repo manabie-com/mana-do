@@ -1,6 +1,6 @@
-import { IAPI } from './types';
-import { Todo, TodoStatus } from '../models/todo';
 import shortid from 'shortid';
+import { Todo, TodoStatus } from '../models/todo';
+import { IAPI } from './types';
 
 class ApiFrontend extends IAPI {
   async createTodo(content: string): Promise<Todo> {
@@ -10,7 +10,15 @@ class ApiFrontend extends IAPI {
       status: TodoStatus.ACTIVE,
       id: shortid(),
       user_id: 'firstUser',
-    } as Todo);
+    });
+  }
+
+  async deleteTodo(id: string): Promise<void> {
+    return Promise.resolve();
+  }
+
+  async deleteAllTodos(): Promise<void> {
+    return Promise.resolve();
   }
 
   async getTodos(): Promise<Todo[]> {
@@ -23,6 +31,10 @@ class ApiFrontend extends IAPI {
         user_id: 'firstUser',
       } as Todo,
     ];
+  }
+
+  async updateTodoStatus(id: string, completed: boolean): Promise<void> {
+    await Promise.resolve();
   }
 }
 

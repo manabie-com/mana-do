@@ -1,21 +1,34 @@
-import { IAPI } from './types';
-import { Todo } from '../models/todo';
+import { Todo, TodoStatus } from '../models/todo';
 import axios from '../utils/axios';
-import { AxiosResponse } from 'axios';
+import { IAPI } from './types';
 
 class ApiFullstack extends IAPI {
   async createTodo(content: string): Promise<Todo> {
-    const resp = await axios.post<AxiosResponse<Todo>>(`/tasks`, {
+    const resp = await axios.post<Todo>(`/tasks`, {
       content,
     });
 
-    return resp.data.data;
+    return resp.data;
+  }
+
+  async deleteTodo(id: string): Promise<void> {
+    await axios.delete(`/tasks/${id}`);
+  }
+
+  async deleteAllTodos(): Promise<void> {
+    await axios.delete(`/tasks`);
   }
 
   async getTodos(): Promise<Array<Todo>> {
-    const resp = await axios.get<AxiosResponse<Array<Todo>>>(`/tasks`);
+    const resp = await axios.get<Array<Todo>>(`/tasks`);
 
-    return resp.data.data;
+    return resp.data;
+  }
+
+  async updateTodoStatus(id: string, completed: boolean): Promise<void> {
+    await axios.patch<Todo>(`tasks/${id}`, {
+      status: completed ? TodoStatus.COMPLETED : TodoStatus.ACTIVE,
+    });
   }
 }
 

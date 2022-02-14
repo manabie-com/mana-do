@@ -4,6 +4,7 @@ import Service from './service';
 import {
   createTodo,
   deleteAllTodos,
+  deleteTodo,
   setTodos,
   toggleAllTodos,
   updateTodoStatus,
@@ -34,9 +35,18 @@ const ToDoPage: React.FC = () => {
     []
   );
 
+  const onDeleteTodo = useCallback(
+    (todoId: string) => async () => {
+      await Service.deleteTodo(todoId);
+      dispatch(deleteTodo(todoId));
+    },
+    []
+  );
+
   const onUpdateTodoStatus = useCallback(
-    (todoId: string) => (e: React.ChangeEvent<HTMLInputElement>) => {
-      dispatch(updateTodoStatus(todoId, e.target.checked));
+    (id: string) => async (e: React.ChangeEvent<HTMLInputElement>) => {
+      await Service.updateTodoStatus(id, e.target.checked);
+      dispatch(updateTodoStatus(id, e.target.checked));
     },
     []
   );
@@ -48,7 +58,8 @@ const ToDoPage: React.FC = () => {
     []
   );
 
-  const onDeleteAllTodo = useCallback(() => {
+  const onDeleteAllTodo = useCallback(async () => {
+    await Service.deleteAllTodos();
     dispatch(deleteAllTodos());
   }, []);
 
@@ -76,7 +87,9 @@ const ToDoPage: React.FC = () => {
                 onChange={onUpdateTodoStatus(todo.id)}
               />
               <span>{todo.content}</span>
-              <button className="Todo__delete">X</button>
+              <button className="Todo__delete" onClick={onDeleteTodo(todo.id)}>
+                X
+              </button>
             </div>
           ))}
       </div>
