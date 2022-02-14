@@ -1,4 +1,5 @@
 import React, { useCallback, useEffect, useReducer, useState } from 'react';
+import ToDoList from './components/ToDoList';
 import { TodoStatus } from './models/todo';
 import Service from './service';
 import {
@@ -35,18 +36,15 @@ const ToDoPage: React.FC = () => {
     []
   );
 
-  const onDeleteTodo = useCallback(
-    (todoId: string) => async () => {
-      await Service.deleteTodo(todoId);
-      dispatch(deleteTodo(todoId));
-    },
-    []
-  );
+  const onDeleteTodo = useCallback(async (todoId: string) => {
+    await Service.deleteTodo(todoId);
+    dispatch(deleteTodo(todoId));
+  }, []);
 
   const onUpdateTodoStatus = useCallback(
-    (id: string) => async (e: React.ChangeEvent<HTMLInputElement>) => {
-      await Service.updateTodoStatus(id, e.target.checked);
-      dispatch(updateTodoStatus(id, e.target.checked));
+    async (id: string, completed: boolean) => {
+      await Service.updateTodoStatus(id, completed);
+      dispatch(updateTodoStatus(id, completed));
     },
     []
   );
@@ -76,23 +74,13 @@ const ToDoPage: React.FC = () => {
           onKeyDown={onCreateTodo}
         />
       </div>
-      <div className="ToDo__list">
-        {todos
-          .filter((todo) => todo.status === showing || showing === 'ALL')
-          .map((todo) => (
-            <div key={todo.id} className="ToDo__item">
-              <input
-                type="checkbox"
-                checked={todo.status === TodoStatus.COMPLETED}
-                onChange={onUpdateTodoStatus(todo.id)}
-              />
-              <span>{todo.content}</span>
-              <button className="Todo__delete" onClick={onDeleteTodo(todo.id)}>
-                X
-              </button>
-            </div>
-          ))}
-      </div>
+      <ToDoList
+        showActive={showing === TodoStatus.ACTIVE || showing === 'ALL'}
+        showCompleted={showing === TodoStatus.COMPLETED || showing === 'ALL'}
+        todos={todos}
+        onDeleteTodo={onDeleteTodo}
+        onUpdateTodoStatus={onUpdateTodoStatus}
+      />
       <div className="Todo__toolbar">
         {todos.length > 0 ? (
           <input type="checkbox" onChange={onToggleAllTodo} />
