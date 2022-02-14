@@ -35,7 +35,7 @@ const ToDoPage: React.FC = () => {
   );
 
   const onUpdateTodoStatus = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>, todoId: any) => {
+    (todoId: string) => (e: React.ChangeEvent<HTMLInputElement>) => {
       dispatch(updateTodoStatus(todoId, e.target.checked));
     },
     []
@@ -62,19 +62,17 @@ const ToDoPage: React.FC = () => {
         />
       </div>
       <div className="ToDo__list">
-        {todos.map((todo, index) => {
-          return (
-            <div key={index} className="ToDo__item">
-              <input
-                type="checkbox"
-                checked={showing === todo.status}
-                onChange={(e) => onUpdateTodoStatus(e, index)}
-              />
-              <span>{todo.content}</span>
-              <button className="Todo__delete">X</button>
-            </div>
-          );
-        })}
+        {todos.map((todo) => (
+          <div key={todo.id} className="ToDo__item">
+            <input
+              type="checkbox"
+              checked={showing === todo.status}
+              onChange={onUpdateTodoStatus(todo.id)}
+            />
+            <span>{todo.content}</span>
+            <button className="Todo__delete">X</button>
+          </div>
+        ))}
       </div>
       <div className="Todo__toolbar">
         {todos.length > 0 ? (
