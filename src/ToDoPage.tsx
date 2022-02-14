@@ -50,8 +50,10 @@ const ToDoPage: React.FC = () => {
   );
 
   const onToggleAllTodo = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      dispatch(toggleAllTodos(e.target.checked));
+    async (e: React.ChangeEvent<HTMLInputElement>) => {
+      const completed = e.target.checked;
+      await Service.updateAllTodoStatus(completed);
+      dispatch(toggleAllTodos(completed));
     },
     []
   );

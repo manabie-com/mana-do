@@ -26,7 +26,13 @@ class ApiFullstack extends IAPI {
   }
 
   async updateTodoStatus(id: string, completed: boolean): Promise<void> {
-    await axios.patch<Todo>(`tasks/${id}`, {
+    await axios.patch<Todo>(`/tasks/${id}`, {
+      status: completed ? TodoStatus.COMPLETED : TodoStatus.ACTIVE,
+    });
+  }
+
+  async updateAllTodoStatus(completed: boolean): Promise<void> {
+    await axios.patch(`/tasks`, {
       status: completed ? TodoStatus.COMPLETED : TodoStatus.ACTIVE,
     });
   }

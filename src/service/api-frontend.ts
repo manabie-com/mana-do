@@ -34,7 +34,11 @@ class ApiFrontend extends IAPI {
   }
 
   async updateTodoStatus(id: string, completed: boolean): Promise<void> {
-    await Promise.resolve();
+    return Promise.resolve();
+  }
+
+  async updateAllTodoStatus(completed: boolean): Promise<void> {
+    return Promise.resolve();
   }
 }
 

@@ -6,4 +6,5 @@ export abstract class IAPI {
   abstract deleteTodo(id: string): Promise<void>;
   abstract deleteAllTodos(): Promise<void>;
   abstract updateTodoStatus(id: string, completed: boolean): Promise<void>;
+  abstract updateAllTodoStatus(completed: boolean): Promise<void>;
 }
