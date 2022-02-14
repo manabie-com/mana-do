@@ -1,3 +1,4 @@
+import produce, { current } from 'immer';
 import { Todo, TodoStatus } from '../models/todo';
 import {
   AppActions,
@@ -19,52 +20,43 @@ export const initialState: AppState = {
 function reducer(state: AppState, action: AppActions): AppState {
   switch (action.type) {
     case CREATE_TODO:
-      state.todos.push(action.payload);
-      return {
-        ...state,
-      };
-
-    case UPDATE_TODO_STATUS:
-      const index2 = state.todos.findIndex(
-        (todo) => todo.id === action.payload.todoId
-      );
-      state.todos[index2].status = action.payload.checked
-        ? TodoStatus.COMPLETED
-        : TodoStatus.ACTIVE;
-
-      return {
-        ...state,
-        todos: state.todos,
-      };
-
-    case TOGGLE_ALL_TODOS:
-      const tempTodos = state.todos.map((e) => {
-        return {
-          ...e,
-          status: action.payload ? TodoStatus.COMPLETED : TodoStatus.ACTIVE,
-        };
+      return produce(state, (draft) => {
+        draft.todos.push(action.payload);
       });
 
-      return {
-        ...state,
-        todos: tempTodos,
-      };
+    case UPDATE_TODO_STATUS:
+      return produce(state, (draft) => {
+        const todoIndex = current(draft).todos.findIndex(
+          (todo) => todo.id === action.payload.todoId
+        );
+        draft.todos[todoIndex].status = action.payload.checked
+          ? TodoStatus.COMPLETED
+          : TodoStatus.ACTIVE;
+      });
+
+    case TOGGLE_ALL_TODOS:
+      return produce(state, (draft) => {
+        const currentState = current(draft);
+        for (let i = 0; i < currentState.todos.length; i++) {
+          draft.todos[i].status = action.payload
+            ? TodoStatus.COMPLETED
+            : TodoStatus.ACTIVE;
+        }
+      });
 
     case DELETE_TODO:
-      const index1 = state.todos.findIndex(
-        (todo) => todo.id === action.payload
-      );
-      state.todos.splice(index1, 1);
+      return produce(state, (draft) => {
+        const todoIndex = current(draft).todos.findIndex(
+          (todo) => todo.id === action.payload
+        );
+        draft.todos.splice(todoIndex, 1);
+      });
 
-      return {
-        ...state,
-        todos: state.todos,
-      };
     case DELETE_ALL_TODOS:
-      return {
-        ...state,
-        todos: [],
-      };
+      return produce(state, (draft) => {
+        draft.todos = [];
+      });
+
     default:
       return state;
   }
