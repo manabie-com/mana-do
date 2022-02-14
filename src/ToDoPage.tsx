@@ -52,6 +52,10 @@ const ToDoPage: React.FC = () => {
     dispatch(deleteAllTodos());
   }, []);
 
+  const showAll = useCallback(() => setShowing('ALL'), []);
+  const showActive = useCallback(() => setShowing(TodoStatus.ACTIVE), []);
+  const showCompleted = useCallback(() => setShowing(TodoStatus.COMPLETED), []);
+
   return (
     <div className="ToDo__container">
       <div className="Todo__creation">
@@ -62,17 +66,19 @@ const ToDoPage: React.FC = () => {
         />
       </div>
       <div className="ToDo__list">
-        {todos.map((todo) => (
-          <div key={todo.id} className="ToDo__item">
-            <input
-              type="checkbox"
-              checked={showing === todo.status}
-              onChange={onUpdateTodoStatus(todo.id)}
-            />
-            <span>{todo.content}</span>
-            <button className="Todo__delete">X</button>
-          </div>
-        ))}
+        {todos
+          .filter((todo) => todo.status === showing || showing === 'ALL')
+          .map((todo) => (
+            <div key={todo.id} className="ToDo__item">
+              <input
+                type="checkbox"
+                checked={todo.status === TodoStatus.COMPLETED}
+                onChange={onUpdateTodoStatus(todo.id)}
+              />
+              <span>{todo.content}</span>
+              <button className="Todo__delete">X</button>
+            </div>
+          ))}
       </div>
       <div className="Todo__toolbar">
         {todos.length > 0 ? (
@@ -81,17 +87,13 @@ const ToDoPage: React.FC = () => {
           <div />
         )}
         <div className="Todo__tabs">
-          <button className="Action__btn">All</button>
-          <button
-            className="Action__btn"
-            onClick={() => setShowing(TodoStatus.ACTIVE)}
-          >
+          <button className="Action__btn" onClick={showAll}>
+            All
+          </button>
+          <button className="Action__btn" onClick={showActive}>
             Active
           </button>
-          <button
-            className="Action__btn"
-            onClick={() => setShowing(TodoStatus.COMPLETED)}
-          >
+          <button className="Action__btn" onClick={showCompleted}>
             Completed
           </button>
         </div>
