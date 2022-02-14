@@ -1,10 +1,4 @@
-import React, {
-  useCallback,
-  useEffect,
-  useReducer,
-  useRef,
-  useState,
-} from 'react';
+import React, { useCallback, useEffect, useReducer, useState } from 'react';
 import { TodoStatus } from './models/todo';
 import Service from './service';
 import {
@@ -21,7 +15,6 @@ type EnhanceTodoStatus = TodoStatus | 'ALL';
 const ToDoPage: React.FC = () => {
   const [{ todos }, dispatch] = useReducer(reducer, initialState);
   const [showing, setShowing] = useState<EnhanceTodoStatus>('ALL');
-  const inputRef = useRef<any>(null);
 
   useEffect(() => {
     (async () => {
@@ -34,7 +27,7 @@ const ToDoPage: React.FC = () => {
   const onCreateTodo = useCallback(
     async (e: React.KeyboardEvent<HTMLInputElement>) => {
       if (e.key === 'Enter') {
-        const resp = await Service.createTodo(inputRef.current.value);
+        const resp = await Service.createTodo(e.currentTarget.value);
         dispatch(createTodo(resp));
       }
     },
@@ -63,7 +56,6 @@ const ToDoPage: React.FC = () => {
     <div className="ToDo__container">
       <div className="Todo__creation">
         <input
-          ref={inputRef}
           className="Todo__input"
           placeholder="What need to be done?"
           onKeyDown={onCreateTodo}
