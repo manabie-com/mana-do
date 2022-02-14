@@ -1,19 +1,24 @@
-import React, { useEffect, useReducer, useRef, useState } from 'react';
-
-import reducer, { initialState } from './store/reducer';
+import React, {
+  useCallback,
+  useEffect,
+  useReducer,
+  useRef,
+  useState,
+} from 'react';
+import { TodoStatus } from './models/todo';
+import Service from './service';
 import {
-  setTodos,
   createTodo,
-  toggleAllTodos,
   deleteAllTodos,
+  setTodos,
+  toggleAllTodos,
   updateTodoStatus,
 } from './store/actions';
-import Service from './service';
-import { TodoStatus } from './models/todo';
+import reducer, { initialState } from './store/reducer';
 
 type EnhanceTodoStatus = TodoStatus | 'ALL';
 
-const ToDoPage = () => {
+const ToDoPage: React.FC = () => {
   const [{ todos }, dispatch] = useReducer(reducer, initialState);
   const [showing, setShowing] = useState<EnhanceTodoStatus>('ALL');
   const inputRef = useRef<any>(null);
@@ -26,27 +31,33 @@ const ToDoPage = () => {
     })();
   }, []);
 
-  const onCreateTodo = async (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
-      const resp = await Service.createTodo(inputRef.current.value);
-      dispatch(createTodo(resp));
-    }
-  };
+  const onCreateTodo = useCallback(
+    async (e: React.KeyboardEvent<HTMLInputElement>) => {
+      if (e.key === 'Enter') {
+        const resp = await Service.createTodo(inputRef.current.value);
+        dispatch(createTodo(resp));
+      }
+    },
+    []
+  );
 
-  const onUpdateTodoStatus = (
-    e: React.ChangeEvent<HTMLInputElement>,
-    todoId: any
-  ) => {
-    dispatch(updateTodoStatus(todoId, e.target.checked));
-  };
+  const onUpdateTodoStatus = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>, todoId: any) => {
+      dispatch(updateTodoStatus(todoId, e.target.checked));
+    },
+    []
+  );
 
-  const onToggleAllTodo = (e: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch(toggleAllTodos(e.target.checked));
-  };
+  const onToggleAllTodo = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      dispatch(toggleAllTodos(e.target.checked));
+    },
+    []
+  );
 
-  const onDeleteAllTodo = () => {
+  const onDeleteAllTodo = useCallback(() => {
     dispatch(deleteAllTodos());
-  };
+  }, []);
 
   return (
     <div className="ToDo__container">
