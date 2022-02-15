@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import { FC, useEffect, useState } from "react";
+import { FC } from "react";
 import { Todo, TodoStatus } from "../../../models/todo";
 import { deleteAllTodos, toggleAllTodos } from "../../../store/actions";
 import Service from '../../../service';
@@ -12,7 +12,6 @@ interface ToolBarProps {
 }
 
 const ToolBar: FC<ToolBarProps> = ({ todos, dispatch, setShowing }) => {
-    const [checkAll, setCheckAll] = useState(false);
     const onDeleteAllTodo = () => {
         const todoIds = todos.map(todo => todo.id);
         Service.deleteAllTodo(todoIds);

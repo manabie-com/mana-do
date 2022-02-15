@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import Service from '../../../service';
 
 const Login = () => {
-    useState()
     const [userName, setUserName] = useState("");
     const [password, setPassword] = useState("");
     const handleSubmit = async (e: React.FormEvent) => {
