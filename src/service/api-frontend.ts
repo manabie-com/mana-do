@@ -1,28 +1,31 @@
-import { IAPI } from "./types";
-import { Todo, TodoStatus } from "../models/todo";
-import shortid from "shortid";
+import shortid from 'shortid';
+import { IAPI } from './types';
+import { Todo, TodoStatus } from '../models/todo';
 
 class ApiFrontend extends IAPI {
+    setItem(todos: Todo[]): void{
+        localStorage.setItem('@todo/list', JSON.stringify(todos));
+      }
+
     async createTodo(content: string): Promise<Todo> {
-        return Promise.resolve({
+        const todo = {
             content: content,
             created_date: new Date().toISOString(),
             status: TodoStatus.ACTIVE,
             id: shortid(),
-            user_id: "firstUser",
-        } as Todo);
+            user_id: 'firstUser',
+          } as Todo;
+      
+          const todos = await this.getTodos();
+          todos.push(todo);
+          this.setItem(todos);
+
+          return Promise.resolve(todo);
     }
 
     async getTodos(): Promise<Todo[]> {
-        return [
-            {
-                content: "Content",
-                created_date: new Date().toISOString(),
-                status: TodoStatus.ACTIVE,
-                id: shortid(),
-                user_id: "firstUser",
-            } as Todo,
-        ];
+        const list = localStorage.getItem('@todo/list');
+        return Promise.resolve(!!list ? JSON.parse(list) : [] as Todo[]);
     }
 }
 

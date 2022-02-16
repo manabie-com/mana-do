@@ -1,39 +1,42 @@
 import {Todo, TodoStatus} from '../models/todo';
-import {
-  AppActions,
-  CREATE_TODO,
-  DELETE_ALL_TODOS,
-  DELETE_TODO,
-  TOGGLE_ALL_TODOS,
-  UPDATE_TODO_STATUS
-} from './actions';
+import { AppActions } from './actions';
+import ActionTypes from './actionTypes';
 
 export interface AppState {
   todos: Array<Todo>
+  status: any;
 }
 
 export const initialState: AppState = {
-  todos: []
+  todos: [],
+  status: 'ALL',
 }
 
 function reducer(state: AppState, action: AppActions): AppState {
   switch (action.type) {
-    case CREATE_TODO:
-      state.todos.push(action.payload);
-      return {
-        ...state
-      };
+    case ActionTypes.CREATE_TODO:
+      return { ...state, todos: [...state.todos, action.payload] };
 
-    case UPDATE_TODO_STATUS:
-      const index2 = state.todos.findIndex((todo) => todo.id === action.payload.todoId);
-      state.todos[index2].status = action.payload.checked ? TodoStatus.COMPLETED : TodoStatus.ACTIVE;
-
-      return {
-        ...state,
-        todos: state.todos
+      case ActionTypes.UPDATE_TODO_STATUS: {
+        const todoIndex = state.todos.findIndex(
+          (todo) => todo.id === action.payload.todoId
+        );
+        const todos = [...state.todos];
+  
+        todos[todoIndex] = {
+          ...state.todos[todoIndex],
+          status: action.payload.checked
+            ? TodoStatus.COMPLETED
+            : TodoStatus.ACTIVE,
+        };
+  
+        return {
+          ...state,
+          todos
+        };
       }
 
-    case TOGGLE_ALL_TODOS:
+    case ActionTypes.TOGGLE_ALL_TODOS:
       const tempTodos = state.todos.map((e)=>{
         return {
           ...e,
@@ -46,19 +49,24 @@ function reducer(state: AppState, action: AppActions): AppState {
         todos: tempTodos
       }
 
-    case DELETE_TODO:
-      const index1 = state.todos.findIndex((todo) => todo.id === action.payload);
-      state.todos.splice(index1, 1);
-
+    case ActionTypes.DELETE_TODO:
       return {
         ...state,
-        todos: state.todos
+        todos: state.todos.filter((t) => t.id !== action.payload)
       }
-    case DELETE_ALL_TODOS:
+    case ActionTypes.DELETE_ALL_TODOS:
       return {
         ...state,
         todos: []
       }
+    case ActionTypes.SET_TODO:
+      return { ...state, todos: action.payload }
+
+    case ActionTypes.SET_TODO_STATUS:
+      return {
+        ...state,
+        status: action.payload,
+      };
     default:
       return state;
   }
