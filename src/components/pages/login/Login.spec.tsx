@@ -6,7 +6,6 @@ import Service from '../../../service';
 describe('Login', () => {
   it('Should render Login page correctly', () => {
     const wrapper = shallow(<Login />);
-    expect(wrapper.find('p').length).toBe(2);
     expect(wrapper.find('input').at(0).props().type).toBe("text");
     expect(wrapper.find('input').at(1).props().type).toBe("password");
     expect(wrapper.find('button').text()).toBe('Login');

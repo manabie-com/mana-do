@@ -4,6 +4,7 @@ import { Todo, TodoStatus } from "../../../models/todo";
 import { deleteAllTodos, toggleAllTodos } from "../../../store/actions";
 import Service from '../../../service';
 import { isTodoCompleted } from "../../../utils";
+import { toast } from "react-toastify";
 
 interface ToolBarProps {
     todos: Array<Todo>;
@@ -16,12 +17,14 @@ const ToolBar: FC<ToolBarProps> = ({ todos, dispatch, setShowing }) => {
         const todoIds = todos.map(todo => todo.id);
         Service.deleteAllTodo(todoIds);
         dispatch(deleteAllTodos());
+        toast.success(`all tasks deleted!`)
     }
     const onToggleAllTodo = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { ACTIVE, COMPLETED } = TodoStatus;
         const status = e.target.checked ? COMPLETED : ACTIVE;
         Service.toggleAllTodos(todos, status);
         dispatch(toggleAllTodos(e.target.checked))
+        toast.success(`all tasks change to ${status.toLowerCase()}!`)
     }
     return (
         <>

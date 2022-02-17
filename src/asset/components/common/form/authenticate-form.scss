@@ -1,0 +1,27 @@
+.authenticate-form {
+    display: flex;
+    flex-wrap: wrap;
+    height: 50%;
+    margin-top: 4rem;
+    align-content: space-around;
+    justify-content: space-around;
+
+    input,
+    button {
+        font-size: medium;
+        padding: 1rem;
+        display: block;
+        width: 60%;
+    }
+
+    button {
+        font-size: large;
+        font-weight: bold;
+        background-color: white;
+        color: #4378dd;
+    }
+
+    a {
+        margin-top: 2rem;
+    }
+}

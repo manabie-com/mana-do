@@ -36,11 +36,14 @@
 - Done the common requirements above.
 
 ### How to run this code
+
+
 - Run ```yarn``` or ```npm install``` if this is the first time you clone this repo (`master` branch).
 - Run ```yarn start:fullstack``` in case you are doing a fullstack test, else run ```yarn start:frontend``` to start this project in development mode.
 - go to localServer and create the new user with URL: `http://localhost:3000/register` to register a new User
 - The app will redirect to login page, login with the user credentials to access user Todo.
 
 - run `npm run test` to run the tests
+- ### requirement node version 14
 
 Last updated: 2022/01/13

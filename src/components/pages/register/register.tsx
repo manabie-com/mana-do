@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 import Service from '../../../service';
 
 const Register = () => {
-    useState()
     const [userName, setUserName] = useState("");
     const [password, setPassword] = useState("");
     const handleSubmit = async (e: React.FormEvent) => {
@@ -12,18 +12,20 @@ const Register = () => {
                 if (res.status === 200) {
                     localStorage.setItem('token', res.data.accessToken);
                 }
+                window.location.href = "login";
+            })
+            .catch(err => {
+                toast.error("username have been used!");
             });
-            window.location.href = "login";
     }
     return (
         <div className="to-do__container">
-            <form onSubmit={handleSubmit}>
-                <label><p>UserName</p><input onChange={e => setUserName(e.target.value)} type="text"></input></label>
-                <label><p>Password</p><input onChange={e => setPassword(e.target.value)} type="password"></input></label>
-                <div>
-                    <button type="submit">Register</button>
-                </div>
+            <form className="authenticate-form" onSubmit={handleSubmit}>
+                <input placeholder="Username" onChange={e => setUserName(e.target.value)} type="text"></input>
+                <input placeholder="password" onChange={e => setPassword(e.target.value)} type="password"></input>
+                <button type="submit">Register</button>
             </form>
+            <a href="/login">Already have account? login</a>
         </div>
     );
 };

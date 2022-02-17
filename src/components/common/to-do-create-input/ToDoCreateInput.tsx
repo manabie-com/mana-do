@@ -2,6 +2,7 @@ import { FC, useRef } from "react";
 import { createTodo } from "../../../store/actions";
 import Service from '../../../service';
 import { Todo } from "../../../models/todo";
+import { toast } from "react-toastify";
 
 interface ToDoCreateInputProps {
     dispatch: Function;
@@ -10,18 +11,24 @@ interface ToDoCreateInputProps {
 const ToDoCreateInput: FC<ToDoCreateInputProps> = ({ dispatch }) => {
     const inputRef = useRef<any>(null);
 
-    const onCreateTodo = async (e: React.KeyboardEvent<HTMLInputElement>) => {
+    const onCreateTodo = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter') {
-            const res = await Service.createTodo(inputRef.current.value);
-            const { id, status, content, createdAt, userId } = res.data;
-            const newTodo: Todo = {
-                id,
-                status,
-                content,
-                created_date: createdAt,
-                user_id: userId
-            }
-            dispatch(createTodo(newTodo));
+            Service.createTodo(inputRef.current.value)
+                .then(res => {
+                    toast.success(`add task successfuly!`)
+                    const { id, status, content, createdAt, userId } = res.data;
+                    const newTodo: Todo = {
+                        id,
+                        status,
+                        content,
+                        created_date: createdAt,
+                        user_id: userId
+                    }
+                    dispatch(createTodo(newTodo));
+                })
+                .catch(err => {
+                    toast.error(`Can't add more than 5 task per day!`)
+                });
         }
     }
     return (

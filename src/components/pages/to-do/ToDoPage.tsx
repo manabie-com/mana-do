@@ -1,47 +1,43 @@
-import React, { useEffect, useReducer, useRef, useState } from 'react';
+import { useEffect, useReducer, useState } from "react";
 
-import reducer, { initialState } from '../../../store/reducer';
-import {
-    setTodos,
-    createTodo,
-    toggleAllTodos,
-    deleteAllTodos,
-    updateTodoStatus,
-    deleteTodo
-} from '../../../store/actions';
-import Service from '../../../service';
-import { TodoStatus } from '../../../models/todo';
-import ToolBar from '../../common/tool-bar/ToolBar';
-import TaskCreateInput from '../../common/to-do-create-input/ToDoCreateInput';
-import ToDoList from '../../common/to-do-list/ToDoList';
+import reducer, { initialState } from "../../../store/reducer";
+import { setTodos } from "../../../store/actions";
+import Service from "../../../service";
+import { TodoStatus } from "../../../models/todo";
+import ToolBar from "../../common/tool-bar/ToolBar";
+import TaskCreateInput from "../../common/to-do-create-input/ToDoCreateInput";
+import ToDoList from "../../common/to-do-list/ToDoList";
 
-type EnhanceTodoStatus = TodoStatus | 'ALL';
-
+type EnhanceTodoStatus = TodoStatus | "ALL";
 
 const ToDoPage = () => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+        window.location.href = 'login';
+    }
     const [{ todos }, dispatch] = useReducer(reducer, initialState);
-    const [showing, setShowing] = useState<EnhanceTodoStatus>('ALL');
+    const [showing, setShowing] = useState<EnhanceTodoStatus>("ALL");
 
     useEffect(() => {
         (async () => {
             const res = await Service.getTodos();
             dispatch(setTodos(res.data || []));
-        })()
-    }, [])
-    
+        })();
+    }, []);
+
     const toolBarProps = {
         todos,
         dispatch,
         setShowing,
-    }
+    };
     const taskCreateInputProps = {
-        dispatch
-    }
+        dispatch,
+    };
     const toDoListProps = {
         todos,
         dispatch,
-        showing
-    }
+        showing,
+    };
     return (
         <div className="to-do__container">
             <div className="to-do__creation">

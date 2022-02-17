@@ -4,6 +4,7 @@ import { Todo, TodoStatus } from "../../../models/todo";
 import { updateTodoStatus, deleteTodo } from "../../../store/actions";
 import Service from '../../../service';
 import { isTodoCompleted } from "../../../utils";
+import { toast } from "react-toastify";
 
 interface ToDoItemProps {
     todo: Todo;
@@ -15,17 +16,20 @@ const ToDoItem: FC<ToDoItemProps> = ({ todo, dispatch }) => {
         const { ACTIVE, COMPLETED } = TodoStatus;
         const status = todo.status === ACTIVE ? COMPLETED : ACTIVE;
         Service.editTodo(todo.content, status, todo.id);
-        dispatch(updateTodoStatus(todoId, e.target.checked))
+        dispatch(updateTodoStatus(todoId, e.target.checked));
+        toast.success(`task status updated!`)
     }
 
     const onUpdateTodoContent = (e: React.ChangeEvent<HTMLSpanElement>, todoId: any) => {
         Service.editTodo(e.target.innerText, todo.status, todo.id);
         dispatch(updateTodoStatus(todoId, isTodoCompleted(todo)))
+        toast.success(`task content updated!`)
     }
 
     const onDeleteTodo = (todoId: string) => {
         Service.deleteTodo(todo.id);
         dispatch(deleteTodo(todoId));
+        toast.success(`task deleted!`)
     }
 
     return (
