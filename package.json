@@ -10,6 +10,7 @@
     "@types/react-dom": "^16.9.0",
     "axios": "^0.19.2",
     "cross-env": "^7.0.2",
+    "immer": "^9.0.12",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-scripts": "4.0.3",
@@ -17,11 +18,12 @@
     "typescript": "4.5.3"
   },
   "scripts": {
-    "start:fullstack": "cross-env REACT_APP_WHOAMI=fullstack react-scripts start",
-    "start:frontend": "cross-env REACT_APP_WHOAMI=frontend react-scripts start",
+    "start:fullstack": "cross-env REACT_APP_WHOAMI=fullstack REACT_APP_USER=firstuser react-scripts start",
+    "start:frontend": "cross-env REACT_APP_WHOAMI=frontend REACT_APP_USER=firstuser react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "format": "prettier --write src/**/*.ts{,x}"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -39,6 +41,7 @@
     ]
   },
   "devDependencies": {
-    "@types/shortid": "^0.0.29"
+    "@types/shortid": "^0.0.29",
+    "prettier": "^2.5.1"
   }
 }
