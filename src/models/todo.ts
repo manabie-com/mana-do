@@ -1,6 +1,6 @@
 export enum TodoStatus {
-  ACTIVE = 'ACTIVE',
-  COMPLETED = 'COMPLETED',
+  ACTIVE = 1,
+  COMPLETED = 2,
 }
 
 export interface Todo {

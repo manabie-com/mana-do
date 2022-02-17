@@ -6,6 +6,7 @@ class ApiFullstack extends IAPI {
   async createTodo(content: string): Promise<Todo> {
     const resp = await axios.post<Todo>(`/tasks`, {
       content,
+      status: TodoStatus.ACTIVE,
     });
 
     return resp.data;
