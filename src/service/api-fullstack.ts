@@ -7,6 +7,7 @@ class ApiFullstack extends IAPI {
     const resp = await axios.post<Todo>(`/tasks`, {
       content,
       status: TodoStatus.ACTIVE,
+      userId: process.env.REACT_APP_USER,
     });
 
     return resp.data;
@@ -21,7 +22,9 @@ class ApiFullstack extends IAPI {
   }
 
   async getTodos(): Promise<Array<Todo>> {
-    const resp = await axios.get<Array<Todo>>(`/tasks`);
+    const resp = await axios.get<Array<Todo>>(`/tasks`, {
+      params: { userId: process.env.REACT_APP_USER },
+    });
 
     return resp.data;
   }
