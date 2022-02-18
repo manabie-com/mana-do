@@ -39,11 +39,10 @@ function reducer(state: AppState, action: AppActions): AppState {
     //   return { ...state }
 
     case TOGGLE_ALL_TODOS:
-      console.log('checked', action.payload, typeof action.payload)
       const tempTodos = state.todos.map((e) => {
         return {
           ...e,
-          selected: action.payload
+          status: action.payload ? TodoStatus.COMPLETED : TodoStatus.ACTIVE
         }
       })
 
@@ -53,8 +52,7 @@ function reducer(state: AppState, action: AppActions): AppState {
       }
 
     case DELETE_TODO:
-      const index1 = state.todos.findIndex((todo) => todo.id === action.payload);
-      state.todos.splice(index1, 1);
+      state.todos.splice(parseInt(action.payload), 1);
 
       return {
         ...state,

@@ -6,7 +6,8 @@ import {
     createTodo,
     toggleAllTodos,
     deleteAllTodos,
-    updateTodoStatus
+    updateTodoStatus,
+    deleteTodo
 } from './store/actions';
 import Service from './service';
 import {TodoStatus} from './models/todo';
@@ -29,20 +30,22 @@ const ToDoPage = () => {
     const onCreateTodo = async (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter' ) {
             const resp = await Service.createTodo(inputRef.current.value);
-            const newTodo = createTodo(resp);
-            console.log('newTodo', newTodo);
-            dispatch(newTodo);
+            dispatch(createTodo(resp));
         }
     }
 
     const onUpdateTodoStatus = (e: React.ChangeEvent<HTMLInputElement>, todoId: any) => {
-        console.log('onUpdateTodoStatus')
         dispatch(updateTodoStatus(todoId, e.target.checked))
     }
 
     const onToggleAllTodo = (e: React.ChangeEvent<HTMLInputElement>) => {
         console.log('onToggleAllTodo')
         dispatch(toggleAllTodos(e.target.checked))
+    }
+
+    const onDeleteTodo = (todoId: any) => {
+        console.log('onDeleteTodo')
+        dispatch(deleteTodo(todoId));
     }
 
     const onDeleteAllTodo = () => {
@@ -61,27 +64,7 @@ const ToDoPage = () => {
                     onKeyDown={onCreateTodo}
                 />
             </div>
-            <div className="ToDo__list">
-                {
-                    todos.map((todo, index) => {
-                        return (
-                            <div key={index} className="ToDo__item">
-                                <input
-                                    type="checkbox"
-                                    checked={showing === todo.status || todo.status === TodoStatus.COMPLETED}
-                                    onChange={(e) => onUpdateTodoStatus(e, index)}
-                                />
-                                <span>{todo.content}</span>
-                                <button
-                                    className="Todo__delete"
-                                >
-                                    X
-                                </button>
-                            </div>
-                        );
-                    })
-                }
-            </div>
+            
             <div className="Todo__toolbar">
                 {todos.length > 0 ?
                     <input
@@ -90,7 +73,7 @@ const ToDoPage = () => {
                     /> : <div/>
                 }
                 <div className="Todo__tabs">
-                    <button className="Action__btn">
+                    <button className="Action__btn" onClick={()=>setShowing(TodoStatus.ALL)}>
                         All
                     </button>
                     <button className="Action__btn" onClick={()=>setShowing(TodoStatus.ACTIVE)}>
@@ -103,6 +86,29 @@ const ToDoPage = () => {
                 <button className="Action__btn" onClick={onDeleteAllTodo}>
                     Clear all todos
                 </button>
+            </div>
+            <div className="ToDo__list">
+                {
+                    todos.map((todo, index) => {
+                        return (
+                            (showing === todo.status || showing === "ALL") && 
+                            <div key={index} className="ToDo__item">
+                                <input
+                                    type="checkbox"
+                                    checked={todo.status === TodoStatus.COMPLETED}
+                                    onChange={(e) => onUpdateTodoStatus(e, index)}
+                                />
+                                <span>{todo.content}</span>
+                                <button
+                                    className="Todo__delete"
+                                    onClick={(e) => onDeleteTodo(index)}
+                                >
+                                    X
+                                </button>
+                            </div>
+                        );
+                    })
+                }
             </div>
         </div>
     );
