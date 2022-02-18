@@ -1,0 +1,198 @@
+.ToDo__text{
+    padding: 0 10px 0 6px;
+    font-weight: 500;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    cursor: auto;
+    overflow: hidden;
+    white-space: pre;
+    text-overflow: ellipsis;
+    max-width: 100%;
+}
+.ToDo__item{
+    height: 25px;
+    padding: 10px;
+    transition: all 0.4s;
+    animation: fly-in 0.2s;
+    position: relative;
+    word-break: break-all;
+    display: flex;
+    align-items: start;
+    justify-content: space-between;
+}
+.ToDo__item:hover{
+    border-radius: 10px;
+    background-color: rgba(245, 245, 245);
+    transform: scale(1.02);
+    box-shadow: 0px 1px 2px rgba(38, 69, 73, 0.425);;
+}
+.ToDo__item:hover .ToDo__text_full{
+    display: flex;
+}
+
+.ToDo__text_full{
+    font-weight: 500;
+    font-size: 0.9em;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    display: none;
+    background-color: rgb(255, 255, 255);
+    padding: 10px;
+    border-radius: 10px;
+    border: solid 1px rgba(83, 129, 122, 0.589);
+    box-shadow: 10px 10px 0 rgba(207, 207, 207, 0.466);;
+    max-width: 100%;
+    word-break: break-all;
+    white-space: normal;
+    position: absolute;
+    bottom: 110%;
+    color: rgb(112, 150, 145);
+}
+
+.ToDo__item.active .ToDo__text{
+    color: rgb(71, 172, 159);
+    text-shadow: 1px 1px 1px rgba(38, 69, 73, 0.425);
+}
+
+.ToDo__item.completed .ToDo__text{
+    color: rgba(104, 132, 136, 0.753);
+    text-decoration: line-through;
+}
+
+.ToDo__item.hiding{
+    height: 0px;
+    padding: 0px;
+    opacity: 0;
+    animation: fade-out 0.2s;
+}
+
+.ToDo__item:last-child::after{
+    display: none;
+}
+.ToDo__item::after{
+    content: '';
+    position: absolute;
+    bottom: 0px;
+    background-color: rgba(219, 219, 219, 0.582);
+    width: calc(100% - 20px);
+    height: 1px;
+    opacity: 0.8;
+    animation: fade-in-hr 0.6s;
+}
+
+.Todo__delete{
+    user-select: none;
+    outline: none;
+    border: none;
+    width: 28px;
+    height: 28px;
+    min-width: auto;
+    min-height: auto;
+    box-shadow: none;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+  
+  .ToDo__item > span {
+    flex: 1 1;
+    text-align: left;
+    margin-left: 8px;
+  }
+
+  .Todo__content {
+    flex: 1 1;
+  }
+  
+.Todo__item_input{
+    z-index: 10;
+    width: 88%;
+    min-height: 24px;
+    font-size: 1em;
+    border: none;
+    border-bottom: solid 1px rgb(111, 192, 192);
+    color: gray;
+    box-shadow: none !important;
+    border-radius: 0;
+    background: transparent;
+    /* background-color: rgba(240, 248, 255, 0.247); */
+}
+
+.move-out{
+    position: relative;
+    animation: fly-out 6s ease-in-out;
+}
+
+* {
+    font-family: 'Brush Script MT', cursive !important;
+}
+
+@keyframes fly-in {
+    from{
+        height: 0px;
+        padding: 0px;
+        transform: translate(100px, 60px);
+    }
+    to{
+        height: 25px;
+        padding: 10px;
+        transform: translate(0px, 0px);
+    }
+}
+
+@keyframes fly-out {
+    0%{
+        height: 25px;
+        top: 0px;
+        left: 0px;
+        transform: scale(1);
+        padding: 10px;
+        opacity: 1;
+    }
+    5%{
+        top: -20px;
+        left: 160px;
+    }
+    10%{
+        height: 0px;
+        top: 60px;
+        left: 200px;
+        transform: scale(0);
+        padding: 0px;
+        opacity: 0;
+    }
+    100%{
+        height: 0px;
+        top: 60px;
+        left: 200px;
+        transform: scale(0);
+        padding: 0px;
+        opacity: 0;
+    }
+}
+
+@keyframes fade-out {
+    from{
+        height: 25px;
+        padding: 10px;
+        opacity: 1;
+        transform: scale(1);
+    }
+    to{
+        height: 0px;
+        padding: 0px;
+        opacity: 0;
+        transform: scale(0.6);
+    }
+}
+
+@keyframes fade-in-hr {
+    from{
+        opacity: 0;
+        transform: scale(0.4);
+    }
+    to{
+        opacity: 1;
+        transform: scale(1);
+    }
+}
