@@ -33,11 +33,6 @@ function reducer(state: AppState, action: AppActions): AppState {
         todos: state.todos
       }
 
-    // case TOGGLE_TODO:
-    //   state.todos[parseInt(action.payload.todoId)].selected = action.payload.checked;
-    //   console.log('a')
-    //   return { ...state }
-
     case TOGGLE_ALL_TODOS:
       const tempTodos = state.todos.map((e) => {
         return {
@@ -52,11 +47,11 @@ function reducer(state: AppState, action: AppActions): AppState {
       }
 
     case DELETE_TODO:
-      state.todos.splice(parseInt(action.payload), 1);
+      const removedTodos = state.todos.filter((e) => e.id !== action.payload)
 
       return {
         ...state,
-        todos: state.todos
+        todos: removedTodos
       }
     case DELETE_ALL_TODOS:
       return {

@@ -7,7 +7,7 @@ import './App.css';
 function App() {
   return (
     <main className="App">
-      <ToDoPage />
+        <ToDoPage />
     </main>
   );
 }

@@ -101,7 +101,7 @@ const ToDoPage = () => {
                                 <span>{todo.content}</span>
                                 <button
                                     className="Todo__delete"
-                                    onClick={(e) => onDeleteTodo(index)}
+                                    onClick={(e) => onDeleteTodo(todo.id)}
                                 >
                                     X
                                 </button>
