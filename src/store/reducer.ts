@@ -43,7 +43,7 @@ function reducer(state: AppState, action: AppActions): AppState {
         }
       })
 
-      localStorage.setItem('todos', JSON.stringify(state.todos))
+      localStorage.setItem('todos', JSON.stringify(tempTodos))
       return {
         ...state,
         todos: tempTodos
