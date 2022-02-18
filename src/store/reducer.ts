@@ -22,12 +22,14 @@ function reducer(state: AppState, action: AppActions): AppState {
   switch (action.type) {
     case CREATE_TODO:
       if (state.todos.indexOf(action.payload) < 0) state.todos.push(action.payload);
-      // why call CREATE_TODO twice?
+
+      localStorage.setItem('todos', JSON.stringify(state.todos))
       return { ...state };
 
     case UPDATE_TODO_STATUS:
       state.todos[parseInt(action.payload.todoId)].status = action.payload.checked ? TodoStatus.COMPLETED : TodoStatus.ACTIVE;
 
+      localStorage.setItem('todos', JSON.stringify(state.todos))
       return {
         ...state,
         todos: state.todos
@@ -41,6 +43,7 @@ function reducer(state: AppState, action: AppActions): AppState {
         }
       })
 
+      localStorage.setItem('todos', JSON.stringify(state.todos))
       return {
         ...state,
         todos: tempTodos
@@ -49,17 +52,21 @@ function reducer(state: AppState, action: AppActions): AppState {
     case DELETE_TODO:
       const removedTodos = state.todos.filter((e) => e.id !== action.payload)
 
+      localStorage.setItem('todos', JSON.stringify(removedTodos))
       return {
         ...state,
         todos: removedTodos
       }
     case DELETE_ALL_TODOS:
+
+      localStorage.setItem('todos', JSON.stringify(state.todos))
       return {
         ...state,
         todos: []
       }
     default:
-      return state;
+      state.todos.push(...action.payload)
+      return { ...state };
   }
 }
 

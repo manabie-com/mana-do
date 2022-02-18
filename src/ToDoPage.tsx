@@ -14,7 +14,6 @@ import {TodoStatus} from './models/todo';
 
 type EnhanceTodoStatus = TodoStatus | 'ALL';
 
-
 const ToDoPage = () => {
     const [{todos}, dispatch] = useReducer(reducer, initialState);
     const [showing, setShowing] = useState<EnhanceTodoStatus>('ALL');
@@ -23,6 +22,7 @@ const ToDoPage = () => {
     useEffect(()=>{
         (async ()=>{
             const resp = await Service.getTodos();
+            console.log('resp', resp)
             dispatch(setTodos(resp || []));
         })()
     }, [])
@@ -39,20 +39,16 @@ const ToDoPage = () => {
     }
 
     const onToggleAllTodo = (e: React.ChangeEvent<HTMLInputElement>) => {
-        console.log('onToggleAllTodo')
         dispatch(toggleAllTodos(e.target.checked))
     }
 
     const onDeleteTodo = (todoId: any) => {
-        console.log('onDeleteTodo')
         dispatch(deleteTodo(todoId));
     }
 
     const onDeleteAllTodo = () => {
-        console.log('onToggleAllTodo')
         dispatch(deleteAllTodos());
     }
-
 
     return (
         <div className="ToDo__container">
