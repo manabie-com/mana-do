@@ -59,7 +59,7 @@ function reducer(state: AppState, action: AppActions): AppState {
       }
     case DELETE_ALL_TODOS:
 
-      localStorage.setItem('todos', JSON.stringify(state.todos))
+      localStorage.setItem('todos', JSON.stringify([]))
       return {
         ...state,
         todos: []
