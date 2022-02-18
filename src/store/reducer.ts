@@ -1,9 +1,11 @@
-import {Todo, TodoStatus} from '../models/todo';
+import { type } from 'os';
+import { Todo, TodoStatus } from '../models/todo';
 import {
   AppActions,
   CREATE_TODO,
   DELETE_ALL_TODOS,
   DELETE_TODO,
+  // TOGGLE_TODO,
   TOGGLE_ALL_TODOS,
   UPDATE_TODO_STATUS
 } from './actions';
@@ -19,25 +21,29 @@ export const initialState: AppState = {
 function reducer(state: AppState, action: AppActions): AppState {
   switch (action.type) {
     case CREATE_TODO:
-      state.todos.push(action.payload);
-      return {
-        ...state
-      };
+      if (state.todos.indexOf(action.payload) < 0) state.todos.push(action.payload);
+      // why call CREATE_TODO twice?
+      return { ...state };
 
     case UPDATE_TODO_STATUS:
-      const index2 = state.todos.findIndex((todo) => todo.id === action.payload.todoId);
-      state.todos[index2].status = action.payload.checked ? TodoStatus.COMPLETED : TodoStatus.ACTIVE;
+      state.todos[parseInt(action.payload.todoId)].status = action.payload.checked ? TodoStatus.COMPLETED : TodoStatus.ACTIVE;
 
       return {
         ...state,
         todos: state.todos
       }
 
+    // case TOGGLE_TODO:
+    //   state.todos[parseInt(action.payload.todoId)].selected = action.payload.checked;
+    //   console.log('a')
+    //   return { ...state }
+
     case TOGGLE_ALL_TODOS:
-      const tempTodos = state.todos.map((e)=>{
+      console.log('checked', action.payload, typeof action.payload)
+      const tempTodos = state.todos.map((e) => {
         return {
           ...e,
-          status: action.payload ? TodoStatus.COMPLETED : TodoStatus.ACTIVE
+          selected: action.payload
         }
       })
 

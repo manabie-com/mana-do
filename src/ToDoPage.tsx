@@ -22,7 +22,6 @@ const ToDoPage = () => {
     useEffect(()=>{
         (async ()=>{
             const resp = await Service.getTodos();
-
             dispatch(setTodos(resp || []));
         })()
     }, [])
@@ -30,19 +29,24 @@ const ToDoPage = () => {
     const onCreateTodo = async (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter' ) {
             const resp = await Service.createTodo(inputRef.current.value);
-            dispatch(createTodo(resp));
+            const newTodo = createTodo(resp);
+            console.log('newTodo', newTodo);
+            dispatch(newTodo);
         }
     }
 
     const onUpdateTodoStatus = (e: React.ChangeEvent<HTMLInputElement>, todoId: any) => {
+        console.log('onUpdateTodoStatus')
         dispatch(updateTodoStatus(todoId, e.target.checked))
     }
 
     const onToggleAllTodo = (e: React.ChangeEvent<HTMLInputElement>) => {
+        console.log('onToggleAllTodo')
         dispatch(toggleAllTodos(e.target.checked))
     }
 
     const onDeleteAllTodo = () => {
+        console.log('onToggleAllTodo')
         dispatch(deleteAllTodos());
     }
 
@@ -64,7 +68,7 @@ const ToDoPage = () => {
                             <div key={index} className="ToDo__item">
                                 <input
                                     type="checkbox"
-                                    checked={showing === todo.status}
+                                    checked={showing === todo.status || todo.status === TodoStatus.COMPLETED}
                                     onChange={(e) => onUpdateTodoStatus(e, index)}
                                 />
                                 <span>{todo.content}</span>
