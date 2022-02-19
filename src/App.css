@@ -19,8 +19,8 @@ button:hover {
 }
 
 input[type="checkbox"] {
-  width: 24px;
-  height: 24px;
+  width: 29px;
+  height: 29px;
   box-shadow: none;
   border: none;
   outline: none;
@@ -37,22 +37,21 @@ input {
   border: none;
   outline: none;
   padding: 0 12px;
-  box-shadow: 2px 0 4px rgba(0,0,0, 0.2);
+  box-shadow: 2px 0 4px rgba(0, 0, 0, 0.2);
   border-radius: 4px;
 }
 
 input:focus {
-  box-shadow: 1px 0 9px rgba(0,0,0, 0.25);
+  box-shadow: 1px 0 9px rgba(0, 0, 0, 0.25);
 }
 
 .ToDo__container {
-  border: 1px solid rgba(0,0,0, 0.13);
+  border: 1px solid rgba(0, 0, 0, 0.13);
   border-radius: 8px;
   width: 500px;
   margin-top: 5rem;
   padding: 24px;
-  box-shadow: 2px 2px 1px rgba(0,0,0, 0.09),
-              3px 2px 3px rgba(0,0,0, 0.05);
+  box-shadow: 2px 2px 1px rgba(0, 0, 0, 0.09), 3px 2px 3px rgba(0, 0, 0, 0.05);
 }
 
 .Todo__creation {
@@ -73,6 +72,14 @@ input:focus {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin-bottom: 10px;
+  border-radius: 7px;
+  padding: 2px 5px 2px 5px;
+}
+
+.ToDo__item input{
+  background-color: transparent;
+  box-shadow: none;
 }
 
 .ToDo__item > span {
@@ -86,21 +93,21 @@ input:focus {
 }
 
 .Todo__delete {
-  outline: none;
-  border: none;
   width: 32px;
   height: 32px;
   min-width: auto;
   min-height: auto;
   box-shadow: none;
-  border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
+  background-color: white;
+  color: red;
 }
 
-.Todo__action, .Todo__delete {
+.Todo__action,
+.Todo__delete {
   width: 24px;
   height: 24px;
   flex-shrink: 0;
@@ -109,7 +116,9 @@ input:focus {
 .Todo__toolbar {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   margin-top: 24px;
+  height: 20px
 }
 
 .Todo__tabs {
@@ -122,25 +131,96 @@ input:focus {
 }
 
 .Action__btn {
+  background-color: #97C9EE;
 }
 
-.disable-select{
-  user-select:none;
-  -moz-user-select:none;
-  -webkit-user-select:none;
-  -webkit-touch-callout:none;
-  -ms-user-select:none;
+.bg-warning {
+}
+
+.Action__btn.active {
+  background-color: #9DB3EC;
+  cursor: pointer;
+}
+
+.disable-select {
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  -ms-user-select: none;
 }
 
 .cursor-pointer {
   cursor: pointer;
 }
 
-.w-100{
+.w-100 {
   width: 100%;
 }
 
 .mx-5 {
   margin-left: 5em;
   margin-right: 5em;
+}
+
+.p-5 {
+  padding: 2em;
+}
+
+.my-3 {
+  margin-top: 3px;
+  margin-bottom: 10px;
+}
+
+.rounded {
+  border-radius: 7px;
+}
+
+.text-align-left {
+  text-align: left;
+}
+
+.font-size-large {
+  font-size: 25pt;
+}
+
+.font-weight-bold {
+  font-weight: 500;
+}
+
+.color-white {
+  color: white;
+}
+
+.bg-primary {
+  background-color: #97c9ee;
+}
+
+.input-todo {
+  display: flex;
+}
+
+.legend-bar {
+  margin-top: 15px;
+  margin-top: 15px;
+  display: flex;
+}
+
+.legend-bar-item {
+  height: 10px;
+  flex-grow: 1;
+}
+
+.todo-color-active {
+  background-color: #A399EF;
+}
+
+.todo-color-complete {
+  background-color: #F3C7DC;
+}
+
+.todo-checkbox {
+}
+
+.border-color-primary {
 }

@@ -65,34 +65,45 @@ const ToDoPage = () => {
 
     return (
         <div className="ToDo__container disable-select">
-            <div className="Todo__creation">
-                <input
-                    ref={inputRef}
-                    className="Todo__input"
-                    placeholder="What need to be done?"
-                    onKeyDown={onCreateTodo}
-                />
+            <div className="Todo__creation bg-primary rounded p-5">
+                <div className="w-100 text-align-left">
+                    <div className="font-size-large font-weight-bold color-white">What need to be done?</div>
+                    <div className="color-white my-3">Type here then enter!</div>
+                    <div className="w-100 input-todo">
+                        <input
+                            ref={inputRef}
+                            className="Todo__input"
+                            onKeyDown={onCreateTodo}
+                        />
+                    </div>
+                </div>
+            </div>
+
+            <div className="legend-bar">
+                <div className="legend-bar-item todo-color-active"></div>
+                <div className="legend-bar-item todo-color-complete"></div>
             </div>
 
             <div className="Todo__toolbar">
                 {todos.length > 0 ?
                     <input
                         type="checkbox"
+                        className="border-color-primary"
                         onChange={onToggleAllTodo}
                     /> : <div />
                 }
                 <div className="Todo__tabs">
-                    <button className="Action__btn" onClick={() => setShowing(TodoStatus.ALL)}>
+                    <button className={("Action__btn color-white ") + (showing===TodoStatus.ALL?"active":"")} onClick={() => setShowing(TodoStatus.ALL)}>
                         All
                     </button>
-                    <button className="Action__btn" onClick={() => setShowing(TodoStatus.ACTIVE)}>
+                    <button className={("Action__btn color-white ") + (showing===TodoStatus.ACTIVE?"active":"")} onClick={() => setShowing(TodoStatus.ACTIVE)}>
                         Active
                     </button>
-                    <button className="Action__btn" onClick={() => setShowing(TodoStatus.COMPLETED)}>
+                    <button className={("Action__btn color-white ") + (showing===TodoStatus.COMPLETED?"active":"")} onClick={() => setShowing(TodoStatus.COMPLETED)}>
                         Completed
                     </button>
                 </div>
-                <button className="Action__btn" onClick={onDeleteAllTodo}>
+                <button className="Action__btn color-white bg-warning" onClick={onDeleteAllTodo}>
                     Clear all todos
                 </button>
             </div>
@@ -101,18 +112,19 @@ const ToDoPage = () => {
                     todos.map((todo, index) => {
                         return (
                             (showing === todo.status || showing === "ALL") &&
-                            <div key={index} className="ToDo__item">
+                            <div key={index} className={("ToDo__item ") + (todo.status===TodoStatus.ACTIVE?"todo-color-active":"todo-color-complete")}>
                                 <input
                                     type="checkbox"
+                                    className="todo-checkbox"
                                     checked={todo.status === TodoStatus.COMPLETED}
                                     onChange={(e) => onUpdateTodoStatus(e, todo.id)}
                                 />
-                                <input className="w-100 mx-5" type="text" onBlur={(e) => onEUpdateTodo(e, todo.id)} onChange={(e) => onUpdatingTodo(e, todo.id)} readOnly onDoubleClick={(e) => onEditTodo(e, todo.id)} value={todo.content}/>
+                                <input className="w-100 color-white" type="text" onBlur={(e) => onEUpdateTodo(e, todo.id)} onChange={(e) => onUpdatingTodo(e, todo.id)} readOnly onDoubleClick={(e) => onEditTodo(e, todo.id)} value={todo.content} />
                                 <button
                                     className="Todo__delete"
                                     onClick={(e) => onDeleteTodo(todo.id)}
                                 >
-                                    X
+                                    ✖
                                 </button>
                             </div>
                         );

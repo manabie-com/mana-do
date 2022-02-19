@@ -1,6 +1,6 @@
 import reducer from "./reducer"
 import Service from './../service';
-import { createTodo, deleteAllTodos, deleteTodo, setTodos, toggleAllTodos, updateTodoStatus } from "./actions";
+import { createTodo, deleteAllTodos, deleteTodo, setTodos, toggleAllTodos, updateTodoContent, updateTodoStatus } from "./actions";
 
 test("test reducer exist", () => {
     expect(reducer).toBeTruthy()
@@ -16,12 +16,22 @@ describe("reducer work correctly",  () => {
         )
     })
 
-    it("update todos", async () => {
+    it("update todos status", async () => {
         let todo = await Service.createTodo("the todo 1")
         let todo2 = await Service.createTodo("the todo 2")
         let listTodo = reducer({ todos: [] }, createTodo(todo))
         reducer(listTodo, createTodo(todo2))
         expect(reducer(listTodo, updateTodoStatus(todo.id, true)).todos).toEqual(
+            expect.arrayContaining([todo]),
+        )
+    })
+
+    it("update todos content", async () => {
+        let todo = await Service.createTodo("the todo 1")
+        let todo2 = await Service.createTodo("the todo 2")
+        let listTodo = reducer({ todos: [] }, createTodo(todo))
+        reducer(listTodo, createTodo(todo2))
+        expect(reducer(listTodo, updateTodoContent(todo.id, "new content")).todos).toEqual(
             expect.arrayContaining([todo]),
         )
     })
