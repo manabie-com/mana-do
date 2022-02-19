@@ -1,8 +1,4 @@
-import React, {
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import { Todo, TodoStatus } from "../../models/todo";
 import "./style.css";
@@ -25,15 +21,16 @@ type TodoItemProps = {
 const TodoItem = (props: TodoItemProps) => {
   const { data, showing, moveOutAnimation, offsetAnimation, dispatch } = props;
   const [edit, setEdit] = useState<boolean>(false);
-  const [textOverflow, setTextOverflow] = useState<boolean>(false)
+  const [textOverflow, setTextOverflow] = useState<boolean>(false);
   const inputRef = useRef<any>(null);
   const textRef = useRef<any>(null);
 
   //text overflow handling
-  useEffect(()=>{
-    if (textRef.current?.clientWidth < textRef.current?.scrollWidth) setTextOverflow(true);
+  useEffect(() => {
+    if (textRef.current?.clientWidth < textRef.current?.scrollWidth)
+      setTextOverflow(true);
     else setTextOverflow(false);
-  })
+  });
 
   const onUpdateTodoStatus = (checked: boolean) => {
     dispatch(updateTodoStatus(data.id, checked));
@@ -61,7 +58,8 @@ const TodoItem = (props: TodoItemProps) => {
         moveOutAnimation ? " move-out" : ""
       }${showing ? " showing" : " hiding"}`}
       style={{ animationDelay: offsetAnimation + "s" }}
-      onMouseEnter={()=>{}}
+      onMouseEnter={() => {}}
+      data-testid="todo-item"
     >
       <Checkbox
         defaultChecked={isTodoCompleted(data)}
@@ -70,45 +68,53 @@ const TodoItem = (props: TodoItemProps) => {
       {!edit ? (
         <span
           ref={textRef}
+          data-testid="todo-item-content"
           className="ToDo__text"
           onDoubleClick={() => setEdit(true)}
         >
           {data.content}
-          {textOverflow &&<span
-          className="ToDo__text_full"
-          onDoubleClick={() => setEdit(true)}
-        >
-          {!edit ? data.content:
-          <input
-          className="Todo__item_input"
-          defaultValue={data.content}
-          ref={inputRef}
-          onKeyDown={onKeyDown}
-          autoFocus
-          onBlur={() => {
-            inputRef.current.value = data.content;
-            setEdit(false);
-          }}
-        ></input>}
-        </span>}
+          {textOverflow && (
+            <span className="ToDo__text_full">
+              {!edit ? (
+                data.content
+              ) : (
+                <input
+                  data-testid="todo-item-input"
+                  className="Todo__item_input"
+                  defaultValue={data.content}
+                  ref={inputRef}
+                  onKeyDown={onKeyDown}
+                  autoFocus
+                  onBlur={() => {
+                    inputRef.current.value = data.content;
+                    setEdit(false);
+                  }}
+                ></input>
+              )}
+            </span>
+          )}
         </span>
       ) : (
         <>
-        <input
-          className="Todo__item_input"
-          defaultValue={data.content}
-          ref={inputRef}
-          onKeyDown={onKeyDown}
-          autoFocus
-          onBlur={() => {
-            inputRef.current.value = data.content;
-            setEdit(false);
-          }}
-        ></input>
-
+          <input
+            data-testid="todo-item-input"
+            className="Todo__item_input"
+            defaultValue={data.content}
+            ref={inputRef}
+            onKeyDown={onKeyDown}
+            autoFocus
+            onBlur={() => {
+              inputRef.current.value = data.content;
+              setEdit(false);
+            }}
+          ></input>
         </>
       )}
-      <button className="Todo__delete" onClick={onDeleteTodo}>
+      <button
+        className="Todo__delete"
+        data-testid="todo-item-delete"
+        onClick={onDeleteTodo}
+      >
         ✕
       </button>
     </div>

@@ -9,7 +9,7 @@ import {
 } from "./store/actions";
 import Service from "./service";
 import { Todo, TodoStatus } from "./models/todo";
-import TodoItem from "./components/TodoItem";
+import TodoItem from "./components/TodoItem/TodoItem";
 import Checkbox from "./components/ResourceComponents/Checkbox";
 
 type EnhanceTodoStatus = TodoStatus | "ALL";
@@ -82,9 +82,10 @@ const ToDoPage = () => {
     deleting, updating actions on a specific todo item are moved to the TodoItem.jsx
   ***/
   return (
-    <div className="ToDo__container">
+    <div className="ToDo__container" data-testid="todo-list">
       <div className="Todo__creation">
         <input
+          data-testid="todo-input"
           ref={inputRef}
           className="Todo__input"
           placeholder="What need to be done?"
@@ -92,6 +93,7 @@ const ToDoPage = () => {
         />
       </div>
       <div
+        data-testid="todo-list-empty"
         className={`ToDo__list_empty${showList.length === 0 ? " show" : ""}`}
       >
         You haven't got any tasks yet!
@@ -104,6 +106,7 @@ const ToDoPage = () => {
             -> make use of react & hooks
           ***/
           <TodoItem
+            data-testid={"todo-item-" + todo.id}
             data={todo}
             showing={showing === todo.status || showing === "ALL"}
             key={todo.id}
@@ -115,6 +118,7 @@ const ToDoPage = () => {
       </div>
       <div className="Todo__toolbar">
         <span
+          data-testid="todo-toggle-all"
           className={`Todo__toggle_all${
             todos.length > 0 ? " active" : " hiden"
           }`}
@@ -123,12 +127,14 @@ const ToDoPage = () => {
         </span>
         <div className="Todo__tabs">
           <button
+            data-testid="todo-show-all"
             className={`Action__btn${showing === "ALL" ? " active" : ""}`}
             onClick={() => setShowing("ALL")}
           >
             All
           </button>
           <button
+            data-testid="todo-show-active"
             className={`Action__btn${
               showing === "ALL"
                 ? " included"
@@ -141,6 +147,7 @@ const ToDoPage = () => {
             Active
           </button>
           <button
+            data-testid="todo-show-completed"
             className={`Action__btn${
               showing === "ALL"
                 ? " included"
@@ -153,7 +160,11 @@ const ToDoPage = () => {
             Completed
           </button>
         </div>
-        <button className="Action__btn" onClick={onDeleteAllTodo}>
+        <button
+          data-testid="todo-clear-all"
+          className="Action__btn"
+          onClick={onDeleteAllTodo}
+        >
           Clear all todos
         </button>
       </div>
