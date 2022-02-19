@@ -92,7 +92,7 @@ const ToDoPage = () => {
                                 <input
                                     type="checkbox"
                                     checked={todo.status === TodoStatus.COMPLETED}
-                                    onChange={(e) => onUpdateTodoStatus(e, index)}
+                                    onChange={(e) => onUpdateTodoStatus(e, todo.id)}
                                 />
                                 <span>{todo.content}</span>
                                 <button

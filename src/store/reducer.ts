@@ -27,7 +27,8 @@ function reducer(state: AppState, action: AppActions): AppState {
       return { ...state };
 
     case UPDATE_TODO_STATUS:
-      state.todos[parseInt(action.payload.todoId)].status = action.payload.checked ? TodoStatus.COMPLETED : TodoStatus.ACTIVE;
+      const index2 = state.todos.findIndex((todo) => todo.id === action.payload.todoId);
+      state.todos[index2].status = action.payload.checked ? TodoStatus.COMPLETED : TodoStatus.ACTIVE;
 
       localStorage.setItem('todos', JSON.stringify(state.todos))
       return {
