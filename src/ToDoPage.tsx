@@ -1,26 +1,27 @@
-import React, {useEffect, useReducer, useRef, useState} from 'react';
+import React, { useEffect, useReducer, useRef, useState } from 'react';
 
-import reducer, {initialState} from './store/reducer';
+import reducer, { initialState } from './store/reducer';
 import {
     setTodos,
     createTodo,
     toggleAllTodos,
     deleteAllTodos,
     updateTodoStatus,
+    updateTodoContent,
     deleteTodo
 } from './store/actions';
 import Service from './service';
-import {TodoStatus} from './models/todo';
+import { TodoStatus } from './models/todo';
 
 type EnhanceTodoStatus = TodoStatus | 'ALL';
 
 const ToDoPage = () => {
-    const [{todos}, dispatch] = useReducer(reducer, initialState);
+    const [{ todos }, dispatch] = useReducer(reducer, initialState);
     const [showing, setShowing] = useState<EnhanceTodoStatus>('ALL');
     const inputRef = useRef<any>(null);
 
-    useEffect(()=>{
-        (async ()=>{
+    useEffect(() => {
+        (async () => {
             const resp = await Service.getTodos();
             console.log('resp', resp)
             dispatch(setTodos(resp || []));
@@ -28,7 +29,7 @@ const ToDoPage = () => {
     }, [])
 
     const onCreateTodo = async (e: React.KeyboardEvent<HTMLInputElement>) => {
-        if (e.key === 'Enter' ) {
+        if (e.key === 'Enter') {
             const resp = await Service.createTodo(inputRef.current.value);
             dispatch(createTodo(resp));
         }
@@ -50,8 +51,20 @@ const ToDoPage = () => {
         dispatch(deleteAllTodos());
     }
 
+    const onEditTodo = (e: any, todoId: any) => {
+        e.target.removeAttribute('readOnly')
+    }
+
+    const onEUpdateTodo = (e: any, todoId: any) => {
+        e.target.setAttribute('readOnly', 'readOnly')
+    }
+
+    const onUpdatingTodo = (e: any, todoId: any) => {
+        dispatch(updateTodoContent(todoId, e.target.value))
+    }
+
     return (
-        <div className="ToDo__container">
+        <div className="ToDo__container disable-select">
             <div className="Todo__creation">
                 <input
                     ref={inputRef}
@@ -60,22 +73,22 @@ const ToDoPage = () => {
                     onKeyDown={onCreateTodo}
                 />
             </div>
-            
+
             <div className="Todo__toolbar">
                 {todos.length > 0 ?
                     <input
                         type="checkbox"
                         onChange={onToggleAllTodo}
-                    /> : <div/>
+                    /> : <div />
                 }
                 <div className="Todo__tabs">
-                    <button className="Action__btn" onClick={()=>setShowing(TodoStatus.ALL)}>
+                    <button className="Action__btn" onClick={() => setShowing(TodoStatus.ALL)}>
                         All
                     </button>
-                    <button className="Action__btn" onClick={()=>setShowing(TodoStatus.ACTIVE)}>
+                    <button className="Action__btn" onClick={() => setShowing(TodoStatus.ACTIVE)}>
                         Active
                     </button>
-                    <button className="Action__btn" onClick={()=>setShowing(TodoStatus.COMPLETED)}>
+                    <button className="Action__btn" onClick={() => setShowing(TodoStatus.COMPLETED)}>
                         Completed
                     </button>
                 </div>
@@ -87,14 +100,14 @@ const ToDoPage = () => {
                 {
                     todos.map((todo, index) => {
                         return (
-                            (showing === todo.status || showing === "ALL") && 
+                            (showing === todo.status || showing === "ALL") &&
                             <div key={index} className="ToDo__item">
                                 <input
                                     type="checkbox"
                                     checked={todo.status === TodoStatus.COMPLETED}
                                     onChange={(e) => onUpdateTodoStatus(e, todo.id)}
                                 />
-                                <span>{todo.content}</span>
+                                <input className="w-100 mx-5" type="text" onBlur={(e) => onEUpdateTodo(e, todo.id)} onChange={(e) => onUpdatingTodo(e, todo.id)} readOnly onDoubleClick={(e) => onEditTodo(e, todo.id)} value={todo.content}/>
                                 <button
                                     className="Todo__delete"
                                     onClick={(e) => onDeleteTodo(todo.id)}
