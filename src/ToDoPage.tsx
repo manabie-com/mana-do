@@ -4,6 +4,7 @@ import reducer, { initialState } from './store/reducer';
 import {
   setTodos,
   createTodo,
+  deleteTodo,
   toggleAllTodos,
   deleteAllTodos,
   updateTodoStatus,
@@ -42,9 +43,13 @@ const ToDoPage = () => {
     }
   };
 
+  const onDeleteTodo = (todoId: string) => {
+    dispatch(deleteTodo(todoId));
+  };
+
   const onUpdateTodoStatus = (
     e: React.ChangeEvent<HTMLInputElement>,
-    todoId: any
+    todoId: string
   ) => {
     dispatch(updateTodoStatus(todoId, e.target.checked));
     dispatch(setAllTodoCompleted());
@@ -79,7 +84,7 @@ const ToDoPage = () => {
                 onChange={(e) => onUpdateTodoStatus(e, todo.id)}
               />
               <span>{todo.content}</span>
-              <button className="Todo__delete">X</button>
+              <button className="Todo__delete" onClick={() => onDeleteTodo(todo.id)}>X</button>
             </div>
           );
         })}

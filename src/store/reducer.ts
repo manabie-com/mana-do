@@ -21,26 +21,31 @@ export const initialState: AppState = {
 
 function reducer(state: AppState, action: AppActions): AppState {
   switch (action.type) {
-    case CREATE_TODO:
+    case CREATE_TODO: {
       // After useReducer dispatched, React components will render again with the "new state" from useReducer
       // If we mutate the state.todos here, useReducer is going udpate the view with the mutated state.todos
       // So in this case, we see todo item added twice and cause bugs
+      const todos = [...state.todos, action.payload]
+
       return {
         ...state,
-        todos: [...state.todos, action.payload]
+        todos: todos
       };
+    }
 
-    case UPDATE_TODO_STATUS:
-      const index2 = state.todos.findIndex((todo) => todo.id === action.payload.todoId);
-      state.todos[index2].status = action.payload.checked ? TodoStatus.COMPLETED : TodoStatus.ACTIVE;
+    case UPDATE_TODO_STATUS: {
+      const index = state.todos.findIndex((todo) => todo.id === action.payload.todoId);
+      const todos = [...state.todos];
+      todos[index].status = action.payload.checked ? TodoStatus.COMPLETED : TodoStatus.ACTIVE;
 
       return {
         ...state,
-        todos: state.todos
+        todos: todos
       }
+    }
 
-    case TOGGLE_ALL_TODOS:
-      const tempTodos = state.todos.map((e)=>{
+    case TOGGLE_ALL_TODOS: {
+      const todos = state.todos.map((e)=>{
         return {
           ...e,
           status: action.payload ? TodoStatus.COMPLETED : TodoStatus.ACTIVE
@@ -49,30 +54,38 @@ function reducer(state: AppState, action: AppActions): AppState {
 
       return {
         ...state,
-        todos: tempTodos
+        todos: todos
       }
+    }
 
-    case SET_ALL_TODO_COMPLETED:
-      const index3 = state.todos.findIndex((todo) => todo.status === TodoStatus.ACTIVE);
+    case SET_ALL_TODO_COMPLETED: {
+      const index = state.todos.findIndex((todo) => todo.status === TodoStatus.ACTIVE);
+      const isDone = index === -1;
 
       return {
         ...state,
-        isDone: index3 === -1
+        isDone: isDone
       }
+    }
 
-    case DELETE_TODO:
-      const index1 = state.todos.findIndex((todo) => todo.id === action.payload);
-      state.todos.splice(index1, 1);
+    case DELETE_TODO: {
+      const index = state.todos.findIndex((todo) => todo.id === action.payload);
+      const todos = [...state.todos];
+      todos.splice(index, 1);
 
       return {
         ...state,
-        todos: state.todos
+        todos: todos
       }
-    case DELETE_ALL_TODOS:
+    }
+
+    case DELETE_ALL_TODOS: {
       return {
         ...state,
         todos: []
       }
+    }
+
     default:
       return state;
   }
