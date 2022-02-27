@@ -1,31 +1,36 @@
-import {Todo, TodoStatus} from '../models/todo';
+import { Todo, TodoStatus } from '../models/todo';
 import {
   AppActions,
+  SET_TODO,
   CREATE_TODO,
   DELETE_ALL_TODOS,
   DELETE_TODO,
   TOGGLE_ALL_TODOS,
-  UPDATE_TODO_STATUS,
-  SET_ALL_TODO_COMPLETED
+  UPDATE_TODO_STATUS
 } from './actions';
 
 export interface AppState {
   todos: Array<Todo>
-  isDone: boolean
 }
 
 export const initialState: AppState = {
-  todos: [],
-  isDone: false
+  todos: []
 }
 
 function reducer(state: AppState, action: AppActions): AppState {
   switch (action.type) {
+    case SET_TODO: {
+      return {
+        ...state,
+        todos: action.payload
+      }
+    }
+
     case CREATE_TODO: {
       // After useReducer dispatched, React components will render again with the "new state" from useReducer
       // If we mutate the state.todos here, useReducer is going udpate the view with the mutated state.todos
       // So in this case, we see todo item added twice and cause bugs
-      const todos = [...state.todos, action.payload]
+      const todos = [...state.todos, action.payload];
 
       return {
         ...state,
@@ -55,16 +60,6 @@ function reducer(state: AppState, action: AppActions): AppState {
       return {
         ...state,
         todos: todos
-      }
-    }
-
-    case SET_ALL_TODO_COMPLETED: {
-      const index = state.todos.findIndex((todo) => todo.status === TodoStatus.ACTIVE);
-      const isDone = index === -1;
-
-      return {
-        ...state,
-        isDone: isDone
       }
     }
 

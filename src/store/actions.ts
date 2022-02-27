@@ -6,7 +6,6 @@ export const DELETE_TODO = 'DELETE_TODO';
 export const DELETE_ALL_TODOS = 'DELETE_ALL_TODOS';
 export const TOGGLE_ALL_TODOS = 'TOGGLE_ALL_TODOS';
 export const UPDATE_TODO_STATUS = 'UPDATE_TODO_STATUS';
-export const SET_ALL_TODO_COMPLETED = 'SET_ALL_TODO_COMPLETED';
 
 
 export interface SetTodoAction {
@@ -90,21 +89,10 @@ export function toggleAllTodos(checked: boolean): ToggleAllTodosAction {
   }
 }
 
-export interface SetAllTodoCompletedAction {
-  type: typeof SET_ALL_TODO_COMPLETED,
-}
-
-export function setAllTodoCompleted(): SetAllTodoCompletedAction {
-  return {
-    type: SET_ALL_TODO_COMPLETED,
-  }
-}
-
 export type AppActions =
   SetTodoAction |
   CreateTodoAction |
   UpdateTodoStatusAction |
   DeleteTodoAction |
   DeleteAllTodosAction |
-  ToggleAllTodosAction |
-  SetAllTodoCompletedAction;
+  ToggleAllTodosAction;

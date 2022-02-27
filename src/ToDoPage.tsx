@@ -7,8 +7,7 @@ import {
   deleteTodo,
   toggleAllTodos,
   deleteAllTodos,
-  updateTodoStatus,
-  setAllTodoCompleted
+  updateTodoStatus
 } from './store/actions';
 import Service from './service';
 import { Todo, TodoStatus } from './models/todo';
@@ -16,18 +15,26 @@ import { Todo, TodoStatus } from './models/todo';
 type EnhanceTodoStatus = TodoStatus | 'ALL';
 
 const ToDoPage = () => {
-  const [{ todos, isDone }, dispatch] = useReducer(reducer, initialState);
+  const [{ todos }, dispatch] = useReducer(reducer, initialState);
   const [showing, setShowing] = useState<EnhanceTodoStatus>('ALL');
   const [filteredTodos, setFilterTodos] = useState([] as Todo[]);
+  const [isAllTodoCompleted, setAllTodosCompleted] = useState(false);
   const inputRef = useRef<any>(null);
 
   useEffect(() => {
-    (async () => {
-      const resp = await Service.getTodos();
+    const resp = JSON.parse(localStorage.getItem('todos') || '[]')
 
-      dispatch(setTodos(resp || []));
-    })();
+    dispatch(setTodos(resp || []));
   }, []);
+
+  useEffect(() => {
+    // Toggle toolbar checkbox if all task completed
+    const index = todos.findIndex((todo) => todo.status === TodoStatus.ACTIVE);
+    setAllTodosCompleted(index === -1);
+
+    // Store todos
+    localStorage.setItem('todos', JSON.stringify(todos));
+  }, [todos])
 
   useEffect(() => {
     setFilterTodos(() => {
@@ -55,12 +62,10 @@ const ToDoPage = () => {
     todoId: string
   ) => {
     dispatch(updateTodoStatus(todoId, e.target.checked));
-    dispatch(setAllTodoCompleted());
   };
 
   const onToggleAllTodo = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(toggleAllTodos(e.target.checked));
-    dispatch(setAllTodoCompleted());
   };
 
   const onDeleteAllTodo = () => {
@@ -94,7 +99,7 @@ const ToDoPage = () => {
       </div>
       <div className="Todo__toolbar">
         {todos.length > 0 ? (
-          <input type="checkbox" checked={isDone} onChange={onToggleAllTodo} />
+          <input type="checkbox" checked={isAllTodoCompleted} onChange={onToggleAllTodo} />
         ) : (
           <div />
         )}
