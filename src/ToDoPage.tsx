@@ -7,6 +7,7 @@ import {
   toggleAllTodos,
   deleteAllTodos,
   updateTodoStatus,
+  setAllTodoCompleted
 } from './store/actions';
 import Service from './service';
 import { Todo, TodoStatus } from './models/todo';
@@ -14,7 +15,7 @@ import { Todo, TodoStatus } from './models/todo';
 type EnhanceTodoStatus = TodoStatus | 'ALL';
 
 const ToDoPage = () => {
-  const [{ todos }, dispatch] = useReducer(reducer, initialState);
+  const [{ todos, isDone }, dispatch] = useReducer(reducer, initialState);
   const [showing, setShowing] = useState<EnhanceTodoStatus>('ALL');
   const [filteredTodos, setFilterTodos] = useState([] as Todo[]);
   const inputRef = useRef<any>(null);
@@ -30,7 +31,7 @@ const ToDoPage = () => {
   useEffect(() => {
     setFilterTodos(() => {
       if (showing === 'ALL') return todos;
-      return todos.filter(todo => todo.status === showing);
+      return todos.filter((todo) => todo.status === showing);
     });
   }, [todos, showing]);
 
@@ -46,10 +47,12 @@ const ToDoPage = () => {
     todoId: any
   ) => {
     dispatch(updateTodoStatus(todoId, e.target.checked));
+    dispatch(setAllTodoCompleted());
   };
 
   const onToggleAllTodo = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(toggleAllTodos(e.target.checked));
+    dispatch(setAllTodoCompleted());
   };
 
   const onDeleteAllTodo = () => {
@@ -83,7 +86,7 @@ const ToDoPage = () => {
       </div>
       <div className="Todo__toolbar">
         {todos.length > 0 ? (
-          <input type="checkbox" onChange={onToggleAllTodo} />
+          <input type="checkbox" checked={isDone} onChange={onToggleAllTodo} />
         ) : (
           <div />
         )}

@@ -5,15 +5,18 @@ import {
   DELETE_ALL_TODOS,
   DELETE_TODO,
   TOGGLE_ALL_TODOS,
-  UPDATE_TODO_STATUS
+  UPDATE_TODO_STATUS,
+  SET_ALL_TODO_COMPLETED
 } from './actions';
 
 export interface AppState {
   todos: Array<Todo>
+  isDone: boolean
 }
 
 export const initialState: AppState = {
-  todos: []
+  todos: [],
+  isDone: false
 }
 
 function reducer(state: AppState, action: AppActions): AppState {
@@ -47,6 +50,14 @@ function reducer(state: AppState, action: AppActions): AppState {
       return {
         ...state,
         todos: tempTodos
+      }
+
+    case SET_ALL_TODO_COMPLETED:
+      const index3 = state.todos.findIndex((todo) => todo.status === TodoStatus.ACTIVE);
+
+      return {
+        ...state,
+        isDone: index3 === -1
       }
 
     case DELETE_TODO:
