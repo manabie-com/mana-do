@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer, useRef, useState } from 'react';
+import React, { useEffect, useReducer, useRef, useState, RefObject } from 'react';
 
 import reducer, { initialState } from './store/reducer';
 import {
@@ -7,7 +7,9 @@ import {
   deleteTodo,
   toggleAllTodos,
   deleteAllTodos,
-  updateTodoStatus
+  updateTodoStatus,
+  editTodoContent,
+  toggleEditTodo
 } from './store/actions';
 import Service from './service';
 import { Todo, TodoStatus } from './models/todo';
@@ -19,11 +21,17 @@ const ToDoPage = () => {
   const [showing, setShowing] = useState<EnhanceTodoStatus>('ALL');
   const [filteredTodos, setFilterTodos] = useState([] as Todo[]);
   const [isAllTodoCompleted, setAllTodosCompleted] = useState(false);
+  const [newTodoContent, setNewTodoContent] = useState('');
+  const editInputRef = useRef<any>(null);
   const inputRef = useRef<any>(null);
 
   useEffect(() => {
-    const resp = JSON.parse(localStorage.getItem('todos') || '[]')
+    const resp = JSON.parse(localStorage.getItem('todos') || '[]') as Todo[]
 
+    resp.map((todo) => {
+      todo.isEditing = false;
+      return todo;
+    });
     dispatch(setTodos(resp || []));
   }, []);
 
@@ -64,6 +72,22 @@ const ToDoPage = () => {
     dispatch(updateTodoStatus(todoId, e.target.checked));
   };
 
+  const onUpdateTodoContent = (
+    e: React.KeyboardEvent<HTMLInputElement>,
+    todoId: string
+  ) => {
+    if (e.key === 'Enter') {
+      if (newTodoContent) dispatch(editTodoContent(todoId, newTodoContent));
+      dispatch(toggleEditTodo(todoId, false));
+      setNewTodoContent('');
+    }
+  };
+
+  const onShowEditTodo = (todoId: string, content: string) => {
+    setNewTodoContent(content);
+    dispatch(toggleEditTodo(todoId, true));
+  };
+
   const onToggleAllTodo = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(toggleAllTodos(e.target.checked));
   };
@@ -71,6 +95,13 @@ const ToDoPage = () => {
   const onDeleteAllTodo = () => {
     dispatch(deleteAllTodos());
   };
+
+  const clickOutsidehandler = () => {
+    setNewTodoContent('');
+    dispatch(toggleEditTodo(editInputRef.current.dataset.id, false));
+  };
+
+  useClickOutside(editInputRef, clickOutsidehandler);
 
   return (
     <div className="ToDo__container">
@@ -91,7 +122,20 @@ const ToDoPage = () => {
                 checked={todo.status === TodoStatus.COMPLETED}
                 onChange={(e) => onUpdateTodoStatus(e, todo.id)}
               />
-              <span>{todo.content}</span>
+              {
+                todo.isEditing ? (
+                  <input
+                    ref={editInputRef}
+                    className="Todo__edit"
+                    value={newTodoContent}
+                    data-id={todo.id}
+                    onChange={(e) => setNewTodoContent(e.target.value)}
+                    onKeyDown={(e) => onUpdateTodoContent(e, todo.id)}
+                  />
+                ) : (
+                  <span onDoubleClick={() => onShowEditTodo(todo.id, todo.content)}>{todo.content}</span>
+                )
+              }
               <button className="Todo__delete" onClick={() => onDeleteTodo(todo.id)}>X</button>
             </div>
           );
@@ -130,5 +174,32 @@ const ToDoPage = () => {
     </div>
   );
 };
+
+
+function useClickOutside(ref: RefObject<HTMLElement>, handler: (event: Event) => void) {
+  useEffect(
+    () => {
+      const listener = (event: Event) => {
+        // Do nothing if clicking ref's element or descendent elements
+        const el = ref?.current;
+        if (!el || el.contains((event?.target as Node) || null)) {
+          return;
+        }
+
+        handler(event);
+      };
+
+      document.addEventListener('mousedown', listener);
+      document.addEventListener('touchstart', listener);
+
+      return () => {
+        document.removeEventListener('mousedown', listener);
+        document.removeEventListener('touchstart', listener);
+      };
+    },
+
+    [ref, handler]
+  );
+}
 
 export default ToDoPage;
