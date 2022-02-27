@@ -9,13 +9,14 @@ import {
   updateTodoStatus,
 } from './store/actions';
 import Service from './service';
-import { TodoStatus } from './models/todo';
+import { Todo, TodoStatus } from './models/todo';
 
 type EnhanceTodoStatus = TodoStatus | 'ALL';
 
 const ToDoPage = () => {
   const [{ todos }, dispatch] = useReducer(reducer, initialState);
   const [showing, setShowing] = useState<EnhanceTodoStatus>('ALL');
+  const [filteredTodos, setFilterTodos] = useState([] as Todo[]);
   const inputRef = useRef<any>(null);
 
   useEffect(() => {
@@ -25,6 +26,13 @@ const ToDoPage = () => {
       dispatch(setTodos(resp || []));
     })();
   }, []);
+
+  useEffect(() => {
+    setFilterTodos(() => {
+      if (showing === 'ALL') return todos;
+      return todos.filter(todo => todo.status === showing);
+    });
+  }, [todos, showing]);
 
   const onCreateTodo = async (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
@@ -59,13 +67,13 @@ const ToDoPage = () => {
         />
       </div>
       <div className="ToDo__list">
-        {todos.map((todo, index) => {
+        {filteredTodos.map((todo, index) => {
           return (
             <div key={index} className="ToDo__item">
               <input
                 type="checkbox"
-                checked={showing === todo.status}
-                onChange={(e) => onUpdateTodoStatus(e, index)}
+                checked={todo.status === TodoStatus.COMPLETED}
+                onChange={(e) => onUpdateTodoStatus(e, todo.id)}
               />
               <span>{todo.content}</span>
               <button className="Todo__delete">X</button>
@@ -80,7 +88,12 @@ const ToDoPage = () => {
           <div />
         )}
         <div className="Todo__tabs">
-          <button className="Action__btn">All</button>
+          <button
+            className="Action__btn"
+            onClick={() => setShowing('ALL')}
+          >
+            All
+          </button>
           <button
             className="Action__btn"
             onClick={() => setShowing(TodoStatus.ACTIVE)}
