@@ -19,9 +19,12 @@ export const initialState: AppState = {
 function reducer(state: AppState, action: AppActions): AppState {
   switch (action.type) {
     case CREATE_TODO:
-      state.todos.push(action.payload);
+      // After useReducer dispatched, React components will render again with the "new state" from useReducer
+      // If we mutate the state.todos here, useReducer is going udpate the view with the mutated state.todos
+      // So in this case, we see todo item added twice and cause bugs
       return {
-        ...state
+        ...state,
+        todos: [...state.todos, action.payload]
       };
 
     case UPDATE_TODO_STATUS:
