@@ -1,22 +1,22 @@
-import React, { useEffect, useReducer, useRef, useState } from "react"
+import React, { useEffect, useReducer, useRef, useState } from 'react'
 
-import reducer, { initialState } from "./store/reducer"
+import reducer, { initialState } from './store/reducer'
 import {
   setTodos,
   createTodo,
   toggleAllTodos,
   deleteAllTodos,
   updateTodoStatus,
-  deleteTodo,
-} from "./store/actions"
-import Service from "./service"
-import { TodoStatus } from "./models/todo"
+  deleteTodo
+} from './store/actions'
+import Service from './service'
+import { TodoStatus } from './models/todo'
 
-type EnhanceTodoStatus = TodoStatus | "ALL"
+type EnhanceTodoStatus = TodoStatus | 'ALL'
 
 const ToDoPage = () => {
   const [{ todos }, dispatch] = useReducer(reducer, initialState)
-  const [showing, setShowing] = useState<EnhanceTodoStatus>("ALL")
+  const [showing, setShowing] = useState<EnhanceTodoStatus>('ALL')
   const inputRef = useRef<any>(null)
 
   useEffect(() => {
@@ -26,11 +26,15 @@ const ToDoPage = () => {
     })()
   }, [])
 
+  useEffect(() => {
+    localStorage.setItem('todos', JSON.stringify(todos))
+  }, [todos])
+
   const onCreateTodo = async (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter" && inputRef.current.value) {
+    if (e.key === 'Enter' && inputRef.current.value) {
       const resp = await Service.createTodo(inputRef.current.value)
       dispatch(createTodo(resp))
-      inputRef.current.value = ""
+      inputRef.current.value = ''
     }
   }
 
@@ -52,31 +56,31 @@ const ToDoPage = () => {
   const onDeleteAllTodo = () => {
     dispatch(deleteAllTodos())
   }
-
+  console.log(todos)
   const filteredTodos =
-    showing === "ALL" ? todos : todos.filter((todo) => todo.status === showing)
+    showing === 'ALL' ? todos : todos.filter((todo) => todo.status === showing)
   return (
-    <div className="ToDo__container">
-      <div className="Todo__creation">
+    <div className='ToDo__container'>
+      <div className='Todo__creation'>
         <input
           ref={inputRef}
-          className="Todo__input"
-          placeholder="What need to be done?"
+          className='Todo__input'
+          placeholder='What need to be done?'
           onKeyDown={onCreateTodo}
         />
       </div>
-      <div className="ToDo__list">
+      <div className='ToDo__list'>
         {filteredTodos.map((todo, index) => {
           return (
-            <div key={index} className="ToDo__item">
+            <div key={index} className='ToDo__item'>
               <input
-                type="checkbox"
+                type='checkbox'
                 checked={todo.status === TodoStatus.COMPLETED}
                 onChange={(e) => onUpdateTodoStatus(e, todo.id)}
               />
               <span>{todo.content}</span>
               <button
-                className="Todo__delete"
+                className='Todo__delete'
                 onClick={() => onDeleteTodo(todo.id)}
               >
                 X
@@ -85,10 +89,10 @@ const ToDoPage = () => {
           )
         })}
       </div>
-      <div className="Todo__toolbar">
+      <div className='Todo__toolbar'>
         {filteredTodos.length > 0 ? (
           <input
-            type="checkbox"
+            type='checkbox'
             onChange={onToggleAllTodo}
             checked={
               !todos.some((todo) => todo.status !== TodoStatus.COMPLETED)
@@ -97,24 +101,24 @@ const ToDoPage = () => {
         ) : (
           <div />
         )}
-        <div className="Todo__tabs">
-          <button className="Action__btn" onClick={() => setShowing("ALL")}>
+        <div className='Todo__tabs'>
+          <button className='Action__btn' onClick={() => setShowing('ALL')}>
             All
           </button>
           <button
-            className="Action__btn"
+            className='Action__btn'
             onClick={() => setShowing(TodoStatus.ACTIVE)}
           >
             Active
           </button>
           <button
-            className="Action__btn"
+            className='Action__btn'
             onClick={() => setShowing(TodoStatus.COMPLETED)}
           >
             Completed
           </button>
         </div>
-        <button className="Action__btn" onClick={onDeleteAllTodo}>
+        <button className='Action__btn' onClick={onDeleteAllTodo}>
           Clear all todos
         </button>
       </div>
