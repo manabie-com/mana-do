@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
-import { Todo, TodoStatus } from './models/todo'
+import { Todo, TodoStatus } from '../models/todo'
 import {
   AppActions,
   deleteTodo,
   UpdateTodoContent,
   updateTodoStatus
-} from './store/actions'
+} from '../store/actions'
 
 interface ITodoItem {
   todo: Todo

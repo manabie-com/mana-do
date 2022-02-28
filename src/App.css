@@ -14,6 +14,8 @@ select {
   cursor: pointer;
   box-shadow: 0 0 20px rgb(0 0 0 / 15%);
   padding: 0 4px;
+  font-size: 16px;
+  height: 42px;
 }
 
 button {
@@ -23,6 +25,8 @@ button {
   border-radius: 5px;
   cursor: pointer;
   box-shadow: 0 0 20px rgb(0 0 0 / 15%);
+  height: 42px;
+  font-size: 16px;
 }
 
 button:hover {
@@ -125,18 +129,18 @@ input {
 }
 
 .Todo__delete {
-  outline: none;
-  border: none;
   width: 32px;
   height: 32px;
-  min-width: auto;
-  min-height: auto;
   box-shadow: none;
   border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
+  color: #FFFFFF;
+  font-weight: 500;
+  background-color: tomato;
+  font-size: 14px;
 }
 
 .Todo__action, .Todo__delete {
@@ -162,6 +166,7 @@ input {
 
 .Action__btn {
   min-width: 80px;
+  padding: 0 16px;
 }
 
 .Todo__filter {
