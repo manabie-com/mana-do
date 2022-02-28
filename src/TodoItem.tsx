@@ -47,15 +47,17 @@ const TodoItem: React.FC<ITodoItem> = ({ todo, dispatch }) => {
 
   if (!toggle) {
     return (
-      <input
-        className='Todo__input'
-        autoFocus
-        maxLength={200}
-        value={editContent}
-        onChange={(e) => setEditContent(e.target.value)}
-        onKeyDown={(e) => onChangeTodoContent(e, todo.id)}
-        onBlur={onDiscardEdit}
-      />
+      <div className='ToDo__item'>
+        <input
+          className='Todo__input'
+          autoFocus
+          maxLength={200}
+          value={editContent}
+          onChange={(e) => setEditContent(e.target.value)}
+          onKeyDown={(e) => onChangeTodoContent(e, todo.id)}
+          onBlur={onDiscardEdit}
+        />
+      </div>
     )
   }
   return (

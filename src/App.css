@@ -1,17 +1,28 @@
 .App {
-  text-align: center;
+  width: 100vw;
+  height: 100vh;
   display: flex;
   justify-content: center;
+  align-items: center;
+}
+
+select {
+  outline: none;
+  border: none;
+  background-color: #fff;
+  border-radius: 5px;
+  cursor: pointer;
+  box-shadow: 0 0 20px rgb(0 0 0 / 15%);
+  padding: 0 4px;
 }
 
 button {
   outline: none;
   border: none;
-  box-shadow: 2px 0 2px currentColor;
-  border-radius: 4px;
-  min-height: 32px;
-  min-width: 80px;
-  padding: 4px 8px;
+  background-color: #fff;
+  border-radius: 5px;
+  cursor: pointer;
+  box-shadow: 0 0 20px rgb(0 0 0 / 15%);
 }
 
 button:hover {
@@ -33,26 +44,20 @@ input[type="checkbox"]:focus {
 }
 
 input {
-  min-height: 36px;
+  min-height: 43px;
   border: none;
   outline: none;
   padding: 0 12px;
-  box-shadow: 2px 0 4px rgba(0, 0, 0, 0.2);
-  border-radius: 4px;
+  box-shadow: 0 0 20px rgb(0 0 0 / 15%);
+  font-size: 16px;
 }
 
-input:focus {
-  box-shadow: 1px 0 9px rgba(0, 0, 0, 0.25);
-}
 
 .ToDo__container {
-  border: 1px solid rgba(0, 0, 0, 0.13);
   border-radius: 8px;
   width: 500px;
-  margin-top: 5rem;
-  padding: 24px;
-  box-shadow: 2px 2px 1px rgba(0, 0, 0, 0.09),
-    3px 2px 3px rgba(0, 0, 0, 0.05);
+  padding: 16px;
+  box-shadow: 0 0 20px rgb(0 0 0 / 15%);
 }
 
 .Todo__creation {
@@ -66,7 +71,21 @@ input:focus {
 .ToDo__list {
   display: flex;
   flex-direction: column;
-  margin-top: 1.5rem;
+  height: 500px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  margin-top: 24px;
+  padding-right: 16px;
+}
+
+.ToDo__list::-webkit-scrollbar {
+  width: 4px;
+}
+
+.ToDo__list::-webkit-scrollbar-thumb {
+  background-color: #dfdfdf;
+  border-radius: 50px;
+  width: 5px;
 }
 
 .ToDo__item {
@@ -74,6 +93,11 @@ input:focus {
   align-items: center;
   justify-content: space-between;
   border-bottom: 1px solid #cdcdcd;
+  min-height: 43px;
+}
+
+.ToDo__item:last-child {
+  border: none;
 }
 
 .ToDo__item>.ToDo__item--left {
@@ -85,7 +109,7 @@ input:focus {
   margin: 0 16px;
   text-overflow: ellipsis;
   overflow: hidden;
-  width: 400px;
+  width: 360px;
   white-space: nowrap;
   text-align: left;
 }
@@ -136,4 +160,10 @@ input:focus {
   margin-right: 8px;
 }
 
-.Action__btn {}
+.Action__btn {
+  min-width: 80px;
+}
+
+.Todo__filter {
+  min-width: 100px;
+}

@@ -71,6 +71,7 @@ const ToDoPage = () => {
         )}
         <div className='Todo__tabs'>
           <select
+            className='Todo__filter'
             onChange={(e) => setShowing(e.target.value as EnhanceTodoStatus)}
           >
             <option value='ALL'>All</option>
@@ -79,7 +80,7 @@ const ToDoPage = () => {
           </select>
         </div>
         <button className='Action__btn' onClick={onDeleteAllTodo}>
-          Clear all todos
+          Clear all
         </button>
       </div>
       <div className='ToDo__list'>
