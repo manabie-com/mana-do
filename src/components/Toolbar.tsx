@@ -33,7 +33,7 @@ const Toolbar: React.FC<IToolbar> = ({
           checked={!todos.some((todo) => todo.status !== TodoStatus.COMPLETED)}
         />
       ) : (
-        <div style={{ height: 49, width: 31 }} />
+        <div style={{ height: 46, width: 31 }} />
       )}
       <div className='Todo__tabs'>
         <select

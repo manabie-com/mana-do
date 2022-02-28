@@ -1,18 +1,26 @@
+:root {
+  --primary-color: #273FAC;
+  --white: #FFFFFF;
+  --box-shadow:  0 0 20px rgb(0 0 0 / 15%);
+  --color-danger: tomato;
+  --border-color: #CDCDCD;
+}
+
 .App {
   width: 100vw;
   height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: var(--primary-color);
 }
 
 select {
   outline: none;
-  border: none;
-  background-color: #fff;
+  border: 1px solid var(--border-color);
+  background-color: var(--white);
   border-radius: 5px;
   cursor: pointer;
-  box-shadow: 0 0 20px rgb(0 0 0 / 15%);
   padding: 0 4px;
   font-size: 16px;
   height: 42px;
@@ -21,10 +29,9 @@ select {
 button {
   outline: none;
   border: none;
-  background-color: #fff;
+  background-color: var(--white);
   border-radius: 5px;
   cursor: pointer;
-  box-shadow: 0 0 20px rgb(0 0 0 / 15%);
   height: 42px;
   font-size: 16px;
 }
@@ -49,10 +56,10 @@ input[type="checkbox"]:focus {
 
 input {
   min-height: 43px;
-  border: none;
+  border: 1px solid var(--border-color);
+  border-radius: 20px;
   outline: none;
   padding: 0 12px;
-  box-shadow: 0 0 20px rgb(0 0 0 / 15%);
   font-size: 16px;
 }
 
@@ -61,7 +68,8 @@ input {
   border-radius: 8px;
   width: 500px;
   padding: 16px;
-  box-shadow: 0 0 20px rgb(0 0 0 / 15%);
+  box-shadow: var(--box-shadow);
+  background-color: var(--white);
 }
 
 .Todo__creation {
@@ -87,7 +95,7 @@ input {
 }
 
 .ToDo__list::-webkit-scrollbar-thumb {
-  background-color: #dfdfdf;
+  background-color: var(--border-color);
   border-radius: 50px;
   width: 5px;
 }
@@ -96,7 +104,7 @@ input {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 1px solid #cdcdcd;
+  border-bottom: 1px solid var(--border-color);
   min-height: 43px;
 }
 
@@ -137,9 +145,9 @@ input {
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  color: #FFFFFF;
+  color: var(--white);
   font-weight: 500;
-  background-color: tomato;
+  background-color: var(--color-danger);
   font-size: 14px;
 }
 
@@ -167,6 +175,8 @@ input {
 .Action__btn {
   min-width: 80px;
   padding: 0 16px;
+  background-color: var(--primary-color);
+  color: var(--white);
 }
 
 .Todo__filter {

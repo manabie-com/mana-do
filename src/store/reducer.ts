@@ -64,20 +64,18 @@ function reducer(state: AppState, action: AppActions): AppState {
     case TOGGLE_ALL_TODOS:
       return {
         ...state,
-        todos: [
-          ...state.todos.map((e) => {
-            return {
-              ...e,
-              status: action.payload ? TodoStatus.COMPLETED : TodoStatus.ACTIVE
-            }
-          })
-        ]
+        todos: state.todos.map((e) => {
+          return {
+            ...e,
+            status: action.payload ? TodoStatus.COMPLETED : TodoStatus.ACTIVE
+          }
+        })
       }
 
     case DELETE_TODO:
       return {
         ...state,
-        todos: [...state.todos.filter((todo) => todo.id !== action.payload)]
+        todos: state.todos.filter((todo) => todo.id !== action.payload)
       }
 
     case DELETE_ALL_TODOS:
