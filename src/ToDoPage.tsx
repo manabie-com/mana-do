@@ -20,7 +20,7 @@ const ToDoPage = () => {
   const inputRef = useRef<any>(null)
 
   useEffect(() => {
-    (async () => {
+    ;(async () => {
       const resp = await Service.getTodos()
       dispatch(setTodos(resp))
     })()
@@ -56,7 +56,6 @@ const ToDoPage = () => {
   const onDeleteAllTodo = () => {
     dispatch(deleteAllTodos())
   }
-  console.log(todos)
   const filteredTodos =
     showing === 'ALL' ? todos : todos.filter((todo) => todo.status === showing)
   return (
@@ -68,6 +67,31 @@ const ToDoPage = () => {
           placeholder='What need to be done?'
           onKeyDown={onCreateTodo}
         />
+      </div>
+      <div className='Todo__toolbar'>
+        {filteredTodos.length > 0 ? (
+          <input
+            type='checkbox'
+            onChange={onToggleAllTodo}
+            checked={
+              !todos.some((todo) => todo.status !== TodoStatus.COMPLETED)
+            }
+          />
+        ) : (
+          <div style={{ height: 42, width: 31 }} />
+        )}
+        <div className='Todo__tabs'>
+          <select
+            onChange={(e) => setShowing(e.target.value as EnhanceTodoStatus)}
+          >
+            <option value='ALL'>All</option>
+            <option value={TodoStatus.ACTIVE}>Active</option>
+            <option value={TodoStatus.COMPLETED}>Complete</option>
+          </select>
+        </div>
+        <button className='Action__btn' onClick={onDeleteAllTodo}>
+          Clear all todos
+        </button>
       </div>
       <div className='ToDo__list'>
         {filteredTodos.map((todo, index) => {
@@ -88,39 +112,6 @@ const ToDoPage = () => {
             </div>
           )
         })}
-      </div>
-      <div className='Todo__toolbar'>
-        {filteredTodos.length > 0 ? (
-          <input
-            type='checkbox'
-            onChange={onToggleAllTodo}
-            checked={
-              !todos.some((todo) => todo.status !== TodoStatus.COMPLETED)
-            }
-          />
-        ) : (
-          <div />
-        )}
-        <div className='Todo__tabs'>
-          <button className='Action__btn' onClick={() => setShowing('ALL')}>
-            All
-          </button>
-          <button
-            className='Action__btn'
-            onClick={() => setShowing(TodoStatus.ACTIVE)}
-          >
-            Active
-          </button>
-          <button
-            className='Action__btn'
-            onClick={() => setShowing(TodoStatus.COMPLETED)}
-          >
-            Completed
-          </button>
-        </div>
-        <button className='Action__btn' onClick={onDeleteAllTodo}>
-          Clear all todos
-        </button>
       </div>
     </div>
   )
