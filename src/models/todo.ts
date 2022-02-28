@@ -3,6 +3,10 @@ export enum TodoStatus {
   COMPLETED = 'COMPLETED'
 }
 
-export interface Todo {
-  [key: string]: any
+export interface Todo {  
+  content: string,
+  created_date: string,
+  status: string,
+  id: string,
+  user_id: string,
 }
