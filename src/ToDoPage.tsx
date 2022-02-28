@@ -5,12 +5,11 @@ import {
   setTodos,
   createTodo,
   toggleAllTodos,
-  deleteAllTodos,
-  updateTodoStatus,
-  deleteTodo
+  deleteAllTodos
 } from './store/actions'
 import Service from './service'
 import { TodoStatus } from './models/todo'
+import TodoItem from './TodoItem'
 
 type EnhanceTodoStatus = TodoStatus | 'ALL'
 
@@ -38,19 +37,8 @@ const ToDoPage = () => {
     }
   }
 
-  const onUpdateTodoStatus = (
-    e: React.ChangeEvent<HTMLInputElement>,
-    todoId: any
-  ) => {
-    dispatch(updateTodoStatus(todoId, e.target.checked))
-  }
-
   const onToggleAllTodo = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(toggleAllTodos(e.target.checked))
-  }
-
-  const onDeleteTodo = (id: string) => {
-    dispatch(deleteTodo(id))
   }
 
   const onDeleteAllTodo = () => {
@@ -62,6 +50,7 @@ const ToDoPage = () => {
     <div className='ToDo__container'>
       <div className='Todo__creation'>
         <input
+          maxLength={200}
           ref={inputRef}
           className='Todo__input'
           placeholder='What need to be done?'
@@ -94,23 +83,8 @@ const ToDoPage = () => {
         </button>
       </div>
       <div className='ToDo__list'>
-        {filteredTodos.map((todo, index) => {
-          return (
-            <div key={index} className='ToDo__item'>
-              <input
-                type='checkbox'
-                checked={todo.status === TodoStatus.COMPLETED}
-                onChange={(e) => onUpdateTodoStatus(e, todo.id)}
-              />
-              <span>{todo.content}</span>
-              <button
-                className='Todo__delete'
-                onClick={() => onDeleteTodo(todo.id)}
-              >
-                X
-              </button>
-            </div>
-          )
+        {filteredTodos.map((todo) => {
+          return <TodoItem key={todo.id} todo={todo} dispatch={dispatch} />
         })}
       </div>
     </div>

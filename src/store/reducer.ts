@@ -6,6 +6,7 @@ import {
   DELETE_TODO,
   SET_TODO,
   TOGGLE_ALL_TODOS,
+  UPDATE_TODO_CONTENT,
   UPDATE_TODO_STATUS
 } from './constant'
 
@@ -47,6 +48,19 @@ function reducer(state: AppState, action: AppActions): AppState {
         todos: todos1
       }
 
+    case UPDATE_TODO_CONTENT:
+      const todoIndex2 = state.todos.findIndex(
+        (todo) => todo.id === action.payload.todoId
+      )
+      const todos2 = [...state.todos]
+      if (todoIndex2 >= 0) {
+        todos2[todoIndex2].content = action.payload.content
+      }
+      return {
+        ...state,
+        todos: todos2
+      }
+
     case TOGGLE_ALL_TODOS:
       return {
         ...state,
@@ -79,4 +93,4 @@ function reducer(state: AppState, action: AppActions): AppState {
 
 export default reducer
 
-// To work with global state, it's better to deep copy new state and work on this.
+// To work with state, it's better to deep copy new state and work on this.
