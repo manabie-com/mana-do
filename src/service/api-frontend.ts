@@ -10,6 +10,7 @@ class ApiFrontend extends IAPI {
             status: TodoStatus.ACTIVE,
             id: shortid(),
             user_id: "firstUser",
+            isEditing: false,
         } as Todo);
     }
 
@@ -21,6 +22,7 @@ class ApiFrontend extends IAPI {
                 status: TodoStatus.ACTIVE,
                 id: shortid(),
                 user_id: "firstUser",
+                isEditing: false,
             } as Todo,
         ];
     }

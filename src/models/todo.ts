@@ -5,4 +5,5 @@ export enum TodoStatus {
 
 export interface Todo {
   [key: string]: any
+  isEditing: boolean
 }
