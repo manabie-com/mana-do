@@ -1,12 +1,12 @@
-import {Todo, TodoStatus} from '../models/todo';
+import { Todo, TodoStatus } from '../models/todo'
+import { AppActions } from './actions'
 import {
-  AppActions,
   CREATE_TODO,
   DELETE_ALL_TODOS,
   DELETE_TODO,
   TOGGLE_ALL_TODOS,
   UPDATE_TODO_STATUS
-} from './actions';
+} from './constant'
 
 export interface AppState {
   todos: Array<Todo>
@@ -19,40 +19,43 @@ export const initialState: AppState = {
 function reducer(state: AppState, action: AppActions): AppState {
   switch (action.type) {
     case CREATE_TODO:
-      state.todos.push(action.payload);
-      return {
-        ...state
-      };
-
-    case UPDATE_TODO_STATUS:
-      const index2 = state.todos.findIndex((todo) => todo.id === action.payload.todoId);
-      state.todos[index2].status = action.payload.checked ? TodoStatus.COMPLETED : TodoStatus.ACTIVE;
-
       return {
         ...state,
-        todos: state.todos
+        todos: [...state.todos, action.payload]
+      }
+
+    case UPDATE_TODO_STATUS:
+      const todoIndex1 = state.todos.findIndex(
+        (todo) => todo.id === action.payload.todoId
+      )
+      const todos1 = [...state.todos]
+      if (todoIndex1 >= 0) {
+        todos1[todoIndex1].status = action.payload.checked
+          ? TodoStatus.COMPLETED
+          : TodoStatus.ACTIVE
+      }
+      return {
+        ...state,
+        todos: todos1
       }
 
     case TOGGLE_ALL_TODOS:
-      const tempTodos = state.todos.map((e)=>{
-        return {
-          ...e,
-          status: action.payload ? TodoStatus.COMPLETED : TodoStatus.ACTIVE
-        }
-      })
-
       return {
         ...state,
-        todos: tempTodos
+        todos: [
+          ...state.todos.map((e) => {
+            return {
+              ...e,
+              status: action.payload ? TodoStatus.COMPLETED : TodoStatus.ACTIVE
+            }
+          })
+        ]
       }
 
     case DELETE_TODO:
-      const index1 = state.todos.findIndex((todo) => todo.id === action.payload);
-      state.todos.splice(index1, 1);
-
       return {
         ...state,
-        todos: state.todos
+        todos: [...state.todos.filter((todo) => todo.id !== action.payload)]
       }
     case DELETE_ALL_TODOS:
       return {
@@ -60,8 +63,10 @@ function reducer(state: AppState, action: AppActions): AppState {
         todos: []
       }
     default:
-      return state;
+      return state
   }
 }
 
-export default reducer;
+export default reducer
+
+// To work with global state, it's better to deep copy new state and work on this.
