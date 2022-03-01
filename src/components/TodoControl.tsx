@@ -5,7 +5,7 @@ import { deleteAllTodos, filterTodos, toggleAllTodos } from "../store/actions";
 
 type EnhanceTodoStatus = TodoStatus | "ALL";
 
-const TodoControl: React.FC = () => {
+export const TodoControl: React.FC = () => {
   const {
     state: { todos, filter },
     dispatch,
@@ -62,5 +62,3 @@ const TodoControl: React.FC = () => {
     </div>
   );
 };
-
-export default TodoControl;

@@ -30,7 +30,8 @@ export const TodoItem: React.FC<TodoItemProps> = ({ todo }) => {
     }
   };
 
-  const onDoubleClickTodo = (value: string) => {
+  const onDoubleClickTodo = (status: string, value: string) => {
+    if (todo.status === TodoStatus.COMPLETED) return;
     setEdit(!edit);
     setTodoEdit(value);
   };
@@ -50,7 +51,8 @@ export const TodoItem: React.FC<TodoItemProps> = ({ todo }) => {
         {!edit && (
           <div
             className="ToDo__text"
-            onDoubleClick={() => onDoubleClickTodo(todo.content)}
+            data-testid="todoTest"
+            onDoubleClick={() => onDoubleClickTodo(todo.status, todo.content)}
           >
             {todo.content}
           </div>

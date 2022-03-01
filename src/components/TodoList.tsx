@@ -6,7 +6,7 @@ import Service from "../service";
 import { setTodos } from "../store/actions";
 import { TodoItem } from "./TodoItem";
 
-const TodoList: React.FC = () => {
+export const TodoList: React.FC = () => {
   const {
     state: { todos, filter },
     dispatch,
@@ -43,5 +43,3 @@ const TodoList: React.FC = () => {
     </div>
   );
 };
-
-export default TodoList;

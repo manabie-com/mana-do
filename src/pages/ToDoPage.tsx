@@ -1,8 +1,6 @@
 import React from "react";
 
-import AddTodo from "../components/AddTodo";
-import TodoControl from "../components/TodoControl";
-import TodoList from "../components/TodoList";
+import { AddTodo, TodoControl, TodoList } from "../components";
 
 const ToDoPage = () => {
   return (

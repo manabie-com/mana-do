@@ -3,7 +3,7 @@ import { Context as TodoContext } from "../context/TodoContext";
 import Service from "../service";
 import { createTodo } from "../store/actions";
 
-const AddTodo: React.FC = () => {
+export const AddTodo: React.FC = () => {
   const { dispatch } = useContext(TodoContext);
   const inputRef = useRef<any>(null);
 
@@ -28,5 +28,3 @@ const AddTodo: React.FC = () => {
     </div>
   );
 };
-
-export default AddTodo;
