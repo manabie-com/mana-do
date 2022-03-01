@@ -22,6 +22,8 @@ const AddTodo: React.FC = () => {
         className="Todo__input"
         placeholder="What need to be done?"
         onKeyDown={onCreateTodo}
+        defaultValue=""
+        data-testid="input"
       />
     </div>
   );

@@ -11,8 +11,6 @@ const TodoControl: React.FC = () => {
     dispatch,
   } = useContext(TodoContext);
 
-  // const [showing, setShowing] = useState<EnhanceTodoStatus>("ALL");
-
   const onToggleAllTodo = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(toggleAllTodos(e.target.checked));
   };
@@ -27,7 +25,7 @@ const TodoControl: React.FC = () => {
 
   return (
     <div className="Todo__toolbar">
-      {todos.length > 0 ? (
+      {todos?.length > 0 ? (
         <input type="checkbox" onChange={onToggleAllTodo} />
       ) : (
         <div />

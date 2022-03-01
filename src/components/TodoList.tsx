@@ -35,19 +35,6 @@ const TodoList: React.FC = () => {
     }
   });
 
-  const handleClickOutside = (e: Event) => {
-    if (wrapperRef.current && !wrapperRef.current.contains(e.target)) {
-    }
-  };
-
-  useEffect(() => {
-    document.addEventListener("click", handleClickOutside, true);
-
-    return () => {
-      document.removeEventListener("click", handleClickOutside, true);
-    };
-  }, []);
-
   return (
     <div className="ToDo__list" ref={wrapperRef}>
       {filteredTodos.map((todo) => {
