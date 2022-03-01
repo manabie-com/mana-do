@@ -1,0 +1,25 @@
+.ToDo__list {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1.5rem;
+}
+
+.ToDo__item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  border-radius: 7px;
+  padding: 2px 5px 2px 5px;
+}
+
+.ToDo__item input {
+  background-color: transparent;
+  box-shadow: none;
+}
+
+.ToDo__item > span {
+  flex: 1 1;
+  text-align: left;
+  margin-left: 8px;
+}

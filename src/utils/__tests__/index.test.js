@@ -1,6 +1,6 @@
-import { isTodoActive, isTodoCompleted } from ".";
+import { isTodoActive, isTodoCompleted } from "..";
 
-test('check confirm status function', () => {
+describe('Test confirm status function', () => {
     expect(isTodoActive({
         status: 'ACTIVE'
     })).toBe(true);
