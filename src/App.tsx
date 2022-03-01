@@ -1,5 +1,5 @@
 import React from "react";
-
+import { Provider as TodoProvider } from "./context/TodoContext";
 import ToDoPage from "./pages/ToDoPage";
 
 import "./App.css";
@@ -7,7 +7,9 @@ import "./App.css";
 function App() {
   return (
     <main className="App">
-      <ToDoPage />
+      <TodoProvider>
+        <ToDoPage />
+      </TodoProvider>
     </main>
   );
 }
