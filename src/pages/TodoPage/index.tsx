@@ -1,7 +1,7 @@
 import React, { useEffect, useReducer, useRef, useState } from "react";
-import './TodoPage.css';
+import './index.css';
 
-import reducer, { initialState } from "../store/reducer";
+import reducer, { initialState } from "store/reducer";
 import {
     setTodos,
     createTodo,
@@ -10,14 +10,14 @@ import {
     updateTodoStatus,
     updateTodoContent,
     deleteTodo,
-} from "../store/actions";
-import Service from "../service";
-import { TodoStatus } from "../models/todo";
+} from "store/actions";
+import Service from "service";
+import { TodoStatus } from "models/todo";
 import { ToDoInput, ToDoToolbar, TodoItem } from "components";
 
 type EnhanceTodoStatus = TodoStatus | "ALL";
 
-const ToDoPage = () => {
+export const TodoPage = () => {
     const [{ todos }, dispatch] = useReducer(reducer, initialState);
     const [showing, setShowing] = useState<EnhanceTodoStatus>("ALL");
     const inputRef = useRef<any>(null);
@@ -107,5 +107,3 @@ const ToDoPage = () => {
         </div>
     );
 };
-
-export default ToDoPage;
