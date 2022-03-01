@@ -3,7 +3,7 @@ import { Todo, TodoStatus } from '../models/todo'
 import {
   AppActions,
   deleteTodo,
-  UpdateTodoContent,
+  updateTodoContent,
   updateTodoStatus
 } from '../store/actions'
 
@@ -35,7 +35,7 @@ const TodoItem: React.FC<ITodoItem> = ({ todo, dispatch }) => {
     todoId: string
   ) => {
     if (e.key === 'Enter' && editContent) {
-      dispatch(UpdateTodoContent(todoId, editContent))
+      dispatch(updateTodoContent(todoId, editContent))
       setToggle(true)
     }
   }
@@ -50,6 +50,7 @@ const TodoItem: React.FC<ITodoItem> = ({ todo, dispatch }) => {
       <div className='ToDo__item'>
         <input
           className='Todo__input'
+          type='text'
           autoFocus
           maxLength={200}
           value={editContent}

@@ -18,6 +18,7 @@ const AddTodo: React.FC<IAddTodo> = ({ dispatch }) => {
   return (
     <div className='Todo__creation'>
       <input
+        type='text'
         value={todoContent}
         onChange={(e) => setTodoContent(e.target.value)}
         maxLength={200}

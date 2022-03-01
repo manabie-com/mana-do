@@ -54,7 +54,7 @@ input[type="checkbox"]:focus {
   outline: none;
 }
 
-input {
+.Todo__input {
   min-height: 43px;
   border: 1px solid var(--border-color);
   border-radius: 20px;

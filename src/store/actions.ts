@@ -65,7 +65,7 @@ export interface UpdateTodoContentAction {
   }
 }
 
-export function UpdateTodoContent(
+export function updateTodoContent(
   todoId: string,
   content: string
 ): UpdateTodoContentAction {
