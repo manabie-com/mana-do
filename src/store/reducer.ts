@@ -22,7 +22,7 @@ function reducer(state: AppState, action: AppActions): AppState {
     case CREATE_TODO:
       return {
         ...state,
-        todos: [...state.todos, action.payload]
+        todos: [action.payload, ...state.todos]
       };
     
     case UPDATE_TODO_STATUS:
