@@ -19,7 +19,9 @@ export const initialState: AppState = {
 
 function reducer(state: AppState, action: AppActions): AppState {
   switch (action.type) {
-    case CREATE_TODO:
+    case CREATE_TODO:      
+      // After dispatch, components will renders again with new state from reducer 
+      // If we mutation state todos here, the view will update twice 
       return {
         ...state,
         todos: [action.payload, ...state.todos]
