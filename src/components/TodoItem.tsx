@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { Todo, TodoStatus } from '../models/todo'
 import {
   AppActions,
@@ -14,11 +14,7 @@ interface ITodoItem {
 
 const TodoItem: React.FC<ITodoItem> = ({ todo, dispatch }) => {
   const [toggle, setToggle] = useState<boolean>(true)
-  const [editContent, setEditContent] = useState<string>('')
-
-  useEffect(() => {
-    setEditContent(todo.content)
-  }, [todo.content])
+  const [editContent, setEditContent] = useState<string>(todo.content)
 
   const onUpdateTodoStatus = (
     e: React.ChangeEvent<HTMLInputElement>,
@@ -78,4 +74,4 @@ const TodoItem: React.FC<ITodoItem> = ({ todo, dispatch }) => {
   )
 }
 
-export default TodoItem
+export default React.memo(TodoItem)

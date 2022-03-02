@@ -34,7 +34,7 @@ describe('Test reducer of Todo', () => {
 
   it('create todo', () => {
     let listTodo = reducer({ todos: [todo1] }, createTodo(todo2))
-    expect(listTodo).toEqual(expect.objectContaining({ todos: [todo1, todo2] }))
+    expect(listTodo).toEqual(expect.objectContaining({ todos: [todo2, todo1] }))
   })
 
   describe('update todo status', () => {

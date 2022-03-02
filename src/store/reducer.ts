@@ -30,36 +30,39 @@ function reducer(state: AppState, action: AppActions): AppState {
     case CREATE_TODO:
       return {
         ...state,
-        todos: [...state.todos, action.payload]
+        todos: [action.payload, ...state.todos]
       }
 
+    // When I add React.memo in TodoItem, I notice that it has a problem with shallow copy in nested object.
+    // Then my solution in the easiest way is use map in order to keep state immutable.
     case UPDATE_TODO_STATUS:
-      const todoIndex1 = state.todos.findIndex(
-        (todo) => todo.id === action.payload.todoId
-      )
-      const todos1 = [...state.todos]
-      if (todoIndex1 >= 0) {
-        todos1[todoIndex1].status = action.payload.checked
-          ? TodoStatus.COMPLETED
-          : TodoStatus.ACTIVE
-      }
+      const updateStatus = action.payload.checked
+        ? TodoStatus.COMPLETED
+        : TodoStatus.ACTIVE
       return {
         ...state,
-        todos: todos1
+        todos: state.todos.map((todo) =>
+          todo.id === action.payload.todoId
+            ? {
+                ...todo,
+                status: updateStatus
+              }
+            : todo
+        )
       }
 
     case UPDATE_TODO_CONTENT:
-      const todoIndex2 = state.todos.findIndex(
-        (todo) => todo.id === action.payload.todoId
+    return {
+      ...state,
+      todos: state.todos.map((todo) =>
+        todo.id === action.payload.todoId
+          ? {
+              ...todo,
+              content: action.payload.content
+            }
+          : todo
       )
-      const todos2 = [...state.todos]
-      if (todoIndex2 >= 0) {
-        todos2[todoIndex2].content = action.payload.content
-      }
-      return {
-        ...state,
-        todos: todos2
-      }
+    }
 
     case TOGGLE_ALL_TODOS:
       return {
@@ -90,5 +93,3 @@ function reducer(state: AppState, action: AppActions): AppState {
 }
 
 export default reducer
-
-// To work with state, it's better to deep copy new state and work on this.
