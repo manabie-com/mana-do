@@ -34,15 +34,12 @@ export const TodoPage = () => {
         dispatch(createTodo(resp));
     };
 
-    const onUpdateTodoStatus = (
-        status: boolean,
-        todoId: any
-    ) => {
+    const onUpdateTodoStatus = (status: boolean, todoId: any) => {
         dispatch(updateTodoStatus(todoId, status));
     };
 
-    const onToggleAllTodo = (e: React.ChangeEvent<HTMLInputElement>) => {
-        dispatch(toggleAllTodos(e.target.checked));
+    const onToggleAllTodo = (status: boolean) => {
+        dispatch(toggleAllTodos(status));
     };
 
     const onDeleteTodo = (todoId: any) => {

@@ -7,7 +7,7 @@ type EnhanceTodoStatus = TodoStatus | 'ALL';
 export interface TodoToolbarProps {
     todoLength: number;
     showing: EnhanceTodoStatus
-    onToggleAllTodo(e: any): void;
+    onToggleAllTodo(status: boolean): void;
     onDeleteAllTodo(): void;
     onSetShowing(option: EnhanceTodoStatus): void;
 }
@@ -17,9 +17,10 @@ export const ToDoToolbar = (props: TodoToolbarProps) => {
         <div className="Todo__toolbar">
             {props.todoLength > 0 ?
                 <input
+                    data-testid='todo-toolbar-toggleall'
                     type="checkbox"
                     className="border-color-primary"
-                    onChange={props.onToggleAllTodo}
+                    onChange={(e) => props.onToggleAllTodo(e.target.checked)}
                 /> : <div />
             }
             <div className="Todo__tabs">
@@ -33,7 +34,7 @@ export const ToDoToolbar = (props: TodoToolbarProps) => {
                     Completed
                 </button>
             </div>
-            <button className="Action__btn color-white bg-warning" onClick={props.onDeleteAllTodo}>
+            <button data-testid='todo-toolbar-deleteall' className="Action__btn color-white bg-warning" onClick={props.onDeleteAllTodo}>
                 Clear all todos
             </button>
         </div>
