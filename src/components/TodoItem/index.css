@@ -13,13 +13,17 @@
   padding: 2px 5px 2px 5px;
 }
 
-.ToDo__item input {
-  background-color: transparent;
-  box-shadow: none;
-}
-
 .ToDo__item > span {
   flex: 1 1;
   text-align: left;
   margin-left: 8px;
+}
+
+.todo-item-content {
+  width: 100%;
+  color: white;
+  margin-left: 5px;
+  margin-right: 7px;
+  background-color: transparent;
+  box-shadow: none;
 }

@@ -35,10 +35,10 @@ export const TodoPage = () => {
     };
 
     const onUpdateTodoStatus = (
-        e: React.ChangeEvent<HTMLInputElement>,
+        status: boolean,
         todoId: any
     ) => {
-        dispatch(updateTodoStatus(todoId, e.target.checked));
+        dispatch(updateTodoStatus(todoId, status));
     };
 
     const onToggleAllTodo = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -53,16 +53,8 @@ export const TodoPage = () => {
         dispatch(deleteAllTodos());
     };
 
-    const onEditTodo = (e: any, todoId: any) => {
-        e.target.removeAttribute("readOnly");
-    };
-
-    const onUpdateTodo = (e: any, todoId: any) => {
-        e.target.setAttribute("readOnly", "readOnly");
-    };
-
-    const onEditingTodo = (e: any, todoId: any) => {
-        dispatch(updateTodoContent(todoId, e.target.value));
+    const onEditingTodo = (newContent: string, todoId: string) => {
+        dispatch(updateTodoContent(todoId, newContent));
     };
 
     return (
@@ -93,9 +85,7 @@ export const TodoPage = () => {
                                 index={index}
                                 todo={todo}
                                 onUpdateTodoStatus={onUpdateTodoStatus}
-                                onUpdateTodo={onUpdateTodo}
                                 onEditingTodo={onEditingTodo}
-                                onEditTodo={onEditTodo}
                                 onDeleteTodo={onDeleteTodo}
                             />
                         )

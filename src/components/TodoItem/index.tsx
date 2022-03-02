@@ -1,22 +1,29 @@
 import React from 'react';
 import './index.css';
 
-import { Todo, TodoStatus } from 'models/todo';
+import { Todo, TodoStatus } from 'models';
 
 export interface TodoItemProps {
     index: number;
     todo: Todo;
-    onUpdateTodoStatus(e: any, id: string): void;
-    onUpdateTodo(e: any, id: string): void;
-    onEditingTodo(e: any, id: string): void;
-    onEditTodo(e: any, id: string): void;
+    onUpdateTodoStatus(status: boolean, id: string): void;
+    onEditingTodo(newContent: string, id: string): void;
     onDeleteTodo(id: string): void; 
 }
 
 export const TodoItem = (props: TodoItemProps) => {
+    const onEnableEdit = (e: any) => {
+        e.target.removeAttribute("readOnly");
+    };
+
+    const onDisableEdit = (e: any) => {
+        e.target.setAttribute("readOnly", "readOnly");
+    };
+
     return (
-        <div
-            key={props.index}
+        <div           
+            data-testid='todo-item'
+            key={props.index}         
             className={
                 "ToDo__item " +
                 (props.todo.status === TodoStatus.ACTIVE
@@ -25,22 +32,25 @@ export const TodoItem = (props: TodoItemProps) => {
             }
         >
             <input
-                type="checkbox"
+                type="checkbox"                    
+                data-testid='todo-item-checkbox'
                 className="todo-checkbox"
                 checked={props.todo.status === TodoStatus.COMPLETED}
-                onChange={(e) => props.onUpdateTodoStatus(e, props.todo.id)}
+                onChange={(e) => props.onUpdateTodoStatus(e.target.checked, props.todo.id)}
             />
             <input
-                className="w-100 color-white"
+                className="todo-item-content"                        
+                data-testid='todo-item-content'
                 type="text"
-                onBlur={(e) => props.onUpdateTodo(e, props.todo.id)}
-                onChange={(e) => props.onEditingTodo (e, props.todo.id)}
+                onBlur={(e) =>onDisableEdit(e)}
+                onChange={(e) => props.onEditingTodo (e.target.value, props.todo.id)}
                 readOnly
-                onDoubleClick={(e) => props.onEditTodo(e, props.todo.id)}
+                onDoubleClick={(e) => onEnableEdit(e)}
                 value={props.todo.content}
             />
             <button
-                className="Todo__delete"
+                className="Todo__delete"                    
+                data-testid='todo-item-delete'
                 onClick={(e) => props.onDeleteTodo(props.todo.id)}
             >
                 ✖
