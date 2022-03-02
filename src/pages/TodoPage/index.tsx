@@ -13,7 +13,7 @@ import {
 } from "store/actions";
 import Service from "service";
 import { TodoStatus } from "models/todo";
-import { ToDoInput, ToDoToolbar, TodoItem } from "components";
+import { TodoInput, ToDoToolbar, TodoItem } from "components";
 
 type EnhanceTodoStatus = TodoStatus | "ALL";
 
@@ -25,16 +25,13 @@ export const TodoPage = () => {
     useEffect(() => {
         (async () => {
             const resp = await Service.getTodos();
-            console.log("resp", resp);
             dispatch(setTodos(resp || []));
         })();
     }, []);
 
-    const onCreateTodo = async (e: React.KeyboardEvent<HTMLInputElement>) => {
-        if (e.key === "Enter") {
-            const resp = await Service.createTodo(inputRef.current.value);
-            dispatch(createTodo(resp));
-        }
+    const onCreateTodo = async (content: string) => {
+        const resp = await Service.createTodo(content);
+        dispatch(createTodo(resp));
     };
 
     const onUpdateTodoStatus = (
@@ -70,9 +67,9 @@ export const TodoPage = () => {
 
     return (
         <div className="ToDo__container disable-select">
-            <ToDoInput
+            <TodoInput
                 inputRef={inputRef}
-                onCreateTodo={onCreateTodo}
+                _onCreateTodo={onCreateTodo}
             />
 
             <div className="legend-bar">
@@ -92,6 +89,7 @@ export const TodoPage = () => {
                     return (
                         (showing === todo.status || showing === "ALL") && (
                             <TodoItem
+                                key={index}
                                 index={index}
                                 todo={todo}
                                 onUpdateTodoStatus={onUpdateTodoStatus}

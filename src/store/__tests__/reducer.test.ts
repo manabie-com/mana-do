@@ -1,76 +1,90 @@
 import reducer, { AppState, initialState } from "../reducer"
 import Service from '../../service';
 import { createTodo, deleteAllTodos, deleteTodo, setTodos, toggleAllTodos, updateTodoContent, updateTodoStatus } from "../actions";
+import { TodoStatus } from "models";
 
-const state : AppState = initialState
+let state: AppState = initialState
 
-describe("reducer work correctly", () => {
+describe("Check reducer work correctly", () => {
     it("set todo", async () => {
-        const todo = await Service.createTodo("the todo 1")
-        const action = setTodos([todo]);
-        const newState = reducer(state, action);
+        const todo1 = await Service.createTodo("the saved todo 1")
+        const todo2 = await Service.createTodo("the saved todo 2")
+        const action = setTodos([todo1, todo2]);
+        state = reducer(state, action);
 
-        expect(newState).toEqual(
+        expect(state).toEqual({
+            "todos": [todo1, todo2],
+        })
+    })
+
+    it("create todo", async () => {
+        const todo = await Service.createTodo("the new todo 1")
+        const action = createTodo(todo)
+        state = reducer(state, action)
+
+        expect(state.todos).toEqual(
             expect.arrayContaining([todo]),
         )
     })
 
-    // it("create todo", async () => {
-    //     let todo = await Service.createTodo("the todo 1")
-    //     expect(reducer(initialState, createTodo(todo)).todos).toEqual(
-    //         expect.arrayContaining([todo]),
-    //     )
-    // })
+    it("update todos status", async () => {
+        const todo = state.todos[0]
+        const action = updateTodoStatus(todo.id, true)
+        state = reducer(state, action)
 
-    // it("update todos status", async () => {
-    //     let todo = await Service.createTodo("the todo 1")
-    //     let todo2 = await Service.createTodo("the todo 2")
-    //     let listTodo = reducer({ todos: [] }, createTodo(todo))
-    //     reducer(listTodo, createTodo(todo2))
-    //     expect(reducer(listTodo, updateTodoStatus(todo.id, true)).todos).toEqual(
-    //         expect.arrayContaining([todo]),
-    //     )
-    // })
+        expect(todo).toMatchObject({status: "COMPLETED"})
 
-    // it("update todos content", async () => {
-    //     let todo = await Service.createTodo("the todo 1")
-    //     let todo2 = await Service.createTodo("the todo 2")
-    //     let listTodo = reducer({ todos: [] }, createTodo(todo))
-    //     reducer(listTodo, createTodo(todo2))
-    //     expect(reducer(listTodo, updateTodoContent(todo.id, "new content")).todos).toEqual(
-    //         expect.arrayContaining([todo]),
-    //     )
-    // })
+        expect(state.todos).toEqual(
+            expect.arrayContaining([todo]),
+        )
+    })
 
+    it("update todos content", async () => {
+        const todo = state.todos[0]
+        const action = updateTodoContent(todo.id, 'new content')
+        state = reducer(state, action)
+        
+        expect(todo).toMatchObject({content: "new content"})
 
-    // it("delete todo", async () => {
-    //     let todo = await Service.createTodo("the todo 1")
-    //     let todo2 = await Service.createTodo("the todo 2")
-    //     let listTodo = reducer({ todos: [] }, createTodo(todo))
-    //     reducer(listTodo, createTodo(todo2))
+        expect(state.todos).toEqual(
+            expect.arrayContaining([todo]),
+        )
+    })
 
-    //     expect(reducer(listTodo, deleteTodo(todo.id)).todos).not.toEqual(
-    //         expect.arrayContaining([todo]),
-    //     )
-    // })
+    it("delete todo", async () => {
+        const todo = state.todos[0]
+        const action = deleteTodo(todo.id)
+        state = reducer(state, action)
 
-    // it("toggleAllTodos", async () => {
-    //     let todo = await Service.createTodo("the todo 1")
-    //     let todo2 = await Service.createTodo("the todo 2")
-    //     let listTodo = reducer({ todos: [] }, createTodo(todo))
-    //     reducer(listTodo, createTodo(todo2))
+        expect(state.todos).not.toEqual(
+            expect.arrayContaining([todo]),
+        )
+    })
 
-    //     expect(reducer(listTodo, toggleAllTodos(true)).todos).toEqual(
-    //         expect.arrayContaining([todo2]),
-    //     )
-    // })
+    it("toggleAllTodos with false value", async () => {
+        const action = toggleAllTodos(false)
+        state = reducer(state, action)
 
-    // it("deleteAllTodos", async () => {
-    //     let todo = await Service.createTodo("the todo 1")
-    //     let todo2 = await Service.createTodo("the todo 2")
-    //     let listTodo = reducer({ todos: [] }, createTodo(todo))
-    //     reducer(listTodo, createTodo(todo2))
+        expect(state.todos.filter((todo) => todo.status === TodoStatus.ACTIVE).length).toEqual(
+            state.todos.length
+        )
+    })
 
-    //     expect(reducer(listTodo, deleteAllTodos())).toEqual({ todos: [] })
-    // })
+    it("toggleAllTodos with true value", async () => {
+        const action = toggleAllTodos(true)
+        state = reducer(state, action)
+
+        expect(state.todos.filter((todo) => todo.status === TodoStatus.COMPLETED).length).toEqual(
+            state.todos.length
+        )
+    })
+
+    it("deleteAllTodos", async () => {
+        const action = deleteAllTodos()
+        state = reducer(state, action)
+
+        expect(state).toEqual({
+            todos: []
+        })
+    })
 })

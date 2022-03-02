@@ -1,4 +1,3 @@
-import { type } from 'os';
 import { Todo, TodoStatus } from '../models/todo';
 import {
   AppActions,
