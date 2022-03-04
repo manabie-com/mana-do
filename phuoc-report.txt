@@ -1,0 +1,30 @@
+WHAT I'VE DONE: 
+1. Move TodoPage to "modules" folder for: 
+    - Easy to manage source code, read code and custom css
+2. Remove all Action in Reducer and create SET_TODO Action:
+    - I think when we work with data, we should call api to back end for more security,
+    and save change in database concurrently. It's save time and make source code simple.
+3. Fix bugs, update UI and implement requirement features
+4. Test:
+    Feature: Create Todo input:
+    	Scenario: 
+				- User click create input and don't insert anything then press enter : No create Todo item
+				- User click create input and insert a long sentence then press enter: 
+			 		A Todo item will create and appear in the list
+		Feature: Toggle all Todo
+			Scenario: 
+				- All todo Item have Status Completed: Checkbox Toggle all Todo auto checked
+				- At least 1 todo Item has status Active: Checkbox Toggle all Todo auto unchecked
+				- Check Toggle all Todo Checkbox: auto set all Todo item status to Completed
+				- UnCheck Toggle all Todo Checkbox: auto set all Todo item status to Active
+		Feature: Delete 1 Todo Item
+			Scenario: 
+				- Delete last Todo Item
+				- Delete first Todo Item
+				- Delete middle Todo Item
+		Feature: Edit Todo content
+			Scenario:
+				- Double click on todo item and insert a long text then press enter
+				- Double click on todo item and insert text then click outside the item
+				- Double click on todo item and delete all text then press enter, then double click again for edit content
+		
