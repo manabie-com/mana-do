@@ -64,6 +64,16 @@ function reducer(state: AppState, action: Action<any>): AppState {
                 ...state,
                 todos: []
             }
+        case ActionTypes.EDIT_TODO:
+            findedIndex = state.todos.findIndex((todo) => todo.id === action.payload.todoId);
+            todos = [...state.todos];
+            if (findedIndex !== -1) {
+                todos[findedIndex].content = action.payload.content
+            }
+            return {
+                ...state,
+                todos
+            }
         default:
             return state;
     }

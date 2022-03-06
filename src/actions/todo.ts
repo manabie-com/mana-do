@@ -47,3 +47,13 @@ export function toggleAllTodos(checked: boolean): Action<boolean> {
         payload: checked
     }
 }
+
+export function editTodo(todoId: string, content: string): Action<{ todoId: string, content: string }> {
+    return {
+        type: ActionTypes.EDIT_TODO,
+        payload: {
+            todoId,
+            content
+        }
+    }
+}

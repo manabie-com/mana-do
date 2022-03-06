@@ -5,6 +5,7 @@ const Actions: Array<string> = [
     'DELETE_ALL_TODOS',
     'TOGGLE_ALL_TODOS',
     'UPDATE_TODO_STATUS',
+    'EDIT_TODO'
 ]
 
 const convertArrayToMirrorObject = (array: Array<string>) => {
