@@ -1,0 +1,49 @@
+.Todo {
+    &__toolbar {
+        display: flex;
+        justify-content: space-between;
+        border-top: 1px solid #ededed;
+        padding: 10px 0;
+        height: 60px;
+        position: relative;
+
+        > input[type="checkbox"], .__clear-all {
+            position: relative;
+            z-index: 2;
+        }
+
+        &__tabs {
+            display: flex;
+            justify-content: center;
+            position: absolute;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            top: 50%;
+            width: 100%;
+            z-index: 1;
+
+            > *:not(:last-child) {
+                margin-right: 8px;
+            }
+        }
+
+        .Action__btn {
+            &.__active,
+            &:hover {
+                background: $accentColor;
+                color: white;
+                opacity: 1;
+            }
+
+            &.__clear-all {
+                background: transparent;
+                color: black;
+
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
+        }
+    }
+}
+

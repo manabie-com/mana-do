@@ -9,7 +9,8 @@ import {
     updateTodoStatus
 } from './store/actions';
 import Service from './service';
-import {TodoStatus} from './models/todo';
+import {Todo, TodoStatus} from './models/todo';
+import {isTodoCompleted} from "./utils";
 
 type EnhanceTodoStatus = TodoStatus | 'ALL';
 
@@ -17,25 +18,36 @@ type EnhanceTodoStatus = TodoStatus | 'ALL';
 const ToDoPage = () => {
     const [{todos}, dispatch] = useReducer(reducer, initialState);
     const [showing, setShowing] = useState<EnhanceTodoStatus>('ALL');
-    const inputRef = useRef<any>(null);
+    const [editing, setEditing] = useState({id: '', text: ''});
+    const createTodoRef = useRef<any>(null);
+    const editTodoRef = useRef<any>(null);
 
-    useEffect(()=>{
-        (async ()=>{
+    useEffect(() => {
+        (async () => {
             const resp = await Service.getTodos();
-
             dispatch(setTodos(resp || []));
         })()
     }, [])
 
     const onCreateTodo = async (e: React.KeyboardEvent<HTMLInputElement>) => {
-        if (e.key === 'Enter' ) {
-            const resp = await Service.createTodo(inputRef.current.value);
+        const node = createTodoRef?.current
+        if (e.key === 'Enter' && node.value.length) {
+            const resp = await Service.createTodo(node.value);
+            console.log(resp)
             dispatch(createTodo(resp));
+            node.value = "";
         }
     }
 
-    const onUpdateTodoStatus = (e: React.ChangeEvent<HTMLInputElement>, todoId: any) => {
+    const onUpdateTodoStatus = (e: React.ChangeEvent<HTMLInputElement>, todoId: string) => {
         dispatch(updateTodoStatus(todoId, e.target.checked))
+    }
+    const onUpdateTodoContent = (todo: Todo) => {
+        if (isTodoCompleted(todo)) return;
+        setEditing({
+            id: todo.id,
+            text: todo.content
+        })
     }
 
     const onToggleAllTodo = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -44,62 +56,93 @@ const ToDoPage = () => {
 
     const onDeleteAllTodo = () => {
         dispatch(deleteAllTodos());
+        setShowing('ALL');
+    }
+    const onActionToolBar = (status: EnhanceTodoStatus) => {
+        setShowing(status);
     }
 
+    const todosFilter = todos.filter((todo) => {
+        switch (showing) {
+            case TodoStatus.ACTIVE:
+                return todo.status === TodoStatus.ACTIVE;
+            case TodoStatus.COMPLETED:
+                return todo.status === TodoStatus.COMPLETED;
+            default:
+                return true;
+        }
+    });
+
+    const numberTodoByStatus = (status: EnhanceTodoStatus) => status === 'ALL' ? todos.length : todos.filter(todo => todo.status === status).length;
+    const actionToolBarClass = (status: EnhanceTodoStatus) => status === showing ? ['Action__btn', '__active'].join(' ') : ['Action__btn'].join(' ');
+    const allTodosCompleted = todos.reduce((totalTodoCompleted, todo) => isTodoCompleted(todo) ? totalTodoCompleted : totalTodoCompleted + 1, 0) === 0;
 
     return (
-        <div className="ToDo__container">
+        <div className="Todo__container">
+            <h1>todos</h1>
             <div className="Todo__creation">
                 <input
-                    ref={inputRef}
-                    className="Todo__input"
+                    ref={createTodoRef}
+                    className="Todo__creation__input"
                     placeholder="What need to be done?"
                     onKeyDown={onCreateTodo}
                 />
             </div>
-            <div className="ToDo__list">
+            <div className="Todo__list">
                 {
-                    todos.map((todo, index) => {
+                    todosFilter.map((todo, index) => {
+                        const editable = editing?.id && editing?.id === todo.id;
+                        const todoItemClassName = ['Todo__item', isTodoCompleted(todo) ? '__complete' : '', editable ? '__editing' : ''].join(' ');
                         return (
-                            <div key={index} className="ToDo__item">
-                                <input
+                            <div key={todo.id} className={todoItemClassName}>
+                                {!editable && <input
+                                    className="Todo__item__toggle"
                                     type="checkbox"
-                                    checked={showing === todo.status}
-                                    onChange={(e) => onUpdateTodoStatus(e, index)}
-                                />
-                                <span>{todo.content}</span>
-                                <button
-                                    className="Todo__delete"
-                                >
-                                    X
-                                </button>
+                                    checked={isTodoCompleted(todo)}
+                                    onChange={e => onUpdateTodoStatus(e, todo.id)}
+                                />}
+                                <div className="Todo__item__content">
+                                    <div className="__text" onDoubleClick={() => onUpdateTodoContent(todo)}>{todo.content}</div>
+                                </div>
+                                {!editable && <button title="Delete" className="Todo__item__delete" onClick={() => {
+                                    console.log('Remove')
+                                }}>×</button>}
+                                {editable && <input
+                                    ref={editTodoRef}
+                                    className="__input_edit"
+                                    type="text"
+                                    autoFocus
+                                    defaultValue={editing?.text}
+                                    onChange={(e) => {
+                                        setEditing({id: todo.id, text: e.target.value})
+                                        console.log(editing)
+                                    }}
+                                    onBlur={e => {
+                                        console.log('onBlur', e, index)
+                                        setEditing({id: '', text: ''})
+                                    }}
+                                    onKeyDown={e => {
+                                        console.log('onKeyDown', e, index)
+                                    }}
+                                />}
                             </div>
                         );
                     })
                 }
+                {todos.length > 0 && !(todosFilter.length > 0) &&
+                <div className="__no-todos">{"no " + (showing === TodoStatus.ACTIVE ? 'active' : 'completed') + " todos..."}</div>}
             </div>
+            {todos.length > 0 &&
             <div className="Todo__toolbar">
-                {todos.length > 0 ?
-                    <input
-                        type="checkbox"
-                        onChange={onToggleAllTodo}
-                    /> : <div/>
-                }
-                <div className="Todo__tabs">
-                    <button className="Action__btn">
-                        All
-                    </button>
-                    <button className="Action__btn" onClick={()=>setShowing(TodoStatus.ACTIVE)}>
-                        Active
-                    </button>
-                    <button className="Action__btn" onClick={()=>setShowing(TodoStatus.COMPLETED)}>
-                        Completed
-                    </button>
+                <input type="checkbox" checked={allTodosCompleted} onChange={onToggleAllTodo} />
+                <div className="Todo__toolbar__tabs">
+                    <button className={actionToolBarClass('ALL')} onClick={() => onActionToolBar('ALL')}>All ({numberTodoByStatus('ALL')})</button>
+                    <button className={actionToolBarClass(TodoStatus.ACTIVE)} onClick={() => onActionToolBar(TodoStatus.ACTIVE)}>Active ({numberTodoByStatus(TodoStatus.ACTIVE)})</button>
+                    <button className={actionToolBarClass(TodoStatus.COMPLETED)} onClick={() => onActionToolBar(TodoStatus.COMPLETED)}>Completed ({numberTodoByStatus(TodoStatus.COMPLETED)})</button>
                 </div>
-                <button className="Action__btn" onClick={onDeleteAllTodo}>
-                    Clear all todos
-                </button>
+                <button className="Action__btn __clear-all" onClick={onDeleteAllTodo}>Clear all todos</button>
             </div>
+            }
         </div>
     );
 };

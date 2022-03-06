@@ -1,0 +1,24 @@
+.App {
+    background: #fff;
+    margin: 130px 15px 20px;
+    position: relative;
+    box-shadow: 0 2px 4px 0 rgb(0 0 0 / 20%), 0 25px 50px 0 rgb(0 0 0 / 10%);
+
+    .Todo__container {
+        > h1 {
+            font-size: 80px;
+            position: absolute;
+            top: -120px;
+            margin: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            font-weight: 200;
+            opacity: .7;
+            color: $accentColor;
+        }
+    }
+}
+
+@import "todo-creation";
+@import "todo-list";
+@import "todo-toolbar";
