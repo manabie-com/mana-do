@@ -6,15 +6,17 @@ import {
     createTodo,
     toggleAllTodos,
     deleteAllTodos,
-    updateTodoStatus
+    updateTodoStatus, deleteTodo, updateTodoContent
 } from './store/actions';
 import Service from './service';
 import {Todo, TodoStatus} from './models/todo';
-import {isTodoCompleted} from "./utils";
+import {isTodoCompleted, localStore} from "./utils";
 
 type EnhanceTodoStatus = TodoStatus | 'ALL';
 
-
+const LOCALSTORAGE_NAMESPACE = "todos";
+const loadTodos = localStore(LOCALSTORAGE_NAMESPACE);
+console.log(loadTodos)
 const ToDoPage = () => {
     const [{todos}, dispatch] = useReducer(reducer, initialState);
     const [showing, setShowing] = useState<EnhanceTodoStatus>('ALL');
@@ -24,10 +26,17 @@ const ToDoPage = () => {
 
     useEffect(() => {
         (async () => {
-            const resp = await Service.getTodos();
+            // const resp = await Service.getTodos();
+            const resp = await localStore(LOCALSTORAGE_NAMESPACE);
+            console.log(resp)
             dispatch(setTodos(resp || []));
         })()
     }, [])
+
+    useEffect(() => {
+        localStore(LOCALSTORAGE_NAMESPACE, todos)
+        console.log(todos)
+    }, [todos])
 
     const onCreateTodo = async (e: React.KeyboardEvent<HTMLInputElement>) => {
         const node = createTodoRef?.current
@@ -42,12 +51,27 @@ const ToDoPage = () => {
     const onUpdateTodoStatus = (e: React.ChangeEvent<HTMLInputElement>, todoId: string) => {
         dispatch(updateTodoStatus(todoId, e.target.checked))
     }
-    const onUpdateTodoContent = (todo: Todo) => {
+
+    const onDeleteTodo = (todoId: string) => {
+        dispatch(deleteTodo(todoId))
+    }
+
+    const onToggleEditTodo = (todo: Todo) => {
         if (isTodoCompleted(todo)) return;
         setEditing({
             id: todo.id,
             text: todo.content
         })
+    }
+
+    const onUpdateTodoContentWhenEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key !== 'Enter') return;
+        dispatch(updateTodoContent(editing.id, editing.text))
+        setEditing({id: '', text: ''})
+    }
+    const onUpdateTodoContentWhenBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+        dispatch(updateTodoContent(editing.id, editing.text))
+        setEditing({id: '', text: ''})
     }
 
     const onToggleAllTodo = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -102,28 +126,19 @@ const ToDoPage = () => {
                                     onChange={e => onUpdateTodoStatus(e, todo.id)}
                                 />}
                                 <div className="Todo__item__content">
-                                    <div className="__text" onDoubleClick={() => onUpdateTodoContent(todo)}>{todo.content}</div>
+                                    <div className="__text" onDoubleClick={() => onToggleEditTodo(todo)}>{todo.content}</div>
                                 </div>
-                                {!editable && <button title="Delete" className="Todo__item__delete" onClick={() => {
-                                    console.log('Remove')
-                                }}>×</button>}
+                                {!editable &&
+                                <button title="Delete" className="Todo__item__delete" onClick={() => onDeleteTodo(todo.id)}>×</button>}
                                 {editable && <input
                                     ref={editTodoRef}
                                     className="__input_edit"
                                     type="text"
                                     autoFocus
                                     defaultValue={editing?.text}
-                                    onChange={(e) => {
-                                        setEditing({id: todo.id, text: e.target.value})
-                                        console.log(editing)
-                                    }}
-                                    onBlur={e => {
-                                        console.log('onBlur', e, index)
-                                        setEditing({id: '', text: ''})
-                                    }}
-                                    onKeyDown={e => {
-                                        console.log('onKeyDown', e, index)
-                                    }}
+                                    onChange={e => setEditing({id: todo.id, text: e.target.value})}
+                                    onBlur={e => onUpdateTodoContentWhenBlur(e)}
+                                    onKeyDown={e => onUpdateTodoContentWhenEnter(e)}
                                 />}
                             </div>
                         );
