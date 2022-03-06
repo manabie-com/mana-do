@@ -52,25 +52,33 @@ const ToDoPage = () => {
         }
     }
 
-    const onDeleteTodo = (id: string) => {
-        dispatch(deleteTodo(id))
+    const onDeleteTodo = async (id: string) => {
+        await Service.deleteTodo(id);
+        dispatch(deleteTodo(id));
     }
 
-    const onUpdateTodoStatus = (e: React.ChangeEvent<HTMLInputElement>, todoId: any) => {
-        dispatch(updateTodoStatus(todoId, e.target.checked))
+    const onUpdateTodoStatus = async (e: React.ChangeEvent<HTMLInputElement>, todoId: any) => {
+        const checked = e.target.checked;
+        await Service.updateTodo(todoId, checked);
+        dispatch(updateTodoStatus(todoId, checked));
     }
 
-    const onToggleAllTodo = (e: React.ChangeEvent<HTMLInputElement>) => {
-        dispatch(toggleAllTodos(e.target.checked))
+    const onToggleAllTodo = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        const checked = e.target.checked;
+        await Service.toggleAllTodo(checked);
+        dispatch(toggleAllTodos(checked));
     }
 
-    const onDeleteAllTodo = () => {
+    const onDeleteAllTodo = async () => {
+        await Service.deleteAllTodo();
         dispatch(deleteAllTodos());
     }
 
-    const onEditTodo = (e: any, todoId: any) => {
+    const onEditTodo = async (e: any, todoId: any) => {
         if (e.key === 'Enter') {
-            dispatch(editTodo(todoId, editInputRef.current.value));
+            const text = editInputRef.current.value;
+            await Service.editTodo(todoId, text);
+            dispatch(editTodo(todoId, text));
             setEditingTodo('');
         }
     }
