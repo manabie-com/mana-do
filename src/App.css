@@ -122,4 +122,6 @@ input:focus {
 }
 
 .Action__btn {
+  background-color: rgb(100, 100, 100);
+  color: white;
 }
