@@ -1,10 +1,9 @@
-import {Todo, TodoStatus} from '../models/todo';
+import { Todo, TodoStatus } from '../models/todo';
 import {
   AppActions,
   CREATE_TODO,
-  DELETE_ALL_TODOS,
   DELETE_TODO,
-  TOGGLE_ALL_TODOS,
+  GET_TODOS,
   UPDATE_TODO_STATUS
 } from './actions';
 
@@ -18,47 +17,50 @@ export const initialState: AppState = {
 
 function reducer(state: AppState, action: AppActions): AppState {
   switch (action.type) {
-    case CREATE_TODO:
-      state.todos.push(action.payload);
+    case CREATE_TODO: {
+      // create a copy of data before adding a new todo item
+      const todos = state.todos.slice();
+      todos.push(action.payload);
+
       return {
-        ...state
+        ...state,
+        todos
       };
+    }
 
-    case UPDATE_TODO_STATUS:
-      const index2 = state.todos.findIndex((todo) => todo.id === action.payload.todoId);
-      state.todos[index2].status = action.payload.checked ? TodoStatus.COMPLETED : TodoStatus.ACTIVE;
-
-      return {
-        ...state,
-        todos: state.todos
-      }
-
-    case TOGGLE_ALL_TODOS:
-      const tempTodos = state.todos.map((e)=>{
-        return {
-          ...e,
-          status: action.payload ? TodoStatus.COMPLETED : TodoStatus.ACTIVE
-        }
-      })
+    case GET_TODOS: {
+      const todos = action.payload;
 
       return {
         ...state,
-        todos: tempTodos
-      }
+        todos
+      };
+    }
 
-    case DELETE_TODO:
-      const index1 = state.todos.findIndex((todo) => todo.id === action.payload);
-      state.todos.splice(index1, 1);
+    case UPDATE_TODO_STATUS: {
+      // create a copy of data before updating a todo item
+      const todos = state.todos.slice();
+      const index = todos.findIndex((todo) => todo.id === action.payload.todoId);
+      todos.splice(index, 1, action.payload.updatedTodo);
 
       return {
         ...state,
-        todos: state.todos
-      }
-    case DELETE_ALL_TODOS:
+        todos
+      };
+    }
+
+    case DELETE_TODO: {
+      // data deletion is not a good practice esp in prod env
+      // filter data by status instead
+      const todos = state.todos.slice()
+        .filter((todo) => todo.id !== action.payload && todo.status !== TodoStatus.DELETED);
+
       return {
         ...state,
-        todos: []
-      }
+        todos
+      };
+    }
+
     default:
       return state;
   }
