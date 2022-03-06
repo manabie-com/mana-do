@@ -121,6 +121,11 @@ input:focus {
   margin-right: 8px;
 }
 
+.Todo__edit {
+  margin-left: 8px;
+  margin-right: 16px;
+}
+
 .Action__btn {
   background-color: rgb(100, 100, 100);
   color: white;

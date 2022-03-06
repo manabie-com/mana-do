@@ -4,7 +4,7 @@ import {
   CREATE_TODO,
   DELETE_TODO,
   GET_TODOS,
-  UPDATE_TODO_STATUS
+  UPDATE_TODO
 } from './actions';
 
 export interface AppState {
@@ -37,7 +37,7 @@ function reducer(state: AppState, action: AppActions): AppState {
       };
     }
 
-    case UPDATE_TODO_STATUS: {
+    case UPDATE_TODO: {
       // create a copy of data before updating a todo item
       const todos = state.todos.slice();
       const index = todos.findIndex((todo) => todo.id === action.payload.todoId);

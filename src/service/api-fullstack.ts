@@ -19,7 +19,7 @@ class ApiFullstack extends IAPI {
     return resp.data.data;
   }
 
-  async setTodo(id: string, status: string): Promise<Todo> {
+  async updateTodo(id: string, type: string, value: string): Promise<Todo> {
     throw new Error('Method not implemented.');
   }
 }

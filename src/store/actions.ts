@@ -3,7 +3,7 @@ import {Todo} from "../models/todo";
 export const GET_TODOS = 'GET_TODOS';
 export const CREATE_TODO = 'CREATE_TODO';
 export const DELETE_TODO = 'DELETE_TODO';
-export const UPDATE_TODO_STATUS = 'UPDATE_TODO_STATUS';
+export const UPDATE_TODO = 'UPDATE_TODO';
 
 
 export interface SetTodoAction {
@@ -33,13 +33,13 @@ export function createTodo(newTodo: Todo): CreateTodoAction {
 
 //////////////
 export interface UpdateTodoStatusAction {
-  type: typeof UPDATE_TODO_STATUS,
+  type: typeof UPDATE_TODO,
   payload: Todo
 }
 
 export function updateTodoStatus(todoId: string, updatedTodo: Todo): UpdateTodoStatusAction {
   return {
-    type: UPDATE_TODO_STATUS,
+    type: UPDATE_TODO,
     payload: {
       todoId,
       updatedTodo

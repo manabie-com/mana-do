@@ -20,7 +20,9 @@ type EnhanceTodoStatus = TodoStatus | 'ALL';
 const ToDoPage = () => {
   const [{ todos }, dispatch] = useReducer(reducer, initialState);
   const [showing, setShowing] = useState<EnhanceTodoStatus>('ALL');
+  const [onEditMode, toggleOnEditMode] = useState('');
   const inputRef = useRef<any>(null);
+  const editRef = useRef<any>(null);
 
   useEffect(() => {
     (async () => {
@@ -33,20 +35,23 @@ const ToDoPage = () => {
   const onCreateTodo = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
       Service.createTodo(inputRef.current.value)
-        .then((response) => dispatch(createTodo(response)))
+        .then((response) => {
+          dispatch(createTodo(response));
+          inputRef.current.value = null;
+        })
         .catch((error) => alert(error));
     }
   }
 
   const onUpdateTodoStatus = (e: React.ChangeEvent<HTMLInputElement>, todoId: string) => {
     const status = e.target.checked ? TodoStatus.COMPLETED : TodoStatus.ACTIVE;
-    Service.setTodo(todoId, status)
+    Service.updateTodo(todoId, 'status', status)
       .then((response) => dispatch(updateTodoStatus(todoId, response)))
       .catch((error) => alert(error));
   }
 
   const onDeleteTodo = (todoId: string) => {
-    Service.setTodo(todoId, TodoStatus.DELETED)
+    Service.updateTodo(todoId, 'status', TodoStatus.DELETED)
       .then((response) => dispatch(deleteTodo(todoId)))
       .catch((error) => alert(error));
   }
@@ -61,6 +66,19 @@ const ToDoPage = () => {
     todos.forEach((todo) => {
       onDeleteTodo(todo.id);
     });
+  }
+
+  const onEditTodo = (e: React.KeyboardEvent<HTMLInputElement>, todoId: string) => {
+    if (e.key === 'Enter') {
+      Service.updateTodo(todoId, 'content', editRef.current.value)
+      .then((response) => {
+        dispatch(updateTodoStatus(todoId, response));
+        editRef.current.value = null;
+
+        toggleOnEditMode('');
+      })
+      .catch((error) => alert(error));
+    }
   }
 
   return (
@@ -90,7 +108,19 @@ const ToDoPage = () => {
                 onChange={(e) => onUpdateTodoStatus(e, todo.id)}
               />
 
-              <span>{todo.content}</span>
+              {onEditMode && onEditMode === todo.id ? (
+                <input
+                  ref={editRef}
+                  className="Todo__input Todo__edit"
+                  placeholder={todo.content}
+                  onKeyDown={(e) => onEditTodo(e, todo.id)}
+                  onBlur={() => toggleOnEditMode('')}
+                />
+              ) : (
+                <span onDoubleClick={() => toggleOnEditMode(todo.id)}>
+                  {todo.content}
+                </span>
+              )}
 
               <button
                 className="Todo__delete"

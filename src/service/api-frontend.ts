@@ -58,14 +58,14 @@ class ApiFrontend extends IAPI {
     }
   }
 
-  async setTodo(id: string, status: string): Promise<Todo> {
+  async updateTodo(id: string, type: string, value: string): Promise<Todo> {
     try {
       // get item from localStorage
       const item = localStorage.getItem(id);
       const todo = item && JSON.parse(item);
 
-      // set status
-      todo.status = status;
+      // update todo item by given type
+      todo[type] = value;
       localStorage.setItem(id, JSON.stringify(todo));
 
       return Promise.resolve(todo as Todo);
