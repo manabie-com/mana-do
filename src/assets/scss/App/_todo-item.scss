@@ -1,0 +1,90 @@
+
+.Todo {
+    &__item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        position: relative;
+        border-bottom: 1px solid #ededed;
+        background: transparent;
+        transition: .3s;
+        font-size: 20px;
+
+        &__toggle {
+            flex: 0 0 40px;
+        }
+
+        &__content {
+            flex: 1 1;
+
+            > .__text {
+                padding: 15px 50px 15px 20px;
+                word-break: break-word;
+            }
+        }
+
+        &__delete {
+            outline: none;
+            border: none;
+            width: 32px;
+            height: 32px;
+            min-width: auto;
+            min-height: auto;
+            box-shadow: none;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            font-size: 24px;
+            font-weight: 300;
+            color: #d67272;
+            background: #ebebeb;
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 2;
+            opacity: 0;
+            visibility: hidden;
+            transition: .3s;
+
+            &:hover {
+                background: #d67272;
+                color: $bgColor;
+            }
+        }
+
+        &.__complete {
+            text-decoration: line-through;
+            color: #bebebe;
+        }
+
+        > .__input_edit {
+            border: 1px solid $accentColor;
+            box-shadow: inset 0 -1px 5px 0 rgb(0 0 0 / 20%);
+        }
+
+        &.__editing {
+            > .__input_edit {
+            }
+
+            .Todo__item__content {
+                > .__text {
+                    display: none;
+                }
+
+            }
+        }
+
+        &:hover {
+            background: rgba(245, 245, 245, 0.4);
+
+            .Todo__item__delete {
+                opacity: 1;
+                visibility: visible;
+            }
+        }
+    }
+}
+

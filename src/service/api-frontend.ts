@@ -1,6 +1,7 @@
-import { IAPI } from "./types";
-import { Todo, TodoStatus } from "../models/todo";
+import {IAPI} from "./types";
+import {Todo, TodoStatus} from "../models/todo";
 import shortid from "shortid";
+import {localStoreData} from "../utils";
 
 class ApiFrontend extends IAPI {
     async createTodo(content: string): Promise<Todo> {
@@ -14,15 +15,11 @@ class ApiFrontend extends IAPI {
     }
 
     async getTodos(): Promise<Todo[]> {
-        return [
-            {
-                content: "Content",
-                created_date: new Date().toISOString(),
-                status: TodoStatus.ACTIVE,
-                id: shortid(),
-                user_id: "firstUser",
-            } as Todo,
-        ];
+        return localStoreData()
+    }
+
+    async updateTodos(todos: Array<Todo>): Promise<any> {
+        return localStoreData(todos)
     }
 }
 
