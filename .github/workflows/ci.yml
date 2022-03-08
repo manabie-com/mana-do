@@ -25,10 +25,10 @@ jobs:
           script: |
             whoami
             cd /home/
-            git clone https://github.com/trongcong/mana-do.git todos
+            #git clone https://github.com/trongcong/mana-do.git todos #should only clone once
             cd todos
             git checkout development
             git pull
-            printf "SKIP_PREFLIGHT_CHECK=true" > .env
+            #printf "SKIP_PREFLIGHT_CHECK=true" > .env
             yarn install
             yarn build

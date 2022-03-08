@@ -33,8 +33,12 @@ function reducer(state: AppState, action: AppActions): AppState {
       };
 
     case UPDATE_TODO_STATUS:
-      const index2 = state.todos.findIndex((todo) => todo.id === action.payload.todoId);
-      state.todos[index2].status = action.payload.checked ? TodoStatus.COMPLETED : TodoStatus.ACTIVE;
+      const indexTodoStatus = state.todos.findIndex((todo) => todo.id === action.payload.todoId);
+      const tempTodosUpdateStatus = [...state.todos];
+
+      if (indexTodoStatus >= 0) {
+        tempTodosUpdateStatus[indexTodoStatus].status = action.payload.checked ? TodoStatus.COMPLETED : TodoStatus.ACTIVE
+      }
 
       return {
         ...state,
@@ -42,12 +46,16 @@ function reducer(state: AppState, action: AppActions): AppState {
       }
 
     case UPDATE_TODO_CONTENT:
-      const index3 = state.todos.findIndex((todo) => todo.id === action.payload.todoId);
-      state.todos[index3].content = action.payload.content;
+      const indexTodoContent = state.todos.findIndex((todo) => todo.id === action.payload.todoId);
+      const tempTodosUpdateContent = [...state.todos];
+
+      if (indexTodoContent >= 0) {
+        tempTodosUpdateContent[indexTodoContent].content = action.payload.content
+      }
 
       return {
           ...state,
-          todos: [...state.todos]
+          todos: tempTodosUpdateContent
       }
 
     case TOGGLE_ALL_TODOS:

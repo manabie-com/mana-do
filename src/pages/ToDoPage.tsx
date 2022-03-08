@@ -16,7 +16,6 @@ const ToDoPage = () => {
     useEffect(() => {
         (async () => {
             const resp = await Service.getTodos();
-            console.log(resp)
             dispatch(setTodos(resp || []));
         })()
     }, [])
@@ -24,7 +23,6 @@ const ToDoPage = () => {
     useEffect(() => {
         (async () => {
             await Service.updateTodos(todos);
-            console.log(todos)
         })()
     }, [todos])
 

@@ -38,8 +38,7 @@ const TodoItem: React.FC<ToolBarProps> = ({dispatch, todo}) => {
         dispatch(updateTodoContent(editing.id, editing.text))
         setEditing({id: '', text: ''})
     }
-    const onUpdateTodoContentWhenBlur = (e: React.FocusEvent<HTMLInputElement>) => {
-        dispatch(updateTodoContent(editing.id, editing.text))
+    const onDiscardEditTodo = (e: React.FocusEvent<HTMLInputElement>) => {
         setEditing({id: '', text: ''})
     }
 
@@ -65,7 +64,7 @@ const TodoItem: React.FC<ToolBarProps> = ({dispatch, todo}) => {
                 autoFocus
                 defaultValue={editing?.text}
                 onChange={e => setEditing({id: todo.id, text: e.target.value})}
-                onBlur={e => onUpdateTodoContentWhenBlur(e)}
+                onBlur={e => onDiscardEditTodo(e)}
                 onKeyDown={e => onUpdateTodoContentWhenEnter(e)}
             />}
         </div>

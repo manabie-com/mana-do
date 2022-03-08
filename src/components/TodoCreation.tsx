@@ -13,7 +13,6 @@ const TodoCreation: React.FC<TodoCreationProps> = ({dispatch}) => {
         const node = createTodoRef?.current
         if (e.key === 'Enter' && node.value.length) {
             const resp = await Service.createTodo(node.value);
-            console.log(resp)
             dispatch(createTodo(resp));
             node.value = "";
         }
