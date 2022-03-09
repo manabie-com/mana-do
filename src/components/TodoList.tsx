@@ -1,12 +1,17 @@
 import React, { useContext } from "react";
-import { updateTodoStatus } from "../store/actions";
+import { updateTodoContent, updateTodoStatus } from "../store/actions";
 import { TodoContext } from "../store/context";
+import { EditableContent } from "./EditableContent";
 
 export function TodoList() {
     const { state, dispatch } = useContext(TodoContext);
 
     const onUpdateTodoStatus = (e: React.ChangeEvent<HTMLInputElement>, todoId: any) => {
         dispatch(updateTodoStatus(todoId, e.target.checked))
+    }
+
+    const onUpdateTodoContent = (content: string, todoId: any) => {
+        dispatch(updateTodoContent(todoId, content))
     }
 
     return (
@@ -22,7 +27,7 @@ export function TodoList() {
                                 checked={status === "COMPLETED"}
                                 onChange={(event) => onUpdateTodoStatus(event, id)}
                             />
-                            <span>{content}</span>
+                            <EditableContent content={content} onChange={(content) => onUpdateTodoContent(content, id)} />
                             <button className="Todo__delete">X</button>
                         </div>
                     );
