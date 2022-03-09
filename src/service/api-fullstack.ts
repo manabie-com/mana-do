@@ -17,6 +17,10 @@ class ApiFullstack extends IAPI {
 
         return resp.data.data;
     }
+
+    async persistTodos(todos: Todo[]): Promise<void> {
+        return;
+    }
 }
 
 
