@@ -107,9 +107,9 @@ const SignInPage = () => {
           <p>
             <a
               style={{ color: 'tomato' }}
-              href="https://nhatcapdang.netlify.app"
+              href="https://nhatcapdan.netlify.app"
             >
-              Go to my website
+              nhatcapdan.netlify.app
             </a>{' '}
             <a href="https://nhatcapdang.netlify.app">
               nhatcapdang.netlify.app/login
