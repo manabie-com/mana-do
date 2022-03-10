@@ -24,7 +24,8 @@ export function EditableContent({ content, onChange }: EditableContentProps) {
 
     return (
         editing ?
-            <input className="Todo__input" // className should be dynamic so this component is reusable
+            <input className="Todo__input" // className should be dynamic so this component is completely reusable
+                type="text"
                 value={value}
                 onChange={(event) => setValue(event.target.value)}
                 onKeyUp={onChangeHandler}
