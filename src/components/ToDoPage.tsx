@@ -41,6 +41,6 @@ const ToDoPage = () => {
             </div>
         </TodoContext.Provider>
     );
-};
+}
 
 export default ToDoPage;

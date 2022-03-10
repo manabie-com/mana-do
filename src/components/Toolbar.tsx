@@ -4,7 +4,6 @@ import { TodoStatus } from "../models/todo";
 import { deleteAllTodos, toggleAllTodos } from "../store/actions";
 import { TodoContext } from "../store/context";
 
-
 export function ToolBar() {
     const { state, dispatch } = useContext(TodoContext);
     const [showing, setShowing] = useState<EnhanceTodoStatus>(ExtendedTodoFilter.ALL);

@@ -17,6 +17,7 @@ export function TodoList() {
     return (
         <div className="ToDo__list">
             {
+                state?.todos.length ?
                 state.todos.map(({ content, id, status }) => {
                     return (
                         // use id instead of index
@@ -31,7 +32,8 @@ export function TodoList() {
                             <button className="Todo__delete">X</button>
                         </div>
                     );
-                })
+                }) :
+                <span>Enjoy your day!</span>
             }
         </div>
     );
