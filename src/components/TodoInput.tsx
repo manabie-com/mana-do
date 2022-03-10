@@ -16,7 +16,7 @@ export function TodoInput() {
                 // e.currentTarget.value = '';
             } catch (error) {
                 // should notify user
-                console.error(error);
+                // console.error(error);
             }
         }
     }

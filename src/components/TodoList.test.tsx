@@ -1,4 +1,3 @@
-import '@testing-library/jest-dom';
 import React, { ReactElement } from 'react';
 import { render, screen } from '@testing-library/react'
 import { TodoContext } from "../store/context"

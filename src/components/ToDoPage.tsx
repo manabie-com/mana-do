@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer } from 'react';
+import React, { useEffect, useReducer, useRef, useState } from 'react';
 
 import reducer, { initialState } from '../store/reducer';
 import {
@@ -13,6 +13,7 @@ import { Todo } from '../models/todo';
 
 const ToDoPage = () => {
     const [state, dispatch] = useReducer(reducer, initialState);
+    const didMountRef = useRef(false);
 
     useEffect(() => {
         // Don't need to use IIFE here
@@ -21,14 +22,18 @@ const ToDoPage = () => {
             dispatch(setTodos(todos));
         }).catch(error => {
             // should notify user
-            console.error(error);
+            // console.error(error);
             dispatch(setTodos([]));
         });
     }, [])
 
     useEffect(() => {
         // should prevent the first call, due to the value always is empty
-        Service.persistTodos(state.todos);
+        if (didMountRef.current) {
+            Service.persistTodos(state.todos);
+        } else {
+            didMountRef.current = true;
+        }
     }, [state])
 
     return (
