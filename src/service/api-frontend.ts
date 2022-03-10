@@ -1,5 +1,5 @@
 import { IAPI } from "./types";
-import { Todo, TodoStatus } from "../models/todo";
+import { Todo, TodoStatus, EnhanceTodoStatus } from "../models/todo";
 import shortid from "shortid";
 
 class ApiFrontend extends IAPI {
@@ -13,7 +13,7 @@ class ApiFrontend extends IAPI {
         } as Todo);
     }
 
-    async getTodos(): Promise<Todo[]> {
+    async getTodos(status?: EnhanceTodoStatus): Promise<Todo[]> {
         return [
             {
                 content: "Content",
@@ -24,6 +24,14 @@ class ApiFrontend extends IAPI {
             } as Todo,
         ];
     }
+
+    async updateTodoStatus(id: string, status: string): Promise<void> {}
+
+    async updateManyTodoStatus(ids: string[], status: string): Promise<void> {}
+
+    async deleteTodo(id: string) : Promise<void> {}
+
+    async deleteAllTodos(): Promise<void> {}
 }
 
 export default new ApiFrontend();

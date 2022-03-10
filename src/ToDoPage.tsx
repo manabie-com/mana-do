@@ -1,22 +1,19 @@
-import React, {useEffect, useReducer, useRef, useState} from 'react';
+import React, {useEffect, useReducer, useRef} from 'react';
 
 import reducer, {initialState} from './store/reducer';
 import {
     setTodos,
     createTodo,
     toggleAllTodos,
+    deleteTodo,
     deleteAllTodos,
     updateTodoStatus
 } from './store/actions';
 import Service from './service';
-import {TodoStatus} from './models/todo';
-
-type EnhanceTodoStatus = TodoStatus | 'ALL';
-
+import { TodoStatus, EnhanceTodoStatus } from './models/todo';
 
 const ToDoPage = () => {
     const [{todos}, dispatch] = useReducer(reducer, initialState);
-    const [showing, setShowing] = useState<EnhanceTodoStatus>('ALL');
     const inputRef = useRef<any>(null);
 
     useEffect(()=>{
@@ -27,6 +24,11 @@ const ToDoPage = () => {
         })()
     }, [])
 
+    const onFilterTodo = async (status: EnhanceTodoStatus) => {
+        const resp = await Service.getTodos(status);
+        dispatch(setTodos(resp || []));
+    }
+
     const onCreateTodo = async (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter' ) {
             const resp = await Service.createTodo(inputRef.current.value);
@@ -34,16 +36,27 @@ const ToDoPage = () => {
         }
     }
 
-    const onUpdateTodoStatus = (e: React.ChangeEvent<HTMLInputElement>, todoId: any) => {
-        dispatch(updateTodoStatus(todoId, e.target.checked))
+    const onUpdateTodoStatus = async (todoStatus: TodoStatus, todoId: any) => {
+        const status = todoStatus === TodoStatus.ACTIVE ? TodoStatus.COMPLETED : TodoStatus.ACTIVE;
+        dispatch(updateTodoStatus(todoId, status));
+        await Service.updateTodoStatus(todoId, status);
     }
 
-    const onToggleAllTodo = (e: React.ChangeEvent<HTMLInputElement>) => {
-        dispatch(toggleAllTodos(e.target.checked))
+    const onToggleAllTodo = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        e.persist();
+        const status = e.target.checked ? TodoStatus.COMPLETED : TodoStatus.ACTIVE;
+        dispatch(toggleAllTodos(status));
+        await Service.updateManyTodoStatus(todos.map(({ id }) => id), status);
     }
 
-    const onDeleteAllTodo = () => {
+    const onDeleteTodo = async (id: string) => {
+        dispatch(deleteTodo(id));
+        await Service.deleteTodo(id);
+    }
+
+    const onDeleteAllTodo = async () => {
         dispatch(deleteAllTodos());
+        await Service.deleteAllTodos();
     }
 
 
@@ -64,12 +77,13 @@ const ToDoPage = () => {
                             <div key={index} className="ToDo__item">
                                 <input
                                     type="checkbox"
-                                    checked={showing === todo.status}
-                                    onChange={(e) => onUpdateTodoStatus(e, index)}
+                                    checked={todo.status === TodoStatus.COMPLETED}
+                                    onChange={(e) => onUpdateTodoStatus(todo.status, todo.id)}
                                 />
                                 <span>{todo.content}</span>
                                 <button
                                     className="Todo__delete"
+                                    onClick={() => onDeleteTodo(todo.id)}
                                 >
                                     X
                                 </button>
@@ -86,13 +100,13 @@ const ToDoPage = () => {
                     /> : <div/>
                 }
                 <div className="Todo__tabs">
-                    <button className="Action__btn">
+                    <button className="Action__btn" onClick={() => onFilterTodo('ALL')}>
                         All
                     </button>
-                    <button className="Action__btn" onClick={()=>setShowing(TodoStatus.ACTIVE)}>
+                    <button className="Action__btn" onClick={() => onFilterTodo(TodoStatus.ACTIVE)}>
                         Active
                     </button>
-                    <button className="Action__btn" onClick={()=>setShowing(TodoStatus.COMPLETED)}>
+                    <button className="Action__btn" onClick={() => onFilterTodo(TodoStatus.COMPLETED)}>
                         Completed
                     </button>
                 </div>
