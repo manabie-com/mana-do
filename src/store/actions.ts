@@ -8,7 +8,6 @@ export const TOGGLE_ALL_TODOS = 'TOGGLE_ALL_TODOS';
 export const UPDATE_TODO_STATUS = 'UPDATE_TODO_STATUS';
 export const UPDATE_TODO_CONTENT = 'UPDATE_TODO_CONTENT';
 
-
 export interface SetTodoAction {
     type: typeof SET_TODO,
     payload: Array<Todo>

@@ -32,15 +32,20 @@ function reducer(state: AppState, action: AppActions): AppState {
             };
         case UPDATE_TODO_STATUS:
             const index2 = state.todos.findIndex((todo) => todo.id === action.payload.todoId);
-            state.todos[index2].status = action.payload.checked ? TodoStatus.COMPLETED : TodoStatus.ACTIVE;
+            // check index before updating
+            if (index2 !== -1) {
+                state.todos[index2].status = action.payload.checked ? TodoStatus.COMPLETED : TodoStatus.ACTIVE;
+            }
 
             return {
                 ...state,
                 todos: state.todos
             }
-        case UPDATE_TODO_CONTENT :
+        case UPDATE_TODO_CONTENT:
             const index3 = state.todos.findIndex((todo) => todo.id === action.payload.todoId);
-            state.todos[index3].content = action.payload.content;
+            if (index3 !== -1) {
+                state.todos[index3].content = action.payload.content;
+            }
 
             return {
                 ...state,
@@ -59,8 +64,9 @@ function reducer(state: AppState, action: AppActions): AppState {
             }
         case DELETE_TODO:
             const index1 = state.todos.findIndex((todo) => todo.id === action.payload);
-            state.todos.splice(index1, 1);
-
+            if (index1 !== -1) {
+                state.todos.splice(index1, 1);
+            }
             return {
                 ...state,
                 todos: state.todos

@@ -37,7 +37,7 @@ const ToDoPage = () => {
     }, [state])
 
     return (
-        // using context to pass state and dispatch
+        // using context for passing state and dispatch down to components
         <TodoContext.Provider value={{ state, dispatch }}>
             <div className="ToDo__container">
                 <TodoInput />

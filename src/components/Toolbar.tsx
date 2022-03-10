@@ -18,7 +18,7 @@ export function ToolBar() {
     
     return (
         <div className="Todo__toolbar">
-            {state.todos.length > 0 && // use ternary operator instead of conditional
+            {state.todos.length > 0 && // use Logical AND instead of conditional (ternary) operator
                 <input
                     type="checkbox"
                     onChange={onToggleAllTodo}
