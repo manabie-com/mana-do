@@ -1,4 +1,4 @@
-import {Todo} from "../models/todo";
+import {Todo, TodoStatus} from "../models/todo";
 
 export const SET_TODO = 'SET_TODO';
 export const CREATE_TODO = 'CREATE_TODO';
@@ -38,16 +38,16 @@ export interface UpdateTodoStatusAction {
   type: typeof UPDATE_TODO_STATUS,
   payload: {
     todoId: string,
-    checked: boolean
+    status: TodoStatus
   }
 }
 
-export function updateTodoStatus(todoId: string, checked: boolean): UpdateTodoStatusAction {
+export function updateTodoStatus(todoId: string, status: TodoStatus): UpdateTodoStatusAction {
   return {
     type: UPDATE_TODO_STATUS,
     payload: {
       todoId,
-      checked
+      status
     }
   }
 }
@@ -79,13 +79,13 @@ export function deleteAllTodos(): DeleteAllTodosAction {
 ///////////
 export interface ToggleAllTodosAction {
   type: typeof TOGGLE_ALL_TODOS,
-  payload: boolean
+  payload: TodoStatus
 }
 
-export function toggleAllTodos(checked: boolean): ToggleAllTodosAction {
+export function toggleAllTodos(status: TodoStatus): ToggleAllTodosAction {
   return {
     type: TOGGLE_ALL_TODOS,
-    payload: checked
+    payload: status
   }
 }
 
