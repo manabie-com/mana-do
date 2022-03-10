@@ -36,7 +36,7 @@ export function ToolBar() {
                 </button>
             </div>
             <button className="Action__btn" onClick={onDeleteAllTodo}>
-                Clear all todos
+                Clear all
             </button>
         </div>
     );
