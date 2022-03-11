@@ -8,7 +8,7 @@ class ApiFrontend extends IAPI {
             content: content,
             created_date: new Date().toISOString(),
             status: TodoStatus.ACTIVE,
-            id: shortid(),
+            id: shortid.generate(),
             user_id: "firstUser",
         } as Todo);
     }
@@ -24,6 +24,43 @@ class ApiFrontend extends IAPI {
             } as Todo,
         ];
     }
+
+    async updateTodoStatus(todoId: any, checked: boolean): Promise<Todo> {
+        return [
+            {
+                content: "Content",
+                created_date: new Date().toISOString(),
+                status: checked === true ? TodoStatus.COMPLETED : TodoStatus.ACTIVE,
+                id: todoId,
+                user_id: "firstUser",
+            } as Todo,
+        ];
+    }
+
+    async toggleAllTodos(checked: boolean): Promise<Todo[]> {
+        return [
+            {
+                content: "Content",
+                created_date: new Date().toISOString(),
+                status: checked === true ? TodoStatus.COMPLETED : TodoStatus.ACTIVE,
+                id: shortid(),
+                user_id: "firstUser",
+            } as Todo,
+        ];
+    }
+
+    async deleteTodo(todoId: string): Promise<Todo> {
+        return [
+            {
+                content: "Content",
+                created_date: new Date().toISOString(),
+                status: TodoStatus.ACTIVE,
+                id: todoId,
+                user_id: "firstUser",
+            } as Todo,
+        ];
+    }
+    
 }
 
 export default new ApiFrontend();

@@ -12,6 +12,7 @@ button {
   min-height: 32px;
   min-width: 80px;
   padding: 4px 8px;
+  font-family: cursive;
 }
 
 button:hover {
@@ -47,10 +48,12 @@ input:focus {
 
 .ToDo__container {
   border: 1px solid rgba(0,0,0, 0.13);
-  border-radius: 8px;
+  border-radius: 5px;
   width: 500px;
   margin-top: 5rem;
+  font-family: cursive;
   padding: 24px;
+  background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(234,237,240,1) 0%, rgba(255,255,255,1) 100%);
   box-shadow: 2px 2px 1px rgba(0,0,0, 0.09),
               3px 2px 3px rgba(0,0,0, 0.05);
 }
@@ -61,6 +64,7 @@ input:focus {
 
 .Todo__input {
   flex: 1 1;
+  font-family: cursive;
 }
 
 .ToDo__list {
