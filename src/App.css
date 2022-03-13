@@ -1,7 +1,24 @@
 .App {
   text-align: center;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+}
+.App::after{
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url(https://www.teahub.io/photos/full/17-170718_office-wallpapers-hd-home-classic-3d-desktop-wallpaper.jpg);
+  background-size: cover;
+  background-position: center;
 }
 
 button {
@@ -46,6 +63,8 @@ input:focus {
 }
 
 .ToDo__container {
+  background-color: rgba(255, 255, 255, 0.35);
+  backdrop-filter:blur(10px);
   border: 1px solid rgba(0,0,0, 0.13);
   border-radius: 8px;
   width: 500px;
@@ -53,8 +72,18 @@ input:focus {
   padding: 24px;
   box-shadow: 2px 2px 1px rgba(0,0,0, 0.09),
               3px 2px 3px rgba(0,0,0, 0.05);
+  z-index: 10;
 }
-
+.ToDo_header{
+  margin: 0 0 20px;
+  font-size: 30px;
+}
+.ToDo_header span{
+  font-size: 35px;
+  background: -webkit-linear-gradient(rgb(208, 230, 10), rgb(60, 141, 114));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
 .Todo__creation {
   display: flex;
 }
@@ -73,14 +102,29 @@ input:focus {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  z-index: 100;
+  padding: 0 10px;
+  border: 1px solid #fff;
+  border-radius: 3px;
+  margin: 5px 0;
+}
+.ToDo__item:hover{
+  background-color: rgba(159, 235, 97, 0.2);
+  cursor: pointer;
+  border: 1px solid rgba(69, 153, 125, 0.6);
+  -webkit-box-shadow: 1px -1px 20px -5px rgba(0,0,0,0.7); 
+  box-shadow: 1px -1px 20px -5px rgba(0,0,0,0.7);
 }
 
 .ToDo__item > span {
   flex: 1 1;
   text-align: left;
   margin-left: 8px;
+  color: rgba(95, 8, 235, 0.9)
 }
-
+.ToDo__item > input {
+  cursor: pointer;
+}
 .Todo__content {
   flex: 1 1;
 }
@@ -111,7 +155,10 @@ input:focus {
   justify-content: space-between;
   margin-top: 24px;
 }
-
+.Todo__toolbar input{
+  margin-left: 14px;
+  cursor: pointer;
+}
 .Todo__tabs {
   display: flex;
   justify-content: center;
@@ -122,4 +169,11 @@ input:focus {
 }
 
 .Action__btn {
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 300;
+  font-family: 'Sansita Swashed', sans-serif;
+}
+button.active{
+  background-color: greenyellow;
 }
