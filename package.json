@@ -39,6 +39,7 @@
     ]
   },
   "devDependencies": {
+    "@testing-library/react": "^12.1.4",
     "@types/shortid": "^0.0.29"
   }
 }

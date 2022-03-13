@@ -36,7 +36,7 @@ const ToDoPage = () => {
         }
     }
 
-    const onUpdateTodoStatus = async (todoStatus: TodoStatus, todoId: any) => {
+    const onUpdateTodoStatus = async (todoStatus: TodoStatus, todoId: string) => {
         const status = todoStatus === TodoStatus.ACTIVE ? TodoStatus.COMPLETED : TodoStatus.ACTIVE;
         dispatch(updateTodoStatus(todoId, status));
         await Service.updateTodoStatus(todoId, status);
