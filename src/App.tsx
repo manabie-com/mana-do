@@ -1,14 +1,17 @@
 import React from 'react';
-
-import ToDoPage from './ToDoPage';
-
+import { Provider } from 'react-redux';
+import ToDoPage from './modules/ToDoPage';
+import { store, persistor } from '../src/store';
+import { PersistGate } from 'redux-persist/integration/react';
 import './App.css';
 
 function App() {
   return (
-    <main className="App">
-      <ToDoPage />
-    </main>
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <ToDoPage />
+      </PersistGate>
+    </Provider>
   );
 }
 

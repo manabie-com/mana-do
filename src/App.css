@@ -1,3 +1,7 @@
+*, *::after, *::before {
+  box-sizing: border-box;
+}
+
 .App {
   text-align: center;
   display: flex;
@@ -7,15 +11,26 @@
 button {
   outline: none;
   border: none;
-  box-shadow: 2px 0 2px currentColor;
   border-radius: 4px;
-  min-height: 32px;
   min-width: 80px;
+  min-height: 36px;
   padding: 4px 8px;
+  cursor: pointer;
+  font-weight: bold;
 }
 
-button:hover {
-  opacity: 0.85;
+.btn-default {
+  background-color: rgba(0, 0, 0, 0.12);
+}
+
+.btn-default:hover {
+  background-color: rgb(25, 118, 210);
+  color: white;
+}
+
+.btn-primary {
+  background-color: rgb(25, 118, 210);
+  color: white;
 }
 
 input[type="checkbox"] {
@@ -34,25 +49,21 @@ input[type="checkbox"]:focus {
 
 input {
   min-height: 36px;
-  border: none;
-  outline: none;
-  padding: 0 12px;
-  box-shadow: 2px 0 4px rgba(0,0,0, 0.2);
+  padding: 15px;
   border-radius: 4px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: rgba(0, 0, 0, 0.23);
 }
 
-input:focus {
-  box-shadow: 1px 0 9px rgba(0,0,0, 0.25);
+.Todo__title {
+  text-align: center;
 }
 
 .ToDo__container {
-  border: 1px solid rgba(0,0,0, 0.13);
-  border-radius: 8px;
-  width: 500px;
-  margin-top: 5rem;
+  width: 600px;
+  margin: 0 auto;
   padding: 24px;
-  box-shadow: 2px 2px 1px rgba(0,0,0, 0.09),
-              3px 2px 3px rgba(0,0,0, 0.05);
 }
 
 .Todo__creation {
@@ -100,6 +111,11 @@ input:focus {
   cursor: pointer;
 }
 
+.Todo__delete:hover {
+  background-color: rgb(0, 114, 229);
+  color: white
+}
+
 .Todo__action, .Todo__delete {
   width: 24px;
   height: 24px;
@@ -122,4 +138,45 @@ input:focus {
 }
 
 .Action__btn {
+}
+
+.Todo__add {
+  margin-left: 20px;
+}
+
+.Todo__field {
+  position: relative;
+  flex: 0 0 calc(100% - 30px);
+}
+
+.field__input {
+  width: 100%;
+  padding: 10px 15px;
+  border: none;
+}
+
+.field__input:focus-visible {
+  border: none;
+  outline: none;
+}
+
+.Todo__wrapper {
+  display: flex;
+  align-items: center;
+  flex: 0 0 calc(100% - 30px);
+}
+
+.field__overlay {
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  cursor: pointer;
+}
+
+.field__overlay:hover {
+  background-color: rgba(0, 0, 0, 0.23);
+  border-radius: 2px;
 }
