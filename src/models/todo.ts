@@ -6,3 +6,9 @@ export enum TodoStatus {
 export interface Todo {
   [key: string]: any
 }
+
+export enum TodoUpdateType {
+  CONTENT = 'CONTENT',
+  ISEDIT = 'ISEDIT',
+  STATUS = 'STATUS'
+}

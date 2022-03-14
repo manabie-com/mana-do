@@ -38,16 +38,16 @@ export interface UpdateTodoStatusAction {
   type: typeof UPDATE_TODO_STATUS,
   payload: {
     todoId: string,
-    checked: boolean
+    todo: Todo
   }
 }
 
-export function updateTodoStatus(todoId: string, checked: boolean): UpdateTodoStatusAction {
+export function updateTodoStatus(todoId: string, todo: Todo): UpdateTodoStatusAction {
   return {
     type: UPDATE_TODO_STATUS,
     payload: {
       todoId,
-      checked
+      todo
     }
   }
 }

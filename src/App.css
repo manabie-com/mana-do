@@ -1,7 +1,16 @@
+:root {
+  --error-color: rgb(248, 69, 69);
+  --background-color: #f7f8fe;
+  --border-color: #e1e4e8;
+  --hightlight-color: rgb(150, 195, 253);
+  --primary-color: #5680f9;
+}
+
 .App {
   text-align: center;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
 }
 
 button {
@@ -9,13 +18,15 @@ button {
   border: none;
   box-shadow: 2px 0 2px currentColor;
   border-radius: 4px;
-  min-height: 32px;
+  height: 40px;
   min-width: 80px;
   padding: 4px 8px;
+  cursor: pointer;
+
 }
 
 button:hover {
-  opacity: 0.85;
+  opacity: 0.8;
 }
 
 input[type="checkbox"] {
@@ -34,25 +45,30 @@ input[type="checkbox"]:focus {
 
 input {
   min-height: 36px;
-  border: none;
+  border: unset;
   outline: none;
   padding: 0 12px;
-  box-shadow: 2px 0 4px rgba(0,0,0, 0.2);
+  box-shadow: 2px 0 4px rgba(0, 0, 0, 0.2);
   border-radius: 4px;
 }
 
-input:focus {
-  box-shadow: 1px 0 9px rgba(0,0,0, 0.25);
+input.Todo__input:focus {
+  box-shadow: 1px 0 9px rgba(0, 0, 0, 0.25);
+  transform: scale(1.05);
 }
 
 .ToDo__container {
-  border: 1px solid rgba(0,0,0, 0.13);
+  width: 60%;
+
+  margin-top: 2rem;
+  padding: 24px 16px 0 16px;
+
+  border: 1px solid var(--border-color);
   border-radius: 8px;
-  width: 500px;
-  margin-top: 5rem;
-  padding: 24px;
-  box-shadow: 2px 2px 1px rgba(0,0,0, 0.09),
-              3px 2px 3px rgba(0,0,0, 0.05);
+
+  background-color: var(--background-color);
+  box-shadow: 2px 2px 1px rgba(0, 0, 0, 0.09),
+    3px 2px 3px rgba(0, 0, 0, 0.05);
 }
 
 .Todo__creation {
@@ -67,25 +83,51 @@ input:focus {
   display: flex;
   flex-direction: column;
   margin-top: 1.5rem;
+
+  max-height: 296px;
+  overflow-y: auto;
+
+  padding-bottom: 16px;
 }
 
 .ToDo__item {
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+  box-shadow: 0 3px 7px 0 rgb(110 142 247 / 13%);
+  border: 1px solid #e1e2e8;
+  background-color: #fff;
+
+  border-radius: 8px;
+
+  padding: 15px 10px;
+
+  margin: 8px 0;
 }
 
-.ToDo__item > span {
+
+.ToDo__item>span {
   flex: 1 1;
   text-align: left;
   margin-left: 8px;
+}
+
+input.Content__input {
+  box-shadow: none;
+  flex: 1 1;
+  font-size: 16px;
+}
+
+.ToDo__item:hover {
+  border: 2px solid var(--hightlight-color);
 }
 
 .Todo__content {
   flex: 1 1;
 }
 
-.Todo__delete {
+button.Todo__delete {
   outline: none;
   border: none;
   width: 32px;
@@ -98,6 +140,9 @@ input:focus {
   justify-content: center;
   align-items: center;
   cursor: pointer;
+
+  color: white;
+  background: var(--error-color);
 }
 
 .Todo__action, .Todo__delete {
@@ -109,17 +154,112 @@ input:focus {
 .Todo__toolbar {
   display: flex;
   justify-content: space-between;
-  margin-top: 24px;
+  margin-bottom: 24px;
 }
 
 .Todo__tabs {
   display: flex;
   justify-content: center;
+  align-items: center;
 }
 
-.Todo__tabs > *:not(:last-child) {
+.Todo__tabs>*:not(:last-child) {
   margin-right: 8px;
 }
 
-.Action__btn {
+.pointer {
+  cursor: pointer;
+}
+
+.cursor-alias {
+  cursor: text;
+}
+
+.App__title {
+  /* display: flex;
+  justify-content: center; */
+
+  font-size: 40px;
+  text-align: center;
+  font-weight: 700;
+  color: var(--primary-color);
+}
+
+button.Action__btn--clear-all {
+  background-color: var(--error-color);
+  color: white;
+  padding: 5px 7px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.mr-4 {
+  margin-right: 4px;
+}
+
+button.Action__btn--default {
+  background-color: white;
+  color: var(--primary-color);
+  padding: 5px 7px;
+  border-radius: 5px;
+  border: 1px solid var(--primary-color);
+}
+
+button.Action__btn--primary {
+  background-color: var(--primary-color);
+  color: white;
+  padding: 5px 7px;
+  border-radius: 5px;
+  box-shadow: unset;
+}
+
+.Todo__tab {
+  height: 20px;
+
+  padding: 2px 8px;
+  cursor: pointer;
+
+  border: 1px solid transparent;
+  min-width: 40px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.Todo__tab:hover:not(.Todo__tab--active) {
+  background-color: white;
+  color: var(--primary-color);
+  border: 1px solid var(--primary-color);
+  border-radius: 20px;
+}
+
+.Todo__tab--active {
+  /* border-bottom: 1px solid var(--primary-color); */
+  background-color: var(--primary-color);
+  color: white;
+  border-radius: 20px;
+}
+
+.ml-8 {
+  margin-left: 8px;
+}
+
+.px-16 {
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+.ToDo__list::-webkit-scrollbar {
+  width: 3px;
+  background-color: none;
+}
+
+.ToDo__list::-webkit-scrollbar-thumb {
+  background-color: var(--primary-color);
+  border-radius: 5px;
+
+
 }
