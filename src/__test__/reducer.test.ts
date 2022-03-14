@@ -1,4 +1,4 @@
-import reducer, {initialState} from './reducer';
+import reducer, {initialState} from '../store/reducer';
 import {
   setTodos,
   createTodo,
@@ -6,7 +6,7 @@ import {
   deleteTodo,
   deleteAllTodos,
   updateTodoStatus
-} from './actions';
+} from '../store/actions';
 import { Todo, TodoStatus } from '../models/todo';
 
 describe('reducer', () => {

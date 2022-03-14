@@ -2,10 +2,10 @@ import React from 'react';
 import {render as reactRender, fireEvent, screen} from '@testing-library/react';
 import { render, unmountComponentAtNode } from 'react-dom';
 import { act } from 'react-dom/test-utils';
-import Service from './service';
+import Service from '../service';
 
-import { Todo, TodoStatus } from './models/todo';
-import ToDoPage from './ToDoPage';
+import { Todo, TodoStatus } from '../models/todo';
+import ToDoPage from '../ToDoPage';
 
 describe('ToDoPage', () => {
   let container: Element;
