@@ -15,13 +15,11 @@ const ToDoPage = () => {
   const [showing, setShowing] = useState<EnhanceTodoStatus>('ALL');
   const inputRef = useRef<any>(null);
 
-  console.log('todos: ', todos);
-
   const handleCreateTodo = () => {
     const data = {
       id: uuid(),
       content: inputRef.current.value,
-      status: 'ACTIVE',
+      status: TodoStatus.ACTIVE,
     };
     dispatch(createTodo(data));
     inputRef.current.value = '';
@@ -41,25 +39,41 @@ const ToDoPage = () => {
     dispatch(deleteAllTodos());
   };
 
+  const renderToDoList: any = () => {
+    let toDoFilter = todos;
+    if (showing !== 'ALL') {
+      const filterResult = todos.filter((todo: Todo) => {
+        return todo.status === showing;
+      });
+      toDoFilter = filterResult;
+    }
+    return toDoFilter.map((todo: Todo) => {
+      return <ToDoItem todo={todo} key={todo.id} />;
+    });
+  };
+
   return (
     <div className='ToDo__container'>
       <h1 className='Todo__title'>Todos list application</h1>
       <div className='Todo__creation'>
         <input
           ref={inputRef}
+          type='text'
+          name='todo'
           className='Todo__input'
+          aria-label='todo-input'
           placeholder='What need to be done?'
           onKeyDown={onCreateTodo}
         />
-        <button className='Todo__add btn-primary' onClick={handleCreateTodo}>
+        <button
+          className='Todo__add btn-primary'
+          name='addTodo'
+          onClick={handleCreateTodo}
+        >
           Add
         </button>
       </div>
-      <div className='ToDo__list'>
-        {todos.map((todo: Todo) => {
-          return <ToDoItem todo={todo} key={todo.id} />;
-        })}
-      </div>
+      <div className='ToDo__list'>{renderToDoList()}</div>
       <div className='Todo__toolbar'>
         {todos.length > 0 ? (
           <input type='checkbox' onChange={onToggleAllTodo} />
@@ -67,15 +81,26 @@ const ToDoPage = () => {
           <div />
         )}
         <div className='Todo__tabs'>
-          <button className='Action__btn btn-default'>All</button>
           <button
-            className='Action__btn btn-default'
+            className={`Action__btn btn-default ${
+              showing === 'ALL' ? 'active' : ''
+            }`}
+            onClick={() => setShowing('ALL')}
+          >
+            All
+          </button>
+          <button
+            className={`Action__btn btn-default ${
+              showing === TodoStatus.ACTIVE ? 'active' : ''
+            }`}
             onClick={() => setShowing(TodoStatus.ACTIVE)}
           >
             Active
           </button>
           <button
-            className='Action__btn btn-default'
+            className={`Action__btn btn-default ${
+              showing === TodoStatus.COMPLETED ? 'active' : ''
+            }`}
             onClick={() => setShowing(TodoStatus.COMPLETED)}
           >
             Completed

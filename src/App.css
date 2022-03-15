@@ -28,6 +28,11 @@ button {
   color: white;
 }
 
+.btn-default.active {
+  background-color: rgb(25, 118, 210);
+  color: white;
+}
+
 .btn-primary {
   background-color: rgb(25, 118, 210);
   color: white;
