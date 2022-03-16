@@ -1,64 +1,102 @@
-import {Todo, TodoStatus} from '../models/todo';
+import { Todo, TodoStatus } from "../models/todo";
 import {
   AppActions,
   CREATE_TODO,
   DELETE_ALL_TODOS,
   DELETE_TODO,
   TOGGLE_ALL_TODOS,
-  UPDATE_TODO_STATUS
-} from './actions';
+  UPDATE_TODO_STATUS,
+  SET_TODO,
+  UPDATE_TODO,
+} from "./actions";
+
+import { addTodoList, removeTodoList } from "../utils/handleTodo";
 
 export interface AppState {
-  todos: Array<Todo>
+  todos: Array<Todo>;
 }
 
 export const initialState: AppState = {
-  todos: []
-}
+  todos: [],
+};
 
 function reducer(state: AppState, action: AppActions): AppState {
   switch (action.type) {
     case CREATE_TODO:
-      state.todos.push(action.payload);
+      // wrong: duplicate todo when add todo
+
+      // Add Todo into localStorage
+      addTodoList([...state.todos, action.payload]);
       return {
-        ...state
+        ...state,
+        todos: [...state.todos, action.payload],
       };
 
     case UPDATE_TODO_STATUS:
-      const index2 = state.todos.findIndex((todo) => todo.id === action.payload.todoId);
-      state.todos[index2].status = action.payload.checked ? TodoStatus.COMPLETED : TodoStatus.ACTIVE;
-
+      const todoListForUpdateStatus = [...state.todos];
+      const index2 = todoListForUpdateStatus.findIndex(
+        (todo) => todo.id === action.payload.todoId
+      );
+      todoListForUpdateStatus[index2].status = action.payload.checked
+        ? TodoStatus.COMPLETED
+        : TodoStatus.ACTIVE;
+      // Add Todo into localStorage
+      addTodoList(todoListForUpdateStatus);
       return {
         ...state,
-        todos: state.todos
-      }
+        todos: todoListForUpdateStatus,
+      };
 
     case TOGGLE_ALL_TODOS:
-      const tempTodos = state.todos.map((e)=>{
+      const tempTodos = state.todos.map((e) => {
         return {
           ...e,
-          status: action.payload ? TodoStatus.COMPLETED : TodoStatus.ACTIVE
-        }
-      })
-
+          status: action.payload ? TodoStatus.COMPLETED : TodoStatus.ACTIVE,
+        };
+      });
+      addTodoList(tempTodos);
       return {
         ...state,
-        todos: tempTodos
-      }
+        todos: tempTodos,
+      };
 
     case DELETE_TODO:
-      const index1 = state.todos.findIndex((todo) => todo.id === action.payload);
+      const index1 = state.todos.findIndex(
+        (todo) => todo.id === action.payload
+      );
       state.todos.splice(index1, 1);
 
       return {
         ...state,
-        todos: state.todos
-      }
+        todos: state.todos,
+      };
+
     case DELETE_ALL_TODOS:
+      removeTodoList();
       return {
         ...state,
-        todos: []
-      }
+        todos: [],
+      };
+
+    // add action SET_TODO to add todo into the store
+    case SET_TODO:
+      return {
+        ...state,
+        todos: action.payload,
+      };
+
+    case UPDATE_TODO:
+      const todoListForUpdate = [...state.todos];
+      const index3 = todoListForUpdate.findIndex(
+        (todo) => todo.id === action.payload.todoId
+      );
+      todoListForUpdate[index3].content = action.payload.content;
+      // Add Todo into localStorage
+      addTodoList(todoListForUpdate);
+      return {
+        ...state,
+        todos: todoListForUpdate,
+      };
     default:
       return state;
   }
