@@ -46,3 +46,76 @@ input {
 input:focus {
   box-shadow: 1px 0 9px rgba(0, 0, 0, 0.25);
 }
+
+.disable-select {
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  -ms-user-select: none;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.w-100 {
+  width: 100%;
+}
+
+.mx-5 {
+  margin-left: 5em;
+  margin-right: 5em;
+}
+
+.p-5 {
+  padding: 2em;
+}
+
+.my-3 {
+  margin-top: 3px;
+  margin-bottom: 10px;
+}
+
+.rounded {
+  border-radius: 7px;
+}
+
+.text-align-left {
+  text-align: left;
+}
+
+.font-size-large {
+  font-size: 25pt;
+}
+
+.font-weight-bold {
+  font-weight: 500;
+}
+
+.color-white {
+  color: white;
+}
+
+.bg-primary {
+  background-color: #97c9ee;
+}
+
+.legend-bar {
+  margin-top: 15px;
+  margin-top: 15px;
+  display: flex;
+}
+
+.legend-bar-item {
+  height: 10px;
+  flex-grow: 1;
+}
+
+.todo-color-active {
+  background-color: #A399EF;
+}
+
+.todo-color-complete {
+  background-color: #F3C7DC;
+}
