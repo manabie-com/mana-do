@@ -13,7 +13,7 @@ import {
 } from "store/actions";
 import Service from "service";
 import { TodoStatus } from "models/todo";
-import { TodoInput, ToDoToolbar } from "components";
+import { TodoInput, ToDoToolbar, TodoItem } from "components";
 
 type EnhanceTodoStatus = TodoStatus | "ALL";
 
@@ -70,6 +70,22 @@ export const TodoPage = () => {
         onDeleteAllTodo={onDeleteAllTodo}
         onSetShowing={setShowing}
       />
+      <div className="ToDo__list">
+        {todos.map((todo, index) => {
+          return (
+            (showing === todo.status || showing === "ALL") && (
+              <TodoItem
+                key={index}
+                index={index}
+                todo={todo}
+                onUpdateTodoStatus={onUpdateTodoStatus}
+                onEditingTodo={onEditingTodo}
+                onDeleteTodo={onDeleteTodo}
+              />
+            )
+          );
+        })}
+      </div>
     </div>
   );
 };

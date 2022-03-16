@@ -119,3 +119,7 @@ input:focus {
 .todo-color-complete {
   background-color: #F3C7DC;
 }
+
+.d-flex {
+  display: flex;
+}
