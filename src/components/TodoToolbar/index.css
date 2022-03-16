@@ -1,0 +1,48 @@
+.Todo__delete {
+  width: 32px;
+  height: 32px;
+  min-width: auto;
+  min-height: auto;
+  box-shadow: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  background-color: white;
+  color: red;
+  margin-right: 5px;
+}
+
+.Todo__action,
+.Todo__delete {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+.Todo__toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 24px;
+  height: 20px;
+}
+
+.Todo__tabs {
+  display: flex;
+  justify-content: center;
+}
+
+.Todo__tabs > *:not(:last-child) {
+  margin-right: 8px;
+}
+
+.Action__btn {
+  background-color: #97c9ee;
+  cursor: pointer;
+}
+
+.Action__btn.active {
+  background-color: #9db3ec;
+  cursor: pointer;
+}

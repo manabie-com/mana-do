@@ -13,6 +13,7 @@ import {
 } from "store/actions";
 import Service from "service";
 import { TodoStatus } from "models/todo";
+import { TodoInput, ToDoToolbar } from "components";
 
 type EnhanceTodoStatus = TodoStatus | "ALL";
 
@@ -54,7 +55,21 @@ export const TodoPage = () => {
   };
 
   return (
-    <div className="ToDo__container">
+    <div className="ToDo__container disable-select">
+      <TodoInput inputRef={inputRef} _onCreateTodo={onCreateTodo} />
+
+      <div className="legend-bar">
+        <div className="legend-bar-item todo-color-active"></div>
+        <div className="legend-bar-item todo-color-complete"></div>
+      </div>
+
+      <ToDoToolbar
+        todoLength={todos.length}
+        showing={showing}
+        onToggleAllTodo={onToggleAllTodo}
+        onDeleteAllTodo={onDeleteAllTodo}
+        onSetShowing={setShowing}
+      />
     </div>
   );
 };
