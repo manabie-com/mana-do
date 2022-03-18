@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer, useRef, useState } from "react";
+import React, { useEffect, useReducer, useRef, useState, useMemo } from "react";
 
 import reducer, { initialState } from "./store/reducer";
 import {
@@ -6,6 +6,7 @@ import {
   createTodo,
   toggleAllTodos,
   deleteAllTodos,
+  deleteTodo,
   updateTodoStatus,
   updateTodo,
 } from "./store/actions";
@@ -65,6 +66,17 @@ const ToDoPage = () => {
     }
   };
 
+  const onDeleteTodo = (todoId: string) => {
+    dispatch(deleteTodo(todoId));
+  };
+
+  const filterTodos = useMemo(() => {
+    if (showing === "ALL") {
+      return todos;
+    }
+    return todos.filter((todo) => todo.status === showing);
+  }, [showing, todos]);
+
   return (
     <div className="ToDo__container">
       <div className="Todo__creation">
@@ -76,12 +88,12 @@ const ToDoPage = () => {
         />
       </div>
       <div className="ToDo__list">
-        {todos.map((todo) => {
+        {filterTodos.map((todo) => {
           return (
             <div key={todo.id} className="ToDo__item">
               <input
                 type="checkbox"
-                checked={showing === todo.status}
+                checked={todo.status === TodoStatus["COMPLETED"]}
                 onChange={(e) => onUpdateTodoStatus(e, todo.id)}
               />
               {todo.id === targetTodo?.id ? (
@@ -97,7 +109,12 @@ const ToDoPage = () => {
                 </span>
               )}
 
-              <button className="Todo__delete">X</button>
+              <button
+                className="Todo__delete"
+                onClick={() => onDeleteTodo(todo.id)}
+              >
+                X
+              </button>
             </div>
           );
         })}
@@ -109,7 +126,9 @@ const ToDoPage = () => {
           <div />
         )}
         <div className="Todo__tabs">
-          <button className="Action__btn">All</button>
+          <button className="Action__btn" onClick={() => setShowing("ALL")}>
+            All
+          </button>
           <button
             className="Action__btn"
             onClick={() => setShowing(TodoStatus.ACTIVE)}
