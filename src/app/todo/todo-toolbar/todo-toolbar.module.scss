@@ -1,0 +1,11 @@
+.Container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 24px;
+}
+
+.Tabs {
+  display: flex;
+  justify-content: center;
+  column-gap: 8px;
+}

@@ -1,0 +1,11 @@
+.Container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  & > span {
+    flex: 1 1;
+    text-align: left;
+    margin-left: 8px;
+  }
+}

@@ -1,27 +1,27 @@
-import {Todo, TodoStatus} from '../models/todo';
+import { Todo, TodoStatus } from "../todo.models";
 import {
   AppActions,
   CREATE_TODO,
   DELETE_ALL_TODOS,
   DELETE_TODO,
   TOGGLE_ALL_TODOS,
-  UPDATE_TODO_STATUS
-} from './actions';
+  UPDATE_TODO_STATUS,
+} from "./todo.actions";
 
 export interface AppState {
-  todos: Array<Todo>
+  todos: Array<Todo>;
 }
 
 export const initialState: AppState = {
-  todos: []
-}
+  todos: [],
+};
 
 function reducer(state: AppState, action: AppActions): AppState {
   switch (action.type) {
     case CREATE_TODO:
       state.todos.push(action.payload);
       return {
-        ...state
+        ...state,
       };
 
     case UPDATE_TODO_STATUS:
@@ -30,21 +30,21 @@ function reducer(state: AppState, action: AppActions): AppState {
 
       return {
         ...state,
-        todos: state.todos
-      }
+        todos: state.todos,
+      };
 
     case TOGGLE_ALL_TODOS:
-      const tempTodos = state.todos.map((e)=>{
+      const tempTodos = state.todos.map((e) => {
         return {
           ...e,
-          status: action.payload ? TodoStatus.COMPLETED : TodoStatus.ACTIVE
-        }
-      })
+          status: action.payload ? TodoStatus.COMPLETED : TodoStatus.ACTIVE,
+        };
+      });
 
       return {
         ...state,
-        todos: tempTodos
-      }
+        todos: tempTodos,
+      };
 
     case DELETE_TODO:
       const index1 = state.todos.findIndex((todo) => todo.id === action.payload);
@@ -52,13 +52,13 @@ function reducer(state: AppState, action: AppActions): AppState {
 
       return {
         ...state,
-        todos: state.todos
-      }
+        todos: state.todos,
+      };
     case DELETE_ALL_TODOS:
       return {
         ...state,
-        todos: []
-      }
+        todos: [],
+      };
     default:
       return state;
   }

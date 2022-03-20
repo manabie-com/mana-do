@@ -1,0 +1,27 @@
+.App {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+}
+
+.Todo__delete {
+  outline: none;
+  border: none;
+  width: 32px;
+  height: 32px;
+  min-width: auto;
+  min-height: auto;
+  box-shadow: none;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.Todo__action,
+.Todo__delete {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+}
