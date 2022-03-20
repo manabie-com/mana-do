@@ -63,7 +63,7 @@ const TodoItem = ({ todo, ...props }: TodoItemProps) => {
   };
 
   return showStatus === todo.status || showStatus === TodoStatus.ALL ? (
-    <div className={Styles.Container} {...props}>
+    <div className={Styles.Container} todo-status={todo.status} {...props}>
       <Input
         testId="todo-item-checkbox"
         type="checkbox"
