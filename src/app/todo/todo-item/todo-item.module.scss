@@ -1,11 +1,42 @@
+@import "../../../scss/abstracts/variables";
+
 .Container {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  column-gap: 8px;
+  padding: 12px 8px;
 
-  & > span {
-    flex: 1 1;
-    text-align: left;
-    margin-left: 8px;
+  border-radius: 4px;
+  background-color: rgba($color: $brand-color, $alpha: 0.24);
+
+  & > div {
+    display: flex;
+    flex-direction: column;
+    row-gap: 4px;
+    flex: 1;
+
+    & > span {
+      width: 100%;
+      text-align: left;
+
+      &[todo-status="COMPLETED"] {
+        user-select: none;
+        text-decoration: line-through;
+      }
+    }
+
+    & > time {
+      width: 100%;
+      text-align: left;
+
+      font-size: small;
+
+      color: rgba($color: $text-color, $alpha: 0.54);
+    }
+  }
+
+  & > img {
+    cursor: pointer;
   }
 }

@@ -1,69 +1,30 @@
-import React, { useEffect, useReducer, useRef, useState } from "react";
-import Service from "../../service";
-import { createTodo, deleteAllTodos, setTodos, toggleAllTodos, updateTodoStatus } from "./state/todo.actions";
-import reducer, { initialState } from "./state/todo.reducer";
+import React, { useEffect } from "react";
+import useTodoStore from "./store/useTodoStore";
 import TodoCreate from "./todo-create";
 import TodoItem from "./todo-item";
 import TodoToolbar from "./todo-toolbar";
-import { EnhancedTodoStatus, TodoStatus } from "./todo.models";
 import Styles from "./todo.module.scss";
 
 const ToDo = () => {
-  const [{ todos }, dispatch] = useReducer(reducer, initialState);
-  const [showing, setShowing] = useState<EnhancedTodoStatus>("ALL");
-  const inputRef = useRef<any>(null);
+  const { todos, fetchTodos, toggleAllTodos, deleteAllTodos, setShowStatus } = useTodoStore((state) => state);
 
   useEffect(() => {
-    (async () => {
-      const resp = await Service.getTodos();
-
-      dispatch(setTodos(resp || []));
-    })();
-  }, []);
-
-  const onCreateTodo = async (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === "Enter") {
-      const resp = await Service.createTodo(inputRef.current.value);
-      dispatch(createTodo(resp));
-    }
-  };
-
-  const onUpdateTodoStatus = (event: React.ChangeEvent<HTMLInputElement>, todoId: string) => {
-    dispatch(updateTodoStatus(todoId, event.target.checked));
-  };
-
-  const onToggleAllTodo = (e: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch(toggleAllTodos(e.target.checked));
-  };
-
-  const onDeleteAllTodo = () => {
-    dispatch(deleteAllTodos());
-  };
+    fetchTodos();
+  }, [fetchTodos]);
 
   return (
     <div className={Styles.Container}>
-      <TodoCreate ref={inputRef} onKeyDown={onCreateTodo} />
+      <h1>Mana-DO</h1>
+
+      <TodoCreate />
 
       <div className={Styles.List}>
         {todos.map((todo) => (
-          <TodoItem todo={todo} showing={showing} onUpdateTodoStatus={onUpdateTodoStatus} />
+          <TodoItem key={todo.id} todo={todo} />
         ))}
       </div>
 
-      <TodoToolbar
-        todos={todos}
-        onToggleAllTodo={onToggleAllTodo}
-        onShowAllTodo={() => {
-          setShowing(TodoStatus.ACTIVE);
-        }}
-        onShowActiveTodo={() => {
-          setShowing(TodoStatus.ACTIVE);
-        }}
-        onShowCompletedTodo={() => {
-          setShowing(TodoStatus.COMPLETED);
-        }}
-        onDeleteAllTodo={onDeleteAllTodo}
-      />
+      <TodoToolbar toggleAllTodos={toggleAllTodos} deleteAllTodos={deleteAllTodos} setShowStatus={setShowStatus} />
     </div>
   );
 };

@@ -1,22 +1,24 @@
+@import "../../scss/abstracts/variables";
+
 .Input {
   min-height: 36px;
-  border: none;
+  border: 2px solid $brand-color;
   outline: none;
   padding: 0 12px;
-  box-shadow: 2px 0 4px rgba(0, 0, 0, 0.2);
   border-radius: 4px;
 
   &:focus {
-    box-shadow: 1px 0 9px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 0 0 2px rgba($brand-color, 0.25);
   }
 
   &[input-variant="primary"] {
-    flex: 1 1;
+    flex: 1;
   }
 
   &[type="checkbox"] {
-    width: 24px;
-    height: 24px;
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
     box-shadow: none;
     border: none;
     outline: none;

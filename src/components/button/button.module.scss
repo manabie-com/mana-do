@@ -1,29 +1,68 @@
+@import "../../scss/abstracts/variables";
+
 .Button {
   cursor: pointer;
-  outline: none;
-  border: none;
-  box-shadow: 2px 0 2px currentColor;
-  border-radius: 4px;
-  min-height: 32px;
+
+  height: 32px;
   min-width: 80px;
+
+  background-color: transparent;
+  border: 1px solid currentColor;
+  border-radius: 4px;
+  outline: none;
+
   padding: 4px 8px;
 
-  &:hover {
-    opacity: 0.85;
-  }
+  transition: all 0.2s linear;
 
   &[btn-variant="primary"] {
-    background-color: #0070f3;
-    color: #fff;
+    color: $brand-color;
+
+    &.Active {
+      border-color: $brand-color;
+      background-color: $brand-color;
+    }
+
+    &:hover {
+      border-color: $brand-color;
+      background-color: $brand-color;
+    }
   }
 
   &[btn-variant="danger"] {
-    background-color: #f5222d;
-    color: #fff;
+    color: $red-color;
+
+    &.Active {
+      border-color: $red-color;
+      background-color: $red-color;
+    }
+
+    &:hover {
+      border-color: $red-color;
+      background-color: $red-color;
+    }
   }
 
   &[btn-variant="success"] {
-    background-color: #52c41a;
-    color: #fff;
+    color: $green-color;
+
+    &.Active {
+      border-color: $green-color;
+      background-color: $green-color;
+    }
+
+    &:hover {
+      border-color: $green-color;
+      background-color: $green-color;
+    }
+  }
+
+  &.Active {
+    color: white;
+  }
+
+  &:hover {
+    opacity: 0.85;
+    color: white;
   }
 }

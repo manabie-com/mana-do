@@ -1,16 +1,36 @@
 import Input from "components/input";
-import React, { ComponentPropsWithRef } from "react";
-
+import React, { useRef } from "react";
+import useTodoStore from "../store/useTodoStore";
+import { CreateTodoDto } from "../todo.models";
 import Styles from "./todo-create.module.scss";
 
-type TodoInputProps = {
-  onKeyDown: (e: React.KeyboardEvent<HTMLInputElement>) => void;
-} & ComponentPropsWithRef<"input">;
+const TodoCreate = () => {
+  const createTodo = useTodoStore((state) => state.createTodo);
 
-const TodoCreate = ({ onKeyDown, ref }: TodoInputProps) => {
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  const onCreateTodo = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    const inputValue = inputRef?.current && inputRef?.current?.value.trim();
+
+    if (event.key === "Enter" && inputValue) {
+      const createTodoDto: CreateTodoDto = {
+        content: inputValue,
+      };
+
+      createTodo(createTodoDto);
+
+      inputRef.current.value = "";
+    }
+  };
+
   return (
     <div className={Styles.Container}>
-      <Input placeholder="What need to be done?" onKeyDown={onKeyDown} ref={ref} />
+      <Input
+        testId="create-todo-input"
+        placeholder="What needs to be done?"
+        onKeyDown={onCreateTodo}
+        forwardedRef={inputRef}
+      />
     </div>
   );
 };
