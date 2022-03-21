@@ -2,6 +2,8 @@ import {Todo} from "../models/todo";
 
 export const SET_TODO = 'SET_TODO';
 export const CREATE_TODO = 'CREATE_TODO';
+// Added updated todo
+export const UPDATE_TODO = 'UPDATE_TODO';
 export const DELETE_TODO = 'DELETE_TODO';
 export const DELETE_ALL_TODOS = 'DELETE_ALL_TODOS';
 export const TOGGLE_ALL_TODOS = 'TOGGLE_ALL_TODOS';
@@ -30,6 +32,27 @@ export function createTodo(newTodo: Todo): CreateTodoAction {
   return {
     type: CREATE_TODO,
     payload: newTodo
+  }
+}
+
+// Added updated todo
+///////////
+export interface UpdateTodo {
+  type: typeof UPDATE_TODO,
+  payload: {
+    todoId: string,
+    content: string
+  }
+}
+
+
+export function updateTodo(todoId: string, content: string): UpdateTodo {
+  return {
+    type: UPDATE_TODO,
+    payload: {
+      todoId,
+      content
+    }
   }
 }
 
@@ -89,9 +112,11 @@ export function toggleAllTodos(checked: boolean): ToggleAllTodosAction {
   }
 }
 
+// Added updateTodo
 export type AppActions =
   SetTodoAction |
   CreateTodoAction |
+  UpdateTodo |
   UpdateTodoStatusAction |
   DeleteTodoAction |
   DeleteAllTodosAction |
