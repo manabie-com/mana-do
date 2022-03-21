@@ -1,35 +1,35 @@
-import React from "react";
+import React from 'react';
 
-import { shallow } from "enzyme";
-import TodoAction from "..";
-import { TodoStatus } from "../../../constants/todo";
+import { shallow } from 'enzyme';
+import TodoAction from '..';
+import { TodoStatus } from '../../../constants/todo';
 
 const todoStatusProvider = [
   [
     {
       description:
-        "button action ACTIVE will have class active when status filter is ACTIVE",
+        'button action ACTIVE will have class active when status filter is ACTIVE',
       status: TodoStatus.ACTIVE,
     },
   ],
   [
     {
       description:
-        "button action COMPLETED will have class active when status filter is COMPLETED",
+        'button action COMPLETED will have class active when status filter is COMPLETED',
       status: TodoStatus.COMPLETED,
     },
   ],
   [
     {
       description:
-        "button action ALL will have class active when status filter is ALL",
+        'button action ALL will have class active when status filter is ALL',
       status: TodoStatus.ALL,
     },
   ],
 ];
 
 describe.each(todoStatusProvider)(
-  "Test render class active button",
+  'Test render class active button',
   ({ status, description }) => {
     let component: any;
 
@@ -48,7 +48,7 @@ describe.each(todoStatusProvider)(
       expect(
         component
           .find('[data-test="' + status + '"]')
-          .hasClass("toolbar__tabs--active")
+          .hasClass('toolbar__tabs--active')
       ).toEqual(true);
     });
   }

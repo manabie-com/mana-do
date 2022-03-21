@@ -1,5 +1,5 @@
-import React, { useEffect, useRef, useState } from "react";
-import "./todo.css";
+import React, { useEffect, useRef, useState } from 'react';
+import './todo.css';
 import {
   setTodoList,
   createTodo,
@@ -7,16 +7,16 @@ import {
   toggleAllTodo,
   deleteAllTodo,
   updateTodo,
-} from "../store/todoSlice";
-import Service from "../service";
-import { TodoStatus } from "../constants/todo";
-import LocalStorage from "../localStorage";
-import TodoAction from "./TodoAction";
-import TodoList from "./TodoList";
-import Todo from "../models/todo";
-import { filterTodoByStatus } from "../selectors/todo";
-import { useDispatch } from "react-redux";
-import { useAppSelector } from "../store/hook";
+} from '../store/todoSlice';
+import Service from '../service';
+import { TodoStatus } from '../constants/todo';
+import LocalStorage from '../localStorage';
+import TodoAction from './TodoAction';
+import TodoList from './TodoList';
+import Todo from '../models/todo';
+import { filterTodoByStatus } from '../selectors/todo';
+import { useDispatch } from 'react-redux';
+import { useAppSelector } from '../store/hook';
 
 const ToDo = () => {
   const [statusFilter, setStatusFilter] = useState<TodoStatus>(TodoStatus.ALL);
@@ -36,10 +36,10 @@ const ToDo = () => {
   }, [todoList]);
 
   const onCreateTodo = async (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter" && inputRef.current) {
+    if (e.key === 'Enter' && inputRef.current) {
       const resp = await Service.createTodo(inputRef.current.value);
       dispatch(createTodo(resp));
-      inputRef.current.value = "";
+      inputRef.current.value = '';
     }
   };
 

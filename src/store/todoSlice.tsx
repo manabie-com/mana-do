@@ -1,7 +1,7 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { RootState } from ".";
-import { TodoStatus } from "../constants/todo";
-import Todo from "../models/todo";
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { RootState } from '.';
+import { TodoStatus } from '../constants/todo';
+import Todo from '../models/todo';
 
 interface TodoState {
   todoList: Todo[];
@@ -12,7 +12,7 @@ const initialState: TodoState = {
 };
 
 export const todoSlice = createSlice({
-  name: "todo",
+  name: 'todo',
   initialState,
   reducers: {
     createTodo: (state, action: PayloadAction<Todo>) => {
