@@ -14,15 +14,18 @@ export const TodoToolbar = (props: ITodoToolbarProps) => {
 
   return (
     <div className="ToDo__toolbar">
+      {props.todos.length > 0 ? (
+        <div className="ToDo__checkbox"  >
 
-     <div className="ToDo__checkbox"  >
-        <input
-          id="select-all"
-          onChange={props.onToggleAllTodo}
-          type="checkbox"
-        />
-        <label htmlFor="select-all"></label>
-      </div>
+          <input
+            id="select-all"
+            onChange={props.onToggleAllTodo}
+            type="checkbox"
+          />
+          <label htmlFor="select-all"></label>
+        </div>
+        ): <div></div>  }
+
 
 
       <div className="ToDo__toolbar_container">
