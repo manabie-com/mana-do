@@ -1,17 +1,21 @@
+import removeIcon from "assets/remove.svg";
 import Input from "components/input";
 import useOnClickOutside from "hooks/useOnClickOutside";
 import React, { ChangeEvent, ComponentPropsWithoutRef, Fragment, useEffect, useRef, useState } from "react";
-import useTodoStore from "../store/useTodoStore";
+import useFilterTodoFacade from "../facades/useFilterTodoFacade";
+import useTodoFacade from "../facades/useTodoFacade";
 import { DeleteTodoDto, Todo, TodoStatus, UpdateTodoDto } from "../todo.models";
-import removeIcon from "assets/remove.svg";
 import Styles from "./todo-item.module.scss";
 
 export type TodoItemProps = {
+  testId: string;
   todo: Todo;
 } & ComponentPropsWithoutRef<"div">;
 
-const TodoItem = ({ todo, ...props }: TodoItemProps) => {
-  const { showStatus, updateTodo, deleteTodo } = useTodoStore((state) => state);
+const TodoItem = ({ testId, todo, ...props }: TodoItemProps) => {
+  const { updateTodo, deleteTodo } = useTodoFacade();
+  const { showStatus } = useFilterTodoFacade();
+
   const [isEdit, setIsEdit] = useState<boolean>(false);
   const editItemRef = useRef<HTMLInputElement>(null);
   useOnClickOutside(editItemRef, () => setIsEdit(false));
@@ -63,7 +67,7 @@ const TodoItem = ({ todo, ...props }: TodoItemProps) => {
   };
 
   return showStatus === todo.status || showStatus === TodoStatus.ALL ? (
-    <div className={Styles.Container} todo-status={todo.status} {...props}>
+    <div data-testid={testId} className={Styles.Container} todo-status={todo.status} {...props}>
       <Input
         testId="todo-item-checkbox"
         type="checkbox"
@@ -81,7 +85,7 @@ const TodoItem = ({ todo, ...props }: TodoItemProps) => {
           <time data-testid="todo-item-time">{new Date(todo.updated_date).toLocaleString()}</time>
         </div>
       )}
-      <img src={removeIcon} alt="remove-item" onClick={onDeleteTodo} />
+      <img data-testid="delete-todo-item-icon" src={removeIcon} alt="delete-item" onClick={onDeleteTodo} />
     </div>
   ) : (
     <Fragment></Fragment>

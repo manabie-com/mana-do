@@ -1,11 +1,11 @@
 import Input from "components/input";
 import React, { useRef } from "react";
-import useTodoStore from "../store/useTodoStore";
+import useTodoFacade from "../facades/useTodoFacade";
 import { CreateTodoDto } from "../todo.models";
 import Styles from "./todo-create.module.scss";
 
 const TodoCreate = () => {
-  const createTodo = useTodoStore((state) => state.createTodo);
+  const { createTodo } = useTodoFacade();
 
   const inputRef = useRef<HTMLInputElement>(null);
 

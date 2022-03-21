@@ -1,18 +1,15 @@
 import Button from "components/button";
 import Input from "components/input";
 import React, { useEffect } from "react";
-import useTodoStore from "../store/useTodoStore";
+import useFilterTodoFacade from "../facades/useFilterTodoFacade";
+import useTodoFacade from "../facades/useTodoFacade";
 import { TodoStatus, ToggleAllTodosDto } from "../todo.models";
 import Styles from "./todo-toolbar.module.scss";
 
-export type TodoToolbarProps = {
-  toggleAllTodos: (toggleAllTodoDto: ToggleAllTodosDto) => void;
-  setShowStatus: (status: TodoStatus) => void;
-  deleteAllTodos: () => void;
-};
+const TodoToolbar = () => {
+  const { todos, toggleAllTodos, deleteAllTodos } = useTodoFacade();
+  const { showStatus, setShowStatus } = useFilterTodoFacade();
 
-const TodoToolbar = ({ toggleAllTodos, setShowStatus, deleteAllTodos }: TodoToolbarProps) => {
-  const { todos, showStatus } = useTodoStore((state) => state);
   const [isAllCompleted, setIsAllCompleted] = React.useState(false);
 
   useEffect(() => {
@@ -23,7 +20,7 @@ const TodoToolbar = ({ toggleAllTodos, setShowStatus, deleteAllTodos }: TodoTool
     const toggleAllTodosDto: ToggleAllTodosDto = {
       status: event.target.checked ? TodoStatus.COMPLETED : TodoStatus.ACTIVE,
     };
-    
+
     toggleAllTodos(toggleAllTodosDto);
   };
 

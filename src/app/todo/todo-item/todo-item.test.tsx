@@ -1,13 +1,16 @@
 import "@testing-library/jest-dom";
-import { cleanup, render, screen } from "@testing-library/react";
+import { act, cleanup, fireEvent, render, screen } from "@testing-library/react";
 import React from "react";
 import shortid from "shortid";
 import TodoItem, { TodoItemProps } from ".";
 import { TodoStatus } from "../todo.models";
 
+const id = shortid();
+
 const props: TodoItemProps = {
+  testId: id,
   todo: {
-    id: shortid(),
+    id,
     user_id: "hh1296",
     content: "Test todo item",
     status: TodoStatus.ACTIVE,
@@ -17,13 +20,16 @@ const props: TodoItemProps = {
 };
 
 describe(`${TodoItem.name} Test Suite`, () => {
+  let todoEditItemInput: HTMLInputElement;
   let todoItemCheckbox: HTMLInputElement;
   let todoItemSpan: HTMLSpanElement;
   let todoItemTime: HTMLTimeElement;
 
   describe("With Active status", () => {
-    beforeEach(() => {
-      render(<TodoItem {...props} />);
+    beforeEach(async () => {
+      await act(async () => {
+        render(<TodoItem {...props} />);
+      });
 
       todoItemCheckbox = screen.getByTestId("todo-item-checkbox");
       todoItemSpan = screen.getByTestId("todo-item");
@@ -42,6 +48,16 @@ describe(`${TodoItem.name} Test Suite`, () => {
       expect(todoItemSpan).toHaveTextContent(props.todo.content);
       expect(todoItemTime).toHaveTextContent(new Date(props.todo.updated_date).toLocaleString());
       expect(todoItemCheckbox).not.toBeChecked();
+    });
+
+    it("should show edit todo input on double click", async () => {
+      await act(async () => {
+        fireEvent.doubleClick(todoItemSpan);
+      });
+
+      todoEditItemInput = screen.getByTestId("edit-todo-input");
+
+      expect(todoEditItemInput).toBeInTheDocument();
     });
   });
 

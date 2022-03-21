@@ -1,136 +1,94 @@
 import "@testing-library/jest-dom";
-import { cleanup, fireEvent, render, screen } from "@testing-library/react";
+import { cleanup, render, screen } from "@testing-library/react";
 import { act, renderHook } from "@testing-library/react-hooks";
 import React from "react";
 import Service from "service";
-import TodoToolbar, { TodoToolbarProps } from ".";
-import useTodoStore from "../store/useTodoStore";
-import { CreateTodoDto, TodoStatus, ToggleAllTodosDto } from "../todo.models";
-
-const props: TodoToolbarProps = {
-  toggleAllTodos: jest.fn(),
-  deleteAllTodos: jest.fn(),
-  setShowStatus: jest.fn(),
-};
+import TodoToolbar from ".";
+import useFilterTodoFacade from "../facades/useFilterTodoFacade";
+import useTodoFacade from "../facades/useTodoFacade";
+import { CreateTodoDto, TodoStatus } from "../todo.models";
 
 describe(`${TodoToolbar.name} Test Suite`, () => {
-  it("fetch todos from api", async () => {
-    const { result, waitForValueToChange } = renderHook(() => useTodoStore((state) => state));
-
+  beforeEach(async () => {
     await act(async () => {
-      const createTodoDto1: CreateTodoDto = {
-        content: "Should pass this test 1",
-      };
-
-      const createTodoDto2: CreateTodoDto = {
-        content: "Should pass this test 2",
-      };
-
-      const createTodoDto3: CreateTodoDto = {
-        content: "Should pass this test 3",
-      };
-
-      const createTodoDto4: CreateTodoDto = {
-        content: "Should pass this test 4",
-      };
-
-      await Service.createTodo(createTodoDto1);
-      await Service.createTodo(createTodoDto2);
-      await Service.createTodo(createTodoDto3);
-      await Service.createTodo(createTodoDto4);
-
-      result.current.fetchTodos();
-
-      await waitForValueToChange(() => result.current.todos);
+      render(<TodoToolbar />);
     });
   });
 
-  describe("Todo Toolbar Select Status", () => {
-    beforeEach(() => {
-      render(<TodoToolbar {...props} />);
+  afterEach(cleanup);
+
+  it("should not display toggle all todo checbox if todos length = 0", async () => {
+    const todoStore = renderHook(() => useTodoFacade());
+
+    const filterTodoStore = renderHook(() => useFilterTodoFacade());
+
+    expect(todoStore.result.current.todos.length).toEqual(0);
+
+    let hasAllTodos =
+      filterTodoStore.result.current.showStatus === TodoStatus.ALL && todoStore.result.current.todos.length > 0;
+
+    expect(hasAllTodos).not.toBeTruthy();
+
+    expect(screen.queryByTestId("toggle-all-checkbox")).toBeNull();
+  });
+
+  it("should display toggle all todo checbox if todos length > 0", async () => {
+    const todoStore = renderHook(() => useTodoFacade());
+
+    const filterTodoStore = renderHook(() => useFilterTodoFacade());
+
+    const createTodoDtos: CreateTodoDto[] = [
+      {
+        content: "Should pass this test 1",
+      },
+      {
+        content: "Should pass this test 2",
+      },
+      {
+        content: "Should pass this test 3",
+      },
+      {
+        content: "Should pass this test 4",
+      },
+    ];
+
+    await act(async () => {
+      for await (const createTodoDto of createTodoDtos) {
+        await Service.createTodo(createTodoDto);
+      }
+
+      todoStore.result.current.fetchTodos();
+
+      await todoStore.waitForValueToChange(() => todoStore.result.current.todos);
     });
 
-    afterEach(cleanup);
+    expect(todoStore.result.current.todos.length).toEqual(4);
 
-    it("should call toggleAllTodos", async () => {
-      const { result, waitForValueToChange } = renderHook(() => useTodoStore((state) => state));
-      const mockToggleAllTodos = jest.spyOn(result.current, "toggleAllTodos");
+    let hasFilteredTodos =
+      todoStore.result.current.todos.filter((todo) => todo.status === filterTodoStore.result.current.showStatus)
+        .length > 0;
 
-      let isAllComplete = result.current.todos.every((todo) => todo.status === TodoStatus.COMPLETED);
-      const toggleAllCheckbox = screen.getByTestId("toggle-all-checkbox");
-      const toggleAllTodosCompletedDto: ToggleAllTodosDto = {
-        status: TodoStatus.COMPLETED,
-      };
-      const toggleAllTodosActiveDto: ToggleAllTodosDto = {
-        status: TodoStatus.ACTIVE,
-      };
+    let hasAllTodos =
+      filterTodoStore.result.current.showStatus === TodoStatus.ALL && todoStore.result.current.todos.length > 0;
 
-      expect(isAllComplete).not.toBeTruthy();
-      fireEvent.click(toggleAllCheckbox);
-      expect(props.toggleAllTodos).toHaveBeenCalledTimes(1);
-      expect(props.toggleAllTodos).toHaveBeenCalledWith(toggleAllTodosCompletedDto);
+    expect(hasFilteredTodos).not.toBeTruthy();
 
-      await act(async () => {
-        result.current.toggleAllTodos(toggleAllTodosCompletedDto);
+    expect(hasAllTodos).toBeTruthy();
 
-        expect(mockToggleAllTodos).toHaveBeenCalledTimes(1);
+    const toggleAllCheckbox = screen.getByTestId("toggle-all-checkbox");
 
-        expect(mockToggleAllTodos).toHaveBeenCalledWith(toggleAllTodosCompletedDto);
+    expect(toggleAllCheckbox).toBeInTheDocument();
+  });
 
-        await waitForValueToChange(() => result.current.todos);
-      });
+  it("should display all toolbar button correctly", () => {
+    const todoToolbarSelectAll = screen.getByTestId("todo-toolbar-select-all");
+    const todoToolbarSelectActive = screen.getByTestId("todo-toolbar-select-active");
+    const todoToolbarSelectCompleted = screen.getByTestId("todo-toolbar-select-completed");
+    const todoToolbarDeleteAll = screen.getByTestId("todo-toolbar-delete-all");
 
-      isAllComplete = result.current.todos.every((todo) => todo.status === TodoStatus.COMPLETED);
-
-      expect(isAllComplete).toBeTruthy();
-      fireEvent.click(toggleAllCheckbox);
-      expect(props.toggleAllTodos).toHaveBeenCalledTimes(2);
-      expect(props.toggleAllTodos).toHaveBeenCalledWith(toggleAllTodosActiveDto);
-
-      await act(async () => {
-        result.current.toggleAllTodos(toggleAllTodosActiveDto);
-
-        expect(mockToggleAllTodos).toHaveBeenCalledTimes(2);
-
-        expect(mockToggleAllTodos).toHaveBeenCalledWith(toggleAllTodosActiveDto);
-
-        await waitForValueToChange(() => result.current.todos);
-      });
-
-      isAllComplete = result.current.todos.every((todo) => todo.status === TodoStatus.COMPLETED);
-
-      expect(isAllComplete).not.toBeTruthy();
-    });
-
-    it("should call setShowStatus with 'ALL' as param", () => {
-      const todoToolbarSelectAll = screen.getByTestId("todo-toolbar-select-all");
-      fireEvent.click(todoToolbarSelectAll);
-
-      expect(props.setShowStatus).toHaveBeenCalledTimes(1);
-      expect(props.setShowStatus).toHaveBeenCalledWith(TodoStatus.ALL);
-    });
-
-    it("should call setShowStatus with 'ACTIVE' as param", () => {
-      const todoToolbarSelectActive = screen.getByTestId("todo-toolbar-select-active");
-      fireEvent.click(todoToolbarSelectActive);
-
-      expect(props.setShowStatus).toHaveBeenCalledTimes(1);
-      expect(props.setShowStatus).toHaveBeenCalledWith(TodoStatus.ACTIVE);
-    });
-
-    it("should call setShowStatus with 'COMPLETED' as param", () => {
-      const todoToolbarSelectCompleted = screen.getByTestId("todo-toolbar-select-completed");
-      fireEvent.click(todoToolbarSelectCompleted);
-
-      expect(props.setShowStatus).toHaveBeenCalledTimes(1);
-      expect(props.setShowStatus).toHaveBeenCalledWith(TodoStatus.COMPLETED);
-    });
-
-    it("should call deleteAllTodos", () => {
-      const todoToolbarDeleteAll = screen.getByTestId("todo-toolbar-delete-all");
-      fireEvent.click(todoToolbarDeleteAll);
-
-      expect(props.deleteAllTodos).toHaveBeenCalledTimes(1);
-    });
+    expect(todoToolbarSelectAll).toBeInTheDocument();
+    expect(todoToolbarSelectActive).toBeInTheDocument();
+    expect(todoToolbarSelectCompleted).toBeInTheDocument();
+    expect(todoToolbarDeleteAll).toBeInTheDocument();
   });
 });

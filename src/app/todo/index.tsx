@@ -1,12 +1,12 @@
 import React, { useEffect } from "react";
-import useTodoStore from "./store/useTodoStore";
+import useTodoFacade from "./facades/useTodoFacade";
 import TodoCreate from "./todo-create";
 import TodoItem from "./todo-item";
 import TodoToolbar from "./todo-toolbar";
 import Styles from "./todo.module.scss";
 
 const ToDo = () => {
-  const { todos, fetchTodos, toggleAllTodos, deleteAllTodos, setShowStatus } = useTodoStore((state) => state);
+  const { todos, fetchTodos } = useTodoFacade();
 
   useEffect(() => {
     fetchTodos();
@@ -18,13 +18,13 @@ const ToDo = () => {
 
       <TodoCreate />
 
-      <div className={Styles.List}>
+      <div data-testid="todo-list" className={Styles.List}>
         {todos.map((todo) => (
-          <TodoItem key={todo.id} todo={todo} />
+          <TodoItem testId={todo.id} key={todo.id} todo={todo} />
         ))}
       </div>
 
-      <TodoToolbar toggleAllTodos={toggleAllTodos} deleteAllTodos={deleteAllTodos} setShowStatus={setShowStatus} />
+      <TodoToolbar />
     </div>
   );
 };
