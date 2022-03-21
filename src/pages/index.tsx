@@ -50,7 +50,9 @@ const ToDo = () => {
   };
 
   const onDeleteAllTodo = () => {
-    dispatch(deleteAllTodo());
+    if (window.confirm('Are you sure delete all todo')) {
+      dispatch(deleteAllTodo());
+    }
   };
 
   const handleDeleteTodo = (todoId: string) => {

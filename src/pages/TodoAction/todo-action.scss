@@ -1,3 +1,5 @@
+@import '../../assets/common/variable.scss';
+
 .toolbar {
   display: flex;
   justify-content: space-between;
@@ -5,11 +7,25 @@
 
   &__tabs {
     display: flex;
+    align-items: center;
     justify-content: center;
 
     &--active {
       box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
         rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+    }
+
+    &-btn {
+      width: 50px;
+      height: fit-content;
+      font-size: 11px;
+      text-transform: uppercase;
+      box-sizing: border-box;
+
+      @media screen and (min-width: $media-md) {
+        font-size: 12px;
+        min-width: 100px;
+      }
     }
   }
 

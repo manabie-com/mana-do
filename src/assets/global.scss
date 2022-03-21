@@ -5,6 +5,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background: #066acd;
 }
 
 code {
@@ -47,7 +48,7 @@ input[type='checkbox']:focus {
 }
 
 input {
-  min-height: 36px;
+  min-height: 50px;
   border: none;
   outline: none;
   padding: 0 12px;

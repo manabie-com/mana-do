@@ -4,6 +4,10 @@
     align-items: center;
     justify-content: space-between;
     cursor: pointer;
+    padding: 10px;
+    box-sizing: border-box;
+    background-color: #c5e1e6;
+    margin-bottom: 1rem;
 
     > span {
       flex: 1 1;
@@ -19,12 +23,11 @@
       min-width: auto;
       min-height: auto;
       box-shadow: none;
-      border-radius: 50%;
       display: flex;
       justify-content: center;
       align-items: center;
       cursor: pointer;
-      background-color: red;
+      background-color: #0a2ea4;
       color: white;
     }
   }
