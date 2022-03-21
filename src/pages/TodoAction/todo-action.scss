@@ -2,8 +2,12 @@
 
 .toolbar {
   display: flex;
-  justify-content: space-between;
   margin-top: 24px;
+  justify-content: center;
+
+  @media screen and (min-width: $media-md) {
+    justify-content: space-between;
+  }
 
   &__tabs {
     display: flex;
