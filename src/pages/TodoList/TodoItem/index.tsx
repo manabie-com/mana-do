@@ -1,6 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
-import Todo from '../../../models/todo';
+import { isMobile } from 'react-device-detect';
+
 import './todo-item.scss';
+
+import Todo from '../../../models/todo';
 import TodoItemContent from './TodoItemContent';
 
 interface TodoItemInterface {
@@ -31,7 +34,7 @@ const TodoItem = (props: TodoItemInterface) => {
   }, [todo]);
 
   const handleOnClickTodo = (e: React.MouseEvent<HTMLButtonElement>) => {
-    if (e.detail === 2) {
+    if (e.detail === 2 || (e.detail === 1 && isMobile)) {
       setIsEditing(true);
     }
   };
