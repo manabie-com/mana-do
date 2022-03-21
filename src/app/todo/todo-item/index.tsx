@@ -1,8 +1,7 @@
 import removeIcon from "assets/remove.svg";
 import Input from "components/input";
 import useOnClickOutside from "hooks/useOnClickOutside";
-import React, { ChangeEvent, ComponentPropsWithoutRef, Fragment, useEffect, useRef, useState } from "react";
-import useFilterTodoFacade from "../facades/useFilterTodoFacade";
+import React, { ChangeEvent, ComponentPropsWithoutRef, useEffect, useRef, useState } from "react";
 import useTodoFacade from "../facades/useTodoFacade";
 import { DeleteTodoDto, Todo, TodoStatus, UpdateTodoDto } from "../todo.models";
 import Styles from "./todo-item.module.scss";
@@ -14,7 +13,6 @@ export type TodoItemProps = {
 
 const TodoItem = ({ testId, todo, ...props }: TodoItemProps) => {
   const { updateTodo, deleteTodo } = useTodoFacade();
-  const { showStatus } = useFilterTodoFacade();
 
   const [isEdit, setIsEdit] = useState<boolean>(false);
   const editItemRef = useRef<HTMLInputElement>(null);
@@ -66,7 +64,7 @@ const TodoItem = ({ testId, todo, ...props }: TodoItemProps) => {
     deleteTodo(deleteTodoDto);
   };
 
-  return showStatus === todo.status || showStatus === TodoStatus.ALL ? (
+  return (
     <div data-testid={testId} className={Styles.Container} todo-status={todo.status} {...props}>
       <Input
         testId="todo-item-checkbox"
@@ -87,8 +85,6 @@ const TodoItem = ({ testId, todo, ...props }: TodoItemProps) => {
       )}
       <img data-testid="delete-todo-item-icon" src={removeIcon} alt="delete-item" onClick={onDeleteTodo} />
     </div>
-  ) : (
-    <Fragment></Fragment>
   );
 };
 

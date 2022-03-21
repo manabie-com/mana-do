@@ -1,0 +1,14 @@
+@import "../../../scss/abstracts/variables";
+
+.Container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  height: 100%;
+
+  img {
+    height: 160px;
+  }
+}

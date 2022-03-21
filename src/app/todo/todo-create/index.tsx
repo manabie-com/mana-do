@@ -1,11 +1,13 @@
 import Input from "components/input";
 import React, { useRef } from "react";
+import useFilterTodoFacade from "../facades/useFilterTodoFacade";
 import useTodoFacade from "../facades/useTodoFacade";
-import { CreateTodoDto } from "../todo.models";
+import { CreateTodoDto, TodoStatus } from "../todo.models";
 import Styles from "./todo-create.module.scss";
 
 const TodoCreate = () => {
   const { createTodo } = useTodoFacade();
+  const { showStatus, setShowStatus } = useFilterTodoFacade();
 
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -20,6 +22,10 @@ const TodoCreate = () => {
       createTodo(createTodoDto);
 
       inputRef.current.value = "";
+
+      if (showStatus === TodoStatus.COMPLETED) {
+        setShowStatus(TodoStatus.ACTIVE);
+      }
     }
   };
 

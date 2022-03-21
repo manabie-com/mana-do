@@ -8,7 +8,7 @@
   padding: 12px 8px;
 
   border-radius: 4px;
-  background-color: rgba($color: $brand-color, $alpha: 0.24);
+  background-color: rgba($color: $brand-color, $alpha: 0.16);
 
   &[todo-status="COMPLETED"] {
     background-color: rgba($color: $green-color, $alpha: 0.24);

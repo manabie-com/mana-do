@@ -20,8 +20,9 @@
 
     position: relative;
     margin-top: 1.5rem;
-    max-height: 50vh;
-    overflow: auto;
+    height: 50vh;
+    overflow-x: hidden;
+    overflow-y: auto;
     padding-right: 4px;
 
     &::-webkit-scrollbar {
