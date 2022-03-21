@@ -1,0 +1,113 @@
+
+/* ToDo__item */
+.ToDo__item{
+  text-align: left;
+ padding: 1.25em;
+ display: flex;
+ align-items: center;
+}
+.ToDo__item:hover {
+background:  #f7f9ff ;
+}
+.ToDo__item:hover .ToDo__delete{
+  display: block;
+}
+
+
+/* .ToDo__item+.ToDo__item{
+  margin-top: 0.5em;
+  border-top: 1px solid #dbdbdb;
+} */
+
+.ToDo__item--completed + .ToDo__content{ 
+  text-decoration: line-through;
+  color: grey;
+  }
+
+
+/* ToDo__item */
+
+.ToDo__item_input{
+  margin-left: 1em;
+    flex: 1;
+    background: transparent;
+    font-size: 1em;
+    margin-right: 1.5em;
+    border-top: 0;
+    border-right: 0;
+    border-left: 0;
+    border-bottom: 1px solid #ccc;
+    width: 100%;
+    outline: 0;
+}
+.ToDo__item_input:focus{
+  border-color: #325DE9;
+  color: #325DE9;
+}
+
+
+
+.ToDo__content{
+  padding: 0 0.8em ;
+  margin: 0 0.5em;
+  flex: 1;
+}
+
+.ToDo__delete{
+  cursor: pointer;
+  display: none;
+  font-weight: 800;
+  background: transparent;
+  outline: 0;
+  border: 0;
+  transition: 100ms;
+}
+.ToDo__delete:hover{
+  color: red;
+}
+.ToDo__checkbox {
+  position: relative;
+}
+
+.ToDo__checkbox label {
+  background-color: #fff;
+  border: 1px solid #aaa;
+  border-radius: 50%;
+  cursor: pointer;
+  height: 25px;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 25px;
+}
+.ToDo__checkbox:hover label {
+  border: 1px solid #325DE9;
+
+}
+
+.ToDo__checkbox label:after {
+  border: 2px solid #fff;
+  border-top: none;
+  border-right: none;
+  content: "";
+  height: 5px;
+  left: 6px;
+  opacity: 0;
+  position: absolute;
+  top: 6px;
+  transform: rotate(-45deg);
+  width: 10px;
+}
+
+.ToDo__checkbox input[type="checkbox"] {
+  visibility: hidden;
+}
+
+.ToDo__checkbox input[type="checkbox"]:checked + label {
+  background-color: #325DE9;
+  border-color: #325DE9;
+}
+
+.ToDo__checkbox input[type="checkbox"]:checked + label:after {
+  opacity: 1;
+}

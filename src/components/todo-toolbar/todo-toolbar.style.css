@@ -1,0 +1,31 @@
+.ToDo__toolbar{ 
+  display: flex ;
+  justify-content: space-between;
+  align-items: center;
+  padding:  1em 1.2em;
+  border-top: 1px solid #dbdbdb;
+  margin-top: 1em;
+}
+
+.ToDo__toolbar_button{
+  cursor: pointer;
+  border: 0;
+  background: none;
+  box-shadow: none;
+  border-radius: 0px;
+  transition: 100ms;
+  padding: 0.5em 1em;
+  font-size: 0.8em;
+  color: #ccc;
+  font-weight: 700;
+}
+
+.ToDo__toolbar_button--active{
+  color: #3ACE85;
+  border-radius: 2px;
+}
+
+
+.ToDo__toolbar_button:hover{
+ color: #3ACE85;
+}

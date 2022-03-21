@@ -1,0 +1,16 @@
+.ToDo__input{
+  background: #f7f9ff;;
+  outline: 0;
+  border:0;
+  padding: 1.5em;
+  border-radius: 5px;
+  font-size: 1em;
+  width: 100%;
+}
+
+.ToDo__input_container {
+  border-radius: 8px;
+  width: 100%;
+  padding: 1em;
+}
+
