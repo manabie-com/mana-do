@@ -1,17 +1,21 @@
-Fixed:
-> Fix: Adding todo
-> Fix: Updating todo checkbox
-> Fix: Deleting todo
+# Technical exam for front end engineer - Clark Candia
 
-Feat:
-> Data now are storing in localstorage
-> Adding todo if pressed enter key
-> No longers add empty todo
-> Enables to update todo (when double clicked)
-> Filter for Completed and Active button
-> Clear button
-> All button
 
-> Revamp UI 
-> Added test scripts in each component
-> Installed enzyme
+## Fixed:
+- [x] Fix: Adding todo
+- [x] Fix: Updating todo checkbox
+- [x] Fix: Deleting todo
+
+## Feat:
+- [x] Data now are storing in localstorage
+- [x] Adding todo if pressed enter key
+- [x] No longers add empty todo
+- [x] Enables to update todo (when double clicked)
+- [x] Filter for Completed and Active button
+- [x] Clear button
+- [x] All button
+- [x] Show delete button upon hovering
+
+- [x] Revamp UI 
+- [x] Added test scripts in each component
+- [x] Installed enzyme
