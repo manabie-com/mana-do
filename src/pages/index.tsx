@@ -14,7 +14,7 @@ import LocalStorage from '../localStorage';
 import TodoAction from './TodoAction';
 import TodoList from './TodoList';
 import Todo from '../models/todo';
-import { filterTodoByStatus } from '../selectors/todo';
+import { filterTodoByStatus, findTodoWithTodoId } from '../selectors/todo';
 import { useDispatch } from 'react-redux';
 import { useAppSelector } from '../store/hook';
 
@@ -54,7 +54,10 @@ const ToDo = () => {
   };
 
   const handleDeleteTodo = (todoId: string) => {
-    dispatch(deleteTodo(todoId));
+    const todo = findTodoWithTodoId(todoId, todoList);
+    if (todo && window.confirm(`Are you sure to delete ${todo.content}`)) {
+      dispatch(deleteTodo(todoId));
+    }
   };
 
   const handleUpdateTodoStatus = (todo: Todo, checked: boolean) => {

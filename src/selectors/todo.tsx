@@ -21,3 +21,7 @@ export const sumTodoActive = (todoList: Array<Todo>) => {
     0
   );
 };
+
+export const findTodoWithTodoId = (todoId: string, todoList: Array<Todo>) => {
+  return todoList.find((todo) => todo.id === todoId) || null;
+};
