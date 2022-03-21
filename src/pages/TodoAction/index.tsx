@@ -1,4 +1,4 @@
-import './todo-action.css';
+import './todo-action.scss';
 
 import Todo from '../../models/todo';
 import React from 'react';

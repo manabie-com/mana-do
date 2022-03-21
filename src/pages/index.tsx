@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import './todo.css';
+import './todo.scss';
 import {
   setTodoList,
   createTodo,
@@ -44,7 +44,6 @@ const ToDo = () => {
   };
 
   const onToggleAllTodo = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(e.target.checked);
     dispatch(
       toggleAllTodo(e.target.checked ? TodoStatus.COMPLETED : TodoStatus.ACTIVE)
     );

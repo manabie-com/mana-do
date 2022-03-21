@@ -2,7 +2,7 @@ import React from 'react';
 
 import ToDo from './pages';
 
-import './App.css';
+import './global.scss';
 
 function App() {
   return (

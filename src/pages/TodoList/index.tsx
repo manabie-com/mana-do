@@ -1,4 +1,4 @@
-import './todo-list.css';
+import './todo-list.scss';
 
 import React from 'react';
 import Todo from '../../models/todo';

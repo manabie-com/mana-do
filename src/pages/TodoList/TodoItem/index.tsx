@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Todo from '../../../models/todo';
-import './todo-item.css';
+import './todo-item.scss';
 import TodoItemContent from './TodoItemContent';
 
 interface TodoItemInterface {
