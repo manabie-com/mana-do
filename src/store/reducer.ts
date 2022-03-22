@@ -26,13 +26,10 @@ function reducer(state: AppState, action: AppActions): AppState {
       break;
 
     case UPDATE_TODO_STATUS:
-      const index2 = state.todos.findIndex((todo) => todo.id === action.payload.todoId);
-      state.todos[index2].status = action.payload.checked ? TodoStatus.COMPLETED : TodoStatus.ACTIVE;
+      const index2 = newState.todos.findIndex((todo) => todo.id === action.payload.todoId);
+      if(index2 !== -1) newState.todos[index2].status = action.payload.checked ? TodoStatus.COMPLETED : TodoStatus.ACTIVE;
 
-      return {
-        ...state,
-        todos: state.todos
-      }
+      break;
 
     case TOGGLE_ALL_TODOS:
       const tempTodos = state.todos.map((e)=>{

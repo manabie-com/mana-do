@@ -38,7 +38,7 @@ const ToDoPage = () => {
         }
     }
 
-    const onUpdateTodoStatus = (e: React.ChangeEvent<HTMLInputElement>, todoId: any) => {
+    const onUpdateTodoStatus = (e: React.ChangeEvent<HTMLInputElement>, todoId: string) => {
         dispatch(updateTodoStatus(todoId, e.target.checked))
     }
 
@@ -71,8 +71,8 @@ const ToDoPage = () => {
                             <div key={index} className="ToDo__item">
                                 <input
                                     type="checkbox"
-                                    checked={showing === todo.status}
-                                    onChange={(e) => onUpdateTodoStatus(e, index)}
+                                    checked={todo.status === 'COMPLETED'}
+                                    onChange={(e) => onUpdateTodoStatus(e, todo.id)}
                                 />
                                 <span>{todo.content}</span>
                                 <button
