@@ -12,12 +12,13 @@ import {
 import Service from './service';
 import {TodoStatus} from './models/todo';
 
+import ToDoItem from "./ToDoItem"
+
 type EnhanceTodoStatus = TodoStatus | 'ALL';
 
 
 const ToDoPage = () => {
     const [{todos}, dispatch] = useReducer(reducer, initialState);
-    console.log(todos)
     const [showing, setShowing] = useState<EnhanceTodoStatus>('ALL');
     const inputRef = useRef<any>(null);
 
@@ -38,20 +39,12 @@ const ToDoPage = () => {
         }
     }
 
-    const onUpdateTodoStatus = (e: React.ChangeEvent<HTMLInputElement>, todoId: string) => {
-        dispatch(updateTodoStatus(todoId, e.target.checked))
-    }
-
     const onToggleAllTodo = (e: React.ChangeEvent<HTMLInputElement>) => {
         dispatch(toggleAllTodos(e.target.checked))
     }
 
     const onDeleteAllTodos = () => {
         dispatch(deleteAllTodos());
-    }
-
-    const onDeleteTodo = (todoId:string) => {
-        dispatch(deleteTodo(todoId));
     }
 
     return (
@@ -68,20 +61,7 @@ const ToDoPage = () => {
                 {
                     todos.map((todo, index) => {
                         return (
-                            <div key={index} className="ToDo__item">
-                                <input
-                                    type="checkbox"
-                                    checked={todo.status === 'COMPLETED'}
-                                    onChange={(e) => onUpdateTodoStatus(e, todo.id)}
-                                />
-                                <span>{todo.content}</span>
-                                <button
-                                    className="Todo__delete"
-                                    onClick={()=> onDeleteTodo(todo.id)}
-                                >
-                                    X
-                                </button>
-                            </div>
+                            <ToDoItem index={index} todo={todo}/>
                         );
                     })
                 }
