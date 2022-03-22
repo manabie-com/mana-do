@@ -98,6 +98,9 @@ input:focus {
   justify-content: center;
   align-items: center;
   cursor: pointer;
+  color:white;
+  background-color: red;
+  font-weight: 700;
 }
 
 .Todo__action, .Todo__delete {
@@ -121,5 +124,24 @@ input:focus {
   margin-right: 8px;
 }
 
-.Action__btn {
+.btn{
+  font-weight: 700;
+  cursor:pointer;
+  color:white;
+}
+
+.SelectAll__btn {
+  background-color: rgb(6, 177, 6);
+}
+
+.Active__btn {
+  background-color: orange;
+}
+
+.Completed__btn {
+  background-color: purple;
+}
+
+.ClearAll__btn {
+  background-color: rgb(170, 15, 15);
 }

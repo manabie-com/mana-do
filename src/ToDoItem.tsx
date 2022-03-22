@@ -40,7 +40,7 @@ const ToDoItem:React.FC<ToDoItemProps> = ({todo}) => {
         className="Todo__delete"
         onClick={()=> onDeleteTodo(todo.id)}
     >
-        X
+        x
     </button>
 </div>
   );

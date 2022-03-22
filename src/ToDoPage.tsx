@@ -58,12 +58,13 @@ const ToDoPage = () => {
                 />
             </div>
             <div className="ToDo__list">
-                {
+                {todos && todos.length ? 
                     todos.map((todo, index) => {
                         return (
-                            <ToDoItem key={index} todo={todo}/>
+                                <ToDoItem key={index} todo={todo}/>
                         );
                     })
+                    : <div>There are currently no to-do!</div>
                 }
             </div>
             <div className="Todo__toolbar">
@@ -74,17 +75,17 @@ const ToDoPage = () => {
                     /> : <div/>
                 }
                 <div className="Todo__tabs">
-                    <button className="Action__btn">
+                    <button className="btn SelectAll__btn">
                         All
                     </button>
-                    <button className="Action__btn" onClick={()=>setShowing(TodoStatus.ACTIVE)}>
+                    <button className="btn Active__btn" onClick={()=>setShowing(TodoStatus.ACTIVE)}>
                         Active
                     </button>
-                    <button className="Action__btn" onClick={()=>setShowing(TodoStatus.COMPLETED)}>
+                    <button className="btn Completed__btn" onClick={()=>setShowing(TodoStatus.COMPLETED)}>
                         Completed
                     </button>
                 </div>
-                <button className="Action__btn" onClick={onDeleteAllTodos}>
+                <button className="btn ClearAll__btn" onClick={onDeleteAllTodos}>
                     Clear all todos
                 </button>
             </div>
