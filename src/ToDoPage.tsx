@@ -6,7 +6,8 @@ import {
     createTodo,
     toggleAllTodos,
     deleteAllTodos,
-    updateTodoStatus
+    updateTodoStatus,
+    deleteTodo
 } from './store/actions';
 import Service from './service';
 import {TodoStatus} from './models/todo';
@@ -16,6 +17,7 @@ type EnhanceTodoStatus = TodoStatus | 'ALL';
 
 const ToDoPage = () => {
     const [{todos}, dispatch] = useReducer(reducer, initialState);
+    console.log(todos)
     const [showing, setShowing] = useState<EnhanceTodoStatus>('ALL');
     const inputRef = useRef<any>(null);
 
@@ -28,9 +30,11 @@ const ToDoPage = () => {
     }, [])
 
     const onCreateTodo = async (e: React.KeyboardEvent<HTMLInputElement>) => {
-        if (e.key === 'Enter' ) {
+        if (e.key === 'Enter' && inputRef.current.value) {
             const resp = await Service.createTodo(inputRef.current.value);
             dispatch(createTodo(resp));
+
+            inputRef.current.value = ''
         }
     }
 
@@ -42,10 +46,13 @@ const ToDoPage = () => {
         dispatch(toggleAllTodos(e.target.checked))
     }
 
-    const onDeleteAllTodo = () => {
+    const onDeleteAllTodos = () => {
         dispatch(deleteAllTodos());
     }
 
+    const onDeleteTodo = (todoId:string) => {
+        dispatch(deleteTodo(todoId));
+    }
 
     return (
         <div className="ToDo__container">
@@ -70,6 +77,7 @@ const ToDoPage = () => {
                                 <span>{todo.content}</span>
                                 <button
                                     className="Todo__delete"
+                                    onClick={()=> onDeleteTodo(todo.id)}
                                 >
                                     X
                                 </button>
@@ -96,7 +104,7 @@ const ToDoPage = () => {
                         Completed
                     </button>
                 </div>
-                <button className="Action__btn" onClick={onDeleteAllTodo}>
+                <button className="Action__btn" onClick={onDeleteAllTodos}>
                     Clear all todos
                 </button>
             </div>

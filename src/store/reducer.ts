@@ -17,12 +17,13 @@ export const initialState: AppState = {
 }
 
 function reducer(state: AppState, action: AppActions): AppState {
+  const newState:AppState = JSON.parse(JSON.stringify(state));
+  
   switch (action.type) {
     case CREATE_TODO:
-      state.todos.push(action.payload);
-      return {
-        ...state
-      };
+      newState.todos.push(action.payload);
+
+      break;
 
     case UPDATE_TODO_STATUS:
       const index2 = state.todos.findIndex((todo) => todo.id === action.payload.todoId);
@@ -47,21 +48,21 @@ function reducer(state: AppState, action: AppActions): AppState {
       }
 
     case DELETE_TODO:
-      const index1 = state.todos.findIndex((todo) => todo.id === action.payload);
+      const index1 = newState.todos.findIndex((todo) => todo.id === action.payload);
       state.todos.splice(index1, 1);
 
-      return {
-        ...state,
-        todos: state.todos
-      }
+      break;
     case DELETE_ALL_TODOS:
-      return {
-        ...state,
-        todos: []
-      }
+      newState.todos= []
+
+      break;
     default:
-      return state;
+      break;
   }
+
+  return {
+    ...newState
+  };
 }
 
 export default reducer;
