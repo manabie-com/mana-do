@@ -61,7 +61,7 @@ const ToDoPage = () => {
                 {
                     todos.map((todo, index) => {
                         return (
-                            <ToDoItem index={index} todo={todo}/>
+                            <ToDoItem key={index} todo={todo}/>
                         );
                     })
                 }

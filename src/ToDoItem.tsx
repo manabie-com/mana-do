@@ -14,11 +14,10 @@ import {TodoStatus} from './models/todo';
 import {Todo} from "./models/todo"
 
 interface ToDoItemProps{
-  index:number;
   todo:Todo
 }
 
-const ToDoItem:React.FC<ToDoItemProps> = ({index,todo}) => {
+const ToDoItem:React.FC<ToDoItemProps> = ({todo}) => {
   const [{todos}, dispatch] = useReducer(reducer, initialState);
 
     const onUpdateTodoStatus = (e: React.ChangeEvent<HTMLInputElement>, todoId: string) => {
@@ -30,7 +29,7 @@ const ToDoItem:React.FC<ToDoItemProps> = ({index,todo}) => {
     }
 
   return (
-    <div key={index} className="ToDo__item">
+    <div className="ToDo__item">
     <input
         type="checkbox"
         checked={todo.status === 'COMPLETED'}
