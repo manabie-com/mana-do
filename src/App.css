@@ -19,8 +19,8 @@ button:hover {
 }
 
 input[type="checkbox"] {
-  width: 24px;
-  height: 24px;
+  width: 32px;
+  height: 32px;
   box-shadow: none;
   border: none;
   outline: none;
@@ -43,6 +43,50 @@ input {
 
 input:focus {
   box-shadow: 1px 0 9px rgba(0,0,0, 0.25);
+}
+
+.btn{
+  font-weight: 700;
+  cursor:pointer;
+  color:white;
+  height:fit-content;
+}
+
+.row{
+  display:flex;
+}
+
+.column{
+  display:flex;
+  flex-direction: column;
+}
+
+.center{
+  justify-content: center;
+}
+
+.mid{
+  align-items: center;
+}
+
+.top{
+  align-items: flex-start;
+}
+
+.bottom{
+  align-items: flex-end;
+}
+
+.start{
+  justify-content: flex-start;
+}
+
+.end{
+  justify-content: flex-end;
+}
+
+.w-full{
+  width:100%;
 }
 
 .ToDo__container {
@@ -73,6 +117,27 @@ input:focus {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin: 10px 0;
+  border:1px solid green;
+  padding: 4px 8px;
+  border-radius: 8px;
+}
+
+.ToDo__item_completed{
+  border:1px solid rgb(109, 109, 109) !important;
+  background: rgb(206, 205, 205) ;
+}
+
+.Todo_text_content{
+  font-weight: 700;
+}
+
+.text_completed{
+  text-decoration: line-through;
+}
+
+.Todo_data_created{
+  margin-right: 8px;
 }
 
 .ToDo__item > span {
@@ -88,22 +153,21 @@ input:focus {
 .Todo__delete {
   outline: none;
   border: none;
-  width: 32px;
-  height: 32px;
   min-width: auto;
   min-height: auto;
   box-shadow: none;
-  border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  color:white;
-  background-color: red;
+  color:red;
+  background-color: white;
+  border: 1px solid red;
+  font-size: 14px;
   font-weight: 700;
 }
 
-.Todo__action, .Todo__delete {
+.Todo__action{
   width: 24px;
   height: 24px;
   flex-shrink: 0;
@@ -122,13 +186,6 @@ input:focus {
 
 .Todo__tabs > *:not(:last-child) {
   margin-right: 8px;
-}
-
-.btn{
-  font-weight: 700;
-  cursor:pointer;
-  color:white;
-  height:fit-content;
 }
 
 .SelectAll__btn {

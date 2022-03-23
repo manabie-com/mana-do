@@ -19,6 +19,8 @@ interface ToDoItemProps{
 }
 
 const ToDoItem:React.FC<ToDoItemProps> = ({todo,dispatch}) => {
+    const isCompleted =()=> todo.status === 'COMPLETED'
+
     const onUpdateTodoStatus = (e: React.ChangeEvent<HTMLInputElement>, todoId: string) => {
         dispatch(updateTodoStatus(todoId, e.target.checked))
     }
@@ -28,18 +30,24 @@ const ToDoItem:React.FC<ToDoItemProps> = ({todo,dispatch}) => {
     }
 
   return (
-    <div className="ToDo__item">
+    <div className={`ToDo__item ${isCompleted() && "ToDo__item_completed"}`}>
     <input
         type="checkbox"
-        checked={todo.status === 'COMPLETED'}
+        checked={isCompleted()}
         onChange={(e) => onUpdateTodoStatus(e, todo.id)}
     />
-    <span>{todo.content}</span>
+    <div className="column w-full top">
+        <span className={`Todo_text_content ${isCompleted() && "text_completed"}`}>{todo.content}</span>
+        <div className="row">
+        <span className="Todo_data_created">{new Date(todo.created_date).toLocaleDateString('en-GB')}</span>
+        <span>{todo.user_id}</span>
+        </div>
+    </div>
     <button
         className="Todo__delete"
         onClick={()=> onDeleteTodo(todo.id)}
     >
-        x
+        delete
     </button>
 </div>
   );
