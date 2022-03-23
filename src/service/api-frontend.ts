@@ -8,20 +8,20 @@ class ApiFrontend extends IAPI {
             content: content,
             created_date: new Date().toISOString(),
             status: TodoStatus.ACTIVE,
-            id: shortid(),
+            id: shortid.generate(),
             user_id: "firstUser",
         } as Todo);
     }
 
     async getTodos(): Promise<Todo[]> {
         return [
-            {
-                content: "Content",
-                created_date: new Date().toISOString(),
-                status: TodoStatus.ACTIVE,
-                id: shortid(),
-                user_id: "firstUser",
-            } as Todo,
+          {
+            content: "Content",
+            created_date: new Date().toISOString(),
+            status: TodoStatus.ACTIVE,
+            id: shortid.generate(),
+            user_id: "firstUser",
+          } as Todo,
         ];
     }
 }
