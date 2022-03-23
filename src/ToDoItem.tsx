@@ -9,17 +9,16 @@ import {
     updateTodoStatus,
     deleteTodo
 } from './store/actions';
-import Service from './service';
 import {TodoStatus} from './models/todo';
+import { AppActions } from './store/actions';
 import {Todo} from "./models/todo"
 
 interface ToDoItemProps{
-  todo:Todo
+  todo:Todo;
+  dispatch: React.Dispatch<AppActions>
 }
 
-const ToDoItem:React.FC<ToDoItemProps> = ({todo}) => {
-  const [{todos}, dispatch] = useReducer(reducer, initialState);
-
+const ToDoItem:React.FC<ToDoItemProps> = ({todo,dispatch}) => {
     const onUpdateTodoStatus = (e: React.ChangeEvent<HTMLInputElement>, todoId: string) => {
         dispatch(updateTodoStatus(todoId, e.target.checked))
     }

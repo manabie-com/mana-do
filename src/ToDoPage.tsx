@@ -19,13 +19,13 @@ type EnhanceTodoStatus = TodoStatus | 'ALL';
 
 const ToDoPage = () => {
     const [{todos}, dispatch] = useReducer(reducer, initialState);
+    
     const [showing, setShowing] = useState<EnhanceTodoStatus>('ALL');
     const inputRef = useRef<any>(null);
 
     useEffect(()=>{
         (async ()=>{
             const resp = await Service.getTodos();
-
             dispatch(setTodos(resp || []));
         })()
     }, [])
@@ -61,7 +61,7 @@ const ToDoPage = () => {
                 {todos && todos.length ? 
                     todos.map((todo, index) => {
                         return (
-                                <ToDoItem key={index} todo={todo}/>
+                                <ToDoItem dispatch={dispatch} key={index} todo={todo}/>
                         );
                     })
                     : <div>There are currently no to-do!</div>
