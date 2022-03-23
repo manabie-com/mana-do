@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { isMobile } from 'react-device-detect';
 
 import './todo-item.scss';
 
@@ -24,6 +23,8 @@ const TodoItem = (props: TodoItemInterface) => {
   const [isEditing, setIsEditing] = useState(false);
   const [todoContent, setTodoContent] = useState(todo.content);
   const inputRef = useRef<HTMLInputElement>(null);
+  let clickCount: number = 0;
+  let singleClickTimer: NodeJS.Timeout;
 
   useEffect(() => {
     document.addEventListener('click', handleClickOutside, true);
@@ -33,8 +34,15 @@ const TodoItem = (props: TodoItemInterface) => {
     setTodoContent(todo.content);
   }, [todo]);
 
-  const handleOnClickTodo = (e: React.MouseEvent<HTMLButtonElement>) => {
-    if (e.detail === 2 || (e.detail === 1 && isMobile)) {
+  const handleClickTodo = () => {
+    clickCount++;
+    if (clickCount === 1) {
+      singleClickTimer = setTimeout(function () {
+        clickCount = 0;
+      }, 300);
+    } else if (clickCount === 2) {
+      clearTimeout(singleClickTimer);
+      clickCount = 0;
       setIsEditing(true);
     }
   };
@@ -57,9 +65,10 @@ const TodoItem = (props: TodoItemInterface) => {
   const handleClickOutside = (event: Event) => {
     const { current } = inputRef;
     const { target } = event;
-
+    const content: string = todo.content;
     if (current && !current.contains(target as Node)) {
-      saveTodo(current.value);
+      setTodoContent(content);
+      setIsEditing(false);
     }
   };
 
@@ -70,7 +79,7 @@ const TodoItem = (props: TodoItemInterface) => {
         checked={todo.isTodoCompleted()}
         onChange={(e) => handleUpdateTodoStatus(todo, e.target.checked)}
       />
-      <span className="todo-item__content" onClick={handleOnClickTodo}>
+      <span className="todo-item__content" onClick={handleClickTodo}>
         <TodoItemContent
           inputRef={inputRef}
           isEditing={isEditing}

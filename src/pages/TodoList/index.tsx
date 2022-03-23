@@ -24,11 +24,11 @@ const TodoList = (props: TodoListInterface) => {
       {todoList.length === 0 ? (
         <span data-test="nothing-to-do">You dont have anything to do</span>
       ) : (
-        todoList.map((todo, index) => {
+        todoList.map((todo) => {
           return (
             <TotoItem
               data-test="todo-item"
-              key={index}
+              key={todo.id}
               todo={todo}
               handleUpdateTodoStatus={handleUpdateTodoStatus}
               handleDeleteTodo={handleDeleteTodo}

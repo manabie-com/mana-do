@@ -17,6 +17,7 @@ import Todo from '../models/todo';
 import { filterTodoByStatus, findTodoWithTodoId } from '../selectors/todo';
 import { useDispatch } from 'react-redux';
 import { useAppSelector } from '../store/hook';
+import classNames from 'classnames';
 
 const ToDo = () => {
   const [statusFilter, setStatusFilter] = useState<TodoStatus>(TodoStatus.ALL);
@@ -50,8 +51,12 @@ const ToDo = () => {
   };
 
   const onDeleteAllTodo = () => {
-    if (window.confirm('Are you sure delete all todo')) {
-      dispatch(deleteAllTodo());
+    if (todoList.length > 0) {
+      if (window.confirm('Are you sure delete all todo')) {
+        dispatch(deleteAllTodo());
+      }
+    } else {
+      alert("You don't have any todo to delete");
     }
   };
 
@@ -82,12 +87,18 @@ const ToDo = () => {
           onKeyDown={onCreateTodo}
         />
       </div>
-      <TodoList
-        todoList={filterTodoByStatus(statusFilter, todoList)}
-        handleUpdateTodoStatus={handleUpdateTodoStatus}
-        handleUpdateTodoContent={handleUpdateTodoContent}
-        handleDeleteTodo={handleDeleteTodo}
-      />
+      <div
+        className={classNames({
+          'todo__container-scroll':
+            filterTodoByStatus(statusFilter, todoList).length > 5,
+        })}>
+        <TodoList
+          todoList={filterTodoByStatus(statusFilter, todoList)}
+          handleUpdateTodoStatus={handleUpdateTodoStatus}
+          handleUpdateTodoContent={handleUpdateTodoContent}
+          handleDeleteTodo={handleDeleteTodo}
+        />
+      </div>
       <TodoAction
         todoList={todoList}
         statusActive={statusFilter}

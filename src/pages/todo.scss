@@ -1,14 +1,25 @@
+@import '../assets/common/variable.scss';
+
 .todo {
   flex: 1 1;
 
   &__container {
     border: 1px solid rgba(0, 0, 0, 0.13);
     border-radius: 8px;
-    width: 500px;
     margin-top: 5rem;
+    width: 80%;
     padding: 24px;
     box-shadow: 2px 2px 1px rgba(0, 0, 0, 0.09), 3px 2px 3px rgba(0, 0, 0, 0.05);
     background-color: white;
+
+    &-scroll {
+      overflow-y: scroll;
+      max-height: 500px;
+    }
+
+    @media screen and (min-width: $media-md) {
+      width: 500px;
+    }
   }
 
   &__creation {

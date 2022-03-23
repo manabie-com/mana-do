@@ -3,16 +3,26 @@
 .toolbar {
   display: flex;
   margin-top: 24px;
-  justify-content: center;
+  justify-content: space-between;
+  flex-direction: column;
 
   @media screen and (min-width: $media-md) {
-    justify-content: space-between;
+    flex-direction: row;
   }
 
   &__tabs {
     display: flex;
     align-items: center;
     justify-content: center;
+    row-gap: 1em;
+    column-gap: 1rem;
+    flex-flow: wrap;
+
+    @media screen and (min-width: $media-md) {
+      row-gap: 0;
+      column-gap: 0;
+      flex-flow: nowrap;
+    }
 
     &--active {
       box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
@@ -25,15 +35,21 @@
       font-size: 11px;
       text-transform: uppercase;
       box-sizing: border-box;
+      flex: 1;
 
       @media screen and (min-width: $media-md) {
         font-size: 12px;
         min-width: 100px;
+        flex: auto;
       }
     }
   }
 
   &__tabs > *:not(:last-child) {
-    margin-right: 8px;
+    margin-right: 0;
+
+    @media screen and (min-width: $media-md) {
+      margin-right: 8px;
+    }
   }
 }
