@@ -7,7 +7,8 @@ import {
     toggleAllTodos,
     deleteAllTodos,
     updateTodoStatus,
-    deleteTodo
+    deleteTodo,
+    filterTodo
 } from './store/actions';
 import Service from './service';
 import {TodoStatus} from './models/todo';
@@ -18,9 +19,10 @@ type EnhanceTodoStatus = TodoStatus | 'ALL';
 
 
 const ToDoPage = () => {
+    const [filterName,setFilterName] = useState<string>('ALL')
+
     const [{todos}, dispatch] = useReducer(reducer, initialState);
     
-    const [showing, setShowing] = useState<EnhanceTodoStatus>('ALL');
     const inputRef = useRef<any>(null);
 
     useEffect(()=>{
@@ -45,6 +47,11 @@ const ToDoPage = () => {
 
     const onDeleteAllTodos = () => {
         dispatch(deleteAllTodos());
+    }
+
+    const onFilter = (filterName:string) => {
+        dispatch(filterTodo(filterName));
+        setFilterName(filterName)
     }
 
     return (
@@ -75,17 +82,17 @@ const ToDoPage = () => {
                     /> : <div/>
                 }
                 <div className="Todo__tabs">
-                    <button className="btn SelectAll__btn">
+                    <button className={`btn SelectAll__btn ${filterName === 'ALL' && "btn-active"}`} onClick={()=>onFilter('ALL')}>
                         All
                     </button>
-                    <button className="btn Active__btn" onClick={()=>setShowing(TodoStatus.ACTIVE)}>
+                    <button className={`btn Active__btn ${filterName === TodoStatus.ACTIVE && "btn-active"}`} onClick={()=>onFilter(TodoStatus.ACTIVE)}>
                         Active
                     </button>
-                    <button className="btn Completed__btn" onClick={()=>setShowing(TodoStatus.COMPLETED)}>
+                    <button className={`btn Completed__btn ${filterName === TodoStatus.COMPLETED && "btn-active"}`} onClick={()=>onFilter(TodoStatus.COMPLETED)}>
                         Completed
                     </button>
                 </div>
-                <button className="btn ClearAll__btn" onClick={onDeleteAllTodos}>
+                <button className="btn ClearAll__btn btn-active" onClick={onDeleteAllTodos}>
                     Clear all todos
                 </button>
             </div>

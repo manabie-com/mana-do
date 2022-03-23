@@ -1,3 +1,4 @@
+import { getFromLocalStorage } from './../middleware/localStorage';
 import {Todo, TodoStatus} from '../models/todo';
 import {
   AppActions,
@@ -7,7 +8,8 @@ import {
   TOGGLE_ALL_TODOS,
   UPDATE_TODO_STATUS,
   SET_TODO,
-  EDIT_TODO
+  EDIT_TODO,
+  FILTER_TODOS
 } from './actions';
 import { setToLocalStorage } from '../middleware/localStorage';
 
@@ -71,6 +73,22 @@ function reducer(state: AppState, action: AppActions): AppState {
 
     case DELETE_ALL_TODOS:
       newState.todos= []
+
+      setToLocalStorage(newState.todos)
+      break;
+
+    case FILTER_TODOS:
+      if(action.payload.filterName === 'ALL') {
+        newState.todos.forEach(todo => {
+          todo.filter = true
+        })
+      }
+      else{
+        newState.todos.forEach(todo => {
+          if(todo.status === action.payload.filterName) todo.filter = true
+          else todo.filter = false
+        })
+      }
 
       setToLocalStorage(newState.todos)
       break;

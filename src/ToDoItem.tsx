@@ -47,7 +47,7 @@ const ToDoItem:React.FC<ToDoItemProps> = ({todo,dispatch}) => {
         dispatch(deleteTodo(todoId));
     }
 
-    const onEditTodo = (todoId:string) => {
+    const onEditTodo = () => {
         setIsEdit(true);
     }
 
@@ -61,38 +61,43 @@ const ToDoItem:React.FC<ToDoItemProps> = ({todo,dispatch}) => {
     }
 
   return (
-    <div ref={itemTodo} className={`ToDo__item ${isCompleted() && "ToDo__item_completed"}`} onDoubleClick={() => onEditTodo(todo.id)}>
-    <input
-        type="checkbox"
-        checked={isCompleted()}
-        onChange={(e) => {
-            onUpdateTodoStatus(e, todo.id)
-        }}
-    />
-    <div className="column w-full top">
-        {   isEdit ? 
-            <input
-                ref={inputRef}
-                autoFocus 
-                defaultValue = {todo.content}
-                className='Update_todo w-90'
-                type="text"
-                onKeyDown={onUpdateTodoContent}
-            /> : 
-        <span className={`Todo_text_content ${isCompleted() && "text_completed"}`}>{todo.content}</span>
-        }
-        <div className="row">
-        <span className="Todo_data_created">{new Date(todo.created_date).toLocaleDateString('en-GB')}</span>
-        <span>{todo.user_id}</span>
+      <>
+      {
+          todo.filter &&
+        <div ref={itemTodo} className={`ToDo__item ${isCompleted() && "ToDo__item_completed"}`} onDoubleClick={onEditTodo}>
+        <input
+            type="checkbox"
+            checked={isCompleted()}
+            onChange={(e) => {
+                onUpdateTodoStatus(e, todo.id)
+            }}
+        />
+        <div className="column w-full top">
+            {   isEdit ? 
+                <input
+                    ref={inputRef}
+                    autoFocus 
+                    defaultValue = {todo.content}
+                    className='Update_todo w-90'
+                    type="text"
+                    onKeyDown={onUpdateTodoContent}
+                /> : 
+            <span className={`Todo_text_content ${isCompleted() && "text_completed"}`}>{todo.content}</span>
+            }
+            <div className="row">
+            <span className="Todo_data_created">{new Date(todo.created_date).toLocaleDateString('en-GB')}</span>
+            <span>{todo.user_id}</span>
+            </div>
         </div>
-    </div>
-    <button
-        className="Todo__delete"
-        onClick={()=> onDeleteTodo(todo.id)}
-    >
-        delete
-    </button>
-</div>
+        <button
+            className="Todo__delete"
+            onClick={()=> onDeleteTodo(todo.id)}
+        >
+            delete
+        </button>
+    </div> 
+      }
+      </>
   );
 };
 

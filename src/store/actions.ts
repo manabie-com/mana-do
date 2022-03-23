@@ -7,6 +7,7 @@ export const DELETE_ALL_TODOS = 'DELETE_ALL_TODOS';
 export const TOGGLE_ALL_TODOS = 'TOGGLE_ALL_TODOS';
 export const UPDATE_TODO_STATUS = 'UPDATE_TODO_STATUS';
 export const EDIT_TODO = 'EDIT_TODO';
+export const FILTER_TODOS = 'FILTER_TODOS';
 
 
 export interface SetTodoAction {
@@ -107,6 +108,22 @@ export function editTodo(todoId: string,content:string): EditTodoAction {
     }
   }
 }
+////////////
+export interface FilterTodoAction {
+  type: typeof FILTER_TODOS,
+  payload: {
+    filterName:string
+  }
+}
+
+export function filterTodo(filterName:string): FilterTodoAction {
+    return {
+      type: FILTER_TODOS,
+      payload: {
+        filterName
+      }
+    }
+}
 
 export type AppActions =
   SetTodoAction |
@@ -115,4 +132,5 @@ export type AppActions =
   DeleteTodoAction |
   DeleteAllTodosAction |
   ToggleAllTodosAction | 
-  EditTodoAction;
+  EditTodoAction | 
+  FilterTodoAction;
