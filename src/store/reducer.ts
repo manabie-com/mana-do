@@ -6,7 +6,8 @@ import {
   DELETE_TODO,
   TOGGLE_ALL_TODOS,
   UPDATE_TODO_STATUS,
-  SET_TODO
+  SET_TODO,
+  EDIT_TODO
 } from './actions';
 import { setToLocalStorage } from '../middleware/localStorage';
 
@@ -30,6 +31,14 @@ function reducer(state: AppState, action: AppActions): AppState {
     case CREATE_TODO:
       newState.todos.push(action.payload);
 
+      setToLocalStorage(newState.todos)
+      break;
+
+    case EDIT_TODO:
+      const index3 = newState.todos.findIndex((todo) => todo.id === action.payload.todoId);
+      if(index3 !== -1) newState.todos[index3].content = action.payload.content
+
+      console.log(index3,newState.todos)
       setToLocalStorage(newState.todos)
       break;
 
