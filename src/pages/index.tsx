@@ -1,5 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import classNames from 'classnames';
+
 import './todo.scss';
+
 import {
   setTodoList,
   createTodo,
@@ -14,16 +18,13 @@ import LocalStorage from '../localStorage';
 import TodoAction from './TodoAction';
 import TodoList from './TodoList';
 import Todo from '../models/todo';
-import { filterTodoByStatus, findTodoWithTodoId } from '../selectors/todo';
-import { useDispatch } from 'react-redux';
-import { useAppSelector } from '../store/hook';
-import classNames from 'classnames';
+import { filterTodoByStatus, sumTodoActive } from '../selectors/todo';
 
 const ToDo = () => {
   const [statusFilter, setStatusFilter] = useState<TodoStatus>(TodoStatus.ALL);
   const inputRef = useRef<HTMLInputElement>(null);
   const dispatch = useDispatch();
-  const { todoList } = useAppSelector((state) => state.todo);
+  const todoList = useSelector(filterTodoByStatus(statusFilter));
 
   useEffect(() => {
     (async () => {
@@ -60,10 +61,9 @@ const ToDo = () => {
     }
   };
 
-  const handleDeleteTodo = (todoId: string) => {
-    const todo = findTodoWithTodoId(todoId, todoList);
+  const handleDeleteTodo = (todo: Todo) => {
     if (todo && window.confirm(`Are you sure to delete ${todo.content}`)) {
-      dispatch(deleteTodo(todoId));
+      dispatch(deleteTodo(todo.id));
     }
   };
 
@@ -89,11 +89,10 @@ const ToDo = () => {
       </div>
       <div
         className={classNames({
-          'todo__container-scroll':
-            filterTodoByStatus(statusFilter, todoList).length > 5,
+          'todo__container-scroll': todoList.length > 5,
         })}>
         <TodoList
-          todoList={filterTodoByStatus(statusFilter, todoList)}
+          todoList={todoList}
           handleUpdateTodoStatus={handleUpdateTodoStatus}
           handleUpdateTodoContent={handleUpdateTodoContent}
           handleDeleteTodo={handleDeleteTodo}
@@ -102,6 +101,7 @@ const ToDo = () => {
       <TodoAction
         todoList={todoList}
         statusActive={statusFilter}
+        areAllTodoActive={useSelector(sumTodoActive())}
         onToggleAllTodo={onToggleAllTodo}
         setStatusFilter={setStatusFilter}
         onDeleteAllTodo={onDeleteAllTodo}

@@ -8,7 +8,7 @@ import TodoItemContent from './TodoItemContent';
 interface TodoItemInterface {
   todo: Todo;
   handleUpdateTodoStatus: (todo: Todo, checked: boolean) => void;
-  handleDeleteTodo: (todoID: string) => void;
+  handleDeleteTodo: (todo: Todo) => void;
   handleUpdateTodoContent: (todo: Todo, todoContent: string) => void;
 }
 
@@ -90,7 +90,7 @@ const TodoItem = (props: TodoItemInterface) => {
       </span>
       <button
         className="todo-item__delete"
-        onClick={() => handleDeleteTodo(todo.id)}>
+        onClick={() => handleDeleteTodo(todo)}>
         X
       </button>
     </div>

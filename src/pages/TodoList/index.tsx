@@ -5,10 +5,10 @@ import Todo from '../../models/todo';
 import TotoItem from './TodoItem';
 
 export interface TodoListInterface {
-  todoList: Array<Todo>;
+  todoList: Todo[];
   handleUpdateTodoStatus: (todo: Todo, checked: boolean) => void;
   handleUpdateTodoContent: (todo: Todo, content: string) => void;
-  handleDeleteTodo: (todoId: string) => void;
+  handleDeleteTodo: (todo: Todo) => void;
 }
 
 const TodoList = (props: TodoListInterface) => {

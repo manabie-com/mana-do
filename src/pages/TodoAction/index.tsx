@@ -3,7 +3,6 @@ import './todo-action.scss';
 import Todo from '../../models/todo';
 import React from 'react';
 import { TodoStatus, TodoStatuses } from '../../constants/todo';
-import { sumTodoActive } from '../../selectors/todo';
 import classnames from 'classnames';
 
 interface TodoActionInterface {
@@ -12,6 +11,7 @@ interface TodoActionInterface {
   setStatusFilter: (status: TodoStatus) => void;
   onDeleteAllTodo: () => void;
   statusActive: TodoStatus;
+  areAllTodoActive: number;
 }
 
 const TodoAction = (props: TodoActionInterface) => {
@@ -21,6 +21,7 @@ const TodoAction = (props: TodoActionInterface) => {
     setStatusFilter,
     onDeleteAllTodo,
     statusActive,
+    areAllTodoActive,
   } = props;
 
   return (
@@ -28,7 +29,7 @@ const TodoAction = (props: TodoActionInterface) => {
       {todoList && todoList.length > 0 && (
         <input
           type="checkbox"
-          checked={sumTodoActive(todoList) === 0}
+          checked={areAllTodoActive === 0}
           onChange={onToggleAllTodo}
         />
       )}

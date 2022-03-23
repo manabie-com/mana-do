@@ -1,5 +1,6 @@
 import { TodoStatus } from '../../constants/todo';
 import Todo from '../../models/todo';
+import { RootState } from '../../store';
 import { filterTodoByStatus, sumTodoActive } from '../todo';
 
 const todoActive = new Todo(
@@ -61,7 +62,12 @@ describe.each(testTodoListFilterProviders)(
   'Test Todo list filter',
   ({ description, status, todoList, result }) => {
     it(description, () => {
-      expect(filterTodoByStatus(status, todoList)).toEqual(result);
+      const state: RootState = {
+        todo: {
+          todoList: todoList,
+        },
+      };
+      expect(filterTodoByStatus(status)(state)).toEqual(result);
     });
   }
 );
@@ -94,7 +100,12 @@ describe.each(testSumTodoListActive)(
   'Test sum todo list complete',
   ({ description, todoList, result }) => {
     it(description, () => {
-      expect(sumTodoActive(todoList)).toEqual(result);
+      const state: RootState = {
+        todo: {
+          todoList: todoList,
+        },
+      };
+      expect(sumTodoActive()(state)).toEqual(result);
     });
   }
 );

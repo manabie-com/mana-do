@@ -36,6 +36,7 @@ describe.each(todoStatusProvider)(
     beforeEach(() => {
       component = shallow(
         <TodoAction
+          areAllTodoActive={0}
           statusActive={status}
           onToggleAllTodo={() => null}
           setStatusFilter={() => null}
