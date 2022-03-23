@@ -23,18 +23,19 @@ const ToDoItem:React.FC<ToDoItemProps> = ({todo,dispatch}) => {
     const [isEdit,setIsEdit] = useState<boolean>(false)
 
     const inputRef = useRef<any>(null);
+    const itemTodo = useRef<any>(null)
 
-    // useEffect(() => {
-    //     function handleClickOutside(event) {
-    //       if (inputRef.current && !inputRef.current.contains(event.target)) {
-    //         alert("You clicked outside of me!");
-    //       }
-    //     }
-    //     document.addEventListener("mousedown", handleClickOutside);
-    //     return () => {
-    //       document.removeEventListener("mousedown", handleClickOutside);
-    //     };
-    //   }, [inputRef]);
+    useEffect(() => {
+        function handleClickOutside(event:any) {
+          if (itemTodo.current && !itemTodo.current.contains(event.target)) {
+            setIsEdit(false)
+          }
+        }
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => {
+          document.removeEventListener("mousedown", handleClickOutside);
+        };
+      }, [itemTodo]);
 
     const isCompleted =()=> todo.status === 'COMPLETED'
 
@@ -47,7 +48,7 @@ const ToDoItem:React.FC<ToDoItemProps> = ({todo,dispatch}) => {
     }
 
     const onEditTodo = (todoId:string) => {
-        setIsEdit(true)
+        setIsEdit(true);
     }
 
     const onUpdateTodoContent = async (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -60,7 +61,7 @@ const ToDoItem:React.FC<ToDoItemProps> = ({todo,dispatch}) => {
     }
 
   return (
-    <div className={`ToDo__item ${isCompleted() && "ToDo__item_completed"}`} onDoubleClick={() => onEditTodo(todo.id)}>
+    <div ref={itemTodo} className={`ToDo__item ${isCompleted() && "ToDo__item_completed"}`} onDoubleClick={() => onEditTodo(todo.id)}>
     <input
         type="checkbox"
         checked={isCompleted()}
@@ -72,6 +73,7 @@ const ToDoItem:React.FC<ToDoItemProps> = ({todo,dispatch}) => {
         {   isEdit ? 
             <input
                 ref={inputRef}
+                autoFocus 
                 defaultValue = {todo.content}
                 className='Update_todo w-90'
                 type="text"
