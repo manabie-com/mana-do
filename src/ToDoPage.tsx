@@ -12,6 +12,7 @@ import {
 } from './store/actions';
 import Service from './service';
 import {TodoStatus} from './models/todo';
+import CreateTodo from './components/FormTodo/CreateTodo';
 
 import ToDoItem from "./ToDoItem"
 
@@ -56,14 +57,12 @@ const ToDoPage = () => {
 
     return (
         <div className="ToDo__container">
-            <div className="Todo__creation">
-                <input
-                    ref={inputRef}
-                    className="Todo__input"
-                    placeholder="What need to be done?"
-                    onKeyDown={onCreateTodo}
-                />
-            </div>
+            <CreateTodo
+                className="Todo__input"
+                placeholder="What need to be done?"
+                onKeyDown={onCreateTodo}
+                forwardRef={inputRef}
+            />
             <div className="ToDo__list">
                 {todos && todos.length ? 
                     todos.map((todo, index) => {
