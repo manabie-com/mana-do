@@ -1,0 +1,13 @@
+{
+  "env": {
+      "browser": true,
+      "es6": true
+  },
+  "extends": ["react-app"],
+  "plugins": ["react"],
+  "parserOptions": {
+      "ecmaVersion": 2018
+  },
+  "rules": {
+  }
+}

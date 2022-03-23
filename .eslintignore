@@ -1,0 +1,12 @@
+# dependencies
+node_modules/
+.yarn/
+
+# production
+build/
+public/
+
+# ide
+.vscode/
+
+
