@@ -12,11 +12,6 @@
     box-shadow: 2px 2px 1px rgba(0, 0, 0, 0.09), 3px 2px 3px rgba(0, 0, 0, 0.05);
     background-color: white;
 
-    &-scroll {
-      overflow-y: scroll;
-      max-height: 500px;
-    }
-
     @media screen and (min-width: $media-md) {
       width: 500px;
     }

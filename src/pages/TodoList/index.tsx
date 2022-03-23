@@ -1,6 +1,7 @@
+import classNames from 'classnames';
+import React from 'react';
 import './todo-list.scss';
 
-import React from 'react';
 import Todo from '../../models/todo';
 import TotoItem from './TodoItem';
 
@@ -20,9 +21,13 @@ const TodoList = (props: TodoListInterface) => {
   } = props;
 
   return (
-    <div className="todo__list">
+    <div
+      className={classNames('todo__list', {
+        'todo__list-scroll': todoList.length > 5,
+      })}
+      data-test="todo-list">
       {todoList.length === 0 ? (
-        <span data-test="nothing-to-do">You dont have anything to do</span>
+        <span data-test="nothing-to-do">Don't have todo</span>
       ) : (
         todoList.map((todo) => {
           return (

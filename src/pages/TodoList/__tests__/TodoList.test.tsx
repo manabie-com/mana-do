@@ -61,3 +61,35 @@ describe('Test render todo list', () => {
     );
   });
 });
+
+describe('Test render scroll todo list', () => {
+  let component = shallow(
+    <TodoList
+      todoList={[...initialTodoList, ...initialTodoList]}
+      handleUpdateTodoStatus={() => null}
+      handleUpdateTodoContent={() => null}
+      handleDeleteTodo={() => null}
+    />
+  );
+  it('Will render class scroll todo list if item > 5', () => {
+    expect(
+      component.find('[data-test="todo-list"]').hasClass('todo__list-scroll')
+    ).toEqual(true);
+  });
+});
+
+describe('Test will not render class scroll todo list', () => {
+  let component = shallow(
+    <TodoList
+      todoList={initialTodoList}
+      handleUpdateTodoStatus={() => null}
+      handleUpdateTodoContent={() => null}
+      handleDeleteTodo={() => null}
+    />
+  );
+  it('Will not render class scroll todo list if items < 5', () => {
+    expect(
+      component.find('[data-test="todo-list"]').hasClass('todo__list-scroll')
+    ).toEqual(false);
+  });
+});

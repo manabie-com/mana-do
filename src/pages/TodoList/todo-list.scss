@@ -1,7 +1,18 @@
+@import '../../assets/common/variable.scss';
+
 .todo {
   &__list {
     display: flex;
     flex-direction: column;
     margin-top: 1.5rem;
+
+    &-scroll {
+      overflow-y: scroll;
+      max-height: 500px;
+    }
+
+    @media screen and (min-width: $media-md) {
+      width: 500px;
+    }
   }
 }

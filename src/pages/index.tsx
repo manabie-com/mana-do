@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import classNames from 'classnames';
 
 import './todo.scss';
 
@@ -87,10 +86,7 @@ const ToDo = () => {
           onKeyDown={onCreateTodo}
         />
       </div>
-      <div
-        className={classNames({
-          'todo__container-scroll': todoList.length > 5,
-        })}>
+      <div>
         <TodoList
           todoList={todoList}
           handleUpdateTodoStatus={handleUpdateTodoStatus}
