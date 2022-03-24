@@ -1,98 +1,148 @@
-import {Todo} from "../models/todo";
+import { Todo } from "../models/todo";
 
-export const SET_TODO = 'SET_TODO';
-export const CREATE_TODO = 'CREATE_TODO';
-export const DELETE_TODO = 'DELETE_TODO';
-export const DELETE_ALL_TODOS = 'DELETE_ALL_TODOS';
-export const TOGGLE_ALL_TODOS = 'TOGGLE_ALL_TODOS';
-export const UPDATE_TODO_STATUS = 'UPDATE_TODO_STATUS';
-
+export const SET_TODO = "SET_TODO";
+export const CREATE_TODO = "CREATE_TODO";
+export const DELETE_TODO = "DELETE_TODO";
+export const EDIT_TODO = "EDIT_TODO";
+export const DELETE_ALL_TODOS = "DELETE_ALL_TODOS";
+export const TOGGLE_ALL_TODOS = "TOGGLE_ALL_TODOS";
+export const GET_ALL_TODOS = "GET_ALL_TODOS";
+export const GET_ACTIVE_TODOS = "GET_ACTIVE_TODOS";
+export const GET_COMPLETED_TODOS = "GET_COMPLETED_TODOS";
+export const UPDATE_TODO_STATUS = "UPDATE_TODO_STATUS";
 
 export interface SetTodoAction {
-  type: typeof SET_TODO,
-  payload: Array<Todo>
+  type: typeof SET_TODO;
+  payload: Array<Todo>;
 }
-
-export function setTodos(todos: Array<Todo>): SetTodoAction {
-  return {
-    type: SET_TODO,
-    payload: todos
-  }
-}
-
 ///////////
 export interface CreateTodoAction {
-  type: typeof CREATE_TODO,
-  payload: Todo
+  type: typeof CREATE_TODO;
+  payload: Todo;
 }
 
 export function createTodo(newTodo: Todo): CreateTodoAction {
   return {
     type: CREATE_TODO,
-    payload: newTodo
-  }
+    payload: newTodo,
+  };
+}
+
+export interface EditTodoAction {
+  type: typeof EDIT_TODO;
+  payload: {
+    todoId: string;
+    content: string;
+  };
+}
+
+export function editTodo(todoId: string, content: string): EditTodoAction {
+  return {
+    type: EDIT_TODO,
+    payload: {
+      todoId,
+      content,
+    },
+  };
 }
 
 //////////////
 export interface UpdateTodoStatusAction {
-  type: typeof UPDATE_TODO_STATUS,
+  type: typeof UPDATE_TODO_STATUS;
   payload: {
-    todoId: string,
-    checked: boolean
-  }
+    todoId: string;
+    checked: boolean;
+  };
 }
 
-export function updateTodoStatus(todoId: string, checked: boolean): UpdateTodoStatusAction {
+export function updateTodoStatus(
+  todoId: string,
+  checked: boolean
+): UpdateTodoStatusAction {
   return {
     type: UPDATE_TODO_STATUS,
     payload: {
       todoId,
-      checked
-    }
-  }
+      checked,
+    },
+  };
 }
 
 //////////////
 export interface DeleteTodoAction {
-  type: typeof DELETE_TODO,
-  payload: string
+  type: typeof DELETE_TODO;
+  payload: string;
 }
 
 export function deleteTodo(todoId: string): DeleteTodoAction {
   return {
     type: DELETE_TODO,
-    payload: todoId
-  }
+    payload: todoId,
+  };
 }
 
 //////////////
 export interface DeleteAllTodosAction {
-  type: typeof DELETE_ALL_TODOS,
+  type: typeof DELETE_ALL_TODOS;
 }
 
 export function deleteAllTodos(): DeleteAllTodosAction {
   return {
     type: DELETE_ALL_TODOS,
-  }
+  };
 }
 
 ///////////
 export interface ToggleAllTodosAction {
-  type: typeof TOGGLE_ALL_TODOS,
-  payload: boolean
+  type: typeof TOGGLE_ALL_TODOS;
+  payload: boolean;
 }
 
 export function toggleAllTodos(checked: boolean): ToggleAllTodosAction {
   return {
     type: TOGGLE_ALL_TODOS,
-    payload: checked
-  }
+    payload: checked,
+  };
+}
+
+export interface GetAllTodoAction {
+  type: typeof GET_ALL_TODOS;
+}
+
+export function getAllTodo(): GetAllTodoAction {
+  return {
+    type: GET_ALL_TODOS,
+  };
+}
+
+export interface GetActiveTodoAction {
+  type: typeof GET_ACTIVE_TODOS;
+}
+
+export function getActiveTodo(): GetActiveTodoAction {
+  return {
+    type: GET_ACTIVE_TODOS,
+  };
+}
+
+export interface GetCompletedTodoAction {
+  type: typeof GET_COMPLETED_TODOS;
+}
+
+export function getCompletedTodo(): GetCompletedTodoAction {
+  return {
+    type: GET_COMPLETED_TODOS,
+  };
 }
 
 export type AppActions =
-  SetTodoAction |
-  CreateTodoAction |
-  UpdateTodoStatusAction |
-  DeleteTodoAction |
-  DeleteAllTodosAction |
-  ToggleAllTodosAction;
+  | SetTodoAction
+  | CreateTodoAction
+  | UpdateTodoStatusAction
+  | DeleteTodoAction
+  | DeleteAllTodosAction
+  | ToggleAllTodosAction
+  | EditTodoAction
+  | GetAllTodoAction
+  | GetActiveTodoAction
+  | GetCompletedTodoAction;

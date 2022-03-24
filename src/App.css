@@ -121,5 +121,8 @@ input:focus {
   margin-right: 8px;
 }
 
-.Action__btn {
+.Item__left-side{
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
