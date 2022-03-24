@@ -39,8 +39,20 @@ const ToDoPage = () => {
     }
   }
 
-  const onToggleAllTodo = (e: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch(toggleAllTodos(e.target.checked,()=>{
+  function isCheckedAll(){
+    let checked:boolean= false;
+
+    todos.forEach((todo)=>{
+      if(todo.status === TodoStatus.ACTIVE) {
+        checked= true
+      }
+    })
+
+    return checked
+  }
+
+  const onToggleAllTodo = () => {
+    dispatch(toggleAllTodos(isCheckedAll(),()=>{
       dispatch(filterTodo(filterName))
     }))
   }
@@ -72,11 +84,17 @@ const ToDoPage = () => {
         )}
       </div>
       <div className="Todo__toolbar">
-        {todos.length > 0 ? (
-          <input type="checkbox" onChange={onToggleAllTodo} />
-        ) : (
-          <div />
-        )}
+        {
+          todos.length > 0 && 
+          <button
+            className={`btn SelectAll__btn ${
+              filterName === 'ALL' && 'btn-active'
+            }`}
+            onClick={onToggleAllTodo}
+          >
+            {isCheckedAll() ? 'Select all' : 'Un select all'}
+          </button>
+        }
         <div className="Todo__tabs">
           <button
             className={`btn SelectAll__btn ${
