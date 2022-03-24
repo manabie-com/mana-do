@@ -37,7 +37,7 @@ function reducer(state: AppState, action: AppActions): AppState {
 
     case CREATE_TODO:
       middleReducer(()=>{
-        newState.todos.push(action.payload.data);
+        newState.todos.unshift(action.payload.data);
         action.payload.callback()
       },newState)
 
