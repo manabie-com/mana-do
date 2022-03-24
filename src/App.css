@@ -134,6 +134,12 @@ input:focus {
   display: flex;
   flex-direction: column;
   margin-top: 1.5rem;
+  max-height: 400px;
+  overflow-y:scroll;
+}
+
+.ToDo__list::-webkit-scrollbar {
+  width: 8px;
 }
 
 .ToDo__item {
@@ -236,4 +242,11 @@ input:focus {
 
 .btn-active{
   opacity:1;
+}
+
+.Update_todo{
+  box-shadow: 2px 0 4px rgba(3, 3, 3, 1);
+}
+.Update_todo:focus{
+  box-shadow: 2px 0 4px rgba(3, 3, 3, 1);
 }
