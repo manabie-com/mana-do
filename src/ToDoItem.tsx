@@ -1,12 +1,6 @@
-import React, { useEffect, useReducer, useRef, useState } from 'react'
-
-import reducer, { initialState } from './store/reducer'
+import React, { useRef, useState } from 'react'
 import {
-  setTodos,
-  createTodo,
-  toggleAllTodos,
-  deleteAllTodos,
-updateTodoStatus,
+  updateTodoStatus,
   deleteTodo,
   editTodo,
   filterTodo,
@@ -30,7 +24,7 @@ const ToDoItem: React.FC<ToDoItemProps> = ({ todo, dispatch,filterName }) => {
   useOnClickOutside(itemTodo,setIsEdit);
   
   const isCompleted = () => todo.status === 'COMPLETED'
-  
+
   const onUpdateTodoStatus = async(
     e: React.ChangeEvent<HTMLInputElement>,
     todoId: string

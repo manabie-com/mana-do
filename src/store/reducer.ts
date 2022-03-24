@@ -21,75 +21,86 @@ export const initialState: AppState = {
   todos: []
 }
 
+function middleReducer(callback:()=> void,state:AppState){
+  callback();
+  setToLocalStorage(state.todos);
+}
+
 function reducer(state: AppState, action: AppActions): AppState {
   const newState:AppState = JSON.parse(JSON.stringify(state));
   switch (action.type) {
     case SET_TODO:
-      newState.todos = action.payload
+      middleReducer(()=>{
+        newState.todos = action.payload
+      },newState)
 
-      setToLocalStorage(newState.todos)
       break;
 
     case CREATE_TODO:
-      newState.todos.push(action.payload);
+      middleReducer(()=>{
+        newState.todos.push(action.payload);
+      },newState)
 
-      setToLocalStorage(newState.todos)
       break;
 
     case EDIT_TODO:
-      const index3 = newState.todos.findIndex((todo) => todo.id === action.payload.todoId);
-      if(index3 !== -1) newState.todos[index3].content = action.payload.content
+      middleReducer(()=>{
+        const index3 = newState.todos.findIndex((todo) => todo.id === action.payload.todoId);
+        if(index3 !== -1) newState.todos[index3].content = action.payload.content
+      },newState)
 
-      setToLocalStorage(newState.todos)
       break;
 
     case UPDATE_TODO_STATUS:
-      const index2 = newState.todos.findIndex((todo) => todo.id === action.payload.todoId);
+      middleReducer(()=>{
+        const index2 = newState.todos.findIndex((todo) => todo.id === action.payload.todoId);
       if(index2 !== -1) newState.todos[index2].status = action.payload.checked ? TodoStatus.COMPLETED : TodoStatus.ACTIVE;
-
-      setToLocalStorage(newState.todos)
+      },newState)
+     
       break;
 
     case TOGGLE_ALL_TODOS:
-      const tempTodos = state.todos.map((e)=>{
-        return {
-          ...e,
-          status: action.payload ? TodoStatus.COMPLETED : TodoStatus.ACTIVE
-        }
-      })
+      middleReducer(()=>{
+        newState.todos = newState.todos.map((e)=>{
+          return {
+            ...e,
+            status: action.payload ? TodoStatus.COMPLETED : TodoStatus.ACTIVE
+          }
+        })
+      },newState)
 
-      return {
-        ...state,
-        todos: tempTodos
-      }
+      break;
 
     case DELETE_TODO:
-      const index1 = newState.todos.findIndex((todo) => todo.id === action.payload);
-      if(index1 !== -1) newState.todos.splice(index1, 1);
+      middleReducer(()=>{
+        const index1 = newState.todos.findIndex((todo) => todo.id === action.payload);
+        if(index1 !== -1) newState.todos.splice(index1, 1);
+      },newState)
 
-      setToLocalStorage(newState.todos)
       break;
 
     case DELETE_ALL_TODOS:
-      newState.todos= []
+      middleReducer(()=>{
+        newState.todos= []
+      },newState)
 
-      setToLocalStorage(newState.todos)
       break;
 
     case FILTER_TODOS:
-      if(action.payload.filterName === 'ALL') {
-        newState.todos.forEach(todo => {
-          todo.filter = true
-        })
-      }
-      else{
-        newState.todos.forEach(todo => {
-          if(todo.status === action.payload.filterName) todo.filter = true
-          else todo.filter = false
-        })
-      }
+      middleReducer(()=>{
+        if(action.payload.filterName === 'ALL') {
+          newState.todos.forEach(todo => {
+            todo.filter = true
+          })
+        }
+        else{
+          newState.todos.forEach(todo => {
+            if(todo.status === action.payload.filterName) todo.filter = true
+            else todo.filter = false
+          })
+        }
+      },newState)
 
-      setToLocalStorage(newState.todos)
       break;
 
     default:

@@ -96,7 +96,8 @@ export interface EditTodoAction {
   type: typeof EDIT_TODO,
   payload: {
     content:string;
-    todoId:string
+    todoId:string;
+    
   }
 }
 

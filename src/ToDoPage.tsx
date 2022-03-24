@@ -6,8 +6,6 @@ import {
   createTodo,
   toggleAllTodos,
   deleteAllTodos,
-  updateTodoStatus,
-  deleteTodo,
   filterTodo,
 } from './store/actions'
 import Service from './service'
@@ -40,8 +38,9 @@ const ToDoPage = () => {
     }
   }
 
-  const onToggleAllTodo = (e: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch(toggleAllTodos(e.target.checked))
+  const onToggleAllTodo = async(e: React.ChangeEvent<HTMLInputElement>) => {
+    await dispatch(toggleAllTodos(e.target.checked))
+    dispatch(filterTodo(filterName))
   }
 
   const onDeleteAllTodos = () => {
