@@ -25,12 +25,13 @@ const ToDoItem: React.FC<ToDoItemProps> = ({ todo, dispatch,filterName }) => {
   
   const isCompleted = () => todo.status === 'COMPLETED'
 
-  const onUpdateTodoStatus = async(
+  const onUpdateTodoStatus = (
     e: React.ChangeEvent<HTMLInputElement>,
     todoId: string
   ) => {
-    await dispatch(updateTodoStatus(todoId, e.target.checked))
-    dispatch(filterTodo(filterName))
+    dispatch(updateTodoStatus(todoId, e.target.checked,()=>{
+      dispatch(filterTodo(filterName))
+    }))
   }
 
   const onDeleteTodo = (todoId: string) => {

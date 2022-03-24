@@ -31,16 +31,18 @@ const ToDoPage = () => {
   const onCreateTodo = async (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter' && inputRef.current.value) {
       const resp = await Service.createTodo(inputRef.current.value)
-      await dispatch(createTodo(resp))
-      dispatch(filterTodo(filterName))
-
-      inputRef.current.value = ''
+        dispatch(createTodo(resp,()=>{
+          dispatch(filterTodo(filterName))
+          inputRef.current.value = ''
+        })
+      )
     }
   }
 
-  const onToggleAllTodo = async(e: React.ChangeEvent<HTMLInputElement>) => {
-    await dispatch(toggleAllTodos(e.target.checked))
-    dispatch(filterTodo(filterName))
+  const onToggleAllTodo = (e: React.ChangeEvent<HTMLInputElement>) => {
+    dispatch(toggleAllTodos(e.target.checked,()=>{
+      dispatch(filterTodo(filterName))
+    }))
   }
 
   const onDeleteAllTodos = () => {

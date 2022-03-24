@@ -25,13 +25,17 @@ export function setTodos(todos: Array<Todo>): SetTodoAction {
 ///////////
 export interface CreateTodoAction {
   type: typeof CREATE_TODO,
-  payload: Todo
+  payload: {
+    data:Todo,
+    callback:()=> void
+  }
 }
 
-export function createTodo(newTodo: Todo): CreateTodoAction {
+export function createTodo(data:Todo,
+  callback:()=> void): CreateTodoAction {
   return {
     type: CREATE_TODO,
-    payload: newTodo
+    payload: {data:data,callback}
   }
 }
 
@@ -40,16 +44,18 @@ export interface UpdateTodoStatusAction {
   type: typeof UPDATE_TODO_STATUS,
   payload: {
     todoId: string,
-    checked: boolean
+    checked: boolean,
+    callback:()=>void
   }
 }
 
-export function updateTodoStatus(todoId: string, checked: boolean): UpdateTodoStatusAction {
+export function updateTodoStatus(todoId: string, checked: boolean,callback:()=> void): UpdateTodoStatusAction {
   return {
     type: UPDATE_TODO_STATUS,
     payload: {
       todoId,
-      checked
+      checked,
+      callback
     }
   }
 }
@@ -57,7 +63,7 @@ export function updateTodoStatus(todoId: string, checked: boolean): UpdateTodoSt
 //////////////
 export interface DeleteTodoAction {
   type: typeof DELETE_TODO,
-  payload: string
+  payload: string,
 }
 
 export function deleteTodo(todoId: string): DeleteTodoAction {
@@ -81,13 +87,13 @@ export function deleteAllTodos(): DeleteAllTodosAction {
 ///////////
 export interface ToggleAllTodosAction {
   type: typeof TOGGLE_ALL_TODOS,
-  payload: boolean
+  payload: {checked:boolean,callback:()=> void},
 }
 
-export function toggleAllTodos(checked: boolean): ToggleAllTodosAction {
+export function toggleAllTodos(checked: boolean,callback:()=> void): ToggleAllTodosAction {
   return {
     type: TOGGLE_ALL_TODOS,
-    payload: checked
+    payload: {checked,callback}
   }
 }
 
@@ -97,7 +103,6 @@ export interface EditTodoAction {
   payload: {
     content:string;
     todoId:string;
-    
   }
 }
 

@@ -38,7 +38,8 @@ function reducer(state: AppState, action: AppActions): AppState {
 
     case CREATE_TODO:
       middleReducer(()=>{
-        newState.todos.push(action.payload);
+        newState.todos.push(action.payload.data);
+        action.payload.callback()
       },newState)
 
       break;
@@ -55,6 +56,8 @@ function reducer(state: AppState, action: AppActions): AppState {
       middleReducer(()=>{
         const index2 = newState.todos.findIndex((todo) => todo.id === action.payload.todoId);
       if(index2 !== -1) newState.todos[index2].status = action.payload.checked ? TodoStatus.COMPLETED : TodoStatus.ACTIVE;
+
+      action.payload.callback()
       },newState)
      
       break;
@@ -64,9 +67,10 @@ function reducer(state: AppState, action: AppActions): AppState {
         newState.todos = newState.todos.map((e)=>{
           return {
             ...e,
-            status: action.payload ? TodoStatus.COMPLETED : TodoStatus.ACTIVE
+            status: action.payload.checked ? TodoStatus.COMPLETED : TodoStatus.ACTIVE
           }
         })
+        action.payload.callback()
       },newState)
 
       break;
