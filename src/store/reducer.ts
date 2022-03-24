@@ -1,4 +1,3 @@
-import { getFromLocalStorage } from './../middleware/localStorage';
 import {Todo, TodoStatus} from '../models/todo';
 import {
   AppActions,
