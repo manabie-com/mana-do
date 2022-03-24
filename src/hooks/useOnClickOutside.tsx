@@ -1,17 +1,22 @@
-import React,{useEffect} from "react";
+import React,{useEffect,useState,useRef} from "react";
 
-const useOnClickOutside=(ref:React.RefObject<HTMLInputElement>,setToggleState:React.Dispatch<React.SetStateAction<boolean>>)=>{
-  return useEffect(() => {
+const useOnClickOutside=()=>{
+  const [isEdit, setIsEdit] = useState<boolean>(false)
+  const itemTodo = useRef<any>(null)
+
+  useEffect(() => {
     function handleClickOutside(event: any) {
-      if (ref.current && !ref.current.contains(event.target)) {
-        setToggleState(false)
+      if (itemTodo.current && !itemTodo.current.contains(event.target)) {
+        setIsEdit(false)
       }
     }
     document.addEventListener('mousedown', handleClickOutside)
     return () => {
       document.removeEventListener('mousedown', handleClickOutside)
     }
-  }, [ref])
+  }, [itemTodo])
+
+  return {isEdit,setIsEdit,itemTodo}
 }
 
 export default useOnClickOutside

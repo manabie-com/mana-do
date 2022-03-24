@@ -16,12 +16,9 @@ interface ToDoItemProps {
 }
 
 const ToDoItem: React.FC<ToDoItemProps> = ({ todo, dispatch,filterName }) => {
-  const [isEdit, setIsEdit] = useState<boolean>(false)
-
   const inputRef = useRef<any>(null)
-  const itemTodo = useRef<any>(null)
 
-  useOnClickOutside(itemTodo,setIsEdit);
+  const {isEdit, setIsEdit,itemTodo} = useOnClickOutside();
   
   const isCompleted = () => todo.status === 'COMPLETED'
 
