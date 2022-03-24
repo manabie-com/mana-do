@@ -33,7 +33,8 @@ const ToDoPage = () => {
   const onCreateTodo = async (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter' && inputRef.current.value) {
       const resp = await Service.createTodo(inputRef.current.value)
-      dispatch(createTodo(resp))
+      await dispatch(createTodo(resp))
+      dispatch(filterTodo(filterName))
 
       inputRef.current.value = ''
     }
@@ -63,7 +64,7 @@ const ToDoPage = () => {
       <div className="ToDo__list">
         {todos && todos.length ? (
           todos.map((todo, index) => {
-            return <ToDoItem dispatch={dispatch} key={index} todo={todo} />
+            return <ToDoItem filterName={filterName} dispatch={dispatch} key={index} todo={todo} />
           })
         ) : (
           <div>There are currently no to-do!</div>

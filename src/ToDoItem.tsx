@@ -9,41 +9,34 @@ import {
 updateTodoStatus,
   deleteTodo,
   editTodo,
+  filterTodo,
 } from './store/actions'
-import { TodoStatus } from './models/todo'
 import { AppActions } from './store/actions'
 import { Todo } from './models/todo'
+import {useOnClickOutside} from "./hooks"
 
 interface ToDoItemProps {
   todo: Todo
-  dispatch: React.Dispatch<AppActions>
+  dispatch: React.Dispatch<AppActions>,
+  filterName:string
 }
 
-const ToDoItem: React.FC<ToDoItemProps> = ({ todo, dispatch }) => {
+const ToDoItem: React.FC<ToDoItemProps> = ({ todo, dispatch,filterName }) => {
   const [isEdit, setIsEdit] = useState<boolean>(false)
 
   const inputRef = useRef<any>(null)
   const itemTodo = useRef<any>(null)
 
-  useEffect(() => {
-    function handleClickOutside(event: any) {
-      if (itemTodo.current && !itemTodo.current.contains(event.target)) {
-        setIsEdit(false)
-      }
-    }
-    document.addEventListener('mousedown', handleClickOutside)
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside)
-    }
-  }, [itemTodo])
-
+  useOnClickOutside(itemTodo,setIsEdit);
+  
   const isCompleted = () => todo.status === 'COMPLETED'
-
-  const onUpdateTodoStatus = (
+  
+  const onUpdateTodoStatus = async(
     e: React.ChangeEvent<HTMLInputElement>,
     todoId: string
   ) => {
-    dispatch(updateTodoStatus(todoId, e.target.checked))
+    await dispatch(updateTodoStatus(todoId, e.target.checked))
+    dispatch(filterTodo(filterName))
   }
 
   const onDeleteTodo = (todoId: string) => {
