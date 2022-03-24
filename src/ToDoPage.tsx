@@ -87,9 +87,7 @@ const ToDoPage = () => {
         {
           todos.length > 0 && 
           <button
-            className={`btn SelectAll__btn ${
-              filterName === 'ALL' && 'btn-active'
-            }`}
+            className='btn SelectAll__btn btn-active'
             onClick={onToggleAllTodo}
           >
             {isCheckedAll() ? 'Select all' : 'Un select all'}
