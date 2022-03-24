@@ -18,6 +18,7 @@ const Guide=()=>{
     <div className="Guide">
       <span>Todo Guide!</span>
       <div>
+      <GuideItem text="You can't add empty content's todo."/>
         <GuideItem text="Double click (todo-item) to edit."/>
         <GuideItem text="You can scroll to show more todo-item."/>
       </div>
