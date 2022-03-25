@@ -44,7 +44,7 @@ const TodoAction: React.FC<TodoActionProps> = ({
   // Edit Todo
   return (
     <div className="Todo__toolbar">
-      <Row>
+      <Row align="middle">
         <Col span={2} className="text-left pl-4">
           {todoLength > 0 && (
             <Checkbox checked={isCompletedAllTask} onChange={onToggleAllTodo} />
@@ -61,9 +61,8 @@ const TodoAction: React.FC<TodoActionProps> = ({
             </Button>
             <Button
               shape="round"
-              className="Action__btn "
+              className="Action__btn Active__btn"
               onClick={getTodoActiveStatus}
-              type="primary"
             >
               Active
             </Button>

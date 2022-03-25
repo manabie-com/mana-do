@@ -24,7 +24,7 @@
     "start:frontend": "concurrently \"yarn css:dev\" \"cross-env REACT_APP_WHOAMI=frontend react-scripts start\"",
     "css:dev": "tailwindcss -i ./src/base.css -o ./src/styles/styles.css --watch",
     "css": "tailwindcss -i ./src/base.css -o ./src/styles/styles.css --minify",
-    "build": "react-scripts build",
+    "build": "concurrently \"yarn css\" \"cross-env REACT_APP_WHOAMI=frontend react-scripts build\"",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

@@ -16,14 +16,27 @@
 }
 
 .Completed__btn {
-  background-color: #84cc16;
+  background-color: #83cc16cc;
   color: #fff;
 }
 
 .Completed__btn:hover,
 .Completed__btn:active,
 .Completed__btn:focus {
-  background-color: #83cc16cc;
-  border: solid 1px #83cc16cc;
+  background-color: #84cc16;
+  border: solid 1px #84cc16;
+  color: #fff;
+}
+
+.Active__btn{
+  background-color: #60a5faea;
+  color: #fff;
+}
+
+.Active__btn:hover,
+.Active__btn:active,
+.Active__btn:focus {
+  background-color: #368df8;
+  border: solid 1px #368df8;
   color: #fff;
 }
