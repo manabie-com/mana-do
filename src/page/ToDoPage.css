@@ -1,0 +1,16 @@
+.Todo__creation {
+  display: flex;
+}
+
+.Todo__input {
+  flex: 1 1;
+}
+
+.ToDo__list {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1.5rem;
+}
+.EmptyBox {
+  margin: 16vh 0;
+}

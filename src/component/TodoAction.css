@@ -1,0 +1,29 @@
+.Todo__toolbar {
+  margin-top: 24px;
+}
+
+.Todo__tabs {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.Todo__tabs > *:not(:last-child) {
+  margin-right: 8px;
+}
+
+.Action__btn {
+  min-width: 120px;
+}
+
+.Completed__btn {
+  background-color: #84cc16;
+  color: #fff;
+}
+
+.Completed__btn:hover,
+.Completed__btn:active,
+.Completed__btn:focus {
+  background-color: #83cc16cc;
+  border: solid 1px #83cc16cc;
+  color: #fff;
+}
