@@ -1,0 +1,20 @@
+.ToDo__item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid #808080;
+    border-radius: 10px;
+    margin-top: 5px;
+    word-break: break-all;
+}
+
+.ToDo__item > span {
+    flex: 1 1;
+    text-align: left;
+    margin-left: 8px;
+    margin-bottom: 4px;
+}
+
+.ToDo__edit {
+    width: 500px;
+}

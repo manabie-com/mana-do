@@ -1,0 +1,19 @@
+.Action__btn__secondary {
+    border: 1px solid #467fd0;
+    color: #467fd0;
+}
+
+.Action__btn__primary {
+    border: 1px solid #7c69ef;
+    color: #7c69ef;
+}
+
+.Action__btn__success {
+    border: 1px solid #42ba96;
+    color: #42ba96;
+}
+
+.Action__btn__danger {
+    border: 1px solid #df4759;
+    color: #df4759;
+}
