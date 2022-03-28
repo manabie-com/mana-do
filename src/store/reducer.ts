@@ -30,12 +30,17 @@ function reducer(state: AppState, action: AppActions): AppState {
                 ...state,
             };
         case UPDATE_TODO:
+            //Finds current ToDo id to edit
             const idx = state.todos.findIndex(
                 (todo) => todo.id === action.payload.todoId
             );
+
+            //If id is found, update the current context with the payload context
             if (idx !== -1) {
                 state.todos[idx].content = action.payload.content;
             }
+
+            //update local storage
             localStorage.setItem("todos", JSON.stringify(state.todos));
             return {
                 ...state,
@@ -81,7 +86,10 @@ function reducer(state: AppState, action: AppActions): AppState {
                 todos: state.todos,
             };
         case DELETE_ALL_TODOS:
+            //clear local storage
             localStorage.setItem("todos", JSON.stringify([]));
+
+            //update state
             return {
                 ...state,
                 todos: [],

@@ -20,6 +20,15 @@ _Features Included_
 9. Fixed issue on double adding of ToDo
 10. Added Test Cases for components added
 
+## How to Run Tests
+
+To run the tests simply run the command `npm test`.
+
+## What to add in the future
+
+1. Better sorting for ToDo.
+2. Better UI styling.
+
 ## Welcome to Manabie coding challenge
 
 _Hello!_
