@@ -79,6 +79,11 @@ input:focus {
   flex: 1 1;
   text-align: left;
   margin-left: 8px;
+  cursor: pointer;
+  word-break: break-all;
+}
+.ToDo__item > span:hover {
+  color: blue;
 }
 
 .Todo__content {
@@ -122,4 +127,10 @@ input:focus {
 }
 
 .Action__btn {
+  cursor: pointer;
+}
+
+.Action__btn__active {
+  background-color: blue;
+  color: white;
 }

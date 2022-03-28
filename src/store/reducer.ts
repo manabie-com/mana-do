@@ -1,11 +1,13 @@
-import {Todo, TodoStatus} from '../models/todo';
+import { Todo, TodoStatus } from '../models/todo';
 import {
   AppActions,
+  SET_TODO,
   CREATE_TODO,
   DELETE_ALL_TODOS,
   DELETE_TODO,
   TOGGLE_ALL_TODOS,
-  UPDATE_TODO_STATUS
+  UPDATE_TODO_STATUS,
+  UPDATE_TODO_CONTENT
 } from './actions';
 
 export interface AppState {
@@ -17,24 +19,39 @@ export const initialState: AppState = {
 }
 
 function reducer(state: AppState, action: AppActions): AppState {
+  let newTodos = [...state.todos];
   switch (action.type) {
-    case CREATE_TODO:
-      state.todos.push(action.payload);
+    case SET_TODO:
+      newTodos = action.payload
       return {
-        ...state
+        ...state,
+        todos: newTodos
+      };
+    case CREATE_TODO:
+      newTodos.push(action.payload)
+      return {
+        ...state,
+        todos: newTodos
+      };
+
+    case UPDATE_TODO_CONTENT:
+      let index3 = newTodos.findIndex((todo) => todo.id === action.payload.todoId);
+      newTodos[index3].content = action.payload.content
+      return {
+        ...state,
+        todos: newTodos
       };
 
     case UPDATE_TODO_STATUS:
-      const index2 = state.todos.findIndex((todo) => todo.id === action.payload.todoId);
-      state.todos[index2].status = action.payload.checked ? TodoStatus.COMPLETED : TodoStatus.ACTIVE;
-
+      let index2 = newTodos.findIndex((todo) => todo.id === action.payload.todoId);
+      newTodos[index2].status = action.payload.checked ? TodoStatus.ACTIVE : TodoStatus.COMPLETED;
       return {
         ...state,
-        todos: state.todos
+        todos: newTodos
       }
 
     case TOGGLE_ALL_TODOS:
-      const tempTodos = state.todos.map((e)=>{
+      const tempTodos = newTodos.map((e) => {
         return {
           ...e,
           status: action.payload ? TodoStatus.COMPLETED : TodoStatus.ACTIVE
@@ -47,12 +64,11 @@ function reducer(state: AppState, action: AppActions): AppState {
       }
 
     case DELETE_TODO:
-      const index1 = state.todos.findIndex((todo) => todo.id === action.payload);
-      state.todos.splice(index1, 1);
-
+      let index1 = newTodos.findIndex((todo) => todo.id === action.payload);
+      newTodos.splice(index1, 1);
       return {
         ...state,
-        todos: state.todos
+        todos: newTodos
       }
     case DELETE_ALL_TODOS:
       return {
