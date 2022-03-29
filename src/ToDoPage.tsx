@@ -32,6 +32,8 @@ const ToDoPage = () => {
     reset,
   } = useForm<IFormInput>();
 
+  //**FIXED**
+  // case SET_TODO hasn't been added yet, so I complete this function. If todo does not exist create a default todo
   useEffect(() => {
     (async () => {
       let storageTodo = localStorage.getItem("todos");
@@ -43,7 +45,10 @@ const ToDoPage = () => {
       }
     })();
   }, []);
+  //**FIXED**
 
+  // **ADDED**
+  // every time the todos variable changes save it to localStorage
   useEffect(() => {
     if (todos.length > 0) {
       localStorage.setItem("todos", JSON.stringify(todos));
@@ -51,6 +56,24 @@ const ToDoPage = () => {
       localStorage.removeItem("todos");
     }
   }, [todos]);
+  // **ADDED**
+
+  //**FIXED**
+  //   const onCreateTodo = async (e: React.KeyboardEvent<HTMLInputElement>) => {
+  //     if (e.key === 'Enter' ) {
+  //         const resp = await Service.createTodo(inputRef.current.value);
+  //         dispatch(createTodo(resp));
+  //     }
+  // }
+  // I think it is better if use a form to control the field and submit event, I use react-hook-form to control this.
+
+  // For the function Edit Item I added an onItemClick event to save the editing item, then use submit form for control field and event.
+  // In this case, clicking outside input to discard I think it is unnecessary.
+  const onItemClick = (content: string, todoId: string) => {
+    setValue("content", content);
+    setEditItemId(todoId);
+    setFocus("content");
+  };
 
   const onSubmit = async (data: IFormInput) => {
     if (editItemId.length === 0) {
@@ -62,7 +85,13 @@ const ToDoPage = () => {
     reset();
     setEditItemId("");
   };
+  //**FIXED**
 
+  //**FIXED**
+  // I think in case to control the status of an item, I think it is better to use dropbox or select.
+  // In this case base on the checkbox this is follow I made
+  // Tab All => Disabled all checkbox: because user can't know if click to checkbox that item will change to what status
+  // Tab Active,Complete => Check to change status of Item.
   const onUpdateTodoStatus = (
     e: React.ChangeEvent<HTMLInputElement>,
     todoId: string
@@ -74,6 +103,7 @@ const ToDoPage = () => {
       )
     );
   };
+  //**FIXED**
 
   const onDeleteTodo = (todoId: any) => {
     dispatch(deleteTodo(todoId));
@@ -85,12 +115,6 @@ const ToDoPage = () => {
 
   const onDeleteAllTodo = () => {
     dispatch(deleteAllTodos());
-  };
-
-  const onItemClick = (content: string, todoId: string) => {
-    setValue("content", content);
-    setEditItemId(todoId);
-    setFocus("content");
   };
 
   return (

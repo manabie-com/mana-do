@@ -82,9 +82,8 @@ input:focus {
   cursor: pointer;
   word-break: break-all;
 }
-.ToDo__item > span:hover {
-  color: blue;
-}
+
+
 
 .Todo__content {
   flex: 1 1;
@@ -126,6 +125,12 @@ input:focus {
   margin-right: 8px;
 }
 
+/* **ADDED** */
+/* I added a little style for UI/UX easier to use*/
+.ToDo__item > span:hover {
+  color: blue;
+}
+
 .Action__btn {
   cursor: pointer;
 }
@@ -134,3 +139,4 @@ input:focus {
   background-color: blue;
   color: white;
 }
+/* **ADDED** */
