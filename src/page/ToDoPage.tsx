@@ -1,6 +1,7 @@
 import { Empty, Input } from "antd";
 import React, { useEffect, useMemo, useReducer, useState } from "react";
 import TodoAction from "../component/TodoAction";
+import TodoHeader from "../component/TodoHeader";
 import TodoProgress from "../component/TodoProgress";
 import TodoTask from "../component/TodoTask";
 import { TodoStatus } from "../models/todo";
@@ -10,7 +11,7 @@ import reducer, { initialState } from "../store/reducer";
 import { TodoHelpers } from "../utils/helpers";
 import "./ToDoPage.css";
 
-const ToDoPage = () => {
+const ToDoPage: React.FC = () => {
   const [{ todos }, dispatch] = useReducer(reducer, initialState);
   const [inputTodoValue, setInputTodoValue] = useState("");
   const [totalTask, setTotalTask] = useState(0);
@@ -34,10 +35,10 @@ const ToDoPage = () => {
     setInputTodoValue(e.target.value);
   };
 
-  const onCreateTodo = async (e: React.KeyboardEvent<HTMLInputElement>) => {
+  const onCreateTodo = (e: React.KeyboardEvent<HTMLInputElement>) => {
     // check enter keyboards event and input blank
     if (e.key === "Enter" && inputTodoValue.trim() !== "") {
-      const resp = await Service.createTodo(inputTodoValue);
+      const resp = Service.createTodo(inputTodoValue);
       dispatch(createTodo(resp));
       // clear input
       setInputTodoValue("");
@@ -52,6 +53,7 @@ const ToDoPage = () => {
 
   return (
     <div className="ToDo__container">
+      <TodoHeader />
       <div className="Todo__creation">
         <Input
           value={inputTodoValue}
@@ -61,7 +63,10 @@ const ToDoPage = () => {
           onChange={onChangeInputValue}
         />
       </div>
-      <TodoProgress totalTask={totalTask} totalCompletedTask={totalCompletedTask} />
+      <TodoProgress
+        totalTask={totalTask}
+        totalCompletedTask={totalCompletedTask}
+      />
       <TodoAction
         todoLength={todos.length}
         dispatch={dispatch}

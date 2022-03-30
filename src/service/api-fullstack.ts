@@ -1,23 +1,24 @@
-import {IAPI} from './types';
-import {Todo} from '../models/todo';
-import axios from '../utils/axios';
-import {AxiosResponse} from 'axios';
+import { IAPI } from "./types";
+import { Todo, TodoStatus } from "../models/todo";
+import axios from "../utils/axios";
+import { AxiosResponse } from "axios";
+import shortid from "shortid";
 
 class ApiFullstack extends IAPI {
-    async createTodo(content: string): Promise<Todo> {
-        const resp = await axios.post<AxiosResponse<Todo>>(`/tasks`, {
-            content
-        });
+  createTodo(content: string) {
+    return {
+      content: content,
+      created_date: new Date().toISOString(),
+      status: TodoStatus.ACTIVE,
+      id: shortid(),
+      user_id: "firstUser",
+    } as Todo;
+  }
+  async getTodos(): Promise<Array<Todo>> {
+    const resp = await axios.get<AxiosResponse<Array<Todo>>>(`/tasks`);
 
-        return resp.data.data;
-    }
-
-    async getTodos(): Promise<Array<Todo>> {
-        const resp = await axios.get<AxiosResponse<Array<Todo>>>(`/tasks`);
-
-        return resp.data.data;
-    }
+    return resp.data.data;
+  }
 }
-
 
 export default new ApiFullstack();
