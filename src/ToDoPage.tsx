@@ -1,41 +1,50 @@
-import React, {useEffect, useReducer, useRef, useState} from 'react';
+import React, { useEffect, useReducer, useRef, useState } from 'react';
 
-import reducer, {initialState} from './store/reducer';
+import reducer, { initialState } from './store/reducer';
 import {
     setTodos,
     createTodo,
     toggleAllTodos,
+    deleteTodo,
     deleteAllTodos,
-    updateTodoStatus
+    updateTodoStatus,
+    handleUpdateTodoItem
 } from './store/actions';
 import Service from './service';
-import {TodoStatus} from './models/todo';
-
+import { TodoStatus } from './models/todo';
+import "./ToDoPage.css"
 type EnhanceTodoStatus = TodoStatus | 'ALL';
 
 
 const ToDoPage = () => {
-    const [{todos}, dispatch] = useReducer(reducer, initialState);
+    const [{ todos }, dispatch] = useReducer(reducer, initialState);
     const [showing, setShowing] = useState<EnhanceTodoStatus>('ALL');
+    const [idEditting, setIsEditting] = useState("");
+    const [textUpdate, setTextUpdate] = useState("");
+    const [toDosList, setToDosList] = useState<any>([])
     const inputRef = useRef<any>(null);
 
-    useEffect(()=>{
-        (async ()=>{
+    useEffect(() => {
+        (async () => {
             const resp = await Service.getTodos();
-
             dispatch(setTodos(resp || []));
         })()
     }, [])
-
+    useEffect(() => {
+        window.localStorage.setItem("todos", JSON.stringify(todos));
+        setToDosList(todos)
+    }, [todos]);
     const onCreateTodo = async (e: React.KeyboardEvent<HTMLInputElement>) => {
-        if (e.key === 'Enter' ) {
+        if (e.key === 'Enter' && inputRef.current.value !== "") {
             const resp = await Service.createTodo(inputRef.current.value);
             dispatch(createTodo(resp));
+            inputRef.current.value = "";
         }
     }
 
     const onUpdateTodoStatus = (e: React.ChangeEvent<HTMLInputElement>, todoId: any) => {
         dispatch(updateTodoStatus(todoId, e.target.checked))
+
     }
 
     const onToggleAllTodo = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -45,10 +54,28 @@ const ToDoPage = () => {
     const onDeleteAllTodo = () => {
         dispatch(deleteAllTodos());
     }
-
-
+    const handleUpdateTodo = (item: any) => {
+        setIsEditting(item.id);
+        setTextUpdate(item.content)
+        // dispatch(handleUpdateTodoItem(todoId))
+    }
+    const onEditTodo = () => {
+        dispatch(handleUpdateTodoItem(idEditting, textUpdate))
+        setIsEditting("")
+    }
+    const handleDeleteTodo = (idTodo: any) => {
+        dispatch(deleteTodo(idTodo))
+    }
+    const handleFilter = (status: any) => {
+        let arrTemp: any = [];
+        status === "" ? arrTemp = todos : arrTemp = todos.filter(item => {
+            return item.status === status
+        })
+        setToDosList(arrTemp)
+    }
     return (
         <div className="ToDo__container">
+            <h2 className='ToDo_Header'>To Do List</h2>
             <div className="Todo__creation">
                 <input
                     ref={inputRef}
@@ -58,21 +85,49 @@ const ToDoPage = () => {
                 />
             </div>
             <div className="ToDo__list">
-                {
-                    todos.map((todo, index) => {
+                {toDosList.length === 0 ? "LIST EMPTY!!!" :
+                    toDosList.map((todo: any, index: any) => {
                         return (
-                            <div key={index} className="ToDo__item">
-                                <input
-                                    type="checkbox"
-                                    checked={showing === todo.status}
-                                    onChange={(e) => onUpdateTodoStatus(e, index)}
-                                />
-                                <span>{todo.content}</span>
-                                <button
-                                    className="Todo__delete"
-                                >
-                                    X
-                                </button>
+                            <div key={index}>
+                                {idEditting !== todo.id ?
+                                    <div className={'ToDo__item ' +
+                                        `${todo.status === "COMPLETED" ? "ToDo__item__completed" : ""}`
+                                    }
+                                    >
+                                        <input
+                                            type="checkbox"
+                                            checked={"COMPLETED" === todo.status}
+                                            onChange={(e) => onUpdateTodoStatus(e, todo.id)}
+                                        />
+                                        {/* findex right id and update status */}
+                                        <span onDoubleClick={() => {
+                                            handleUpdateTodo(todo)
+                                        }}>{todo.content}</span>
+                                        <button
+                                            onClick={() => handleDeleteTodo(todo.id)}
+                                            className="Todo__delete"
+                                        >
+                                            X
+                                        </button>
+                                    </div>
+                                    :
+                                    <div className="ToDo__item">
+                                        <input
+                                            ref={input => input && input.focus()}
+                                            className="input__edit"
+                                            value={textUpdate}
+                                            onChange={(e) => setTextUpdate(e.target.value)}
+                                            onBlur={()=>{
+                                                setIsEditting("")
+                                            }}
+                                            onKeyPress={(e) => {
+                                                if (e.key === 'Enter' && todo.content) {
+                                                    onEditTodo()
+                                                }
+                                            }}
+                                        />
+                                    </div>
+                                }
                             </div>
                         );
                     })
@@ -83,16 +138,28 @@ const ToDoPage = () => {
                     <input
                         type="checkbox"
                         onChange={onToggleAllTodo}
-                    /> : <div/>
+                    /> : <div />
                 }
                 <div className="Todo__tabs">
-                    <button className="Action__btn">
+                    <button className="Action__btn"
+                        onClick={() => handleFilter("")}
+                    >
                         All
                     </button>
-                    <button className="Action__btn" onClick={()=>setShowing(TodoStatus.ACTIVE)}>
+                    <button className="Action__btn"
+                        // onClick={() => setShowing(TodoStatus.ACTIVE)}
+                        onClick={() => {
+                            handleFilter("ACTIVE");
+                        }}
+                    >
                         Active
                     </button>
-                    <button className="Action__btn" onClick={()=>setShowing(TodoStatus.COMPLETED)}>
+                    <button className="Action__btn"
+                        //  onClick={() => setShowing(TodoStatus.COMPLETED)}
+                        onClick={() => {
+                            handleFilter("COMPLETED");
+                        }}
+                    >
                         Completed
                     </button>
                 </div>
