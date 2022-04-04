@@ -23,7 +23,6 @@ export const initialState: AppState = {
 function reducer(state: AppState, action: AppActions): AppState {
   let newTodos = [...state.todos];
   // not use Immer js
-  console.log(action.type)
   switch (action.type) {
     case CREATE_TODO:
       newTodos.push(action.payload);
