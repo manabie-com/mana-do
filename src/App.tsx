@@ -2,7 +2,7 @@ import React from 'react';
 
 import ToDoPage from './ToDoPage';
 
-import './App.css';
+import './App.scss';
 
 function App() {
   return (
