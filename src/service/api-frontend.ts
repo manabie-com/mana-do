@@ -1,3 +1,4 @@
+import { getFromStorage } from "./../utils/storage";
 import { IAPI } from "./types";
 import { Todo, TodoStatus } from "../models/todo";
 import shortid from "shortid";
@@ -14,15 +15,16 @@ class ApiFrontend extends IAPI {
   }
 
   async getTodos(): Promise<Todo[]> {
-    return [
-      {
-        content: "Content",
-        created_date: new Date().toISOString(),
-        status: TodoStatus.ACTIVE,
-        id: shortid(),
-        user_id: "firstUser",
-      } as Todo,
-    ];
+    return getFromStorage();
+    // return [
+    //   {
+    //     content: "Content",
+    //     created_date: new Date().toISOString(),
+    //     status: TodoStatus.ACTIVE,
+    //     id: shortid(),
+    //     user_id: "firstUser",
+    //   } as Todo,
+    // ];
   }
 }
 
