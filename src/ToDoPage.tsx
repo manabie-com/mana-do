@@ -38,11 +38,9 @@ const ToDoPage = () => {
     }
   };
 
-  const onUpdateTodoStatus = (
-    e: React.ChangeEvent<HTMLInputElement>,
-    todoId: string
-  ) => {
-    dispatch(updateTodoStatus(todoId, e.target.checked));
+  // Updated: I change parameter into status in order to reused easily
+  const onUpdateTodoStatus = (status: boolean, todoId: string) => {
+    dispatch(updateTodoStatus(todoId, status));
   };
 
   const onToggleAllTodo = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -71,7 +69,10 @@ const ToDoPage = () => {
       <div className="ToDo__list">
         {/* Updated: I create a new component, named as Card, to control one todo */}
         {todos.map((todo: Todo) => (
-          <Card {...{ ...todo, showing, onDeleteTodo, onUpdateTodoStatus }} />
+          <Card
+            key={todo.id}
+            {...{ ...todo, showing, onDeleteTodo, onUpdateTodoStatus }}
+          />
         ))}
       </div>
       <div className="Todo__toolbar">

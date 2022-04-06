@@ -19,9 +19,6 @@ export interface CardProps {
   content: string;
   status: TodoStatus;
   showing: EnhanceTodoStatus;
-  onUpdateTodoStatus: (
-    e: React.ChangeEvent<HTMLInputElement>,
-    todoId: string
-  ) => void;
+  onUpdateTodoStatus: (status: boolean, todoId: string) => void;
   onDeleteTodo: (todoId: string) => void;
 }
