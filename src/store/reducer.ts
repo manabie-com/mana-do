@@ -25,7 +25,8 @@ function reducer(state: AppState, action: AppActions): AppState {
   // not use Immer js
   switch (action.type) {
     case CREATE_TODO:
-      newTodos.push(action.payload);
+      // newTodos.push(action.payload);
+      newTodos = [...newTodos, action.payload]
       return {
         ...state,
         todos: newTodos,

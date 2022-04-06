@@ -43,3 +43,7 @@
     outline-color:#FF9E3A;
     outline-style: solid;
 }
+.Active-btn {
+    border: solid 3px #FF9E3A;
+}
+

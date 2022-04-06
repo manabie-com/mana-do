@@ -11,19 +11,16 @@ import {
     handleUpdateTodoItem
 } from './store/actions';
 import Service from './service';
-import { TodoStatus } from './models/todo';
 import "./ToDoPage.css"
-type EnhanceTodoStatus = TodoStatus | 'ALL';
 
 
 const ToDoPage = () => {
     const [{ todos }, dispatch] = useReducer(reducer, initialState);
-    const [showing, setShowing] = useState<EnhanceTodoStatus>('ALL');
     const [idEditting, setIsEditting] = useState("");
     const [textUpdate, setTextUpdate] = useState("");
     const [toDosList, setToDosList] = useState<any>([])
     const inputRef = useRef<any>(null);
-
+    const [active, setActive] = useState("");
     useEffect(() => {
         (async () => {
             const resp = await Service.getTodos();
@@ -36,7 +33,7 @@ const ToDoPage = () => {
     }, [todos]);
     const onCreateTodo = async (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter' && inputRef.current.value !== "") {
-            const resp = await Service.createTodo(inputRef.current.value);
+            const resp = await Service.createTodo(inputRef.current.value.trim());
             dispatch(createTodo(resp));
             inputRef.current.value = "";
         }
@@ -44,14 +41,15 @@ const ToDoPage = () => {
 
     const onUpdateTodoStatus = (e: React.ChangeEvent<HTMLInputElement>, todoId: any) => {
         dispatch(updateTodoStatus(todoId, e.target.checked))
-
     }
 
     const onToggleAllTodo = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setActive("CHECKALL")
         dispatch(toggleAllTodos(e.target.checked))
     }
 
     const onDeleteAllTodo = () => {
+        setActive("CLEARALL")
         dispatch(deleteAllTodos());
     }
     const handleUpdateTodo = (item: any) => {
@@ -67,11 +65,20 @@ const ToDoPage = () => {
         dispatch(deleteTodo(idTodo))
     }
     const handleFilter = (status: any) => {
+        setActive(status)
         let arrTemp: any = [];
         status === "" ? arrTemp = todos : arrTemp = todos.filter(item => {
             return item.status === status
         })
         setToDosList(arrTemp)
+    }
+    const checkCheckAll = (toDos: any)=>{
+        for(let toDo of toDos) {
+            if(toDo.status === "ACTIVE") {
+                return false;
+            }
+        }
+        return true;
     }
     return (
         <div className="ToDo__container">
@@ -81,7 +88,7 @@ const ToDoPage = () => {
                     ref={inputRef}
                     className="Todo__input"
                     placeholder="What need to be done?"
-                    onKeyDown={onCreateTodo}
+                    onKeyUp={onCreateTodo}
                 />
             </div>
             <div className="ToDo__list">
@@ -117,7 +124,7 @@ const ToDoPage = () => {
                                             className="input__edit"
                                             value={textUpdate}
                                             onChange={(e) => setTextUpdate(e.target.value)}
-                                            onBlur={()=>{
+                                            onBlur={() => {
                                                 setIsEditting("")
                                             }}
                                             onKeyPress={(e) => {
@@ -136,17 +143,23 @@ const ToDoPage = () => {
             <div className="Todo__toolbar">
                 {todos.length > 0 ?
                     <input
+                    className={
+                            `${active === "CHECKALL" ? "Active-btn" : ""}`}
+                        checked = {checkCheckAll(todos)}
                         type="checkbox"
                         onChange={onToggleAllTodo}
                     /> : <div />
                 }
                 <div className="Todo__tabs">
-                    <button className="Action__btn"
+                    <button
+                        className={'Action__btn ' +
+                            `${active === "" ? "Active-btn" : ""}`}
                         onClick={() => handleFilter("")}
                     >
                         All
                     </button>
-                    <button className="Action__btn"
+                    <button  className={'Action__btn ' +
+                            `${active === "ACTIVE" ? "Active-btn" : ""}`}
                         // onClick={() => setShowing(TodoStatus.ACTIVE)}
                         onClick={() => {
                             handleFilter("ACTIVE");
@@ -154,7 +167,8 @@ const ToDoPage = () => {
                     >
                         Active
                     </button>
-                    <button className="Action__btn"
+                    <button className={'Action__btn ' +
+                            `${active === "COMPLETED" ? "Active-btn" : ""}`}
                         //  onClick={() => setShowing(TodoStatus.COMPLETED)}
                         onClick={() => {
                             handleFilter("COMPLETED");
@@ -163,7 +177,8 @@ const ToDoPage = () => {
                         Completed
                     </button>
                 </div>
-                <button className="Action__btn" onClick={onDeleteAllTodo}>
+                <button className={'Action__btn ' +
+                            `${active === "CLEARALL" ? "Active-btn" : ""}`} onClick={onDeleteAllTodo}>
                     Clear all todos
                 </button>
             </div>
