@@ -11,8 +11,9 @@ import {
 } from "./store/actions";
 import Service from "./service";
 import { Todo, TodoStatus } from "./models/todo";
+import Card from "./components/Card/Card";
 
-type EnhanceTodoStatus = TodoStatus | "ALL";
+export type EnhanceTodoStatus = TodoStatus | "ALL";
 
 const ToDoPage = () => {
   const [{ todos }, dispatch] = useReducer(reducer, initialState);
@@ -68,26 +69,10 @@ const ToDoPage = () => {
         />
       </div>
       <div className="ToDo__list">
-        {todos.map(({ id, status, content }: Todo) => {
-          return (
-            /** Fixed:
-             * 1. I change key from index to todo.id because it's not recommend to use index of item to store as key.
-             * 2. Bug: on calling onUpdateTodoStatus, it's a mistake calling index as todoId
-             * => I change it into id of item
-             */
-            <div key={id} className="ToDo__item">
-              <input
-                type="checkbox"
-                checked={showing === status}
-                onChange={(e) => onUpdateTodoStatus(e, id)}
-              />
-              <span>{content}</span>
-              <button className="Todo__delete" onClick={() => onDeleteTodo(id)}>
-                X
-              </button>
-            </div>
-          );
-        })}
+        {/* Updated: I create a new component, named as Card, to control one todo */}
+        {todos.map((todo: Todo) => (
+          <Card {...{ ...todo, showing, onDeleteTodo, onUpdateTodoStatus }} />
+        ))}
       </div>
       <div className="Todo__toolbar">
         {todos.length > 0 ? (
