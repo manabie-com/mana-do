@@ -7,6 +7,7 @@ import {
   toggleAllTodos,
   deleteAllTodos,
   updateTodoStatus,
+  deleteTodo,
 } from "./store/actions";
 import Service from "./service";
 import { Todo, TodoStatus } from "./models/todo";
@@ -30,6 +31,9 @@ const ToDoPage = () => {
     if (e.key === "Enter") {
       const resp = await Service.createTodo(inputRef.current.value);
       dispatch(createTodo(resp));
+
+      // Updated: Reset input after create todo
+      inputRef.current.value = "";
     }
   };
 
@@ -46,6 +50,11 @@ const ToDoPage = () => {
 
   const onDeleteAllTodo = () => {
     dispatch(deleteAllTodos());
+  };
+
+  // Updated: implement onDeleteTodo function
+  const onDeleteTodo = (todoId: string) => {
+    dispatch(deleteTodo(todoId));
   };
 
   return (
@@ -73,7 +82,9 @@ const ToDoPage = () => {
                 onChange={(e) => onUpdateTodoStatus(e, id)}
               />
               <span>{content}</span>
-              <button className="Todo__delete">X</button>
+              <button className="Todo__delete" onClick={() => onDeleteTodo(id)}>
+                X
+              </button>
             </div>
           );
         })}
@@ -85,7 +96,9 @@ const ToDoPage = () => {
           <div />
         )}
         <div className="Todo__tabs">
-          <button className="Action__btn">All</button>
+          <button className="Action__btn" onClick={() => setShowing("ALL")}>
+            All
+          </button>
           <button
             className="Action__btn"
             onClick={() => setShowing(TodoStatus.ACTIVE)}
