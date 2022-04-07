@@ -1,4 +1,4 @@
-import {Todo} from "../models/todo";
+import { Todo } from "../models/todo";
 
 export const SET_TODO = 'SET_TODO';
 export const CREATE_TODO = 'CREATE_TODO';
@@ -6,6 +6,7 @@ export const DELETE_TODO = 'DELETE_TODO';
 export const DELETE_ALL_TODOS = 'DELETE_ALL_TODOS';
 export const TOGGLE_ALL_TODOS = 'TOGGLE_ALL_TODOS';
 export const UPDATE_TODO_STATUS = 'UPDATE_TODO_STATUS';
+export const ON_CHANGE_DB = 'CHANGE_DB';
 
 
 export interface SetTodoAction {
@@ -89,10 +90,27 @@ export function toggleAllTodos(checked: boolean): ToggleAllTodosAction {
   }
 }
 
+///////////
+export interface payload {
+  id: string,
+  value: string
+}
+export interface onKeyDownDB {
+  type: typeof ON_CHANGE_DB,
+  payload: payload,
+}
+
+export function onKeyDownDBAction(payload: payload): onKeyDownDB {
+  return {
+    type: ON_CHANGE_DB,
+    payload: payload
+  }
+}
+
 export type AppActions =
   SetTodoAction |
   CreateTodoAction |
   UpdateTodoStatusAction |
   DeleteTodoAction |
   DeleteAllTodosAction |
-  ToggleAllTodosAction;
+  ToggleAllTodosAction | onKeyDownDB;
