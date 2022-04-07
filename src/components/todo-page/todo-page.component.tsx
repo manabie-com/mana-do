@@ -24,7 +24,7 @@ const ToDoPage = () => {
     const [showing, setShowing] = useState<EnhanceTodoStatus>("ALL");
 
     useEffect(() => {
-        const todos = JSON.parse(localStorage.getItem("todos") || "{}");
+        const todos = JSON.parse(localStorage.getItem("todos") || "[]");
         dispatch(setTodos(todos));
     }, []);
 
