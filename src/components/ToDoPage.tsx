@@ -1,15 +1,14 @@
 import React, { createContext, useEffect, useReducer } from 'react';
-import reducer, { initialState } from './store/reducer';
+import reducer, { initialState } from 'store/reducer';
 import {
     setTodos,
     AppActions
-} from './store/actions';
-import Service from './service';
-import {
-    Header,
-    TodoList,
-    Toolbar,
-} from 'components';
+} from 'store/actions';
+import Service from 'service';
+import { Header } from 'components/Header';
+import { TodoList } from 'components/TodoList';
+import { Toolbar } from 'components/Toolbar';
+import './ToDoPage.scss';
 
 export type GlobalContent = {
     todos: string[],
@@ -30,6 +29,7 @@ export const ToDoPage = () => {
 
     return (
         <TodoContext.Provider value={{todos, dispatch}}>
+            <h1>Todos</h1>
             <div className="Todo">
                 <Header />
                 <TodoList />

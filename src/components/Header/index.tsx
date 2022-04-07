@@ -4,7 +4,8 @@ import {
   createTodo,
 } from 'store/actions';
 import Service from 'service';
-import { TodoContext } from 'ToDoPage';
+import { TodoContext } from 'components/ToDoPage';
+import './index.scss';
 
 export const Header = () => {
   const { dispatch } = useContext(TodoContext);
@@ -18,7 +19,6 @@ export const Header = () => {
   }, [dispatch])
 
   const onCreateTodo = async (e: React.KeyboardEvent<HTMLInputElement>) => {
-    console.log(e.key)
     if (e.key === 'Enter') {
       const resp = await Service.createTodo(inputRef.current.value);
       dispatch(createTodo(resp));
@@ -26,13 +26,13 @@ export const Header = () => {
   }
 
   return (
-    <div className="Todo__creation">
+    <header className="creation">
       <input
         ref={inputRef}
-        className="Todo__creation__input"
+        className="creation__input"
         placeholder="What need to be done?"
         onKeyDown={onCreateTodo}
       />
-    </div>
+    </header>
   );
 };

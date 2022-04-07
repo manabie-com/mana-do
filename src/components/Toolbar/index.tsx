@@ -1,10 +1,11 @@
 import React, { useState, useContext } from 'react';
-import { TodoContext } from 'ToDoPage';
+import { TodoContext } from 'components/ToDoPage';
 import { TodoStatus } from 'models/todo';
 import {
   deleteAllTodos,
   toggleAllTodos,
 } from 'store/actions';
+import './index.scss';
 
 type EnhanceTodoStatus = TodoStatus | 'ALL';
 
@@ -21,27 +22,27 @@ export const Toolbar = () => {
   }
 
   return (
-    <div className="Todo__toolbar">
+    <div className="todo-toolbar">
       {todos.length > 0 ?
         <input
           type="checkbox"
           onChange={onToggleAllTodo}
         /> : <div />
       }
-      <div className="Todo__tabs">
-        <button className="Action__btn">
+      <div className="todo-toolbar__tabs">
+        <a href={'#/'} className="action-btn">
           All
-        </button>
-        <button className="Action__btn" onClick={() => setShowing(TodoStatus.ACTIVE)}>
+        </a>
+        <a href={'#/'} className="action-btn" onClick={() => setShowing(TodoStatus.ACTIVE)}>
           Active
-        </button>
-        <button className="Action__btn" onClick={() => setShowing(TodoStatus.COMPLETED)}>
+        </a>
+        <a href={'#/'} className="action-btn" onClick={() => setShowing(TodoStatus.COMPLETED)}>
           Completed
-        </button>
+        </a>
       </div>
-      <button className="Action__btn" onClick={onDeleteAllTodo}>
+      <a href={'#/'} className="action-btn" onClick={onDeleteAllTodo}>
         Clear all todos
-      </button>
+      </a>
     </div>
   )
 }

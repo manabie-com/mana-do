@@ -1,9 +1,10 @@
 import React, { useState, useContext } from 'react';
-import { TodoContext } from 'ToDoPage';
+import { TodoContext } from 'components/ToDoPage';
 import { TodoStatus, Todo } from 'models/todo';
 import {
   updateTodoStatus,
 } from 'store/actions';
+import './index.scss';
 
 type EnhanceTodoStatus = TodoStatus | 'ALL';
 
@@ -16,11 +17,11 @@ export const TodoList = () => {
   }
 
   return (
-    <div className="Todo__list">
+    <div className="todo-list">
       {
         todos.map((todo: Todo, index: number) => {
           return (
-            <div key={index} className="Todo__item">
+            <div key={index} className="todo-list__item">
               <input
                 type="checkbox"
                 checked={showing === todo.status}
@@ -28,7 +29,7 @@ export const TodoList = () => {
               />
               <span>{todo.content}</span>
               <button
-                className="Todo__delete"
+                className="todo-list__item__delete"
               >
                 X
               </button>
