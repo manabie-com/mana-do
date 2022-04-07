@@ -72,9 +72,13 @@ function reducer(state: AppState, action: AppActions): AppState {
         todos: []
       }
     case SET_TODO:
+      let data = action.payload;
+      if (data.length === 0) {
+        data = JSON.parse(localStorage.getItem('todos') || "[]");
+      }
       return {
         ...state,
-        todos: action.payload
+        todos: data
       }
 
     case ON_CHANGE_DB:

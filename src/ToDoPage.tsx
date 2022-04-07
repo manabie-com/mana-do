@@ -4,7 +4,7 @@ import reducer, { initialState } from './store/reducer';
 import {
     setTodos,
     createTodo,
-    // toggleAllTodos,
+    toggleAllTodos,
     deleteAllTodos,
     updateTodoStatus,
     deleteTodo,
@@ -55,9 +55,9 @@ const ToDoPage = () => {
         dispatch(updateTodoStatus(todoId, e.target.checked))
     }
 
-    // const onToggleAllTodo = (e: React.ChangeEvent<HTMLInputElement>) => {
-    //     dispatch(toggleAllTodos(e.target.checked))
-    // }
+    const onToggleAllTodo = (e: React.ChangeEvent<HTMLInputElement>) => {
+        dispatch(toggleAllTodos(e.target.checked))
+    }
 
     const onDeleteAllTodo = () => {
         dispatch(deleteAllTodos());
@@ -119,12 +119,12 @@ const ToDoPage = () => {
                 }
             </div>
             <div className="Todo__toolbar">
-                {/* {todos.length > 0 ?
+                {todos.length > 0 ?
                     <input
                         type="checkbox"
                         onChange={onToggleAllTodo}
                     /> : <div />
-                } */}
+                }
                 <div className="Todo__tabs">
                     <button className="Action__btn" onClick={() => setShowing("ALL")}>
                         All
