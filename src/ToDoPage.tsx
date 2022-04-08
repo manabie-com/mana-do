@@ -71,6 +71,7 @@ const ToDoPage = () => {
           className="Todo__input"
           placeholder="What need to be done?"
           onKeyDown={onCreateTodo}
+          aria-label="add-input"
         />
       </div>
       <div className="ToDo__list">

@@ -1,9 +1,9 @@
-import { fireEvent, render, screen } from "@testing-library/react"
+import '@testing-library/jest-dom'
+import { render, screen } from "@testing-library/react"
+import React from 'react'
 import { CardProps, Todo, TodoStatus } from "../../../models/todo"
 import { AppActions } from "../../../store/actions"
 import Card from "../Card"
-import React from 'react'
-import '@testing-library/jest-dom'
 
 const fakeTodo: Todo = {
     id: 'id',
