@@ -23,7 +23,6 @@ export interface CardProps {
   currentEdit: string;
   onUpdateTodoStatus: (status: boolean, todoId: string) => void;
   onDeleteTodo: (todoId: string) => void;
-  onEditTodo: (todoId: string, content: string) => void;
   changeEditMode: (todoId: string) => void;
   dispatch: (value: AppActions) => void;
 }

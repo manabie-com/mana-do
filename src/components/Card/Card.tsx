@@ -11,7 +11,6 @@ function Card({
   content,
   onUpdateTodoStatus,
   onDeleteTodo,
-  onEditTodo,
   changeEditMode,
   currentEdit,
   dispatch,
@@ -50,6 +49,7 @@ function Card({
         type="checkbox"
         checked={status === TodoStatus.COMPLETED}
         onChange={(e) => onUpdateTodoStatus(e.target.checked, id)}
+        aria-label="checkbox-status"
       />
       {currentEdit !== id ? (
         <span onClick={() => changeEditMode(id)}>{content}</span>
@@ -62,6 +62,7 @@ function Card({
             onKeyDown={onUpdateTodoContent}
             defaultValue={content}
             autoFocus
+            aria-label="edit-input"
           />
         </OutsideWrapper>
       )}

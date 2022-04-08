@@ -59,10 +59,6 @@ const ToDoPage = () => {
     dispatch(deleteTodo(todoId));
   };
 
-  const onEditTodo = (todoId: string, content: string) => {
-    dispatch(updateTodoContent(todoId, content));
-  };
-
   const changeEditMode = (todoId: string = "") => {
     setCurrentEdit(todoId);
   };
@@ -87,7 +83,6 @@ const ToDoPage = () => {
               showing,
               onDeleteTodo,
               onUpdateTodoStatus,
-              onEditTodo,
               changeEditMode,
               currentEdit,
               dispatch,
