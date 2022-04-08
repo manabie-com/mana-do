@@ -45,17 +45,14 @@ function Card({
      *  3.2. Checkbox is now checked if todo is completed and not checked if it's still active
      */
 
-    <div
-      className={`ToDo__item ${status} ${isShowing() ? "" : "d-none"}`}
-      onClick={() => changeEditMode(id)}
-    >
+    <div className={`ToDo__item ${status} ${isShowing() ? "" : "d-none"}`}>
       <input
         type="checkbox"
         checked={status === TodoStatus.COMPLETED}
         onChange={(e) => onUpdateTodoStatus(e.target.checked, id)}
       />
       {currentEdit !== id ? (
-        <span>{content}</span>
+        <span onClick={() => changeEditMode(id)}>{content}</span>
       ) : (
         <OutsideWrapper onClickOutside={handleClickOutsideInput}>
           <input
