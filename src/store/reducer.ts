@@ -7,6 +7,7 @@ import {
   DELETE_TODO,
   SET_TODO,
   TOGGLE_ALL_TODOS,
+  UPDATE_TODO_CONTENT,
   UPDATE_TODO_STATUS,
 } from "./actions";
 
@@ -21,7 +22,8 @@ export const initialState: AppState = {
 function reducer(state: AppState, action: AppActions): AppState {
   switch (action.type) {
     case CREATE_TODO:
-      state.todos.push(action.payload);
+      // Updated: I change push to unshift in order to make latest todo stack in top of list
+      state.todos.unshift(action.payload);
       setToStorage(state.todos);
       return {
         ...state,
@@ -76,6 +78,18 @@ function reducer(state: AppState, action: AppActions): AppState {
       return {
         ...state,
         todos: action.payload,
+      };
+
+    case UPDATE_TODO_CONTENT:
+      const index = state.todos.findIndex(
+        (todo) => todo.id === action.payload.todoId
+      );
+      state.todos[index].content = action.payload.content;
+
+      setToStorage(state.todos);
+      return {
+        ...state,
+        todos: state.todos,
       };
     default:
       return state;

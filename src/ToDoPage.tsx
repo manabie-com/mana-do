@@ -8,6 +8,7 @@ import {
   deleteAllTodos,
   updateTodoStatus,
   deleteTodo,
+  updateTodoContent,
 } from "./store/actions";
 import Service from "./service";
 import { Todo, TodoStatus } from "./models/todo";
@@ -19,6 +20,8 @@ const ToDoPage = () => {
   const [{ todos }, dispatch] = useReducer(reducer, initialState);
   const [showing, setShowing] = useState<EnhanceTodoStatus>("ALL");
   const inputRef = useRef<any>(null);
+  // Updated: create a state to store which Todo is editing
+  const [currentEdit, setCurrentEdit] = useState<string>("");
 
   useEffect(() => {
     (async () => {
@@ -56,6 +59,14 @@ const ToDoPage = () => {
     dispatch(deleteTodo(todoId));
   };
 
+  const onEditTodo = (todoId: string, content: string) => {
+    dispatch(updateTodoContent(todoId, content));
+  };
+
+  const changeEditMode = (todoId: string = "") => {
+    setCurrentEdit(todoId);
+  };
+
   return (
     <div className="ToDo__container">
       <div className="Todo__creation">
@@ -71,7 +82,16 @@ const ToDoPage = () => {
         {todos.map((todo: Todo) => (
           <Card
             key={todo.id}
-            {...{ ...todo, showing, onDeleteTodo, onUpdateTodoStatus }}
+            {...{
+              ...todo,
+              showing,
+              onDeleteTodo,
+              onUpdateTodoStatus,
+              onEditTodo,
+              changeEditMode,
+              currentEdit,
+              dispatch,
+            }}
           />
         ))}
       </div>

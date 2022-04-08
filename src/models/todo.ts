@@ -1,3 +1,4 @@
+import { AppActions } from "../store/actions";
 import { EnhanceTodoStatus } from "../ToDoPage";
 
 export enum TodoStatus {
@@ -19,6 +20,10 @@ export interface CardProps {
   content: string;
   status: TodoStatus;
   showing: EnhanceTodoStatus;
+  currentEdit: string;
   onUpdateTodoStatus: (status: boolean, todoId: string) => void;
   onDeleteTodo: (todoId: string) => void;
+  onEditTodo: (todoId: string, content: string) => void;
+  changeEditMode: (todoId: string) => void;
+  dispatch: (value: AppActions) => void;
 }

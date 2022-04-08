@@ -31,7 +31,7 @@
   border-radius: 5px;
   box-shadow: 1px 1px 3px 1px rgb(12 12 12 / 20%);
   padding: 0 10px;
-  cursor: pointer;
+  cursor: auto;
 }
 
 .d-none {
@@ -88,4 +88,9 @@
 
 .Todo__tabs > *:not(:last-child) {
   margin-right: 8px;
+}
+
+.Edit__input {
+  width: 100%;
+  margin: 0 8px;
 }
