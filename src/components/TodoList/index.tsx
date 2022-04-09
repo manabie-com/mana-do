@@ -1,16 +1,13 @@
-import React, { useState, useContext } from 'react';
-import { TodoContext } from 'components/ToDoPage';
+import React, { useContext } from 'react';
+import { TodoContext } from 'App';
 import { TodoStatus, Todo } from 'models/todo';
 import {
   updateTodoStatus,
 } from 'store/actions';
 import './index.scss';
 
-type EnhanceTodoStatus = TodoStatus | 'ALL';
-
 export const TodoList = () => {
   const { todos, dispatch } = useContext(TodoContext);
-  const [showing, setShowing] = useState<EnhanceTodoStatus>('ALL')
 
   const onUpdateTodoStatus = (e: React.ChangeEvent<HTMLInputElement>, todoId: any) => {
     dispatch(updateTodoStatus(todoId, e.target.checked))
@@ -24,8 +21,8 @@ export const TodoList = () => {
             <div key={index} className="todo-list__item">
               <input
                 type="checkbox"
-                checked={showing === todo.status}
-                onChange={(e) => onUpdateTodoStatus(e, index)}
+                checked={TodoStatus.COMPLETED === todo.status}
+                onChange={(e) => onUpdateTodoStatus(e, todo.id)}
               />
               <span>{todo.content}</span>
               <button
