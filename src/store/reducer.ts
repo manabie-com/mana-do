@@ -19,9 +19,9 @@ export const initialState: AppState = {
 function reducer(state: AppState, action: AppActions): AppState {
   switch (action.type) {
     case CREATE_TODO:
-      state.todos.push(action.payload);
+      // state.todos.push(action.payload); //Wrong way to create todo
       return {
-        ...state
+        todos: [...state.todos, action.payload] //Right way to create todo
       };
 
     case UPDATE_TODO_STATUS:
