@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { TodoContext } from 'App';
 import { TodoStatus, Todo } from 'models/todo';
 import {
@@ -7,7 +7,12 @@ import {
 import './index.scss';
 
 export const TodoList = () => {
-  const { todos, dispatch } = useContext(TodoContext);
+  const { todos, filter, dispatch } = useContext(TodoContext);
+  const [todoShow, setTodoShow] = useState<Array<Todo>>([]);
+
+  useEffect(() => {
+    setTodoShow(todos.filter((todo: Todo) => !filter || todo.status === filter))
+  }, [filter, todos])
 
   const onUpdateTodoStatus = (e: React.ChangeEvent<HTMLInputElement>, todoId: any) => {
     dispatch(updateTodoStatus(todoId, e.target.checked))
@@ -16,7 +21,7 @@ export const TodoList = () => {
   return (
     <div className="todo-list">
       {
-        todos.map((todo: Todo, index: number) => {
+        todoShow.map((todo: Todo, index: number) => {
           return (
             <div key={index} className="todo-list__item">
               <input

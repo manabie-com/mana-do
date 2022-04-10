@@ -1,8 +1,14 @@
 import { AppActions } from 'store/actions';
 
+export interface AppState {
+  todos: Array<Todo>,
+  filter: string,
+}
+
 export enum TodoStatus {
   ACTIVE = 'ACTIVE',
-  COMPLETED = 'COMPLETED'
+  COMPLETED = 'COMPLETED',
+  ALL = 'ALL'
 }
 
 export interface Todo {
@@ -11,5 +17,6 @@ export interface Todo {
 
 export type TodoType = {
   todos: Array<Todo>,
+  filter: string,
   dispatch: React.Dispatch<AppActions>
 }

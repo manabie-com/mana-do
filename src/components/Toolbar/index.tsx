@@ -1,17 +1,18 @@
-import React, { useState, useContext } from 'react';
-import { TodoContext } from 'components/ToDoPage';
+import React, { useContext } from 'react';
+import { TodoContext } from 'App';
 import { TodoStatus } from 'models/todo';
 import {
   deleteAllTodos,
   toggleAllTodos,
 } from 'store/actions';
 import './index.scss';
+import { ActionBtn } from './ActionBtn';
 
-type EnhanceTodoStatus = TodoStatus | 'ALL';
+// type EnhanceTodoStatus = TodoStatus | 'ALL';
 
 export const Toolbar = () => {
   const { todos, dispatch } = useContext(TodoContext);
-  const [showing, setShowing] = useState<EnhanceTodoStatus>('ALL');
+  // const [showing, setShowing] = useState<EnhanceTodoStatus>('ALL');
 
   const onToggleAllTodo = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(toggleAllTodos(e.target.checked))
@@ -30,15 +31,9 @@ export const Toolbar = () => {
         /> : <div />
       }
       <div className="todo-toolbar__tabs">
-        <a href={'#/'} className="action-btn">
-          All
-        </a>
-        <a href={'#/'} className="action-btn" onClick={() => setShowing(TodoStatus.ACTIVE)}>
-          Active
-        </a>
-        <a href={'#/'} className="action-btn" onClick={() => setShowing(TodoStatus.COMPLETED)}>
-          Completed
-        </a>
+        <ActionBtn todoStatus={''} />
+        <ActionBtn todoStatus={TodoStatus.ACTIVE} />
+        <ActionBtn todoStatus={TodoStatus.COMPLETED} />
       </div>
       <a href={'#/'} className="action-btn" onClick={onDeleteAllTodo}>
         Clear all todos

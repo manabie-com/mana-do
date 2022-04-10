@@ -6,14 +6,15 @@ import { TodoType } from 'models/todo';
 
 export const TodoContext = createContext<TodoType>({
   todos: [],
+  filter: '',
   dispatch: () => {}
 });
 
 function App() {
-  const [{ todos }, dispatch] = useReducer(useCallback(reducer, []), initialState);
+  const [{ todos, filter }, dispatch] = useReducer(useCallback(reducer, []), initialState);
 
   return (
-    <TodoContext.Provider value={{todos, dispatch}}>
+    <TodoContext.Provider value={{todos, filter, dispatch}}>
       <main className="App">
         <ToDoPage />
       </main>

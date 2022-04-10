@@ -1,0 +1,13 @@
+.action-btn {
+    color: inherit;
+    margin: 3px;
+    padding: 3px 7px;
+    text-decoration: none;
+    color: #4d4d4d;
+    font-size: 14px;
+    border: 1px solid transparent;
+    border-radius: 3px;
+    &.-selected {
+      border-color: #CE4646;
+    }
+}

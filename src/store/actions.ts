@@ -82,10 +82,24 @@ export function toggleAllTodos(checked: boolean): ToggleAllTodosAction {
   }
 }
 
+
+export interface FilterTodosAction {
+  type: typeof constants.FILTER_TODOS,
+  payload: string
+}
+
+export function FilterTodos(payload: string): FilterTodosAction {
+  return {
+    type: constants.FILTER_TODOS,
+    payload,
+  }
+}
+
 export type AppActions =
   SetTodoAction |
   CreateTodoAction |
   UpdateTodoStatusAction |
   DeleteTodoAction |
   DeleteAllTodosAction |
-  ToggleAllTodosAction;
+  ToggleAllTodosAction |
+  FilterTodosAction;

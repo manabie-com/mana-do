@@ -7,11 +7,13 @@ import {
   DELETE_ALL_TODOS,
   DELETE_TODO,
   TOGGLE_ALL_TODOS,
-  UPDATE_TODO_STATUS
+  UPDATE_TODO_STATUS,
+  FILTER_TODOS,
 } from './constants';
 
 export const initialState: AppState = {
-  todos: []
+  todos: [],
+  filter: '',
 }
 
 function reducer(state: AppState, action: AppActions): AppState {
@@ -26,7 +28,7 @@ function reducer(state: AppState, action: AppActions): AppState {
       return {
         ...state,
         todos: state.todos.map((todo: Todo) => {
-          let status = '';
+          let status = todo.status;
           if (todo.id === action.payload.todoId) {
             status = action.payload.checked ? TodoStatus.COMPLETED : TodoStatus.ACTIVE;
           }
@@ -62,6 +64,11 @@ function reducer(state: AppState, action: AppActions): AppState {
       return {
         ...state,
         todos: []
+      }
+    case FILTER_TODOS:
+      return {
+        ...state,
+        filter: action.payload
       }
     default:
       return state;
