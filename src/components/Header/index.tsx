@@ -7,11 +7,16 @@ import { TodoContext } from 'App';
 import './index.scss';
 
 export const Header = () => {
-  const { dispatch } = useContext(TodoContext);
+  const { dispatch, todos } = useContext(TodoContext);
   const inputRef = useRef<any>(null);
 
   const onCreateTodo = async (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
+      if (todos.find(todo => todo.content === inputRef.current.value)) {
+        inputRef.current.value = '';
+        alert('Duplicate todo!');
+        return;
+      }
       const resp = await Service.createTodo(inputRef.current.value);
       dispatch(createTodo(resp));
       inputRef.current.value = '';

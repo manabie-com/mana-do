@@ -3,6 +3,7 @@ import { TodoContext } from 'App';
 import { TodoStatus, Todo } from 'models/todo';
 import {
   updateTodoStatus,
+  deleteTodo,
 } from 'store/actions';
 import './index.scss';
 
@@ -14,8 +15,12 @@ export const TodoList = () => {
     setTodoShow(todos.filter((todo: Todo) => !filter || todo.status === filter))
   }, [filter, todos])
 
-  const onUpdateTodoStatus = (e: React.ChangeEvent<HTMLInputElement>, todoId: any) => {
+  const onUpdateTodoStatus = (e: React.ChangeEvent<HTMLInputElement>, todoId: string) => {
     dispatch(updateTodoStatus(todoId, e.target.checked))
+  }
+
+  const onDeleteTodo = (todoId: string) => {
+    dispatch(deleteTodo(todoId));
   }
 
   return (
@@ -32,6 +37,7 @@ export const TodoList = () => {
               <span>{todo.content}</span>
               <button
                 className="todo-list__item__delete"
+                onClick={_ => onDeleteTodo(todo.id)}
               >
                 X
               </button>

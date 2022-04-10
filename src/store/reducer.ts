@@ -58,7 +58,7 @@ function reducer(state: AppState, action: AppActions): AppState {
 
       return {
         ...state,
-        todos: state.todos
+        todos: state.todos.filter(todo => todo.id !== action.payload)
       }
     case DELETE_ALL_TODOS:
       return {
