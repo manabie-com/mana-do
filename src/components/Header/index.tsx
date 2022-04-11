@@ -11,16 +11,17 @@ export const Header = () => {
   const inputRef = useRef<any>(null);
 
   const onCreateTodo = async (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
-      if (todos.find(todo => todo.content === inputRef.current.value)) {
-        inputRef.current.value = '';
-        alert('Duplicate todo!');
-        return;
-      }
-      const resp = await Service.createTodo(inputRef.current.value);
-      dispatch(createTodo(resp));
-      inputRef.current.value = '';
+    if (e.key !== 'Enter' || !inputRef.current.value) {
+      return;
     }
+    if (todos.find(todo => todo.content === inputRef.current.value)) {
+      inputRef.current.value = '';
+      alert('Duplicate todo!');
+      return;
+    }
+    const resp = await Service.createTodo(inputRef.current.value);
+    dispatch(createTodo(resp));
+    inputRef.current.value = '';
   }
 
   return (

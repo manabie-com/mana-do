@@ -95,6 +95,24 @@ export function FilterTodos(payload: string): FilterTodosAction {
   }
 }
 
+export interface UpdateTodoContentAction {
+  type: typeof constants.UPDATE_TODO_CONTENT,
+  payload: {
+    todoId: string,
+    content: string
+  }
+}
+
+export function updateTodoContent(todoId: string, content: string): UpdateTodoContentAction {
+  return {
+    type: constants.UPDATE_TODO_CONTENT,
+    payload: {
+      todoId,
+      content,
+    }
+  }
+}
+
 export type AppActions =
   SetTodoAction |
   CreateTodoAction |
@@ -102,4 +120,5 @@ export type AppActions =
   DeleteTodoAction |
   DeleteAllTodosAction |
   ToggleAllTodosAction |
-  FilterTodosAction;
+  FilterTodosAction |
+  UpdateTodoContentAction;

@@ -9,6 +9,7 @@ import {
   TOGGLE_ALL_TODOS,
   UPDATE_TODO_STATUS,
   FILTER_TODOS,
+  UPDATE_TODO_CONTENT,
 } from './constants';
 
 export const initialState: AppState = {
@@ -69,6 +70,20 @@ function reducer(state: AppState, action: AppActions): AppState {
       return {
         ...state,
         filter: action.payload
+      }
+    case UPDATE_TODO_CONTENT:
+      return {
+        ...state,
+        todos: state.todos.map((todo: Todo) => {
+          let content = todo.content;
+          if (todo.id === action.payload.todoId) {
+            content = action.payload.content;
+          }
+          return {
+            ...todo,
+            content,
+          }
+        })
       }
     default:
       return state;
