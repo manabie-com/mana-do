@@ -31,7 +31,7 @@ const ToDoPage = () => {
         if (e.key === 'Enter' ) {
             const resp = await Service.createTodo(inputRef.current.value);
             dispatch(createTodo(resp));
-            console.log(todos)
+            inputRef.current.value = '';
         }
     }
 
@@ -61,21 +61,23 @@ const ToDoPage = () => {
             <div className="ToDo__list">
                 {
                     todos.map((todo, index) => {
-                        return (
-                            <div key={index} className="ToDo__item">
-                                <input
-                                    type="checkbox"
-                                    checked={showing === todo.status}
-                                    onChange={(e) => onUpdateTodoStatus(e, index)}
-                                />
-                                <span>{todo.content}</span>
-                                <button
-                                    className="Todo__delete"
-                                >
-                                    X
-                                </button>
-                            </div>
-                        );
+                        if(todo.status === showing || showing === 'ALL') {
+                            return (
+                                <div key={index} className="ToDo__item">
+                                    <input
+                                        type="checkbox"
+                                        onChange={(e) => onUpdateTodoStatus(e, todo.id)}
+                                        checked={todo.status === TodoStatus.COMPLETED}
+                                    />
+                                    <span>{todo.content}</span>
+                                    <button
+                                        className="Todo__delete"
+                                    >
+                                        X
+                                    </button>
+                                </div>
+                            );
+                        }
                     })
                 }
             </div>
@@ -87,7 +89,7 @@ const ToDoPage = () => {
                     /> : <div/>
                 }
                 <div className="Todo__tabs">
-                    <button className="Action__btn">
+                    <button className="Action__btn" onClick={()=>setShowing('ALL')}>
                         All
                     </button>
                     <button className="Action__btn" onClick={()=>setShowing(TodoStatus.ACTIVE)}>

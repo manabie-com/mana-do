@@ -21,17 +21,18 @@ function reducer(state: AppState, action: AppActions): AppState {
     case CREATE_TODO:
       // state.todos.push(action.payload); //Wrong way to create todo
       return {
+        ...state,
         todos: [...state.todos, action.payload] //Right way to create todo
       };
 
     case UPDATE_TODO_STATUS:
-      const index2 = state.todos.findIndex((todo) => todo.id === action.payload.todoId);
-      state.todos[index2].status = action.payload.checked ? TodoStatus.COMPLETED : TodoStatus.ACTIVE;
-
       return {
         ...state,
-        todos: state.todos
-      }
+        todos: state.todos.map(todo =>
+        (todo.id === action.payload.todoId) 
+          ? {...todo, status: action.payload.checked ? TodoStatus.COMPLETED : TodoStatus.ACTIVE}
+          : todo
+      )}
 
     case TOGGLE_ALL_TODOS:
       const tempTodos = state.todos.map((e)=>{
