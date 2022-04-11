@@ -123,9 +123,12 @@ input:focus {
 .Table__btn__wrap {
   display: flex;
   flex-direction: row;
-  /* align-items: center; */
-  min-width: 200px;
-  justify-content: space-evenly;
+  justify-content: flex-end;
+  gap: 4rem;
+}
+
+.Todo__progress {
+  width: 280px
 }
 
 .Todo__checkbox__wrapper {

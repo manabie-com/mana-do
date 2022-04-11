@@ -5,6 +5,7 @@ import {
     setTodos,
     createTodo,
     toggleAllTodos,
+    deleteTodo,
     deleteAllTodos,
     updateTodoStatus
 } from './store/actions';
@@ -47,6 +48,10 @@ const ToDoPage = () => {
 
     const onDeleteAllTodo = () => {
         dispatch(deleteAllTodos());
+    }
+
+    const onDeleteTodo = (todoId: any) => {
+        dispatch(deleteTodo(todoId));
     }
 
     const onFilterTodo = (value: string) => {
@@ -94,7 +99,7 @@ const ToDoPage = () => {
                         <th>#</th>
                         <th>Task Name</th>
                         <th>Date</th>
-                        <th>Progress</th>
+                        <th className="Todo__progress">Progress</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -116,12 +121,13 @@ const ToDoPage = () => {
                                 <td>{todo.created_date.substring(0, 10)}</td>
                                 <td >
                                     <div className="Table__btn__wrap">
-                                        <Button variant={todo.status === TodoStatus.COMPLETED 
+                                        <Button disabled variant={todo.status === TodoStatus.COMPLETED 
                                             ? "outline-success" 
                                             : "outline-warning"} size="sm">
                                             {todo.status}
                                         </Button>
-                                        <Button variant="danger" size="sm">Delete</Button>
+                                        <Button variant="danger" size="sm"
+                                            onClick={() => {onDeleteTodo(todo.id)}}>Delete</Button>
                                     </div>
                                 </td>
                             </tr>

@@ -55,13 +55,17 @@ export function updateTodoStatus(todoId: string, checked: boolean): UpdateTodoSt
 //////////////
 export interface DeleteTodoAction {
   type: typeof DELETE_TODO,
-  payload: string
+  payload: {
+    todoId: string
+  }
 }
 
 export function deleteTodo(todoId: string): DeleteTodoAction {
   return {
     type: DELETE_TODO,
-    payload: todoId
+    payload: {
+      todoId
+    }
   }
 }
 
