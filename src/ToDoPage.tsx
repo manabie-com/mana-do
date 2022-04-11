@@ -10,7 +10,9 @@ import {
 } from './store/actions';
 import Service from './service';
 import {TodoStatus} from './models/todo';
-
+import Form from 'react-bootstrap/Form';
+import Table from 'react-bootstrap/Table';
+import Button from 'react-bootstrap/Button';
 type EnhanceTodoStatus = TodoStatus | 'ALL';
 
 
@@ -47,6 +49,11 @@ const ToDoPage = () => {
         dispatch(deleteAllTodos());
     }
 
+    const onFilterTodo = (value: string) => {
+        value === 'ACTIVE' ? setShowing(TodoStatus.ACTIVE) 
+        : value === 'COMPLETED' ? setShowing(TodoStatus.COMPLETED)
+        : setShowing('ALL') 
+    }
 
     return (
         <div className="ToDo__container">
@@ -58,51 +65,71 @@ const ToDoPage = () => {
                     onKeyDown={onCreateTodo}
                 />
             </div>
-            <div className="ToDo__list">
-                {
-                    todos.map((todo, index) => {
-                        if(todo.status === showing || showing === 'ALL') {
-                            return (
-                                <div key={index} className="ToDo__item">
+            <div className="Todo__toolbar">
+                {todos.length > 0 ?
+                    <div className="Todo__checkbox__wrapper">
+                        <input
+                            type="checkbox"
+                            onChange={onToggleAllTodo}
+                        /><label>Select All</label>
+                    </div> : <div/>
+                }
+                <div className="Todo__select__wrapper">
+                    <label>Filter: </label>
+                    <Form.Control size="sm" className="Todo__select" as="select" onChange={(e) => {onFilterTodo(e.target.value)}}>
+                        <option value="ALL">All</option>
+                        <option value={TodoStatus.ACTIVE}>Active</option>
+                        <option value={TodoStatus.COMPLETED}>Completed</option>
+                    </Form.Control>
+                </div>
+                {/* onClick={()=>setShowing('ALL')} */}
+                
+                <Button variant="secondary" onClick={onDeleteAllTodo}>
+                    Clear all todos
+                </Button>
+            </div>
+            <Table bordered hover>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Task Name</th>
+                        <th>Date</th>
+                        <th>Progress</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {todos.map((todo, index) => {
+                    if(todo.status === showing || showing === 'ALL') {
+                        return (
+                            <tr key={index}>
+                                <td>{index + 1}</td>
+                                <td >
+                                    <div className="Todo__checkbox__wrapper">
                                     <input
                                         type="checkbox"
                                         onChange={(e) => onUpdateTodoStatus(e, todo.id)}
                                         checked={todo.status === TodoStatus.COMPLETED}
                                     />
                                     <span>{todo.content}</span>
-                                    <button
-                                        className="Todo__delete"
-                                    >
-                                        X
-                                    </button>
-                                </div>
-                            );
-                        }
-                    })
-                }
-            </div>
-            <div className="Todo__toolbar">
-                {todos.length > 0 ?
-                    <input
-                        type="checkbox"
-                        onChange={onToggleAllTodo}
-                    /> : <div/>
-                }
-                <div className="Todo__tabs">
-                    <button className="Action__btn" onClick={()=>setShowing('ALL')}>
-                        All
-                    </button>
-                    <button className="Action__btn" onClick={()=>setShowing(TodoStatus.ACTIVE)}>
-                        Active
-                    </button>
-                    <button className="Action__btn" onClick={()=>setShowing(TodoStatus.COMPLETED)}>
-                        Completed
-                    </button>
-                </div>
-                <button className="Action__btn" onClick={onDeleteAllTodo}>
-                    Clear all todos
-                </button>
-            </div>
+                                    </div>
+                                </td>
+                                <td>{todo.created_date.substring(0, 10)}</td>
+                                <td >
+                                    <div className="Table__btn__wrap">
+                                        <Button variant={todo.status === TodoStatus.COMPLETED 
+                                            ? "outline-success" 
+                                            : "outline-warning"} size="sm">
+                                            {todo.status}
+                                        </Button>
+                                        <Button variant="danger" size="sm">Delete</Button>
+                                    </div>
+                                </td>
+                            </tr>
+                        );
+                    }
+                })}
+                </tbody>
+            </Table>
         </div>
     );
 };
