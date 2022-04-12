@@ -11,6 +11,7 @@ import {
 } from './store/actions';
 import Service from './service';
 import {TodoStatus} from './models/todo';
+import TodoModal from './component/TodoModal';
 import Form from 'react-bootstrap/Form';
 import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
@@ -18,6 +19,7 @@ type EnhanceTodoStatus = TodoStatus | 'ALL';
 
 
 const ToDoPage = () => {
+    const [show, setShow] = useState(false);
     const [{todos}, dispatch] = useReducer(reducer, initialState);
     const [showing, setShowing] = useState<EnhanceTodoStatus>('ALL');
     const inputRef = useRef<any>(null);
@@ -46,6 +48,10 @@ const ToDoPage = () => {
         dispatch(toggleAllTodos(e.target.checked))
     }
 
+    const onOpenModal = () => {
+        setShow(true);
+    }
+
     const onDeleteAllTodo = () => {
         dispatch(deleteAllTodos());
     }
@@ -62,6 +68,7 @@ const ToDoPage = () => {
 
     return (
         <div className="ToDo__container">
+            <TodoModal show={show} setShow={setShow} deleteAll={onDeleteAllTodo}/>
             <div className="Todo__creation">
                 <Button size="sm" onClick={onCreateTodo} variant="outline-secondary">Add</Button>
                 <input
@@ -94,7 +101,7 @@ const ToDoPage = () => {
                 </div>
                 {/* onClick={()=>setShowing('ALL')} */}
                 
-                <Button variant="secondary" onClick={onDeleteAllTodo}>
+                <Button variant="secondary" onClick={onOpenModal}>
                     Clear all todos
                 </Button>
             </div>
