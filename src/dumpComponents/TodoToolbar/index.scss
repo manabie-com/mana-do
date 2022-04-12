@@ -1,0 +1,36 @@
+.Todo__toolbar {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 24px;
+
+    .Todo__tabs {
+        display: flex;
+        justify-content: center;
+
+        .selected {
+            background-color: #062C30;
+            color: white;
+        }
+    }
+
+    .Action__btn {
+        height: 30px;
+        margin: 5px 5px 0px;
+        text-transform: capitalize;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    button {
+        outline: none;
+        border: none;
+        box-shadow: 2px 0 2px currentColor;
+        border-radius: 4px;
+        min-height: 20px;
+        min-width: 70px;
+        padding: 4px 8px;
+    }
+
+    button:hover {
+        opacity: 0.85;
+    }
+}
