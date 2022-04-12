@@ -19,7 +19,7 @@ export const Header = () => {
       alert('Duplicate todo!');
       return;
     }
-    const resp = await Service.createTodo(inputRef.current.value);
+    const resp = await Service.createTodo(inputRef.current.value.trim());
     dispatch(createTodo(resp));
     inputRef.current.value = '';
   }

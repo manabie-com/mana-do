@@ -10,6 +10,7 @@ import {
   UPDATE_TODO_STATUS,
   FILTER_TODOS,
   UPDATE_TODO_CONTENT,
+  SET_TODO,
 } from './constants';
 
 export const initialState: AppState = {
@@ -19,6 +20,12 @@ export const initialState: AppState = {
 
 function reducer(state: AppState, action: AppActions): AppState {
   switch (action.type) {
+    case SET_TODO:
+      return {
+        ...state,
+        todos: action.payload,
+      };
+
     case CREATE_TODO:
       return {
         ...state,
@@ -54,9 +61,6 @@ function reducer(state: AppState, action: AppActions): AppState {
       }
 
     case DELETE_TODO:
-      const index1 = state.todos.findIndex((todo) => todo.id === action.payload);
-      state.todos.splice(index1, 1);
-
       return {
         ...state,
         todos: state.todos.filter(todo => todo.id !== action.payload)

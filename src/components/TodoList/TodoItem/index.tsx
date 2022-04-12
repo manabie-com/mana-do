@@ -33,14 +33,15 @@ export const TodoItem = (props: any) => {
   }
 
   const handleUpdateTodo = () => {
-    if (!text) {
+    const textValue = text.trim();
+    if (!textValue) {
       dispatch(deleteTodo(props.todo.id));
     }
-    if (todos.find(todo => todo.content === text)) {
+    if (todos.find(todo => todo.content === textValue)) {
       alert('Duplicate todo!');
       return;
     }
-    dispatch(updateTodoContent(props.todo.id, text));
+    dispatch(updateTodoContent(props.todo.id, textValue));
     setEditing(false);
   }
 
