@@ -5,7 +5,8 @@ import {
   DELETE_ALL_TODOS,
   DELETE_TODO,
   TOGGLE_ALL_TODOS,
-  UPDATE_TODO_STATUS
+  UPDATE_TODO_STATUS,
+  UPDATE_TODO_CONTENT,
 } from './actions';
 
 export interface AppState {
@@ -31,6 +32,15 @@ function reducer(state: AppState, action: AppActions): AppState {
         todos: state.todos.map(todo =>
         (todo.id === action.payload.todoId) 
           ? {...todo, status: action.payload.checked ? TodoStatus.COMPLETED : TodoStatus.ACTIVE}
+          : todo
+      )}
+
+    case UPDATE_TODO_CONTENT:
+      return {
+        ...state,
+        todos: state.todos.map(todo =>
+        (todo.id === action.payload.todoId) 
+          ? {...todo, content: action.payload.content}
           : todo
       )}
 

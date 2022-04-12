@@ -7,11 +7,13 @@ import {
     toggleAllTodos,
     deleteTodo,
     deleteAllTodos,
-    updateTodoStatus
+    updateTodoStatus,
+    updateTodoContent
 } from './store/actions';
 import Service from './service';
 import {TodoStatus} from './models/todo';
-import TodoModal from './component/TodoModal';
+import TodoModal from './component/TodoModal/TodoModal';
+import TodoInput from './component/TodoInput/TodoInput';
 import Form from 'react-bootstrap/Form';
 import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
@@ -19,7 +21,9 @@ type EnhanceTodoStatus = TodoStatus | 'ALL';
 
 
 const ToDoPage = () => {
-    const [show, setShow] = useState(false);
+    const [openModal, setOpenModal] = useState(false);
+    const [editElement, setEditElement] = useState(-1);
+    const [newContent, setNewContent] = useState('');
     const [{todos}, dispatch] = useReducer(reducer, initialState);
     const [showing, setShowing] = useState<EnhanceTodoStatus>('ALL');
     const inputRef = useRef<any>(null);
@@ -49,7 +53,11 @@ const ToDoPage = () => {
     }
 
     const onOpenModal = () => {
-        setShow(true);
+        setOpenModal(true);
+    }
+    
+    const onEditTodo = (index: number) => {
+        setEditElement(index)
     }
 
     const onDeleteAllTodo = () => {
@@ -60,6 +68,13 @@ const ToDoPage = () => {
         dispatch(deleteTodo(todoId));
     }
 
+    const onUpdateTodo = (e: React.KeyboardEvent<HTMLInputElement>, todoId: any) => {
+        if(e.key === 'Enter') {
+            dispatch(updateTodoContent(todoId, newContent));
+            setEditElement(-1)
+        }
+    }
+
     const onFilterTodo = (value: string) => {
         value === 'ACTIVE' ? setShowing(TodoStatus.ACTIVE) 
         : value === 'COMPLETED' ? setShowing(TodoStatus.COMPLETED)
@@ -68,7 +83,7 @@ const ToDoPage = () => {
 
     return (
         <div className="ToDo__container">
-            <TodoModal show={show} setShow={setShow} deleteAll={onDeleteAllTodo}/>
+            <TodoModal show={openModal} setShow={setOpenModal} deleteAll={onDeleteAllTodo}/>
             <div className="Todo__creation">
                 <Button size="sm" onClick={onCreateTodo} variant="outline-secondary">Add</Button>
                 <input
@@ -84,7 +99,7 @@ const ToDoPage = () => {
             </div>
             <div className="Todo__toolbar">
                 {todos.length > 0 ?
-                    <div className="Todo__checkbox__wrapper">
+                    <div className="Todo__select__wrapper">
                         <input
                             type="checkbox"
                             onChange={onToggleAllTodo}
@@ -99,7 +114,6 @@ const ToDoPage = () => {
                         <option value={TodoStatus.COMPLETED}>Completed</option>
                     </Form.Control>
                 </div>
-                {/* onClick={()=>setShowing('ALL')} */}
                 
                 <Button variant="secondary" onClick={onOpenModal}>
                     Clear all todos
@@ -119,18 +133,28 @@ const ToDoPage = () => {
                     if(todo.status === showing || showing === 'ALL') {
                         return (
                             <tr key={index}>
-                                <td>{index + 1}</td>
+                                <td ><div className="Todo__date">{index + 1}</div></td>
                                 <td >
-                                    <div className="Todo__checkbox__wrapper">
-                                    <input
-                                        type="checkbox"
-                                        onChange={(e) => onUpdateTodoStatus(e, todo.id)}
-                                        checked={todo.status === TodoStatus.COMPLETED}
-                                    />
-                                    <span>{todo.content}</span>
+                                    <div className="Todo__checkbox__wrapper" >
+                                        <input
+                                            type="checkbox"
+                                            onChange={(e) => onUpdateTodoStatus(e, todo.id)}
+                                            checked={todo.status === TodoStatus.COMPLETED}
+                                        />
+                                        <div className="Todo__name" onDoubleClick={() => {onEditTodo(index)}}>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
+                                            {editElement === index
+                                                ? <input 
+                                                    autoFocus
+                                                    onChange={e => {setNewContent(e.target.value)}}
+                                                    onBlur={() => {setEditElement(-1)}}
+                                                    onKeyDown={e => {onUpdateTodo(e, todo.id)}} 
+                                                  /> 
+                                                : <span>{todo.content}</span>
+                                            }
+                                        </div>
                                     </div>
                                 </td>
-                                <td>{todo.created_date.substring(0, 10)}</td>
+                                <td><div className="Todo__date">{todo.created_date.substring(0, 10)}</div></td>
                                 <td >
                                     <div className="Table__btn__wrap">
                                         <Button disabled variant={todo.status === TodoStatus.COMPLETED 
