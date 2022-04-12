@@ -2,15 +2,17 @@ import React, {useState} from 'react';
 import { Button } from 'react-bootstrap';
 import { Modal } from 'react-bootstrap';
 
-export default function TodoModal({show, setShow, deleteAll}) {  
-    const handleClose = () => setShow(false);
+export default function TodoModal({show, setShow, onDeleteAlltodo}) {  
+    const handleClose = () => {
+      setShow(false);
+    }
     const handleDelete = () => {
-        deleteAll();
-        setShow(false);
+      setShow(false);
+      onDeleteAlltodo();
     }
     return (
       <>
-        <Modal show={show} onHide={handleClose}>
+        <Modal show={show} onHide={handleClose} animation={false}>
           <Modal.Header>
             <Modal.Title>Delete all todos</Modal.Title>
           </Modal.Header>

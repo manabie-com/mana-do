@@ -14,7 +14,7 @@ export interface AppState {
 }
 
 export const initialState: AppState = {
-  todos: []
+  todos: JSON.parse(localStorage.getItem("todos") || "[]")
 }
 
 function reducer(state: AppState, action: AppActions): AppState {

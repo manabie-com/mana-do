@@ -13,7 +13,6 @@ import {
 import Service from './service';
 import {TodoStatus} from './models/todo';
 import TodoModal from './component/TodoModal/TodoModal';
-import TodoInput from './component/TodoInput/TodoInput';
 import Form from 'react-bootstrap/Form';
 import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
@@ -28,13 +27,9 @@ const ToDoPage = () => {
     const [showing, setShowing] = useState<EnhanceTodoStatus>('ALL');
     const inputRef = useRef<any>(null);
 
-    useEffect(()=>{
-        (async ()=>{
-            const resp = await Service.getTodos();
-
-            dispatch(setTodos(resp || []));
-        })()
-    }, [])
+    useEffect(()=> {
+        localStorage.setItem("todos", JSON.stringify(todos));
+    }, [todos])
 
     const onCreateTodo = async () => {        
         if(inputRef.current.value.trim() !== ''){
@@ -83,7 +78,7 @@ const ToDoPage = () => {
 
     return (
         <div className="ToDo__container">
-            <TodoModal show={openModal} setShow={setOpenModal} deleteAll={onDeleteAllTodo}/>
+            <TodoModal show={openModal} setShow={setOpenModal} onDeleteAlltodo={onDeleteAllTodo}/>
             <div className="Todo__creation">
                 <Button size="sm" onClick={onCreateTodo} variant="outline-secondary">Add</Button>
                 <input
