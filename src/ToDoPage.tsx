@@ -30,8 +30,8 @@ const ToDoPage = () => {
         })()
     }, [])
 
-    const onCreateTodo = async (e: React.KeyboardEvent<HTMLInputElement>) => {
-        if (e.key === 'Enter' ) {
+    const onCreateTodo = async () => {        
+        if(inputRef.current.value.trim() !== ''){
             const resp = await Service.createTodo(inputRef.current.value);
             dispatch(createTodo(resp));
             inputRef.current.value = '';
@@ -63,11 +63,16 @@ const ToDoPage = () => {
     return (
         <div className="ToDo__container">
             <div className="Todo__creation">
+                <Button size="sm" onClick={onCreateTodo} variant="outline-secondary">Add</Button>
                 <input
                     ref={inputRef}
                     className="Todo__input"
                     placeholder="What need to be done?"
-                    onKeyDown={onCreateTodo}
+                    onKeyDown={e => {
+                        if(e.key === 'Enter') {
+                            onCreateTodo()
+                        }
+                    }}
                 />
             </div>
             <div className="Todo__toolbar">
