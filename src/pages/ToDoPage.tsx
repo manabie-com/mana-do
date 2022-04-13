@@ -6,9 +6,11 @@ import {
   deleteAllTodos,
   updateTodoStatus,
   getTodos,
+  deleteTodo,
 } from '../store/actions';
 import { Todo, TodoStatus } from '../models/todo';
 import useStore from '../store';
+import TodoItem from '../common/TodoItem';
 
 type EnhanceTodoStatus = TodoStatus | 'ALL';
 
@@ -27,13 +29,6 @@ const ToDoPage = () => {
       dispatch(createTodo(content));
       setContent('');
     }
-  };
-
-  const onUpdateTodoStatus = (
-    e: React.ChangeEvent<HTMLInputElement>,
-    todoId: any
-  ) => {
-    dispatch(updateTodoStatus(todoId, e.target.checked));
   };
 
   const onToggleAllTodo = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -62,15 +57,7 @@ const ToDoPage = () => {
       </div>
       <div className='ToDo__list'>
         {todos.map((todo: Todo, index: number) => (
-          <div key={todo.id + index} className='ToDo__item'>
-            <input
-              type='checkbox'
-              checked={showing === todo.status}
-              onChange={(e) => onUpdateTodoStatus(e, index)}
-            />
-            <span>{todo.content}</span>
-            <button className='Todo__delete'>X</button>
-          </div>
+          <TodoItem key={todo.id + index} todo={todo} dispatch={dispatch} />
         ))}
       </div>
       <div className='Todo__toolbar'>

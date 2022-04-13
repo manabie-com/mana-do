@@ -60,23 +60,14 @@ export function createTodoSuccess(neTodo: Todo): CreateTodoSuccessAction {
 //////////////
 export interface UpdateTodoStatusAction {
   type: typeof UPDATE_TODO_STATUS;
-  payload: {
-    todoId: string;
-    checked: boolean;
-  };
+  payload: { todoId: string; checked: boolean };
 }
 
 export function updateTodoStatus(
   todoId: string,
   checked: boolean
 ): UpdateTodoStatusAction {
-  return {
-    type: UPDATE_TODO_STATUS,
-    payload: {
-      todoId,
-      checked,
-    },
-  };
+  return { type: UPDATE_TODO_STATUS, payload: { todoId, checked } };
 }
 
 //////////////
@@ -86,7 +77,7 @@ export interface DeleteTodoAction {
 }
 
 export function deleteTodo(todoId: string): DeleteTodoAction {
-  return { type: DELETE_TODO };
+  return { type: DELETE_TODO, payload: todoId };
 }
 
 //////////////
@@ -96,10 +87,7 @@ export interface DeleteTodoSuccessAction {
 }
 
 export function deleteTodoSuccess(todoId: string): DeleteTodoSuccessAction {
-  return {
-    type: DELETE_TODO_SUCCESS,
-    payload: todoId,
-  };
+  return { type: DELETE_TODO_SUCCESS, payload: todoId };
 }
 
 //////////////
@@ -108,9 +96,7 @@ export interface DeleteAllTodosAction {
 }
 
 export function deleteAllTodos(): DeleteAllTodosAction {
-  return {
-    type: DELETE_ALL_TODOS,
-  };
+  return { type: DELETE_ALL_TODOS };
 }
 
 ///////////
@@ -120,10 +106,7 @@ export interface ToggleAllTodosAction {
 }
 
 export function toggleAllTodos(checked: boolean): ToggleAllTodosAction {
-  return {
-    type: TOGGLE_ALL_TODOS,
-    payload: checked,
-  };
+  return { type: TOGGLE_ALL_TODOS, payload: checked };
 }
 
 export type AppActions =
