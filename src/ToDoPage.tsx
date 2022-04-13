@@ -1,41 +1,50 @@
-import React, {useEffect, useReducer, useRef, useState} from 'react';
+import React, { useEffect, useReducer, useRef, useState } from 'react';
 
-import reducer, {initialState} from './store/reducer';
+import reducer, { initialState } from './store/reducer';
 import {
     setTodos,
     createTodo,
     toggleAllTodos,
-    deleteAllTodos,
-    updateTodoStatus
+    deleteAllTodos
 } from './store/actions';
+import TodoItem from './components/TodoItem'
 import Service from './service';
-import {TodoStatus} from './models/todo';
+import { Todo, TodoStatus } from './models/todo';
 
 type EnhanceTodoStatus = TodoStatus | 'ALL';
 
+function ToDoPage() {
+    const [{ todos }, dispatch] = useReducer(reducer, initialState);
+    const [todoList, setTodoList] = useState<Array<Todo>>([]);
+    const createInputRef = useRef<any>(null);
 
-const ToDoPage = () => {
-    const [{todos}, dispatch] = useReducer(reducer, initialState);
-    const [showing, setShowing] = useState<EnhanceTodoStatus>('ALL');
-    const inputRef = useRef<any>(null);
-
-    useEffect(()=>{
-        (async ()=>{
+    useEffect(() => {
+        (async () => {
             const resp = await Service.getTodos();
 
             dispatch(setTodos(resp || []));
         })()
     }, [])
 
-    const onCreateTodo = async (e: React.KeyboardEvent<HTMLInputElement>) => {
-        if (e.key === 'Enter' ) {
-            const resp = await Service.createTodo(inputRef.current.value);
-            dispatch(createTodo(resp));
-        }
+    useEffect(() => {
+        setTodoList(todos);
+    }, [todos])
+
+    const onFilterTodo = (status: EnhanceTodoStatus) => {
+        const filteredTodos = todos.filter(todo => todo.status === status || status === 'ALL')
+
+        setTodoList(filteredTodos);
     }
 
-    const onUpdateTodoStatus = (e: React.ChangeEvent<HTMLInputElement>, todoId: any) => {
-        dispatch(updateTodoStatus(todoId, e.target.checked))
+    const onCreateTodo = async (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === 'Enter') {
+            const { value } = createInputRef.current
+            if (value?.trim()?.length) {
+                const resp = await Service.createTodo(value);
+                dispatch(createTodo(resp));
+                createInputRef.current.value = '';
+            }
+        }
     }
 
     const onToggleAllTodo = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -46,53 +55,38 @@ const ToDoPage = () => {
         dispatch(deleteAllTodos());
     }
 
-
     return (
         <div className="ToDo__container">
             <div className="Todo__creation">
                 <input
-                    ref={inputRef}
+                    ref={createInputRef}
+                    type="text"
                     className="Todo__input"
-                    placeholder="What need to be done?"
+                    placeholder="What needs to be done?"
                     onKeyDown={onCreateTodo}
                 />
             </div>
+            <div className="list__heading">{todoList.length} task{todoList.length > 1 ? 's' : ''}</div>
             <div className="ToDo__list">
                 {
-                    todos.map((todo, index) => {
-                        return (
-                            <div key={index} className="ToDo__item">
-                                <input
-                                    type="checkbox"
-                                    checked={showing === todo.status}
-                                    onChange={(e) => onUpdateTodoStatus(e, index)}
-                                />
-                                <span>{todo.content}</span>
-                                <button
-                                    className="Todo__delete"
-                                >
-                                    X
-                                </button>
-                            </div>
-                        );
-                    })
+                    todoList.map((todo, index) => <TodoItem key={index} todo={todo} dispatch={dispatch} />)
                 }
             </div>
             <div className="Todo__toolbar">
-                {todos.length > 0 ?
+                {todoList.length > 0 ?
                     <input
                         type="checkbox"
                         onChange={onToggleAllTodo}
-                    /> : <div/>
+                    /> : <div />
                 }
                 <div className="Todo__tabs">
-                    <button className="Action__btn">
+                    <button className="Action__btn" onClick={() => onFilterTodo('ALL')}>
                         All
                     </button>
-                    <button className="Action__btn" onClick={()=>setShowing(TodoStatus.ACTIVE)}>
+                    <button className="Action__btn" onClick={() => onFilterTodo(TodoStatus.ACTIVE)}>
                         Active
                     </button>
-                    <button className="Action__btn" onClick={()=>setShowing(TodoStatus.COMPLETED)}>
+                    <button className="Action__btn" onClick={() => onFilterTodo(TodoStatus.COMPLETED)}>
                         Completed
                     </button>
                 </div>
@@ -102,6 +96,6 @@ const ToDoPage = () => {
             </div>
         </div>
     );
-};
+}
 
 export default ToDoPage;

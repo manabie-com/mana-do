@@ -7,7 +7,7 @@
 button {
   outline: none;
   border: none;
-  box-shadow: 2px 0 2px currentColor;
+  box-shadow: 2px 0 2px #d3d3d3;
   border-radius: 4px;
   min-height: 32px;
   min-width: 80px;
@@ -19,6 +19,7 @@ button:hover {
 }
 
 input[type="checkbox"] {
+  cursor: pointer;
   width: 24px;
   height: 24px;
   box-shadow: none;
@@ -121,5 +122,15 @@ input:focus {
   margin-right: 8px;
 }
 
+.list__heading {
+  margin-top: 1.5rem;
+}
+
 .Action__btn {
+  cursor: pointer;
+}
+
+.Action__btn:focus,
+.Action__btn:hover {
+  box-shadow: 2px 0 2px #4d4d4d;
 }
