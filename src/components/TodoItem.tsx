@@ -21,7 +21,7 @@ function TodoItem({ todo, updateInputRef, onUpdateTodo, onUpdateTodoStatus, onDe
                 checked={todo.status === TodoStatus.COMPLETED}
                 onChange={(e) => onUpdateTodoStatus(e, todo)}
             />
-            {!isEdit ? <span onClick={() => setIsEdit(!isEdit)}>{todo.content}</span> : <input
+            {!isEdit ? <span onDoubleClick={() => setIsEdit(!isEdit)}>{todo.content}</span> : <input
                 ref={updateInputRef}
                 className="Todo__input"
                 type="text"
