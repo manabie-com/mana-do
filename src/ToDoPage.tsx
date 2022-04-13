@@ -80,8 +80,9 @@ const ToDoPage = () => {
         <div className="ToDo__container">
             <TodoModal show={openModal} setShow={setOpenModal} onDeleteAlltodo={onDeleteAllTodo}/>
             <div className="Todo__creation">
-                <Button size="sm" onClick={onCreateTodo} variant="outline-secondary">Add</Button>
+                <Button role='addToTodos' size="sm" onClick={onCreateTodo} variant="outline-secondary">Add</Button>
                 <input
+                    role='addTodo'
                     ref={inputRef}
                     className="Todo__input"
                     placeholder="What need to be done?"
