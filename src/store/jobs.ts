@@ -3,9 +3,13 @@ import {
   createTodoSuccess,
   CreateTodoSuccessAction,
   CREATE_TODO,
+  DeleteAllTodosAction,
+  deleteAllTodosSuccess,
+  DeleteAllTodosSuccessAction,
   DeleteTodoAction,
   deleteTodoSuccess,
   DeleteTodoSuccessAction,
+  DELETE_ALL_TODOS,
   DELETE_TODO,
   getTodosSuccess,
   GetTodoSuccessAction,
@@ -41,10 +45,19 @@ const deleteTodo = async (
   dispatch(deleteTodoSuccess(action.payload));
 };
 
+const deleteAllTodos = async (
+  _: DeleteAllTodosAction,
+  dispatch: React.Dispatch<DeleteAllTodosSuccessAction>
+) => {
+  await Service.deleteAllTodos();
+  dispatch(deleteAllTodosSuccess());
+};
+
 const jobs: Jobs = {
   [GET_TODOS]: getTodos,
   [CREATE_TODO]: createTodo,
   [DELETE_TODO]: deleteTodo,
+  [DELETE_ALL_TODOS]: deleteAllTodos,
 };
 
 export default jobs;

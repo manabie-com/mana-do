@@ -4,9 +4,7 @@ import {
   createTodo,
   toggleAllTodos,
   deleteAllTodos,
-  updateTodoStatus,
   getTodos,
-  deleteTodo,
 } from '../store/actions';
 import { Todo, TodoStatus } from '../models/todo';
 import useStore from '../store';

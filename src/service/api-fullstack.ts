@@ -21,6 +21,10 @@ class ApiFullstack extends IAPI {
   async deleteTodo(todoId: string): Promise<void> {
     console.log('Todo is deleted');
   }
+
+  async deleteAllTodos(): Promise<void> {
+    console.log('All todos are deleted');
+  }
 }
 
 export default new ApiFullstack();
