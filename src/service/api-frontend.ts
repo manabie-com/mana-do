@@ -14,29 +14,7 @@ class ApiFrontend extends IAPI {
     }
 
     async getTodos(): Promise<Array<Todo>> {
-        return Promise.resolve([
-            {
-                content: 'Eat',
-                created_date: new Date().toISOString(),
-                status: TodoStatus.ACTIVE,
-                id: shortid(),
-                user_id: 'firstUser',
-            },
-            {
-                content: 'Sleep',
-                created_date: new Date().toISOString(),
-                status: TodoStatus.ACTIVE,
-                id: shortid(),
-                user_id: 'firstUser',
-            },
-            {
-                content: 'Repeat',
-                created_date: new Date().toISOString(),
-                status: TodoStatus.ACTIVE,
-                id: shortid(),
-                user_id: 'firstUser',
-            },
-        ] as Array<Todo>);
+        return JSON.parse(localStorage.getItem('todos') || '[]');
     }
 }
 

@@ -30,6 +30,7 @@ function ToDoPage() {
     }, [])
 
     useEffect(() => {
+        localStorage.setItem('todos', JSON.stringify(todos));
         setTodoList(showing === 'ALL' ? todos : todos.filter(todo => todo.status === showing));
     }, [todos, showing])
 
