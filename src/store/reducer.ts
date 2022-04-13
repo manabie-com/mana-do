@@ -5,6 +5,7 @@ import {
   CREATE_TODO,
   CREATE_TODO_SUCCESS,
   DELETE_ALL_TODOS,
+  DELETE_ALL_TODOS_SUCCESS,
   DELETE_TODO,
   DELETE_TODO_SUCCESS,
   GET_TODOS,
@@ -86,6 +87,12 @@ function reducer(state: AppState, action: AppActions): AppState {
     case DELETE_ALL_TODOS:
       return {
         ...state,
+        isLoading: true,
+      };
+    case DELETE_ALL_TODOS_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
         todos: [],
       };
     default:

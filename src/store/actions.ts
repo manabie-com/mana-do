@@ -7,6 +7,7 @@ export const CREATE_TODO_SUCCESS = 'CREATE_TODO_SUCCESS';
 export const DELETE_TODO = 'DELETE_TODO';
 export const DELETE_TODO_SUCCESS = 'DELETE_TODO_SUCCESS';
 export const DELETE_ALL_TODOS = 'DELETE_ALL_TODOS';
+export const DELETE_ALL_TODOS_SUCCESS = 'DELETE_ALL_TODOS_SUCCESS';
 export const TOGGLE_ALL_TODOS = 'TOGGLE_ALL_TODOS';
 export const UPDATE_TODO_STATUS = 'UPDATE_TODO_STATUS';
 
@@ -99,6 +100,15 @@ export function deleteAllTodos(): DeleteAllTodosAction {
   return { type: DELETE_ALL_TODOS };
 }
 
+//////////////
+export interface DeleteAllTodosSuccessAction {
+  type: typeof DELETE_ALL_TODOS_SUCCESS;
+}
+
+export function deleteAllTodosSuccess(): DeleteAllTodosSuccessAction {
+  return { type: DELETE_ALL_TODOS_SUCCESS };
+}
+
 ///////////
 export interface ToggleAllTodosAction {
   type: typeof TOGGLE_ALL_TODOS;
@@ -117,5 +127,6 @@ export type AppActions =
   | UpdateTodoStatusAction
   | DeleteTodoAction
   | DeleteTodoSuccessAction
+  | DeleteAllTodosSuccessAction
   | DeleteAllTodosAction
   | ToggleAllTodosAction;
