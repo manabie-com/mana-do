@@ -1,4 +1,4 @@
-import React, { ReactPropTypes, useState } from 'react';
+import React, { useState } from 'react';
 import { Todo, TodoStatus } from '../models/todo';
 import { AppActions, deleteTodo, updateTodoStatus } from '../store/actions';
 
