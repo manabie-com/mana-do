@@ -16,6 +16,7 @@ import TodoModal from './component/TodoModal/TodoModal';
 import Form from 'react-bootstrap/Form';
 import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
+import shortid from "shortid";
 type EnhanceTodoStatus = TodoStatus | 'ALL';
 
 
@@ -31,12 +32,16 @@ const ToDoPage = () => {
         localStorage.setItem("todos", JSON.stringify(todos));
     }, [todos])
 
-    const onCreateTodo = async () => {        
-        if(inputRef.current.value.trim() !== ''){
-            const resp = await Service.createTodo(inputRef.current.value);
-            dispatch(createTodo(resp));
-            inputRef.current.value = '';
+    const onCreateTodo = () => {
+        const resp = {
+            content: inputRef.current.value,
+            created_date: new Date().toISOString(),
+            status: TodoStatus.ACTIVE,
+            id: shortid(),
+            user_id: "firstUser",
         }
+        dispatch(createTodo(resp));
+        inputRef.current.value = '';
     }
 
     const onUpdateTodoStatus = (e: React.ChangeEvent<HTMLInputElement>, todoId: any) => {
