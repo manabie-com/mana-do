@@ -66,7 +66,10 @@ function ToDoPage() {
     }
 
     const onDeleteTodo = (todoId: any) => {
-        dispatch(deleteTodo(todoId))
+        if (window.confirm('Are you sure you want to delete this item?')) {
+            //eslint-disable-line
+            dispatch(deleteTodo(todoId))
+        }
     }
 
     const onToggleAllTodo = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -74,7 +77,10 @@ function ToDoPage() {
     }
 
     const onDeleteAllTodo = () => {
-        dispatch(deleteAllTodos());
+        if (window.confirm('Are you sure you want to clear all todo items?')) {
+            //eslint-disable-line
+            dispatch(deleteAllTodos());
+        }
     }
 
     return (
