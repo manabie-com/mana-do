@@ -32,6 +32,7 @@ function ToDoPage() {
     useEffect(() => {
         localStorage.setItem('todos', JSON.stringify(todos));
         onFilterTodo(!todos.length ? 'ALL' : showing);
+        // eslint-disable-next-line
     }, [todos, showing])
 
     const onFilterTodo = (status: EnhanceTodoStatus) => {
