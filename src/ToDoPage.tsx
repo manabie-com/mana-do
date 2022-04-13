@@ -33,15 +33,17 @@ const ToDoPage = () => {
     }, [todos])
 
     const onCreateTodo = () => {
-        const resp = {
-            content: inputRef.current.value,
-            created_date: new Date().toISOString(),
-            status: TodoStatus.ACTIVE,
-            id: shortid(),
-            user_id: "firstUser",
+        if(inputRef.current.value.trim() !== ''){
+            const resp = {
+                content: inputRef.current.value,
+                created_date: new Date().toISOString(),
+                status: TodoStatus.ACTIVE,
+                id: shortid(),
+                user_id: "firstUser",
+            }
+            dispatch(createTodo(resp));
+            inputRef.current.value = '';
         }
-        dispatch(createTodo(resp));
-        inputRef.current.value = '';
     }
 
     const onUpdateTodoStatus = (e: React.ChangeEvent<HTMLInputElement>, todoId: any) => {
@@ -104,6 +106,7 @@ const ToDoPage = () => {
                         <input
                             type="checkbox"
                             onChange={onToggleAllTodo}
+                            checked={todos.every(todo => todo.status === "COMPLETED")}
                         /><label>Select All</label>
                     </div> : <div/>
                 }
