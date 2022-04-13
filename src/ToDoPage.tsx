@@ -4,6 +4,8 @@ import reducer, { initialState } from './store/reducer';
 import {
     setTodos,
     createTodo,
+    updateTodo,
+    deleteTodo,
     toggleAllTodos,
     deleteAllTodos
 } from './store/actions';
@@ -16,24 +18,25 @@ type EnhanceTodoStatus = TodoStatus | 'ALL';
 function ToDoPage() {
     const [{ todos }, dispatch] = useReducer(reducer, initialState);
     const [todoList, setTodoList] = useState<Array<Todo>>([]);
+    const [showing, setShowing] = useState<EnhanceTodoStatus>('ALL');
     const createInputRef = useRef<any>(null);
+    const updateInputRef = useRef<any>(null);
 
     useEffect(() => {
         (async () => {
             const resp = await Service.getTodos();
-
             dispatch(setTodos(resp || []));
         })()
     }, [])
 
     useEffect(() => {
-        setTodoList(todos);
+        setTodoList(showing === 'ALL' ? todos : todos.filter(todo => todo.status === showing));
     }, [todos])
 
     const onFilterTodo = (status: EnhanceTodoStatus) => {
-        const filteredTodos = todos.filter(todo => todo.status === status || status === 'ALL')
-
+        const filteredTodos = status === 'ALL' ? todos : todos.filter(todo => todo.status === status)
         setTodoList(filteredTodos);
+        setShowing(status);
     }
 
     const onCreateTodo = async (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -45,6 +48,24 @@ function ToDoPage() {
                 createInputRef.current.value = '';
             }
         }
+    }
+
+    const onUpdateTodo = async (e: React.KeyboardEvent<HTMLInputElement>, todo: Todo) => {
+        if (e.key === 'Enter') {
+            const { value } = updateInputRef.current
+            if (value?.trim()?.length) {
+                dispatch(updateTodo({ ...todo, content: value }));
+                updateInputRef.current.blur()
+            }
+        }
+    }
+
+    const onUpdateTodoStatus = async (e: React.ChangeEvent<HTMLInputElement>, todo: Todo) => {
+        dispatch(updateTodo({ ...todo, status: e.target.checked ? TodoStatus.COMPLETED : TodoStatus.ACTIVE }));
+    }
+
+    const onDeleteTodo = (todoId: any) => {
+        dispatch(deleteTodo(todoId))
     }
 
     const onToggleAllTodo = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -69,7 +90,7 @@ function ToDoPage() {
             <div className="list__heading">{todoList.length} task{todoList.length > 1 ? 's' : ''}</div>
             <div className="ToDo__list">
                 {
-                    todoList.map((todo, index) => <TodoItem key={index} todo={todo} dispatch={dispatch} />)
+                    todoList.map((todo, index) => <TodoItem key={index} todo={todo} updateInputRef={updateInputRef} onUpdateTodo={onUpdateTodo} onUpdateTodoStatus={onUpdateTodoStatus} onDeleteTodo={onDeleteTodo} />)
                 }
             </div>
             <div className="Todo__toolbar">
@@ -80,17 +101,17 @@ function ToDoPage() {
                     /> : <div />
                 }
                 <div className="Todo__tabs">
-                    <button className="Action__btn" onClick={() => onFilterTodo('ALL')}>
+                    <button className={`Action__btn${showing === 'ALL' ? ' active' : ''}`} onClick={() => onFilterTodo('ALL')}>
                         All
                     </button>
-                    <button className="Action__btn" onClick={() => onFilterTodo(TodoStatus.ACTIVE)}>
+                    <button className={`Action__btn${showing === TodoStatus.ACTIVE ? ' active' : ''}`} onClick={() => onFilterTodo(TodoStatus.ACTIVE)}>
                         Active
                     </button>
-                    <button className="Action__btn" onClick={() => onFilterTodo(TodoStatus.COMPLETED)}>
+                    <button className={`Action__btn${showing === TodoStatus.COMPLETED ? ' active' : ''}`} onClick={() => onFilterTodo(TodoStatus.COMPLETED)}>
                         Completed
                     </button>
                 </div>
-                <button className="Action__btn" onClick={onDeleteAllTodo}>
+                <button className="clear__btn" onClick={onDeleteAllTodo}>
                     Clear all todos
                 </button>
             </div>

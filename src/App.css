@@ -7,7 +7,6 @@
 button {
   outline: none;
   border: none;
-  box-shadow: 2px 0 2px #d3d3d3;
   border-radius: 4px;
   min-height: 32px;
   min-width: 80px;
@@ -15,6 +14,7 @@ button {
 }
 
 button:hover {
+  cursor: pointer;
   opacity: 0.85;
 }
 
@@ -99,6 +99,9 @@ input:focus {
   justify-content: center;
   align-items: center;
   cursor: pointer;
+  color: #fff;
+  background-color: #dc3545;
+  border-color: #dc3545;
 }
 
 .Todo__action, .Todo__delete {
@@ -126,11 +129,17 @@ input:focus {
   margin-top: 1.5rem;
 }
 
-.Action__btn {
-  cursor: pointer;
+.clear__btn {
+  color: #fff;
+  background-color: #dc3545;
+  border-color: #dc3545;
 }
 
 .Action__btn:focus,
-.Action__btn:hover {
-  box-shadow: 2px 0 2px #4d4d4d;
+.Action__btn:hover,
+.Action__btn:active,
+.Action__btn.active {
+  color: #fff;
+  background-color: #198754;
+  border-color: #198754;
 }

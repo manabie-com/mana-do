@@ -32,12 +32,17 @@ function reducer(state: AppState, action: AppActions): AppState {
       };
 
     case UPDATE_TODO:
-      const index2 = state.todos.findIndex((todo) => todo.id === action.payload.id);
-      state.todos[index2] = action.payload;
+      const tempTodos3 = state.todos.map((todo) => {
+        if (todo.id === action.payload.id) {
+          return action.payload
+        }
+
+        return todo
+      });
 
       return {
         ...state,
-        todos: state.todos
+        todos: tempTodos3
       }
 
     case TOGGLE_ALL_TODOS:
