@@ -31,7 +31,7 @@ function ToDoPage() {
 
     useEffect(() => {
         setTodoList(showing === 'ALL' ? todos : todos.filter(todo => todo.status === showing));
-    }, [todos])
+    }, [todos, showing])
 
     const onFilterTodo = (status: EnhanceTodoStatus) => {
         const filteredTodos = status === 'ALL' ? todos : todos.filter(todo => todo.status === status)
