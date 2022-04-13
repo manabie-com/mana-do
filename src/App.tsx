@@ -1,12 +1,12 @@
 import React from 'react';
 
-import ToDoPage from './ToDoPage';
+import ToDoPage from './pages/ToDoPage';
 
 import './App.css';
 
 function App() {
   return (
-    <main className="App">
+    <main className='App'>
       <ToDoPage />
     </main>
   );
