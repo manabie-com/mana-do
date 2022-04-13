@@ -31,7 +31,7 @@ function ToDoPage() {
 
     useEffect(() => {
         localStorage.setItem('todos', JSON.stringify(todos));
-        setTodoList(showing === 'ALL' ? todos : todos.filter(todo => todo.status === showing));
+        onFilterTodo(!todos.length ? 'ALL' : showing);
     }, [todos, showing])
 
     const onFilterTodo = (status: EnhanceTodoStatus) => {
@@ -68,18 +68,19 @@ function ToDoPage() {
     const onDeleteTodo = (todoId: any) => {
         if (window.confirm('Are you sure you want to delete this item?')) {
             //eslint-disable-line
-            dispatch(deleteTodo(todoId))
+            dispatch(deleteTodo(todoId));
         }
     }
 
     const onToggleAllTodo = (e: React.ChangeEvent<HTMLInputElement>) => {
-        dispatch(toggleAllTodos(e.target.checked))
+        dispatch(toggleAllTodos(e.target.checked));
     }
 
     const onDeleteAllTodo = () => {
         if (window.confirm('Are you sure you want to clear all todo items?')) {
             //eslint-disable-line
             dispatch(deleteAllTodos());
+            onFilterTodo('ALL');
         }
     }
 
@@ -118,7 +119,7 @@ function ToDoPage() {
                         Completed
                     </button>
                 </div>
-                <button className="clear__btn" onClick={onDeleteAllTodo}>
+                <button className="clear__btn" onClick={onDeleteAllTodo} disabled={!todos.length}>
                     Clear all todos
                 </button>
             </div>
