@@ -16,7 +16,7 @@ type EnhanceTodoStatus = TodoStatus | 'ALL';
 const ToDoPage = () => {
   const [{ todos }, dispatch] = useReducer(reducer, initialState);
   const [showing, setShowing] = useState<EnhanceTodoStatus>('ALL');
-  const inputRef = useRef<any>(null);
+  const inputRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
     (async () => {
@@ -28,14 +28,17 @@ const ToDoPage = () => {
 
   const onCreateTodo = async (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
-      const resp = await Service.createTodo(inputRef.current.value);
-      dispatch(createTodo(resp));
+      const content = inputRef.current?.value;
+      if (content) {
+        const resp = await Service.createTodo(content);
+        dispatch(createTodo(resp));
+      }
     }
   };
 
   const onUpdateTodoStatus = (
     e: React.ChangeEvent<HTMLInputElement>,
-    todoId: any
+    todoId: string
   ) => {
     dispatch(updateTodoStatus(todoId, e.target.checked));
   };
@@ -65,7 +68,7 @@ const ToDoPage = () => {
               <input
                 type="checkbox"
                 checked={showing === todo.status}
-                onChange={(e) => onUpdateTodoStatus(e, index)}
+                onChange={(e) => onUpdateTodoStatus(e, todo.id)}
               />
               <span>{todo.content}</span>
               <button className="Todo__delete">X</button>
