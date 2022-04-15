@@ -6,6 +6,7 @@ import {
   createTodo,
   toggleAllTodos,
   deleteAllTodos,
+  deleteTodo,
   updateTodoStatus,
 } from './store/actions';
 import Service from './service';
@@ -51,6 +52,10 @@ const ToDoPage = () => {
     dispatch(deleteAllTodos());
   };
 
+  const onDeleteTodo = (todoId: string) => {
+    dispatch(deleteTodo(todoId));
+  };
+
   return (
     <div className="ToDo__container">
       <div className="Todo__creation">
@@ -62,16 +67,21 @@ const ToDoPage = () => {
         />
       </div>
       <div className="ToDo__list">
-        {todos.map((todo, index) => {
+        {todos.map((todo) => {
           return (
-            <div key={index} className="ToDo__item">
+            <div key={todo.id} className="ToDo__item">
               <input
                 type="checkbox"
                 checked={showing === todo.status}
                 onChange={(e) => onUpdateTodoStatus(e, todo.id)}
               />
               <span>{todo.content}</span>
-              <button className="Todo__delete">X</button>
+              <button
+                className="Todo__delete"
+                onClick={() => onDeleteTodo(todo.id)}
+              >
+                X
+              </button>
             </div>
           );
         })}
