@@ -15,13 +15,11 @@ const ToDoPage = () => {
   const [content, setContent] = useState('')
   const [showing, setShowing] = useState<EnhanceTodoStatus>('ALL')
   const [{ todos, isLoading, isCreating }, dispatch] = useStore(
-    ({ todos, isLoading, isCreating }: AppState) => {
-      return {
-        isLoading,
-        isCreating,
-        todos: todos.filter((todo) => showing === 'ALL' || todo.status === showing),
-      }
-    }
+    ({ todos, isLoading, isCreating }: AppState) => ({
+      isLoading,
+      isCreating,
+      todos: todos.filter((todo) => showing === 'ALL' || todo.status === showing),
+    })
   )
   const prevIsCreating = usePrevious(isCreating)
 

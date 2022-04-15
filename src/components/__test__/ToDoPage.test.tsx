@@ -24,7 +24,7 @@ describe('Render ToDo page', () => {
   test('should render todo list correctly', () => {
     const initState = getInitState()
     useStore.mockImplementation(() => [initState, dispatch])
-    const todoItems = shallow(<ToDoPage />).find('TodoItem')
+    const todoItems = shallow(<ToDoPage />).find('Memo(TodoItem)')
 
     expect(todoItems).toHaveLength(3)
     todoItems.map((item, index) => {
@@ -88,12 +88,12 @@ describe('Todo actions', () => {
       .simulate('change', { target: { checked: true } })
 
     expect(dispatch).toHaveBeenCalledWith('toggleAllTodos')
-    expect(toggleAllTodosMockAction).toHaveBeenNthCalledWith(1, true)
+    expect(toggleAllTodosMockAction).toHaveBeenNthCalledWith(1, ["testId", "testId2", "testId3"], true)
 
     component
       .find('[data-test-id="toggle-all-todo"]')
       .simulate('change', { target: { checked: false } })
-    expect(toggleAllTodosMockAction).toHaveBeenNthCalledWith(2, false)
+    expect(toggleAllTodosMockAction).toHaveBeenNthCalledWith(2, ["testId", "testId2", "testId3"],false)
   })
 
   test('should dispatch deleteAllTodos action when use click to delete all todos button', () => {
