@@ -1,0 +1,225 @@
+.App {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+}
+
+button {
+  outline: none;
+  border: none;
+  border-radius: 4px;
+  min-height: 32px;
+  min-width: 80px;
+  padding: 4px 8px;
+}
+
+button:hover {
+  opacity: 0.85;
+}
+
+input[type='checkbox'] {
+  width: 24px;
+  height: 24px;
+  min-width: 24px;
+  box-shadow: none;
+  border: none;
+  outline: none;
+}
+
+input[type='checkbox']:focus {
+  box-shadow: none;
+  border: none;
+  outline: none;
+}
+
+input {
+  border: none;
+  outline: none;
+  padding: 0 12px;
+  box-shadow: 2px 0 4px rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+}
+
+input:focus {
+  box-shadow: 1px 0 9px rgba(0, 0, 0, 0.25);
+}
+
+.ToDo__container {
+  border: 1px solid rgba(0, 0, 0, 0.13);
+  border-radius: 8px;
+  width: 500px;
+  margin-top: 5rem;
+  padding: 24px;
+  box-shadow: 2px 2px 1px rgba(0, 0, 0, 0.09), 3px 2px 3px rgba(0, 0, 0, 0.05);
+}
+
+.Todo__creation {
+  display: flex;
+}
+
+.Todo__input {
+  flex: 1 1;
+  min-height: 32px;
+}
+
+.ToDo__list {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1.5rem;
+}
+
+.ToDo__item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 40px;
+  border-top: 1px solid #fafafa;
+}
+
+.ToDo__item > span {
+  flex: 1 1;
+  text-align: left;
+  margin-left: 8px;
+}
+
+.Todo__content {
+  flex: 1 1;
+}
+
+.Todo__delete {
+  outline: none;
+  border: none;
+  width: 32px;
+  height: 32px;
+  min-width: auto;
+  min-height: auto;
+  box-shadow: none;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.Todo__action,
+.Todo__delete {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+.Todo__toolbar {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 24px;
+}
+
+.Todo__tabs {
+  display: flex;
+  justify-content: center;
+}
+
+.Todo__tabs > *:not(:last-child) {
+  margin-right: 8px;
+}
+
+.Action__btn.is-active {
+  background-color: #abb2b9;
+}
+
+.ToDo__no-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px;
+}
+
+.Todo__input-container {
+  position: relative;
+  display: flex;
+}
+
+
+.Todo__input-container .spinner__container {
+  position: absolute;
+  top: 50%;
+  right: 6px;
+  transform: translate(0, -50%);
+}
+
+.spinner__container {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.Todo__creation {
+  display: block;
+}
+
+.Todo__hint {
+  font-size: 0.3em;
+  text-align: right;
+  min-height: 11px;
+}
+
+.spinner__loader {
+  border: 6px solid #cef;
+  border-top-color: #3498db;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  animation: spin 2s linear infinite;
+}
+
+.spinner__text {
+  margin-top: 6px;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.ToDo__item .is-left {
+  display: inline-flex;
+  align-items: center;
+  flex-grow: 1;
+}
+
+.ToDo__item .ToDo__content {
+  padding-left: 8px;
+  font-size: 16px;
+  text-align: left;
+  width: 100%;
+}
+
+.ToDo__item .is-left .ToDo__item-toggle {
+  margin-right: 16px;
+}
+
+.ToDo__item .inline-input {
+  width: 100%;
+  box-shadow: none;
+  padding: 0px 8px;
+  font-size: 16px;
+  border: 1px solid transparent;
+  border-radius: 0;
+  min-height: 28px;
+  display: inline-flex;
+}
+
+.ToDo__item .inline-input:focus,
+.ToDo__item .inline-input:hover {
+  border-left: 1px solid #00a591;
+}
+
+.cancel-edit-text {
+  font-size: 0.7em;
+  white-space: nowrap;
+  padding-right: 6px;
+}

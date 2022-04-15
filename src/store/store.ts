@@ -1,7 +1,7 @@
 import React from 'react';
 import reducer, { initialState } from './reducer';
 import jobs from './jobs';
-import { AppActions } from './actions';
+import { AppActions } from '../types/actions';
 
 const middleware = (action: any, dispatch: React.Dispatch<AppActions>) => {
   console.log('LOG: ', action);
@@ -13,7 +13,7 @@ function createStore() {
   return (selector?: Function) => {
     const [state, dispatch] = React.useReducer(reducer, initialState);
 
-    const dispatchWithMiddleware = (action: AppActions) => {
+    const dispatchWithMiddleware = (action: AppActions): void => {
       middleware(action, dispatch);
       dispatch(action);
     };

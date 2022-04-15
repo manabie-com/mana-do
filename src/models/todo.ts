@@ -10,3 +10,8 @@ export interface Todo {
   content: string;
   status: TodoStatus;
 }
+
+export interface UpdateTodoData {
+  content?: string;
+  status?: TodoStatus;
+}
