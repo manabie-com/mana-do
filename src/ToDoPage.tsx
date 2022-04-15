@@ -72,7 +72,7 @@ const ToDoPage = () => {
             <div key={todo.id} className="ToDo__item">
               <input
                 type="checkbox"
-                checked={showing === todo.status}
+                checked={TodoStatus.COMPLETED === todo.status}
                 onChange={(e) => onUpdateTodoStatus(e, todo.id)}
               />
               <span>{todo.content}</span>

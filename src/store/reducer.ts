@@ -24,16 +24,20 @@ function reducer(state: AppState, action: AppActions): AppState {
       return { ...state, todos };
 
     case UPDATE_TODO_STATUS:
-      const index2 = state.todos.findIndex(
-        (todo) => todo.id === action.payload.todoId
+      const updatedTodos = state.todos.map((el) =>
+        el.id === action.payload.todoId
+          ? {
+              ...el,
+              status: action.payload.checked
+                ? TodoStatus.COMPLETED
+                : TodoStatus.ACTIVE,
+            }
+          : { ...el }
       );
-      state.todos[index2].status = action.payload.checked
-        ? TodoStatus.COMPLETED
-        : TodoStatus.ACTIVE;
 
       return {
         ...state,
-        todos: state.todos,
+        todos: updatedTodos,
       };
 
     case TOGGLE_ALL_TODOS:
