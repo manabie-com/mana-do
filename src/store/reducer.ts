@@ -57,7 +57,7 @@ function reducer(state: AppState, action: AppActions): AppState {
 
     case UPDATE_TODO_SUCCESS:
       const { todoId, status, content } = action.payload
-      let updateTodoIndex = getTodoIndex(state.todos, todoId)
+      const updateTodoIndex = getTodoIndex(state.todos, todoId)
 
       if (status) {
         state.todos[updateTodoIndex].status = status

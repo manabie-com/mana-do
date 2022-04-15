@@ -4,14 +4,14 @@ export enum TodoStatus {
 }
 
 export interface Todo {
-  id: string;
-  created_date: string;
-  user_id: string;
-  content: string;
-  status: TodoStatus;
+  id: string
+  created_date: string
+  user_id: string
+  content: string
+  status: TodoStatus
 }
 
 export interface UpdateTodoData {
-  content?: string;
-  status?: TodoStatus;
+  content?: string
+  status?: TodoStatus
 }

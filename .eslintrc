@@ -1,0 +1,76 @@
+{
+  "plugins": [
+    "react",
+    "@typescript-eslint"
+  ],
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:@typescript-eslint/recommended"
+  ],
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  },
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "allowImportExportEverywhere": true
+  },
+  "env": {
+    "browser": true,
+    "es6": true,
+    "node": true,
+    "jest": true
+  },
+  "globals": {
+    "arguments": true
+  },
+  "rules": {
+    "semi": [
+      "off",
+      "always"
+    ],
+    "indent": [
+      2,
+      2,
+      {
+        "SwitchCase": 1
+      }
+    ],
+    "linebreak-style": [
+      "warn",
+      "unix"
+    ],
+    "quotes": [
+      2,
+      "single"
+    ],
+    "curly": [
+      2,
+      "all"
+    ],
+    "eqeqeq": [
+      2,
+      "smart"
+    ],
+    "one-var-declaration-per-line": [
+      2,
+      "always"
+    ],
+    "new-cap": 2,
+    "no-case-declarations": 0,
+    "react/react-in-jsx-scope": "off",
+    "no-trailing-spaces": "off",
+    "no-unused-vars": "off",
+    "react/prop-types": "warn",
+    "@typescript-eslint/no-var-requires": "off",
+    "@typescript-eslint/explicit-module-boundary-types": "off",
+    "@typescript-eslint/no-explicit-any": "off"
+  }
+}

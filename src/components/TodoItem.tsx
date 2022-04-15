@@ -10,7 +10,7 @@ interface IProps {
   dispatch: React.Dispatch<AppActions>
 }
 
-const TodoItem: React.FC<IProps> = memo(({ todo, dispatch }: IProps) => {
+const TodoItem: React.FC<IProps> = memo(function TodoItem({ todo, dispatch }: IProps) {
   const [checked, setChecked] = useState(todo.status === TodoStatus.COMPLETED)
   const [editing, setEditing] = useState(false)
   const [content, setContent] = useState('')

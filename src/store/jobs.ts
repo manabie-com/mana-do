@@ -1,3 +1,4 @@
+import React from 'react'
 import {
   createTodoSuccess,
   deleteAllTodosSuccess,
@@ -28,13 +29,14 @@ import {
   DeleteAllTodosSuccessAction,
   ToggleAllTodosAction,
   ToggleAllTodosSuccessAction,
+  AppActions,
 } from '../types/actions'
 
 interface Jobs {
-  [key: string]: Function
+  [key: string]: (action: any, dispatch: React.Dispatch<AppActions>) => Promise<void>
 }
 
-const getTodos = async (_: any, dispatch: React.Dispatch<GetTodoSuccessAction>) => {
+const getTodos = async (_: AppActions, dispatch: React.Dispatch<GetTodoSuccessAction>) => {
   const resp = await Service.getTodos()
   dispatch(getTodosSuccess(resp))
 }

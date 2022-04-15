@@ -68,7 +68,7 @@ const ToDoPage = () => {
     if (!todos.length) {
       return (
         <div className="ToDo__no-content">
-          <h2>Yay! You don't have a job today</h2>
+          <h2>Yay! You don&apos;t have a job today</h2>
         </div>
       )
     }
