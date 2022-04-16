@@ -19,9 +19,16 @@ export const initialState: AppState = {
 function reducer(state: AppState, action: AppActions): AppState {
   switch (action.type) {
     case CREATE_TODO:
-      state.todos.push(action.payload);
       return {
-        ...state
+        //Return existing data first
+        ...state,
+        //Then return new array for the todos object
+        todos: [
+          //Spread old todos
+          ...state.todos, 
+          //and new todo
+          action.payload
+        ]
       };
 
     case UPDATE_TODO_STATUS:
