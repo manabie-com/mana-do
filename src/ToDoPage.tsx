@@ -10,13 +10,14 @@ import {
   updateTodoStatus,
 } from './store/actions';
 import Service from './service';
-import { TodoStatus } from './models/todo';
+import { TodoStatus, Todo } from './models/todo';
 
 type EnhanceTodoStatus = TodoStatus | 'ALL';
 
 const ToDoPage = () => {
   const [{ todos }, dispatch] = useReducer(reducer, initialState);
   const [showing, setShowing] = useState<EnhanceTodoStatus>('ALL');
+  const [filteredTodos, setFilteredTodos] = useState<Todo[]>([]);
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
@@ -26,6 +27,17 @@ const ToDoPage = () => {
       dispatch(setTodos(resp || []));
     })();
   }, []);
+
+  useEffect(() => {
+    let _todos: Todo[];
+    if (showing === 'ALL') {
+      _todos = [...todos];
+    } else {
+      _todos = todos.filter((el) => el.status === showing);
+    }
+
+    setFilteredTodos(_todos);
+  }, [showing, todos]);
 
   const onCreateTodo = async (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
@@ -66,8 +78,35 @@ const ToDoPage = () => {
           onKeyDown={onCreateTodo}
         />
       </div>
+      <div className="Todo__toolbar">
+        {filteredTodos.length > 0 ? (
+          <input type="checkbox" onChange={onToggleAllTodo} />
+        ) : (
+          <div />
+        )}
+        <div className="Todo__tabs">
+          <button className="Action__btn" onClick={() => setShowing('ALL')}>
+            All
+          </button>
+          <button
+            className="Action__btn"
+            onClick={() => setShowing(TodoStatus.ACTIVE)}
+          >
+            Active
+          </button>
+          <button
+            className="Action__btn"
+            onClick={() => setShowing(TodoStatus.COMPLETED)}
+          >
+            Completed
+          </button>
+        </div>
+        <button className="Action__btn" onClick={onDeleteAllTodo}>
+          Clear all todos
+        </button>
+      </div>
       <div className="ToDo__list">
-        {todos.map((todo) => {
+        {filteredTodos.map((todo) => {
           return (
             <div key={todo.id} className="ToDo__item">
               <input
@@ -85,31 +124,6 @@ const ToDoPage = () => {
             </div>
           );
         })}
-      </div>
-      <div className="Todo__toolbar">
-        {todos.length > 0 ? (
-          <input type="checkbox" onChange={onToggleAllTodo} />
-        ) : (
-          <div />
-        )}
-        <div className="Todo__tabs">
-          <button className="Action__btn">All</button>
-          <button
-            className="Action__btn"
-            onClick={() => setShowing(TodoStatus.ACTIVE)}
-          >
-            Active
-          </button>
-          <button
-            className="Action__btn"
-            onClick={() => setShowing(TodoStatus.COMPLETED)}
-          >
-            Completed
-          </button>
-        </div>
-        <button className="Action__btn" onClick={onDeleteAllTodo}>
-          Clear all todos
-        </button>
       </div>
     </div>
   );
