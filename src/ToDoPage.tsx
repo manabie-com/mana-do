@@ -11,6 +11,7 @@ import {
 } from './store/actions';
 import Service from './service';
 import { TodoStatus, Todo } from './models/todo';
+import TodoItem from './components/todo/TodoItem';
 
 type EnhanceTodoStatus = TodoStatus | 'ALL';
 
@@ -49,11 +50,8 @@ const ToDoPage = () => {
     }
   };
 
-  const onUpdateTodoStatus = (
-    e: React.ChangeEvent<HTMLInputElement>,
-    todoId: string
-  ) => {
-    dispatch(updateTodoStatus(todoId, e.target.checked));
+  const onUpdateTodoStatus = (todoId: string, isComplete: boolean) => {
+    dispatch(updateTodoStatus(todoId, isComplete));
   };
 
   const onToggleAllTodo = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -108,20 +106,12 @@ const ToDoPage = () => {
       <div className="ToDo__list">
         {filteredTodos.map((todo) => {
           return (
-            <div key={todo.id} className="ToDo__item">
-              <input
-                type="checkbox"
-                checked={TodoStatus.COMPLETED === todo.status}
-                onChange={(e) => onUpdateTodoStatus(e, todo.id)}
-              />
-              <span>{todo.content}</span>
-              <button
-                className="Todo__delete"
-                onClick={() => onDeleteTodo(todo.id)}
-              >
-                X
-              </button>
-            </div>
+            <TodoItem
+              key={todo.id}
+              todo={todo}
+              onComplete={onUpdateTodoStatus}
+              onDelete={onDeleteTodo}
+            />
           );
         })}
       </div>
