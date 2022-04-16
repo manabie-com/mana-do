@@ -18,7 +18,7 @@ button:hover {
   opacity: 0.85;
 }
 
-input[type="checkbox"] {
+input[type='checkbox'] {
   width: 24px;
   height: 24px;
   box-shadow: none;
@@ -26,7 +26,7 @@ input[type="checkbox"] {
   outline: none;
 }
 
-input[type="checkbox"]:focus {
+input[type='checkbox']:focus {
   box-shadow: none;
   border: none;
   outline: none;
@@ -37,22 +37,21 @@ input {
   border: none;
   outline: none;
   padding: 0 12px;
-  box-shadow: 2px 0 4px rgba(0,0,0, 0.2);
+  box-shadow: 2px 0 4px rgba(0, 0, 0, 0.2);
   border-radius: 4px;
 }
 
 input:focus {
-  box-shadow: 1px 0 9px rgba(0,0,0, 0.25);
+  box-shadow: 1px 0 9px rgba(0, 0, 0, 0.25);
 }
 
 .ToDo__container {
-  border: 1px solid rgba(0,0,0, 0.13);
+  border: 1px solid rgba(0, 0, 0, 0.13);
   border-radius: 8px;
   width: 500px;
   margin-top: 5rem;
   padding: 24px;
-  box-shadow: 2px 2px 1px rgba(0,0,0, 0.09),
-              3px 2px 3px rgba(0,0,0, 0.05);
+  box-shadow: 2px 2px 1px rgba(0, 0, 0, 0.09), 3px 2px 3px rgba(0, 0, 0, 0.05);
 }
 
 .Todo__creation {
@@ -63,29 +62,47 @@ input:focus {
   flex: 1 1;
 }
 
-.ToDo__list {
+.todo__list {
   display: flex;
   flex-direction: column;
   margin-top: 1.5rem;
 }
 
-.ToDo__item {
+.todo__list > .item:not(:last-child) {
+  margin-bottom: 0.7rem;
+}
+
+.item {
+  border: 1px solid gray;
+  border-radius: 4px;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
 }
 
-.ToDo__item > span {
-  flex: 1 1;
+.item__content {
+  padding: 0.5rem;
+  width: 100%;
+}
+
+.item__content-noedit {
   text-align: left;
-  margin-left: 8px;
+  margin: 0;
+  word-break: break-word;
+  user-select: none;
 }
 
-.Todo__content {
-  flex: 1 1;
+.item__content-edit {
+  resize: none;
+  border: 0;
+  outline: 0;
 }
 
-.Todo__delete {
+.item__actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.item__delete {
   outline: none;
   border: none;
   width: 32px;
@@ -94,13 +111,22 @@ input:focus {
   min-height: auto;
   box-shadow: none;
   border-radius: 50%;
-  display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
+  margin: 0.3rem;
 }
 
-.Todo__action, .Todo__delete {
+.item_completed {
+  display: flex;
+  align-items: center;
+  user-select: none;
+  justify-content: flex-end;
+  margin-right: 0.3rem;
+}
+
+.Todo__action,
+.todo__delete {
   width: 24px;
   height: 24px;
   flex-shrink: 0;

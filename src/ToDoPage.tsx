@@ -8,6 +8,7 @@ import {
   deleteAllTodos,
   deleteTodo,
   updateTodoStatus,
+  updateTodoContent,
 } from './store/actions';
 import Service from './service';
 import { TodoStatus, Todo } from './models/todo';
@@ -19,7 +20,7 @@ const ToDoPage = () => {
   const [{ todos }, dispatch] = useReducer(reducer, initialState);
   const [showing, setShowing] = useState<EnhanceTodoStatus>('ALL');
   const [filteredTodos, setFilteredTodos] = useState<Todo[]>([]);
-  const inputRef = useRef<HTMLInputElement | null>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     (async () => {
@@ -52,6 +53,10 @@ const ToDoPage = () => {
 
   const onUpdateTodoStatus = (todoId: string, isComplete: boolean) => {
     dispatch(updateTodoStatus(todoId, isComplete));
+  };
+
+  const onUpdateTodoContent = (todoId: string, content: string) => {
+    dispatch(updateTodoContent(todoId, content));
   };
 
   const onToggleAllTodo = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -103,7 +108,7 @@ const ToDoPage = () => {
           Clear all todos
         </button>
       </div>
-      <div className="ToDo__list">
+      <div className="todo__list">
         {filteredTodos.map((todo) => {
           return (
             <TodoItem
@@ -111,6 +116,7 @@ const ToDoPage = () => {
               todo={todo}
               onComplete={onUpdateTodoStatus}
               onDelete={onDeleteTodo}
+              onUpdateContent={onUpdateTodoContent}
             />
           );
         })}
