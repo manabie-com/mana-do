@@ -52,22 +52,29 @@ const ToDoPage = () => {
   };
 
   const onUpdateTodoStatus = (todoId: string, isComplete: boolean) => {
+    Service.updateTodo(todoId, {
+      status: isComplete ? TodoStatus.COMPLETED : TodoStatus.ACTIVE,
+    });
     dispatch(updateTodoStatus(todoId, isComplete));
   };
 
   const onUpdateTodoContent = (todoId: string, content: string) => {
+    Service.updateTodo(todoId, { content });
     dispatch(updateTodoContent(todoId, content));
   };
 
   const onToggleAllTodo = (e: React.ChangeEvent<HTMLInputElement>) => {
+    Service.toggleAllTodos(e.target.checked);
     dispatch(toggleAllTodos(e.target.checked));
   };
 
   const onDeleteAllTodo = () => {
+    Service.deleteAllTodos();
     dispatch(deleteAllTodos());
   };
 
   const onDeleteTodo = (todoId: string) => {
+    Service.deleteTodo(todoId);
     dispatch(deleteTodo(todoId));
   };
 
