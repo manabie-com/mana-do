@@ -25,6 +25,13 @@
     "test": "craco test",
     "eject": "craco eject"
   },
+  "jest": {
+    "moduleNameMapper": {
+      "^.+\\.(css|less|scss)$": "<rootDir>/src/CSSStub.ts",
+      "^@/static/(.*)$": "<rootDir>/public/static/$1",
+      "^@/(.*)$": "<rootDir>/src/$1"
+    }
+  },
   "eslintConfig": {
     "extends": "react-app"
   },
@@ -41,8 +48,13 @@
     ]
   },
   "devDependencies": {
+    "@testing-library/react-hooks": "^8.0.0",
+    "@types/enzyme": "^3.10.12",
+    "@types/enzyme-adapter-react-16": "^1.0.6",
     "@types/shortid": "^0.0.29",
     "css-loader": "^6.7.1",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.6",
     "sass": "^1.50.0",
     "sass-loader": "^12.6.0",
     "style-loader": "^3.3.1"
