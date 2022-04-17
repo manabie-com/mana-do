@@ -34,6 +34,10 @@ const ToolBar: React.FC<IProps> = ({
     return todos.filter((todo) => todo.status === TodoStatus.ACTIVE)
   }, [todos])
 
+  const isExistedCompleted = useMemo(() => {
+    return todos.some((todo) => todo.status === TodoStatus.COMPLETED)
+  }, [todos])
+
   return (
     <div className="toolbar">
       <label>{`${leftTodo.length} todo${
@@ -50,9 +54,13 @@ const ToolBar: React.FC<IProps> = ({
           </label>
         ))}
       </div>
-      <label className="toolbar__clear-btn" onClick={onDeleteCompletedTodo}>
-        Clear completed
-      </label>
+      {isExistedCompleted ? (
+        <label className="toolbar__clear-btn" onClick={onDeleteCompletedTodo}>
+          Clear completed
+        </label>
+      ) : (
+        <div />
+      )}
     </div>
   )
 }

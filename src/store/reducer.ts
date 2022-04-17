@@ -1,4 +1,3 @@
-import { useReducer } from 'react'
 import {
   addLocalItem,
   LocalStorageKeys,
@@ -25,9 +24,17 @@ export const initialState: AppState = {
   todos: []
 }
 
+const saveTodoList = (todos: Todo[]): void => {
+  if (todos.length === 0) {
+    removeLocalItem(LocalStorageKeys.todoKey)
+  } else {
+    addLocalItem(LocalStorageKeys.todoKey, JSON.stringify(todos))
+  }
+}
+
 function reducer(state: AppState, action: AppActions): AppState {
-  let todoClone = [...state.todos]
   let newTodos = [],
+    todoClone = [...state.todos],
     currentIndex
   switch (action.type) {
     case SET_TODO:
@@ -40,7 +47,7 @@ function reducer(state: AppState, action: AppActions): AppState {
        * Should be return new state instead push todo into old state
        */
       newTodos = [action.payload, ...todoClone]
-      addLocalItem(LocalStorageKeys.todoKey, JSON.stringify(newTodos))
+      saveTodoList(newTodos)
       return {
         ...state,
         todos: newTodos
@@ -51,27 +58,27 @@ function reducer(state: AppState, action: AppActions): AppState {
        * index2 for what?
        * should be use clear naming as currentIndex/todoIndex
        */
-      currentIndex = state.todos.findIndex(
+      currentIndex = todoClone.findIndex(
         (todo) => todo.id === action.payload.todoId
       )
-      state.todos[currentIndex].status = action.payload.checked
+      todoClone[currentIndex].status = action.payload.checked
         ? TodoStatus.COMPLETED
         : TodoStatus.ACTIVE
-
+      saveTodoList(todoClone)
       return {
         ...state,
-        todos: state.todos
+        todos: todoClone
       }
 
     case UPDATE_TODO_CONTENT:
       currentIndex = state.todos.findIndex(
         (todo) => todo.id === action.payload.todoId
       )
-      state.todos[currentIndex].content = action.payload.content
-      addLocalItem(LocalStorageKeys.todoKey, JSON.stringify(state.todos))
+      todoClone[currentIndex].content = action.payload.content
+      saveTodoList(todoClone)
       return {
         ...state,
-        todos: state.todos
+        todos: todoClone
       }
 
     case TOGGLE_ALL_TODOS:
@@ -81,7 +88,7 @@ function reducer(state: AppState, action: AppActions): AppState {
           status: action.payload ? TodoStatus.COMPLETED : TodoStatus.ACTIVE
         }
       })
-
+      saveTodoList(tempTodos)
       return {
         ...state,
         todos: tempTodos
@@ -93,13 +100,13 @@ function reducer(state: AppState, action: AppActions): AppState {
        * I try to use a simple way that filters all of the items that are not equal to the current id of todo
        */
       newTodos = todoClone.filter((todo) => todo.id !== action.payload)
-      addLocalItem(LocalStorageKeys.todoKey, JSON.stringify(newTodos))
+      saveTodoList(newTodos)
       return {
         ...state,
         todos: newTodos
       }
     case DELETE_ALL_TODOS:
-      removeLocalItem(LocalStorageKeys.todoKey)
+      saveTodoList([])
       return {
         ...state,
         todos: []
@@ -108,7 +115,7 @@ function reducer(state: AppState, action: AppActions): AppState {
       newTodos = todoClone.filter(
         (todo) => todo.status !== TodoStatus.COMPLETED
       )
-      addLocalItem(LocalStorageKeys.todoKey, JSON.stringify(newTodos))
+      saveTodoList(newTodos)
       return {
         ...state,
         todos: newTodos
@@ -116,10 +123,6 @@ function reducer(state: AppState, action: AppActions): AppState {
     default:
       return state
   }
-}
-
-export function useApiCallReducer() {
-  return useReducer(reducer, initialState)
 }
 
 export default reducer

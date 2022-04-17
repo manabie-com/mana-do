@@ -5,7 +5,7 @@ import reducer from '@/store/reducer'
 import { stateProvider } from '@/__mocks__/todo'
 import TodoItem from '.'
 
-it('calls onUpdateTodoStatus and onDeleteTodo callback', () => {
+it('should calls onUpdateTodoStatus and onDeleteTodo callback', () => {
   const onUpdateTodoStatus = jest.fn()
   const onDeleteTodo = jest.fn()
 
@@ -33,7 +33,7 @@ it('calls onUpdateTodoStatus and onDeleteTodo callback', () => {
   expect(onDeleteTodo).toBeCalledTimes(1)
 })
 
-it('This should be render correct todo content', () => {
+it('should render correct todo content', () => {
   const onUpdateTodoStatus = jest.fn()
   const onDeleteTodo = jest.fn()
 

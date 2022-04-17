@@ -1,6 +1,7 @@
 import React, {
   useCallback,
   useEffect,
+  useMemo,
   useReducer,
   useRef,
   useState
@@ -73,6 +74,10 @@ const ToDoPage = () => {
     [dispatch]
   )
 
+  const isAllCompleted = useMemo(() => {
+    return todos.every((todo) => todo.status === TodoStatus.COMPLETED)
+  }, [todos])
+
   return (
     <div className="todo-app">
       <h1>Manabie Todo List Challenge</h1>
@@ -83,6 +88,7 @@ const ToDoPage = () => {
               className="todo__creation__check-all"
               type="checkbox"
               onChange={onToggleAllTodo}
+              checked={isAllCompleted}
             />
           ) : (
             <div />

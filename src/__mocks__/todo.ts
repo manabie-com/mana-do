@@ -55,17 +55,20 @@ export const emptyLabelByStatusProvider: {
   label: string
 }[] = [
   {
-    description: 'The empty label for ACTIVE status',
+    description:
+      "The empty label for ACTIVE status should be Nothing need to do, let's relax",
     status: TodoStatus.ACTIVE,
     label: "Nothing need to do, let's relax"
   },
   {
-    description: 'The empty label for COMPLETED status',
+    description:
+      'The empty label for COMPLETED status should be Nothing is completed',
     status: TodoStatus.COMPLETED,
     label: 'Nothing is completed'
   },
   {
-    description: 'The empty label for ALL status',
+    description:
+      'The empty label for ALL status should be Type something into the input and Enter',
     status: 'ALL',
     label: 'Type something into the input and Enter'
   }
