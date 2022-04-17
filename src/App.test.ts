@@ -20,7 +20,7 @@ let globalResp: Todo = {};
 Storage.prototype.getItem = jest.fn(() => "bla");
 
 test("Create todo length = 3", async () => {
-  let resp = await Service.createTodo("Testing my create todo");
+  let resp: Todo = await Service.createTodo("Testing my create todo");
   state = reducer(state, createTodo(resp));
   resp = await Service.createTodo("123456");
   state = reducer(state, createTodo(resp));
@@ -30,7 +30,7 @@ test("Create todo length = 3", async () => {
 });
 
 test("Create todo newest on top", async () => {
-  let resp = await Service.createTodo("Created first");
+  let resp: Todo = await Service.createTodo("Created first");
   state = reducer(state, createTodo(resp));
   globalResp = await Service.createTodo("This should be on top");
   state = reducer(state, createTodo(globalResp));
@@ -41,33 +41,34 @@ test("Delete to do This should be on top", async () => {
   state = reducer(state, deleteTodo(globalResp.id));
   expect(
     state.todos.findIndex(
-      (i) => i.id === globalResp.id || i.content === "This should be on top"
+      (i: Todo) =>
+        i.id === globalResp.id || i.content === "This should be on top"
     )
   ).toEqual(-1);
   expect(state.todos.length).toEqual(4);
 });
 
 test("Update todo status and content", async () => {
-  let resp = await Service.createTodo("This will be changed");
+  let resp: Todo = await Service.createTodo("This will be changed");
   state = reducer(state, createTodo(resp));
-  let newlyCreatedTodo = state.todos.find((i) => i.id === resp.id);
+  let newlyCreatedTodo = state.todos.find((i: Todo) => i.id === resp.id);
   expect(newlyCreatedTodo?.status).toEqual(TodoStatus.ACTIVE);
   expect(newlyCreatedTodo?.content).toEqual("This will be changed");
   state = reducer(state, updateTodoContent(resp.id, "Successfully updated"));
   state = reducer(state, updateTodoStatus(resp.id, true));
-  newlyCreatedTodo = state.todos.find((i) => i.id === resp.id);
+  newlyCreatedTodo = state.todos.find((i: Todo) => i.id === resp.id);
   expect(newlyCreatedTodo?.status).toEqual(TodoStatus.COMPLETED);
   expect(newlyCreatedTodo?.content).toEqual("Successfully updated");
 });
 
 test("Toggle all todos", async () => {
   state = reducer(state, toggleAllTodos(true, "ALL"));
-  expect(state.todos.findIndex((i) => i.status === TodoStatus.ACTIVE)).toEqual(
-    -1
-  );
+  expect(
+    state.todos.findIndex((i: Todo) => i.status === TodoStatus.ACTIVE)
+  ).toEqual(-1);
   state = reducer(state, toggleAllTodos(false, "ALL"));
   expect(
-    state.todos.findIndex((i) => i.status === TodoStatus.COMPLETED)
+    state.todos.findIndex((i: Todo) => i.status === TodoStatus.COMPLETED)
   ).toEqual(-1);
 });
 
@@ -78,22 +79,22 @@ test("Toggle all todos with custom status", async () => {
   }
   state = reducer(state, setTodos(tempTodos));
   expect(
-    state.todos.filter((i) => i.status === TodoStatus.COMPLETED).length
+    state.todos.filter((i: Todo) => i.status === TodoStatus.COMPLETED).length
   ).toEqual(3);
   // This should not change anything
   state = reducer(state, toggleAllTodos(true, TodoStatus.COMPLETED));
   expect(
-    state.todos.filter((i) => i.status === TodoStatus.COMPLETED).length
+    state.todos.filter((i: Todo) => i.status === TodoStatus.COMPLETED).length
   ).toEqual(3);
   // This change all active todos to completed
   state = reducer(state, toggleAllTodos(true, TodoStatus.ACTIVE));
   expect(
-    state.todos.filter((i) => i.status === TodoStatus.COMPLETED).length
+    state.todos.filter((i: Todo) => i.status === TodoStatus.COMPLETED).length
   ).toEqual(5);
   // This should not change anything
   state = reducer(state, toggleAllTodos(false, TodoStatus.ACTIVE));
   expect(
-    state.todos.filter((i) => i.status === TodoStatus.COMPLETED).length
+    state.todos.filter((i: Todo) => i.status === TodoStatus.COMPLETED).length
   ).toEqual(5);
 });
 

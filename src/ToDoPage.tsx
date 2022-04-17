@@ -115,7 +115,7 @@ const ToDoPage = () => {
     setEditTodosState({});
   };
 
-  const todoList = todos.map((todo) => {
+  const todoList = todos.map((todo: Todo) => {
     if (showing === "ALL" || todo.status === showing)
       return (
         <div key={todo.id} className="ToDo__item">
@@ -188,7 +188,7 @@ const ToDoPage = () => {
       </div>
       <div className="ToDo__list">{todoList}</div>
       <div className="Todo__toolbar">
-        {todoList.filter((i) => i !== null).length > 0 ? (
+        {todoList.filter((i: Todo | null) => i !== null).length > 0 ? (
           <input
             type="checkbox"
             onChange={onToggleAllTodo}
