@@ -1,0 +1,75 @@
+.todo-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+
+  &:not(:last-child) {
+    border-bottom: 1px solid #dcd6d6;
+  }
+
+  &--completed {
+    .todo-item__content {
+      text-decoration: line-through;
+      opacity: 0.3;
+    }
+  }
+
+  &__checkbox {
+    margin: 0px 12px;
+
+    &--hidden {
+      visibility: hidden;
+    }
+  }
+
+  &__content {
+    flex: 1 1;
+    text-align: left;
+    transition: text-decoration 0.2s;
+    min-height: calc($todoHeight - 24px);
+    display: flex;
+    align-items: center;
+    padding-right: 56px;
+    word-break: break-all;
+
+    &--display {
+      padding-bottom: 12px;
+      padding-top: 12px;
+    }
+
+    .edit-input {
+      word-break: break-all;
+      border: 1px solid #999;
+      box-shadow: inset 0 -1px 5px 0 rgb(0 0 0 / 20%);
+      outline: none;
+      padding-top: unset;
+      padding-bottom: unset;
+      min-height: calc($todoHeight - 2px);
+    }
+  }
+
+  &__delete-btn {
+    outline: none;
+    border: none;
+    width: 32px;
+    height: 32px;
+    min-width: auto;
+    min-height: auto;
+    box-shadow: none;
+    border-radius: 50%;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    display: none;
+    transition: all 0.3s;
+    position: absolute;
+    right: 12px;
+  }
+
+  &:hover {
+    .todo-item__delete-btn {
+      display: flex;
+    }
+  }
+}

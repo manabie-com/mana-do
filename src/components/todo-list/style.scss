@@ -1,0 +1,10 @@
+.todo-list {
+  display: flex;
+  flex-direction: column;
+
+  &__empty {
+    padding: 24px 0px;
+    opacity: 0.3;
+    font-style: italic;
+  }
+}

@@ -1,0 +1,48 @@
+.App {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+
+  .todo-app {
+    width: 100%;
+    @media only screen and (min-device-width: 768px) {
+      width: 90%;
+    }
+    @media only screen and (min-device-width: 480px) {
+      width: 96%;
+    }
+    h1 {
+      color: $primaryColor;
+    }
+  }
+}
+
+.todo__container {
+  max-width: 768px;
+  margin: 0 auto 5rem auto;
+  background-color: $white;
+  box-shadow: 0 2px 4px 0 rgb(0 0 0 / 20%), 0 25px 50px 0 rgb(0 0 0 / 10%);
+}
+
+.todo__creation {
+  display: flex;
+  border-bottom: 1px solid #dcd6d6;
+  display: flex;
+  align-items: center;
+
+  &__check-all {
+    margin: 0px 12px;
+  }
+}
+
+.todo__input {
+  flex: 1 1;
+  border: none;
+  font-size: 24px;
+}
+
+.todo__input::placeholder {
+  opacity: 0.3;
+  font-style: italic;
+  font-weight: 300;
+}

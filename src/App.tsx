@@ -1,15 +1,15 @@
-import React from 'react';
+import React from 'react'
 
-import ToDoPage from './ToDoPage';
+import ToDoPage from '@/pages/todo'
 
-import './App.css';
+import './App.scss'
 
 function App() {
   return (
     <main className="App">
       <ToDoPage />
     </main>
-  );
+  )
 }
 
-export default App;
+export default App
