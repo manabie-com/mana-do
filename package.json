@@ -21,7 +21,7 @@
   "scripts": {
     "start:fullstack": "cross-env REACT_APP_WHOAMI=fullstack craco start",
     "start:frontend": "cross-env REACT_APP_WHOAMI=frontend craco start",
-    "build": "craco build",
+    "build": "cross-env REACT_APP_WHOAMI=frontend craco build",
     "test": "craco test",
     "eject": "craco eject"
   },
