@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer, useRef, useState } from 'react';
+import React, { useEffect, useReducer, useState } from 'react';
 
 import reducer, { initialState } from './store/reducer';
 import {
@@ -20,7 +20,7 @@ const ToDoPage = () => {
   const [{ todos }, dispatch] = useReducer(reducer, initialState);
   const [showing, setShowing] = useState<EnhanceTodoStatus>('ALL');
   const [filteredTodos, setFilteredTodos] = useState<Todo[]>([]);
-  const inputRef = useRef<HTMLInputElement>(null);
+  const [contentInput, setContentInput] = useState<string>('');
 
   useEffect(() => {
     (async () => {
@@ -43,10 +43,10 @@ const ToDoPage = () => {
 
   const onCreateTodo = async (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
-      const content = inputRef.current?.value;
-      if (content) {
-        const resp = await Service.createTodo(content);
+      if (contentInput) {
+        const resp = await Service.createTodo(contentInput);
         dispatch(createTodo(resp));
+        setContentInput('');
       }
     }
   };
@@ -79,54 +79,73 @@ const ToDoPage = () => {
   };
 
   return (
-    <div className="ToDo__container">
-      <div className="Todo__creation">
+    <div className="todo__container">
+      <div className="todo__creation">
         <input
-          ref={inputRef}
-          className="Todo__input"
+          className="todo__input"
           placeholder="What need to be done?"
+          value={contentInput}
+          onChange={(e) => setContentInput(e.target.value)}
           onKeyDown={onCreateTodo}
         />
       </div>
-      <div className="Todo__toolbar">
-        {filteredTodos.length > 0 ? (
-          <input type="checkbox" onChange={onToggleAllTodo} />
-        ) : (
-          <div />
-        )}
-        <div className="Todo__tabs">
-          <button className="Action__btn" onClick={() => setShowing('ALL')}>
+      <div className="todo__toolbar">
+        <div className="todo__tabs">
+          <button
+            className={`action__btn ${
+              showing === 'ALL' ? 'action__btn-active' : ''
+            }`}
+            onClick={() => setShowing('ALL')}
+          >
             All
           </button>
           <button
-            className="Action__btn"
+            className={`action__btn ${
+              showing === TodoStatus.ACTIVE ? 'action__btn-active' : ''
+            }`}
             onClick={() => setShowing(TodoStatus.ACTIVE)}
           >
             Active
           </button>
           <button
-            className="Action__btn"
+            className={`action__btn ${
+              showing === TodoStatus.COMPLETED ? 'action__btn-active' : ''
+            }`}
             onClick={() => setShowing(TodoStatus.COMPLETED)}
           >
             Completed
           </button>
         </div>
-        <button className="Action__btn" onClick={onDeleteAllTodo}>
+        <button className="action__btn" onClick={onDeleteAllTodo}>
           Clear all todos
         </button>
+        {filteredTodos.length > 0 && (
+          <div className="action__checkbox">
+            <input
+              id="toggle-todo"
+              type="checkbox"
+              onChange={onToggleAllTodo}
+            />
+            <label htmlFor="toggle-todo">Toggle</label>
+          </div>
+        )}
       </div>
       <div className="todo__list">
-        {filteredTodos.map((todo) => {
-          return (
-            <TodoItem
-              key={todo.id}
-              todo={todo}
-              onComplete={onUpdateTodoStatus}
-              onDelete={onDeleteTodo}
-              onUpdateContent={onUpdateTodoContent}
-            />
-          );
-        })}
+        {filteredTodos.length > 0 ? (
+          filteredTodos.map((todo) => {
+            return (
+              <TodoItem
+                key={todo.id}
+                todo={todo}
+                onComplete={onUpdateTodoStatus}
+                onDelete={onDeleteTodo}
+                onUpdateContent={onUpdateTodoContent}
+              />
+            );
+          })
+        ) : (
+          <div>Todo not found</div>
+        )}
       </div>
     </div>
   );

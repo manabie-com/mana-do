@@ -71,7 +71,7 @@ const TodoItem = (props: TodoItemProps) => {
         >
           X
         </button>
-        <div className="item_completed">
+        <div className="action__checkbox">
           <input
             id={`completed-${props.todo.id}`}
             type="checkbox"

@@ -1,4 +1,4 @@
-.App {
+.app {
   text-align: center;
   display: flex;
   justify-content: center;
@@ -45,7 +45,7 @@ input:focus {
   box-shadow: 1px 0 9px rgba(0, 0, 0, 0.25);
 }
 
-.ToDo__container {
+.todo__container {
   border: 1px solid rgba(0, 0, 0, 0.13);
   border-radius: 8px;
   width: 500px;
@@ -54,11 +54,11 @@ input:focus {
   box-shadow: 2px 2px 1px rgba(0, 0, 0, 0.09), 3px 2px 3px rgba(0, 0, 0, 0.05);
 }
 
-.Todo__creation {
+.todo__creation {
   display: flex;
 }
 
-.Todo__input {
+.todo__input {
   flex: 1 1;
 }
 
@@ -100,6 +100,8 @@ input:focus {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
+  padding-right: 0.3rem;
+  padding-top: 0.3rem;
 }
 
 .item__delete {
@@ -114,38 +116,48 @@ input:focus {
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  margin: 0.3rem;
 }
 
-.item_completed {
+.action__checkbox {
   display: flex;
   align-items: center;
   user-select: none;
-  justify-content: flex-end;
-  margin-right: 0.3rem;
 }
 
-.Todo__action,
+.todo__action,
 .todo__delete {
   width: 24px;
   height: 24px;
   flex-shrink: 0;
 }
 
-.Todo__toolbar {
+.todo__toolbar {
   display: flex;
-  justify-content: space-between;
   margin-top: 24px;
+  min-height: 42px;
 }
 
-.Todo__tabs {
+.todo__toolbar > button {
+  margin-left: 2rem;
+}
+
+.todo__toolbar > .action__checkbox {
+  margin-left: 1.5rem;
+}
+
+.todo__tabs {
   display: flex;
   justify-content: center;
 }
 
-.Todo__tabs > *:not(:last-child) {
+.todo__tabs > *:not(:last-child) {
   margin-right: 8px;
 }
 
-.Action__btn {
+.action__btn {
+  cursor: pointer;
+}
+
+.action__btn-active {
+  background-color: rgb(168, 168, 168);
 }
