@@ -4,10 +4,11 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
+//React StrictMode cause the reducer of useReducer to be called twice.
 ReactDOM.render(
-  <React.StrictMode>
+
     <App />
-  </React.StrictMode>,
+  ,
   document.getElementById('root')
 );
 
