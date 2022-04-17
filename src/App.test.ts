@@ -2,6 +2,7 @@ import { Todo, TodoStatus } from "./models/todo";
 import Service from "./service";
 import {
   createTodo,
+  deleteAllTodos,
   deleteTodo,
   setTodos,
   toggleAllTodos,
@@ -94,6 +95,11 @@ test("Toggle all todos with custom status", async () => {
   expect(
     state.todos.filter((i) => i.status === TodoStatus.COMPLETED).length
   ).toEqual(5);
+});
+
+test("Delete all todos", async () => {
+  state = reducer(state, deleteAllTodos());
+  expect(state.todos.length).toEqual(0);
 });
 
 export {};
