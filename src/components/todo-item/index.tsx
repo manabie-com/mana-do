@@ -61,7 +61,7 @@ const TodoItem: React.FC<IProps> = ({
     setShowEdit(true)
   }
 
-  const handleClickTodo = (event: React.MouseEvent<HTMLDivElement>) => {
+  const handleClickTodoContent = (event: React.MouseEvent<HTMLDivElement>) => {
     if (event.detail === 2) {
       // Detect double click
       handleDoubleClick()
@@ -108,7 +108,6 @@ const TodoItem: React.FC<IProps> = ({
         'todo-item',
         todo.status === TodoStatus.COMPLETED && 'todo-item--completed'
       )}
-      onClick={handleClickTodo}
       ref={todoItemRef}
     >
       <InputField
@@ -131,7 +130,10 @@ const TodoItem: React.FC<IProps> = ({
           />
         </div>
       ) : (
-        <span className="todo-item__content todo-item__content--display">
+        <span
+          onClick={handleClickTodoContent}
+          className="todo-item__content todo-item__content--display"
+        >
           {todo.content}
         </span>
       )}
