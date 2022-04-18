@@ -1,17 +1,48 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap');
+
+body {
+  font-family: 'Poppins', sans-serif;
+}
+
 .App {
   text-align: center;
   display: flex;
   justify-content: center;
+  font-family: 'Poppins', sans-serif;
 }
 
 button {
   outline: none;
   border: none;
-  box-shadow: 2px 0 2px currentColor;
+  background-color: #fff;
+  color: #000;
+  box-shadow: 0px 3px 1px #ccc;
   border-radius: 4px;
-  min-height: 32px;
-  min-width: 80px;
+  height: 32px;
+  min-width: 90px;
   padding: 4px 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-family: 'Poppins', sans-serif;
+}
+
+button.primary {
+  background-color: #2b9ee2;
+  color: #fff;
+}
+
+button.filter {
+  background-color: green;
+  color: #fff;
+}
+
+button.delete {
+  background-color: red;
+  color: #fff;
+}
+
+button.rounded {
+  border-radius: 50px;
 }
 
 button:hover {
@@ -30,15 +61,18 @@ input[type="checkbox"]:focus {
   box-shadow: none;
   border: none;
   outline: none;
+  cursor: pointer;
 }
 
 input {
-  min-height: 36px;
+  min-height: 42px;
   border: none;
   outline: none;
   padding: 0 12px;
   box-shadow: 2px 0 4px rgba(0,0,0, 0.2);
-  border-radius: 4px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 16px;
+  border-bottom: 2px solid #2c0a0a;
 }
 
 input:focus {
@@ -47,12 +81,12 @@ input:focus {
 
 .ToDo__container {
   border: 1px solid rgba(0,0,0, 0.13);
-  border-radius: 8px;
+  border-radius: 18px;
   width: 500px;
   margin-top: 5rem;
   padding: 24px;
-  box-shadow: 2px 2px 1px rgba(0,0,0, 0.09),
-              3px 2px 3px rgba(0,0,0, 0.05);
+  box-shadow: 1px 2px 10px 0px rgb(0 0 0 / 9%), 
+              3px 2px 20px 0px rgb(0 0 0 / 5%)
 }
 
 .Todo__creation {
@@ -98,11 +132,12 @@ input:focus {
   justify-content: center;
   align-items: center;
   cursor: pointer;
+  font-size: 26px;
 }
 
 .Todo__action, .Todo__delete {
-  width: 24px;
-  height: 24px;
+  width: 39px;
+  height: 39px;
   flex-shrink: 0;
 }
 
@@ -110,6 +145,7 @@ input:focus {
   display: flex;
   justify-content: space-between;
   margin-top: 24px;
+  align-items: center;
 }
 
 .Todo__tabs {
@@ -118,8 +154,9 @@ input:focus {
 }
 
 .Todo__tabs > *:not(:last-child) {
-  margin-right: 8px;
+  margin-right: 12px;
 }
 
-.Action__btn {
+.Todo__input--edit {
+  width: 78%;
 }
