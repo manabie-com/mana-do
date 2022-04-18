@@ -39,6 +39,10 @@ const ToDoPage = () => {
     fetchTodos()
   }, [])
 
+  useEffect(() => {
+    inputRef.current?.focus()
+  }, [])
+
   const onToggleAllTodo = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(toggleAllTodos(e.target.checked))
   }
