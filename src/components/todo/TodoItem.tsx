@@ -30,11 +30,8 @@ const TodoItem = (props: TodoItemProps) => {
   }, [isUpdateContent]);
 
   const onEnableUpdateContent = (e: React.MouseEvent<HTMLParagraphElement>) => {
-    // double click
-    if (e.detail === 2) {
-      setEditingContent(props.todo.content);
-      setIsUpdateContent(true);
-    }
+    setEditingContent(props.todo.content);
+    setIsUpdateContent(true);
   };
 
   const onUpdateTodoContent = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
@@ -58,30 +55,30 @@ const TodoItem = (props: TodoItemProps) => {
       ) : (
         <p
           className="item__content item__content-noedit"
-          onClick={onEnableUpdateContent}
+          onDoubleClick={onEnableUpdateContent}
         >
-          {props.todo.content}
+          {props.todo?.content}
         </p>
       )}
 
       <div className="item__actions">
         <button
           className="item__delete"
-          onClick={() => props.onDelete && props.onDelete(props.todo.id)}
+          onClick={() => props.onDelete && props.onDelete(props.todo?.id)}
         >
           X
         </button>
         <div className="action__checkbox">
           <input
-            id={`completed-${props.todo.id}`}
+            id={`completed-${props.todo?.id}`}
             type="checkbox"
-            checked={TodoStatus.COMPLETED === props.todo.status}
+            checked={TodoStatus.COMPLETED === props.todo?.status}
             onChange={(e) =>
               props.onComplete &&
-              props.onComplete(props.todo.id, e.target.checked)
+              props.onComplete(props.todo?.id, e.target.checked)
             }
           />
-          <label htmlFor={`completed-${props.todo.id}`}>Completed</label>
+          <label htmlFor={`completed-${props.todo?.id}`}>Completed</label>
         </div>
       </div>
     </div>
