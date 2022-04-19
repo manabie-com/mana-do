@@ -9,6 +9,7 @@ class ApiFrontend extends IAPI {
             created_date: new Date().toISOString(),
             status: TodoStatus.ACTIVE,
             id: shortid(),
+            editContent: false,
             user_id: "firstUser",
         } as Todo);
     }

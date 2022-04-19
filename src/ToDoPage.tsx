@@ -141,13 +141,13 @@ const ToDoPage = () => {
                 }
                 <div className="Todo__tabs">
                     <button className="Action__btn primary" onClick={()=>setShowing('ALL')}>
-                        All
+                        All ( {todos.length} )
                     </button>
                     <button className="Action__btn filter" onClick={()=>setShowing(TodoStatus.ACTIVE)}>
-                        Active
+                        Active ( {todos.filter(item => item.status === 'ACTIVE').length} )
                     </button>
                     <button className="Action__btn filter" onClick={()=>setShowing(TodoStatus.COMPLETED)}>
-                        Completed
+                        Completed ( {todos.filter(item => item.status === 'COMPLETED').length} )
                     </button>
                 </div>
                 <button className="Action__btn delete" onClick={onDeleteAllTodo}>
