@@ -26,6 +26,8 @@ function reducer(state: AppState, action: AppActions): AppState {
         todos: action.payload,
       };
     case CREATE_TODO:
+      // This bug happen because of React strict mode, it will double-invoking useReducer
+      // docs: https://reactjs.org/docs/strict-mode.html#:~:text=double%2Dinvoking%20the%20following%20functions
       localStorage.setItem(
         "todos",
         JSON.stringify([action.payload, ...state.todos])
