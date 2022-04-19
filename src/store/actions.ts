@@ -1,12 +1,12 @@
-import {Todo} from "../models/todo";
+import { GetTodoAction, Todo } from "../models/todo";
 
+export const GET_TODOS = 'GET_TODO';
 export const SET_TODO = 'SET_TODO';
 export const CREATE_TODO = 'CREATE_TODO';
 export const DELETE_TODO = 'DELETE_TODO';
 export const DELETE_ALL_TODOS = 'DELETE_ALL_TODOS';
 export const TOGGLE_ALL_TODOS = 'TOGGLE_ALL_TODOS';
 export const UPDATE_TODO_STATUS = 'UPDATE_TODO_STATUS';
-
 
 export interface SetTodoAction {
   type: typeof SET_TODO,
@@ -20,7 +20,12 @@ export function setTodos(todos: Array<Todo>): SetTodoAction {
   }
 }
 
-///////////
+export function getTodos(): GetTodoAction {
+  return {
+    type: GET_TODOS
+  }
+}
+
 export interface CreateTodoAction {
   type: typeof CREATE_TODO,
   payload: Todo
@@ -33,7 +38,6 @@ export function createTodo(newTodo: Todo): CreateTodoAction {
   }
 }
 
-//////////////
 export interface UpdateTodoStatusAction {
   type: typeof UPDATE_TODO_STATUS,
   payload: {
@@ -52,7 +56,6 @@ export function updateTodoStatus(todoId: string, checked: boolean): UpdateTodoSt
   }
 }
 
-//////////////
 export interface DeleteTodoAction {
   type: typeof DELETE_TODO,
   payload: string
@@ -65,7 +68,6 @@ export function deleteTodo(todoId: string): DeleteTodoAction {
   }
 }
 
-//////////////
 export interface DeleteAllTodosAction {
   type: typeof DELETE_ALL_TODOS,
 }
@@ -76,7 +78,6 @@ export function deleteAllTodos(): DeleteAllTodosAction {
   }
 }
 
-///////////
 export interface ToggleAllTodosAction {
   type: typeof TOGGLE_ALL_TODOS,
   payload: boolean
@@ -90,6 +91,7 @@ export function toggleAllTodos(checked: boolean): ToggleAllTodosAction {
 }
 
 export type AppActions =
+  GetTodoAction |
   SetTodoAction |
   CreateTodoAction |
   UpdateTodoStatusAction |

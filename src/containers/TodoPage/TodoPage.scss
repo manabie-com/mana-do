@@ -1,0 +1,22 @@
+@import "../../assets/styles/main.scss";
+
+.Todo__container {
+  border: 1px solid rgba(0, 0, 0, 0.13);
+  border-radius: 0.5rem;
+  text-align: left;
+  width: 500px;
+  padding: 1.5rem;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 0.5rem 1.5rem;
+  background-color: #f9faff;
+  border-radius: 1rem;
+  min-height: 80%;
+  display: flex;
+  flex-direction: column;
+  min-height: 80vh;
+
+  .Todo__list {
+    display: flex;
+    flex-direction: column;
+    margin-top: 1.5rem;
+  }
+}

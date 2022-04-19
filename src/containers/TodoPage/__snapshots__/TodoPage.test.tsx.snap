@@ -1,0 +1,171 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TodoPage Should renders TodoPage correctly 1`] = `
+<div
+  className="Todo__container"
+>
+  <div
+    className="Todo__filter"
+  >
+    <div
+      className="Todo__filter_item"
+      id="filter-all"
+      onClick={[Function]}
+    >
+      <h4>
+        All
+      </h4>
+      <small>
+        0
+         Items out of 
+        0
+      </small>
+      <div
+        className="loading-bar"
+      >
+        <div
+          className="loading-bar--progress"
+          style={
+            Object {
+              "width": "100%",
+            }
+          }
+        >
+          <span
+            className="first"
+          />
+          <span />
+          <span />
+          <span />
+          <span />
+          <span />
+          <span />
+          <span />
+          <span />
+          <span />
+          <span />
+          <span
+            className="last"
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      className="Todo__filter_item"
+      id="filter-active"
+      onClick={[Function]}
+    >
+      <h4>
+        Active
+      </h4>
+      <small>
+        0
+         Items out of 
+        0
+      </small>
+      <div
+        className="loading-bar"
+      >
+        <div
+          className="loading-bar--progress"
+          style={
+            Object {
+              "width": "0%",
+            }
+          }
+        >
+          <span
+            className="first"
+          />
+          <span />
+          <span />
+          <span />
+          <span />
+          <span />
+          <span />
+          <span />
+          <span />
+          <span />
+          <span />
+          <span
+            className="last"
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      className="Todo__filter_item"
+      id="filter-complete"
+      onClick={[Function]}
+    >
+      <h4>
+        Compeleted
+      </h4>
+      <small>
+        0
+         Items out of 
+        0
+      </small>
+      <div
+        className="loading-bar"
+      >
+        <div
+          className="loading-bar--progress"
+          style={
+            Object {
+              "width": "0%",
+            }
+          }
+        >
+          <span
+            className="first"
+          />
+          <span />
+          <span />
+          <span />
+          <span />
+          <span />
+          <span />
+          <span />
+          <span />
+          <span />
+          <span />
+          <span
+            className="last"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div
+    className="Todo__toolbar"
+  >
+    <button
+      className="Todo__toolbar_button Todo__toolbar_button--complete"
+      onClick={[Function]}
+    >
+      Uncomplete All Items
+    </button>
+    <button
+      className="Todo__toolbar_button Todo__toolbar_button--delete"
+      onClick={[Function]}
+    >
+      Delete All Items
+    </button>
+  </div>
+  <div
+    className="Todo__list"
+  />
+  <div
+    className="Todo__creation"
+  >
+    <input
+      className="Todo__creation_input"
+      onChange={[Function]}
+      onKeyDown={[Function]}
+      placeholder="Please enter your to do list"
+      value=""
+    />
+  </div>
+</div>
+`;

@@ -1,0 +1,84 @@
+@import "../../assets/styles/main.scss";
+
+.loading-bar {
+  width: 100%;
+  background: $light-grey;
+  padding: 0.125rem;
+  border: 1px solid $light-green;
+  border-radius: 6px;
+  box-shadow: 0 0 20px 0 $light-green;
+  &--progress {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    align-content: center;
+    & span {
+      background: $light-green;
+      border-radius: 0.25rem;
+      flex-basis: 11%;
+      flex-grow: 1;
+      flex-shrink: 1;
+      height: 0.5rem;
+      animation: FadeIn 0.5s ease;
+      transition: all 1s cubic-bezier(0.17, 0.67, 0.88, 0.17);
+      &:first-of-type {
+        border-top-left-radius: 0.25rem;
+        border-bottom-left-radius: 0.25rem;
+      }
+      &:last-of-type {
+        border-top-left-radius: 0.25rem;
+        border-bottom-left-radius: 0.25rem;
+      }
+    }
+  }
+}
+
+@keyframes FadeIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.1);
+    background: $light-green;
+    border-radius: 0.25rem;
+  }
+
+  85% {
+    opacity: 1;
+    background: $light-green;
+    background: linear-gradient(
+      180deg,
+      $light-green 0%,
+      $green 56%,
+      $dark-green 100%
+    );
+    border-radius: 0;
+    border-top-right-radius: 0.5rem;
+    border-bottom-right-radius: 0.5rem;
+  }
+  100% {
+    transform: scale(1);
+    background: $light-green;
+    background: linear-gradient(
+      180deg,
+      $light-green 0%,
+      $green 56%,
+      $dark-green 100%
+    );
+    border-radius: 0;
+  }
+}
+@for $i from 1 through 12 {
+  .loading-bar--progress span:nth-child(#{$i}n) {
+    animation-delay: #{$i * 0.15}s;
+    animation-iteration-count: 1;
+    animation-fill-mode: both;
+  }
+}
+
+.loading-bar--progress .first {
+  border-top-left-radius: 0.25rem !important;
+  border-bottom-left-radius: 0.25rem !important;
+}
+.loading-bar--progress .last {
+  border-top-right-radius: 0.25rem !important;
+  border-bottom-right-radius: 0.25rem !important;
+}

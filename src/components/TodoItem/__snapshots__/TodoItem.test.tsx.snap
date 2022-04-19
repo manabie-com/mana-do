@@ -1,0 +1,123 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TodoItem Should renders TodoItem correctly 1`] = `
+<div
+  className="Todo__item"
+  onDoubleClick={[Function]}
+>
+  <div
+    className="Todo__item_checkbox"
+  >
+    <span
+      className="success-checkmark"
+      onClick={[Function]}
+    >
+      <div
+        className="icon-circle"
+        hidden={false}
+      />
+      <div
+        className="check-icon"
+        hidden={true}
+      >
+        <span
+          className="icon-line line-tip"
+        />
+        <span
+          className="icon-line line-long"
+        />
+        <div
+          className="icon-circle"
+        />
+        <div
+          className="icon-fix"
+        />
+      </div>
+    </span>
+  </div>
+  <div
+    className="Todo__item_input"
+  >
+    <span
+      className=""
+    />
+    <span
+      className="Todo__item_input--default"
+    >
+      1
+    </span>
+  </div>
+  <button
+    className="Todo__item_button--delete"
+    onClick={[Function]}
+  >
+    <img
+      alt="deleteIcon"
+      height={32}
+      src="delete.svg"
+      width={32}
+    />
+  </button>
+</div>
+`;
+
+exports[`TodoItem Should renders TodoItem correctly 2`] = `
+<div
+  className="Todo__item"
+  onDoubleClick={[Function]}
+>
+  <div
+    className="Todo__item_checkbox"
+  >
+    <span
+      className="success-checkmark"
+      onClick={[Function]}
+    >
+      <div
+        className="icon-circle"
+        hidden={false}
+      />
+      <div
+        className="check-icon"
+        hidden={true}
+      >
+        <span
+          className="icon-line line-tip"
+        />
+        <span
+          className="icon-line line-long"
+        />
+        <div
+          className="icon-circle"
+        />
+        <div
+          className="icon-fix"
+        />
+      </div>
+    </span>
+  </div>
+  <div
+    className="Todo__item_input"
+  >
+    <span
+      className=""
+    />
+    <span
+      className="Todo__item_input--default"
+    >
+      1
+    </span>
+  </div>
+  <button
+    className="Todo__item_button--delete"
+    onClick={[Function]}
+  >
+    <img
+      alt="deleteIcon"
+      height={32}
+      src="delete.svg"
+      width={32}
+    />
+  </button>
+</div>
+`;

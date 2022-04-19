@@ -1,0 +1,23 @@
+@import "../../assets/styles/main.scss";
+.Todo__toolbar {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1.5rem;
+
+  &_button {
+    height: 2rem;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 0.5rem 1.5rem;
+    border: none;
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+
+    &--delete {
+      background-color: #dc748c;
+      color: white;
+    }
+    &--complete {
+      background-color: $green;
+      color: white;
+    }
+  }
+}
