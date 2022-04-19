@@ -1,13 +1,18 @@
-import React from 'react';
+import React from "react";
+import { ChakraProvider, Flex } from "@chakra-ui/react";
 
-import ToDoPage from './ToDoPage';
+import ToDoPage from "./ToDoPage";
 
-import './App.css';
+import "./App.css";
 
 function App() {
   return (
     <main className="App">
-      <ToDoPage />
+      <ChakraProvider>
+        <Flex h="100vh" w="100vw">
+          <ToDoPage />
+        </Flex>
+      </ChakraProvider>
     </main>
   );
 }
