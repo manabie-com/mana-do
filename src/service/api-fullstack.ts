@@ -17,6 +17,14 @@ class ApiFullstack extends IAPI {
 
         return resp.data.data;
     }
+
+    async deleteTodos(): Promise<void> {}
+
+    async deleteTodo(todoId: string): Promise<Array<Todo>> { return []}
+
+    async updateTodoStatus(todoId: string, checked: boolean): Promise<Array<Todo>> { return []}
+
+    async updateTodoContent(todoId: string, content: string): Promise<Todo[]> { return [] }
 }
 
 

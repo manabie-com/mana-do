@@ -39,17 +39,15 @@ export function createTodo(newTodo: Todo): CreateTodoAction {
 export interface updateTodoStatusAction {
   type: typeof UPDATE_TODO_STATUS,
   payload: {
-    todoId: string,
-    checked: boolean
+    todo: Todo[],
   }
 }
 
-export function updateTodoStatus(todoId: string, checked: boolean): updateTodoStatusAction {
+export function updateTodoStatus(todo: Todo[]): updateTodoStatusAction {
   return {
     type: UPDATE_TODO_STATUS,
     payload: {
-      todoId,
-      checked
+      todo
     }
   }
 }
@@ -86,17 +84,15 @@ export function closeAllEditForm(): closeEditFormAction {
 export interface updateTodoContentAction {
   type: typeof UPDATE_TODO_CONTENT,
   payload: {
-    todoId: string,
-    content: string
+    todo: Todo[]
   }
 }
 
-export function updateTodoContent(todoId: string, content: string): updateTodoContentAction {
+export function updateTodoContent(todo: Todo[]): updateTodoContentAction {
   return {
     type: UPDATE_TODO_CONTENT,
     payload: {
-      todoId,
-      content
+      todo
     }
   }
 }
