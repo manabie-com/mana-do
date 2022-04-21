@@ -1,7 +1,7 @@
 import React from 'react';
 
 import ToDoPage from './ToDoPage';
-
+import "antd/dist/antd.css";
 import './App.css';
 
 function App() {

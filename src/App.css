@@ -1,5 +1,5 @@
 .App {
-  text-align: center;
+  /* text-align: center; */
   display: flex;
   justify-content: center;
 }
@@ -10,7 +10,7 @@ button {
   box-shadow: 2px 0 2px currentColor;
   border-radius: 4px;
   min-height: 32px;
-  min-width: 80px;
+  min-width: 70px;
   padding: 4px 8px;
 }
 
@@ -47,12 +47,17 @@ input:focus {
 
 .ToDo__container {
   border: 1px solid rgba(0,0,0, 0.13);
+  background-color: #F0F8FF;
   border-radius: 8px;
   width: 500px;
   margin-top: 5rem;
   padding: 24px;
   box-shadow: 2px 2px 1px rgba(0,0,0, 0.09),
               3px 2px 3px rgba(0,0,0, 0.05);
+}
+
+.ToDo__edit {
+ margin-bottom: 0px;
 }
 
 .Todo__creation {
@@ -73,12 +78,20 @@ input:focus {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  width: 430px
 }
 
 .ToDo__item > span {
   flex: 1 1;
   text-align: left;
   margin-left: 8px;
+  padding-left: 8px;
+}
+
+.ToDo__item > div {
+  margin-left: 8px;
+  padding-left: 8px;
+  margin-right: 8px;
 }
 
 .Todo__content {
@@ -103,6 +116,7 @@ input:focus {
 .Todo__action, .Todo__delete {
   width: 24px;
   height: 24px;
+  background-color: gainsboro;
   flex-shrink: 0;
 }
 

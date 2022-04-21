@@ -1,0 +1,107 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test test ToDoPage 1`] = `
+<div
+  className="ant-space ant-space-vertical ToDo__container"
+  style={Object {}}
+>
+  <div
+    className="ant-space-item"
+    style={
+      Object {
+        "marginBottom": 16,
+      }
+    }
+  >
+    <form
+      className="ant-form ant-form-horizontal"
+      onReset={[Function]}
+      onSubmit={[Function]}
+    >
+      <div
+        className="ant-row ant-form-item Todo__creation"
+        style={Object {}}
+      >
+        <div
+          className="ant-col ant-form-item-control"
+          style={Object {}}
+        >
+          <div
+            className="ant-form-item-control-input"
+          >
+            <div
+              className="ant-form-item-control-input-content"
+            >
+              <input
+                className="ant-input Todo__input"
+                data-testid="Todo__input"
+                id="input-create"
+                onBlur={[Function]}
+                onChange={[Function]}
+                onFocus={[Function]}
+                onKeyDown={[Function]}
+                placeholder="What need to be done?"
+                type="text"
+                value=""
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className="ToDo__list"
+      />
+    </form>
+  </div>
+  <div
+    className="ant-space-item"
+    style={Object {}}
+  >
+    <div
+      className="Todo__toolbar"
+    >
+      <div />
+      <div
+        className="Todo__tabs"
+      >
+        <button
+          className="ant-btn ant-btn-primary"
+          onClick={[Function]}
+          type="button"
+        >
+          <span>
+            All
+          </span>
+        </button>
+        <button
+          className="ant-btn ant-btn-primary"
+          onClick={[Function]}
+          type="button"
+        >
+          <span>
+            Active
+          </span>
+        </button>
+        <button
+          className="ant-btn ant-btn-primary"
+          onClick={[Function]}
+          type="button"
+        >
+          <span>
+            Completed
+          </span>
+        </button>
+      </div>
+      <button
+        className="ant-btn ant-btn-primary"
+        onClick={[Function]}
+        type="button"
+      >
+        <span>
+          Clear all todos
+        </span>
+      </button>
+    </div>
+  </div>
+</div>
+`;

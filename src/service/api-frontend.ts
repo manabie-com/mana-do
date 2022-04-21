@@ -14,15 +14,17 @@ class ApiFrontend extends IAPI {
     }
 
     async getTodos(): Promise<Todo[]> {
-        return [
-            {
-                content: "Content",
-                created_date: new Date().toISOString(),
-                status: TodoStatus.ACTIVE,
-                id: shortid(),
-                user_id: "firstUser",
-            } as Todo,
-        ];
+        // return [
+        //     {
+        //         content: "Content",
+        //         created_date: new Date().toISOString(),
+        //         status: TodoStatus.ACTIVE,
+        //         id: shortid(),
+        //         user_id: "firstUser",
+        //     } as Todo,
+        // ];
+        const data = JSON.parse(localStorage.getItem('todo') || '[]') as Todo[]
+        return data
     }
 }
 

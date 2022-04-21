@@ -1,0 +1,12 @@
+{
+  "verbose": false,
+  "bail": 1,
+  "setupFiles": [
+    "<rootDir>/browserMocks.js"],
+  "moduleNameMapper": {
+    "\\.(css|scss)$": "identity-obj-proxy"
+  },
+  "testURL": "http://localhost/",
+  "moduleFileExtensions": ["js", "jsx", "ts", "tsx", "json", "css"],
+  "moduleDirectories": ["node_modules"]
+}
