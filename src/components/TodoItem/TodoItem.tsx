@@ -7,7 +7,7 @@ import React, {
 } from "react";
 import { Todo } from "types";
 import { Actions } from "store/reducer";
-import { useOnClickOutside } from "hooks";
+import { useOnClickOutside, useSingleAndDoubleClick } from "hooks";
 
 import styles from "./TodoItem.module.scss";
 
@@ -24,8 +24,15 @@ export default function TodoItem({
   const [editMode, setEditMode] = useState(false);
   const [newContent, setNewContent] = useState(content);
   const labelClass = `${completed ? styles.completed : ""}`;
+  const newOnClick = useSingleAndDoubleClick(
+    () => {},
+    () => {
+      setEditMode(true);
+    }
+  );
 
   const ref = useRef<any>();
+
   useOnClickOutside(ref, () => {
     setEditMode(false);
     setNewContent(content);
@@ -50,11 +57,6 @@ export default function TodoItem({
     setNewContent(event.target.value);
   };
 
-  const onEdit = (event: MouseEvent<HTMLElement>) => {
-    event.stopPropagation();
-    setEditMode(true);
-  };
-
   const handleKeyDown = (event: any) => {
     if (event.key === "Enter" && Boolean(newContent)) {
       dispatch({
@@ -76,20 +78,18 @@ export default function TodoItem({
     <div
       className={styles.item}
       aria-label="item"
-      onDoubleClick={onEdit}
+      onClick={newOnClick}
       ref={ref}
     >
       {!editMode && (
         <>
-          <label className={labelClass}>
-            <input
-              className="toggle"
-              type="checkbox"
-              checked={completed || false}
-              onChange={onToggle}
-            />
-            {content}
-          </label>
+          <input
+            className="toggle"
+            type="checkbox"
+            checked={completed || false}
+            onChange={onToggle}
+          />
+          <label className={labelClass}>{content}</label>
           <button onClick={onDelete} className={styles.deleteButton}></button>
         </>
       )}
@@ -100,6 +100,7 @@ export default function TodoItem({
           value={newContent}
           onChange={onUpdateContent}
           onKeyDown={handleKeyDown}
+          autoFocus
         />
       )}
     </div>
