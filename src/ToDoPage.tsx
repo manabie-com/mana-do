@@ -6,31 +6,49 @@ import {
     createTodo,
     toggleAllTodos,
     deleteAllTodos,
-    updateTodoStatus
+    updateTodoStatus,
+    updateTodo,
+    deleteTodo,
 } from './store/actions';
 import Service from './service';
 import {TodoStatus} from './models/todo';
-
-type EnhanceTodoStatus = TodoStatus | 'ALL';
+import { Button } from './components/common/button';
+import { Modal } from './components/modal';
 
 
 const ToDoPage = () => {
     const [{todos}, dispatch] = useReducer(reducer, initialState);
-    const [showing, setShowing] = useState<EnhanceTodoStatus>('ALL');
+    const [isOpen, setIsOpen] = useState(false);
+    const [value, setValue] = useState('');
+    const [current, setCurrent] = useState<any>({})
     const inputRef = useRef<any>(null);
+    const [currentType, setCurrentType] = useState('ALL');
+   
 
     useEffect(()=>{
-        (async ()=>{
-            const resp = await Service.getTodos();
-
-            dispatch(setTodos(resp || []));
-        })()
+        getLocalStorageData();
     }, [])
 
+    useEffect(() => {
+        // storing input name
+        if (todos) {
+          localStorage.setItem("todos", JSON.stringify(todos));
+        }
+    }, [todos]);
+
+    const getLocalStorageData = () => {
+        const data: any = localStorage.getItem("todos");
+        const initialValue = JSON.parse(data);
+        console.log(initialValue);
+        
+        dispatch(setTodos(initialValue));
+    }
+
     const onCreateTodo = async (e: React.KeyboardEvent<HTMLInputElement>) => {
-        if (e.key === 'Enter' ) {
+        if (e.key === 'Enter' &&  inputRef.current.value.length > 0) {
             const resp = await Service.createTodo(inputRef.current.value);
             dispatch(createTodo(resp));
+            inputRef.current.value = '';
         }
     }
 
@@ -46,9 +64,63 @@ const ToDoPage = () => {
         dispatch(deleteAllTodos());
     }
 
+    const handleClose = () => {
+        setIsOpen(false)
+    }
+
+    const handleOpen = (id: string) => {
+        const currentTodo = todos.find(todo => todo.id === id);
+        if (currentTodo) {
+            setValue(currentTodo.content)
+            setCurrent(currentTodo);
+            setIsOpen(true)
+        }
+    }
+
+    const handleUpdate = () => {
+        dispatch(updateTodo(current.id, value ));
+        setIsOpen(false)
+    }
+
+    const handleDelete = (id: string) => {
+        dispatch(deleteTodo(id))
+    }
+
+    const handleFilterTodo = (key: string) => {
+        setCurrentType(key)
+
+    }
+
+    const generateData = (todos: any) => {
+        switch (currentType) {
+            case TodoStatus.ACTIVE:
+                return todos.filter((todo: any) => todo.status === TodoStatus.ACTIVE);
+            case TodoStatus.COMPLETED:
+                return todos.filter((todo: any) => todo.status === TodoStatus.COMPLETED);
+            default:
+                return todos;
+        }
+    }
 
     return (
         <div className="ToDo__container">
+            {isOpen && (
+                <Modal 
+                open={isOpen} 
+                onClose={handleClose} 
+                title='Update'
+                onSubmit={handleUpdate}
+                >
+                    <input
+                        className="Todo__input"
+                        placeholder="What need to be done?"
+                        value={value}
+                        onChange={(e: any) => setValue(e.target.value)}
+                    />
+                </Modal>
+            )}
+            <h1>TODO LIST</h1>
+            
             <div className="Todo__creation">
                 <input
                     ref={inputRef}
@@ -59,20 +131,22 @@ const ToDoPage = () => {
             </div>
             <div className="ToDo__list">
                 {
-                    todos.map((todo, index) => {
+                    todos && generateData(todos).map((todo: any, index: any) => {
                         return (
                             <div key={index} className="ToDo__item">
                                 <input
                                     type="checkbox"
-                                    checked={showing === todo.status}
-                                    onChange={(e) => onUpdateTodoStatus(e, index)}
+                                    checked={todo.status === TodoStatus.COMPLETED ? true : false}
+                                    onChange={(e) => onUpdateTodoStatus(e, todo.id)}
                                 />
-                                <span>{todo.content}</span>
-                                <button
+                                <span onDoubleClick={() => handleOpen(todo.id)}>{todo.content}</span>
+                                <Button
                                     className="Todo__delete"
+                                    color='danger'
+                                    onClick={() => handleDelete(todo.id)}
                                 >
-                                    X
-                                </button>
+                                    x
+                                </Button>
                             </div>
                         );
                     })
@@ -86,19 +160,19 @@ const ToDoPage = () => {
                     /> : <div/>
                 }
                 <div className="Todo__tabs">
-                    <button className="Action__btn">
+                    <Button color='primary' onClick={()=>handleFilterTodo('ALL')}>
                         All
-                    </button>
-                    <button className="Action__btn" onClick={()=>setShowing(TodoStatus.ACTIVE)}>
+                    </Button>
+                    <Button color="success" onClick={()=>handleFilterTodo(TodoStatus.ACTIVE)}>
                         Active
-                    </button>
-                    <button className="Action__btn" onClick={()=>setShowing(TodoStatus.COMPLETED)}>
+                    </Button>
+                    <Button color="danger" onClick={()=>handleFilterTodo(TodoStatus.COMPLETED)}>
                         Completed
-                    </button>
+                    </Button>
                 </div>
-                <button className="Action__btn" onClick={onDeleteAllTodo}>
+                <Button color="danger" className="Action__btn" onClick={onDeleteAllTodo}>
                     Clear all todos
-                </button>
+                </Button>
             </div>
         </div>
     );

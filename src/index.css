@@ -1,8 +1,7 @@
+@import url('https://fonts.googleapis.com/css?family=Gochi+Hand');
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: 'Gochi Hand', cursive;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -10,4 +9,18 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+input{
+  font-family: 'Gochi Hand', cursive;
+}
+
+button{
+  font-family: 'Gochi Hand', cursive;
+}
+
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
 }
