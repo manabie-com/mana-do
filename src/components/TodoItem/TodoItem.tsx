@@ -52,7 +52,6 @@ export default function TodoItem({
 
   const onEdit = (event: MouseEvent<HTMLElement>) => {
     event.stopPropagation();
-    console.log("edit");
     setEditMode(true);
   };
 

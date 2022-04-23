@@ -52,6 +52,7 @@ const ToDoPage = () => {
           clearTodos={onClearTodos}
         />
       </div>
+      <p className={styles.note}>Double-click to edit a todo</p>
     </div>
   );
 };
