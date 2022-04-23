@@ -1,34 +1,27 @@
 import React from "react";
 
+import styles from "./TodoFilter.module.scss";
+
 export default function TodoFilter({ todos = [] }): JSX.Element {
   return (
-    <div className="Todo__toolbar">
-      {todos.length > 0 ? (
-        <input
-          type="checkbox"
-          // onChange={onToggleAllTodo}
-        />
-      ) : (
-        <div />
-      )}
-      <div className="Todo__tabs">
-        <button className="Action__btn">All</button>
+    <div className={styles.container}>
+      <div>2 items lefts</div>
+      <div className={styles.actions}>
+        <button className={styles.selected}>All</button>
         <button
-          className="Action__btn"
-          //   onClick={() => setShowing(TodoStatus.ACTIVE)}
+        //   onClick={() => setShowing(TodoStatus.ACTIVE)}
         >
           Active
         </button>
         <button
-          className="Action__btn"
-          //   onClick={() => setShowing(TodoStatus.COMPLETED)}
+        //   onClick={() => setShowing(TodoStatus.COMPLETED)}
         >
           Completed
         </button>
       </div>
       <button
-        className="Action__btn"
         //   onClick={onDeleteAllTodo}
+        className={styles.clearButton}
       >
         Clear all todos
       </button>

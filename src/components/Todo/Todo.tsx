@@ -2,7 +2,6 @@ import React, { useEffect, useReducer, useRef, useState } from "react";
 
 import reducer, { initialState } from "store/reducer";
 import {
-  setTodos,
   createTodo,
   toggleAllTodos,
   deleteAllTodos,
@@ -17,17 +16,15 @@ import styles from "./Todo.module.scss";
 type EnhanceTodoStatus = TodoStatus | "ALL";
 
 const ToDoPage = () => {
-  const [{ todos }, dispatch] = useReducer(reducer, initialState);
+  const [state, dispatch] = useReducer(reducer, initialState);
   const [showing, setShowing] = useState<EnhanceTodoStatus>("ALL");
   const inputRef = useRef<any>(null);
 
-  useEffect(() => {
-    (async () => {
-      const resp = await Service.getTodos();
+  const { todos } = state;
 
-      dispatch(setTodos(resp || []));
-    })();
-  }, []);
+  console.log({
+    todos,
+  });
 
   const onCreateTodo = async (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
