@@ -1,44 +1,79 @@
 .deleteButton {
-    display: none;
-    position: absolute;
-    top: 0;
-    right: 10px;
-    bottom: 0;
-    width: 40px;
-    height: 40px;
-    margin: auto 0;
-    font-size: 30px;
-    color: #cc9a9a;
-    margin-bottom: 11px;
-    transition: color 0.2s ease-out;
-    &::after {
-        content: '×';
-    }
+  display: none;
+  position: absolute;
+  top: 0;
+  right: 12px;
+  bottom: 0;
+  width: 30px;
+  height: 30px;
+  top: 50%;
+  transform: translate(0, -15px);
+  font-size: 35px;
+  color: #cc9a9a;
+  transition: color 0.2s ease-out;
+  background: none;
+  outline: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  &:hover {
+    color: #af5b5e;
+  }
+  &::after {
+    content: "×";
+  }
 }
 
 .item {
+  display: flex;
+  align-items: center;
+  position: relative;
+  font-size: 24px;
+  border-bottom: 1px solid #ededed;
+  justify-content: space-between;
+  width: 100%;
+  padding: 4px 20px;
+  &:hover {
+    background-color: #fafafa;
+    .deleteButton {
+      display: block;
+    }
+  }
+  label {
+    width: 100%;
+    text-align: left;
+    word-break: break-all;
+    padding: 15px 0;
+    display: block;
+    line-height: 1.2;
+    transition: color 0.4s;
+    font-weight: 400;
+    color: #4d4d4d;
+    max-width: 100%;
+    margin-bottom: 5px;
     display: flex;
     align-items: center;
-    position: relative;
-    font-size: 24px;
-    border-bottom: 1px solid #ededed;
-    justify-content: space-between;
-    width: 100%;
-    label {
-        width: 100%;
-        text-align: left;
-        word-break: break-all;
-        padding: 15px 0;
-        display: block;
-        line-height: 1.2;
-        transition: color 0.4s;
-        font-weight: 400;
-        color: #4d4d4d;
-        max-width: 100%;
-        margin-bottom: 5px;
-        &.completed {
-            color: #cdcdcd;
-            text-decoration: line-through;
-        }
+    gap: 10px;
+    margin: 0;
+    &.completed {
+      color: #cdcdcd;
+      text-decoration: line-through;
     }
+  }
+
+  input[type="checkbox"] {
+    width: 24px;
+    height: 24px;
+    box-shadow: none;
+    border: none;
+    outline: none;
+    flex: 0 0 24px;
+    cursor: pointer;
+  }
+
+  input[type="checkbox"]:focus {
+    box-shadow: none;
+    border: none;
+    outline: none;
+  }
 }

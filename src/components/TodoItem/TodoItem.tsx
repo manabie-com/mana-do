@@ -3,8 +3,21 @@ import { Todo } from "types";
 
 import styles from "./TodoItem.module.scss";
 
-export default function TodoItem({ content, isCompleted }: Todo): JSX.Element {
+export default function TodoItem({
+  id,
+  content,
+  isCompleted,
+}: Todo): JSX.Element {
   const labelClass = `${isCompleted ? styles.completed : ""}`;
+
+  const deleteItem = (event: React.MouseEvent<HTMLElement>) => {
+    event.stopPropagation();
+    console.log("Delete item", id);
+  };
+
+  const onCompleted = (event: React.ChangeEvent<HTMLInputElement>) => {
+    return;
+  };
 
   return (
     <div className={styles.item} aria-label="item">
@@ -12,11 +25,12 @@ export default function TodoItem({ content, isCompleted }: Todo): JSX.Element {
         <input
           className="toggle"
           type="checkbox"
-          //   onChange={(e) => onUpdateTodoStatus(e, index)}
+          checked={isCompleted}
+          onChange={onCompleted}
         />
         {content}
       </label>
-      <button className="deleteButton">X</button>
+      <button onClick={deleteItem} className={styles.deleteButton}></button>
     </div>
   );
 }

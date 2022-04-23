@@ -12,6 +12,8 @@ import Service from "service";
 import { TodoStatus } from "types";
 import { TodoInput, TodoList, TodoFilter } from "components";
 
+import styles from "./Todo.module.scss";
+
 type EnhanceTodoStatus = TodoStatus | "ALL";
 
 const ToDoPage = () => {
@@ -50,10 +52,13 @@ const ToDoPage = () => {
   };
 
   return (
-    <div className="ToDo__container">
-      <TodoInput />
-      <TodoList />
-      <TodoFilter />
+    <div className={styles.container}>
+      <h1 className={styles.heading}>todos</h1>
+      <div className={styles.main}>
+        <TodoInput />
+        <TodoList />
+        <TodoFilter />
+      </div>
     </div>
   );
 };

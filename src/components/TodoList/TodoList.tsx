@@ -23,7 +23,12 @@ export default function TodoList({ todos = [] }): JSX.Element {
   return (
     <div className="ToDo__list" data-testid="todo-list">
       {fakeTodos.map(({ key, completed, content }) => (
-        <TodoItem key={key} content={content} isCompleted={completed} />
+        <TodoItem
+          key={key}
+          id={key}
+          content={content}
+          isCompleted={completed}
+        />
       ))}
     </div>
   );
