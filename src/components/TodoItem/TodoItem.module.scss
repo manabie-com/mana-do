@@ -77,3 +77,17 @@
     outline: none;
   }
 }
+
+.editInput {
+  padding: 12px;
+  border: 2px solid #ededed;
+  background: rgba(0, 0, 0, 0.003);
+  box-shadow: inset 0 -2px 1px rgba(0, 0, 0, 0.03);
+  position: relative;
+  margin: 0;
+  width: 100%;
+  font-size: 24px;
+  line-height: 1.4em;
+  font-style: italic;
+  outline: none;
+}

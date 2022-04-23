@@ -9,7 +9,6 @@ export default function TodoInput({ addTodo }: any): JSX.Element {
 
   const handleKeyDown = (event: any) => {
     if (event.key === "Enter" && Boolean(value)) {
-      console.log("dispatch: ", value);
       setValue(defaultValue);
       addTodo(value);
     }
