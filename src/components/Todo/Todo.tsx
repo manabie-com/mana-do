@@ -10,6 +10,7 @@ import {
 } from "store/actions";
 import Service from "service";
 import { TodoStatus } from "types";
+import { TodoInput, TodoList, TodoFilter } from "components";
 
 type EnhanceTodoStatus = TodoStatus | "ALL";
 
@@ -50,54 +51,9 @@ const ToDoPage = () => {
 
   return (
     <div className="ToDo__container">
-      <div className="Todo__creation">
-        <input
-          ref={inputRef}
-          className="Todo__input"
-          placeholder="What need to be done?"
-          onKeyDown={onCreateTodo}
-        />
-      </div>
-      <div className="ToDo__list">
-        {todos.map((todo, index) => {
-          return (
-            <div key={index} className="ToDo__item">
-              <input
-                type="checkbox"
-                checked={showing === todo.status}
-                onChange={(e) => onUpdateTodoStatus(e, index)}
-              />
-              <span>{todo.content}</span>
-              <button className="Todo__delete">X</button>
-            </div>
-          );
-        })}
-      </div>
-      <div className="Todo__toolbar">
-        {todos.length > 0 ? (
-          <input type="checkbox" onChange={onToggleAllTodo} />
-        ) : (
-          <div />
-        )}
-        <div className="Todo__tabs">
-          <button className="Action__btn">All</button>
-          <button
-            className="Action__btn"
-            onClick={() => setShowing(TodoStatus.ACTIVE)}
-          >
-            Active
-          </button>
-          <button
-            className="Action__btn"
-            onClick={() => setShowing(TodoStatus.COMPLETED)}
-          >
-            Completed
-          </button>
-        </div>
-        <button className="Action__btn" onClick={onDeleteAllTodo}>
-          Clear all todos
-        </button>
-      </div>
+      <TodoInput />
+      <TodoList />
+      <TodoFilter />
     </div>
   );
 };
