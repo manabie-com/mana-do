@@ -4,13 +4,14 @@ import styles from "./TodoInput.module.scss";
 
 const defaultValue = "";
 
-export default function TodoInput(): JSX.Element {
+export default function TodoInput({ addTodo }: any): JSX.Element {
   const [value, setValue] = useState(defaultValue);
 
   const handleKeyDown = (event: any) => {
     if (event.key === "Enter" && Boolean(value)) {
       console.log("dispatch: ", value);
       setValue(defaultValue);
+      addTodo(value);
     }
   };
 

@@ -1,28 +1,44 @@
 import React from "react";
 
+import { TodoStatus } from "types";
+
 import styles from "./TodoFilter.module.scss";
 
-export default function TodoFilter({ todos = [] }): JSX.Element {
+type PropTypes = {
+  filter: TodoStatus;
+  changeFilter: (filter: TodoStatus) => void;
+  clearTodos: () => void;
+};
+
+export default function TodoFilter({
+  filter,
+  changeFilter,
+  clearTodos,
+}: PropTypes): JSX.Element {
   return (
     <div className={styles.container}>
       <div>2 items lefts</div>
       <div className={styles.actions}>
-        <button className={styles.selected}>All</button>
         <button
-        //   onClick={() => setShowing(TodoStatus.ACTIVE)}
+          className={filter === TodoStatus.ALL ? styles.selected : ""}
+          onClick={() => changeFilter(TodoStatus.ALL)}
+        >
+          All
+        </button>
+        <button
+          className={filter === TodoStatus.ACTIVE ? styles.selected : ""}
+          onClick={() => changeFilter(TodoStatus.ACTIVE)}
         >
           Active
         </button>
         <button
-        //   onClick={() => setShowing(TodoStatus.COMPLETED)}
+          className={filter === TodoStatus.COMPLETED ? styles.selected : ""}
+          onClick={() => changeFilter(TodoStatus.COMPLETED)}
         >
           Completed
         </button>
       </div>
-      <button
-        //   onClick={onDeleteAllTodo}
-        className={styles.clearButton}
-      >
+      <button className={styles.clearButton} onClick={clearTodos}>
         Clear all todos
       </button>
     </div>

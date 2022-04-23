@@ -1,22 +1,34 @@
 import React from "react";
 import { Todo } from "types";
+import { Actions } from "store/reducer";
 
 import styles from "./TodoItem.module.scss";
+
+type PropTypes = Todo & {
+  dispatch: React.Dispatch<Actions>;
+};
 
 export default function TodoItem({
   id,
   content,
   isCompleted,
-}: Todo): JSX.Element {
+  dispatch,
+}: PropTypes): JSX.Element {
   const labelClass = `${isCompleted ? styles.completed : ""}`;
 
-  const deleteItem = (event: React.MouseEvent<HTMLElement>) => {
-    event.stopPropagation();
-    console.log("Delete item", id);
+  const onToggle = () => {
+    dispatch({
+      type: "UPDATE_TODO",
+      payload: { id, content, completed: !isCompleted },
+    });
   };
 
-  const onCompleted = (event: React.ChangeEvent<HTMLInputElement>) => {
-    return;
+  const onDelete = (event: React.MouseEvent<HTMLElement>) => {
+    event.stopPropagation();
+    dispatch({
+      type: "DELETE_TODO",
+      payload: id,
+    });
   };
 
   return (
@@ -26,11 +38,11 @@ export default function TodoItem({
           className="toggle"
           type="checkbox"
           checked={isCompleted}
-          onChange={onCompleted}
+          onChange={onToggle}
         />
         {content}
       </label>
-      <button onClick={deleteItem} className={styles.deleteButton}></button>
+      <button onClick={onDelete} className={styles.deleteButton}></button>
     </div>
   );
 }

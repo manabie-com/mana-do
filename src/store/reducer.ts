@@ -1,70 +1,76 @@
+import shortid from "shortid";
+
 import { Todo, TodoStatus } from "types";
-import {
-  AppActions,
-  CREATE_TODO,
-  DELETE_ALL_TODOS,
-  DELETE_TODO,
-  TOGGLE_ALL_TODOS,
-  UPDATE_TODO_STATUS,
-} from "./actions";
+import { UserName } from "./const";
+
+export type Actions =
+  | { type: "CREATE_TODO"; payload: string }
+  | { type: "ADD_TODO"; payload: string }
+  | { type: "UPDATE_TODO"; payload: Todo }
+  | { type: "DELETE_TODO"; payload: string }
+  | { type: "CLEAR_TODOS" }
+  | { type: "TOGGLE_ALL_TODOS" }
+  | { type: "CHANGE_FILTER"; payload: TodoStatus };
 
 export interface AppState {
   todos: Array<Todo>;
+  filter: TodoStatus;
 }
 
 export const initialState: AppState = {
   todos: [],
+  filter: TodoStatus.ALL,
 };
 
-function reducer(state: AppState, action: AppActions): AppState {
+function reducer(state: AppState, action: Actions): AppState {
   switch (action.type) {
-    case CREATE_TODO:
-      state.todos.push(action.payload);
+    case "CREATE_TODO": {
+      const newTodo = {
+        id: shortid(),
+        content: action?.payload,
+        created_date: new Date().toISOString(),
+        status: TodoStatus.ACTIVE,
+        user_id: UserName,
+      };
       return {
         ...state,
+        todos: [newTodo, ...state.todos],
       };
+    }
 
-    case UPDATE_TODO_STATUS:
-      const index2 = state.todos.findIndex(
-        (todo) => todo.id === action.payload.todoId
+    case "UPDATE_TODO": {
+      const newTodos = state.todos.map((todoItem) =>
+        todoItem.id === action.payload.id
+          ? { ...todoItem, ...action.payload }
+          : todoItem
       );
-      state.todos[index2].status = action.payload.checked
-        ? TodoStatus.COMPLETED
-        : TodoStatus.ACTIVE;
-
       return {
         ...state,
-        todos: state.todos,
+        todos: newTodos,
       };
+    }
 
-    case TOGGLE_ALL_TODOS:
-      const tempTodos = state.todos.map((e) => {
-        return {
-          ...e,
-          status: action.payload ? TodoStatus.COMPLETED : TodoStatus.ACTIVE,
-        };
-      });
-
+    case "DELETE_TODO": {
+      const newTodos = state.todos.filter((item) => item.id !== action.payload);
       return {
         ...state,
-        todos: tempTodos,
+        todos: newTodos,
       };
+    }
 
-    case DELETE_TODO:
-      const index1 = state.todos.findIndex(
-        (todo) => todo.id === action.payload
-      );
-      state.todos.splice(index1, 1);
-
-      return {
-        ...state,
-        todos: state.todos,
-      };
-    case DELETE_ALL_TODOS:
+    case "CLEAR_TODOS":
       return {
         ...state,
         todos: [],
       };
+
+    case "CHANGE_FILTER": {
+      return {
+        ...state,
+        filter: action.payload,
+      };
+    }
+
     default:
       return state;
   }

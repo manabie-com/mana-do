@@ -5,13 +5,23 @@ import TodoItem from "components/TodoItem";
 
 type PropTypes = {
   todos: Todo[];
+  dispatch: any;
 };
 
-export default function TodoList({ todos = [] }: PropTypes): JSX.Element {
+export default function TodoList({
+  todos = [],
+  dispatch,
+}: PropTypes): JSX.Element {
   return (
     <div data-testid="todo-list">
       {todos.map(({ id, completed, content }) => (
-        <TodoItem key={id} id={id} content={content} isCompleted={completed} />
+        <TodoItem
+          key={id}
+          id={id}
+          content={content}
+          isCompleted={completed}
+          dispatch={dispatch}
+        />
       ))}
     </div>
   );

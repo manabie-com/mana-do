@@ -1,60 +1,54 @@
-import React, { useEffect, useReducer, useRef, useState } from "react";
+import React, { useReducer } from "react";
 
 import reducer, { initialState } from "store/reducer";
-import {
-  createTodo,
-  toggleAllTodos,
-  deleteAllTodos,
-  updateTodoStatus,
-} from "store/actions";
-import Service from "service";
 import { TodoStatus } from "types";
 import { TodoInput, TodoList, TodoFilter } from "components";
 
 import styles from "./Todo.module.scss";
 
-type EnhanceTodoStatus = TodoStatus | "ALL";
-
 const ToDoPage = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const [showing, setShowing] = useState<EnhanceTodoStatus>("ALL");
-  const inputRef = useRef<any>(null);
 
-  const { todos } = state;
+  const { todos, filter } = state;
 
   console.log({
     todos,
+    filter,
   });
 
-  const onCreateTodo = async (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") {
-      const resp = await Service.createTodo(inputRef.current.value);
-      dispatch(createTodo(resp));
-    }
+  const onAddTodo = (value: string) => {
+    dispatch({
+      type: "CREATE_TODO",
+      payload: value,
+    });
   };
 
-  const onUpdateTodoStatus = (
-    e: React.ChangeEvent<HTMLInputElement>,
-    todoId: any
-  ) => {
-    dispatch(updateTodoStatus(todoId, e.target.checked));
+  const onChangeFilter = (filter: TodoStatus) => {
+    dispatch({ type: "CHANGE_FILTER", payload: filter });
   };
 
-  const onToggleAllTodo = (e: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch(toggleAllTodos(e.target.checked));
+  const onClearTodos = () => {
+    dispatch({ type: "CLEAR_TODOS" });
   };
 
-  const onDeleteAllTodo = () => {
-    dispatch(deleteAllTodos());
-  };
+  const renderTodos =
+    filter === TodoStatus.ALL
+      ? todos
+      : filter === TodoStatus.ACTIVE
+      ? todos.filter((todo) => !todo.completed)
+      : todos.filter((todo) => todo.completed);
 
   return (
     <div className={styles.container}>
       <h1 className={styles.heading}>todos</h1>
       <div className={styles.main}>
-        <TodoInput />
-        <TodoList />
-        <TodoFilter />
+        <TodoInput addTodo={onAddTodo} />
+        <TodoList todos={renderTodos} dispatch={dispatch} />
+        <TodoFilter
+          filter={filter}
+          changeFilter={onChangeFilter}
+          clearTodos={onClearTodos}
+        />
       </div>
     </div>
   );
