@@ -43,7 +43,11 @@
     ]
   },
   "devDependencies": {
+    "@testing-library/react": "^12.1.2",
     "@types/shortid": "^0.0.29",
-    "cypress": "^9.5.4"
+    "cypress": "^9.5.4",
+    "eslint-plugin-cypress": "^2.12.1",
+    "@testing-library/jest-dom": "^5.16.4",
+    "sass": "^1.50.1"
   }
 }
