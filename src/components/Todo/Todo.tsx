@@ -15,7 +15,7 @@ const ToDoPage = () => {
     reducer
   );
 
-  const { todos, filter } = state;
+  const { todos = [], filter = TodoStatus.ALL } = state;
 
   const onAddTodo = (value: string) => {
     dispatch({

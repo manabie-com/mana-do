@@ -25,6 +25,7 @@ export const initialState: AppState = {
 function reducer(state: AppState, action: Actions): AppState {
   switch (action.type) {
     case "CREATE_TODO": {
+      const { todos = [] } = state;
       const newTodo = {
         id: nanoid(),
         content: action?.payload.trim(),
@@ -34,7 +35,7 @@ function reducer(state: AppState, action: Actions): AppState {
       };
       return {
         ...state,
-        todos: [newTodo, ...state?.todos],
+        todos: [newTodo, ...todos],
       };
     }
 
