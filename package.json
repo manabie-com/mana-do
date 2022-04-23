@@ -21,10 +21,14 @@
     "start:frontend": "cross-env REACT_APP_WHOAMI=frontend react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "cypress": "cypress open"
   },
   "eslintConfig": {
-    "extends": "react-app"
+    "extends": [
+      "react-app",
+      "plugin:cypress/recommended"
+    ]
   },
   "browserslist": {
     "production": [
@@ -39,6 +43,7 @@
     ]
   },
   "devDependencies": {
-    "@types/shortid": "^0.0.29"
+    "@types/shortid": "^0.0.29",
+    "cypress": "^9.5.4"
   }
 }
