@@ -1,4 +1,4 @@
-import shortid from "shortid";
+import { nanoid } from "nanoid";
 import { Todo, TodoStatus } from "types";
 
 export const UserName = "firstUser";
@@ -26,7 +26,7 @@ function reducer(state: AppState, action: Actions): AppState {
   switch (action.type) {
     case "CREATE_TODO": {
       const newTodo = {
-        id: shortid(),
+        id: nanoid(),
         content: action?.payload.trim(),
         created_date: new Date().toISOString(),
         completed: false,
@@ -34,7 +34,7 @@ function reducer(state: AppState, action: Actions): AppState {
       };
       return {
         ...state,
-        todos: [newTodo, ...state.todos],
+        todos: [newTodo, ...state?.todos],
       };
     }
 

@@ -47,7 +47,7 @@ const ToDoPage = () => {
         <TodoInput addTodo={onAddTodo} />
         <TodoList todos={renderTodos} dispatch={dispatch} />
         <TodoFilter
-          unCompleteNumber={unCompletedTodos.length}
+          unCompleteNumber={unCompletedTodos?.length || 0}
           filter={filter}
           changeFilter={onChangeFilter}
           clearTodos={onClearTodos}

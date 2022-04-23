@@ -10,6 +10,7 @@
     "@types/react-dom": "^16.9.0",
     "axios": "^0.19.2",
     "cross-env": "^7.0.2",
+    "nanoid": "^3.3.3",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-scripts": "4.0.3",
@@ -43,11 +44,11 @@
     ]
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^12.1.2",
     "@types/shortid": "^0.0.29",
     "cypress": "^9.5.4",
     "eslint-plugin-cypress": "^2.12.1",
-    "@testing-library/jest-dom": "^5.16.4",
     "sass": "^1.50.1"
   }
 }

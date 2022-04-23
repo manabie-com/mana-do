@@ -1,6 +1,6 @@
 import { IAPI } from "./types";
 import { Todo, TodoStatus } from "types";
-import shortid from "shortid";
+import { nanoid } from "nanoid";
 
 class ApiFrontend extends IAPI {
   async createTodo(content: string): Promise<Todo> {
@@ -8,7 +8,7 @@ class ApiFrontend extends IAPI {
       content: content,
       created_date: new Date().toISOString(),
       status: TodoStatus.ACTIVE,
-      id: shortid(),
+      id: nanoid(),
       user_id: "firstUser",
     } as any);
   }
@@ -19,7 +19,7 @@ class ApiFrontend extends IAPI {
         content: "Content",
         created_date: new Date().toISOString(),
         status: TodoStatus.ACTIVE,
-        id: shortid(),
+        id: nanoid(),
         user_id: "firstUser",
       } as any,
     ];
