@@ -24,12 +24,12 @@ const fakeTodo = [
 
 describe("TodoList", () => {
   it("should render TodoList with empty todo", () => {
-    render(<TodoList todo={[]} />);
+    render(<TodoList todos={[]} />);
     expect(screen.queryByTestId("todo-list")).toBeInTheDocument();
   });
 
   it("should render TodoList with array todo", () => {
-    const list = render(<TodoList todo={fakeTodo} />);
+    const list = render(<TodoList todos={fakeTodo} />);
     expect(list.queryByTestId("todo-list")).toBeInTheDocument();
     expect(list.getByText("Feed the cat")).toBeTruthy();
     expect(list.getByText("Feed the cat 3")).toBeTruthy();
