@@ -17,11 +17,6 @@ const ToDoPage = () => {
 
   const { todos, filter } = state;
 
-  console.log({
-    todos,
-    filter,
-  });
-
   const onAddTodo = (value: string) => {
     dispatch({
       type: "CREATE_TODO",
@@ -48,7 +43,7 @@ const ToDoPage = () => {
   return (
     <div className={styles.container}>
       <h1 className={styles.heading}>todos</h1>
-      <div className={styles.main}>
+      <div className={styles.main} data-cy="main">
         <TodoInput addTodo={onAddTodo} />
         <TodoList todos={renderTodos} dispatch={dispatch} />
         <TodoFilter

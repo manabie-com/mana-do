@@ -17,6 +17,7 @@ export default function TodoInput({ addTodo }: any): JSX.Element {
   return (
     <div className={styles.inputContainer}>
       <input
+        data-cy="input"
         aria-label="input"
         className={styles.input}
         placeholder="What need to be done?"

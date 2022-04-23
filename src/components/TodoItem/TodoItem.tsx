@@ -82,16 +82,21 @@ export default function TodoItem({
       ref={ref}
     >
       {!editMode && (
-        <>
+        <div className={styles.itemText} data-cy="todo-item">
           <input
+            data-cy="todo-checkbox"
             className="toggle"
             type="checkbox"
             checked={completed || false}
             onChange={onToggle}
           />
           <label className={labelClass}>{content}</label>
-          <button onClick={onDelete} className={styles.deleteButton}></button>
-        </>
+          <button
+            data-cy="delete"
+            onClick={onDelete}
+            className={styles.deleteButton}
+          ></button>
+        </div>
       )}
       {editMode && (
         <input

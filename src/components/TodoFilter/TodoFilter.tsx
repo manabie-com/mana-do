@@ -17,30 +17,41 @@ export default function TodoFilter({
   changeFilter,
   clearTodos,
 }: PropTypes): JSX.Element {
+  const countText = `${unCompleteNumber} item${
+    unCompleteNumber > 1 ? "s" : ""
+  } left`;
+
   return (
     <div className={styles.container}>
-      <div>{`${unCompleteNumber} items lefts`}</div>
+      <div data-cy="todo-count">{countText}</div>
       <div className={styles.actions}>
         <button
           className={filter === TodoStatus.ALL ? styles.selected : ""}
           onClick={() => changeFilter(TodoStatus.ALL)}
+          data-cy="all"
         >
           All
         </button>
         <button
           className={filter === TodoStatus.ACTIVE ? styles.selected : ""}
           onClick={() => changeFilter(TodoStatus.ACTIVE)}
+          data-cy="active"
         >
           Active
         </button>
         <button
           className={filter === TodoStatus.COMPLETED ? styles.selected : ""}
           onClick={() => changeFilter(TodoStatus.COMPLETED)}
+          data-cy="completed"
         >
           Completed
         </button>
       </div>
-      <button className={styles.clearButton} onClick={clearTodos}>
+      <button
+        data-cy="clear-all"
+        className={styles.clearButton}
+        onClick={clearTodos}
+      >
         Clear all todos
       </button>
     </div>
