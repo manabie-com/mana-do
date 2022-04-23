@@ -19,7 +19,7 @@ export default function TodoList({
           key={id}
           id={id}
           content={content}
-          isCompleted={completed}
+          completed={completed}
           dispatch={dispatch}
         />
       ))}

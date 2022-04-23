@@ -11,15 +11,15 @@ type PropTypes = Todo & {
 export default function TodoItem({
   id,
   content,
-  isCompleted,
+  completed,
   dispatch,
 }: PropTypes): JSX.Element {
-  const labelClass = `${isCompleted ? styles.completed : ""}`;
+  const labelClass = `${completed ? styles.completed : ""}`;
 
-  const onToggle = () => {
+  const onToggle = (event: React.ChangeEvent<HTMLInputElement>) => {
     dispatch({
       type: "UPDATE_TODO",
-      payload: { id, content, completed: !isCompleted },
+      payload: { id, content, completed: event.target.checked },
     });
   };
 
@@ -37,7 +37,7 @@ export default function TodoItem({
         <input
           className="toggle"
           type="checkbox"
-          checked={isCompleted}
+          checked={completed || false}
           onChange={onToggle}
         />
         {content}

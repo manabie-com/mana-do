@@ -27,9 +27,9 @@ function reducer(state: AppState, action: Actions): AppState {
     case "CREATE_TODO": {
       const newTodo = {
         id: shortid(),
-        content: action?.payload,
+        content: action?.payload.trim(),
         created_date: new Date().toISOString(),
-        status: TodoStatus.ACTIVE,
+        completed: false,
         user_id: UserName,
       };
       return {

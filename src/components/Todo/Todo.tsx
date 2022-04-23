@@ -31,11 +31,12 @@ const ToDoPage = () => {
     dispatch({ type: "CLEAR_TODOS" });
   };
 
+  const unCompletedTodos = todos.filter((todo) => !todo.completed);
   const renderTodos =
     filter === TodoStatus.ALL
       ? todos
       : filter === TodoStatus.ACTIVE
-      ? todos.filter((todo) => !todo.completed)
+      ? unCompletedTodos
       : todos.filter((todo) => todo.completed);
 
   return (
@@ -45,6 +46,7 @@ const ToDoPage = () => {
         <TodoInput addTodo={onAddTodo} />
         <TodoList todos={renderTodos} dispatch={dispatch} />
         <TodoFilter
+          unCompleteNumber={unCompletedTodos.length}
           filter={filter}
           changeFilter={onChangeFilter}
           clearTodos={onClearTodos}

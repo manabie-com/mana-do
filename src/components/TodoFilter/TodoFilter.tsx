@@ -6,18 +6,20 @@ import styles from "./TodoFilter.module.scss";
 
 type PropTypes = {
   filter: TodoStatus;
+  unCompleteNumber: number;
   changeFilter: (filter: TodoStatus) => void;
   clearTodos: () => void;
 };
 
 export default function TodoFilter({
   filter,
+  unCompleteNumber,
   changeFilter,
   clearTodos,
 }: PropTypes): JSX.Element {
   return (
     <div className={styles.container}>
-      <div>2 items lefts</div>
+      <div>{`${unCompleteNumber} items lefts`}</div>
       <div className={styles.actions}>
         <button
           className={filter === TodoStatus.ALL ? styles.selected : ""}
