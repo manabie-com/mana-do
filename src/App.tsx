@@ -1,13 +1,13 @@
-import React from 'react';
+import React from "react";
 
-import ToDoPage from './ToDoPage';
+import { TodoPage } from "components";
 
-import './App.css';
+import "./App.css";
 
 function App() {
   return (
     <main className="App">
-      <ToDoPage />
+      <TodoPage />
     </main>
   );
 }
