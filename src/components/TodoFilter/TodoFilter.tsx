@@ -5,7 +5,7 @@ import { TodoStatus } from "types";
 import styles from "./TodoFilter.module.scss";
 
 type PropTypes = {
-  filter: TodoStatus;
+  filter: string;
   unCompleteNumber: number;
   changeFilter: (filter: TodoStatus) => void;
   clearTodos: () => void;

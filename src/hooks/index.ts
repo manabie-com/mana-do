@@ -1,1 +1,4 @@
-export { default as useClickOutside } from "./useClickOutside";
+import { useOnClickOutside } from "./useClickOutside";
+import { useLocalStorageReducer } from "./useLocalStorageReducer";
+
+export { useLocalStorageReducer, useOnClickOutside };

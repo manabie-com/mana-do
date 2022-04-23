@@ -1,12 +1,12 @@
 import shortid from "shortid";
-
 import { Todo, TodoStatus } from "types";
-import { UserName } from "./const";
+
+export const UserName = "firstUser";
 
 export type Actions =
   | { type: "CREATE_TODO"; payload: string }
   | { type: "ADD_TODO"; payload: string }
-  | { type: "UPDATE_TODO"; payload: Todo }
+  | { type: "UPDATE_TODO"; payload: Partial<Todo> }
   | { type: "DELETE_TODO"; payload: string }
   | { type: "CLEAR_TODOS" }
   | { type: "TOGGLE_ALL_TODOS" }

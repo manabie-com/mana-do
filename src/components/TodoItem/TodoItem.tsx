@@ -7,7 +7,7 @@ import React, {
 } from "react";
 import { Todo } from "types";
 import { Actions } from "store/reducer";
-import { useClickOutside } from "hooks";
+import { useOnClickOutside } from "hooks";
 
 import styles from "./TodoItem.module.scss";
 
@@ -26,7 +26,7 @@ export default function TodoItem({
   const labelClass = `${completed ? styles.completed : ""}`;
 
   const ref = useRef<any>();
-  useClickOutside(ref, () => {
+  useOnClickOutside(ref, () => {
     setEditMode(false);
     setNewContent(content);
   });
@@ -34,7 +34,7 @@ export default function TodoItem({
   const onToggle = (event: ChangeEvent<HTMLInputElement>) => {
     dispatch({
       type: "UPDATE_TODO",
-      payload: { id, content, completed: event.target.checked },
+      payload: { id, completed: event.target.checked },
     });
   };
 
@@ -62,7 +62,6 @@ export default function TodoItem({
         payload: {
           id,
           content: newContent,
-          completed,
         },
       });
       setEditMode(false);

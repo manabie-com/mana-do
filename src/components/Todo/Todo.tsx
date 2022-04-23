@@ -1,13 +1,19 @@
-import React, { useReducer } from "react";
+import React from "react";
 
-import reducer, { initialState } from "store/reducer";
+import reducer, { Actions, initialState, AppState } from "store/reducer";
 import { TodoStatus } from "types";
 import { TodoInput, TodoList, TodoFilter } from "components";
+
+import { useLocalStorageReducer } from "hooks";
 
 import styles from "./Todo.module.scss";
 
 const ToDoPage = () => {
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [state, dispatch] = useLocalStorageReducer<AppState, Actions>(
+    "todosApp",
+    initialState,
+    reducer
+  );
 
   const { todos, filter } = state;
 
@@ -31,7 +37,7 @@ const ToDoPage = () => {
     dispatch({ type: "CLEAR_TODOS" });
   };
 
-  const unCompletedTodos = todos.filter((todo) => !todo.completed);
+  const unCompletedTodos = todos?.filter((todo) => !todo.completed);
   const renderTodos =
     filter === TodoStatus.ALL
       ? todos
