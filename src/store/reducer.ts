@@ -5,7 +5,8 @@ import {
   DELETE_ALL_TODOS,
   DELETE_TODO,
   TOGGLE_ALL_TODOS,
-  UPDATE_TODO_STATUS
+  UPDATE_TODO_STATUS,
+  UPDATE_TODO_CONTENT
 } from './actions';
 
 export interface AppState {
@@ -13,7 +14,7 @@ export interface AppState {
 }
 
 export const initialState: AppState = {
-  todos: []
+  todos: JSON.parse(localStorage.getItem("todos") || "[]")
 }
 
 function reducer(state: AppState, action: AppActions): AppState {
@@ -32,13 +33,23 @@ function reducer(state: AppState, action: AppActions): AppState {
       };
 
     case UPDATE_TODO_STATUS:
-      const index2 = state.todos.findIndex((todo) => todo.id === action.payload.todoId);
-      state.todos[index2].status = action.payload.checked ? TodoStatus.COMPLETED : TodoStatus.ACTIVE;
-
       return {
-        ...state,
-        todos: state.todos
-      }
+        //Find the specific todo item and update the status
+        todos: state.todos.map(todo =>
+          (todo.id === action.payload.todoId) 
+            ? {...todo, status: action.payload.checked ? TodoStatus.COMPLETED : TodoStatus.ACTIVE}
+            : todo
+      )}
+
+
+    case UPDATE_TODO_CONTENT:
+      return {
+        //Find changed todo item and update its text/content
+        todos: state.todos.map(todo =>
+          (todo.id === action.payload.todoId) 
+            ? {...todo, content: action.payload.text}
+            : todo
+      )}
 
     case TOGGLE_ALL_TODOS:
       const tempTodos = state.todos.map((e)=>{
@@ -54,15 +65,15 @@ function reducer(state: AppState, action: AppActions): AppState {
       }
 
     case DELETE_TODO:
-      const index1 = state.todos.findIndex((todo) => todo.id === action.payload);
-      state.todos.splice(index1, 1);
-
       return {
+        //Get specific todo and filter existing todos to remove a specific item
         ...state,
-        todos: state.todos
+        todos: state.todos.filter(todo => todo.id !== action.payload)
       }
+      
     case DELETE_ALL_TODOS:
       return {
+        //Return an empty object to delete all todos
         ...state,
         todos: []
       }

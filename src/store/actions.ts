@@ -6,6 +6,7 @@ export const DELETE_TODO = 'DELETE_TODO';
 export const DELETE_ALL_TODOS = 'DELETE_ALL_TODOS';
 export const TOGGLE_ALL_TODOS = 'TOGGLE_ALL_TODOS';
 export const UPDATE_TODO_STATUS = 'UPDATE_TODO_STATUS';
+export const UPDATE_TODO_CONTENT = 'UPDATE_TODO_CONTENT';
 
 
 export interface SetTodoAction {
@@ -20,7 +21,7 @@ export function setTodos(todos: Array<Todo>): SetTodoAction {
   }
 }
 
-///////////
+///////////This action will be use to create new todos
 export interface CreateTodoAction {
   type: typeof CREATE_TODO,
   payload: Todo
@@ -33,7 +34,7 @@ export function createTodo(newTodo: Todo): CreateTodoAction {
   }
 }
 
-//////////////
+//////////////This action will select specific todo item and update the status
 export interface UpdateTodoStatusAction {
   type: typeof UPDATE_TODO_STATUS,
   payload: {
@@ -52,7 +53,26 @@ export function updateTodoStatus(todoId: string, checked: boolean): UpdateTodoSt
   }
 }
 
-//////////////
+//////////////This action will select specific todo item and update the content
+export interface UpdateTodoContentAction {
+  type: typeof UPDATE_TODO_CONTENT,
+  payload: {
+    todoId: string,
+    text: string
+  }
+}
+
+export function updateTodoContent(todoId: string, text: string): UpdateTodoContentAction {
+  return {
+    type: UPDATE_TODO_CONTENT,
+    payload: {
+      todoId,
+      text
+    }
+  }
+}
+
+//////////////This action will delete a single todo
 export interface DeleteTodoAction {
   type: typeof DELETE_TODO,
   payload: string
@@ -65,7 +85,7 @@ export function deleteTodo(todoId: string): DeleteTodoAction {
   }
 }
 
-//////////////
+//////////////This action will delete all todos
 export interface DeleteAllTodosAction {
   type: typeof DELETE_ALL_TODOS,
 }
@@ -95,4 +115,5 @@ export type AppActions =
   UpdateTodoStatusAction |
   DeleteTodoAction |
   DeleteAllTodosAction |
+  UpdateTodoContentAction |
   ToggleAllTodosAction;

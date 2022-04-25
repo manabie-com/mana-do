@@ -5,28 +5,29 @@ import {
   setTodos,
   createTodo,
   toggleAllTodos,
+  deleteTodo,
   deleteAllTodos,
   updateTodoStatus,
+  updateTodoContent,
 } from "../store/actions";
 import Service from "../service";
 import { TodoStatus } from "../models/todo";
 
-import DeleteIcon from '../images/delete.svg'
+import TrashIcon from "../images/trash.svg";
+import CheckIcon from "../images/check.svg";
 
 type EnhanceTodoStatus = TodoStatus | "ALL";
 
 const ToDoPage = () => {
   const [{ todos }, dispatch] = useReducer(reducer, initialState);
   const [showing, setShowing] = useState<EnhanceTodoStatus>("ALL");
+  const [onEdit, setOnEdit] = useState<number>(-1);
+  const [newText, setNewText] = useState<string>("");
   const inputRef = useRef<any>(null);
 
   useEffect(() => {
-    (async () => {
-      const resp = await Service.getTodos();
-
-      dispatch(setTodos(resp || []));
-    })();
-  }, []);
+    localStorage.setItem("todos", JSON.stringify(todos));
+  }, [todos]);
 
   const onCreateTodo = async (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (inputRef.current.value.trim() !== "" && e.key === "Enter") {
@@ -41,17 +42,30 @@ const ToDoPage = () => {
     todoId: any
   ) => {
     dispatch(updateTodoStatus(todoId, e.target.checked));
+    console.log(todoId);
+  };
+
+  const onEditTodo = (
+    e: React.KeyboardEvent<HTMLInputElement>,
+    todoId: any
+  ) => {
+    if (e.key === "Enter") {
+      dispatch(updateTodoContent(todoId, newText));
+      setOnEdit(-1);
+    }
   };
 
   const onToggleAllTodo = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(toggleAllTodos(e.target.checked));
   };
 
+  const onDeleteTodo = (todoId: any) => {
+    dispatch(deleteTodo(todoId));
+  };
+
   const onDeleteAllTodo = () => {
     dispatch(deleteAllTodos());
   };
-
-  console.log("current todos", todos);
 
   return (
     <div className="Todo__page">
@@ -66,21 +80,43 @@ const ToDoPage = () => {
       </div>
       <div className="ToDo__container">
         <div className="Todo__toolbar">
-          {todos.length >= 0 ? (
-            <input type="checkbox" onChange={onToggleAllTodo} />
+          {todos.length !== 0 ? (
+            // <input type="checkbox" onChange={onToggleAllTodo} />
+            <>
+              <input
+                id="toggleAll"
+                className="visually-hidden"
+                type="checkbox"
+                onChange={onToggleAllTodo}
+              />
+              <label className="Todo__complete" htmlFor="toggleAll">
+                <img src={CheckIcon} alt="Complete todo" />
+              </label>
+            </>
           ) : (
             <div />
           )}
           <div className="Todo__tabs">
-            <button className="Action__btn">All</button>
             <button
-              className="Action__btn"
+              className={`Action__btn ${
+                showing === "ALL" ? "Action__btn--all" : ""
+              }`}
+              onClick={() => setShowing("ALL")}
+            >
+              All
+            </button>
+            <button
+              className={`Action__btn ${
+                showing === "ACTIVE" ? "Action__btn--active" : ""
+              }`}
               onClick={() => setShowing(TodoStatus.ACTIVE)}
             >
               Active
             </button>
             <button
-              className="Action__btn"
+              className={`Action__btn ${
+                showing === "COMPLETED" ? "Action__btn--completed" : ""
+              }`}
               onClick={() => setShowing(TodoStatus.COMPLETED)}
             >
               Completed
@@ -91,19 +127,74 @@ const ToDoPage = () => {
           </button>
         </div>
         <div className="ToDo__list">
-          {todos.map((todo, index) => {
-            return (
-              <div key={index} className="ToDo__item">
-                <input
-                  type="checkbox"
-                  checked={showing === todo.status}
-                  onChange={(e) => onUpdateTodoStatus(e, index)}
-                />
-                <span>{todo.content}</span>
-                <button className="Todo__delete"><img src={DeleteIcon} alt="Delete todo" /></button>
+          {todos.length !== 0 ? (
+            todos.map((todo, index) => {
+              if (todo.status === showing || showing === "ALL") {
+                return (
+                  <div
+                    key={index}
+                    className={`ToDo__item ToDo__item${
+                      todo.status === TodoStatus.COMPLETED
+                        ? "--completed"
+                        : "--active"
+                    }`}
+                  >
+                    <div
+                      className="Todo__title--container"
+                      onDoubleClick={() => setOnEdit(index)}
+                    >
+                      {onEdit === index ? (
+                        <input
+                          autoFocus
+                          onChange={(e) => {
+                            setNewText(e.target.value);
+                          }}
+                          onBlur={() => {
+                            setOnEdit(-1);
+                          }}
+                          onKeyDown={(e) => {
+                            onEditTodo(e, todo.id);
+                          }}
+                          type="text"
+                          className="Todo__title"
+                        />
+                      ) : (
+                        <span className="Todo__title">{todo.content}</span>
+                      )}
+                    </div>
+                    <span className="Todo__date">
+                      {todo.created_date.substring(0, 10)}
+                    </span>
+                    <input
+                      id={todo.id}
+                      className="toggle visually-hidden"
+                      type="checkbox"
+                      checked={todo.status === TodoStatus.COMPLETED}
+                      onChange={(e) => onUpdateTodoStatus(e, todo.id)}
+                    />
+                    <label className="Todo__complete" htmlFor={todo.id}>
+                      <img src={CheckIcon} alt="Complete todo" />
+                    </label>
+                    <button
+                      className="Todo__delete"
+                      onClick={() => onDeleteTodo(todo.id)}
+                    >
+                      <img src={TrashIcon} alt="Delete todo" />
+                    </button>
+                  </div>
+                );
+              }
+            })
+          ) : (
+            <div className="Todo__empty">
+              <h4>Add your very first task!</h4>
+              <div className="Todo__instructions">
+                <p>✍ Enter your task on the field above</p>
+                <p>💻 Press 'Enter' to save your task</p>
+                <p>Your task/s should appear here</p>
               </div>
-            );
-          })}
+            </div>
+          )}
         </div>
       </div>
     </div>
