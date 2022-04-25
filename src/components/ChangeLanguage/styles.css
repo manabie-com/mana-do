@@ -1,0 +1,19 @@
+.language__box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+.language__item {
+    color: darkslategray;
+    font-weight: 500;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all .3s;
+}
+.language__item:hover, .language__item:focus {
+    opacity: 0.8;
+}
+.language__item-active {
+    color: red;
+}
