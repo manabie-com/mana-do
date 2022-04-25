@@ -45,6 +45,10 @@ input:focus {
   box-shadow: 1px 0 9px rgba(0,0,0, 0.25);
 }
 
+.visually-hidden {
+  display: none;
+}
+
 .Nav {
   padding: 10px 25px;
 }
@@ -96,12 +100,34 @@ input:focus {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding: 12px 10px;
+  margin-bottom: 8px;
+  border: 1px solid #D3D3D3;
 }
 
-.ToDo__item > span {
+.ToDo__item--completed {
+  border-left: 7px solid #16C60C;
+  text-decoration: line-through;
+}
+
+.ToDo__item--active {
+  border-left: 7px solid #ff8c00;
+}
+
+.ToDo__item > .Todo__title,
+.ToDo__item > .Todo__title--container {
   flex: 1 1;
   text-align: left;
   margin-left: 8px;
+  font-size: 18px;
+}
+
+.Todo__date {
+  flex: 1 1;
+  text-align: left;
+  margin-left: 8px;
+  color: #808080;
+  font-size: 12px;
 }
 
 .Todo__content {
@@ -110,22 +136,56 @@ input:focus {
 
 .Todo__delete {
   outline: none;
-  border: none;
+  border: 1px solid transparent;
+  width: 34px;
+  height: 34px;
+  min-width: auto;
+  min-height: auto;
+  box-shadow: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  background-color: #ff0021;
+}
+
+.Todo__delete img {
+  filter: invert(1);
+}
+
+.Todo__complete {
+  outline: none;
+  border: 1px solid #bfbaba;
+  border-radius: 4px;
   width: 32px;
   height: 32px;
   min-width: auto;
   min-height: auto;
+  margin-right: 6px;
   box-shadow: none;
-  border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
 }
 
+.Todo__complete img {
+  filter: opacity(.5);
+
+}
+
+.toggle:checked + .Todo__complete,
+#toggleAll:checked + .Todo__complete {
+  border: 1px solid transparent;
+  background-color: #5cdb5c;
+}
+
+.toggle:checked + .Todo__complete img,
+#toggleAll:checked + .Todo__complete img {
+  filter: invert(1);
+}
+
 .Todo__action, .Todo__delete {
-  width: 24px;
-  height: 24px;
   flex-shrink: 0;
 }
 
@@ -145,4 +205,40 @@ input:focus {
 }
 
 .Action__btn {
+  box-shadow: none;
+  border: none;
+  border-radius: 25px;
+  border-color: none;
+  background: none;
+  cursor: pointer;
+}
+
+.Action__btn--all {
+  background-color: #1c7af2;
+  color: #ffffff;
+}
+
+.Action__btn--active {
+  background-color: #ff8c00;
+  color: #ffffff;
+}
+
+.Action__btn--completed {
+  background-color: #16C60C;
+  color: #ffffff;
+}
+
+.Todo__empty .Todo__instructions {
+  max-width: 575px;
+  margin: auto;
+}
+
+.Todo__empty .Todo__instructions p {
+  text-align: left;
+}
+
+@media (max-width: 768px) {
+  .Todo__page {
+    padding: 0px 25px;
+  }
 }
