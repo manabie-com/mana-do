@@ -84,8 +84,9 @@ input:focus {
   align-items: center;
   justify-content: space-between;
   padding: 0.25rem;
-  border: 1px solid #ccc;
+  border: 1px solid #eee;
   border-radius: 0.25rem;
+  margin-bottom: 0.5rem;
 }
 
 .ToDo__item > span {
@@ -109,7 +110,7 @@ input:focus {
   top: 100%;
   right: 0;
   position: absolute;
-  background-color: rgb(174, 239, 239);
+  background-color: #93c5fd;
   display: none;
   transition: all 0.25s;
   border-radius: 0.125rem;
@@ -122,7 +123,8 @@ input:focus {
   background-color: #ddd;
 }
 .Empty__data__alert {
-  background-color: rgb(145, 248, 199);
+  background-color: #bbf7d0;
+  color: #6b7280;
   padding: 0.5rem;
   border-radius: 0.25rem;
 }
@@ -154,7 +156,14 @@ input:focus {
   margin-top: 24px;
   flex-wrap: wrap;
 }
-
+.Todo__selectall__area {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+.Todo__selectall__area p {
+  margin-left: 0.5rem;
+}
 .Todo__tabs {
   display: flex;
   justify-content: center;
@@ -165,4 +174,6 @@ input:focus {
 }
 
 .Action__btn {
+  background-color: #3b82f6;
+  color: #fff;
 }

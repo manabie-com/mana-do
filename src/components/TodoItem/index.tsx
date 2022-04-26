@@ -1,36 +1,26 @@
-import React, { useState, useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import { Todo, TodoStatus } from "../../models/todo";
-
-type EnhanceTodoStatus = TodoStatus | "ALL";
 interface TodoItemPropsInterface {
   todo: Todo;
   onDeleteTodo: (id: string) => void;
   onEditTodo: (id: string, content: string) => void;
+  onUpdateTodoStatus: (
+    e: React.ChangeEvent<HTMLInputElement>,
+    todoId: any
+  ) => void;
 }
 
 function TodoItem(props: TodoItemPropsInterface) {
-  const { todo, onDeleteTodo, onEditTodo } = props;
-  // console.log("todo", todo);
+  const { todo, onDeleteTodo, onEditTodo, onUpdateTodoStatus } = props;
   const [todoInputValue, setTodoInputValue] = useState<string>(todo.content);
-
-  const [showing, setShowing] = useState<EnhanceTodoStatus>("ALL");
   const [isShowEditInput, setIsShowEditIput] = useState<boolean>(false);
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
-    // console.log(event.target.value);
     setTodoInputValue(event.target.value);
   }
   const currentContentValue = useMemo(() => {
     return todo.content;
   }, [todo]);
-  // const onDeleteTodo = (id: string) => {
-  //   dispatch(deleteTodo(id));
-  // };
-  // const onUpdateTodoStatus = (
-  //   e: React.ChangeEvent<HTMLInputElement>,
-  //   todoId: any
-  // ) => {
-  //   dispatch(updateTodoStatus(todoId, e.target.checked));
-  // };
+
   const onEditContentTodo = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       if (!todoInputValue) return;
@@ -50,8 +40,8 @@ function TodoItem(props: TodoItemPropsInterface) {
     <div className="ToDo__item">
       <input
         type="checkbox"
-        checked={showing === todo.status}
-        // onChange={(e) => onUpdateTodoStatus(e, todo.id)}
+        checked={TodoStatus.COMPLETED === todo.status}
+        onChange={(e) => onUpdateTodoStatus(e, todo.id)}
       />
       <>
         {isShowEditInput && (

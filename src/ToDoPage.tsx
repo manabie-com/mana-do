@@ -1,5 +1,4 @@
-import React, { useEffect, useReducer, useRef, useState } from "react";
-
+import React, { useEffect, useReducer, useRef, useState, useMemo } from "react";
 import reducer, { initialState } from "./store/reducer";
 import {
   setTodos,
@@ -58,9 +57,11 @@ const ToDoPage = () => {
     dispatch(deleteAllTodos());
   };
 
-  function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
-    console.log(event.target.value);
-  }
+  const filteredTodos = useMemo(() => {
+    if (showing === "ALL") return todos;
+    return todos.filter((todo) => todo.status === showing);
+  }, [todos, showing]);
+
   return (
     <div className="ToDo__container">
       <h3>Doan The Duy - do assigment - Apply for Frontend position</h3>
@@ -74,15 +75,16 @@ const ToDoPage = () => {
         />
       </div>
       <div className="ToDo__list">
-        {todos && todos.length > 0 ? (
+        {filteredTodos && filteredTodos.length > 0 ? (
           <>
-            {todos.map((todo, index) => {
+            {filteredTodos.map((todo, index) => {
               return (
                 <div key={index}>
                   <TodoItem
                     todo={todo}
                     onDeleteTodo={onDeleteTodo}
                     onEditTodo={onEditTodo}
+                    onUpdateTodoStatus={onUpdateTodoStatus}
                   />
                 </div>
               );
@@ -95,25 +97,41 @@ const ToDoPage = () => {
         )}
       </div>
       <div className="Todo__toolbar">
-        {todos.length > 0 ? (
-          <>
+        {filteredTodos.length > 0 ? (
+          <div className="Todo__selectall__area">
             <input type="checkbox" onChange={onToggleAllTodo} />
-            <span>Select all</span>
-          </>
+            <p>Select all</p>
+          </div>
         ) : (
           <div />
         )}
         <div className="Todo__tabs">
-          <button className="Action__btn">All</button>
+          <button
+            className="Action__btn"
+            onClick={() => setShowing("ALL")}
+            style={{
+              backgroundColor: showing === "ALL" ? "#1e3a8a" : "#3b82f6",
+            }}
+          >
+            All
+          </button>
           <button
             className="Action__btn"
             onClick={() => setShowing(TodoStatus.ACTIVE)}
+            style={{
+              backgroundColor:
+                showing === TodoStatus.ACTIVE ? "#1e3a8a" : "#3b82f6",
+            }}
           >
             Active
           </button>
           <button
             className="Action__btn"
             onClick={() => setShowing(TodoStatus.COMPLETED)}
+            style={{
+              backgroundColor:
+                showing === TodoStatus.COMPLETED ? "#1e3a8a" : "#3b82f6",
+            }}
           >
             Completed
           </button>
