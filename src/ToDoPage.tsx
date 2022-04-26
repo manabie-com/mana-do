@@ -6,7 +6,8 @@ import {
     createTodo,
     toggleAllTodos,
     deleteAllTodos,
-    updateTodoStatus
+    updateTodoStatus,
+    deleteTodo
 } from './store/actions';
 import Service from './service';
 import {TodoStatus} from './models/todo';
@@ -15,14 +16,16 @@ type EnhanceTodoStatus = TodoStatus | 'ALL';
 
 
 const ToDoPage = () => {
-    const [{todos}, dispatch] = useReducer(reducer, initialState);
-    const [showing, setShowing] = useState<EnhanceTodoStatus>('ALL');
+    // const [{todos}, dispatch] = useReducer(reducer, initialState);
+    // const [showing, setShowing] = useState<EnhanceTodoStatus>('ALL');
+    const memoizedReducer = React.useCallback(reducer,[]);
+    const [{todos}, dispatch] = useReducer(memoizedReducer,initialState);
+    const [showing, setShowing] = useState<EnhanceTodoStatus>(TodoStatus.COMPLETED);
     const inputRef = useRef<any>(null);
 
     useEffect(()=>{
         (async ()=>{
             const resp = await Service.getTodos();
-
             dispatch(setTodos(resp || []));
         })()
     }, [])
@@ -31,6 +34,7 @@ const ToDoPage = () => {
         if (e.key === 'Enter' ) {
             const resp = await Service.createTodo(inputRef.current.value);
             dispatch(createTodo(resp));
+            localStorage.setItem('todoDATA',JSON.stringify(resp));
         }
     }
 
@@ -46,6 +50,10 @@ const ToDoPage = () => {
         dispatch(deleteAllTodos());
     }
 
+    const onDeleteTodo = (todoId: any) => {
+        dispatch(deleteTodo(todoId))
+    }
+
 
     return (
         <div className="ToDo__container">
@@ -54,7 +62,8 @@ const ToDoPage = () => {
                     ref={inputRef}
                     className="Todo__input"
                     placeholder="What need to be done?"
-                    onKeyDown={onCreateTodo}
+                    // onKeyDown={onCreateTodo}
+                    onKeyPress={(e)=>{onCreateTodo(e)}}
                 />
             </div>
             <div className="ToDo__list">
@@ -68,7 +77,7 @@ const ToDoPage = () => {
                                     onChange={(e) => onUpdateTodoStatus(e, index)}
                                 />
                                 <span>{todo.content}</span>
-                                <button
+                                <button onClick={()=>onDeleteTodo(todo.id)}
                                     className="Todo__delete"
                                 >
                                     X
@@ -86,7 +95,7 @@ const ToDoPage = () => {
                     /> : <div/>
                 }
                 <div className="Todo__tabs">
-                    <button className="Action__btn">
+                    <button className="Action__btn" onClick={()=>setShowing(TodoStatus.ACTIVE)}>
                         All
                     </button>
                     <button className="Action__btn" onClick={()=>setShowing(TodoStatus.ACTIVE)}>
