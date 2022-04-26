@@ -12,7 +12,7 @@ import {
 import Service from "./service";
 import { TodoStatus } from "./models/todo";
 import TodoItem from "./components/TodoItem";
-
+import { APP_CONSTANT } from "./constants";
 type EnhanceTodoStatus = TodoStatus | "ALL";
 
 const ToDoPage = () => {
@@ -21,12 +21,18 @@ const ToDoPage = () => {
   const inputRef = useRef<any>(null);
 
   useEffect(() => {
-    (async () => {
-      const resp = await Service.getTodos();
+    const saved = localStorage.getItem(APP_CONSTANT.LOCAL_STORAGE_KEY);
+    let initialValue = [];
+    if (saved) {
+      initialValue = JSON.parse(saved);
+    }
 
-      dispatch(setTodos(resp || []));
-    })();
+    dispatch(setTodos(initialValue));
   }, []);
+
+  useEffect(() => {
+    localStorage.setItem(APP_CONSTANT.LOCAL_STORAGE_KEY, JSON.stringify(todos));
+  }, [todos]);
 
   const onCreateTodo = async (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (!inputRef.current.value) return;
@@ -34,7 +40,6 @@ const ToDoPage = () => {
       const resp = await Service.createTodo(inputRef.current.value);
 
       dispatch(createTodo(resp));
-      //reser form
       inputRef.current.value = "";
     }
   };

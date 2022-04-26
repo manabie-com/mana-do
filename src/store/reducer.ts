@@ -1,32 +1,24 @@
 import { Todo, TodoStatus } from "../models/todo";
 import {
-  AppActions,
-  CREATE_TODO,
-  EDIT_TODO,
-  DELETE_ALL_TODOS,
-  DELETE_TODO,
-  TOGGLE_ALL_TODOS,
-  UPDATE_TODO_STATUS,
+  AppActions, CREATE_TODO, DELETE_ALL_TODOS,
+  DELETE_TODO, EDIT_TODO, SET_TODO, TOGGLE_ALL_TODOS,
+  UPDATE_TODO_STATUS
 } from "./actions";
-
 export interface AppState {
   todos: Array<Todo>;
 }
 
 export const initialState: AppState = {
-  todos: [
-    // {
-    //   content: "Example data",
-    //   created_date: "2022-04-22T15:34:11.462Z",
-    //   id: "Kj4uRj_Q-",
-    //   status: "ACTIVE",
-    //   user_id: "firstUser",
-    // },
-  ],
+  todos: [],
 };
 
 function reducer(state: AppState, action: AppActions): AppState {
   switch (action.type) {
+    case SET_TODO:
+      return {
+        ...state,
+        todos: action.payload,
+      };
     case CREATE_TODO:
       return {
         ...state,
@@ -44,16 +36,20 @@ function reducer(state: AppState, action: AppActions): AppState {
         todos: newTodos,
       };
     case UPDATE_TODO_STATUS:
-      const index2 = state.todos.findIndex(
-        (todo) => todo.id === action.payload.todoId
-      );
-      state.todos[index2].status = action.payload.checked
-        ? TodoStatus.COMPLETED
-        : TodoStatus.ACTIVE;
-
+      const statusUpdatedTodos = state.todos.map((todo) => {
+        if (todo.id === action.payload.todoId) {
+          return {
+            ...todo,
+            status: action.payload.checked
+              ? TodoStatus.COMPLETED
+              : TodoStatus.ACTIVE,
+          };
+        }
+        return todo;
+      });
       return {
         ...state,
-        todos: state.todos,
+        todos: statusUpdatedTodos,
       };
 
     case TOGGLE_ALL_TODOS:
@@ -71,7 +67,7 @@ function reducer(state: AppState, action: AppActions): AppState {
 
     case DELETE_TODO:
       return {
-        ...state, //copying the original state
+        ...state,
         todos: state.todos.filter((todo) => todo.id !== action.payload),
       };
     case DELETE_ALL_TODOS:
