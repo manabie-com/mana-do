@@ -26,7 +26,6 @@ export const initialState: AppState = {
 };
 
 function reducer(state: AppState, action: AppActions): AppState {
-  console.log("reducer running reducer", action);
   switch (action.type) {
     case CREATE_TODO:
       return {

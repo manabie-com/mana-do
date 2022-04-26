@@ -18,7 +18,6 @@ type EnhanceTodoStatus = TodoStatus | "ALL";
 const ToDoPage = () => {
   const [{ todos }, dispatch] = useReducer(reducer, initialState);
   const [showing, setShowing] = useState<EnhanceTodoStatus>("ALL");
-  console.log("todos", todos);
   const inputRef = useRef<any>(null);
 
   useEffect(() => {
@@ -35,20 +34,26 @@ const ToDoPage = () => {
       const resp = await Service.createTodo(inputRef.current.value);
 
       dispatch(createTodo(resp));
+      //reser form
+      inputRef.current.value = "";
     }
   };
+
   const onEditTodo = (id: string, content: string) => {
     dispatch(editTodo(id, content));
   };
+
   const onUpdateTodoStatus = (
     e: React.ChangeEvent<HTMLInputElement>,
     todoId: any
   ) => {
     dispatch(updateTodoStatus(todoId, e.target.checked));
   };
+
   const onDeleteTodo = (id: string) => {
     dispatch(deleteTodo(id));
   };
+
   const onToggleAllTodo = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(toggleAllTodos(e.target.checked));
   };
@@ -64,7 +69,9 @@ const ToDoPage = () => {
 
   return (
     <div className="ToDo__container">
-      <h3>Doan The Duy - do assigment - Apply for Frontend position</h3>
+      <h3>
+        Doan The Duy - do assigment - Apply for Frontend position - Manabie
+      </h3>
       <div className="Todo__creation">
         <input
           ref={inputRef}

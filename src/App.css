@@ -141,6 +141,7 @@ input:focus {
   justify-content: center;
   align-items: center;
   cursor: pointer;
+  background-color: #fca5a5;
 }
 
 .Todo__action,
