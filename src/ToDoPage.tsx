@@ -84,6 +84,7 @@ const ToDoPage = () => {
           placeholder="What need to be done?"
           onKeyDown={onCreateTodo}
           required
+          data-testid="todo-input"
         />
       </div>
       <div className="ToDo__list">

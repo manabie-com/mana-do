@@ -34,6 +34,7 @@ function TodoItem(props: TodoItemPropsInterface) {
   return (
     <div className="ToDo__item">
       <input
+        data-testid="status-checkbox"
         type="checkbox"
         checked={TodoStatus.COMPLETED === todo.status}
         onChange={(e) => onUpdateTodoStatus(e, todo.id)}
@@ -41,6 +42,7 @@ function TodoItem(props: TodoItemPropsInterface) {
       <>
         {isShowEditInput && (
           <input
+            data-testid="todo-input"
             className="Todo__content__input"
             value={todoInputValue}
             onKeyDown={onEditContentTodo}
@@ -53,6 +55,7 @@ function TodoItem(props: TodoItemPropsInterface) {
       <>
         {!isShowEditInput && (
           <span
+            data-testid="todo-content"
             style={{ cursor: "pointer" }}
             onDoubleClick={toggleShowInputToEdit}
             className="Todo__content"
