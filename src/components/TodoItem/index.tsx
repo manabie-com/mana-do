@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useState, useRef, useEffect } from "react";
 import { TodoStatus } from "../../models/todo";
 import { TodoItemPropsInterface } from "./types";
 
@@ -6,6 +6,15 @@ function TodoItem(props: TodoItemPropsInterface) {
   const { todo, onDeleteTodo, onEditTodo, onUpdateTodoStatus } = props;
   const [todoInputValue, setTodoInputValue] = useState<string>(todo.content);
   const [isShowEditInput, setIsShowEditIput] = useState<boolean>(false);
+  const inputRef = useRef<any>(null);
+
+  useEffect(() => {
+    if (inputRef && inputRef.current) {
+      inputRef.current.focus();
+      inputRef.current.select();
+    }
+  }, [isShowEditInput]);
+  
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     setTodoInputValue(event.target.value);
   }
@@ -31,6 +40,10 @@ function TodoItem(props: TodoItemPropsInterface) {
     toggleShowInputToEdit();
   };
 
+  const handleClick = () => {
+    inputRef.current.focus();
+  };
+
   return (
     <div className="ToDo__item">
       <input
@@ -42,12 +55,14 @@ function TodoItem(props: TodoItemPropsInterface) {
       <>
         {isShowEditInput && (
           <input
+            ref={inputRef}
             data-testid="todo-input"
             className="Todo__content__input"
             value={todoInputValue}
             onKeyDown={onEditContentTodo}
             onChange={handleChange}
             onBlur={handleBlur}
+            onClick={handleClick}
             required
           />
         )}
