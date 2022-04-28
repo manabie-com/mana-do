@@ -1,4 +1,5 @@
 import React, {useEffect, useReducer, useRef, useState} from 'react';
+import { Button } from 'react-bootstrap';
 
 import reducer, {initialState} from './store/reducer';
 import {
@@ -7,7 +8,8 @@ import {
     toggleAllTodos,
     deleteAllTodos,
     updateTodoStatus,
-    deleteTodo
+    deleteTodo,
+    updateTodoName
 } from './store/actions';
 import Service from './service';
 import {TodoStatus} from './models/todo';
@@ -16,8 +18,9 @@ type EnhanceTodoStatus = TodoStatus | 'ALL';
 
 
 const ToDoPage = () => {
-    // const [{todos}, dispatch] = useReducer(reducer, initialState);
-    // const [showing, setShowing] = useState<EnhanceTodoStatus>('ALL');
+    const [todoContent, setTodoContent] = React.useState("");
+    const [todoId, setTodoId] = React.useState(0);
+    const [editMode, setEditMode] = React.useState(false);
     const memoizedReducer = React.useCallback(reducer,[]);
     const [{todos}, dispatch] = useReducer(memoizedReducer,initialState);
     const [showing, setShowing] = useState<EnhanceTodoStatus>(TodoStatus.COMPLETED);
@@ -30,31 +33,31 @@ const ToDoPage = () => {
         })()
     }, [])
 
-    const onCreateTodo = async (e: React.KeyboardEvent<HTMLInputElement>) => {
+    const onUpdateTodoStatus = (e: React.ChangeEvent<HTMLInputElement>, todoId: any) => {
+        dispatch(updateTodoStatus(todoId, e.target.checked))
+    }
+    const onToggleAllTodo = (e: React.ChangeEvent<HTMLInputElement>) => {
+        dispatch(toggleAllTodos(e.target.checked))
+    }
+    const onDeleteAllTodo = () => {
+        dispatch(deleteAllTodos());
+    }
+    const onDeleteTodo = (todoId: any) => {
+        dispatch(deleteTodo(todoId))
+    }
+    const onCreateTodo = async (e: React.KeyboardEvent<HTMLInputElement>) => {  
         if (e.key === 'Enter' ) {
             const resp = await Service.createTodo(inputRef.current.value);
             dispatch(createTodo(resp));
             localStorage.setItem('todoDATA',JSON.stringify(resp));
         }
     }
-
-    const onUpdateTodoStatus = (e: React.ChangeEvent<HTMLInputElement>, todoId: any) => {
-        dispatch(updateTodoStatus(todoId, e.target.checked))
+    const inputHandler = (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
+        dispatch(updateTodoName(index, e.target.value));
     }
-
-    const onToggleAllTodo = (e: React.ChangeEvent<HTMLInputElement>) => {
-        dispatch(toggleAllTodos(e.target.checked))
+    const saveTodo = () => {
+        setEditMode(false);
     }
-
-    const onDeleteAllTodo = () => {
-        dispatch(deleteAllTodos());
-    }
-
-    const onDeleteTodo = (todoId: any) => {
-        dispatch(deleteTodo(todoId))
-    }
-
-
     return (
         <div className="ToDo__container">
             <div className="Todo__creation">
@@ -70,18 +73,20 @@ const ToDoPage = () => {
                 {
                     todos.map((todo, index) => {
                         return (
-                            <div key={index} className="ToDo__item">
+                            <div key={index} className="ToDo__item" >
                                 <input
                                     type="checkbox"
-                                    checked={showing === todo.status}
+                                    checked={showing === todo.status}   
                                     onChange={(e) => onUpdateTodoStatus(e, index)}
                                 />
-                                <span>{todo.content}</span>
-                                <button onClick={()=>onDeleteTodo(todo.id)}
-                                    className="Todo__delete"
-                                >
-                                    X
-                                </button>
+                                <div style={{display: "block", marginRight: "auto", marginLeft: "auto"}}>
+                                {   editMode ? <div style={{marginBottom: "20px"}}><input value={todo.content}
+                                    onChange={(e) => inputHandler(e, index)} 
+                                    // onKeyPress={(eL)=>{onUpdateTodoName(eL)}} 
+                                    /></div>
+                                : <p onDoubleClick={()=>setEditMode(true)}>{todo.content}</p>}
+                                </div>
+                                {editMode ? null : <button onClick={()=>onDeleteTodo(todo.id)}className="Todo__delete">X</button>}
                             </div>
                         );
                     })
@@ -95,19 +100,22 @@ const ToDoPage = () => {
                     /> : <div/>
                 }
                 <div className="Todo__tabs">
-                    <button className="Action__btn" onClick={()=>setShowing(TodoStatus.ACTIVE)}>
+                    <Button style={{marginRight: "10px"}} variant="light" size="sm" onClick={()=>setShowing(TodoStatus.ACTIVE || TodoStatus.COMPLETED )}>
                         All
-                    </button>
-                    <button className="Action__btn" onClick={()=>setShowing(TodoStatus.ACTIVE)}>
+                    </Button>
+                    <Button style={{marginRight: "10px"}} variant="primary" size="sm"onClick={()=>setShowing(TodoStatus.ACTIVE)}>
                         Active
-                    </button>
-                    <button className="Action__btn" onClick={()=>setShowing(TodoStatus.COMPLETED)}>
+                    </Button>
+                    <Button style={{marginRight: "10px"}} variant="success" size="sm" onClick={()=>setShowing(TodoStatus.COMPLETED)}>
                         Completed
-                    </button>
+                    </Button>
                 </div>
-                <button className="Action__btn" onClick={onDeleteAllTodo}>
+                <Button variant="info" style={{marginRight: "10px"}} size="sm" onClick={saveTodo}>
+                    Save
+                </Button>
+                <Button variant="danger" style={{marginRight: "10px"}}  size="sm" onClick={onDeleteAllTodo}>
                     Clear all todos
-                </button>
+                </Button>
             </div>
         </div>
     );

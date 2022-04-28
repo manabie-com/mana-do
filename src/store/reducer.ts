@@ -5,7 +5,8 @@ import {
   DELETE_ALL_TODOS,
   DELETE_TODO,
   TOGGLE_ALL_TODOS,
-  UPDATE_TODO_STATUS
+  UPDATE_TODO_STATUS,
+  UPDATE_TODO_NAME,
 } from './actions';
 
 export interface AppState {
@@ -50,6 +51,15 @@ function reducer(state: AppState, action: AppActions): AppState {
                 return {
                     ...state,
                     todos: state.todos
+                }
+        case UPDATE_TODO_NAME:
+            const index3 = action.payload.todoId;
+            const name = action.payload.todoName;
+            let statusRowToUpdate = state.todos;
+            statusRowToUpdate[index3] = { ...statusRowToUpdate[index3], content: name };
+                return {
+                    ...state,
+                    todos: statusRowToUpdate
                 }
         case DELETE_ALL_TODOS:
                 return {
