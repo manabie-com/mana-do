@@ -1,5 +1,5 @@
 import React, {useEffect, useReducer, useRef, useState} from 'react';
-import { Button } from 'react-bootstrap';
+import { Button, Alert } from 'react-bootstrap';
 
 import reducer, {initialState} from './store/reducer';
 import {
@@ -20,6 +20,9 @@ type EnhanceTodoStatus = TodoStatus | 'ALL';
 const ToDoPage = () => {
     const [todoContent, setTodoContent] = React.useState("");
     const [todoId, setTodoId] = React.useState(0);
+    const [alertVariant, setAlertVariant] = React.useState("");
+    const [alertMessage, setAlertMessage] = React.useState("");
+    const [showAlert, setShowAlert] = useState(false);
     const [editMode, setEditMode] = React.useState(false);
     const memoizedReducer = React.useCallback(reducer,[]);
     const [{todos}, dispatch] = useReducer(memoizedReducer,initialState);
@@ -57,6 +60,12 @@ const ToDoPage = () => {
     }
     const saveTodo = () => {
         setEditMode(false);
+        displayAlert();
+    }
+    const displayAlert = () => {
+        setAlertMessage("Success");
+        setAlertVariant("success");
+        setShowAlert(true);
     }
     return (
         <div className="ToDo__container">
@@ -117,6 +126,9 @@ const ToDoPage = () => {
                     Clear all todos
                 </Button>
             </div>
+            { showAlert && <Alert style={{marginTop: "10px"}} variant={alertVariant} onClose={() => setShowAlert(false)} dismissible>
+                    {`${alertMessage}`}
+            </Alert>}
         </div>
     );
 };
