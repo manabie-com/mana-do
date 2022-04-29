@@ -12,7 +12,8 @@ import {
     updateTodoName
 } from './store/actions';
 import Service from './service';
-import {TodoStatus} from './models/todo';
+import { TodoStatus, Todo } from './models/todo';
+import { isTemplateSpan } from 'typescript';
 
 type EnhanceTodoStatus = TodoStatus | 'ALL';
 
@@ -31,8 +32,14 @@ const ToDoPage = () => {
 
     useEffect(()=>{
         (async ()=>{
-            const resp = await Service.getTodos();
-            dispatch(setTodos(resp || []));
+            // const resp = await Service.getTodos();
+            // const item: string | null = localStorage.getItem('todoDATA');
+            // if(item){
+            //     let data: Todo[] = JSON.parse(item);
+            //     dispatch(setTodos(data));
+            //     localStorage.setItem('todoDATA',JSON.stringify(data));
+            // }else{ dispatch(setTodos([]));}
+            
         })()
     }, [])
 
@@ -44,15 +51,32 @@ const ToDoPage = () => {
     }
     const onDeleteAllTodo = () => {
         dispatch(deleteAllTodos());
+        setAlertMessage("Successfuly removed.");
+        setAlertVariant("success");
+        setShowAlert(true);
     }
     const onDeleteTodo = (todoId: any) => {
-        dispatch(deleteTodo(todoId))
+        dispatch(deleteTodo(todoId));
+        setAlertMessage("Successfuly removed.");
+        setAlertVariant("success");
+        setShowAlert(true);
     }
     const onCreateTodo = async (e: React.KeyboardEvent<HTMLInputElement>) => {  
         if (e.key === 'Enter' ) {
-            const resp = await Service.createTodo(inputRef.current.value);
+            const resp: Todo = await Service.createTodo(inputRef.current.value);
             dispatch(createTodo(resp));
-            localStorage.setItem('todoDATA',JSON.stringify(resp));
+            
+            const item: string | null = localStorage.getItem('todoDATA');
+            if(item){
+                let data: Todo[] = JSON.parse(item);
+                data.push(resp);
+                localStorage.setItem('todoDATA',JSON.stringify(data));
+                console.log(data,"dataaaaaaaaaaaaaaaaaaaaaaaaa");
+            }else{
+                let array: Todo[] = [];
+                array.push(resp);
+                localStorage.setItem('todoDATA',JSON.stringify(array));
+            }
         }
     }
     const inputHandler = (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
@@ -63,7 +87,7 @@ const ToDoPage = () => {
         displayAlert();
     }
     const displayAlert = () => {
-        setAlertMessage("Success");
+        setAlertMessage("Successfuly saved.");
         setAlertVariant("success");
         setShowAlert(true);
     }
