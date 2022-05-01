@@ -114,6 +114,8 @@ const ToDoPage = () => {
 
     const getTabsBtnStatus = (bool: boolean) => bool ? 'active' : '';
 
+    const isCheckedTodoAll = () => todos.find(todo => todo.status === TodoStatus.ACTIVE);
+
     return (
         <div className="ToDo__container">
             <div className="Todo__creation">
@@ -130,6 +132,7 @@ const ToDoPage = () => {
                     <input
                         type="checkbox"
                         onChange={onToggleAllTodo}
+                        checked={!isCheckedTodoAll()}
                     /> : <div/>
                 }
                 <div className="Todo__tabs">
