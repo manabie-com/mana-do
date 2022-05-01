@@ -1,0 +1,18 @@
+{
+  "todos": [
+    {
+      "content": "test",
+      "created_date": "2022-04-29T13:16:34.916Z",
+      "status": "ACTIVE",
+      "id": "7wPwxH7vK",
+      "user_id": "firstUser"
+    },
+    {
+      "content": "test1",
+      "created_date": "2022-04-30T06:51:11.410Z",
+      "status": "ACTIVE",
+      "id": "OSJ1V1UiU",
+      "user_id": "firstUser"
+    }
+  ]
+}
