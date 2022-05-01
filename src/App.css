@@ -83,7 +83,7 @@ input:focus {
 .ToDo__item > span {
   flex: 1 1;
   text-align: left;
-  margin-left: 8px;
+  margin: 0 8px;
 }
 
 .Todo__content {
@@ -151,4 +151,18 @@ input:focus {
 
 .toDo__message p {
   margin-top: 0;
+}
+
+.todo__COMPLETED {
+  position: relative;
+}
+
+.todo__COMPLETED::after {
+  border-bottom: 0.1em solid #282424;
+  content: "";
+  left: 0;
+  margin-top: 0px;
+  position: absolute;
+  right: 0;
+  top: 50%;
 }

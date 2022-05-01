@@ -28,8 +28,8 @@ function reducer(state: AppState, action: AppActions): AppState {
       }
 
     case UPDATE_TODO_STATUS:
-      const index2 = state.todos.findIndex((todo) => todo.id === action.payload.todoId);
-      state.todos[index2].status = action.payload.checked ? TodoStatus.COMPLETED : TodoStatus.ACTIVE;
+      const index = state.todos.findIndex(todo => todo.id === action.payload.todoId);
+      state.todos[index].status = action.payload.checked ? TodoStatus.COMPLETED : TodoStatus.ACTIVE;
 
       return {
         ...state,
