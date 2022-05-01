@@ -37,6 +37,7 @@
 
 ### How to run this code
 - Run ```yarn``` or ```npm install``` if this is the first time you clone this repo (`master` branch).
+- I using json server for fetch api return json so must create new terminal and run ```./node_modules/.bin/json-server --watch src/data/db.json``` for run fetch json.
 - Run ```yarn start:fullstack``` in case you are doing a fullstack test, else run ```yarn start:frontend``` to start this project in development mode.
 - Sign in using username: `firstUser`, password: `example`
 
