@@ -80,9 +80,14 @@ const TodoList = ({ todos, showing, setShowing, dispatch }: TodoListTypes) => {
 
     return (
         <div className="ToDo__list">
-            {
+            {   
                 todos.map((todo, index) =>
-                    filterTodosList(todo.status) && <div key={index} className="ToDo__item">
+                    filterTodosList(todo.status) &&
+                    <div
+                        key={index}
+                        className="ToDo__item"
+                        data-testid="todo__item"
+                    >
                         <input
                             type="checkbox"
                             checked={todo.status === TodoStatus.COMPLETED}
@@ -112,7 +117,10 @@ const TodoList = ({ todos, showing, setShowing, dispatch }: TodoListTypes) => {
             {checkTodosByStatus()}
             {
                 todos.length === 0
-                && <div className='toDo__message'>
+                && <div
+                        className='toDo__message'
+                        data-testid='no__todo__message'
+                    >
                         <h4>MANABIE TO DO</h4>
                         <p>Free up your mental space, gives you focus, from work to play.</p>
                     </div>
