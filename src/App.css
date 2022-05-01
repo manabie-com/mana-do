@@ -12,10 +12,15 @@ button {
   min-height: 32px;
   min-width: 80px;
   padding: 4px 8px;
+  cursor: pointer;
 }
 
 button:hover {
   opacity: 0.85;
+}
+
+button:active {
+  transform: scale(1.1);
 }
 
 input[type="checkbox"] {
@@ -100,6 +105,12 @@ input:focus {
   cursor: pointer;
 }
 
+.Todo__delete:hover {
+  background-color: #c02e2e;
+  color: #ffff;
+  font-weight: bold;
+}
+
 .Todo__action, .Todo__delete {
   width: 24px;
   height: 24px;
@@ -121,5 +132,12 @@ input:focus {
   margin-right: 8px;
 }
 
-.Action__btn {
+.Action__btn:hover {
+  background-color: rgba(0,0,0, 0.25);
+}
+
+.Todo__note {
+  display: block;
+  text-align: left;
+  margin-top: 5px;
 }
