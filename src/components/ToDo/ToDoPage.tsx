@@ -1,6 +1,6 @@
 import React, {useEffect, useReducer, useRef, useState} from 'react';
 
-import reducer, {initialState} from './store/reducer';
+import reducer, {initialState} from '../../store/reducer';
 import {
     setTodos,
     createTodo,
@@ -8,11 +8,11 @@ import {
     deleteAllTodos,
     updateTodoStatus,
     deleteTodo,
-} from './store/actions';
-import Service from './service';
-import {TodoStatus} from './models/todo';
-import { getRandomInt } from './helpers';
-import { MOTIV_MSG1, MOTIV_MSG2, MOTIV_MSG3 } from './constants';
+} from '../../store/actions';
+import Service from '../../service';
+import {TodoStatus} from '../../models/todo';
+import { getRandomInt } from '../../helpers';
+import { MOTIV_MSG1, MOTIV_MSG2, MOTIV_MSG3 } from '../../constants';
 
 const ALL: string = "ALL";
 type EnhanceTodoStatus = TodoStatus | typeof ALL;
