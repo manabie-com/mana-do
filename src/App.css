@@ -141,3 +141,14 @@ input:focus {
   text-align: left;
   margin-top: 5px;
 }
+.toDo__message {
+  margin-top: 10px;
+}
+
+.toDo__message h4 {
+  margin: 0;
+}
+
+.toDo__message p {
+  margin-top: 0;
+}

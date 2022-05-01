@@ -6,7 +6,8 @@ import {
     createTodo,
     toggleAllTodos,
     deleteAllTodos,
-    updateTodoStatus
+    updateTodoStatus,
+    deleteTodo,
 } from './store/actions';
 import Service from './service';
 import {TodoStatus} from './models/todo';
@@ -40,6 +41,8 @@ const ToDoPage = () => {
     const onToggleAllTodo = (e: React.ChangeEvent<HTMLInputElement>) => dispatch(toggleAllTodos(e.target.checked));
 
     const onDeleteAllTodo = () => dispatch(deleteAllTodos());
+
+    const onDeleteTodoById = (todiId: any) => dispatch(deleteTodo(todiId));
 
     return (
         <div className="ToDo__container">
@@ -86,11 +89,19 @@ const ToDoPage = () => {
                             <span>{todo.content}</span>
                             <button
                                 className="Todo__delete"
+                                onClick={() => onDeleteTodoById(todo.id)}
                             >
                                 X
                             </button>
                         </div>
                     )
+                }
+                {
+                    todos.length === 0
+                    && <div className='toDo__message'>
+                            <h4>MANABIE TO DO</h4>
+                            <p>Free up your mental space, gives you focus, from work to play.</p>
+                        </div>
                 }
             </div>
         </div>

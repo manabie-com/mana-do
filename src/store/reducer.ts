@@ -50,8 +50,14 @@ function reducer(state: AppState, action: AppActions): AppState {
       }
 
     case DELETE_TODO:
+      // much shorter but slower
+      //                           // exclude the todoId if existing in the todos state
+      // const newTodos = state.todos.filter(todo => todo.id !== action.payload);
+
       const index1 = state.todos.findIndex((todo) => todo.id === action.payload);
-      state.todos.splice(index1, 1);
+      if (index1 !== -1) { // prevent deleting other todos
+        state.todos.splice(index1, 1);
+      }
 
       return {
         ...state,
