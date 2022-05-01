@@ -11,13 +11,22 @@ import {
 } from './store/actions';
 import Service from './service';
 import {TodoStatus} from './models/todo';
+import { getRandomInt } from './helpers';
 
-type EnhanceTodoStatus = TodoStatus | 'ALL';
+const ALL: string = "ALL";
+type EnhanceTodoStatus = TodoStatus | typeof ALL;
+
+const motivationalMsg: string[] = [
+    "“Remember no matter how fast you run, you can’t be the winner if you don’t finish.”",
+    "“That’s one thing you learn in life. You don’t give up; you fight to the finish”",
+    "“Gambate!!”"
+];
 
 const ToDoPage = () => {
     const [{todos}, dispatch] = useReducer(reducer, initialState);
-    const [showing, setShowing] = useState<EnhanceTodoStatus>('ALL');
+    const [showing, setShowing] = useState<EnhanceTodoStatus>(ALL);
     const inputRef = useRef<any>(null);
+    const [motivationMessage, setMotivationalMessage] = useState<string>(motivationalMsg[0]);
 
     useEffect(()=>{
         (async ()=>{
@@ -27,12 +36,19 @@ const ToDoPage = () => {
         })()
     }, []);
 
+    useEffect(() => {
+        if (showing === TodoStatus.COMPLETED) {
+            setMotivationalMessage(motivationalMsg[getRandomInt(3)]);
+        }
+    }, [showing]);
+
     const onCreateTodo = async (e: React.KeyboardEvent<HTMLInputElement>) => {
                                 // prevent add new todo if input value is empty
         if (e.key === 'Enter' && inputRef.current.value) {
             const resp = await Service.createTodo(inputRef.current.value);
             dispatch(createTodo(resp));
             inputRef.current.value = ""; // clear input value
+            setShowing(TodoStatus.ACTIVE); // avoid confusing for user experience
         }
     };
 
@@ -43,6 +59,35 @@ const ToDoPage = () => {
     const onDeleteAllTodo = () => dispatch(deleteAllTodos());
 
     const onDeleteTodoById = (todiId: any) => dispatch(deleteTodo(todiId));
+
+    const filterTodosList = (status: string) => {
+        if (showing === ALL) {
+            return true
+        } else if (showing === status) {
+            return true;
+        } else {
+            return false;
+        }
+    };
+
+    const checkTodosByStatus = () => {;
+        const result = todos.find(item => item.status === showing);
+
+        if (!result && showing !== ALL) {
+            if (todos.length > 0) {
+                if (showing === TodoStatus.COMPLETED) {
+                    return <>
+                        <small>You don't have yet finish to do.</small>
+                        <p>{motivationMessage}</p>
+                    </>;
+                } else {
+                    return "Wow, All of your to do's are completed! 🎉";
+                }
+            }
+        }
+    };
+
+    const getTabsBtnStatus = (bool: boolean) => bool ? 'active' : '';
 
     return (
         <div className="ToDo__container">
@@ -63,13 +108,13 @@ const ToDoPage = () => {
                     /> : <div/>
                 }
                 <div className="Todo__tabs">
-                    <button className="Action__btn">
+                    <button className={`Action__btn ${getTabsBtnStatus(showing === ALL)}`} onClick={()=>setShowing(ALL)}>
                         All
                     </button>
-                    <button className="Action__btn" onClick={()=>setShowing(TodoStatus.ACTIVE)}>
+                    <button className={`Action__btn ${getTabsBtnStatus(showing === TodoStatus.ACTIVE)}`} onClick={()=>setShowing(TodoStatus.ACTIVE)}>
                         Active
                     </button>
-                    <button className="Action__btn" onClick={()=>setShowing(TodoStatus.COMPLETED)}>
+                    <button className={`Action__btn ${getTabsBtnStatus(showing === TodoStatus.COMPLETED)}`} onClick={()=>setShowing(TodoStatus.COMPLETED)}>
                         Completed
                     </button>
                 </div>
@@ -80,7 +125,7 @@ const ToDoPage = () => {
             <div className="ToDo__list">
                 {
                     todos.map((todo, index) =>
-                        <div key={index} className="ToDo__item">
+                        filterTodosList(todo.status) && <div key={index} className="ToDo__item">
                             <input
                                 type="checkbox"
                                 checked={todo.status === TodoStatus.COMPLETED}
@@ -96,6 +141,7 @@ const ToDoPage = () => {
                         </div>
                     )
                 }
+                {checkTodosByStatus()}
                 {
                     todos.length === 0
                     && <div className='toDo__message'>
