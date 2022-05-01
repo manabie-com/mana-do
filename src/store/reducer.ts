@@ -19,10 +19,13 @@ export const initialState: AppState = {
 function reducer(state: AppState, action: AppActions): AppState {
   switch (action.type) {
     case CREATE_TODO:
-      state.todos.push(action.payload);
       return {
-        ...state
-      };
+        ...state,
+        todos: [
+          ...state.todos, // used spread operator instead of push this is much shorter to solve duplication of todo
+          action.payload
+        ]
+      }
 
     case UPDATE_TODO_STATUS:
       const index2 = state.todos.findIndex((todo) => todo.id === action.payload.todoId);

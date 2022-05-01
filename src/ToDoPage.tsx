@@ -13,7 +13,6 @@ import {TodoStatus} from './models/todo';
 
 type EnhanceTodoStatus = TodoStatus | 'ALL';
 
-
 const ToDoPage = () => {
     const [{todos}, dispatch] = useReducer(reducer, initialState);
     const [showing, setShowing] = useState<EnhanceTodoStatus>('ALL');
@@ -25,27 +24,22 @@ const ToDoPage = () => {
 
             dispatch(setTodos(resp || []));
         })()
-    }, [])
+    }, []);
 
     const onCreateTodo = async (e: React.KeyboardEvent<HTMLInputElement>) => {
-        if (e.key === 'Enter' ) {
+                                // prevent add new todo if input value is empty
+        if (e.key === 'Enter' && inputRef.current.value) {
             const resp = await Service.createTodo(inputRef.current.value);
             dispatch(createTodo(resp));
+            inputRef.current.value = ""; // clear input value
         }
-    }
+    };
 
-    const onUpdateTodoStatus = (e: React.ChangeEvent<HTMLInputElement>, todoId: any) => {
-        dispatch(updateTodoStatus(todoId, e.target.checked))
-    }
+    const onUpdateTodoStatus = (e: React.ChangeEvent<HTMLInputElement>, todoId: any) => dispatch(updateTodoStatus(todoId, e.target.checked));
 
-    const onToggleAllTodo = (e: React.ChangeEvent<HTMLInputElement>) => {
-        dispatch(toggleAllTodos(e.target.checked))
-    }
+    const onToggleAllTodo = (e: React.ChangeEvent<HTMLInputElement>) => dispatch(toggleAllTodos(e.target.checked));
 
-    const onDeleteAllTodo = () => {
-        dispatch(deleteAllTodos());
-    }
-
+    const onDeleteAllTodo = () => dispatch(deleteAllTodos());
 
     return (
         <div className="ToDo__container">
@@ -57,27 +51,7 @@ const ToDoPage = () => {
                     onKeyDown={onCreateTodo}
                 />
             </div>
-            <div className="ToDo__list">
-                {
-                    todos.map((todo, index) => {
-                        return (
-                            <div key={index} className="ToDo__item">
-                                <input
-                                    type="checkbox"
-                                    checked={showing === todo.status}
-                                    onChange={(e) => onUpdateTodoStatus(e, index)}
-                                />
-                                <span>{todo.content}</span>
-                                <button
-                                    className="Todo__delete"
-                                >
-                                    X
-                                </button>
-                            </div>
-                        );
-                    })
-                }
-            </div>
+            <small className='Todo__note'>Press ENTER to add your TODO</small>
             <div className="Todo__toolbar">
                 {todos.length > 0 ?
                     <input
@@ -99,6 +73,25 @@ const ToDoPage = () => {
                 <button className="Action__btn" onClick={onDeleteAllTodo}>
                     Clear all todos
                 </button>
+            </div>
+            <div className="ToDo__list">
+                {
+                    todos.map((todo, index) =>
+                        <div key={index} className="ToDo__item">
+                            <input
+                                type="checkbox"
+                                checked={showing === todo.status}
+                                onChange={(e) => onUpdateTodoStatus(e, index)}
+                            />
+                            <span>{todo.content}</span>
+                            <button
+                                className="Todo__delete"
+                            >
+                                X
+                            </button>
+                        </div>
+                    )
+                }
             </div>
         </div>
     );
