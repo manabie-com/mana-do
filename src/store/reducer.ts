@@ -2,10 +2,11 @@ import {Todo, TodoStatus} from '../models/todo';
 import {
   AppActions,
   CREATE_TODO,
+  UPDATE_TODO,
   DELETE_ALL_TODOS,
   DELETE_TODO,
   TOGGLE_ALL_TODOS,
-  UPDATE_TODO_STATUS
+  UPDATE_TODO_STATUS,
 } from './actions';
 
 export interface AppState {
@@ -25,6 +26,15 @@ function reducer(state: AppState, action: AppActions): AppState {
           ...state.todos, // used spread operator instead of push this is much shorter to solve duplication of todo
           action.payload
         ]
+      }
+
+    case UPDATE_TODO:
+      const index2 = state.todos.findIndex(todo => todo.id === action.payload.id);
+      state.todos[index2].content = action.payload.content;
+
+      return {
+        ...state,
+        todos: state.todos
       }
 
     case UPDATE_TODO_STATUS:

@@ -4,5 +4,11 @@ export enum TodoStatus {
 }
 
 export interface Todo {
-  [key: string]: any
+  [key: string]: any,
+}
+
+export interface EditTodo {
+  editMode: boolean,
+  id: any,
+  content: any
 }

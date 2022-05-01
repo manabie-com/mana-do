@@ -4,15 +4,16 @@ import reducer, {initialState} from '../../store/reducer';
 import {
     setTodos,
     createTodo,
+    updateTodo,
     toggleAllTodos,
     deleteAllTodos,
     updateTodoStatus,
     deleteTodo,
 } from '../../store/actions';
 import Service from '../../service';
-import {TodoStatus} from '../../models/todo';
+import { TodoStatus, EditTodo } from '../../models/todo';
 import { getRandomInt } from '../../helpers';
-import { MOTIV_MSG1, MOTIV_MSG2, MOTIV_MSG3 } from '../../constants';
+import { MOTIV_MSG1, MOTIV_MSG2, MOTIV_MSG3, COMPLETED_TASK_MSG, NOT_YET_DONE_MSG } from '../../constants';
 
 const ALL: string = "ALL";
 type EnhanceTodoStatus = TodoStatus | typeof ALL;
@@ -28,6 +29,7 @@ const ToDoPage = () => {
     const [showing, setShowing] = useState<EnhanceTodoStatus>(ALL);
     const inputRef = useRef<any>(null);
     const [motivationMessage, setMotivationalMessage] = useState<string>(motivationalMsg[0]);
+    const [editTodo, setEditTodo] = useState<EditTodo>({ editMode: false, id: null, content: null });
 
     useEffect(()=>{
         (async ()=>{
@@ -49,7 +51,7 @@ const ToDoPage = () => {
             const resp = await Service.createTodo(inputRef.current.value);
             dispatch(createTodo(resp));
             inputRef.current.value = ""; // clear input value
-            setShowing(TodoStatus.ACTIVE); // avoid confusing for user experience
+            setShowing(ALL); // avoid confusing for user experience
         }
     };
 
@@ -60,6 +62,16 @@ const ToDoPage = () => {
     const onDeleteAllTodo = () => dispatch(deleteAllTodos());
 
     const onDeleteTodoById = (todiId: any) => dispatch(deleteTodo(todiId));
+
+    const onChangeEditTodo = (id: any, content: any) => setEditTodo(prev => ({ ...prev, id, content }));
+
+    const onUpdateTodo = (id: any, content: any) => {
+        let data = { editMode: false, id, content };
+        setEditTodo(prev => ({ ...prev, ...data }));
+        dispatch(updateTodo(data));
+    };
+
+    const handleEditTodo = (id: any, content: any) => setEditTodo({ editMode: true, id, content });
 
     const filterTodosList = (status: string) => {
         if (showing === ALL) {
@@ -78,11 +90,11 @@ const ToDoPage = () => {
             if (todos.length > 0) {
                 if (showing === TodoStatus.COMPLETED) {
                     return <>
-                        <small>You don't have yet finish to do.</small>
+                        <small>{NOT_YET_DONE_MSG}</small>
                         <p>{motivationMessage}</p>
                     </>;
                 } else {
-                    return "Wow, All of your to do's are completed! 🎉";
+                    return COMPLETED_TASK_MSG;
                 }
             }
         }
@@ -132,7 +144,18 @@ const ToDoPage = () => {
                                 checked={todo.status === TodoStatus.COMPLETED}
                                 onChange={e => onUpdateTodoStatus(e, todo.id)}
                             />
-                            <span className={`todo__${todo.status}`}>{todo.content}</span>
+                            <span className={`todo__${todo.status}`} onDoubleClick={() => handleEditTodo(todo.id, todo.content)}>
+                                {
+                                    (editTodo.editMode && editTodo.id === todo.id)
+                                    ? <input
+                                        value={editTodo.content}
+                                        onChange={e => onChangeEditTodo(todo.id, e.target.value)}
+                                        onBlur={() => onUpdateTodo(todo.id, editTodo.content)}
+                                        style={{ width: '95%' }}
+                                    />
+                                    : todo.content
+                                }
+                            </span>
                             <button
                                 className="Todo__delete"
                                 onClick={() => onDeleteTodoById(todo.id)}
