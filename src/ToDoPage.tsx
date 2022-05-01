@@ -12,14 +12,15 @@ import {
 import Service from './service';
 import {TodoStatus} from './models/todo';
 import { getRandomInt } from './helpers';
+import { MOTIV_MSG1, MOTIV_MSG2, MOTIV_MSG3 } from './constants';
 
 const ALL: string = "ALL";
 type EnhanceTodoStatus = TodoStatus | typeof ALL;
 
 const motivationalMsg: string[] = [
-    "“Remember no matter how fast you run, you can’t be the winner if you don’t finish.”",
-    "“That’s one thing you learn in life. You don’t give up; you fight to the finish”",
-    "“Gambate!!”"
+    MOTIV_MSG1,
+    MOTIV_MSG2,
+    MOTIV_MSG3,
 ];
 
 const ToDoPage = () => {
