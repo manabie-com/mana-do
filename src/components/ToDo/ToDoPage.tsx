@@ -13,7 +13,7 @@ import {
 import Service from '../../service';
 import { TodoStatus, EditTodo } from '../../models/todo';
 import { getRandomInt } from '../../helpers';
-import { MOTIV_MSG1, MOTIV_MSG2, MOTIV_MSG3, COMPLETED_TASK_MSG, NOT_YET_DONE_MSG } from '../../constants';
+import { MOTIV_MSG1, MOTIV_MSG2, MOTIV_MSG3, COMPLETED_TASK_MSG, NOT_YET_DONE_MSG, STORAGE_KEY } from '../../constants';
 
 const ALL: string = "ALL";
 type EnhanceTodoStatus = TodoStatus | typeof ALL;
@@ -30,13 +30,15 @@ const ToDoPage = () => {
     const inputRef = useRef<any>(null);
     const [motivationMessage, setMotivationalMessage] = useState<string>(motivationalMsg[0]);
     const [editTodo, setEditTodo] = useState<EditTodo>({ editMode: false, id: null, content: null });
+    const isPageLoad = useRef<boolean>(false);
 
     useEffect(()=>{
-        (async ()=>{
-            const resp = await Service.getTodos();
-
-            dispatch(setTodos(resp || []));
-        })()
+        // (async () => {
+            // const resp = await Service.getTodos();
+            const response: any = localStorage.getItem(STORAGE_KEY) ;
+            let datas = JSON.parse(response);
+            dispatch(setTodos(datas));
+        // })()
     }, []);
 
     useEffect(() => {
@@ -44,6 +46,16 @@ const ToDoPage = () => {
             setMotivationalMessage(motivationalMsg[getRandomInt(3)]);
         }
     }, [showing]);
+    
+    useEffect(() => {
+        if (isPageLoad.current) {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(todos));
+        } else {
+            isPageLoad.current = true;
+        }
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [JSON.stringify(todos)]);
 
     const onCreateTodo = async (e: React.KeyboardEvent<HTMLInputElement>) => {
                                 // prevent add new todo if input value is empty
@@ -83,7 +95,7 @@ const ToDoPage = () => {
         }
     };
 
-    const checkTodosByStatus = () => {;
+    const checkTodosByStatus = () => {
         const result = todos.find(item => item.status === showing);
 
         if (!result && showing !== ALL) {
