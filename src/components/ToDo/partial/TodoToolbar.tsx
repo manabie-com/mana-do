@@ -31,6 +31,7 @@ const TodoToolbar = ({ todos, showing, setShowing, dispatch }: TodoToolbarTypes)
             {todos.length > 0 ?
                 <input
                     type="checkbox"
+                    data-testid="toggle__all__todo"
                     onChange={onToggleAllTodo}
                     checked={!isCheckedTodoAll()}
                 /> : <div/>
