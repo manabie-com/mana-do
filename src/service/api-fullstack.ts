@@ -1,7 +1,7 @@
-import {IAPI} from './types';
-import {Todo} from '../models/todo';
+import { IAPI } from './types';
+import { Todo } from '../types/types';
 import axios from '../utils/axios';
-import {AxiosResponse} from 'axios';
+import { AxiosResponse } from 'axios';
 
 class ApiFullstack extends IAPI {
     async createTodo(content: string): Promise<Todo> {

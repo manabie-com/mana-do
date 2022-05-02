@@ -1,5 +1,5 @@
 import { IAPI } from "./types";
-import { Todo, TodoStatus } from "../models/todo";
+import { Todo, TodoStatus } from "../types/types";
 import shortid from "shortid";
 
 class ApiFrontend extends IAPI {

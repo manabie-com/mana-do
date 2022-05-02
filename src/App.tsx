@@ -1,15 +1,6 @@
-import React from 'react';
+import ToDoPage from './pages/ToDoPage';
+import { Main } from './styles/styles';
 
-import ToDoPage from './ToDoPage';
-
-import './App.css';
-
-function App() {
-  return (
-    <main className="App">
-      <ToDoPage />
-    </main>
-  );
-}
+const App = () => <Main><ToDoPage/></Main>;
 
 export default App;
