@@ -1,10 +1,8 @@
 import React from 'react';
-
-import ToDoPage from './ToDoPage';
-
+import ToDoPage from './page/ToDoPage';
 import './App.css';
 
-function App() {
+const App = () => {
   return (
     <main className="App">
       <ToDoPage />

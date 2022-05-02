@@ -1,8 +1,9 @@
 export enum TodoStatus {
   ACTIVE = 'ACTIVE',
-  COMPLETED = 'COMPLETED'
+  COMPLETED = 'COMPLETED',
+  ALL = 'ALL'
 }
 
 export interface Todo {
-  [key: string]: any
+  [key: string]: any,
 }

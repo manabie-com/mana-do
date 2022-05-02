@@ -1,19 +1,14 @@
-import {Todo, TodoStatus} from '../models/todo';
-import {
-  AppActions,
-  CREATE_TODO,
-  DELETE_ALL_TODOS,
-  DELETE_TODO,
-  TOGGLE_ALL_TODOS,
-  UPDATE_TODO_STATUS
-} from './actions';
+import { Todo, TodoStatus } from '../models/todo';
+import {  AppActions} from './actions';
+import { SET_TODO, CREATE_TODO, DELETE_TODO, DELETE_ALL_TODOS, TOGGLE_ALL_TODOS, UPDATE_TODO_STATUS } from "./constant"
 
 export interface AppState {
   todos: Array<Todo>
 }
 
+const todoList = localStorage.getItem("todos")
 export const initialState: AppState = {
-  todos: []
+  todos: todoList ? JSON.parse(todoList)?.todos : []
 }
 
 function reducer(state: AppState, action: AppActions): AppState {
@@ -34,7 +29,7 @@ function reducer(state: AppState, action: AppActions): AppState {
       }
 
     case TOGGLE_ALL_TODOS:
-      const tempTodos = state.todos.map((e)=>{
+      const tempTodos = state.todos.map((e) => {
         return {
           ...e,
           status: action.payload ? TodoStatus.COMPLETED : TodoStatus.ACTIVE
