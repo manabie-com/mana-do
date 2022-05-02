@@ -3,12 +3,8 @@ import React from 'react'
 const Button = (props: any) => {
     const { className, title, onClick } = props
 
-    const handleClick = () => {
-        onClick()
-    }
-
     return (
-        <button className={`${className} `} onClick={handleClick}>
+        <button className={`${className} `} onClick={onClick}>
             {title}
         </button>
     )

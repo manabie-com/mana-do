@@ -1,22 +1,33 @@
 import React from "react";
-import { Todo } from "../../models/todo";
+import { Todo, TodoStatus } from "../../models/todo";
 import Button from "../Button";
 import Checkbox from "../Checkbox";
 
 interface todoItem {
-    index: number;
     todo: Todo;
-    onChange: (e: React.ChangeEvent<HTMLInputElement>, index: number) => void;
-    isShown: string
+    onCheck: (e: React.ChangeEvent<HTMLInputElement>, todoId: string) => void;
+    onDelete: (todoId: string) => void;
+    setIsEdited: (todoId: string) => void;
+    setEnteredTodo: (content: string) => void;
 }
 
 const TodoItem = (props: todoItem) => {
-    const { index, todo, onChange, isShown } = props
+    const { todo, onCheck,  onDelete, setIsEdited, setEnteredTodo } = props || {}
+
+    const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
+        if (event.detail === 1) {
+            return
+        } else if (event.detail === 2) {
+            setIsEdited(todo?.id)
+            setEnteredTodo(todo?.content)
+        }
+    }
+
     return (
-        <div key={index} className="ToDo__item">
-            <Checkbox checked={isShown === todo.status} onChange={onChange} index={index} />
-            <span>{todo.content}</span>
-            <Button title="X" className="Todo__delete" />
+        <div className="ToDo__item" onClick={handleClick}>
+            <Checkbox checked={TodoStatus.COMPLETED === todo?.status} onChange={onCheck} todoId={todo?.id} />
+            <span>{todo?.content}</span>
+            <Button title="X" className="Todo__delete" onClick={() => onDelete(todo?.id)} />
         </div>
     )
 }

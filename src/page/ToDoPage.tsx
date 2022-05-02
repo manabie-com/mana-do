@@ -1,14 +1,15 @@
-import React, { useEffect, useReducer, useState } from 'react';
+import React, { useEffect, useReducer, useState, useRef } from 'react';
 import reducer, { initialState } from '../store/reducer';
 import {
-    setTodos,
     createTodo,
     toggleAllTodos,
     deleteAllTodos,
-    updateTodoStatus
+    updateTodoStatus,
+    deleteTodo,
+    UpdateTodoContent
 } from '../store/actions';
 import Service from '../service';
-import { TodoStatus } from '../models/todo';
+import { Todo, TodoStatus } from '../models/todo';
 import Button from '../components/Button';
 import Input from '../components/Input';
 import TodoItem from '../components/TodoItem';
@@ -21,23 +22,25 @@ const ToDoPage = () => {
     const [{ todos }, dispatch] = useReducer(reducer, initialState);
     const [showing, setShowing] = useState<EnhanceTodoStatus>(TodoStatus.ALL);
     const [enteredTodo, setEnteredTodo] = useState("") as any
-
-    useEffect(() => {
-        (async () => {
-            const resp = await Service.getTodos();
-
-            dispatch(setTodos(resp || []));
-        })()
-    }, [])
+    const [isEdited, setIsEdited] = useState(null) as any
+    const divRef = useRef<any>(null);
 
     const onCreateTodo = async (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter') {
             if (enteredTodo.trim().length > 0) {
-            } console.log(enteredTodo)
+                if (!isEdited) {
+                    const resp = await Service.createTodo(enteredTodo);
+                    dispatch(createTodo(resp));
+                } else {
+                    dispatch(UpdateTodoContent(isEdited, enteredTodo))
+                }
+                setEnteredTodo("")
+                setIsEdited(null)
+            }
         }
     }
 
-    const onUpdateTodoStatus = (e: React.ChangeEvent<HTMLInputElement>, todoId: any) => {
+    const onUpdateTodoStatus = (e: React.ChangeEvent<HTMLInputElement>, todoId: string) => {
         dispatch(updateTodoStatus(todoId, e.target.checked))
     }
 
@@ -45,34 +48,59 @@ const ToDoPage = () => {
         dispatch(toggleAllTodos(e.target.checked))
     }
 
-    const onDeleteAllTodo = () => {
-        dispatch(deleteAllTodos());
+    const onDeleteTodo = (todoId: string) => {
+        dispatch(deleteTodo(todoId))
     }
 
+    const showTodoList = (todoList: Todo[], status: string) => {
+        switch (status) {
+            case TodoStatus.ALL:
+                return todoList
+            case TodoStatus.ACTIVE:
+                return todoList?.filter(todo => todo?.status === TodoStatus.ACTIVE)
+            case TodoStatus.COMPLETED:
+                return todoList?.filter(todo => todo?.status === TodoStatus.COMPLETED)
+            default:
+                return todoList
+        }
+    }
+
+    useEffect(() => {
+        const handleClickOutside = (event: any) => {
+            if (divRef.current && !divRef.current?.contains(event.target)) {
+                setIsEdited(null)
+                setEnteredTodo("")
+            }
+        };
+        document.addEventListener('click', handleClickOutside, true);
+        return () => {
+            document.removeEventListener('click', handleClickOutside, true);
+        };
+    }, [isEdited]);
 
     return (
-        <div className="ToDo__container">
+        <div ref={divRef} className="ToDo__container">
             <div className="Todo__creation">
                 <Input value={enteredTodo} className="Todo__input" onChange={(e) => setEnteredTodo(e.target.value)} placeholder="What need to be done?" onKeyDown={onCreateTodo} />
             </div>
             <div className="ToDo__list">
                 {
-                    todos.map((todo, index) => {
+                    showTodoList(todos, showing)?.map((todo) => {
                         return (
-                            <TodoItem index={index} todo={todo} isShown={showing} onChange={onUpdateTodoStatus} />
+                            <TodoItem key={todo?.id} todo={todo} onCheck={onUpdateTodoStatus} setEnteredTodo={setEnteredTodo} onDelete={onDeleteTodo} setIsEdited={setIsEdited} />
                         );
                     })
                 }
             </div>
             <div className="Todo__toolbar">
-                {todos.length > 0 &&
-                    <Checkbox onChange={onToggleAllTodo} index={-1} />}
+                {todos?.length > 0 &&
+                    <Checkbox onChange={onToggleAllTodo} todoId="1" />}
                 <div className="Todo__tabs">
-                    <Button title="All" />
+                    <Button title="All" onClick={() => setShowing(TodoStatus.ALL)} />
                     <Button title="Active" onClick={() => setShowing(TodoStatus.ACTIVE)} />
                     <Button title="Completed" onClick={() => setShowing(TodoStatus.COMPLETED)} />
                 </div>
-                <Button title="Clear all todos" onClick={onDeleteAllTodo} />
+                <Button title="Clear all todos" onClick={() => dispatch(deleteAllTodos())} />
             </div>
         </div>
     );
