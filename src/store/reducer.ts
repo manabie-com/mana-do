@@ -67,9 +67,10 @@ function reducer(state: AppState, action: AppActions): AppState {
       }
 
     case DELETE_TODO:
-      const index1 = state.todos.findIndex((todo) => todo.id === action.payload);
-      state.todos.splice(index1, 1);
-
+      const index1: number = state.todos.findIndex((todo) => todo.id === action.payload);
+      if (index1 >= 0) { /// ** guard for index1 incase it will return negative number. If the index1 is positive it will delete the specific index of the array
+        state.todos.splice(index1, 1);
+      }
       return {
         ...state,
         todos: state.todos

@@ -7,6 +7,7 @@ import {
   toggleAllTodos,
   deleteAllTodos,
   updateTodoStatus,
+  deleteTodo,
 } from "./store/actions";
 import Service from "./service";
 import { TodoStatus } from "./models/todo";
@@ -30,7 +31,6 @@ const ToDoPage = () => {
     const get_todos_local_storage: any = localStorage.getItem("todos");
     const parse_todos: any = JSON.parse(get_todos_local_storage);
     dispatch(setTodos(parse_todos));
-    // console.log(todos, "todos");
   }, []);
 
   const onCreateTodo = async (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -39,6 +39,10 @@ const ToDoPage = () => {
       dispatch(createTodo(resp));
       inputRef.current.value = ""; // ** To remove input after pressing enter
     }
+  };
+
+  const onDeleteTodo = async (todoId: string) => {
+    dispatch(deleteTodo(todoId)); // ** send the ID to delete the todo
   };
 
   const onUpdateTodoStatus = (
@@ -76,7 +80,12 @@ const ToDoPage = () => {
                 onChange={(e) => onUpdateTodoStatus(e, todo?.id ?? "")}
               />
               <span>{todo.content}</span>
-              <button className="Todo__delete">X</button>
+              <button
+                onClick={() => onDeleteTodo(todo.id)}
+                className="Todo__delete"
+              >
+                X
+              </button>
             </div>
           );
         })}
