@@ -1,7 +1,7 @@
-import { TodoStatus } from "../types/types";
+import { TodoStatus } from '../types/types';
 
 export type EnhanceTodoStatus = TodoStatus | 'ALL';
 
 export enum KeyboardKeys {
-    ENTER = 'Enter',
+  ENTER = 'Enter',
 }

@@ -1,8 +1,8 @@
-import { ToDoCreationProps } from "./types";
+import { ToDoCreationProps } from './types';
 import { Container } from './styles';
 import { INPUT_PLACEHOLDER } from './constants';
-import { StyledInput } from "./styles";
-import { FC, ReactElement } from "react";
+import { StyledInput } from './styles';
+import { FC, ReactElement } from 'react';
 
 const ToDoCreation: FC<ToDoCreationProps> = ({ inputRef, onCreateTodo }): ReactElement => (
   <Container>

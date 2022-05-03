@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const Container = styled.div`
    display: flex;
@@ -16,6 +16,14 @@ export const StyledSpan = styled.span`
    flex: 1 1;
    text-align: left;
    margin-left: 8px;
+   width: 85%;
+   white-space: nowrap;
+   overflow: hidden;
+   text-overflow: ellipsis;
+
+   &.completed {
+     text-decoration: line-through;
+   }
 `;
 
 export const StyledButton = styled.button`
@@ -34,3 +42,13 @@ export const StyledButton = styled.button`
 `;
 
 export const StyledInput = styled.input``;
+
+export const InlineEditContainer = styled.div`
+  width: 87%;
+
+  & input {
+    width: 87%;
+  }
+`;
+
+export const StyledImage = styled.img``;

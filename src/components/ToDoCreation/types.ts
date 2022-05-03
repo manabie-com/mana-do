@@ -1,4 +1,4 @@
-import { RefObject, KeyboardEvent } from "react";
+import { RefObject, KeyboardEvent } from 'react';
 
 export interface ToDoCreationProps {
     inputRef: RefObject<HTMLInputElement>,

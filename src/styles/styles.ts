@@ -5,3 +5,8 @@ export const Main = styled.main`
   display: flex;
   justify-content: center;
 `;
+
+export const StyledHeaderLogo = styled.img`
+  width: 100%;
+  margin-bottom: 12px;
+`;
