@@ -17,6 +17,11 @@ export const initialState: AppState = {
   todos: []
 }
 
+const setLocalStorage = (item: any[]) => {
+  const todos_stringify = JSON.stringify(item)
+  localStorage.setItem('todos', todos_stringify)
+}
+
 function reducer(state: AppState, action: AppActions): AppState {
   switch (action.type) {
     case CREATE_TODO:
@@ -24,8 +29,7 @@ function reducer(state: AppState, action: AppActions): AppState {
       if (not_duplicate) {
         state.todos.push(action.payload)
       }
-      const todos_stringify = JSON.stringify(state.todos) // ** Convert JSON to stringify so that it can sve in the local storage
-      localStorage.setItem('todos', todos_stringify)
+      setLocalStorage(state.todos)
       return {
         ...state
       };
@@ -71,6 +75,7 @@ function reducer(state: AppState, action: AppActions): AppState {
       if (index1 >= 0) { /// ** guard for index1 incase it will return negative number. If the index1 is positive it will delete the specific index of the array
         state.todos.splice(index1, 1);
       }
+      setLocalStorage(state.todos)
       return {
         ...state,
         todos: state.todos
