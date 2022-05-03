@@ -1,4 +1,4 @@
-import { ChangeEvent, useState, KeyboardEvent, useRef, useEffect } from 'react';
+import { ChangeEvent, useState, KeyboardEvent, useRef, useEffect, FC } from 'react';
 import { Container, Item, StyledSpan, StyledButton, InlineEditContainer, StyledImage } from './styles';
 import { ToDoListProps } from './types';
 import { StyledInput } from './styles';
@@ -8,7 +8,7 @@ import { KeyboardKeys } from '../types';
 import { isValid } from '../../utils/validateEntry';
 import NoRecordFound from '../../assets/images/no-record-found.png';
 
-const ToDoList = ({
+const ToDoList: FC<ToDoListProps> = ({
   todos,
   showEditField,
   selectedTodoId,
@@ -16,7 +16,7 @@ const ToDoList = ({
   onDeleteToDo,
   onEditTodo,
   onHandleShowInlineEdit
-}: ToDoListProps) => {
+}) => {
   const [fieldValue, setFieldValue] = useState('');
   const inlineEditRef = useRef<HTMLInputElement>(null);
 
@@ -40,12 +40,13 @@ const ToDoList = ({
   };
 
   return (
-    <Container>
+    <Container data-testid='todo-list-container'>
       {
         todos.length ? todos.map(( todo, index ) => {
           return (
             <Item key={index}>
               <StyledInput
+                data-testid={`todo-checkbox-${index}`}
                 type="checkbox"
                 checked={todo.status === TodoStatus.COMPLETED}
                 onChange={handleUpdateToDoStatus(todo.id as string)}
@@ -54,6 +55,7 @@ const ToDoList = ({
                 showEditField && todo.id === selectedTodoId ? (
                   <InlineEditContainer>
                     <StyledInput
+                      data-testid={`todo-inline-edit-${index}`}
                       ref={inlineEditRef}
                       data-id={todo.id}
                       defaultValue={todo.content as string}
@@ -64,6 +66,7 @@ const ToDoList = ({
                   </InlineEditContainer>
                 ): (
                   <StyledSpan
+                    data-testid={`todo-item-${index}`}
                     className={todo.status === TodoStatus.COMPLETED ? 'completed' : ''}
                     onDoubleClick={handleDoubleClick(todo.id as string, todo.status as string)}
                   >
@@ -71,7 +74,7 @@ const ToDoList = ({
                   </StyledSpan>
                 )
               }
-              <StyledButton onClick={handleDelete(todo.id as string)}>X</StyledButton>
+              <StyledButton data-testid={`delete-item-${index}`} onClick={handleDelete(todo.id as string)}>X</StyledButton>
             </Item>
           );
         }) : <StyledImage src={NoRecordFound} />

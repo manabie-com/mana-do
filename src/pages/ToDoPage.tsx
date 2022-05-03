@@ -11,22 +11,20 @@ import {
   filterToDos
 } from '../store/actions';
 import Service from '../service';
-import { EnhanceTodoStatus, KeyboardKeys } from '../components/types';
+import { KeyboardKeys } from '../components/types';
 import { ToDoCreation, ToDoList, ToDoToolbar } from '../components';
 import { ToDoPageContainer } from '../components/styles';
 import { TodoStatus } from '../types/types';
 import { isValid } from '../utils/validateEntry';
-import HeaderLogo from '../assets/images/header.jpg';
+import HeaderLogo from '../assets/images/header.png';
 import { StyledHeaderLogo } from '../styles/styles';
 
 const ToDoPage = () => {
-  const [{ todos }, dispatch] = useReducer(reducer, initialState);
+  const [{ todos, filteredBy }, dispatch] = useReducer(reducer, initialState);
 
   const [showEditField, setShowEditField] = useState(false);
   const [selectedTodoId, setSelectedToDoId] = useState('');
-  const [filter, setFilter] = useState<EnhanceTodoStatus | 'ALL'>('ALL');
 
-  const inputRef = useRef<HTMLInputElement>(null);
   const todoIdRef = useRef('');
 
   useEffect(() => { // add click event listener. this will be used to determine if we need to close the inline edit field.
@@ -50,12 +48,14 @@ const ToDoPage = () => {
   };
 
   const onCreateTodo = async (e: KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === KeyboardKeys.ENTER && inputRef?.current?.value && isValid(todos, inputRef.current.value)) {
-      const resp = await Service.createTodo(inputRef.current.value);
-      setFilter('ALL');
-      dispatch(filterToDos('ALL'));
-      dispatch(createToDo(resp));
-      inputRef.current.value = '';
+    if (e.key === KeyboardKeys.ENTER) {
+      const target = e.target as HTMLInputElement;
+      if (isValid(todos, target.value)) {
+        const resp = await Service.createTodo(target.value);
+        dispatch(filterToDos('ALL'));
+        dispatch(createToDo(resp));
+        target.value = '';
+      }
     }
   };
 
@@ -70,17 +70,16 @@ const ToDoPage = () => {
   const onDeleteAllTodo = () => dispatch(deleteAllToDos());
 
   const onFilterStatus = (todoStatus: TodoStatus | 'ALL') => {
-    setFilter(todoStatus);
     dispatch(filterToDos(todoStatus));
   };
 
   return (
-    <ToDoPageContainer>
+    <ToDoPageContainer data-testid="todo-page-container">
       <StyledHeaderLogo src={HeaderLogo} />
-      <ToDoCreation inputRef={inputRef} onCreateTodo={onCreateTodo} />
+      <ToDoCreation onCreateTodo={onCreateTodo} />
       <ToDoToolbar
         todos={todos}
-        filter={filter}
+        filter={filteredBy}
         onFilterStatus={onFilterStatus}
         onToggleAllTodo={onToggleAllTodo}
         onDeleteAllTodo={onDeleteAllTodo}

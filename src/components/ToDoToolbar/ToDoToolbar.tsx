@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { FC, useEffect, useRef } from 'react';
 import { Toolbar, ToolbarTabs, ActionButton } from './styles';
 import {ToDoToolbarProps } from './types';
 import { StyledInput } from './styles';
@@ -7,7 +7,13 @@ import { ButtonLabels } from './constants';
 import { checkToDoStatus } from '../utils';
 import { getActiveToDos } from './utils';
 
-const ToDoToolbar = ({ todos, filter, onFilterStatus, onToggleAllTodo, onDeleteAllTodo }: ToDoToolbarProps) => {
+const ToDoToolbar: FC<ToDoToolbarProps> = ({
+  todos,
+  filter,
+  onFilterStatus,
+  onToggleAllTodo,
+  onDeleteAllTodo
+}) => {
   const checkboxRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -34,8 +40,9 @@ const ToDoToolbar = ({ todos, filter, onFilterStatus, onToggleAllTodo, onDeleteA
   ];
 
   return (
-    <Toolbar>
+    <Toolbar data-testid="toolbar-container">
       <StyledInput
+        data-testid="select-all"
         ref={checkboxRef}
         type="checkbox"
         checked={checkToDoStatus(todos)}
@@ -46,6 +53,7 @@ const ToDoToolbar = ({ todos, filter, onFilterStatus, onToggleAllTodo, onDeleteA
         { toolbarTabButtons.map((button, index) => (
           <ActionButton
             key={index}
+            data-testid={`action-button-${index}`}
             className={filter === button.filterKey ? 'active' : ''}
             onClick={onHandleClick(button.filterKey as TodoStatus | 'ALL')}
           >
@@ -53,7 +61,7 @@ const ToDoToolbar = ({ todos, filter, onFilterStatus, onToggleAllTodo, onDeleteA
           </ActionButton>
         ))}
       </ToolbarTabs>
-      <ActionButton onClick={onDeleteAllTodo}>{ ButtonLabels.CLEAR_ALL_TODOS }</ActionButton>
+      <ActionButton data-testid="delete-all" onClick={onDeleteAllTodo}>{ ButtonLabels.CLEAR_ALL_TODOS }</ActionButton>
     </Toolbar>
   );
 };
