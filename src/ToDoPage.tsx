@@ -18,18 +18,26 @@ const ToDoPage = () => {
   const [showing, setShowing] = useState<EnhanceTodoStatus>("ALL");
   const inputRef = useRef<any>(null);
 
-  useEffect(() => {
-    (async () => {
-      const resp = await Service.getTodos();
+  // useEffect(() => {
+  //   (async () => {
+  //     const resp = await Service.getTodos();
 
-      dispatch(setTodos(resp || []));
-    })();
+  //     dispatch(setTodos(resp || []));
+  //   })();
+  // }, []);
+
+  useEffect(() => {
+    const get_todos_local_storage: any = localStorage.getItem("todos");
+    const parse_todos: any = JSON.parse(get_todos_local_storage);
+    dispatch(setTodos(parse_todos));
+    // console.log(todos, "todos");
   }, []);
 
   const onCreateTodo = async (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       const resp = await Service.createTodo(inputRef.current.value);
       dispatch(createTodo(resp));
+      inputRef.current.value = ""; // ** To remove input after pressing enter
     }
   };
 

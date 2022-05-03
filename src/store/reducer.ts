@@ -5,7 +5,8 @@ import {
   DELETE_ALL_TODOS,
   DELETE_TODO,
   TOGGLE_ALL_TODOS,
-  UPDATE_TODO_STATUS
+  UPDATE_TODO_STATUS,
+  SET_TODO
 } from './actions';
 
 export interface AppState {
@@ -23,9 +24,26 @@ function reducer(state: AppState, action: AppActions): AppState {
       if (not_duplicate) {
         state.todos.push(action.payload)
       }
+      const todos_stringify = JSON.stringify(state.todos) // ** Convert JSON to stringify so that it can sve in the local storage
+      localStorage.setItem('todos', todos_stringify)
       return {
         ...state
       };
+
+    case SET_TODO:
+      // ** For set Todo from local storage
+      if (!action.payload) {
+        return {
+          ...state,
+          todos: []
+        }
+      }
+
+      return {
+        ...state,
+        todos: action.payload
+      }
+
 
     case UPDATE_TODO_STATUS:
       const index2 = state.todos.findIndex((todo) => todo.id === action.payload.todoId);
@@ -57,6 +75,7 @@ function reducer(state: AppState, action: AppActions): AppState {
         todos: state.todos
       }
     case DELETE_ALL_TODOS:
+      localStorage.removeItem('todos')  // ** To remove storage item by adding key 
       return {
         ...state,
         todos: []
