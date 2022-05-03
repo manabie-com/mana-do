@@ -10,6 +10,7 @@
     "@types/react-dom": "^16.9.0",
     "axios": "^0.19.2",
     "cross-env": "^7.0.2",
+    "moment": "^2.29.3",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-scripts": "4.0.3",
@@ -39,6 +40,12 @@
     ]
   },
   "devDependencies": {
-    "@types/shortid": "^0.0.29"
+    "@testing-library/dom": "^8.13.0",
+    "@testing-library/jest-dom": "^5.16.4",
+    "@testing-library/react": "^12.1.2",
+    "@testing-library/user-event": "^14.1.1",
+    "@types/react-test-renderer": "17.0.1",
+    "@types/shortid": "^0.0.29",
+    "react-test-renderer": "17.0.1"
   }
 }

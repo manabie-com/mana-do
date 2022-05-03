@@ -1,7 +1,9 @@
 .App {
   text-align: center;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 5em;
 }
 
 button {
@@ -49,14 +51,16 @@ input:focus {
   border: 1px solid rgba(0,0,0, 0.13);
   border-radius: 8px;
   width: 500px;
-  margin-top: 5rem;
+  margin-top: 1rem;
   padding: 24px;
   box-shadow: 2px 2px 1px rgba(0,0,0, 0.09),
               3px 2px 3px rgba(0,0,0, 0.05);
+  background-color: #B098A4;
 }
 
 .Todo__creation {
   display: flex;
+  margin-bottom: 1.5rem;
 }
 
 .Todo__input {
@@ -121,5 +125,6 @@ input:focus {
   margin-right: 8px;
 }
 
-.Action__btn {
+.edit-input {
+  margin-right: 135px;
 }

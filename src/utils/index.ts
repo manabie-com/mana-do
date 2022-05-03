@@ -1,4 +1,4 @@
-import {Todo, TodoStatus} from '../models/todo';
+import { Todo, TodoStatus } from "../store/models";
 
 export function isTodoCompleted(todo: Todo): boolean {
   return todo.status === TodoStatus.COMPLETED;
