@@ -62,6 +62,9 @@ input:focus {
 .Todo__input {
   flex: 1 1;
 }
+.Todo__updateInput{
+  margin:0 10px;
+}
 
 .ToDo__list {
   display: flex;
@@ -73,6 +76,10 @@ input:focus {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding: 5px 10px;
+  margin: 5px 0;
+  background:linear-gradient(to bottom, #9be15d, #00e3ae);
+  border-radius: 4px;
 }
 
 .ToDo__item > span {
