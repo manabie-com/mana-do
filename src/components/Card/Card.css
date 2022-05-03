@@ -1,0 +1,13 @@
+.card__modal {
+  padding: 20px;
+  height: 100%;
+  width: 100%;
+}
+.card__btn {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.btn__delete {
+  color: red;
+}
