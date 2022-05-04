@@ -44,8 +44,8 @@ const ToDoPage = () => {
         const item: string | null = localStorage.getItem('todoDATA');
         if(item){
             let data: Todo[] = JSON.parse(item);
-            dispatch(setTodos(data));
             localStorage.setItem('todoDATA',JSON.stringify(data));
+            dispatch(setTodos(data));
         }else{ dispatch(setTodos([]));}
     }, [])
 
@@ -57,12 +57,20 @@ const ToDoPage = () => {
     }
     const onDeleteAllTodo = () => {
         dispatch(deleteAllTodos());
+
+        let data: Todo[] = todos;
+        localStorage.setItem('todoDATA',JSON.stringify(data));
+        
         setAlertMessage("Successfuly removed.");
         setAlertVariant("success");
         setShowAlert(true);
     }
     const onDeleteTodo = (todoId: any) => {
         dispatch(deleteTodo(todoId));
+
+        let data: Todo[] = todos;
+        localStorage.setItem('todoDATA',JSON.stringify(data));
+
         setAlertMessage("Successfuly removed.");
         setAlertVariant("success");
         setShowAlert(true);
@@ -70,20 +78,17 @@ const ToDoPage = () => {
     const onCreateTodo = async (e: React.KeyboardEvent<HTMLInputElement>) => {  
         if (e.key === 'Enter' ) {
             const resp: Todo = await Service.createTodo(inputRef.current.value);
+            dispatch(createTodo(resp));
             const item: string | null = localStorage.getItem('todoDATA');
-            console.log(item,"item");
             if(item){
-                let bdata: Todo[] = [];
-                bdata = JSON.parse(item);
-                bdata.push(resp);
-                localStorage.setItem('todoDATA',JSON.stringify(bdata));
-                console.log(bdata,"dataaaaaaaaaaaaaaaaaaaaaaaaa");
+                let data: Todo[] = JSON.parse(item);
+                data.push(resp);
+                localStorage.setItem('todoDATA',JSON.stringify(data));
             }else{
                 let array: Todo[] = [];
                 array.push(resp);
                 localStorage.setItem('todoDATA',JSON.stringify(array));
             }
-            dispatch(createTodo(resp));
         }
     }
     const inputHandler = (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
