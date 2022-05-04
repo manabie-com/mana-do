@@ -13,14 +13,11 @@ import {
 } from './store/actions';
 import Service from './service';
 import { TodoStatus, Todo } from './models/todo';
-import { isTemplateSpan } from 'typescript';
 
 type EnhanceTodoStatus = TodoStatus | 'ALL';
 
 
 const ToDoPage = () => {
-    const [todoContent, setTodoContent] = React.useState("");
-    const [todoId, setTodoId] = React.useState(0);
     const [alertVariant, setAlertVariant] = React.useState("");
     const [alertMessage, setAlertMessage] = React.useState("");
     const [showAlert, setShowAlert] = useState(false);
@@ -31,16 +28,6 @@ const ToDoPage = () => {
     const inputRef = useRef<any>(null);
 
     useEffect(()=>{
-        // (async ()=>{
-        //     // const resp = await Service.getTodos();
-        //     // const item: string | null = localStorage.getItem('todoDATA');
-        //     // if(item){
-        //     //     let data: Todo[] = JSON.parse(item);
-        //     //     dispatch(setTodos(data));
-        //     //     localStorage.setItem('todoDATA',JSON.stringify(data));
-        //     // }else{ dispatch(setTodos([]));}
-        // })()
-        // const resp = await Service.getTodos();
         const item: string | null = localStorage.getItem('todoDATA');
         if(item){
             let data: Todo[] = JSON.parse(item);
@@ -51,6 +38,9 @@ const ToDoPage = () => {
 
     const onUpdateTodoStatus = (e: React.ChangeEvent<HTMLInputElement>, todoId: any) => {
         dispatch(updateTodoStatus(todoId, e.target.checked))
+        setAlertMessage("Successfuly updated.");
+        setAlertVariant("success");
+        setShowAlert(true);
     }
     const onToggleAllTodo = (e: React.ChangeEvent<HTMLInputElement>) => {
         dispatch(toggleAllTodos(e.target.checked))
@@ -60,7 +50,7 @@ const ToDoPage = () => {
 
         let data: Todo[] = todos;
         localStorage.setItem('todoDATA',JSON.stringify(data));
-        
+
         setAlertMessage("Successfuly removed.");
         setAlertVariant("success");
         setShowAlert(true);
@@ -89,6 +79,9 @@ const ToDoPage = () => {
                 array.push(resp);
                 localStorage.setItem('todoDATA',JSON.stringify(array));
             }
+            setAlertMessage("Successfuly added.");
+            setAlertVariant("success");
+            setShowAlert(true);
         }
     }
     const inputHandler = (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
@@ -96,7 +89,9 @@ const ToDoPage = () => {
     }
     const saveTodo = () => {
         setEditMode(false);
-        displayAlert();
+        setAlertMessage("Successfuly updated.");
+        setAlertVariant("success");
+        setShowAlert(true);
     }
     const displayAlert = () => {
         setAlertMessage("Successfuly saved.");
@@ -127,7 +122,6 @@ const ToDoPage = () => {
                                 <div style={{display: "block", marginRight: "auto", marginLeft: "auto"}}>
                                 {   editMode ? <div style={{marginBottom: "20px"}}><input value={todo.content}
                                     onChange={(e) => inputHandler(e, index)} 
-                                    // onKeyPress={(eL)=>{onUpdateTodoName(eL)}} 
                                     /></div>
                                 : <p onDoubleClick={()=>setEditMode(true)}>{todo.content}</p>}
                                 </div>
