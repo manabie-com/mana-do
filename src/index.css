@@ -1,13 +1,77 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@import url("https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&display=swap");
+
+* {
+  transition: all 200ms ease-in-out;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+body {
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: "Josefin Sans", sans-serif;
+  line-height: 1.5;
+  font-size: 0.875rem;
+  transition: all 0.3s linear;
+}
+
+p {
+  font-size: 15px;
+}
+
+a {
+  color: var(--blue-color);
+  text-decoration: none;
+}
+
+#root,
+body,
+html {
+  height: 100%;
+}
+
+/*
+===============
+Light Theme
+===============
+*/
+
+.light {
+  --brightblue: hsl(220, 98%, 61%);
+  --listbg: hsl(0, 0%, 98%);
+  --font-color: black;
+  --bg: hsl(236, 33%, 92%);
+  --softbg: hsl(233, 11%, 84%);
+  --darkgrayishblue: hsl(236, 9%, 61%);
+  --verydarkgrayishblue: hsl(235, 19%, 35%);
+  background-repeat: no-repeat;
+  background-color: var(--bg);
+}
+
+/*
+===============
+Dark Theme
+===============
+*/
+
+.dark {
+  --brightblue: hsl(220, 98%, 61%);
+  --bg: hsl(235, 21%, 11%);
+  --listbg: hsl(235, 24%, 19%);
+  --font-color: hsl(234, 39%, 85%);
+  --lightgrayishblue: hsl(236, 33%, 92%);
+  --darkgrayishblue: hsl(234, 11%, 52%);
+  --verydarkgrayishblue: hsl(233, 14%, 35%);
+  --softbg: hsl(234, 11%, 52%);
+  background-repeat: no-repeat;
+  background-color: var(--bg);
+}
+
+*,
+::after,
+::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }

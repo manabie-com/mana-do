@@ -1,0 +1,51 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snapshot should return snapshot when fetched data done 1`] = `
+<div
+  className="sc-gsnTZi esZDVH"
+  style={
+    Object {
+      "height": 348,
+    }
+  }
+>
+  <div>
+    <TodoListItems
+      id="hfuwyr"
+      index={0}
+    />
+    <TodoListItems
+      id="orislaj"
+      index={1}
+    />
+    <TodoListItems
+      id="jiwuro"
+      index={2}
+    />
+    <TodoListItems
+      id="iejals"
+      index={3}
+    />
+    <TodoListItems
+      id="jfuqos"
+      index={4}
+    />
+    <TodoListItems
+      id="ahsyel"
+      index={5}
+    />
+  </div>
+</div>
+`;
+
+exports[`snapshot should return snapshot when fetching data not done yet 1`] = `
+<div
+  className="sc-bczRLJ ibKHch"
+>
+  <div
+    className="loader"
+  >
+    Loading...
+  </div>
+</div>
+`;

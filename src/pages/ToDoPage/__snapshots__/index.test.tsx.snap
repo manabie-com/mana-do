@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snapshot should return snapshot 1`] = `
+<div
+  className="sc-bczRLJ bWAoni"
+>
+  <div
+    className="title"
+  >
+    Draggable Todos
+  </div>
+  <div
+    className="list-container"
+  >
+    <div
+      className="input-wrap"
+    >
+      <div
+        className="form-control"
+      >
+        <input
+          onKeyDown={[Function]}
+          placeholder="Add a Task"
+          type="text"
+        />
+      </div>
+    </div>
+    <TodoList />
+    <Footer />
+  </div>
+</div>
+`;
