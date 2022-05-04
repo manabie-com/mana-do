@@ -28,16 +28,15 @@ const ToDoPage = () => {
     const inputRef = useRef<any>(null);
 
     useEffect(()=>{
-        const item: string | null = localStorage.getItem('todoDATA');
-        if(item){
-            let data: Todo[] = JSON.parse(item);
-            localStorage.setItem('todoDATA',JSON.stringify(data));
-            dispatch(setTodos(data));
-        }else{ dispatch(setTodos([]));}
+        const item: string | null = localStorage.getItem('todoDATA'); //getting from local storage
+        if(item){// if item has a value
+            let data: Todo[] = JSON.parse(item); // parse the string into readable object
+            localStorage.setItem('todoDATA',JSON.stringify(data)); // parse the JSON object into readable JSON string
+            dispatch(setTodos(data)); // updating todo data from reducer
+        }else{ dispatch(setTodos([]));} //if item has no value yet from localStorage, set the todos in the reducer to empty
     }, [])
-
     const onUpdateTodoStatus = (e: React.ChangeEvent<HTMLInputElement>, todoId: any) => {
-        dispatch(updateTodoStatus(todoId, e.target.checked))
+        dispatch(updateTodoStatus(todoId, e.target.checked)) //calling function to update with parameters todoId and boolean value from a check component
         setAlertMessage("Successfuly updated.");
         setAlertVariant("success");
         setShowAlert(true);
@@ -46,38 +45,37 @@ const ToDoPage = () => {
         dispatch(toggleAllTodos(e.target.checked))
     }
     const onDeleteAllTodo = () => {
-        dispatch(deleteAllTodos());
+        dispatch(deleteAllTodos()); //calling function to remove todos value from reducer
+        dispatch(setTodos([])); //empty todos value in reducer
 
-        let data: Todo[] = todos;
-        localStorage.setItem('todoDATA',JSON.stringify(data));
+        localStorage.setItem('todoDATA',JSON.stringify([])); //empty values in localStorage of todoDATA
 
         setAlertMessage("Successfuly removed.");
         setAlertVariant("success");
         setShowAlert(true);
     }
     const onDeleteTodo = (todoId: any) => {
-        dispatch(deleteTodo(todoId));
+        dispatch(deleteTodo(todoId)); //calling function to remove a certain todo, with parameter todoId
 
-        let data: Todo[] = todos;
-        localStorage.setItem('todoDATA',JSON.stringify(data));
+        localStorage.setItem('todoDATA',JSON.stringify(todos));
 
         setAlertMessage("Successfuly removed.");
         setAlertVariant("success");
         setShowAlert(true);
     }
     const onCreateTodo = async (e: React.KeyboardEvent<HTMLInputElement>) => {  
-        if (e.key === 'Enter' ) {
-            const resp: Todo = await Service.createTodo(inputRef.current.value);
-            dispatch(createTodo(resp));
-            const item: string | null = localStorage.getItem('todoDATA');
-            if(item){
-                let data: Todo[] = JSON.parse(item);
-                data.push(resp);
-                localStorage.setItem('todoDATA',JSON.stringify(data));
+        if (e.key === 'Enter' ) { // if event pressed in keyboard is Enter
+            const resp: Todo = await Service.createTodo(inputRef.current.value); //current values in input
+            dispatch(createTodo(resp)); //calling function to create todo, accept parameters
+            const item: string | null = localStorage.getItem('todoDATA'); //getting todo data stored in local storage
+            if(item){ //if item exist
+                let data: Todo[] = JSON.parse(item); // parse the string into readable object
+                data.push(resp); //appending new record into stored todo in localStorage
+                localStorage.setItem('todoDATA',JSON.stringify(data)); // parse the string into readable JSON string
             }else{
-                let array: Todo[] = [];
-                array.push(resp);
-                localStorage.setItem('todoDATA',JSON.stringify(array));
+                let array: Todo[] = []; //declaring empty array todo
+                array.push(resp); //storing inputted data into variable
+                localStorage.setItem('todoDATA',JSON.stringify(array)); //storing to localStorage
             }
             setAlertMessage("Successfuly added.");
             setAlertVariant("success");
@@ -86,15 +84,13 @@ const ToDoPage = () => {
     }
     const inputHandler = (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
         dispatch(updateTodoName(index, e.target.value));
+        dispatch(setTodos(todos));
+
+        localStorage.setItem('todoDATA',JSON.stringify(todos));
     }
     const saveTodo = () => {
         setEditMode(false);
         setAlertMessage("Successfuly updated.");
-        setAlertVariant("success");
-        setShowAlert(true);
-    }
-    const displayAlert = () => {
-        setAlertMessage("Successfuly saved.");
         setAlertVariant("success");
         setShowAlert(true);
     }
@@ -120,12 +116,15 @@ const ToDoPage = () => {
                                     onChange={(e) => onUpdateTodoStatus(e, index)}
                                 />
                                 <div style={{display: "block", marginRight: "auto", marginLeft: "auto"}}>
-                                {   editMode ? <div style={{marginBottom: "20px"}}><input value={todo.content}
+                                {   editMode ? <div style={{marginBottom: "20px"}}><input value={todo.content} //if editMode, fields will turn into form input
                                     onChange={(e) => inputHandler(e, index)} 
                                     /></div>
+                                // if not edit mode, will appear as element, and clickable with function to trigger edit mode 
                                 : <p onDoubleClick={()=>setEditMode(true)}>{todo.content}</p>}
                                 </div>
-                                {editMode ? null : <button onClick={()=>onDeleteTodo(todo.id)}className="Todo__delete">X</button>}
+                                
+                                {/* if edit mode, just no a fragment or empty, else button will appear for remove todo element */}
+                                {editMode ? <React.Fragment></React.Fragment> : <button onClick={()=>onDeleteTodo(todo.id)}className="Todo__delete">X</button>}
                             </div>
                         );
                     })
@@ -156,7 +155,8 @@ const ToDoPage = () => {
                     Clear all todos
                 </Button>
             </div>
-            { showAlert && <Alert style={{marginTop: "10px"}} variant={alertVariant} onClose={() => setShowAlert(false)} dismissible>
+            { showAlert && 
+            <Alert style={{marginTop: "10px"}} variant={alertVariant} onClose={() => setShowAlert(false)} dismissible>
                     {`${alertMessage}`}
             </Alert>}
         </div>

@@ -69,7 +69,6 @@ function reducer(state: AppState, action: AppActions): AppState {
                 }
         case DELETE_ALL_TODOS:
                 return {
-                    ...state,
                     todos: []
                 }
         default:
