@@ -26,7 +26,7 @@ const setLocalStorage = (item: any[]) => {
 function reducer(state: AppState, action: AppActions): AppState {
   switch (action.type) {
     case CREATE_TODO:
-      const not_duplicate = state.todos.every((value: Record<string, any>) => value?.id !== action.payload.id)
+      const not_duplicate = state.todos.every((value: Record<string, any>) => (value?.id !== action.payload.id && action.payload.content.toLowerCase() !== value?.content.toLowerCase()))
       if (not_duplicate) {
         state.todos.push(action.payload)
       }
@@ -65,7 +65,8 @@ function reducer(state: AppState, action: AppActions): AppState {
 
     case UPDATE_TODO:
       const index3 = state.todos.findIndex((todo) => todo.id === action.payload.todoId);
-      if (index3 >= 0) { /// ** guard for index1 incase it will return negative number. If the index1 is positive it will delete the specific index of the array
+      const not_duplicate_todo_update = state.todos.every((value: Record<string, any>) => (action.payload.content?.toLocaleLowerCase() !== value?.content.toLowerCase()))
+      if (index3 >= 0 && not_duplicate_todo_update) { /// ** guard for index1 incase it will return negative number. If the index1 is positive it will delete the specific index of the array
         state.todos[index3].content = action.payload.content ?? '';
       }
       setLocalStorage(state.todos)

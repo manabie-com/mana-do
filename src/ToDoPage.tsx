@@ -45,10 +45,21 @@ const ToDoPage = () => {
     dispatch(updateTodoStatus(todoId, e.target.checked));
   };
 
-  const onEditTodo = (e: React.FormEvent<HTMLSpanElement>, todoId: string) => {
-    dispatch(updateTodo(todoId, e.currentTarget.textContent));
+  const onEditTodo = (
+    e: React.FormEvent<HTMLSpanElement>,
+    todoId: string,
+    todoContent: string
+  ) => {
+    const not_duplicate_todo_update = todos.every(
+      (value: Record<string, any>) =>
+        e.currentTarget.textContent!.toLocaleLowerCase() !==
+        value?.content.toLowerCase()
+    );
 
-    console.log(e.currentTarget.textContent);
+    if (!not_duplicate_todo_update) {
+      return (e.currentTarget.textContent = todoContent);
+    }
+    dispatch(updateTodo(todoId, e.currentTarget.textContent));
   };
 
   const onToggleAllTodo = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -81,7 +92,7 @@ const ToDoPage = () => {
               <span
                 contentEditable
                 suppressContentEditableWarning={true}
-                onInput={(e) => onEditTodo(e, todo?.id ?? "")}
+                onInput={(e) => onEditTodo(e, todo.id, todo.content)}
               >
                 {todo.content}
               </span>
