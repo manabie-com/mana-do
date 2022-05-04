@@ -36,7 +36,7 @@ function reducer(state: AppState, action: AppActions): AppState {
 
       return {
         ...state,
-        todos: [...state.todos, ...action.payload,...todos]
+        todos: [...state.todos, ...action.payload, ...todos]
       };
     case UPDATE_TODO_STATUS:
       // Không set trực tiếp giá trị vào state hiện tại, sử dụng một state mới copy từ state cũ.

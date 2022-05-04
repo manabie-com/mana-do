@@ -1,16 +1,16 @@
-import * as React from "react";
-import {act} from 'react-dom/test-utils';
-import * as ReactDOM from "react-dom";
+import { mount } from "enzyme";
+import { act } from "react-dom/test-utils";
+
 import App from "./App";
 
-describe('App', function () {
-   it('should display pass in number', function () {
-       let container = document.createElement('div');
-       document.body.appendChild(container);
-       act(() => {
-           ReactDOM.render(<App />, container);
-       })
-       const header = container.querySelector('h1');
-       expect(header.textContent).toBe("Hello world React! Num: 191")
-   });
+describe("App", function () {
+  test("should render correct", async function () {
+    let instance;
+    await act(async () => {
+      instance = mount(<App />);
+    });
+
+    expect(instance.find(".Action__btn")).toHaveLength(4);
+    expect(instance.find("input")).toHaveLength(1);
+  });
 });

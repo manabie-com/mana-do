@@ -11,7 +11,7 @@ import {
     updateTodo
 } from './store/actions';
 import Service from './service';
-import { TodoStatus, Todo } from './models/todo';
+import { TodoStatus } from './models/todo';
 
 type EnhanceTodoStatus = TodoStatus | 'ALL';
 
@@ -26,7 +26,6 @@ const ToDoPage = () => {
         (async () => {
             const resp = await Service.getTodos();
             dispatch(setTodos(resp));
-            
         })()
     }, [])
 
@@ -55,6 +54,7 @@ const ToDoPage = () => {
 
     const onDeleteAllTodo = () => {
         dispatch(deleteAllTodos());
+        
     }
     const onUpdateTodo = (e: React.KeyboardEvent<HTMLInputElement>, todoId: string) => {
         if (e.key === 'Enter') {
