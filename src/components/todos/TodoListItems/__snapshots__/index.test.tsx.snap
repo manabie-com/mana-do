@@ -1,0 +1,48 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snapshot should return snapshot 1`] = `
+<article
+  className="sc-bczRLJ cYyWkG list-item"
+  data-testid="list-item-wrapper"
+  onDoubleClick={[Function]}
+  style={Object {}}
+>
+  <div
+    className="text_and_checkbox"
+  >
+    <input
+      checked={false}
+      data-testid="toggle-all"
+      id="hfuwyr"
+      onChange={[Function]}
+      type="checkbox"
+    />
+    <label
+      htmlFor="hfuwyr"
+    >
+      todo 1
+    </label>
+  </div>
+  <div
+    className="delete"
+  >
+    <button
+      className="delete-btn"
+      data-testid="delete-all-todo-item"
+      onClick={[Function]}
+    >
+      <svg
+        height="18"
+        width="18"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M16.97 0l.708.707L9.546 8.84l8.132 8.132-.707.707-8.132-8.132-8.132 8.132L0 16.97l8.132-8.132L0 .707.707 0 8.84 8.132 16.971 0z"
+          fill="#494C6B"
+          fillRule="evenodd"
+        />
+      </svg>
+    </button>
+  </div>
+</article>
+`;
