@@ -7,6 +7,7 @@ Accomplished Tasks:
 - LocalStorage implementation
 
 How to run tests: 
+- npm i (install first dependencies used)
 - yarn start:frontend
 
 Things to add if given more time:
