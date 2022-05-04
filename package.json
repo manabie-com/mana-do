@@ -1,6 +1,7 @@
 {
   "name": "manabie-todo-challenge",
   "description": "Manabie todo challenge",
+  "author": "John Carlo Dimaranan",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
