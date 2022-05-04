@@ -36,23 +36,20 @@ input {
   min-height: 36px;
   border: none;
   outline: none;
-  padding: 0 12px;
-  box-shadow: 2px 0 4px rgba(0,0,0, 0.2);
-  border-radius: 4px;
+  padding: 10px 20px;
+  border-radius: 5px;
+  background-color: #EEEEEE;
+  border: 1px solid transparent;
 }
 
 input:focus {
-  box-shadow: 1px 0 9px rgba(0,0,0, 0.25);
+  border: 1px solid #06113C;
 }
 
 .ToDo__container {
-  border: 1px solid rgba(0,0,0, 0.13);
-  border-radius: 8px;
-  width: 500px;
+  width: 70vw;
   margin-top: 5rem;
   padding: 24px;
-  box-shadow: 2px 2px 1px rgba(0,0,0, 0.09),
-              3px 2px 3px rgba(0,0,0, 0.05);
 }
 
 .Todo__creation {
@@ -66,13 +63,27 @@ input:focus {
 .ToDo__list {
   display: flex;
   flex-direction: column;
-  margin-top: 1.5rem;
+  margin-top: 10px;
+  border-radius: 5px;
+  overflow: hidden;
 }
 
 .ToDo__item {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding: 10px 20px;
+  font-weight: bold;
+}
+
+.ToDo__item:nth-child(n) {
+  background-color: #FF8C32;
+  color: white;
+}
+
+.ToDo__item:nth-child(2n) {
+  background-color: #eee;
+  color: #06113C;
 }
 
 .ToDo__item > span {
@@ -81,45 +92,75 @@ input:focus {
   margin-left: 8px;
 }
 
+.ToDo__item > .Edit__input {
+  flex: 1;
+  text-align: left;
+  padding: 0px 10px;
+  margin: 0px 10px;
+}
+
 .Todo__content {
   flex: 1 1;
 }
 
-.Todo__delete {
+.Todo_action {
   outline: none;
   border: none;
-  width: 32px;
-  height: 32px;
   min-width: auto;
   min-height: auto;
   box-shadow: none;
-  border-radius: 50%;
+  flex-shrink: 0;
+  border-radius: 10%;
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
-}
-
-.Todo__action, .Todo__delete {
-  width: 24px;
-  height: 24px;
-  flex-shrink: 0;
+  font-size: 25px;
+  background-color: transparent;
 }
 
 .Todo__toolbar {
   display: flex;
   justify-content: space-between;
-  margin-top: 24px;
+  align-items: center;
+  margin-top: 25px;
+  padding: 0 20px;
 }
 
 .Todo__tabs {
   display: flex;
   justify-content: center;
+  align-items: center;
 }
+
 
 .Todo__tabs > *:not(:last-child) {
   margin-right: 8px;
 }
 
+.Filter__icon {
+  font-size: 20px;
+  color: #06113C;
+}
+
 .Action__btn {
+  box-shadow: none;
+  margin-left: 5px;
+  transition: background-color 200ms linear;
+}
+
+.Action__btn.focus {
+  background-color: #06113C;
+  color: white;
+}
+
+.Clear__btn {
+  background-color: transparent;
+  width: fit-content;
+  border: none;
+  box-shadow: none;
+  min-width: auto;
+  min-height: auto;
+  font-size: 20px;
+  color: #06113C;
 }
