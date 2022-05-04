@@ -20,13 +20,6 @@ const ToDoPage = () => {
   const [showing, setShowing] = useState<EnhanceTodoStatus>("ALL");
   const inputRef = useRef<any>(null);
 
-  // useEffect(() => {
-  //   (async () => {
-  //     const resp = await Service.getTodos();
-
-  //     dispatch(setTodos(resp || []));
-  //   })();
-  // }, []);
   useEffect(() => {
     const get_todos_local_storage: any = localStorage.getItem("todos");
     const parse_todos: any = JSON.parse(get_todos_local_storage);
@@ -34,7 +27,7 @@ const ToDoPage = () => {
   }, []);
 
   const onCreateTodo = async (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") {
+    if (e.key === "Enter" && inputRef.current.value) {
       const resp = await Service.createTodo(inputRef.current.value);
       dispatch(createTodo(resp));
       inputRef.current.value = ""; // ** To remove input after pressing enter
@@ -87,6 +80,7 @@ const ToDoPage = () => {
               />
               <span
                 contentEditable
+                suppressContentEditableWarning={true}
                 onInput={(e) => onEditTodo(e, todo?.id ?? "")}
               >
                 {todo.content}
