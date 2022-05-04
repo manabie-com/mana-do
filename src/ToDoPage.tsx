@@ -8,6 +8,7 @@ import {
   deleteAllTodos,
   updateTodoStatus,
   deleteTodo,
+  updateTodo,
 } from "./store/actions";
 import Service from "./service";
 import { TodoStatus } from "./models/todo";
@@ -26,7 +27,6 @@ const ToDoPage = () => {
   //     dispatch(setTodos(resp || []));
   //   })();
   // }, []);
-
   useEffect(() => {
     const get_todos_local_storage: any = localStorage.getItem("todos");
     const parse_todos: any = JSON.parse(get_todos_local_storage);
@@ -50,6 +50,12 @@ const ToDoPage = () => {
     todoId: any
   ) => {
     dispatch(updateTodoStatus(todoId, e.target.checked));
+  };
+
+  const onEditTodo = (e: React.FormEvent<HTMLSpanElement>, todoId: string) => {
+    dispatch(updateTodo(todoId, e.currentTarget.textContent));
+
+    console.log(e.currentTarget.textContent);
   };
 
   const onToggleAllTodo = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -79,7 +85,12 @@ const ToDoPage = () => {
                 checked={showing === todo.status}
                 onChange={(e) => onUpdateTodoStatus(e, todo?.id ?? "")}
               />
-              <span>{todo.content}</span>
+              <span
+                contentEditable
+                onInput={(e) => onEditTodo(e, todo?.id ?? "")}
+              >
+                {todo.content}
+              </span>
               <button
                 onClick={() => onDeleteTodo(todo.id)}
                 className="Todo__delete"

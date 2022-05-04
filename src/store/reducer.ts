@@ -6,7 +6,8 @@ import {
   DELETE_TODO,
   TOGGLE_ALL_TODOS,
   UPDATE_TODO_STATUS,
-  SET_TODO
+  SET_TODO,
+  UPDATE_TODO
 } from './actions';
 
 export interface AppState {
@@ -56,6 +57,20 @@ function reducer(state: AppState, action: AppActions): AppState {
         ...state,
         todos: state.todos
       }
+
+
+    case UPDATE_TODO:
+      const index3 = state.todos.findIndex((todo) => todo.id === action.payload.todoId);
+      if (index3 >= 0) { /// ** guard for index1 incase it will return negative number. If the index1 is positive it will delete the specific index of the array
+        state.todos[index3].content = action.payload.content ?? '';
+      }
+      setLocalStorage(state.todos)
+
+      return {
+        ...state,
+        todos: state.todos
+      }
+
 
     case TOGGLE_ALL_TODOS:
       const tempTodos = state.todos.map((e) => {
