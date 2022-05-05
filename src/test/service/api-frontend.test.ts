@@ -149,3 +149,17 @@ test('API delete todo by id should delete the selected todo and keep the others'
 
     expect(todos).toEqual(expectedTodos);
 });
+
+test('API update todo content should update the todo content', async () => {
+    localStorage.setItem(TODOS_LOCAL_STORAGE_KEY, JSON.stringify(fakeExistingTodos));
+    const todoId = fakeExistingTodos[0].id;
+    const newContent = 'new content';
+
+    await Service.onUpdateTodoContent(todoId, newContent);
+
+    const todosStr = localStorage.getItem(TODOS_LOCAL_STORAGE_KEY);
+    const todos = todosStr ? JSON.parse(todosStr) as Todo[] : [];
+    const todo = todos.find(item => item.id === todoId);
+
+    expect(todo?.content).toEqual(newContent);
+});

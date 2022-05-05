@@ -46,10 +46,21 @@ class ApiFrontend extends IAPI {
         return Promise.resolve();
     }
 
-    onDeleteTodo(todoId: string) {
+    onDeleteTodo(todoId: string): Promise<void> {
         const todos = this.getTodosFromLocalStorage();
         this.saveTodos(todos.filter(item => item.id !== todoId));
         return Promise.resolve();
+    }
+
+    onUpdateTodoContent(todoId:string, content:string): Promise<void> {
+        const todos = this.getTodosFromLocalStorage();
+        const index = todos.findIndex(item => item.id === todoId);
+        if (index !== -1) {
+            todos[index].content = content;
+            this.saveTodos(todos);
+            return Promise.resolve();
+        }
+        return Promise.reject();
     }
 
     private saveToLocalStorage(todo: Todo) {

@@ -7,4 +7,5 @@ export abstract class IAPI {
     abstract onToggleAllTodo(checked: boolean) : Promise<void>
     abstract onDeleteAllTodo() : Promise<void>
     abstract onDeleteTodo(todoId: string) : Promise<void>
+    abstract onUpdateTodoContent(todoId: string, content: string) : Promise<void>
 }

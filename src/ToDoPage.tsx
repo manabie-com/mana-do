@@ -1,7 +1,15 @@
 import React, {useEffect, useReducer, useState} from 'react';
 
 import reducer, {initialState} from './store/reducer';
-import {createTodo, deleteAllTodos, deleteTodo, setTodos, toggleAllTodos, updateTodoStatus} from './store/actions';
+import {
+    createTodo,
+    deleteAllTodos,
+    deleteTodo,
+    setTodos,
+    toggleAllTodos,
+    updateTodoContent,
+    updateTodoStatus
+} from './store/actions';
 import Service from './service';
 import {TodoStatus} from './models/todo';
 import TodoItem from "./components/TodoItem";
@@ -68,7 +76,13 @@ const ToDoPage = () => {
         }).catch(console.log);
     }
 
-    // This component can be split to smaller components for re-usability, testability
+    const onUpdateTodoContent = (todoId: string, content: string) => {
+        Service.onUpdateTodoContent(todoId, content).then(() => {
+            dispatch(updateTodoContent(todoId, content));
+        }).catch(console.log);
+    }
+
+    // This component can be split into smaller components for re-usability, testability
     return (
         <div className="ToDo__container">
             <TodoInputForm input={input}
@@ -76,15 +90,16 @@ const ToDoPage = () => {
                            onCreateTodo={onCreateTodo} />
             <div className="ToDo__list">
                 {
-                    todos.map((todo, index) => {
+                    todos.map((todo) => {
                         return (
                             <TodoItem
-                                key={index}
+                                key={todo.id}
                                 todo={todo}
                                 // Bug fixed: should show only if showing === ALL or match the item's status
                                 showing={showing === 'ALL' || showing === todo.status}
                                 onUpdateTodoStatus={onUpdateTodoStatus}
-                                onDeleteTodo={onDeleteTodo} />)
+                                onDeleteTodo={onDeleteTodo}
+                                onUpdateTodoContent={onUpdateTodoContent} />)
                     })
                 }
             </div>

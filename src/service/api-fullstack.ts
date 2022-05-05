@@ -34,6 +34,10 @@ class ApiFullstack extends IAPI {
     onDeleteTodo(todoId: string): Promise<void> {
         return Promise.resolve(undefined);
     }
+
+    onUpdateTodoContent(todoId: string, content: string): Promise<void> {
+        return Promise.resolve(undefined);
+    }
 }
 
 
