@@ -1,5 +1,5 @@
 import {IAPI} from './types';
-import {Todo} from '../models/todo';
+import {Todo, TodoStatus} from '../models/todo';
 import axios from '../utils/axios';
 import {AxiosResponse} from 'axios';
 
@@ -16,6 +16,23 @@ class ApiFullstack extends IAPI {
         const resp = await axios.get<AxiosResponse<Array<Todo>>>(`/tasks`);
 
         return resp.data.data;
+    }
+
+    // to remove compile errors only
+    updateTodoStatus(todoId: string, status: TodoStatus): Promise<void> {
+        return Promise.resolve(undefined);
+    }
+
+    onDeleteAllTodo(): Promise<void> {
+        return Promise.resolve(undefined);
+    }
+
+    onToggleAllTodo(checked: boolean): Promise<void> {
+        return Promise.resolve(undefined);
+    }
+
+    onDeleteTodo(todoId: string): Promise<void> {
+        return Promise.resolve(undefined);
     }
 }
 

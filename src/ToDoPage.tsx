@@ -1,105 +1,97 @@
-import React, {useEffect, useReducer, useRef, useState} from 'react';
+import React, {useEffect, useReducer, useState} from 'react';
 
 import reducer, {initialState} from './store/reducer';
-import {
-    setTodos,
-    createTodo,
-    toggleAllTodos,
-    deleteAllTodos,
-    updateTodoStatus
-} from './store/actions';
+import {createTodo, deleteAllTodos, deleteTodo, setTodos, toggleAllTodos, updateTodoStatus} from './store/actions';
 import Service from './service';
 import {TodoStatus} from './models/todo';
+import TodoItem from "./components/TodoItem";
+import TodoInputForm from "./components/TodoInputForm";
+import TodoToolbar from "./components/TodoToolbar";
 
-type EnhanceTodoStatus = TodoStatus | 'ALL';
+export type EnhanceTodoStatus = TodoStatus | 'ALL';
 
 
 const ToDoPage = () => {
     const [{todos}, dispatch] = useReducer(reducer, initialState);
     const [showing, setShowing] = useState<EnhanceTodoStatus>('ALL');
-    const inputRef = useRef<any>(null);
+    // FIXED: should use ref in case necessary only
+    const [input, setInput] = useState<string>('');
 
     useEffect(()=>{
         (async ()=>{
-            const resp = await Service.getTodos();
+            try {
+                const resp = await Service.getTodos();
 
-            dispatch(setTodos(resp || []));
+                dispatch(setTodos(resp || []));
+            } catch (e) {
+                console.log(e);
+            }
         })()
     }, [])
 
-    const onCreateTodo = async (e: React.KeyboardEvent<HTMLInputElement>) => {
-        if (e.key === 'Enter' ) {
-            const resp = await Service.createTodo(inputRef.current.value);
+    const onCreateTodo = async () => {
+        // ADDED: prevent creating an empty todo
+        if (input.trim() === '') return;
+        try {
+            const resp = await Service.createTodo(input.trim());
             dispatch(createTodo(resp));
+            // We can clear input after create successfully
+            setInput('');
+        } catch (e) {
+            console.log(e);
         }
     }
 
     const onUpdateTodoStatus = (e: React.ChangeEvent<HTMLInputElement>, todoId: any) => {
-        dispatch(updateTodoStatus(todoId, e.target.checked))
+        const status = e.target.checked ? TodoStatus.COMPLETED : TodoStatus.ACTIVE;
+        Service.updateTodoStatus(todoId, status).then(() => {
+            dispatch(updateTodoStatus(todoId, status));
+        }).catch(console.log);
     }
 
     const onToggleAllTodo = (e: React.ChangeEvent<HTMLInputElement>) => {
-        dispatch(toggleAllTodos(e.target.checked))
+        const checked = e.target.checked
+        Service.onToggleAllTodo(checked).then(() => {
+            dispatch(toggleAllTodos(checked))
+        });
     }
 
     const onDeleteAllTodo = () => {
-        dispatch(deleteAllTodos());
+        Service.onDeleteAllTodo().then(() => {
+            dispatch(deleteAllTodos());
+        }).catch(console.log);
     }
 
+    const onDeleteTodo = (todoId: string)  => {
+        Service.onDeleteTodo(todoId).then(() => {
+            dispatch(deleteTodo(todoId));
+        }).catch(console.log);
+    }
 
+    // This component can be split to smaller components for re-usability, testability
     return (
         <div className="ToDo__container">
-            <div className="Todo__creation">
-                <input
-                    ref={inputRef}
-                    className="Todo__input"
-                    placeholder="What need to be done?"
-                    onKeyDown={onCreateTodo}
-                />
-            </div>
+            <TodoInputForm input={input}
+                           setInput={setInput}
+                           onCreateTodo={onCreateTodo} />
             <div className="ToDo__list">
                 {
                     todos.map((todo, index) => {
                         return (
-                            <div key={index} className="ToDo__item">
-                                <input
-                                    type="checkbox"
-                                    checked={showing === todo.status}
-                                    onChange={(e) => onUpdateTodoStatus(e, index)}
-                                />
-                                <span>{todo.content}</span>
-                                <button
-                                    className="Todo__delete"
-                                >
-                                    X
-                                </button>
-                            </div>
-                        );
+                            <TodoItem
+                                key={index}
+                                todo={todo}
+                                // Bug fixed: should show only if showing === ALL or match the item's status
+                                showing={showing === 'ALL' || showing === todo.status}
+                                onUpdateTodoStatus={onUpdateTodoStatus}
+                                onDeleteTodo={onDeleteTodo} />)
                     })
                 }
             </div>
-            <div className="Todo__toolbar">
-                {todos.length > 0 ?
-                    <input
-                        type="checkbox"
-                        onChange={onToggleAllTodo}
-                    /> : <div/>
-                }
-                <div className="Todo__tabs">
-                    <button className="Action__btn">
-                        All
-                    </button>
-                    <button className="Action__btn" onClick={()=>setShowing(TodoStatus.ACTIVE)}>
-                        Active
-                    </button>
-                    <button className="Action__btn" onClick={()=>setShowing(TodoStatus.COMPLETED)}>
-                        Completed
-                    </button>
-                </div>
-                <button className="Action__btn" onClick={onDeleteAllTodo}>
-                    Clear all todos
-                </button>
-            </div>
+            <TodoToolbar todos={todos}
+                         onToggleAllTodo={onToggleAllTodo}
+                         setShowing={setShowing}
+                         onDeleteAllTodo={onDeleteAllTodo} />
         </div>
     );
 };
