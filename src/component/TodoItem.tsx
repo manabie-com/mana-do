@@ -41,7 +41,6 @@ const TodoItem = (props: {
     [isEdit]
   )
 
-  //HANDLE UPDATE CONTENT
   const handleUpdateContentBlur = () => {
     setIsEdit(false)
     onUpdateData(data, { content: inputRef.current.value })
