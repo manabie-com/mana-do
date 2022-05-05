@@ -38,7 +38,7 @@ const ToDoPage = () => {
   }, [])
 
   const onCreateTodo = async (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
+    if (e.key === 'Enter' && inputRef.current.value) {
       const resp = await Service.createTodo(inputRef.current.value)
       dispatch(createTodo(resp))
     }
