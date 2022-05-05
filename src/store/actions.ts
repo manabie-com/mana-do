@@ -5,9 +5,7 @@ export const CREATE_TODO = 'CREATE_TODO'
 export const DELETE_TODO = 'DELETE_TODO'
 export const DELETE_ALL_TODOS = 'DELETE_ALL_TODOS'
 export const TOGGLE_ALL_TODOS = 'TOGGLE_ALL_TODOS'
-export const UPDATE_TODO_STATUS = 'UPDATE_TODO_STATUS'
 export const UPDATE_TODO_DATA = 'UPDATE_TODO_DATA'
-export const DELETE_ITEM_TODO_DATA = 'DELETE_ITEM_TODO_DATA'
 
 export interface SetTodoAction {
   type: typeof SET_TODO
@@ -31,41 +29,6 @@ export function createTodo(newTodo: Todo): CreateTodoAction {
   return {
     type: CREATE_TODO,
     payload: newTodo,
-  }
-}
-
-//////////////
-export interface UpdateTodoStatusAction {
-  type: typeof UPDATE_TODO_STATUS
-  payload: {
-    todoId: string
-    checked: boolean
-  }
-}
-
-export function updateTodoStatus(
-  todoId: string,
-  checked: boolean
-): UpdateTodoStatusAction {
-  return {
-    type: UPDATE_TODO_STATUS,
-    payload: {
-      todoId,
-      checked,
-    },
-  }
-}
-
-//////////////
-export interface DeleteTodoAction {
-  type: typeof DELETE_TODO
-  payload: string
-}
-
-export function deleteTodo(todoId: string): DeleteTodoAction {
-  return {
-    type: DELETE_TODO,
-    payload: todoId,
   }
 }
 
@@ -114,16 +77,16 @@ export function updateTodoData(
   }
 }
 
-export interface DeleteItemTodoDataAction {
-  type: typeof DELETE_ITEM_TODO_DATA
+export interface DeleteTodoAction {
+  type: typeof DELETE_TODO
   payload: {
     idItem: string
   }
 }
 
-export function deleteItemTodoData(idItem: string): DeleteItemTodoDataAction {
+export function deleteItemTodoData(idItem: string): DeleteTodoAction {
   return {
-    type: DELETE_ITEM_TODO_DATA,
+    type: DELETE_TODO,
     payload: {
       idItem,
     },
@@ -133,9 +96,7 @@ export function deleteItemTodoData(idItem: string): DeleteItemTodoDataAction {
 export type AppActions =
   | SetTodoAction
   | CreateTodoAction
-  | UpdateTodoStatusAction
-  | DeleteTodoAction
   | DeleteAllTodosAction
   | ToggleAllTodosAction
   | UpdateTodoDataAction
-  | DeleteItemTodoDataAction
+  | DeleteTodoAction
