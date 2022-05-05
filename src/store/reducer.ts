@@ -3,8 +3,10 @@ import {
   AppActions,
   CREATE_TODO,
   DELETE_ALL_TODOS,
+  DELETE_ITEM_TODO_DATA,
   DELETE_TODO,
   TOGGLE_ALL_TODOS,
+  UPDATE_TODO_DATA,
   UPDATE_TODO_STATUS,
 } from './actions'
 
@@ -23,6 +25,26 @@ function reducer(state: AppState, action: AppActions): AppState {
       return {
         ...state,
         todos: newTodos,
+      }
+
+    case UPDATE_TODO_DATA:
+      const { todoId, values }: { todoId: string; values: any } = action.payload
+      const findItem: Todo = state.todos.find(e => e.id === todoId) || {}
+      Object.keys(values).forEach(e => {
+        findItem[e] = values[e]
+      })
+      return {
+        ...state,
+        todos: state.todos,
+      }
+
+    case DELETE_ITEM_TODO_DATA:
+      const remainingItems = state.todos.filter(
+        e => e.id !== action.payload.idItem
+      )
+      return {
+        ...state,
+        todos: remainingItems,
       }
 
     case UPDATE_TODO_STATUS:

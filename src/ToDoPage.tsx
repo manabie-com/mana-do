@@ -6,6 +6,8 @@ import {
   createTodo,
   toggleAllTodos,
   deleteAllTodos,
+  deleteItemTodoData,
+  updateTodoData,
 } from './store/actions'
 import Service from './service'
 import TodoItem from './component/TodoItem'
@@ -38,9 +40,10 @@ const ToDoPage = () => {
   }, [])
 
   const onCreateTodo = async (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter' && inputRef.current.value) {
+    if (e.key === 'Enter') {
       const resp = await Service.createTodo(inputRef.current.value)
       dispatch(createTodo(resp))
+      inputRef.current.value = ''
     }
   }
 
@@ -51,6 +54,14 @@ const ToDoPage = () => {
   const onDeleteAllTodo = () => {
     dispatch(deleteAllTodos())
   }
+
+  const onUpdateData = React.useCallback((itemEdit, values) => {
+    dispatch(updateTodoData(itemEdit.id, values))
+  }, [])
+
+  const onRemoveItem = React.useCallback(idItem => {
+    dispatch(deleteItemTodoData(idItem))
+  }, [])
 
   return (
     <div className="ToDo__container">
@@ -65,7 +76,14 @@ const ToDoPage = () => {
       <div className="ToDo__list">
         {todos?.length > 0 ? (
           todos.map((todo, index) => {
-            return <TodoItem key={todo.id + todo.status} data={todo} />
+            return (
+              <TodoItem
+                onRemoveItem={onRemoveItem}
+                key={todo.id + todo.status}
+                data={todo}
+                onUpdateData={onUpdateData}
+              />
+            )
           })
         ) : (
           <div>No data</div>
