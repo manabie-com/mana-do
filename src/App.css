@@ -3,15 +3,24 @@
   display: flex;
   justify-content: center;
 }
+body {
+  background-color: rgb(0, 30, 60);
+}
 
 button {
   outline: none;
   border: none;
-  box-shadow: 2px 0 2px currentColor;
   border-radius: 4px;
   min-height: 32px;
   min-width: 80px;
   padding: 4px 8px;
+  border-radius: 3px;
+  font-size: 12px;
+  text-transform: uppercase;
+  cursor: pointer;
+  color: white;
+  background-color: transparent;
+  border: 1px solid #90CAF9;
 }
 
 button:hover {
@@ -46,6 +55,8 @@ input:focus {
 }
 
 .ToDo__container {
+  color: white;
+  background-color: rgb(18 18 18);
   border: 1px solid rgba(0,0,0, 0.13);
   border-radius: 8px;
   width: 500px;
@@ -121,5 +132,17 @@ input:focus {
   margin-right: 8px;
 }
 
-.Action__btn {
+.ripple {
+  background-position: center;
+  transition: background 0.8s;
 }
+.ripple:hover {
+  background: #47a7f5 radial-gradient(circle, transparent 1%, #47a7f5 1%) center/15000%;
+}
+.ripple:active {
+  background-color: #6eb9f7;
+  background-size: 100%;
+  transition: background 0s;
+}
+
+
