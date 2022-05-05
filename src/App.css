@@ -16,6 +16,7 @@ button {
 
 button:hover {
   opacity: 0.85;
+  cursor: pointer;
 }
 
 input[type="checkbox"] {
@@ -37,22 +38,21 @@ input {
   border: none;
   outline: none;
   padding: 0 12px;
-  box-shadow: 2px 0 4px rgba(0,0,0, 0.2);
+  box-shadow: 2px 0 4px rgba(0, 0, 0, 0.2);
   border-radius: 4px;
 }
 
 input:focus {
-  box-shadow: 1px 0 9px rgba(0,0,0, 0.25);
+  box-shadow: 1px 0 9px rgba(0, 0, 0, 0.25);
 }
 
 .ToDo__container {
-  border: 1px solid rgba(0,0,0, 0.13);
+  border: 1px solid rgba(0, 0, 0, 0.13);
   border-radius: 8px;
   width: 500px;
   margin-top: 5rem;
   padding: 24px;
-  box-shadow: 2px 2px 1px rgba(0,0,0, 0.09),
-              3px 2px 3px rgba(0,0,0, 0.05);
+  box-shadow: 2px 2px 1px rgba(0, 0, 0, 0.09), 3px 2px 3px rgba(0, 0, 0, 0.05);
 }
 
 .Todo__creation {
@@ -73,12 +73,23 @@ input:focus {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin-bottom: 0.5rem;
+  padding: 0 0.5rem;
+  transition: all 0.3s linear;
 }
 
 .ToDo__item > span {
   flex: 1 1;
   text-align: left;
-  margin-left: 8px;
+  margin: 0 0.75rem;
+}
+
+.ToDo__item.show {
+  background-color: white;
+}
+
+.ToDo__item.disabled {
+  background-color: gray;
 }
 
 .Todo__content {
@@ -100,7 +111,8 @@ input:focus {
   cursor: pointer;
 }
 
-.Todo__action, .Todo__delete {
+.Todo__action,
+.Todo__delete {
   width: 24px;
   height: 24px;
   flex-shrink: 0;
@@ -121,5 +133,29 @@ input:focus {
   margin-right: 8px;
 }
 
-.Action__btn {
+.Action__btn.active {
+  background-color: deepskyblue;
+  color: white;
+  font-weight: bold;
+  box-shadow: 2px 0 2px black;
+}
+
+.Action__btn.Clear__btn {
+  background-color: crimson;
+  color: white;
+  font-weight: bold;
+  box-shadow: 2px 0 2px black;
+}
+
+.Todo__input.Edit__input {
+  margin: 0 1rem;
+}
+
+.Todo_content {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: break-word;
 }
