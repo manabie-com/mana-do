@@ -1,3 +1,4 @@
+
 import { IAPI } from "./types";
 import { Todo, TodoStatus } from "../models/todo";
 import shortid from "shortid";
@@ -10,6 +11,7 @@ class ApiFrontend extends IAPI {
             status: TodoStatus.ACTIVE,
             id: shortid(),
             user_id: "firstUser",
+            on_edit: false,
         } as Todo);
     }
 
@@ -21,6 +23,7 @@ class ApiFrontend extends IAPI {
                 status: TodoStatus.ACTIVE,
                 id: shortid(),
                 user_id: "firstUser",
+                on_edit: false,
             } as Todo,
         ];
     }
