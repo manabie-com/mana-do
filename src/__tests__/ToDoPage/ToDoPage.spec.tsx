@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import ToDoPage from '../ToDoPage';
+import ToDoPage from '../../ToDoPage';
 
 describe('Render ToDoPage', () => {
   beforeEach(() => {
