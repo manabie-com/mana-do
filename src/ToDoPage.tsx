@@ -10,6 +10,7 @@ import {
 } from './store/actions';
 import Service from './service';
 import {TodoStatus} from './models/todo';
+import { saveToLocalStorage } from './utils/localStorage';
 
 type EnhanceTodoStatus = TodoStatus | 'ALL';
 
@@ -22,10 +23,13 @@ const ToDoPage = () => {
     useEffect(()=>{
         (async ()=>{
             const resp = await Service.getTodos();
-
             dispatch(setTodos(resp || []));
         })()
     }, [])
+
+    useEffect(() => {
+      saveToLocalStorage(todos);
+    }, [todos])
 
     const onCreateTodo = async (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter' ) {

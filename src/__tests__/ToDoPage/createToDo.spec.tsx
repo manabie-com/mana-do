@@ -20,4 +20,15 @@ describe('Create to-dos', () => {
     const todoItems = await screen.findAllByText(/item/i, { selector: 'span' });
     expect(todoItems).toHaveLength(toDos.length);
   })
+
+  it('Should save new todos to localStorage', async () => {
+    const spySetItem = jest.spyOn(Storage.prototype, 'setItem');
+    render(<ToDoPage />);
+    
+    const todoInput = screen.getByPlaceholderText(/what need to be done?/i);
+    todoInput.focus()
+    await user.keyboard(`test persistance to-dos{Enter}`);
+    expect(spySetItem).toHaveBeenCalled();
+    spySetItem.mockReset()
+  })
 })

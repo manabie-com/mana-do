@@ -4,6 +4,7 @@ import {
   CREATE_TODO,
   DELETE_ALL_TODOS,
   DELETE_TODO,
+  SET_TODO,
   TOGGLE_ALL_TODOS,
   UPDATE_TODO_STATUS
 } from './actions';
@@ -20,11 +21,11 @@ function reducer(state: AppState, action: AppActions): AppState {
   switch (action.type) {
     case CREATE_TODO:
       /*The problem
-        Directly modify app state is anti-pattern. Redux expects that all state updates are done immutably.
+        Directly modify app state is anti-pattern. React expects that all state updates are done immutably.
         The solution
         Make a shallow copy of `todos` property, then modify it.
 
-        Ref: https://redux.js.org/tutorials/essentials/part-1-overview-concepts#immutability
+        Ref: https://reactjs.org/docs/state-and-lifecycle.html#do-not-modify-state-directly 
       */
      
       const todos = [...state.todos, action.payload]
@@ -71,6 +72,11 @@ function reducer(state: AppState, action: AppActions): AppState {
       return {
         ...state,
         todos: [],
+      }
+    case SET_TODO:
+      return {
+        ...state,
+        todos: action.payload,
       }
     default:
       return state
