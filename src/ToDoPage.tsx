@@ -31,6 +31,10 @@ const ToDoPage = () => {
         if (e.key === 'Enter' ) {
             const resp = await Service.createTodo(inputRef.current.value);
             dispatch(createTodo(resp));
+
+            // It'd be a better user experience if we clear the input every time a to-do is created.
+            // So users don't have to delete the old input value before create a new one.
+            inputRef.current.value = '';
         }
     }
 
