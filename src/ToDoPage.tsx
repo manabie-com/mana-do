@@ -6,7 +6,8 @@ import {
     createTodo,
     toggleAllTodos,
     deleteAllTodos,
-    updateTodoStatus
+    updateTodoStatus,
+    updateTodoContent
 } from './store/actions';
 import Service from './service';
 import {TodoStatus} from './models/todo';
@@ -54,6 +55,22 @@ const ToDoPage = () => {
         dispatch(deleteAllTodos());
     }
 
+    const onEditTodo = (e: React.MouseEvent<HTMLSpanElement>) => {
+      e.currentTarget.contentEditable = 'true';
+      e.currentTarget.focus();
+    }
+
+    const onBlurTodo = (e: React.FocusEvent<HTMLSpanElement>) => {
+      e.currentTarget.contentEditable = 'false';
+    }
+
+    const onUpdateTodo = (e: React.KeyboardEvent<HTMLSpanElement>, id: string) => {
+      if (e.key === 'Enter') {
+        dispatch(updateTodoContent(id, e.currentTarget.innerText));
+        e.currentTarget.contentEditable = 'false';
+      }
+    }
+
 
     return (
         <div className="ToDo__container">
@@ -75,7 +92,11 @@ const ToDoPage = () => {
                                     checked={showing === todo.status}
                                     onChange={(e) => onUpdateTodoStatus(e, index)}
                                 />
-                                <span>{todo.content}</span>
+                                <span
+                                  onDoubleClick={onEditTodo}
+                                  onBlur={onBlurTodo}
+                                  onKeyDown={e => onUpdateTodo(e, todo.id)}
+                                  >{todo.content}</span>
                                 <button
                                     className="Todo__delete"
                                 >

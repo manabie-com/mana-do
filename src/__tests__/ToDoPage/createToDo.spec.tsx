@@ -1,9 +1,10 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render, screen, cleanup } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import ToDoPage from '../../ToDoPage';
 
 describe('Create to-dos', () => {
+  afterEach(cleanup);
   const user = userEvent.setup();
 
   it('Should display a list of to-do items', async () => {
