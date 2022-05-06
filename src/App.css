@@ -7,29 +7,78 @@
 button {
   outline: none;
   border: none;
-  box-shadow: 2px 0 2px currentColor;
   border-radius: 4px;
   min-height: 32px;
   min-width: 80px;
   padding: 4px 8px;
+  cursor: pointer;
 }
 
 button:hover {
   opacity: 0.85;
 }
 
-input[type="checkbox"] {
+.container {
   width: 24px;
   height: 24px;
-  box-shadow: none;
-  border: none;
-  outline: none;
+  display: block;
+  position: relative;
+  margin-bottom: 0;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
-input[type="checkbox"]:focus {
-  box-shadow: none;
-  border: none;
-  outline: none;
+.container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+  display: none;
+}
+
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #eee;
+  border-radius: 8px;
+}
+
+.container:hover input ~ .checkmark {
+  background-color: #ccc;
+}
+
+.container input:checked ~ .checkmark {
+  background-color: #2196F3;
+}
+
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.container input:checked ~ .checkmark:after {
+  display: block;
+}
+
+.container .checkmark:after {
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
 }
 
 input {
@@ -37,8 +86,9 @@ input {
   border: none;
   outline: none;
   padding: 0 12px;
-  box-shadow: 2px 0 4px rgba(0,0,0, 0.2);
   border-radius: 4px;
+  font-size: 16px;
+  transition: box-shadow 0.3s ease-in-out;
 }
 
 input:focus {
@@ -46,13 +96,11 @@ input:focus {
 }
 
 .ToDo__container {
-  border: 1px solid rgba(0,0,0, 0.13);
   border-radius: 8px;
   width: 500px;
   margin-top: 5rem;
   padding: 24px;
-  box-shadow: 2px 2px 1px rgba(0,0,0, 0.09),
-              3px 2px 3px rgba(0,0,0, 0.05);
+  background-color: rgba(212,214,220, 0.25);
 }
 
 .Todo__creation {
@@ -61,6 +109,8 @@ input:focus {
 
 .Todo__input {
   flex: 1 1;
+  padding: 8px 12px;
+  border-radius: 10px;
 }
 
 .ToDo__list {
@@ -73,16 +123,26 @@ input:focus {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  background-color: rgba(255, 255, 255, 1);
+  padding: 15px;
+  border-radius: 15px;
+  margin-bottom: 15px;
 }
 
 .ToDo__item > span {
   flex: 1 1;
   text-align: left;
   margin-left: 8px;
+  line-height: 36px;
 }
 
 .Todo__content {
   flex: 1 1;
+}
+
+.Todo__edit {
+  flex: 1;
+  margin: 0 8px;
 }
 
 .Todo__delete {
@@ -100,6 +160,21 @@ input:focus {
   cursor: pointer;
 }
 
+.Todo__delete:after {
+  display: inline-block;
+  content: "\00d7";
+  font-size: 20px;
+  color: #282828;
+}
+
+.Todo__delete:hover {
+  background-color: rgb(247,71,71);
+}
+
+.Todo__delete:hover:after {
+  color: #fff;
+}
+
 .Todo__action, .Todo__delete {
   width: 24px;
   height: 24px;
@@ -110,6 +185,7 @@ input:focus {
   display: flex;
   justify-content: space-between;
   margin-top: 24px;
+  padding-left: 15px;
 }
 
 .Todo__tabs {
@@ -122,4 +198,9 @@ input:focus {
 }
 
 .Action__btn {
+}
+
+.Action__btn.active {
+  background-color: #2196F3;
+  color: #fff;
 }

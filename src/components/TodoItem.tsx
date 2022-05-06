@@ -41,24 +41,27 @@ const TodoItem: React.FC<Props> = (props) => {
 
     return (
         <div className="ToDo__item">
-            <input
-                type="checkbox"
-                // Bug fixed: should be checked when status is COMPLETED
-                checked={isTodoCompleted(todo)}
-                // Bug fixed: should pass the todo.id instead of index
-                onChange={(e) => props.onUpdateTodoStatus(e, todo.id)}
-            />
+            <label className="container">
+                <input
+                    type="checkbox"
+                    // Bug fixed: should be checked when status is COMPLETED
+                    checked={isTodoCompleted(todo)}
+                    // Bug fixed: should pass the todo.id instead of index
+                    onChange={(e) => props.onUpdateTodoStatus(e, todo.id)}
+                />
+                <span className="checkmark"/>
+            </label>
             {editing ? (
                 <input type="text" value={input}
+                       className="Todo__edit"
                        onChange={onChangeInput}
                        onBlur={onDiscard}
                        onKeyDown={onSubmit} />
-            ) : (<span onDoubleClick={onEdit}>{todo.content}</span>)}
+            ) : (<span className="Todo__edit" onDoubleClick={onEdit}>{todo.content}</span>)}
             <button
                 onClick={() => props.onDeleteTodo(todo.id)}
                 className="Todo__delete"
             >
-                X
             </button>
         </div>
     )

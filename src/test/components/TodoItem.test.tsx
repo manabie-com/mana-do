@@ -40,7 +40,7 @@ it('should render todo item',() => {
                          onDeleteTodo={onDeleteTodo} />, container)
     });
     const checkbox = (container?.querySelector('input[type=checkbox]') as HTMLInputElement);
-    const span = container?.querySelector('span');
+    const span = container?.querySelector('span.Todo__edit');
     const deleteButton = container?.querySelector('button');
 
     expect(checkbox.checked)

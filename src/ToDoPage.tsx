@@ -88,6 +88,11 @@ const ToDoPage = () => {
             <TodoInputForm input={input}
                            setInput={setInput}
                            onCreateTodo={onCreateTodo} />
+            <TodoToolbar todos={todos}
+                         onToggleAllTodo={onToggleAllTodo}
+                         showing={showing}
+                         setShowing={setShowing}
+                         onDeleteAllTodo={onDeleteAllTodo} />
             <div className="ToDo__list">
                 {
                     todos.map((todo) => {
@@ -103,10 +108,6 @@ const ToDoPage = () => {
                     })
                 }
             </div>
-            <TodoToolbar todos={todos}
-                         onToggleAllTodo={onToggleAllTodo}
-                         setShowing={setShowing}
-                         onDeleteAllTodo={onDeleteAllTodo} />
         </div>
     );
 };
