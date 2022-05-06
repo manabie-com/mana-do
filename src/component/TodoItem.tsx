@@ -8,10 +8,11 @@ const TodoItem = (props: {
   data: any
   onUpdateData: (data: object, values: object) => any
   onRemoveItem: (id: string) => any
+  onError: (mess: string) => void
 }) => {
   const [isEdit, setIsEdit] = useState(false)
   const inputRef = useRef<any>(null)
-  const { data, onUpdateData, onRemoveItem } = props
+  const { data, onUpdateData, onRemoveItem, onError } = props
 
   const getNewStatus = (value: string) => {
     return value === TodoStatus.ACTIVE
@@ -43,7 +44,11 @@ const TodoItem = (props: {
 
   const handleUpdateContentBlur = () => {
     setIsEdit(false)
-    onUpdateData(data, { content: inputRef.current.value })
+    if (inputRef.current.value) {
+      onUpdateData(data, { content: inputRef.current.value })
+      return
+    }
+    onError("Please enter content, content can't be empty !")
   }
 
   const handleUpdateContentKeyDown = (
@@ -51,7 +56,11 @@ const TodoItem = (props: {
   ) => {
     if (e.key === 'Enter') {
       setIsEdit(false)
-      onUpdateData(data, { content: inputRef.current.value })
+      if (inputRef.current.value) {
+        onUpdateData(data, { content: inputRef.current.value })
+        return
+      }
+      onError("Please enter content, content can't be empty !")
     }
   }
 
@@ -86,3 +95,10 @@ const TodoItem = (props: {
 }
 
 export default memo(TodoItem)
+
+TodoItem.defaultProps = {
+  data: {},
+  onUpdateData: () => {},
+  onRemoveItem: () => {},
+  onError: () => {},
+}

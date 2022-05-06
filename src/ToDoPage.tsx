@@ -10,7 +10,7 @@ import {
   setTodos,
 } from './store/actions'
 import Service from './service'
-import TodoItem from './component/TodoItem'
+import TodoList from './component/TodoList'
 import { TodoStatus } from './models/todo'
 
 const ArrayButtons = [
@@ -33,6 +33,7 @@ const ToDoPage = () => {
   const checkAllRef = useRef<any>(null)
   const [listTodos, setListTodos] = useState(todos)
   const [filter, setFilter] = useState('')
+  const [error, setError] = useState('')
 
   useEffect(() => {
     const todosLocalStorage = localStorage.getItem('todos')
@@ -44,8 +45,22 @@ const ToDoPage = () => {
     setListTodos(todos.filter(e => e.status === filter || !filter))
   }, [todos, filter])
 
+  useEffect(() => {
+    let timeOutError: any = null
+    if (error) {
+      timeOutError = setTimeout(() => {
+        setError('')
+      }, 3000)
+    }
+    return () => clearTimeout(timeOutError)
+  }, [error])
+
   const onCreateTodo = async (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter' && inputRef.current.value) {
+    if (e.key === 'Enter' && !inputRef.current.value) {
+      setError(`Please enter content, content can't be empty !`)
+      return
+    }
+    if (e.key === 'Enter') {
       const resp = await Service.createTodo(inputRef.current.value)
       dispatch(createTodo(resp))
       inputRef.current.value = ''
@@ -69,6 +84,10 @@ const ToDoPage = () => {
     dispatch(deleteItemTodoData(idItem))
   }, [])
 
+  const onError = React.useCallback((mess: string) => {
+    setError(mess)
+  }, [])
+
   const onFilter = (evt: any) => {
     if (!evt) {
       setListTodos(todos)
@@ -87,20 +106,14 @@ const ToDoPage = () => {
         />
       </div>
       <div className="ToDo__list">
-        {listTodos?.length > 0 ? (
-          listTodos.map(todo => {
-            return (
-              <TodoItem
-                onRemoveItem={onRemoveItem}
-                key={todo.id + todo.status}
-                data={todo}
-                onUpdateData={onUpdateData}
-              />
-            )
-          })
-        ) : (
-          <div>{filter ? `No data for filter ${filter}` : 'No data'}</div>
-        )}
+        <div className="Todo__error">{error}</div>
+        <TodoList
+          listTodos={listTodos}
+          onRemoveItem={onRemoveItem}
+          onUpdateData={onUpdateData}
+          filter={filter}
+          onError={onError}
+        />
       </div>
       <div className="Todo__toolbar">
         <input

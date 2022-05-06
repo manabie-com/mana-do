@@ -114,6 +114,9 @@ input:focus {
   height: 36px;
   line-height: 36px;
   user-select: none;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 .Todo__content {
@@ -190,6 +193,13 @@ input:focus {
   background-color: #dc3545;
   border-color: #dc3545;
   opacity: 1;
+}
+
+.Todo__error {
+  color: #dc3545;
+  font-style: italic;
+  font-size: 0.9rem;
+  margin-bottom: 10px;
 }
 
 @media only screen and (max-width: 600px) {
