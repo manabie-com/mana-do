@@ -41,3 +41,32 @@
 - Sign in using username: `firstUser`, password: `example`
 
 Last updated: 2022/01/13
+
+***
+
+### Mana-do requirements
+
+- [x] Find strange bugs. Fix them.
+- [ ] Find anti-patterns. Fix them.
+- [x] Use localStorage to store data
+- [ ] Add edit feature - user double-clicks the todo to edit, presses enter to apply the changes, or clicks outside to discard
+- [x] Allows users to click on checkbox items they have completed (Active/Complete)
+- [ ] Enhance UI
+- [ ] Testing
+
+### Available functions
+- Add todo
+- Checkbox show/hide
+- Clear all todo
+
+### Available bugs and things to fix list (checked is fixed)
+- [x] At the second todo addition onwards, todo will be add twice a time
+- [x] After add todo, input is not empty
+- [x] Delete todo button is not working
+- [x] Checkbox todo will throw error and application crashing
+- [x] Checkbox todo is not working correctly
+- [x] Checkbox toggle all is not working properly
+- [x] Filter buttons are not working properly
+- [x] UI filter button selected is not correct 
+- [x] Data is not save after reloading
+

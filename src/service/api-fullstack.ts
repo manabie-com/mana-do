@@ -17,6 +17,14 @@ class ApiFullstack extends IAPI {
 
         return resp.data.data;
     }
+
+    async saveTodos(todos: Todo[]) : Promise<string> {
+        const resp = await axios.post<AxiosResponse<string>>(`/saveTodo`, {
+            todos
+        });
+
+        return resp.data.data;
+    }
 }
 
 
