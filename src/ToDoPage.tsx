@@ -6,6 +6,7 @@ import {
   toggleAllTodos,
   deleteAllTodos,
   updateTodoStatus,
+  deleteTodo,
 } from "./store/actions";
 import reducer, { initialState } from "./store/reducer";
 
@@ -25,7 +26,6 @@ const ToDoPage = () => {
 
   const getTodos = async () => {
     const response = (await Service.getTodos()) || [];
-
     dispatch(setTodos(response));
   };
 
@@ -51,6 +51,10 @@ const ToDoPage = () => {
     dispatch(deleteAllTodos());
   };
 
+  const onDeleteSelectedTodo = (id: string) => {
+    dispatch(deleteTodo(id));
+  };
+
   return (
     <div className="ToDo__container">
       <div className="Todo__creation">
@@ -71,7 +75,7 @@ const ToDoPage = () => {
                 onChange={(e) => onUpdateTodoStatus(e, index)}
               />
               <span>{todo.content}</span>
-              <button className="Todo__delete">X</button>
+              <button type="button" className="Todo__delete" onClick={() => onDeleteSelectedTodo(todo.id)}>X</button>
             </div>
           );
         })}
