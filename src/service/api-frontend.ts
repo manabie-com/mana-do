@@ -22,7 +22,6 @@ class ApiFrontend extends IAPI {
     }
 
     async getTodos(): Promise<Todo[]> {
-        console.log('keke', localStorage.getItem(this.MANA_DO))
         const todoStorage = JSON.parse(localStorage.getItem(this.MANA_DO) || '[]');
         return Promise.resolve(todoStorage);
     }

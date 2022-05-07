@@ -10,12 +10,12 @@ import {
     deleteTodo
 } from '../../store/actions';
 import Service from '../../service';
-import {TodoStatus} from '../../models/todo';
 import './ToDoPage.css'
-import { isTodoCompleted } from '../../utils';
-import { Todo } from '../../models'
+import { EnhanceTodoStatus, Todo } from '../../models'
+import ToDoItem, { ToDoItemProps } from '../../components/ToDoItem/ToDoItem';
+import ToDoInput from '../../components/ToDoInput/ToDoInput';
+import ToDoToolbar, { ToDoToolbarProps } from '../../components/ToDoToolbar/ToDoToolbar';
 
-type EnhanceTodoStatus = TodoStatus | 'ALL';
 
 
 const ToDoPage = () => {
@@ -26,12 +26,12 @@ const ToDoPage = () => {
     useEffect(() => {
         (async () => {
             const resp = await Service.getTodos();
-            console.log('tutu', resp)
 
             dispatch(setTodos(resp));
         })()
     }, []);
 
+    // Update localStorage every todos has changed
     useEffect(()=>{
         (async ()=>{
             // Make sure todos is available
@@ -67,68 +67,24 @@ const ToDoPage = () => {
         dispatch(deleteTodo(todoId));
     }
 
+    // define props for components
+    const toDoToolbarProps: ToDoToolbarProps = {todos, showing, onToggleAllTodo, setShowing, onDeleteAllTodo};
 
     return (
         <div className="ToDo__container">
-            <div className="Todo__creation">
-                <input
-                    ref={inputRef}
-                    className="Todo__input"
-                    placeholder="What need to be done?"
-                    onKeyDown={onCreateTodo}
-                />
-            </div>
+            <ToDoInput inputRef={inputRef} onCreateTodo={onCreateTodo}/>
             <div className="ToDo__list">
                 {   
                     // filter buttons work incorrectly cause todos always render all todos
                     // Should filter by showing before render
                     todos.filter((todo: Todo) => showing === 'ALL' ? todo : (showing === todo.status))
-                        .map((todo: Todo, index) => {
-                            return (
-                                <div key={index} className="ToDo__item">
-                                    {
-                                    // at checkbox, pass index to onUpdateTodoStatus is not guaranteed, 
-                                    // should use todoId. Also it cause bug crashing application when click checkbox
-                                    }
-                                    <input
-                                        type="checkbox"
-                                        checked={isTodoCompleted(todo)}
-                                        onChange={(e) => onUpdateTodoStatus(e, todo.id)}
-                                    />
-                                    <span>{todo.content}</span>
-                                    <button
-                                        className="Todo__delete"
-                                        onClick={() => onDeleteTodo(todo.id)}
-                                    >
-                                        X
-                                    </button>
-                                </div>
-                            );
+                        .map((todo: Todo) => {
+                            const ToDoItemProps: ToDoItemProps = {todo, onDeleteTodo, onUpdateTodoStatus};
+                            return <ToDoItem key={todo.id} {...ToDoItemProps}/>
                         })
                 }
             </div>
-            <div className="Todo__toolbar">
-                {todos.length > 0 ?
-                    <input
-                        type="checkbox"
-                        onChange={onToggleAllTodo}
-                    /> : <div/>
-                }
-                <div className="Todo__tabs">
-                    <button className={"Action__btn" + (showing === "ALL" ? " active" : "")} onClick={()=>setShowing('ALL')}>
-                        All
-                    </button>
-                    <button className={"Action__btn" + (showing === TodoStatus.ACTIVE ? " active" : "")} onClick={()=>setShowing(TodoStatus.ACTIVE)}>
-                        Active
-                    </button>
-                    <button className={"Action__btn" + (showing === TodoStatus.COMPLETED ? " active" : "")} onClick={()=>setShowing(TodoStatus.COMPLETED)}>
-                        Completed
-                    </button>
-                </div>
-                <button className="Action__btn" onClick={onDeleteAllTodo}>
-                    Clear all todos
-                </button>
-            </div>
+            <ToDoToolbar {...toDoToolbarProps} />
         </div>
     );
 };

@@ -1,0 +1,7 @@
+.Todo__creation {
+	display: flex;
+}
+
+.Todo__input {
+	flex: 1 1;
+}

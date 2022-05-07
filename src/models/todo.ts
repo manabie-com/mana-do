@@ -11,3 +11,5 @@ export interface Todo {
   status?: TodoStatus
   created_date: string
 }
+
+export type EnhanceTodoStatus = TodoStatus | 'ALL';
