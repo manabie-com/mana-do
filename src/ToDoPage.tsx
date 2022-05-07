@@ -27,6 +27,7 @@ const ToDoPage = () => {
             const resp = await Service.getTodos();
             dispatch(setTodos(resp || []));
         })()
+        inputRef.current.focus();
     }, [])
 
     useEffect(() => {
