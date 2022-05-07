@@ -7,7 +7,8 @@ import {
     toggleAllTodos,
     deleteAllTodos,
     updateTodoStatus,
-    updateTodoContent
+    updateTodoContent,
+    deleteTodo,
 } from './store/actions';
 import Service from './service';
 import {TodoStatus} from './models/todo';
@@ -72,6 +73,9 @@ const ToDoPage = () => {
       }
     }
 
+    const onDeleteTodo = (id: string) => {
+      dispatch(deleteTodo(id));
+    }
 
     return (
         <div className="ToDo__container">
@@ -102,7 +106,9 @@ const ToDoPage = () => {
                                   onKeyDown={e => onUpdateTodo(e, todo.id)}
                                   >{todo.content}</span>
                                 <button
+                                    aria-label='delete-todo-button'
                                     className="Todo__delete"
+                                    onClick={() => onDeleteTodo(todo.id)}
                                 >
                                     X
                                 </button>
