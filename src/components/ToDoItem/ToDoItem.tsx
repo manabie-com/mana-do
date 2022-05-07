@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
-import { Todo } from '../../models';
-import { isTodoCompleted } from '../../utils';
+import { Todo, TodoStatus } from '../../models';
+import { formatDate, isTodoCompleted } from '../../utils';
 import './ToDoItem.css';
 
 export interface ToDoItemProps {
@@ -22,6 +22,13 @@ function ToDoItem({todo, todoEditId, onUpdateTodoStatus, onDeleteTodo, onHandleE
         }
     }
 
+    // Prevent edit completed todo 
+    const onHandleDoubleClick = () => {
+        if (todo.status !== TodoStatus.COMPLETED) {
+            onHandleEditTodo(todo.id);
+        }
+    }
+
     const renderMiddleTodoItem = () => {
         if (todoEditId === todo.id) {
             return (
@@ -36,7 +43,7 @@ function ToDoItem({todo, todoEditId, onUpdateTodoStatus, onDeleteTodo, onHandleE
                 />
             );
         } 
-        return (<span onDoubleClick={() => onHandleEditTodo(todo.id)}>{todo.content}</span>);
+        return (<span className={'Todo__content'+ (isTodoCompleted(todo) ? ' completed': '')} onDoubleClick={onHandleDoubleClick}>{todo.content}</span>);
     }
 
     return (
@@ -46,17 +53,20 @@ function ToDoItem({todo, todoEditId, onUpdateTodoStatus, onDeleteTodo, onHandleE
             // should use todoId. Also it cause bug crashing application when click checkbox
             }
             <input
+                id={todo.id}
                 type="checkbox"
+                className="toggle"
                 checked={isTodoCompleted(todo)}
                 onChange={(e) => onUpdateTodoStatus(e, todo.id)}
             />
+            <label className='checkbox-custom' htmlFor={todo.id}></label>
             { renderMiddleTodoItem() }
-            <button
-                className="Todo__delete"
-                onClick={() => onDeleteTodo(todo.id)}
-            >
-                X
-            </button>
+            <div className="options-area">
+                <span className='Todo__created-date'>{formatDate(todo.created_date)}</span>
+                <button className='Todo__delete btn-icon' onClick={() => onDeleteTodo(todo.id)}>
+                    <i className="eva eva-trash-2-outline"></i>
+                </button>
+            </div>
         </div>
     )
 }

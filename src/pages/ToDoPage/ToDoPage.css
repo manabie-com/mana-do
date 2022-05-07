@@ -1,15 +1,30 @@
+h1.title {
+	font-size: 120px;
+    text-align: center;
+    color: darkseagreen;
+    padding: 2rem;
+}
+
 .ToDo__container {
-	border: 1px solid rgba(0,0,0, 0.13);
-	border-radius: 8px;
-	width: 500px;
-	margin-top: 5rem;
-	padding: 24px;
-	box-shadow: 2px 2px 1px rgba(0,0,0, 0.09),
-							3px 2px 3px rgba(0,0,0, 0.05);
+	display: flex;
+	width: 100% !important;
+	justify-content: center;
+	flex-direction: column;
+    background: white;
+	box-shadow: 0 2px 4px 0 rgb(0 0 0 / 20%), 0 25px 50px 0 rgb(0 0 0 / 10%);
+    flex: 0 0 50%;
+    max-width: 50%;
 }
 
 .ToDo__list {
 	display: flex;
 	flex-direction: column;
-	margin-top: 1.5rem;
+}
+
+.ToDo__empty-msg {
+	min-height: 40px;
+	display: flex;
+	align-items: center;
+	padding: 0 30px;
+	font-style: italic;
 }
