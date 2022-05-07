@@ -1,4 +1,4 @@
-import React, {useEffect, useReducer, useRef, useState} from 'react';
+import React, {useEffect, useReducer, useState} from 'react';
 
 import reducer, {initialState} from '../../store/reducer';
 import {
@@ -24,7 +24,6 @@ import { remainTodoActive } from '../../utils';
 const ToDoPage = () => {
     const [{todos}, dispatch] = useReducer(reducer, initialState);
     const [showing, setShowing] = useState<EnhanceTodoStatus>('ALL');
-    const inputRef = useRef<any>(null);
     const [todoEditId, setTodoEditId] = useState<string>('');
     const EMPTY_MSG = "*Let's give things you want to focus and make it done";
     const remainTodos: number = remainTodoActive(todos);
@@ -54,13 +53,9 @@ const ToDoPage = () => {
         }
     }
 
-    const onCreateTodo = async (e: React.KeyboardEvent<HTMLInputElement>) => {
-        // Make sure that todo input is not empty or all white space
-        if (e.key === 'Enter' && inputRef.current.value.trim()) {
-            const resp = await Service.createTodo(inputRef.current.value);
-            dispatch(createTodo(resp));
-            inputRef.current.value = '';
-        }
+    const onCreateTodo = async (content: string) => {
+        const resp = await Service.createTodo(content);
+        dispatch(createTodo(resp));
     }
 
     // Limit use any type
@@ -106,7 +101,7 @@ const ToDoPage = () => {
         <>
             <h1 className="title">Todos</h1>
             <div className="ToDo__container">
-                <ToDoInput inputRef={inputRef} onCreateTodo={onCreateTodo}/>
+                <ToDoInput onCreateTodo={onCreateTodo}/>
                 <div className="ToDo__list">
                     {   
                         // filter buttons work incorrectly cause todos always render all todos
