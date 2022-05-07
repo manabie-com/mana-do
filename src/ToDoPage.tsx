@@ -6,7 +6,8 @@ import {
     createTodo,
     toggleAllTodos,
     deleteAllTodos,
-    updateTodoStatus
+    updateTodoStatus,
+    deleteTodo
 } from './store/actions';
 import Service from './service';
 import {TodoStatus} from './models/todo';
@@ -22,28 +23,52 @@ const ToDoPage = () => {
     useEffect(()=>{
         (async ()=>{
             const resp = await Service.getTodos();
-
             dispatch(setTodos(resp || []));
         })()
     }, [])
 
     const onCreateTodo = async (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter' ) {
-            const resp = await Service.createTodo(inputRef.current.value);
+            var todoName = inputRef.current.value;
+            if (todoName === '') return;
+            const resp = await Service.createTodo(todoName);
             dispatch(createTodo(resp));
+            inputRef.current.value = '';
         }
     }
 
-    const onUpdateTodoStatus = (e: React.ChangeEvent<HTMLInputElement>, todoId: any) => {
+    const onUpdateTodoStatus = async (e: React.ChangeEvent<HTMLInputElement>, todoId: any) => {
+        var index = todos.findIndex(todo => todo.id === todoId);
+
+        if (index !== -1) {
+            Service.updateTodo(
+                todoId, 
+                todos[index].content, 
+                e.target.checked?TodoStatus.COMPLETED:TodoStatus.ACTIVE);
+        }
+
         dispatch(updateTodoStatus(todoId, e.target.checked))
     }
 
     const onToggleAllTodo = (e: React.ChangeEvent<HTMLInputElement>) => {
-        dispatch(toggleAllTodos(e.target.checked))
+        todos.map(async(todo) => {
+            await Service.updateTodo(
+                todo.id, 
+                todo.content, 
+                e.target.checked?TodoStatus.COMPLETED:TodoStatus.ACTIVE)
+            });
+                
+        dispatch(toggleAllTodos(e.target.checked));
     }
 
-    const onDeleteAllTodo = () => {
+    const onDeleteAllTodo = async () => {
+        todos.map(async(todo) => await Service.deleteTodo(todo.id));
         dispatch(deleteAllTodos());
+    }
+
+    const onDeleteTodo = async (todoId: any) => {
+        await Service.deleteTodo(todoId);
+        dispatch(deleteTodo(todoId));
     }
 
 
@@ -59,17 +84,19 @@ const ToDoPage = () => {
             </div>
             <div className="ToDo__list">
                 {
-                    todos.map((todo, index) => {
+                    todos.filter(todo => showing === 'ALL'?true:(showing===todo.status))
+                    .map((todo, index) => {
                         return (
                             <div key={index} className="ToDo__item">
                                 <input
                                     type="checkbox"
-                                    checked={showing === todo.status}
-                                    onChange={(e) => onUpdateTodoStatus(e, index)}
+                                    checked={todo.status === TodoStatus.COMPLETED}
+                                    onChange={(e) => onUpdateTodoStatus(e, todo.id)}
                                 />
                                 <span>{todo.content}</span>
                                 <button
                                     className="Todo__delete"
+                                    onClick={() => onDeleteTodo(todo.id)}
                                 >
                                     X
                                 </button>
@@ -82,17 +109,24 @@ const ToDoPage = () => {
                 {todos.length > 0 ?
                     <input
                         type="checkbox"
+                        checked={todos.filter(todo=>todo.status===TodoStatus.ACTIVE).length===0}
                         onChange={onToggleAllTodo}
                     /> : <div/>
                 }
                 <div className="Todo__tabs">
-                    <button className="Action__btn">
+                    <button 
+                        className={`Action__btn${showing==='ALL'?'--clicked':''}`} 
+                        onClick={()=>setShowing('ALL')}>
                         All
                     </button>
-                    <button className="Action__btn" onClick={()=>setShowing(TodoStatus.ACTIVE)}>
+                    <button 
+                        className={`Action__btn${showing===TodoStatus.ACTIVE?'--clicked':''}`} 
+                        onClick={()=>setShowing(TodoStatus.ACTIVE)}>
                         Active
                     </button>
-                    <button className="Action__btn" onClick={()=>setShowing(TodoStatus.COMPLETED)}>
+                    <button 
+                        className={`Action__btn${showing===TodoStatus.COMPLETED?'--clicked':''}`} 
+                        onClick={()=>setShowing(TodoStatus.COMPLETED)}>
                         Completed
                     </button>
                 </div>

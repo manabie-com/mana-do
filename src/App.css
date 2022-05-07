@@ -123,3 +123,7 @@ input:focus {
 
 .Action__btn {
 }
+
+.Action__btn--clicked {
+  color:red;
+}
