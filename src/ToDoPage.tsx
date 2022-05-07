@@ -19,9 +19,9 @@ type EnhanceTodoStatus = TodoStatus | 'ALL';
 const ToDoPage = () => {
     const [{ todos }, dispatch] = useReducer(reducer, initialState);
     const [showing, setShowing] = useState<EnhanceTodoStatus>('ALL');
-    const [filteredTodos, setFilterTodos] = useState([] as Todo[]);
-    const [isAllTodoCompleted, setAllTodosCompleted] = useState(false);
-    const [newTodoContent, setNewTodoContent] = useState('');
+    const [todoData, setTodoData] = useState([] as Todo[]);
+    const [completedAllTodo, setCompletedAllTodo] = useState(false);
+    const [newTodoText, setNewTodoText] = useState('');
     const [showTooltip, setShowTooltip] = useState(false);
     const [tooltipID, setTooltipID] = useState<any | null>(null);
     const editInputRef = useRef<any>(null);
@@ -44,14 +44,14 @@ const ToDoPage = () => {
     }, [todos])
     
     useEffect(() => {
-        setFilterTodos(() => {
+        setTodoData(() => {
           if (showing === 'ALL') return todos;
           return todos.filter((todo) => todo.status === showing);
         });
 
         // check "all checkbox" if all is active
         const index = todos.findIndex((todo) => todo.status === TodoStatus.ACTIVE);
-        setAllTodosCompleted(index === -1);
+        setCompletedAllTodo(index === -1);
     }, [todos, showing]);
 
     // create todo
@@ -72,13 +72,13 @@ const ToDoPage = () => {
         todoId: string
       ) => {
         if (e.key === 'Enter') {
-          if (newTodoContent) dispatch(editTodoText(todoId, newTodoContent));
+          if (newTodoText) dispatch(editTodoText(todoId, newTodoText));
           dispatch(editTodo(todoId, false));
-          setNewTodoContent('');
+          setNewTodoText('');
         }
     };
     const onShowEditTodo = (todoId: string, content: string) => {
-        setNewTodoContent(content);
+        setNewTodoText(content);
         dispatch(editTodo(todoId, true));
     };
 
@@ -117,7 +117,7 @@ const ToDoPage = () => {
             </div>
             <div className="ToDo__list">
                 {
-                    filteredTodos.map((todo, index) => {
+                    todoData.map((todo, index) => {
                         return (
                             <div key={index} className="ToDo__item">
                                 <input
@@ -130,9 +130,9 @@ const ToDoPage = () => {
                                     <input
                                         ref={editInputRef}
                                         className="Todo__edit"
-                                        value={newTodoContent}
+                                        value={newTodoText}
                                         data-id={todo.id}
-                                        onChange={(e) => setNewTodoContent(e.target.value)}
+                                        onChange={(e) => setNewTodoText(e.target.value)}
                                         onKeyDown={(e) => onUpdateTodoContent(e, todo.id)}
                                     />
                                     ) : (
@@ -159,7 +159,7 @@ const ToDoPage = () => {
                 {todos.length > 0 ?
                     <input
                         type="checkbox"
-                        checked={isAllTodoCompleted}
+                        checked={completedAllTodo}
                         onChange={onToggleAllTodo}
                     /> : <div/>
                 }
