@@ -12,6 +12,10 @@
 	min-width: 40px;
 }
 
+#toggle-all {
+	padding: 15px 40px;
+} 
+
 .Todo__tabs {
 	display: flex;
 	justify-content: center;
@@ -56,4 +60,6 @@
 .Todo__remain-item {
     align-self: center;
     font-size: 15px;
+	min-width: 80px;
+	text-align: right;
 }
