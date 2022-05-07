@@ -162,6 +162,10 @@ const ToDoPage = () => {
 
 export default ToDoPage;
 
+/**
+ * ToDoItem component is a wrapper for the todo item.
+ * @returns CSSTransition component
+ */
 const ToDoItem: React.FC = ({ children, ...props}) => {
   const transistionRef = useRef<any>(null);
   return (

@@ -36,6 +36,10 @@ export const bubbles = new mojs.Burst({
   }
 });
 
+/**
+ * Create burst effect on mouse position.
+ * @param position - mouse coordinates
+ */
 export function playCheckedEffect(position: { x: number, y: number }): void {
   burst.tune(position).generate().replay();
   bubbles.tune(position).generate().replay();
