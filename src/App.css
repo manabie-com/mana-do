@@ -12,6 +12,25 @@ button {
   min-height: 32px;
   min-width: 80px;
   padding: 4px 8px;
+  cursor: pointer;
+  color: #fff;
+  font-weight: bold;
+}
+
+.Btn__all {
+  background-color: blue;
+}
+
+.Btn__active {
+  background-color: green;
+}
+
+.Btn__completed {
+  background-color: orange;
+}
+
+.Btn__clear {
+  background-color: red;
 }
 
 button:hover {
@@ -43,6 +62,29 @@ input {
 
 input:focus {
   box-shadow: 1px 0 9px rgba(0,0,0, 0.25);
+}
+
+span {
+  cursor: pointer;
+  border-bottom: 1px solid #f3f3f3;
+  margin: 0 5px;
+}
+
+.Todo__edit {
+  width: 100%;
+  margin: 0 5px;
+}
+
+.Todo__tooltip {
+  position: absolute;
+  text-align: center;
+  width: 100px;
+  border-radius: 5px;
+  padding: 10px;
+  background-color: black;
+  color: white;
+  font-size: 12px;
+  margin-left: 10px;
 }
 
 .ToDo__container {
@@ -104,6 +146,7 @@ input:focus {
   width: 24px;
   height: 24px;
   flex-shrink: 0;
+  background-color: gray;
 }
 
 .Todo__toolbar {
@@ -119,7 +162,4 @@ input:focus {
 
 .Todo__tabs > *:not(:last-child) {
   margin-right: 8px;
-}
-
-.Action__btn {
 }
