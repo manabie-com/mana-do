@@ -7,7 +7,8 @@ import {
     toggleAllTodos,
     deleteAllTodos,
     updateTodoStatus,
-    deleteTodo
+    deleteTodo,
+    updateTodoContent
 } from '../../store/actions';
 import Service from '../../service';
 import './ToDoPage.css'
@@ -22,6 +23,7 @@ const ToDoPage = () => {
     const [{todos}, dispatch] = useReducer(reducer, initialState);
     const [showing, setShowing] = useState<EnhanceTodoStatus>('ALL');
     const inputRef = useRef<any>(null);
+    const [todoEditId, setTodoEditId] = useState<string>('');
 
     useEffect(() => {
         (async () => {
@@ -67,6 +69,15 @@ const ToDoPage = () => {
         dispatch(deleteTodo(todoId));
     }
 
+    const onHandleEditTodo = (todoId: string) => {
+        setTodoEditId(todoId)
+    }
+
+    const onEnterEditTodo = (todoId: string, newContent: string) => {
+        dispatch(updateTodoContent(todoId, newContent));
+        onHandleEditTodo('');
+    }
+
     // define props for components
     const toDoToolbarProps: ToDoToolbarProps = {todos, showing, onToggleAllTodo, setShowing, onDeleteAllTodo};
 
@@ -79,7 +90,7 @@ const ToDoPage = () => {
                     // Should filter by showing before render
                     todos.filter((todo: Todo) => showing === 'ALL' ? todo : (showing === todo.status))
                         .map((todo: Todo) => {
-                            const ToDoItemProps: ToDoItemProps = {todo, onDeleteTodo, onUpdateTodoStatus};
+                            const ToDoItemProps: ToDoItemProps = {todo, todoEditId, onDeleteTodo, onUpdateTodoStatus, onHandleEditTodo, onEnterEditTodo};
                             return <ToDoItem key={todo.id} {...ToDoItemProps}/>
                         })
                 }

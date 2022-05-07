@@ -4,10 +4,11 @@
 	justify-content: space-between;
 }
 
-.ToDo__item > span {
+.ToDo__item > span, .ToDo__item > input[type="text"] {
 	flex: 1 1;
 	text-align: left;
 	margin-left: 8px;
+    margin-right: 8px;
 }
 
 .Todo__content {

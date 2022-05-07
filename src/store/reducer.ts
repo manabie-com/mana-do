@@ -6,7 +6,8 @@ import {
   DELETE_TODO,
   TOGGLE_ALL_TODOS,
   UPDATE_TODO_STATUS,
-  SET_TODO
+  SET_TODO,
+  UPDATE_TODO_CONTENT
 } from './actions';
 
 export interface AppState {
@@ -36,11 +37,22 @@ function reducer(state: AppState, action: AppActions): AppState {
       break;
 
     case UPDATE_TODO_STATUS:
-      // but I prefer using map to return data in this case
+      // I prefer using map to return new data in this case
       tempTodos = state.todos.map(todo => {
         return {
           ...todo,
           status: todo.id !== action.payload.todoId ? todo.status : (action.payload.checked ? TodoStatus.COMPLETED : TodoStatus.ACTIVE)
+        }
+      });
+
+      break;
+
+    case UPDATE_TODO_CONTENT:
+      // As update todo stats, I prefer using map to return new data in this case
+      tempTodos = state.todos.map(todo => {
+        return {
+          ...todo,
+          content: todo.id !== action.payload.todoId ? todo.content : action.payload.newContent
         }
       });
 
