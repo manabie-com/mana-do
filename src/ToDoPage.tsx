@@ -12,14 +12,12 @@ import {
 } from './store/actions';
 import Service from './service';
 import {TodoStatus} from './models/todo';
-import { saveToLocalStorage } from './utils/localStorage';
-
-type EnhanceTodoStatus = TodoStatus | 'ALL';
+import { saveToLocalStorage, getAllToDosStatus } from './utils/localStorage';
 
 
 const ToDoPage = () => {
     const [{todos}, dispatch] = useReducer(reducer, initialState);
-    const [showing, setShowing] = useState<EnhanceTodoStatus>('ALL');
+    const [allToDoStatus, setAllToDoStatus] = useState<TodoStatus>(() => getAllToDosStatus());
     const inputRef = useRef<any>(null);
 
     useEffect(()=>{
@@ -51,6 +49,7 @@ const ToDoPage = () => {
 
     const onToggleAllTodo = (e: React.ChangeEvent<HTMLInputElement>) => {
         dispatch(toggleAllTodos(e.target.checked))
+        setAllToDoStatus(e.target.checked ? TodoStatus.COMPLETED : TodoStatus.ACTIVE);
     }
 
     const onDeleteAllTodo = () => {
@@ -120,24 +119,20 @@ const ToDoPage = () => {
             </div>
             <div className="Todo__toolbar">
                 {todos.length > 0 ?
+                <div>
                     <input
+                        id='toggle-all'
                         aria-label="toggle-all-todos"
                         type="checkbox"
+                        defaultChecked={allToDoStatus === TodoStatus.COMPLETED}
                         onChange={onToggleAllTodo}
-                    /> : <div/>
+                    />
+                    <label htmlFor='toggle-all'>
+                        Mark all as {allToDoStatus === TodoStatus.COMPLETED ? 'active' : 'completed'}
+                    </label>
+                </div> : <div/>
                 }
-                <div className="Todo__tabs">
-                    <button className="Action__btn">
-                        All
-                    </button>
-                    <button className="Action__btn" onClick={()=>setShowing(TodoStatus.ACTIVE)}>
-                        Active
-                    </button>
-                    <button className="Action__btn" onClick={()=>setShowing(TodoStatus.COMPLETED)}>
-                        Completed
-                    </button>
-                </div>
-                <button className="Action__btn" onClick={onDeleteAllTodo}>
+                <button disabled={Boolean(todos.length === 0)} className="Action__btn" onClick={onDeleteAllTodo}>
                     Clear all todos
                 </button>
             </div>

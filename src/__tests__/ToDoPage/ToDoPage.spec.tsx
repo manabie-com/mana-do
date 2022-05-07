@@ -13,24 +13,6 @@ describe('Render ToDoPage', () => {
     expect(inputPlaceholder).toBeInTheDocument();
   })
 
-  it('Should render "All" button', async () => {
-    render(<ToDoPage />);
-    const allButton = await screen.findByText(/All/, { selector: 'button' });
-    expect(allButton).toBeInTheDocument();
-  })
-
-  it('Should render "Active" button', async () => {
-    render(<ToDoPage />);
-    const activeButton = await screen.findByText(/active/i);
-    expect(activeButton).toBeInTheDocument();
-  })
-
-  it('Should render "Completed" button', async () => {
-    render(<ToDoPage />);
-    const completedButton = await screen.findByText(/completed/i);
-    expect(completedButton).toBeInTheDocument();
-  })
-
   it('Should render "Clear all todos" button', async () => {
     render(<ToDoPage />);
     const clearButton = await screen.findByText(/clear all todos/i);

@@ -21,3 +21,12 @@ export function getToDosFromLocalStorage(): Todo[] {
     } as Todo
   ]
 }
+
+export function getAllToDosStatus(): TodoStatus {
+  const toDos = getToDosFromLocalStorage();
+  if (toDos.length === 0) {
+    return TodoStatus.COMPLETED;
+  }
+  const isAllToDosComplete = toDos.every(todo => todo.status === TodoStatus.COMPLETED);
+  return isAllToDosComplete ? TodoStatus.COMPLETED : TodoStatus.ACTIVE;
+}
