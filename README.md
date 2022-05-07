@@ -49,7 +49,7 @@ Last updated: 2022/01/13
 - [x] Find strange bugs. Fix them.
 - [x] Find anti-patterns. Fix them.
 - [x] Use localStorage to store data
-- [ ] Add edit feature - user double-clicks the todo to edit, presses enter to apply the changes, or clicks outside to discard
+- [x] Add edit feature - user double-clicks the todo to edit, presses enter to apply the changes, or clicks outside to discard
 - [x] Allows users to click on checkbox items they have completed (Active/Complete)
 - [ ] Enhance UI
 - [ ] Testing
