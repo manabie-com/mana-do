@@ -36,16 +36,14 @@ function reducer(state: AppState, action: AppActions): AppState {
       }
 
     case UPDATE_TODO_STATUS:
-      const index2 = state.todos.findIndex(
-        (todo) => todo.id === action.payload.todoId
-      )
-      state.todos[index2].status = action.payload.checked
-        ? TodoStatus.COMPLETED
-        : TodoStatus.ACTIVE
-
+      // This action is the same as the problem and the solution of the CREATE_TODO action.
+      const updateStatusTodos = [...state.todos];
+      const index = updateStatusTodos.findIndex(todo => todo.id === action.payload.todoId);
+      const checkStatus = action.payload.checked ? TodoStatus.COMPLETED : TodoStatus.ACTIVE;
+      updateStatusTodos[index].status = checkStatus;
       return {
         ...state,
-        todos: state.todos,
+        todos: updateStatusTodos,
       }
 
     case TOGGLE_ALL_TODOS:

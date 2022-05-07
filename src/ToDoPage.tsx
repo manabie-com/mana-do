@@ -60,8 +60,9 @@ const ToDoPage = () => {
       e.currentTarget.focus();
     }
 
-    const onBlurTodo = (e: React.FocusEvent<HTMLSpanElement>) => {
+    const onBlurTodo = (e: React.FocusEvent<HTMLSpanElement>, originalContent: string) => {
       e.currentTarget.contentEditable = 'false';
+      e.currentTarget.innerText = originalContent;
     }
 
     const onUpdateTodo = (e: React.KeyboardEvent<HTMLSpanElement>, id: string) => {
@@ -84,17 +85,20 @@ const ToDoPage = () => {
             </div>
             <div className="ToDo__list">
                 {
-                    todos.map((todo, index) => {
+                  // Using array index as the key is unreliable. That can cause strange behaviors.
+                  // https://reactjs.org/docs/lists-and-keys.html#keys
+                    todos.map((todo) => {
                         return (
-                            <div key={index} className="ToDo__item">
+                            <div key={todo.id} className="ToDo__item">
                                 <input
+                                    aria-label="todo-item-checkbox"
                                     type="checkbox"
-                                    checked={showing === todo.status}
-                                    onChange={(e) => onUpdateTodoStatus(e, index)}
+                                    checked={TodoStatus.COMPLETED === todo.status}
+                                    onChange={(e) => onUpdateTodoStatus(e, todo.id)}
                                 />
                                 <span
                                   onDoubleClick={onEditTodo}
-                                  onBlur={onBlurTodo}
+                                  onBlur={e => onBlurTodo(e, todo.content)}
                                   onKeyDown={e => onUpdateTodo(e, todo.id)}
                                   >{todo.content}</span>
                                 <button
@@ -110,6 +114,7 @@ const ToDoPage = () => {
             <div className="Todo__toolbar">
                 {todos.length > 0 ?
                     <input
+                        aria-label="toggle-all-todos"
                         type="checkbox"
                         onChange={onToggleAllTodo}
                     /> : <div/>
