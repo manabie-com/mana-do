@@ -49,17 +49,18 @@ const ToDoPage = () => {
           return todos.filter((todo) => todo.status === showing);
         });
 
-        // check "all checkbox" if all is active
+        // automatically put a check on the bottom left checkbox if all todos are active
         const index = todos.findIndex((todo) => todo.status === TodoStatus.ACTIVE);
         setCompletedAllTodo(index === -1);
     }, [todos, showing]);
 
     // create todo
     const onCreateTodo = async (e: React.KeyboardEvent<HTMLInputElement>) => {
-        if (e.key === 'Enter' && inputRef.current.value) {
-            const resp = await Service.createTodo(inputRef.current.value);
+        var currentRef = inputRef.current.value
+        if (e.key === 'Enter' && currentRef) {
+            const resp = await Service.createTodo(currentRef);
             dispatch(createTodo(resp));
-            inputRef.current.value = '';
+            currentRef = '';
         }
     }
 
