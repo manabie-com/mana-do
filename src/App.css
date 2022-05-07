@@ -2,6 +2,8 @@
   text-align: center;
   display: flex;
   justify-content: center;
+  margin-left: 1rem;
+  margin-right: 1rem;
 }
 
 button {
@@ -51,8 +53,7 @@ input:focus {
   width: 500px;
   margin-top: 5rem;
   padding: 24px;
-  box-shadow: 2px 2px 1px rgba(0,0,0, 0.09),
-              3px 2px 3px rgba(0,0,0, 0.05);
+  background-color: #FBE7C6;
 }
 
 .Todo__creation {
@@ -73,12 +74,23 @@ input:focus {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  background-color: #A0E7E5;
+  margin-top: 0.5rem;
+  padding: 0.2rem 0.7rem;
+  border-radius: 3px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  transition: all 0.3s cubic-bezier(.25,.8,.25,1);
 }
 
 .ToDo__item > span {
   flex: 1 1;
   text-align: left;
   margin-left: 8px;
+  padding: 0.2rem 0.5rem;
+  height: 1.8rem;
+  display: flex;
+  align-items: center;
+  overflow: clip;
 }
 
 .Todo__content {
@@ -104,12 +116,15 @@ input:focus {
   width: 24px;
   height: 24px;
   flex-shrink: 0;
+  padding: 0;
+  background-color: transparent;
 }
 
 .Todo__toolbar {
   display: flex;
   justify-content: space-between;
   margin-top: 24px;
+  padding: 0.2rem 0.5rem;
 }
 
 .Todo__tabs {
@@ -122,4 +137,39 @@ input:focus {
 }
 
 .Action__btn {
+  padding: 0.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  background-color: #FFAEBC;
+  cursor: pointer;
+}
+
+.Toolbar__toggle_all {
+  display: flex;
+  align-items: center;
+}
+
+.Toolbar__toggle_all > label {
+  color: lightslategrey;
+  margin-left: 5px;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+}
+
+.item-enter {
+  opacity: 0;
+}
+.item-enter-active {
+  opacity: 1;
+  transition: opacity 500ms;
+}
+.item-exit {
+  opacity: 1;
+}
+.item-exit-active {
+  opacity: 0;
+  transition: all 600ms;
+  transform: translateX(50%);
 }

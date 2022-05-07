@@ -2,7 +2,8 @@ import React from 'react';
 import { render, screen, cleanup } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import ToDoPage from '../../ToDoPage';
-import * as utils from '../../utils/localStorage';
+import * as storage from '../../utils/localStorage';
+import * as mojs from '../../utils/mojs';
 import { Todo, TodoStatus } from '../../models/todo';
 
 const mockTodosData = [
@@ -20,6 +21,7 @@ describe('Active/complete todos', () => {
   afterEach(cleanup);
 
   it('Should allow users to click on checkbox items they have completed', async () => {
+    jest.spyOn(mojs, 'playCheckedEffect').mockImplementation(() => null);
     const user = userEvent.setup();
     render(<ToDoPage />);
     const todoCheckbox = await screen.findByLabelText('todo-item-checkbox');
@@ -28,8 +30,8 @@ describe('Active/complete todos', () => {
   })
 
   it('Should allow users to toggle all todos', async () => {
-    jest.spyOn(utils, 'getAllToDosStatus').mockReturnValue(TodoStatus.COMPLETED);
-    jest.spyOn(utils, 'getToDosFromLocalStorage').mockReturnValue(mockTodosData);
+    jest.spyOn(storage, 'getAllToDosStatus').mockReturnValue(TodoStatus.COMPLETED);
+    jest.spyOn(storage, 'getToDosFromLocalStorage').mockReturnValue(mockTodosData);
 
     const user = userEvent.setup();
     render(<ToDoPage />);
