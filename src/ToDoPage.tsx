@@ -60,11 +60,13 @@ const ToDoPage = () => {
 
     const onEditTodo = (e: React.MouseEvent<HTMLSpanElement>) => {
       e.currentTarget.contentEditable = 'true';
+      e.currentTarget.style.outline = 'double gray';
       e.currentTarget.focus();
     }
 
     const onBlurTodo = (e: React.FocusEvent<HTMLSpanElement>, originalContent: string) => {
       e.currentTarget.contentEditable = 'false';
+      e.currentTarget.style.outline = 'none';
       e.currentTarget.innerText = originalContent;
     }
 

@@ -86,11 +86,13 @@ input:focus {
   flex: 1 1;
   text-align: left;
   margin-left: 8px;
+  margin-right: 8px;
   padding: 0.2rem 0.5rem;
-  height: 1.8rem;
+  height: 1.6rem;
   display: flex;
   align-items: center;
   overflow: clip;
+  text-transform: capitalize;
 }
 
 .Todo__content {
