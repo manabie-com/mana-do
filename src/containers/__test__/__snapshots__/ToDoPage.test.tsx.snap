@@ -1,0 +1,66 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ToDoPage /> rendering should match snapshot 1`] = `
+<div>
+  <div
+    class="ToDo__container"
+  >
+    <div
+      class="Todo__creation"
+    >
+      <input
+        class="input-todo "
+        data-testid="input"
+        id=""
+        name="todo"
+        placeholder="What need to be done?"
+        type="text"
+      />
+    </div>
+    <div
+      class="list-todo"
+    />
+    <div
+      class="Todo__toolbar"
+    >
+      <div />
+      <div
+        class="todo-tab"
+        data-testid="todo-tab"
+      >
+        <button
+          aria-label="ALL"
+          class="btn-todo btn-todo--main btn-todo--selected"
+          data-testid="button"
+        >
+          ALL
+        </button>
+        <button
+          aria-label="ACTIVE"
+          class="btn-todo btn-todo--main "
+          data-testid="button"
+        >
+          ACTIVE
+        </button>
+        <button
+          aria-label="COMPLETED"
+          class="btn-todo btn-todo--main "
+          data-testid="button"
+        >
+          COMPLETED
+        </button>
+      </div>
+      <button
+        aria-label="Clear all"
+        class="btn-todo btn-todo--danger"
+        data-testid="button"
+      >
+        Clear all todos
+      </button>
+    </div>
+  </div>
+  <div
+    class="Toastify"
+  />
+</div>
+`;
