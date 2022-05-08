@@ -73,6 +73,7 @@ input:focus {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 20px;
 }
 
 .ToDo__item > span {
@@ -124,4 +125,15 @@ input:focus {
   background-color: rebeccapurple;
   color: white;
   transition: all .3s ease-in-out;
+}
+
+.Todo__content{
+box-shadow: none;
+}
+
+.Todo__left__content{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
 }

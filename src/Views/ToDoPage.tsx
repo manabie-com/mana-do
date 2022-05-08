@@ -1,6 +1,8 @@
 import React, {
+  forwardRef,
   useCallback,
   useEffect,
+  useImperativeHandle,
   useMemo,
   useRef,
   useState,
@@ -14,6 +16,7 @@ import {
   deleteAllTodos,
   updateTodoStatus,
   filterTodos,
+  updateTodoContent,
 } from "../store/actions";
 import Service from "../service";
 import { TodoStatus } from "../models/todo";
@@ -24,6 +27,7 @@ const storageKey = "TODO_LIST";
 
 const ToDoPage = () => {
   const inputRef = useRef<any>(null);
+  const inputContentRef = useRef<any>(null);
   const { state, dispatch } = usePersistedReducer(
     todoReducer,
     initialState,
@@ -49,8 +53,14 @@ const ToDoPage = () => {
 
   const onUpdateTodoStatus = (
     e: React.ChangeEvent<HTMLInputElement>,
-    id: string
+    id: string,
+    type: string
   ) => {
+    if (type === "INPUT") {
+      const value = e.target.value;
+      console.log({ value });
+      return;
+    }
     dispatch(updateTodoStatus(id, e.target.checked));
   };
 
@@ -72,6 +82,11 @@ const ToDoPage = () => {
     },
     [dispatch, isAllowSubmit]
   );
+
+  const handleBlur = (id: string) => {
+    const textUpdate = inputContentRef.current.returnText();
+    dispatch(updateTodoContent(id, textUpdate));
+  };
 
   useEffect(() => {
     const filterResult = onFilter(filterState, todos);
@@ -97,6 +112,8 @@ const ToDoPage = () => {
                 <ItemRender
                   item={todo}
                   key={todo.id}
+                  handleBlur={handleBlur}
+                  ref={inputContentRef}
                   onDeleteTodo={onDeleteTodo}
                   onUpdateTodoStatus={onUpdateTodoStatus}
                 />
@@ -133,27 +150,42 @@ const ToDoPage = () => {
 
 export default ToDoPage;
 
-const ItemRender = (props: any) => {
-  const { item, onUpdateTodoStatus, onDeleteTodo } = props;
+const ItemRender = forwardRef((props: any, ref) => {
+  const { item, onUpdateTodoStatus, onDeleteTodo, handleBlur } = props;
+  const [text, setText] = useState(item.content);
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setText(event.target.value);
+  };
+
+  useImperativeHandle(ref, () => ({
+    returnText: () => text,
+  }));
+
   return (
     <div className="ToDo__item">
-      <input
-        checked={isTodoCompleted(item)}
-        type="checkbox"
-        onChange={(e) => onUpdateTodoStatus(e, item?.id)}
-      />
-      <span
-        style={
-          isTodoCompleted(item)
-            ? { textDecoration: "line-through", opacity: ".5" }
-            : {}
-        }
-      >
-        {item.content}
-      </span>
+      <div className="Todo__left__content">
+        <input
+          checked={isTodoCompleted(item)}
+          type="checkbox"
+          onChange={(e) => onUpdateTodoStatus(e, item?.id, "CHECK_BOX")}
+        />
+        <input
+          className="Todo__content"
+          type="text"
+          onChange={handleChange}
+          onBlur={() => handleBlur(item?.id)}
+          style={
+            isTodoCompleted(item)
+              ? { textDecoration: "line-through", opacity: ".5" }
+              : {}
+          }
+          value={text}
+        />
+      </div>
       <button onClick={() => onDeleteTodo(item.id)} className="Todo__delete">
         X
       </button>
     </div>
   );
-};
+});

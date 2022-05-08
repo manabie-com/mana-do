@@ -7,6 +7,7 @@ import {
   FILTER_TODO,
   TOGGLE_ALL_TODOS,
   UPDATE_TODO_STATUS,
+  UPDATE_TODO_CONTENT,
 } from "./actions";
 
 export interface AppState {
@@ -49,6 +50,18 @@ function todoReducer(state: AppState, action: AppActions): AppState {
         todos: [...todoUpdate],
       };
 
+    case UPDATE_TODO_CONTENT:
+      const temp = state.todos.map((e) => {
+        return {
+          ...e,
+          content:
+            e.id === action.payload.todoId ? action.payload.content : e.content,
+        };
+      });
+      return {
+        ...state,
+        todos: temp,
+      };
     case TOGGLE_ALL_TODOS:
       const tempTodos = state.todos.map((e) => {
         return {
