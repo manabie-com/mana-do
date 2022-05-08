@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Guide /> rendering should match snapshot 1`] = `
+<div>
+  <div
+    class="guide"
+  >
+    <i
+      class="guide__text"
+    >
+      * Double-click to the label to edit the corresponding task!
+    </i>
+  </div>
+</div>
+`;

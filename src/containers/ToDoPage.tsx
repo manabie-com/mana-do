@@ -1,4 +1,6 @@
 import { Checkbox } from "components/checkbox";
+import { Guide } from "components/guide";
+import { Header } from "components/header";
 import { Input } from "components/input";
 import { TodoItemList } from "components/todoItemList";
 import { TodoTab } from "components/todoTab";
@@ -13,6 +15,7 @@ import {
   toggleAllTodos,
 } from "store/action-handlers";
 import { isTodoActive, isTodoCompleted } from "utils";
+import "./styles.scss";
 
 export type EnhanceTodoStatus = TodoStatus | "ALL";
 
@@ -71,9 +74,10 @@ const ToDoPage = () => {
   );
 
   return (
-    <>
-      <div className="ToDo__container">
-        <div className="Todo__creation">
+    <div className="todo">
+      <div className="todo__container">
+        <Header />
+        <div className="todo__creation">
           <Input
             ref={inputRef}
             placeholder="What need to be done?"
@@ -82,9 +86,9 @@ const ToDoPage = () => {
           />
         </div>
         <TodoItemList todos={todoTasks} dispatch={dispatch} />
-        <div className="Todo__toolbar">
+        <div className="todo__toolbar">
           {todoTasks.length > 0 ? (
-            <Checkbox onChange={onToggleAllTodo} />
+            <Checkbox onChange={onToggleAllTodo} data-testid="checkbox-all" />
           ) : (
             <div />
           )}
@@ -96,7 +100,8 @@ const ToDoPage = () => {
         </div>
       </div>
       <ToastContainer />
-    </>
+      <Guide />
+    </div>
   );
 };
 

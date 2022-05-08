@@ -1,0 +1,10 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &__title {
+    color: var(--color-mana);
+    margin-left: 10px;
+  }
+}

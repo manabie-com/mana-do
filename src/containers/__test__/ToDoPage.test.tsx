@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, render } from "@testing-library/react";
 import ToDoPage from "containers/ToDoPage";
 import React from "react";
 import { getElementByTestId } from "utils/testUtils";
