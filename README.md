@@ -52,7 +52,7 @@ Last updated: 2022/01/13
 - [x] Add edit feature - user double-clicks the todo to edit, presses enter to apply the changes, or clicks outside to discard
 - [x] Allows users to click on checkbox items they have completed (Active/Complete)
 - [x] Enhance UI
-- [ ] Testing
+- [x] Testing
 
 ### Available functions
 - Add todo
