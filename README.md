@@ -70,3 +70,10 @@ Last updated: 2022/01/13
 - [x] UI filter button selected is not correct 
 - [x] Data is not save after reloading
 
+### Addition features
+- Show created date for each todo item
+- Show label count items still active (not completed yet)
+- Confirm dialog when delete is clicked:
+    - Show dialog when delete item button is clicked and that item is not completed yet
+    - Show dialog when clear all button is clicked and there is still active item
+- Show empty message when there is no todo item
