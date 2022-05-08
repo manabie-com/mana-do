@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Checkbox /> rendering should match snapshot 1`] = `
+<div>
+  <input
+    class="cbx-todo "
+    data-testid="checkbox"
+    id=""
+    type="checkbox"
+  />
+</div>
+`;

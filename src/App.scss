@@ -1,0 +1,17 @@
+.App {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+}
+
+input {
+  border: none;
+  outline: none;
+  padding: 0 12px;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+}
+
+input:focus {
+  box-shadow: 1px 0 9px rgba(0, 0, 0, 0.25);
+}

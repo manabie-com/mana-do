@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Input /> rendering should match snapshot 1`] = `
+<div>
+  <input
+    class="input-todo "
+    data-testid="input"
+    id=""
+    name="todo-input"
+    type="text"
+  />
+</div>
+`;

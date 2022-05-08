@@ -1,0 +1,44 @@
+.btn-todo {
+  outline: none;
+  border: none;
+  font-weight: 700;
+  border-radius: 4px;
+  height: 40px;
+  min-width: 80px;
+  padding: 4px 8px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+
+  &:disabled {
+    pointer-events: none;
+  }
+
+  &:hover {
+    opacity: 0.85;
+    background-color: var(--color-primary);
+    color: #fff;
+  }
+
+  &--main {
+    border: 1px solid var(--color-primary-light);
+    color: var(--color-primary);
+    background-color: #f1f5f9;
+  }
+
+  &--selected {
+    background-color: var(--color-primary);
+    color: #fff;
+  }
+
+  &--danger {
+    border: 1px solid var(--color-secondary);
+    background-color: var(--color-secondary);
+    color: #fff;
+
+    &:hover {
+      opacity: 0.85;
+      background-color: var(--color-secondary);
+      color: #fff;
+    }
+  }
+}

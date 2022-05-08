@@ -1,0 +1,51 @@
+.todo-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  & > span {
+    flex: 1 1;
+    text-align: left;
+    margin-left: 8px;
+  }
+
+  &__input-wrapper {
+    display: flex;
+    align-items: center;
+
+    & > label {
+      margin-left: 10px;
+    }
+  }
+
+  &__delete {
+    outline: none;
+    border: none;
+    width: 32px;
+    height: 32px;
+    min-width: auto;
+    min-height: auto;
+    box-shadow: none;
+    border-radius: 50%;
+    display: flex;
+    background-color: #fff;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+
+    &:hover {
+      background-color: transparent;
+    }
+  }
+
+  &__text {
+    &--completed {
+      text-decoration: line-through;
+      color: #64748b;
+    }
+  }
+
+  &__input {
+    width: 100%;
+  }
+}

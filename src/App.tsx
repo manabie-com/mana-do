@@ -1,8 +1,7 @@
-import React from 'react';
-
-import ToDoPage from './ToDoPage';
-
-import './App.css';
+import { ToDoPage } from "containers";
+import React from "react";
+import "react-toastify/dist/ReactToastify.css";
+import "./App.scss";
 
 function App() {
   return (
