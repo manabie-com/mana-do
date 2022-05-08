@@ -1,0 +1,51 @@
+h1.title {
+	font-size: 120px;
+    text-align: center;
+    color: darkseagreen;
+    padding: 2rem;
+}
+
+.ToDo__container {
+	display: flex;
+	width: 100% !important;
+	justify-content: center;
+	flex-direction: column;
+    background: white;
+	box-shadow: 0 2px 4px 0 rgb(0 0 0 / 20%), 0 25px 50px 0 rgb(0 0 0 / 10%);
+    flex: 0 0 50%;
+    max-width: 50%;
+}
+
+.ToDo__list {
+	display: flex;
+	flex-direction: column;
+}
+
+.ToDo__empty-msg {
+	min-height: 40px;
+	display: flex;
+	align-items: center;
+	padding: 0 30px;
+	font-style: italic;
+}
+
+@media (max-width: 1500px) {
+	.ToDo__container {
+		flex: 0 0 60%;
+		max-width: 60%;
+	}
+}
+
+@media (max-width: 1100px) {
+	.ToDo__container {
+		flex: 0 0 70%;
+		max-width: 70%;
+	}
+}
+
+@media (max-width: 900px) {
+	.ToDo__container {
+		flex: 0 0 95%;
+		max-width: 95%;
+	}
+}

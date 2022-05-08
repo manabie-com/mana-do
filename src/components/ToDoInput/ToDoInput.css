@@ -1,0 +1,21 @@
+.Todo__creation {
+    display: flex;
+    height: 40px;
+    padding: 10px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    box-shadow: 0 1px 0.5px rgb(0 0 0 / 10%);
+}
+
+.Todo__input {
+    width: 100% !important;
+    height: 100% !important;
+	outline: none;
+    border: none;
+    margin-left: 10px;
+    margin-right: 10px;
+    font-size: 35px;
+}
+
+.Todo__input::placeholder {
+    opacity: 0.7;
+}

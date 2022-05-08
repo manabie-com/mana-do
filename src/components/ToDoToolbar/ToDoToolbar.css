@@ -1,0 +1,65 @@
+.Todo__toolbar {
+	display: flex;
+	position: relative;
+	justify-content: space-between;
+    height: 40px;
+	padding: 5px;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+	box-shadow: 0 1px 1px rgb(0 0 0 / 20%), 0 8px 0 -3px #f6f6f6, 0 9px 1px -3px rgb(0 0 0 / 20%), 0 16px 0 -6px #f6f6f6, 0 17px 2px -6px rgb(0 0 0 / 20%);
+}
+
+.Todo__empty-toggle {
+	min-width: 40px;
+}
+
+#toggle-all {
+	padding: 15px 40px;
+} 
+
+.Todo__tabs {
+	display: flex;
+	justify-content: center;
+}
+
+.Todo__tabs > *:not(:last-child) {
+	margin-right: 8px;
+}
+
+.Action__btn {
+	padding: 5px;
+    border-radius: 0.25rem;
+    transition: 250ms all ease-in-out;
+    outline: none;
+    cursor: pointer;
+    margin-right: 5px;
+    background: white;
+    border: 1px solid white;
+}
+
+.Action__btn:hover{
+	box-shadow: rgb(9 30 66 / 25%) 0px 4px 8px -2px, rgb(9 30 66 / 8%) 0px 0px 0px 1px;
+}
+
+
+.Action__btn.active{
+	border-color: burlywood;
+}
+
+.Todo__btn-delete-all {
+	margin-left: 30px;
+	color: tomato;
+	box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px, rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;
+}
+
+.Todo__btn-delete-all:disabled {
+	opacity: 0.7;
+	color: rgb(185, 132, 122);
+	cursor: default;
+}
+
+.Todo__remain-item {
+    align-self: center;
+    font-size: 15px;
+	min-width: 80px;
+	text-align: right;
+}

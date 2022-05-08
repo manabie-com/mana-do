@@ -1,125 +1,45 @@
 .App {
-  text-align: center;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 10vh;
 }
 
 button {
   outline: none;
   border: none;
-  box-shadow: 2px 0 2px currentColor;
   border-radius: 4px;
-  min-height: 32px;
-  min-width: 80px;
   padding: 4px 8px;
-}
-
-button:hover {
-  opacity: 0.85;
-}
-
-input[type="checkbox"] {
-  width: 24px;
-  height: 24px;
-  box-shadow: none;
-  border: none;
-  outline: none;
-}
-
-input[type="checkbox"]:focus {
-  box-shadow: none;
-  border: none;
-  outline: none;
-}
-
-input {
-  min-height: 36px;
-  border: none;
-  outline: none;
-  padding: 0 12px;
-  box-shadow: 2px 0 4px rgba(0,0,0, 0.2);
-  border-radius: 4px;
-}
-
-input:focus {
-  box-shadow: 1px 0 9px rgba(0,0,0, 0.25);
-}
-
-.ToDo__container {
-  border: 1px solid rgba(0,0,0, 0.13);
-  border-radius: 8px;
-  width: 500px;
-  margin-top: 5rem;
-  padding: 24px;
-  box-shadow: 2px 2px 1px rgba(0,0,0, 0.09),
-              3px 2px 3px rgba(0,0,0, 0.05);
-}
-
-.Todo__creation {
-  display: flex;
-}
-
-.Todo__input {
-  flex: 1 1;
-}
-
-.ToDo__list {
-  display: flex;
-  flex-direction: column;
-  margin-top: 1.5rem;
-}
-
-.ToDo__item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.ToDo__item > span {
-  flex: 1 1;
-  text-align: left;
-  margin-left: 8px;
-}
-
-.Todo__content {
-  flex: 1 1;
-}
-
-.Todo__delete {
-  outline: none;
-  border: none;
-  width: 32px;
-  height: 32px;
-  min-width: auto;
-  min-height: auto;
-  box-shadow: none;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   cursor: pointer;
 }
 
-.Todo__action, .Todo__delete {
-  width: 24px;
-  height: 24px;
-  flex-shrink: 0;
+
+/* CUSTOM CHECKBOX */
+.checkbox-custom {
+  cursor: pointer;
+  word-break: break-all;
+  padding: 15px 15px 15px 30px;
+  display: block;
 }
 
-.Todo__toolbar {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 24px;
+.toggle {
+  width: 40px;
+  height: auto;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin: auto 0;
+  border: none;
+  outline: none;
+  appearance: none;
 }
 
-.Todo__tabs {
-  display: flex;
-  justify-content: center;
+.toggle + label {
+  background-image: url("data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2240%22%20height%3D%2240%22%20viewBox%3D%22-10%20-18%20100%20135%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2250%22%20fill%3D%22none%22%20stroke%3D%22%23ededed%22%20stroke-width%3D%223%22/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: none;
 }
 
-.Todo__tabs > *:not(:last-child) {
-  margin-right: 8px;
-}
-
-.Action__btn {
+.toggle:checked + label {
+  background-image: url("data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2240%22%20height%3D%2240%22%20viewBox%3D%22-10%20-18%20100%20135%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2250%22%20fill%3D%22none%22%20stroke%3D%22%23bddad5%22%20stroke-width%3D%223%22/%3E%3Cpath%20fill%3D%22%235dc2af%22%20d%3D%22M72%2025L42%2071%2027%2056l-4%204%2020%2020%2034-52z%22/%3E%3C/svg%3E");
 }
