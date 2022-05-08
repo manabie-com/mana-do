@@ -1,5 +1,5 @@
-import shortid from "shortid";
-import { Todo, TodoStatus } from "../models/todo";
+import shortid from 'shortid';
+import { Todo, TodoStatus } from '../models/todo';
 
 /**
  * Save todo to local storage
@@ -25,9 +25,9 @@ export function getToDosFromLocalStorage(): Todo[] {
       created_date: new Date().toISOString(),
       status: TodoStatus.ACTIVE,
       id: shortid(),
-      user_id: "firstUser",
-    } as Todo
-  ]
+      user_id: 'firstUser',
+    } as Todo,
+  ];
 }
 
 /**
@@ -39,6 +39,8 @@ export function getAllToDosStatus(): TodoStatus {
   if (toDos.length === 0) {
     return TodoStatus.COMPLETED;
   }
-  const isAllToDosComplete = toDos.every(todo => todo.status === TodoStatus.COMPLETED);
+  const isAllToDosComplete = toDos.every(
+    todo => todo.status === TodoStatus.COMPLETED,
+  );
   return isAllToDosComplete ? TodoStatus.COMPLETED : TodoStatus.ACTIVE;
 }

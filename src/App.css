@@ -20,7 +20,7 @@ button:hover {
   opacity: 0.85;
 }
 
-input[type="checkbox"] {
+input[type='checkbox'] {
   width: 24px;
   height: 24px;
   box-shadow: none;
@@ -28,7 +28,7 @@ input[type="checkbox"] {
   outline: none;
 }
 
-input[type="checkbox"]:focus {
+input[type='checkbox']:focus {
   box-shadow: none;
   border: none;
   outline: none;
@@ -39,21 +39,21 @@ input {
   border: none;
   outline: none;
   padding: 0 12px;
-  box-shadow: 2px 0 4px rgba(0,0,0, 0.2);
+  box-shadow: 2px 0 4px rgba(0, 0, 0, 0.2);
   border-radius: 4px;
 }
 
 input:focus {
-  box-shadow: 1px 0 9px rgba(0,0,0, 0.25);
+  box-shadow: 1px 0 9px rgba(0, 0, 0, 0.25);
 }
 
 .ToDo__container {
-  border: 1px solid rgba(0,0,0, 0.13);
+  border: 1px solid rgba(0, 0, 0, 0.13);
   border-radius: 8px;
   width: 500px;
   margin-top: 5rem;
   padding: 24px;
-  background-color: #FBE7C6;
+  background-color: #fbe7c6;
 }
 
 .Todo__creation {
@@ -74,12 +74,12 @@ input:focus {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: #A0E7E5;
+  background-color: #a0e7e5;
   margin-top: 0.5rem;
   padding: 0.2rem 0.7rem;
   border-radius: 3px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-  transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
 .ToDo__item > span {
@@ -114,7 +114,8 @@ input:focus {
   cursor: pointer;
 }
 
-.Todo__action, .Todo__delete {
+.Todo__action,
+.Todo__delete {
   width: 24px;
   height: 24px;
   flex-shrink: 0;
@@ -142,9 +143,16 @@ input:focus {
   padding: 0.5rem;
   font-size: 1rem;
   font-weight: 500;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-  background-color: #FFAEBC;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  background-color: #b4f8c8;
   cursor: pointer;
+  color: #3c3c3c;
+}
+
+.Action__btn:disabled,
+.Action__btn[disabled] {
+  background-color: #cccccc;
+  color: #565656;
 }
 
 .Toolbar__toggle_all {

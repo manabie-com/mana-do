@@ -1,4 +1,4 @@
-import {Todo, TodoStatus} from '../models/todo';
+import { Todo, TodoStatus } from '../models/todo';
 import {
   AppActions,
   CREATE_TODO,
@@ -11,12 +11,12 @@ import {
 } from './actions';
 
 export interface AppState {
-  todos: Array<Todo>
+  todos: Array<Todo>;
 }
 
 export const initialState: AppState = {
-  todos: []
-}
+  todos: [],
+};
 
 function reducer(state: AppState, action: AppActions): AppState {
   switch (action.type) {
@@ -28,68 +28,69 @@ function reducer(state: AppState, action: AppActions): AppState {
 
         Ref: https://reactjs.org/docs/state-and-lifecycle.html#do-not-modify-state-directly 
       */
-     
-      const todos = [...state.todos, action.payload]
+
+      const todos = [...state.todos, action.payload];
       return {
         ...state,
         todos,
-      }
+      };
 
     case UPDATE_TODO_STATUS:
       // This action is the same as the problem and the solution of the CREATE_TODO action.
       const updateStatusTodos = [...state.todos];
-      const index = updateStatusTodos.findIndex(todo => todo.id === action.payload.todoId);
-      const checkStatus = action.payload.checked ? TodoStatus.COMPLETED : TodoStatus.ACTIVE;
+      const index = updateStatusTodos.findIndex(
+        todo => todo.id === action.payload.todoId,
+      );
+      const checkStatus = action.payload.checked
+        ? TodoStatus.COMPLETED
+        : TodoStatus.ACTIVE;
       updateStatusTodos[index].status = checkStatus;
       return {
         ...state,
         todos: updateStatusTodos,
-      }
+      };
 
     case TOGGLE_ALL_TODOS:
-      const tempTodos = state.todos.map((e) => {
+      const tempTodos = state.todos.map(e => {
         return {
           ...e,
           status: action.payload ? TodoStatus.COMPLETED : TodoStatus.ACTIVE,
-        }
-      })
+        };
+      });
 
       return {
         ...state,
         todos: tempTodos,
-      }
+      };
 
     case DELETE_TODO:
-      const copyTodos = [...state.todos];
-      const deleteIndex = copyTodos.findIndex((todo) => todo.id === action.payload);
-      if (deleteIndex > -1) {
-        copyTodos.splice(deleteIndex, 1);
-      }
-
+      const copyTodos = state.todos.filter(todo => todo.id !== action.payload);
       return {
         ...state,
         todos: copyTodos,
-      }
+      };
     case DELETE_ALL_TODOS:
       return {
         ...state,
         todos: [],
-      }
+      };
     case SET_TODO:
       return {
         ...state,
         todos: action.payload,
-      }
+      };
     case UPDATE_TODO_CONTENT:
       const updateTodos = [...state.todos];
-      const todoIndex = updateTodos.findIndex(todo => todo.id === action.payload.todoId);
+      const todoIndex = updateTodos.findIndex(
+        todo => todo.id === action.payload.todoId,
+      );
       updateTodos[todoIndex].content = action.payload.newContent;
       return {
         ...state,
         todos: updateTodos,
-      }
+      };
     default:
-      return state
+      return state;
   }
 }
 

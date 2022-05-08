@@ -24,10 +24,32 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "test:frontend": "cross-env REACT_APP_WHOAMI=frontend react-scripts test",
+    "test:frontend:coverage": "yarn run test:frontend -- --coverage",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
-    "extends": "react-app"
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ],
+    "rules": {
+      "quotes": [
+        "warn",
+        "single"
+      ],
+      "eol-last": [
+        "warn",
+        "always"
+      ],
+      "semi": [
+        "warn",
+        "always"
+      ],
+      "jsx-quotes": [
+        "warn",
+        "prefer-single"
+      ]
+    }
   },
   "browserslist": {
     "production": [
