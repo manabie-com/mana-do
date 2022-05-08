@@ -53,14 +53,8 @@ const ToDoPage = () => {
 
   const onUpdateTodoStatus = (
     e: React.ChangeEvent<HTMLInputElement>,
-    id: string,
-    type: string
+    id: string
   ) => {
-    if (type === "INPUT") {
-      const value = e.target.value;
-      console.log({ value });
-      return;
-    }
     dispatch(updateTodoStatus(id, e.target.checked));
   };
 
@@ -168,7 +162,7 @@ const ItemRender = forwardRef((props: any, ref) => {
         <input
           checked={isTodoCompleted(item)}
           type="checkbox"
-          onChange={(e) => onUpdateTodoStatus(e, item?.id, "CHECK_BOX")}
+          onChange={(e) => onUpdateTodoStatus(e, item?.id)}
         />
         <input
           className="Todo__content"
