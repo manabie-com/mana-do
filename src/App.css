@@ -114,12 +114,14 @@ input:focus {
 
 .Todo__tabs {
   display: flex;
-  justify-content: center;
 }
 
 .Todo__tabs > *:not(:last-child) {
   margin-right: 8px;
 }
 
-.Action__btn {
+.Active__btn {
+  background-color: rebeccapurple;
+  color: white;
+  transition: all .3s ease-in-out;
 }
