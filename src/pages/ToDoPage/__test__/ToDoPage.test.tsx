@@ -1,6 +1,6 @@
 import React from "react";
 import '@testing-library/jest-dom/extend-expect';
-import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 import { Todo, TodoStatus } from "models";
 import ToDoPage from "pages/ToDoPage";
 const mockupTodos: Todo[] = ['1222321', '24412311', '11231231'].map(e => {
@@ -15,7 +15,7 @@ const mockupTodos: Todo[] = ['1222321', '24412311', '11231231'].map(e => {
 
 jest.mock('service', () => {
     const {TodoStatus} = require('models');
-   
+
     return {
         getTodos: async () => Promise.resolve(mockupTodos),
         saveTodos: (todos: Todo[]) => {
@@ -35,6 +35,9 @@ describe("ToDoPage components", () => {
     it("3 todo items should be render, toggle all should be appear and button clear all should be enabled", async () => {
         const todoItemsEl = await screen.findAllByTestId('todo-item');
         expect(todoItemsEl).toHaveLength(3);
+
+        expect(screen.getByTestId('todo-toggle')).toBeInTheDocument();
+        expect(screen.getByTestId('todo-delete-all-btn')).toBeEnabled();
     });
 
     beforeEach(async () => {
@@ -218,6 +221,16 @@ describe("ToDoPage components", () => {
             fireEvent.click(completedBtnEl);
 
             expect(await screen.queryByText(todoEdit.content)).toBeInTheDocument();
+        });
+
+        it("When todos is empty, button clear all should be disabled", async () => {
+            window.confirm = jest.fn(() => true);
+
+            fireEvent.click(screen.getByTestId('todo-delete-all-btn'));
+    
+            expect(await screen.findByTestId('todo-empty-msg')).toBeInTheDocument();
+
+            expect(screen.getByTestId('todo-delete-all-btn')).toBeDisabled();
         });
     });
 });
