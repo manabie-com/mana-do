@@ -1,6 +1,6 @@
 import React, {useEffect, useReducer, useState} from 'react';
 
-import reducer, {initialState} from '../../store/reducer';
+import reducer, {initialState} from 'store/reducer';
 import {
     setTodos,
     createTodo,
@@ -9,31 +9,34 @@ import {
     updateTodoStatus,
     deleteTodo,
     updateTodoContent,
-    AppActions
-} from '../../store/actions';
-import Service from '../../service';
+    AppActions,
+    setError
+} from 'store/actions';
+import Service from 'service';
 import './ToDoPage.css'
-import { EnhanceTodoStatus, Todo, TodoStatus } from '../../models'
-import ToDoItem, { ToDoItemProps } from '../../components/ToDoItem/ToDoItem';
-import ToDoInput from '../../components/ToDoInput/ToDoInput';
-import ToDoToolbar, { ToDoToolbarProps } from '../../components/ToDoToolbar/ToDoToolbar';
-import { remainTodoActive } from '../../utils';
+import { EnhanceTodoStatus, Todo, TodoStatus } from 'models'
+import ToDoItem, { ToDoItemProps } from 'components/ToDoItem/ToDoItem';
+import ToDoInput from 'components/ToDoInput/ToDoInput';
+import ToDoToolbar, { ToDoToolbarProps } from 'components/ToDoToolbar/ToDoToolbar';
+import { remainTodoActive } from 'utils';
 
 
 
 const ToDoPage = () => {
     const [{todos}, dispatch] = useReducer(reducer, initialState);
     const [showing, setShowing] = useState<EnhanceTodoStatus>('ALL');
-    const [todoEditId, setTodoEditId] = useState<string>('');
     const EMPTY_MSG = "*Let's give things you want to focus and make it done";
     const remainTodos: number = remainTodoActive(todos);
     const todos$ = todos.filter((todo: Todo) => showing === 'ALL' ? todo : (showing === todo.status));
 
     useEffect(() => {
         (async () => {
-            const resp = await Service.getTodos();
-
-            dispatch(setTodos(resp));
+            try {
+                const resp = await Service.getTodos();
+                dispatch(setTodos(resp));
+            } catch (error) {
+                dispatch(setError());
+            }
         })()
     }, []);
 
@@ -85,13 +88,8 @@ const ToDoPage = () => {
         }
     }
 
-    const onHandleEditTodo = (todoId: string) => {
-        setTodoEditId(todoId)
-    }
-
     const onEnterEditTodo = (todoId: string, newContent: string) => {
         dispatch(updateTodoContent(todoId, newContent));
-        onHandleEditTodo('');
     }
 
     // define props for components
@@ -99,7 +97,7 @@ const ToDoPage = () => {
 
     return (
         <>
-            <h1 className="title">Todos</h1>
+            <h1 data-testid="todo-title" className="title">Todos</h1>
             <div className="ToDo__container">
                 <ToDoInput onCreateTodo={onCreateTodo}/>
                 <div className="ToDo__list">
@@ -108,10 +106,10 @@ const ToDoPage = () => {
                         // Should filter by showing before render
                             todos$.length ? 
                                 todos$.map((todo: Todo) => {
-                                    const ToDoItemProps: ToDoItemProps = {todo, todoEditId, onDeleteTodo, onUpdateTodoStatus, onHandleEditTodo, onEnterEditTodo};
+                                    const ToDoItemProps: ToDoItemProps = {todo, onDeleteTodo, onUpdateTodoStatus, onEnterEditTodo};
                                     return <ToDoItem key={todo.id} {...ToDoItemProps}/>
                                 }) :
-                                (<span className='ToDo__empty-msg'>{EMPTY_MSG}</span>)
+                                (<span  data-testid="todo-empty-msg" className='ToDo__empty-msg'>{EMPTY_MSG}</span>)
                     }
                 </div>
                 <ToDoToolbar {...toDoToolbarProps} />

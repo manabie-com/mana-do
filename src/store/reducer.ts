@@ -1,6 +1,7 @@
 import {Todo, TodoStatus} from '../models/todo';
 import {
   AppActions,
+  SET_ERROR,
   CREATE_TODO,
   DELETE_ALL_TODOS,
   DELETE_TODO,
@@ -81,6 +82,9 @@ function reducer(state: AppState, action: AppActions): AppState {
       
       break;
 
+    case SET_ERROR:
+      throw new Error("Unsuccessful action");
+      
     default:
       tempTodos = [];
       break

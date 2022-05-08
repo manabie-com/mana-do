@@ -1,5 +1,6 @@
 import {Todo} from "../models/todo";
 
+export const SET_ERROR = 'SET_ERROR';
 export const SET_TODO = 'SET_TODO';
 export const CREATE_TODO = 'CREATE_TODO';
 export const DELETE_TODO = 'DELETE_TODO';
@@ -7,6 +8,16 @@ export const DELETE_ALL_TODOS = 'DELETE_ALL_TODOS';
 export const TOGGLE_ALL_TODOS = 'TOGGLE_ALL_TODOS';
 export const UPDATE_TODO_STATUS = 'UPDATE_TODO_STATUS';
 export const UPDATE_TODO_CONTENT = 'UPDATE_TODO_CONTENT';
+
+export interface SetErrorAction {
+  type: typeof SET_ERROR,
+}
+
+export function setError(): SetErrorAction {
+  return {
+    type: SET_ERROR
+  }
+}
 
 
 export interface SetTodoAction {
@@ -109,7 +120,10 @@ export function toggleAllTodos(checked: boolean): ToggleAllTodosAction {
   }
 }
 
+
+
 export type AppActions =
+  SetErrorAction |
   SetTodoAction |
   CreateTodoAction |
   UpdateTodoStatusAction |

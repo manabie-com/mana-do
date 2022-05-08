@@ -19,6 +19,7 @@ function ToDoInput({onCreateTodo}: ToDoInputProps) {
     return (
         <div className="Todo__creation">
             <input
+                data-testid="todo-input"
                 ref={inputRef}
                 className="Todo__input"
                 placeholder="What need to be done?"

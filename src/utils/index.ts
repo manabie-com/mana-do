@@ -13,7 +13,10 @@ export const toCapitalize = (s: string): string =>  {
 }
 
 export const formatDate = (currentDate: string): string => {
-  return currentDate.substring(0, 10).split('-').reverse().join('/');
+  if (currentDate) {
+    return currentDate.substring(0, 10).split('-').reverse().join('/');
+  }
+  return currentDate;
 }
 export const remainTodoActive = (todos: Todo[]): number => {
     return todos.filter(td => !isTodoCompleted(td)).length;
