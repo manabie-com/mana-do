@@ -103,6 +103,7 @@ const ToDoPage = () => {
           className="Todo__input"
           placeholder="What need to be done?"
           onKeyDown={onCreateTodo}
+          autoFocus
         />
       </div>
       <div className="ToDo__list">

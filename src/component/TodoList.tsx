@@ -1,5 +1,5 @@
 import TodoItem from './TodoItem'
-import React, { memo } from 'react'
+import React from 'react'
 import { Todo } from '../models/todo'
 
 function ToDoList({
@@ -16,7 +16,7 @@ function ToDoList({
   onError: (mess: string) => void
 }) {
   return (
-    <div>
+    <div data-testid="list-todos">
       {listTodos?.length > 0 ? (
         listTodos.map((todo: Todo) => {
           return (
@@ -36,7 +36,7 @@ function ToDoList({
   )
 }
 
-export default memo(ToDoList)
+export default ToDoList
 
 ToDoList.defaultProps = {
   listTodos: [],

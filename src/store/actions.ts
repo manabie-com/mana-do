@@ -6,6 +6,7 @@ export const DELETE_TODO = 'DELETE_TODO'
 export const DELETE_ALL_TODOS = 'DELETE_ALL_TODOS'
 export const TOGGLE_ALL_TODOS = 'TOGGLE_ALL_TODOS'
 export const UPDATE_TODO_DATA = 'UPDATE_TODO_DATA'
+export const ACTION_FOR_TEST = 'ACTION_FOR_TEST'
 
 export interface SetTodoAction {
   type: typeof SET_TODO
@@ -93,6 +94,10 @@ export function deleteItemTodoData(idItem: string): DeleteTodoAction {
   }
 }
 
+export interface ActionForTest {
+  type: typeof ACTION_FOR_TEST
+}
+
 export type AppActions =
   | SetTodoAction
   | CreateTodoAction
@@ -100,3 +105,4 @@ export type AppActions =
   | ToggleAllTodosAction
   | UpdateTodoDataAction
   | DeleteTodoAction
+  | ActionForTest

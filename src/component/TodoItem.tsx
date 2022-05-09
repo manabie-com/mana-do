@@ -36,9 +36,7 @@ const TodoItem = (props: {
   }, 200)
 
   const handleClick = useCallback(
-    (e: any) => {
-      !isEdit && debouncedSearch(e.detail)
-    },
+    (e: any) => !isEdit && debouncedSearch(e.detail),
     [isEdit]
   )
 
@@ -85,7 +83,9 @@ const TodoItem = (props: {
           onKeyDown={handleUpdateContentKeyDown}
         />
       ) : (
-        <span onClick={handleClick}>{data.content}</span>
+        <span onClick={handleClick} className="Todo__item--content">
+          {data.content}
+        </span>
       )}
       <button className="Todo__delete" onClick={handleRemoveItem}>
         <Close />
