@@ -37,7 +37,7 @@ export function getToDosFromLocalStorage(): Todo[] {
 export function getAllToDosStatus(): TodoStatus {
   const toDos = getToDosFromLocalStorage();
   if (toDos.length === 0) {
-    return TodoStatus.COMPLETED;
+    return TodoStatus.ACTIVE;
   }
   const isAllToDosComplete = toDos.every(
     todo => todo.status === TodoStatus.COMPLETED,

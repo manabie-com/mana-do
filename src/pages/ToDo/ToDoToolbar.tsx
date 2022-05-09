@@ -7,9 +7,11 @@ import { playCheckedEffect } from '../../utils/mojs';
 
 export default function ToDoToolbar() {
   const { state, dispatch } = React.useContext(AppContext);
+  const toggleAllTodoRef = React.useRef<any>(null);
   const [allToDoStatus, setAllToDoStatus] = React.useState<TodoStatus>(() =>
     getAllToDosStatus(),
   );
+
   const onToggleAllTodo = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(toggleAllTodos(e.target.checked));
     setAllToDoStatus(
@@ -19,6 +21,7 @@ export default function ToDoToolbar() {
 
   const onDeleteAllTodo = () => {
     dispatch(deleteAllTodos());
+    toggleAllTodoRef.current.checked = false;
   };
 
   const checkedEffect = (e: React.MouseEvent<HTMLInputElement>) => {
@@ -33,6 +36,7 @@ export default function ToDoToolbar() {
       {state.todos.length > 0 ? (
         <div className='Toolbar__toggle_all'>
           <input
+            ref={toggleAllTodoRef}
             id='toggle-all'
             aria-label='toggle-all-todos'
             type='checkbox'
