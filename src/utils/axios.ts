@@ -7,7 +7,6 @@ const ins = axios.create({
 
 ins.interceptors.request.use((request)=>{
     request.headers.Authorization = localStorage.getItem('token')
-
     return request
 })
 
