@@ -50,7 +50,8 @@ input:focus {
 .ToDo__container {
   border: 1px solid rgba(0, 0, 0, 0.13);
   border-radius: 8px;
-  width: 500px;
+  max-width: 500px;
+  width: 100%;
   margin-top: 5rem;
   padding: 24px;
   background-color: #fbe7c6;
