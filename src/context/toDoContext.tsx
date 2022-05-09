@@ -1,4 +1,4 @@
-import React, { createContext, useReducer, Dispatch } from 'react';
+import React from 'react';
 import { AppActions } from '../store/actions';
 import reducer, { AppState, initialState } from '../store/reducer';
 
@@ -7,19 +7,19 @@ const defaultContext = {
   dispatch: () => null,
 };
 
-const AppContext = createContext<{
+const AppContext = React.createContext<{
   state: AppState;
-  dispatch: Dispatch<AppActions>;
+  dispatch: React.Dispatch<AppActions>;
 }>(defaultContext);
 
-const AppProvider: React.FC = ({ children }) => {
-  const [state, dispatch] = useReducer(reducer, initialState);
+function AppProvider({ children }: { children: React.ReactNode }) {
+  const [state, dispatch] = React.useReducer(reducer, initialState);
 
   return (
     <AppContext.Provider value={{ state, dispatch }}>
       {children}
     </AppContext.Provider>
   );
-};
+}
 
 export { AppProvider, AppContext };
