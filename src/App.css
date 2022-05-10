@@ -93,7 +93,12 @@ input:focus {
   display: flex;
   align-items: center;
   overflow: clip;
-  text-transform: capitalize;
+  text-transform: initial;
+  display: inline-block;
+}
+
+.ToDo__item > span:first-letter {
+  text-transform: uppercase;
 }
 
 .Todo__content {
