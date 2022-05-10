@@ -21,13 +21,12 @@ const ToDoPage = () => {
 	useEffect(() => {
 		(async () => {
 			const resp = await Service.getTodos();
-
 			dispatch(setTodos(resp || []));
 		})();
 	}, []);
 
 	const onCreateTodo = async (e: React.KeyboardEvent<HTMLInputElement>) => {
-		if (e.key === "Enter") {
+		if (e.keyCode === 13) {
 			const resp = await Service.createTodo(inputRef.current.value);
 			dispatch(createTodo(resp));
 		}
