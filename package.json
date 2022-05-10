@@ -24,7 +24,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "test:frontend": "cross-env REACT_APP_WHOAMI=frontend react-scripts test",
-    "test:frontend:coverage": "yarn run test:frontend -- --coverage",
+    "test:frontend:coverage": "yarn run test:frontend -- --coverage --watchAll=false",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
