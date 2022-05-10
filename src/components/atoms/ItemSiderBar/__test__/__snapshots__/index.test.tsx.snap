@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ItemSiderBar /> render should match snapshot 1`] = `
+<div
+  class="WrapperItemSiderBar"
+>
+  <div
+    class="ItemSiderBar--acitve ItemSiderBar"
+  >
+    <i
+      class="manabie-star"
+    />
+    <span>
+      Important
+    </span>
+  </div>
+</div>
+`;

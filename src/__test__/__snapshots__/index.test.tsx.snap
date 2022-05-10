@@ -1,0 +1,103 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<App /> render should match snapshot 1`] = `
+<main
+  class="App"
+  data-testid="App"
+>
+  <div
+    class="bar bar__left"
+  >
+    <div
+      class="WrapperItemSiderBar"
+    >
+      <div
+        class="ItemSiderBar--acitve ItemSiderBar"
+      >
+        <i
+          class="manabie-endless"
+        />
+        <span>
+          All
+        </span>
+      </div>
+    </div>
+    <div
+      class="WrapperItemSiderBar"
+    >
+      <div
+        class="false ItemSiderBar"
+      >
+        <i
+          class="manabie-active"
+        />
+        <span>
+          Active
+        </span>
+      </div>
+    </div>
+    <div
+      class="WrapperItemSiderBar"
+    >
+      <div
+        class="false ItemSiderBar"
+      >
+        <i
+          class="manabie-phong"
+        />
+        <span>
+          Completed
+        </span>
+      </div>
+    </div>
+    <div
+      class="WrapperItemSiderBar"
+    >
+      <div
+        class="false ItemSiderBar"
+      >
+        <i
+          class="manabie-star_outline"
+        />
+        <span>
+          Important
+        </span>
+      </div>
+    </div>
+    <div
+      class="WrapperItemSiderBar"
+    >
+      <div
+        class="false ItemSiderBar"
+      >
+        <i
+          class="manabie-remove"
+        />
+        <span>
+          Clear all todos
+        </span>
+      </div>
+    </div>
+  </div>
+  <div
+    class="bar bar__right"
+  >
+    <div
+      class="lds-dual-ring"
+    />
+    <div
+      class="todo__list"
+    />
+    <div
+      class="AddTask"
+    >
+      <input
+        aria-label="todo-input"
+        class="Todo__input"
+        data-testid="todo-input"
+        placeholder="+ Add a task"
+      />
+    </div>
+  </div>
+</main>
+`;

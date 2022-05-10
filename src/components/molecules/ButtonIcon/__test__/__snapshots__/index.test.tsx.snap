@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ButtonIcon /> render should match snapshot 1`] = `
+<div
+  class="btn"
+>
+  <i
+    class="manabie-star"
+  />
+  <span />
+</div>
+`;

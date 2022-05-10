@@ -1,0 +1,54 @@
+@font-face {
+  font-family: 'manabie';
+  src:  url('fonts/manabie.eot?f4rsj7');
+  src:  url('fonts/manabie.eot?f4rsj7#iefix') format('embedded-opentype'),
+    url('fonts/manabie.ttf?f4rsj7') format('truetype'),
+    url('fonts/manabie.woff?f4rsj7') format('woff'),
+    url('fonts/manabie.svg?f4rsj7#manabie') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+i {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'manabie' !important;
+  speak: never;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.manabie-remove_tag:before {
+  content: "\e905";
+}
+.manabie-remove:before {
+  content: "\e906";
+}
+.manabie-active:before {
+  content: "\e907";
+}
+.manabie-phong:before {
+  content: "\e908";
+}
+.manabie-endless:before {
+  content: "\e904";
+}
+.manabie-star:before {
+  content: "\e900";
+}
+.manabie-star_outline:before {
+  content: "\e901";
+}
+.manabie-star_outline1:before {
+  content: "\e902";
+}
+.manabie-star_empty:before {
+  content: "\e903";
+}

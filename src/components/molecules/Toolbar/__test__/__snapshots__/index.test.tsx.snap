@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Toolbar /> render should match snapshot 1`] = `
+<div
+  class="WrapperItemSiderBar"
+>
+  <div
+    class="false ItemSiderBar"
+  >
+    <i
+      class="manabie-endless"
+    />
+    <span>
+      All
+    </span>
+  </div>
+</div>
+`;
