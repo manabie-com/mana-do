@@ -53,7 +53,7 @@ input:focus {
   max-width: 500px;
   width: 100%;
   margin-top: 5rem;
-  padding: 24px;
+  padding: 24px 24px 8px 24px;
   background-color: #fbe7c6;
 }
 
@@ -77,7 +77,7 @@ input:focus {
   justify-content: space-between;
   background-color: #a0e7e5;
   margin-top: 0.5rem;
-  padding: 0.2rem 0.7rem;
+  padding: 0.1rem 0.7rem;
   border-radius: 3px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
   transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
@@ -129,15 +129,25 @@ input:focus {
   justify-content: space-between;
   margin-top: 24px;
   padding: 0.2rem 0.5rem;
+  flex-wrap: wrap;
+  align-items: center;
 }
 
 .Todo__tabs {
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
+  margin: 0.5rem auto;
+  align-items: center;
 }
 
 .Todo__tabs > *:not(:last-child) {
   margin-right: 8px;
+}
+
+.Todo__tabs > .Action__btn {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
 }
 
 .Action__btn {
@@ -159,6 +169,7 @@ input:focus {
 .Toolbar__toggle_all {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 .Toolbar__toggle_all > label {
@@ -181,6 +192,24 @@ input:focus {
 }
 .item-exit-active {
   opacity: 0;
-  transition: all 600ms;
-  transform: translateX(50%);
+  transition: all 500ms;
+  transform: rotateX(180deg);
+  transform-style: preserve-3d;
+}
+
+.Todo__tabs > select {
+  min-height: 32px;
+  font-size: 1rem;
+  padding: 4px 10px;
+  border-radius: 4px;
+  border: 1px solid #cccccc;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  color: #3c3c3c;
+  cursor: pointer;
+}
+
+.Todo__tabs > select:focus {
+  outline: 1px solid gray;
+  border: 1px solid gray;
+  background-color: #b4f8c8;
 }

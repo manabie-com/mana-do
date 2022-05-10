@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ToDoInput Should match snapshot 1`] = `
+<div>
+  <div
+    class="Todo__creation"
+  >
+    <input
+      class="Todo__input"
+      placeholder="What need to be done?"
+    />
+  </div>
+</div>
+`;

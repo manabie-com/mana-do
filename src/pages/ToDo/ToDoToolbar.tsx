@@ -1,22 +1,26 @@
 import React from 'react';
 import { AppContext } from '../../context/toDoContext';
 import { TodoStatus } from '../../models/todo';
-import { deleteAllTodos, toggleAllTodos } from '../../store/actions';
-import { getAllToDosStatus } from '../../utils/localStorage';
+import {
+  deleteAllTodos,
+  filterTodos,
+  toggleAllTodos,
+} from '../../store/actions';
+import {
+  getAllToDosStatus,
+  getViewOptions,
+  saveSelectionOptions,
+} from '../../utils/localStorage';
 import { playCheckedEffect } from '../../utils/mojs';
+
+export type EnhanceTodoStatus = TodoStatus | 'ALL';
 
 export default function ToDoToolbar() {
   const { state, dispatch } = React.useContext(AppContext);
   const toggleAllTodoRef = React.useRef<any>(null);
-  const [allToDoStatus, setAllToDoStatus] = React.useState<TodoStatus>(() =>
-    getAllToDosStatus(),
-  );
 
   const onToggleAllTodo = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(toggleAllTodos(e.target.checked));
-    setAllToDoStatus(
-      e.target.checked ? TodoStatus.COMPLETED : TodoStatus.ACTIVE,
-    );
   };
 
   const onDeleteAllTodo = () => {
@@ -31,6 +35,14 @@ export default function ToDoToolbar() {
       playCheckedEffect(mousPosition);
     }
   };
+
+  const onFilterTodos = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    dispatch(filterTodos(e.target.value as EnhanceTodoStatus));
+    saveSelectionOptions(e.target.value as EnhanceTodoStatus);
+  };
+
+  const defaultChecked =
+    getAllToDosStatus(state.todos) === TodoStatus.COMPLETED;
   return (
     <div className='Todo__toolbar'>
       {state.todos.length > 0 ? (
@@ -40,18 +52,27 @@ export default function ToDoToolbar() {
             id='toggle-all'
             aria-label='toggle-all-todos'
             type='checkbox'
-            defaultChecked={allToDoStatus === TodoStatus.COMPLETED}
+            defaultChecked={defaultChecked}
             onChange={onToggleAllTodo}
             onClick={checkedEffect}
           />
-          <label htmlFor='toggle-all'>
-            Mark all as{' '}
-            {allToDoStatus === TodoStatus.COMPLETED ? 'active' : 'completed'}
-          </label>
         </div>
       ) : (
         <div />
       )}
+      <div className='Todo__tabs'>
+        <label htmlFor='filter'>View</label>
+        <select
+          defaultValue={getViewOptions()}
+          name='filter'
+          id='filter'
+          onChange={onFilterTodos}
+        >
+          <option value='ALL'>All</option>
+          <option value='ACTIVE'>Active</option>
+          <option value='COMPLETED'>Completed</option>
+        </select>
+      </div>
       <button
         disabled={Boolean(state.todos.length === 0)}
         className='Action__btn'

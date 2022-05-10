@@ -70,6 +70,7 @@ export default function ToDoItem({ todo, ...props }: ToDoItemProps) {
     >
       <div ref={transistionRef}>
         <div
+          data-testid='todo-item'
           className='ToDo__item'
           style={
             todo.status === TodoStatus.COMPLETED

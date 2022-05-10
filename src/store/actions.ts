@@ -1,4 +1,5 @@
 import { Todo } from '../models/todo';
+import { EnhanceTodoStatus } from '../pages/ToDo/ToDoToolbar';
 
 export const SET_TODO = 'SET_TODO';
 export const CREATE_TODO = 'CREATE_TODO';
@@ -7,6 +8,7 @@ export const DELETE_ALL_TODOS = 'DELETE_ALL_TODOS';
 export const TOGGLE_ALL_TODOS = 'TOGGLE_ALL_TODOS';
 export const UPDATE_TODO_STATUS = 'UPDATE_TODO_STATUS';
 export const UPDATE_TODO_CONTENT = 'UPDATE_TODO_CONTENT';
+export const FILTER_TODOS = 'FILTER_TODOS';
 
 export interface SetTodoAction {
   type: typeof SET_TODO;
@@ -113,6 +115,18 @@ export function updateTodoContent(
   };
 }
 
+export interface FilterTodosAction {
+  type: typeof FILTER_TODOS;
+  payload: EnhanceTodoStatus;
+}
+
+export function filterTodos(filterValue: EnhanceTodoStatus): FilterTodosAction {
+  return {
+    type: FILTER_TODOS,
+    payload: filterValue,
+  };
+}
+
 export type AppActions =
   | SetTodoAction
   | CreateTodoAction
@@ -120,4 +134,5 @@ export type AppActions =
   | DeleteTodoAction
   | DeleteAllTodosAction
   | ToggleAllTodosAction
-  | UpdateTodoContentAction;
+  | UpdateTodoContentAction
+  | FilterTodosAction;

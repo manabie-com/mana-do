@@ -1,5 +1,6 @@
 import shortid from 'shortid';
 import { Todo, TodoStatus } from '../models/todo';
+import { EnhanceTodoStatus } from '../pages/ToDo/ToDoToolbar';
 
 /**
  * Save todo to local storage
@@ -34,8 +35,7 @@ export function getToDosFromLocalStorage(): Todo[] {
  * Check if all todos have COMPLETEDs status. Return COMPLETED if this is the case. Otherwise, return ACTIVE.
  * @returns ACTIVE or COMPLETED todos
  */
-export function getAllToDosStatus(): TodoStatus {
-  const toDos = getToDosFromLocalStorage();
+export function getAllToDosStatus(toDos: Todo[]): TodoStatus {
   if (toDos.length === 0) {
     return TodoStatus.ACTIVE;
   }
@@ -43,4 +43,22 @@ export function getAllToDosStatus(): TodoStatus {
     todo => todo.status === TodoStatus.COMPLETED,
   );
   return isAllToDosComplete ? TodoStatus.COMPLETED : TodoStatus.ACTIVE;
+}
+
+/**
+ * Save selection options in ToDoToolbar to local storage
+ */
+export function saveSelectionOptions(value: EnhanceTodoStatus): void {
+  window.localStorage.setItem('view', value);
+}
+
+/**
+ * Get selection options from local storage. Return a default value if selection options don't exist.
+ */
+export function getViewOptions(): EnhanceTodoStatus {
+  const view = window.localStorage.getItem('view');
+  if (view) {
+    return view as EnhanceTodoStatus;
+  }
+  return 'ALL';
 }

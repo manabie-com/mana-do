@@ -1,4 +1,6 @@
 import { Todo, TodoStatus } from '../models/todo';
+import { EnhanceTodoStatus } from '../pages/ToDo/ToDoToolbar';
+import { getViewOptions } from '../utils/localStorage';
 import {
   AppActions,
   CREATE_TODO,
@@ -8,14 +10,17 @@ import {
   TOGGLE_ALL_TODOS,
   UPDATE_TODO_STATUS,
   UPDATE_TODO_CONTENT,
+  FILTER_TODOS,
 } from './actions';
 
 export interface AppState {
   todos: Array<Todo>;
+  filter: EnhanceTodoStatus;
 }
 
 export const initialState: AppState = {
   todos: [],
+  filter: getViewOptions(),
 };
 
 function reducer(state: AppState, action: AppActions): AppState {
@@ -88,6 +93,11 @@ function reducer(state: AppState, action: AppActions): AppState {
       return {
         ...state,
         todos: updateTodos,
+      };
+    case FILTER_TODOS:
+      return {
+        ...state,
+        filter: action.payload,
       };
     default:
       return state;

@@ -7,6 +7,7 @@ import { setTodos } from '../../store/actions';
 import { AppContext } from '../../context/toDoContext';
 import { TransitionGroup } from 'react-transition-group';
 import { saveToLocalStorage } from '../../utils/localStorage';
+import { AppState } from '../../store/reducer';
 
 export default function ToDoPage() {
   const { state, dispatch } = React.useContext(AppContext);
@@ -25,16 +26,34 @@ export default function ToDoPage() {
   return (
     <div className='ToDo__container'>
       <ToDoInput />
+      <FilteredToDoList state={state} />
+      <ToDoToolbar />
+    </div>
+  );
+}
+
+function FilteredToDoList({ state }: { state: AppState }) {
+  const { todos, filter } = state;
+  if (filter === 'ALL') {
+    return (
       <div className='ToDo__list'>
         <TransitionGroup>
-          {/* Using array index as the key is unreliable. That can cause strange behaviors.
-          https://reactjs.org/docs/lists-and-keys.html#keys */}
-          {state.todos.map(todo => (
+          {todos.map(todo => (
             <ToDoItem key={todo.id} todo={todo} />
           ))}
         </TransitionGroup>
       </div>
-      <ToDoToolbar />
+    );
+  }
+
+  const filteredTodos = todos.filter(todo => todo.status === filter);
+  return (
+    <div className='ToDo__list'>
+      <TransitionGroup>
+        {filteredTodos.map(todo => (
+          <ToDoItem key={todo.id} todo={todo} />
+        ))}
+      </TransitionGroup>
     </div>
   );
 }

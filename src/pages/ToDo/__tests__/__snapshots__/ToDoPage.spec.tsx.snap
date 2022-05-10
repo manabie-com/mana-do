@@ -1,0 +1,65 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ToDoPage Should match snapshot 1`] = `
+<div>
+  <div
+    class="ToDo__container"
+  >
+    <div
+      class="Todo__creation"
+    >
+      <input
+        class="Todo__input"
+        placeholder="What need to be done?"
+      />
+    </div>
+    <div
+      class="ToDo__list"
+    >
+      <div />
+    </div>
+    <div
+      class="Todo__toolbar"
+    >
+      <div />
+      <div
+        class="Todo__tabs"
+      >
+        <label
+          for="filter"
+        >
+          View
+        </label>
+        <select
+          id="filter"
+          name="filter"
+        >
+          <option
+            selected=""
+            value="ALL"
+          >
+            All
+          </option>
+          <option
+            value="ACTIVE"
+          >
+            Active
+          </option>
+          <option
+            value="COMPLETED"
+          >
+            Completed
+          </option>
+        </select>
+      </div>
+      <button
+        arial-label="delete-all-todos"
+        class="Action__btn"
+        disabled=""
+      >
+        Clear all todos
+      </button>
+    </div>
+  </div>
+</div>
+`;

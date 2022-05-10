@@ -15,7 +15,7 @@ class ApiFrontend extends IAPI {
   }
 
   async getTodos(): Promise<Todo[]> {
-    return getToDosFromLocalStorage();
+    return Promise.resolve(getToDosFromLocalStorage());
   }
 }
 
