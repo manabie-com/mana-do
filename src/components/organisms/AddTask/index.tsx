@@ -26,7 +26,7 @@ export const AddTask:React.FC<AddTaskProps> = (props) => {
     return (
         <div className="AddTask">
             {isShowCheckAll && <Checkbox onChange={onCheckToggleAll}></Checkbox>}
-            <InputAddTask callback={callback} typeCallback={typeCallback}/>
+            <InputAddTask callback={callback} typeCallback={typeCallback} placeholder="+ Add a task"/>
         </div>
     )
 }

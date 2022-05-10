@@ -4,5 +4,6 @@ exports[`<Button/> render should match snapshot 1`] = `
 <button
   class="test btn btn-primary"
   color="primary"
+  data-testid="btn-custom"
 />
 `;

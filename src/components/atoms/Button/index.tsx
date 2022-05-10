@@ -12,7 +12,7 @@ export const Button: React.FC<TButtonProps> = (props) => {
     const {children, color="primary"} = props
 
     return (
-        <button {...props} className={`${props.className || ''} btn ${MAP_STYLE_COLOR[color]}`}>
+        <button {...props} className={`${props.className || ''} btn ${MAP_STYLE_COLOR[color]}`} data-testid="btn-custom">
             {children}
         </button>
     );

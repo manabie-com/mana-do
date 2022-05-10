@@ -47,20 +47,5 @@
   "devDependencies": {
     "@babel/preset-react": "^7.16.7",
     "@types/shortid": "^0.0.29"
-  },
-  "babel": {
-    "plugins": [
-      "@babel/plugin-transform-react-jsx"
-    ],
-    "presets": [
-      "@babel/preset-typescript"
-    ]
-  },
-  "jest": {
-    "collectCoverageFrom": [
-      "src/**/*.{ts,tsx}",
-      "!src/serviceWorker.ts",
-      "!src/index.tsx"
-    ]
   }
 }

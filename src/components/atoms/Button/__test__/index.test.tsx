@@ -9,7 +9,7 @@ describe('<Button/> render', () => {
         });
         it('should be render with className primary', function () {
                 render(<Button/>)
-                const buttonElm = screen.queryByTestId('btn primary')
+                const buttonElm = screen.queryByTestId('btn-custom')
                 expect(buttonElm).toBeInTheDocument()
         });
 })

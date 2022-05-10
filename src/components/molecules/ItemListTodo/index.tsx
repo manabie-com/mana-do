@@ -54,7 +54,7 @@ export const ItemListTodo: React.FC<ItemListTodoProps> = (props) => {
                 aria-label="check-todo"
             />
             {isEdit ?
-                <InputAddTask callback={callbackEditItemTodo} typeCallback={TYPE_CALLBACK.UPDATE_TODO} todoId={todo.id} value={todo.content} design={Design.UPDATE}/> :
+                <InputAddTask callback={callbackEditItemTodo} typeCallback={TYPE_CALLBACK.UPDATE_TODO} todoId={todo.id} value={todo.content} design={Design.UPDATE} placeholder="Edit a task"/> :
                 <span onClick={toggleEdit}>{todo.content}</span>
             }
             <div className="Wrapper__GroupActionTodo">

@@ -11,11 +11,12 @@ interface InputAddTaskProps extends React.HTMLAttributes<any>{
     typeCallback: string;
     todoId?: string,
     value?: string,
-    design?: Design
+    design?: Design,
+    placeholder?: string,
 }
 
 export const InputAddTask: React.FC<InputAddTaskProps> = (props) => {
-    const {callback, typeCallback,todoId,value='',design=Design.CREATE} = props;
+    const {callback, typeCallback,todoId,value='',design=Design.CREATE, placeholder} = props;
 
     const inputRef = useRef<any>('');
 
@@ -34,7 +35,7 @@ export const InputAddTask: React.FC<InputAddTaskProps> = (props) => {
 
     }
     return (
-        <input placeholder="+ Add a task"
+        <input placeholder={placeholder}
                ref={inputRef}
                className="Todo__input"
                onKeyDown={onCreateTodo}
