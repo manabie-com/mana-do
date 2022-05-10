@@ -1,13 +1,14 @@
 import React from 'react';
 
-import ToDoPage from './ToDoPage';
+import Modules from './Modules'
 
-import './App.css';
+import './assets/Styles/App.css';
+import './assets/Icons/style.css'
 
 function App() {
   return (
-    <main className="App">
-      <ToDoPage />
+    <main className="App" data-testid="App">
+        <Modules></Modules>
     </main>
   );
 }

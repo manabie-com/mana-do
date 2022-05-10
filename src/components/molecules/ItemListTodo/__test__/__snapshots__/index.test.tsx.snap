@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ItemListTodo /> render should match snapshot 1`] = `
+<div
+  class="ToDo__item"
+>
+  <input
+    aria-label="check-todo"
+    type="checkbox"
+  />
+  <span />
+  <div
+    class="Wrapper__GroupActionTodo"
+  >
+    <div
+      class="btn"
+    >
+      <i
+        class="manabie-star_empty"
+      />
+      <span />
+    </div>
+    <div
+      class="btn"
+    >
+      <i
+        class="manabie-remove_tag"
+      />
+      <span />
+    </div>
+  </div>
+</div>
+`;

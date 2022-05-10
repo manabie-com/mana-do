@@ -1,0 +1,78 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<TodoList/> render should match snapshot 1`] = `
+<div
+  class="bar bar__left"
+>
+  <div
+    class="WrapperItemSiderBar"
+  >
+    <div
+      class="ItemSiderBar--acitve ItemSiderBar"
+    >
+      <i
+        class="manabie-endless"
+      />
+      <span>
+        All
+      </span>
+    </div>
+  </div>
+  <div
+    class="WrapperItemSiderBar"
+  >
+    <div
+      class="false ItemSiderBar"
+    >
+      <i
+        class="manabie-active"
+      />
+      <span>
+        Active
+      </span>
+    </div>
+  </div>
+  <div
+    class="WrapperItemSiderBar"
+  >
+    <div
+      class="false ItemSiderBar"
+    >
+      <i
+        class="manabie-phong"
+      />
+      <span>
+        Completed
+      </span>
+    </div>
+  </div>
+  <div
+    class="WrapperItemSiderBar"
+  >
+    <div
+      class="false ItemSiderBar"
+    >
+      <i
+        class="manabie-star_outline"
+      />
+      <span>
+        Important
+      </span>
+    </div>
+  </div>
+  <div
+    class="WrapperItemSiderBar"
+  >
+    <div
+      class="false ItemSiderBar"
+    >
+      <i
+        class="manabie-remove"
+      />
+      <span>
+        Clear all todos
+      </span>
+    </div>
+  </div>
+</div>
+`;

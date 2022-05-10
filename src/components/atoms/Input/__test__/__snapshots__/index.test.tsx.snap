@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Checkbox /> render should match snapshot 1`] = `<input />`;
+
+exports[`<Input /> render should match snapshot 1`] = `<input />`;
