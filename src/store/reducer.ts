@@ -19,9 +19,12 @@ export const initialState: AppState = {
 function reducer(state: AppState, action: AppActions): AppState {
   switch (action.type) {
     case CREATE_TODO:
-      state.todos.push(action.payload);
+      // Pushing a todo to the "todos" property of the state is mutating the state
+      // When mutating the state in React Strict Mode, React will do an extra rerender to check the unsafe side effect
+      // This make the reducer called the second time everytime a todo is created
       return {
-        ...state
+        ...state,
+        todos: [...state.todos, action.payload]
       };
 
     case UPDATE_TODO_STATUS:

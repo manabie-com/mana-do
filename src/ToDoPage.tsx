@@ -31,6 +31,7 @@ const ToDoPage = () => {
         if (e.key === 'Enter' ) {
             const resp = await Service.createTodo(inputRef.current.value);
             dispatch(createTodo(resp));
+            inputRef.current.value = "";
         }
     }
 
