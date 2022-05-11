@@ -2,14 +2,14 @@ import React, {useEffect, useReducer, useRef, useState} from 'react';
 
 import reducer, {initialState} from './store/reducer';
 import {
-    setTodos,
-    createTodo,
-    toggleAllTodos,
-    deleteAllTodos,
-    updateTodoStatus
+  createTodo,
+  deleteAllTodos,
+  updateTodoStatus,
+  deleteTodo,
 } from './store/actions';
 import Service from './service';
 import {TodoStatus} from './models/todo';
+import { setTodosToStorage } from './store/storage';
 
 type EnhanceTodoStatus = TodoStatus | 'ALL';
 
@@ -19,88 +19,109 @@ const ToDoPage = () => {
     const [showing, setShowing] = useState<EnhanceTodoStatus>('ALL');
     const inputRef = useRef<any>(null);
 
-    useEffect(()=>{
-        (async ()=>{
-            const resp = await Service.getTodos();
+    useEffect(() => {
+      setTodosToStorage(todos);
+    }, [todos]);
 
-            dispatch(setTodos(resp || []));
-        })()
-    }, [])
+    const handleFormSubmit = (e: React.FormEvent) => {
+      e.preventDefault();
 
-    const onCreateTodo = async (e: React.KeyboardEvent<HTMLInputElement>) => {
-        if (e.key === 'Enter' ) {
-            const resp = await Service.createTodo(inputRef.current.value);
-            dispatch(createTodo(resp));
-        }
-    }
+      if (inputRef.current.value.trim() === '') {
+          return;
+      }
 
-    const onUpdateTodoStatus = (e: React.ChangeEvent<HTMLInputElement>, todoId: any) => {
-        dispatch(updateTodoStatus(todoId, e.target.checked))
-    }
+      onCreateTodo();
 
-    const onToggleAllTodo = (e: React.ChangeEvent<HTMLInputElement>) => {
-        dispatch(toggleAllTodos(e.target.checked))
-    }
+      inputRef.current.value = '';
+      setShowing('ALL');
+    };
+
+    const onCreateTodo = async () => {
+      const resp = await Service.createTodo(inputRef.current.value);
+      dispatch(createTodo(resp));
+    };
+
+    const onUpdateTodoStatus = (
+      e: React.ChangeEvent<HTMLInputElement>,
+      todoId: string
+    ) => {
+      dispatch(updateTodoStatus(todoId, e.target.checked));
+    };
+
+    const onDeleteTodo = (id: string) => {
+      dispatch(deleteTodo(id));
+    };
 
     const onDeleteAllTodo = () => {
         dispatch(deleteAllTodos());
     }
 
-
     return (
-        <div className="ToDo__container">
+        <form className="ToDo__container" onSubmit={handleFormSubmit}>
+            <h1 className='text-left'>To-do list</h1>
             <div className="Todo__creation">
                 <input
+                    type="text"
                     ref={inputRef}
+                    id="todo-input"
+                    name="todoInput"
                     className="Todo__input"
-                    placeholder="What need to be done?"
-                    onKeyDown={onCreateTodo}
+                    placeholder="What needs to be done?"
                 />
             </div>
+            <div className="Todo__toolbar">
+                <div className="Todo__tabs">
+                    <button type="button" className={`Action__btn ${showing === 'ALL' ? 'active' : ''}`} onClick={() => setShowing('ALL')}>
+                        All
+                    </button>
+                    <button type="button" className={`Action__btn ${showing === TodoStatus.ACTIVE ? 'active' : ''}`} onClick={()=>setShowing(TodoStatus.ACTIVE)}>
+                        Active
+                    </button>
+                    <button type="button" className={`Action__btn ${showing === TodoStatus.COMPLETED ? 'active' : ''}`} onClick={()=>setShowing(TodoStatus.COMPLETED)}>
+                        Completed
+                    </button>
+                </div>
+                <button type="button" className="Action__btn Action__btn_light" onClick={onDeleteAllTodo}>
+                    Delete all
+                </button>
+            </div>
             <div className="ToDo__list">
+              {
+                todos.length < 1 && <div className="ToDo__empty">No to-do item yet.</div>
+              }
                 {
                     todos.map((todo, index) => {
                         return (
+                          (todo.status === showing || showing === 'ALL') && (
                             <div key={index} className="ToDo__item">
-                                <input
-                                    type="checkbox"
-                                    checked={showing === todo.status}
-                                    onChange={(e) => onUpdateTodoStatus(e, index)}
-                                />
-                                <span>{todo.content}</span>
-                                <button
-                                    className="Todo__delete"
-                                >
-                                    X
-                                </button>
+                              <input
+                                type="checkbox"
+                                checked={todo.status === TodoStatus.COMPLETED}
+                                onChange={(e) => onUpdateTodoStatus(e, todo.id)}
+                              />
+                              <span>
+                                {todo.status === TodoStatus.COMPLETED ? (
+                                  <del>{todo.content}</del>
+                                ) : (
+                                  <span>{todo.content}</span>
+                                )}
+                              </span>
+                              <button
+                                type="button"
+                                className="Todo__delete"
+                                onClick={() => {
+                                  onDeleteTodo(todo.id);
+                                }}
+                              >
+                                &times;
+                              </button>
                             </div>
+                          )
                         );
                     })
                 }
             </div>
-            <div className="Todo__toolbar">
-                {todos.length > 0 ?
-                    <input
-                        type="checkbox"
-                        onChange={onToggleAllTodo}
-                    /> : <div/>
-                }
-                <div className="Todo__tabs">
-                    <button className="Action__btn">
-                        All
-                    </button>
-                    <button className="Action__btn" onClick={()=>setShowing(TodoStatus.ACTIVE)}>
-                        Active
-                    </button>
-                    <button className="Action__btn" onClick={()=>setShowing(TodoStatus.COMPLETED)}>
-                        Completed
-                    </button>
-                </div>
-                <button className="Action__btn" onClick={onDeleteAllTodo}>
-                    Clear all todos
-                </button>
-            </div>
-        </div>
+        </form>
     );
 };
 
