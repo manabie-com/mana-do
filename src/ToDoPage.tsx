@@ -10,6 +10,8 @@ import {
 } from './store/actions';
 import Service from './service';
 import {TodoStatus} from './models/todo';
+import TodoItem from './components/todo-item';
+import Button from './components/button';
 
 type EnhanceTodoStatus = TodoStatus | 'ALL';
 
@@ -17,7 +19,7 @@ type EnhanceTodoStatus = TodoStatus | 'ALL';
 const ToDoPage = () => {
     const [{todos}, dispatch] = useReducer(reducer, initialState);
     const [showing, setShowing] = useState<EnhanceTodoStatus>('ALL');
-    const inputRef = useRef<any>(null);
+    const inputRef = useRef<HTMLInputElement | null>(null);
 
     useEffect(()=>{
         (async ()=>{
@@ -28,7 +30,7 @@ const ToDoPage = () => {
     }, [])
 
     const onCreateTodo = async (e: React.KeyboardEvent<HTMLInputElement>) => {
-        if (e.key === 'Enter' ) {
+        if (e.key === 'Enter' && inputRef.current ) {
             const resp = await Service.createTodo(inputRef.current.value);
             dispatch(createTodo(resp));
         }
@@ -59,23 +61,7 @@ const ToDoPage = () => {
             </div>
             <div className="ToDo__list">
                 {
-                    todos.map((todo, index) => {
-                        return (
-                            <div key={index} className="ToDo__item">
-                                <input
-                                    type="checkbox"
-                                    checked={showing === todo.status}
-                                    onChange={(e) => onUpdateTodoStatus(e, index)}
-                                />
-                                <span>{todo.content}</span>
-                                <button
-                                    className="Todo__delete"
-                                >
-                                    X
-                                </button>
-                            </div>
-                        );
-                    })
+                    todos.map(todo => <TodoItem todo={todo} onUpdateTodoStatus={onUpdateTodoStatus}/>)
                 }
             </div>
             <div className="Todo__toolbar">
@@ -86,19 +72,19 @@ const ToDoPage = () => {
                     /> : <div/>
                 }
                 <div className="Todo__tabs">
-                    <button className="Action__btn">
+                    <Button className="Action__btn">
                         All
-                    </button>
-                    <button className="Action__btn" onClick={()=>setShowing(TodoStatus.ACTIVE)}>
+                    </Button>
+                    <Button className="Action__btn" onClick={()=>setShowing(TodoStatus.ACTIVE)} color="secondary">
                         Active
-                    </button>
-                    <button className="Action__btn" onClick={()=>setShowing(TodoStatus.COMPLETED)}>
+                    </Button>
+                    <Button className="Action__btn" onClick={()=>setShowing(TodoStatus.COMPLETED)} color="success">
                         Completed
-                    </button>
+                    </Button>
                 </div>
-                <button className="Action__btn" onClick={onDeleteAllTodo}>
+                <Button className="Action__btn" onClick={onDeleteAllTodo} color="error">
                     Clear all todos
-                </button>
+                </Button>
             </div>
         </div>
     );

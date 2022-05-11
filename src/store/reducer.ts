@@ -19,14 +19,19 @@ export const initialState: AppState = {
 function reducer(state: AppState, action: AppActions): AppState {
   switch (action.type) {
     case CREATE_TODO:
-      state.todos.push(action.payload);
+      const newTodo = state.todos;
+      newTodo.push(action.payload);
       return {
-        ...state
+        ...state, todos: newTodo
       };
 
     case UPDATE_TODO_STATUS:
-      const index2 = state.todos.findIndex((todo) => todo.id === action.payload.todoId);
-      state.todos[index2].status = action.payload.checked ? TodoStatus.COMPLETED : TodoStatus.ACTIVE;
+      const { todoId, checked } = action.payload;
+      const todoPosition = state.todos.findIndex((todo) => todo.id === todoId);
+
+      if(todoPosition !== -1) {
+        state.todos[todoPosition].status = checked ? TodoStatus.COMPLETED : TodoStatus.ACTIVE;
+      }
 
       return {
         ...state,

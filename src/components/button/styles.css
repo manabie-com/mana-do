@@ -1,0 +1,26 @@
+.Action__btn {
+  /* background-color: white; */
+  border: 1px solid;
+  box-shadow: none;
+  border-radius: 16px;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.Action__btn:focus {
+  box-shadow: 0 2px 0 #0c8d72;
+}
+.Action__btn--default {
+  background-color: #4c4c4c;
+}
+.Action__btn--error {
+  background-color: #e84c3d;
+}
+.Action__btn--success {
+  background-color: #10bc98;
+}
+.Action__btn--secondary {
+  background-color: #3cbce1;
+}
