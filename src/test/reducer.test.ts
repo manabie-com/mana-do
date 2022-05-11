@@ -30,7 +30,6 @@ const dataTodo: AppState = {
   todosDone: [],
   todosRemoved: []
 }
-describe("reducer", () => {
   describe("CREATE_TODO", () => {
     it("should create todo", () => {
       const nextState = reducer(initialState, createTodo(todo));
@@ -86,5 +85,3 @@ describe("reducer", () => {
       expect(nextState.todos.length).toEqual(data.todos.length);
     });
   });
-
-});
