@@ -1,7 +1,7 @@
 .App {
-  text-align: center;
+  /* text-align: center;
   display: flex;
-  justify-content: center;
+  justify-content: center; */
 }
 
 button {
@@ -59,9 +59,9 @@ input:focus {
   display: flex;
 }
 
-.Todo__input {
+/* .Todo__input {
   flex: 1 1;
-}
+} */
 
 .ToDo__list {
   display: flex;

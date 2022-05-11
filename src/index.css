@@ -5,6 +5,12 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  width: 100%;
+  height: 100vh;
+  background-image: url("https://file.vfo.vn/hinh/2015/07/vforum-hinh-nen-con-duong-dep-twalls-6.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size:cover;
 }
 
 code {
