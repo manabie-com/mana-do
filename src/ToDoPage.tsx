@@ -58,14 +58,37 @@ const ToDoPage = () => {
 
     return (
         <form className="ToDo__container" onSubmit={handleFormSubmit}>
+            <h1 className='text-left'>To-do list</h1>
             <div className="Todo__creation">
                 <input
+                    type="text"
                     ref={inputRef}
+                    id="todo-input"
+                    name="todoInput"
                     className="Todo__input"
                     placeholder="What needs to be done?"
                 />
             </div>
+            <div className="Todo__toolbar">
+                <div className="Todo__tabs">
+                    <button type="button" className={`Action__btn ${showing === 'ALL' ? 'active' : ''}`} onClick={() => setShowing('ALL')}>
+                        All
+                    </button>
+                    <button type="button" className={`Action__btn ${showing === TodoStatus.ACTIVE ? 'active' : ''}`} onClick={()=>setShowing(TodoStatus.ACTIVE)}>
+                        Active
+                    </button>
+                    <button type="button" className={`Action__btn ${showing === TodoStatus.COMPLETED ? 'active' : ''}`} onClick={()=>setShowing(TodoStatus.COMPLETED)}>
+                        Completed
+                    </button>
+                </div>
+                <button type="button" className="Action__btn Action__btn_light" onClick={onDeleteAllTodo}>
+                    Delete all
+                </button>
+            </div>
             <div className="ToDo__list">
+              {
+                todos.length < 1 && <div className="ToDo__empty">No to-do item yet.</div>
+              }
                 {
                     todos.map((todo, index) => {
                         return (
@@ -97,22 +120,6 @@ const ToDoPage = () => {
                         );
                     })
                 }
-            </div>
-            <div className="Todo__toolbar">
-                <div className="Todo__tabs">
-                    <button type="button" className="Action__btn" onClick={() => setShowing('ALL')}>
-                        All
-                    </button>
-                    <button type="button" className="Action__btn" onClick={()=>setShowing(TodoStatus.ACTIVE)}>
-                        Active
-                    </button>
-                    <button type="button" className="Action__btn" onClick={()=>setShowing(TodoStatus.COMPLETED)}>
-                        Completed
-                    </button>
-                </div>
-                <button type="button" className="Action__btn" onClick={onDeleteAllTodo}>
-                    Clear all todos
-                </button>
             </div>
         </form>
     );
