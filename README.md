@@ -1,3 +1,21 @@
+### Roberch Ryan Simbajon: Applicant: Frontend Engineer - Submitted (April 29, 2022)
+
+Accomplished Tasks:
+- Update of todo status
+- Deleting of todo status
+- Fixed a bug when adding task, it doubled upon enter
+- LocalStorage implementation
+
+How to run tests: 
+- npm i (install first dependencies used)
+- yarn start:frontend
+
+Things to add if given more time:
+- Improve UI design, enhancements of layout, appearance, user ergonomics in interactive such web app
+- Improve more in TypeScript implementions, coding standards(it's my first time to use TypeScript, learn and exam in the same time, I want to learn more in this platform, so while learning TypeScript, I just applied my learning concepts from React.js, which is very challenging in my part.)
+
+#####
+
 ## Welcome to Manabie coding challenge
 
 *Hello!*
@@ -41,3 +59,4 @@
 - Sign in using username: `firstUser`, password: `example`
 
 Last updated: 2022/01/13
+
