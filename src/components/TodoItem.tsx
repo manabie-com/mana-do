@@ -79,12 +79,14 @@ const TodoItem = ({
   return (
     <div className="ToDo__item">
       <input
+        data-testid="tick-todo"
         type="checkbox"
         checked={isTodoCompleted(todo)}
         onChange={e => updateTodoStatus(e, todo.id)}
       />
       {isEdit ? (
         <input
+          data-testid="edit-todo"
           className="Todo__input"
           type="text"
           value={content}
@@ -93,9 +95,12 @@ const TodoItem = ({
           ref={refCallback}
         />
       ) : (
-        <span onClick={edit}>{todo.content}</span>
+        <span data-testid="content" onClick={edit}>
+          {todo.content}
+        </span>
       )}
       <button
+        data-testid="btn-delete"
         type="button"
         className="Todo__delete"
         onClick={e => deleteTodo(e, todo.id)}

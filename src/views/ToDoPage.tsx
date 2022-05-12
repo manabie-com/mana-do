@@ -112,6 +112,7 @@ const ToDoPage = () => {
     <div className="ToDo__container">
       <div className="Todo__creation">
         <input
+          data-testid="input-todo"
           className="Todo__input"
           placeholder="What need to be done?"
           value={input}
@@ -128,15 +129,25 @@ const ToDoPage = () => {
       />
       <div className="Todo__toolbar">
         {todos.length > 0 ? (
-          <input type="checkbox" onChange={onToggleAllTodo} />
+          <input
+            data-testid="btn-toggle"
+            type="checkbox"
+            onChange={onToggleAllTodo}
+          />
         ) : (
           <div />
         )}
         <div className="Todo__tabs">
-          <button type="button" className="Action__btn" onClick={setAllFilter}>
+          <button
+            data-testid="btn-all"
+            type="button"
+            className="Action__btn"
+            onClick={setAllFilter}
+          >
             All
           </button>
           <button
+            data-testid="btn-active"
             type="button"
             className="Action__btn"
             onClick={setActiveFilter}
@@ -144,6 +155,7 @@ const ToDoPage = () => {
             Active
           </button>
           <button
+            data-testid="btn-complete"
             type="button"
             className="Action__btn"
             onClick={setCompletedFilter}
@@ -151,7 +163,12 @@ const ToDoPage = () => {
             Completed
           </button>
         </div>
-        <button type="button" className="Action__btn" onClick={onDeleteAllTodo}>
+        <button
+          data-testid="btn-clear"
+          type="button"
+          className="Action__btn"
+          onClick={onDeleteAllTodo}
+        >
           Clear all todos
         </button>
       </div>
