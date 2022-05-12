@@ -2,6 +2,7 @@ import { ChangeEvent, MouseEvent } from 'react';
 import { Todo } from '../models/todo';
 import TodoItem from './TodoItem';
 import { ALL, EnhanceTodoStatus } from '../views/ToDoPage';
+import { StyledTodoList } from './TodoList.style';
 
 type TodoListProps = {
   todos: Array<Todo>;
@@ -22,7 +23,7 @@ const TodoList = ({
     filter === ALL ? todos : todos.filter(todo => todo.status === filter);
 
   return (
-    <div className="ToDo__list">
+    <StyledTodoList>
       {todoList.map(todo => {
         return (
           <TodoItem
@@ -34,7 +35,7 @@ const TodoList = ({
           />
         );
       })}
-    </div>
+    </StyledTodoList>
   );
 };
 

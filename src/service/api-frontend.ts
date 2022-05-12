@@ -1,6 +1,6 @@
 import { IAPI } from './types';
 import { Todo, TodoStatus } from '../models/todo';
-import shortid from 'shortid';
+import { nanoid } from 'nanoid';
 import {
   addTodoStorage,
   deleteAllTodos as deleteAllTodosStorage,
@@ -17,7 +17,7 @@ class ApiFrontend extends IAPI {
       content: content,
       created_date: new Date().toISOString(),
       status: TodoStatus.ACTIVE,
-      id: shortid(),
+      id: nanoid(),
       user_id: 'firstUser',
     };
     addTodoStorage(todo);

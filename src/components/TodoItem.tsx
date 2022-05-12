@@ -6,8 +6,10 @@ import {
   useEffect,
   useState,
 } from 'react';
+import { Checkbox, TodoInput } from '../App.style';
 import { Todo } from '../models/todo';
 import { isTodoCompleted } from '../utils';
+import { DeleteButton, StyledTodoItem, TodoContent } from './TodoItem.style';
 
 type TodoItemProps = {
   todo: Todo;
@@ -77,37 +79,32 @@ const TodoItem = ({
   }, []);
 
   return (
-    <div className="ToDo__item">
-      <input
+    <StyledTodoItem>
+      <Checkbox
         data-testid="tick-todo"
-        type="checkbox"
         checked={isTodoCompleted(todo)}
         onChange={e => updateTodoStatus(e, todo.id)}
       />
       {isEdit ? (
-        <input
+        <TodoInput
           data-testid="edit-todo"
-          className="Todo__input"
-          type="text"
           value={content}
           onChange={onChange}
           onKeyDown={onSubmit}
           ref={refCallback}
         />
       ) : (
-        <span data-testid="content" onClick={edit}>
+        <TodoContent data-testid="content" onClick={edit}>
           {todo.content}
-        </span>
+        </TodoContent>
       )}
-      <button
+      <DeleteButton
         data-testid="btn-delete"
-        type="button"
-        className="Todo__delete"
         onClick={e => deleteTodo(e, todo.id)}
       >
         X
-      </button>
-    </div>
+      </DeleteButton>
+    </StyledTodoItem>
   );
 };
 

@@ -1,12 +1,11 @@
 import ToDoPage from './views/ToDoPage';
-
-import './App.css';
+import { Main } from './App.style';
 
 function App() {
   return (
-    <main className="App">
+    <Main>
       <ToDoPage />
-    </main>
+    </Main>
   );
 }
 

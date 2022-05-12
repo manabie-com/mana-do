@@ -21,6 +21,13 @@ import {
 import Service from '../service';
 import { TodoStatus } from '../models/todo';
 import TodoList from '../components/TodoList';
+import {
+  TodoContainer,
+  TodoCreation,
+  TodoTabs,
+  TodoToolbar,
+} from './ToDoPage.style';
+import { Button, Checkbox, TodoInput } from '../App.style';
 
 export const ALL = 'ALL';
 export type EnhanceTodoStatus = TodoStatus | typeof ALL;
@@ -109,17 +116,16 @@ const ToDoPage = () => {
   const setAllFilter = useCallback(() => setShowing(ALL), [setShowing]);
 
   return (
-    <div className="ToDo__container">
-      <div className="Todo__creation">
-        <input
+    <TodoContainer>
+      <TodoCreation>
+        <TodoInput
           data-testid="input-todo"
-          className="Todo__input"
           placeholder="What need to be done?"
           value={input}
           onKeyDown={onCreateTodo}
           onChange={onInputChange}
         />
-      </div>
+      </TodoCreation>
       <TodoList
         todos={todos}
         filter={showing}
@@ -127,52 +133,28 @@ const ToDoPage = () => {
         updateTodoStatus={onUpdateTodoStatus}
         editTodo={onEditTodo}
       />
-      <div className="Todo__toolbar">
+      <TodoToolbar>
         {todos.length > 0 ? (
-          <input
-            data-testid="btn-toggle"
-            type="checkbox"
-            onChange={onToggleAllTodo}
-          />
+          <Checkbox data-testid="btn-toggle" onChange={onToggleAllTodo} />
         ) : (
           <div />
         )}
-        <div className="Todo__tabs">
-          <button
-            data-testid="btn-all"
-            type="button"
-            className="Action__btn"
-            onClick={setAllFilter}
-          >
+        <TodoTabs>
+          <Button data-testid="btn-all" onClick={setAllFilter}>
             All
-          </button>
-          <button
-            data-testid="btn-active"
-            type="button"
-            className="Action__btn"
-            onClick={setActiveFilter}
-          >
+          </Button>
+          <Button data-testid="btn-active" onClick={setActiveFilter}>
             Active
-          </button>
-          <button
-            data-testid="btn-complete"
-            type="button"
-            className="Action__btn"
-            onClick={setCompletedFilter}
-          >
+          </Button>
+          <Button data-testid="btn-complete" onClick={setCompletedFilter}>
             Completed
-          </button>
-        </div>
-        <button
-          data-testid="btn-clear"
-          type="button"
-          className="Action__btn"
-          onClick={onDeleteAllTodo}
-        >
+          </Button>
+        </TodoTabs>
+        <Button data-testid="btn-clear" onClick={onDeleteAllTodo}>
           Clear all todos
-        </button>
-      </div>
-    </div>
+        </Button>
+      </TodoToolbar>
+    </TodoContainer>
   );
 };
 
