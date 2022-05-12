@@ -17,6 +17,25 @@ class ApiFullstack extends IAPI {
 
         return resp.data.data;
     }
+
+    async updateTodo(todo: Todo, id: string): Promise<Todo> {
+        const resp = await axios.put<AxiosResponse<Todo>>(`/tasks/${id}`, {
+            todo
+        });
+
+        return resp.data.data;
+    }
+
+    async deleteTodo(id: string): Promise<string> {
+        const resp = await axios.delete<AxiosResponse<any>>(`/tasks/${id}`);
+
+        return resp.status === 200 ? "Delete Success" : "Delete Error";
+    }
+
+    async saveTodos(todos: Todo[]): Promise<Todo[]> {
+        localStorage.setItem('currentTodos', JSON.stringify(todos));
+        return todos;
+    }
 }
 
 
