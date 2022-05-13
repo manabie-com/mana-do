@@ -123,3 +123,7 @@ input:focus {
 
 .Action__btn {
 }
+.Todo__done {
+  text-decoration: line-through;
+  pointer-events: none;
+}

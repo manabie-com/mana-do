@@ -39,6 +39,7 @@
     ]
   },
   "devDependencies": {
+    "@babel/preset-typescript": "^7.16.7",
     "@types/shortid": "^0.0.29"
   }
 }
