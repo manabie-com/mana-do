@@ -25,4 +25,4 @@
 + then follow the Readme.md
 
 #### Result screenshot
-![alt screenshot](https://github.com/Hanv2itedu/mana-do/ScreenShot.png?raw=true)
+![alt screenshot](https://github.com/Hanv2itedu/mana-do/blob/master/ScreenShot.png?raw=true)
