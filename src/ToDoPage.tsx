@@ -9,11 +9,13 @@ import {
 	deleteTodos,
 	toggleTickTodoAction,
 	toggleTickALLTodosAction,
+	updateTodoAction,
 } from "store/actions";
 import Service from "service";
-import { TodoStatus } from "models/todo";
+import { TodoStatus, Todo } from "models/todo";
 import TodoItem from "components/TodoItem";
 import TodoForm from "components/TodoForm";
+import EditTodo from "components/EditTodo";
 
 const ALL_ITEM = "ALL";
 type EnhanceTodoStatus = TodoStatus | "ALL";
@@ -24,6 +26,7 @@ const ToDoPage = () => {
 		initialState,
 	);
 	const [showing, setShowing] = useState<EnhanceTodoStatus>("ALL");
+	const [todoId, setTodoId] = useState<string>("");
 
 	const itemsAfterFilter = useMemo(() => {
 		if (showing === ALL_ITEM) {
@@ -40,13 +43,6 @@ const ToDoPage = () => {
 
 	const tickAllTodos =
 		itemsSelectedAfterFilter.length === itemsAfterFilter.length;
-
-	useEffect(() => {
-		(async () => {
-			const resp = await Service.getTodos();
-			dispatch(setTodos(resp || []));
-		})();
-	}, []);
 
 	const handSubmit = async (content: string) => {
 		const item = await Service.createTodo(content);
@@ -92,74 +88,107 @@ const ToDoPage = () => {
 		dispatch(toggleTickALLTodosAction(e.target.checked));
 	};
 
+	const handleOpenEditTodo = (id: string) => {
+		setTodoId(id);
+	};
+	const handleCloseEditTodo = () => {
+		setTodoId("");
+	};
+
+	const handleConfirm = async (todo: Todo) => {
+		const { id, ...otherFields } = todo;
+		const result = await Service.update(id, otherFields);
+		if (result) {
+			dispatch(updateTodoAction(id, otherFields));
+			handleCloseEditTodo();
+		}
+	};
+
+	useEffect(() => {
+		(async () => {
+			const resp = await Service.getTodos();
+			dispatch(setTodos(resp || []));
+		})();
+	}, []);
+
 	return (
-		<div className="ToDo__container">
-			<div className="Todo__creation">
-				<TodoForm onSubmit={handSubmit} />
-			</div>
-			<div className="ToDo__list">
-				{itemsAfterFilter.map((todo) => {
-					return (
-						<TodoItem
-							{...todo}
-							key={todo.id}
-							active={selectedItemIds.indexOf(todo.id) >= 0}
-							onChangeStatus={onUpdateTodoStatus}
-							onRemove={onDeleteTodo}
-							onTick={onTickTodo}
+		<>
+			<div className="ToDo__container" aria-label="todo-page">
+				<div className="Todo__creation">
+					<TodoForm onSubmit={handSubmit} />
+				</div>
+				<div className="ToDo__list">
+					{itemsAfterFilter.map((todo) => {
+						return (
+							<TodoItem
+								{...todo}
+								key={todo.id}
+								active={selectedItemIds.indexOf(todo.id) >= 0}
+								onChangeStatus={onUpdateTodoStatus}
+								onRemove={onDeleteTodo}
+								onTick={onTickTodo}
+								onDoubleClick={handleOpenEditTodo}
+							/>
+						);
+					})}
+				</div>
+				<div className="Todo__toolbar">
+					{itemsAfterFilter.length > 0 ? (
+						<input
+							aria-label="todo-page-check-all"
+							type="checkbox"
+							checked={tickAllTodos}
+							onChange={onTickAllTodos}
 						/>
-					);
-				})}
-			</div>
-			<div className="Todo__toolbar">
-				{itemsAfterFilter.length > 0 ? (
-					<input
-						aria-label="todo-page-check-all"
-						type="checkbox"
-						checked={tickAllTodos}
-						onChange={onTickAllTodos}
-					/>
-				) : (
-					<div />
-				)}
-				<div className="Todo__tabs">
+					) : (
+						<div />
+					)}
+					<div className="Todo__tabs">
+						<button
+							aria-label="todo-page-filter-all"
+							className={cs("Action__btn", {
+								"Action__btn--primary": showing === ALL_ITEM,
+							})}
+							onClick={() => setShowing(ALL_ITEM)}>
+							All
+						</button>
+						<button
+							aria-label="todo-page-filter-active"
+							className={cs("Action__btn", {
+								"Action__btn--primary":
+									showing === TodoStatus.ACTIVE,
+							})}
+							onClick={() => setShowing(TodoStatus.ACTIVE)}>
+							Active
+						</button>
+						<button
+							aria-label="todo-page-filter-completed"
+							className={cs("Action__btn", {
+								"Action__btn--primary":
+									showing === TodoStatus.COMPLETED,
+							})}
+							onClick={() => setShowing(TodoStatus.COMPLETED)}>
+							Completed
+						</button>
+					</div>
 					<button
-						aria-label="todo-page-filter-all"
-						className={cs("Action__btn", {
-							"Action__btn--primary": showing === ALL_ITEM,
-						})}
-						onClick={() => setShowing(ALL_ITEM)}>
-						All
-					</button>
-					<button
-						aria-label="todo-page-filter-active"
-						className={cs("Action__btn", {
-							"Action__btn--primary":
-								showing === TodoStatus.ACTIVE,
-						})}
-						onClick={() => setShowing(TodoStatus.ACTIVE)}>
-						Active
-					</button>
-					<button
-						aria-label="todo-page-filter-completed"
-						className={cs("Action__btn", {
-							"Action__btn--primary":
-								showing === TodoStatus.COMPLETED,
-						})}
-						onClick={() => setShowing(TodoStatus.COMPLETED)}>
-						Completed
+						aria-label="todo-page-delete"
+						className="Action__btn Todo__toolbar__delete-all"
+						onClick={onDeleteAllTodo}>
+						{tickAllTodos || !itemsSelectedAfterFilter.length
+							? "Clear all todos"
+							: `Clear ${itemsSelectedAfterFilter.length} todo(s) selected`}
 					</button>
 				</div>
-				<button
-					aria-label="todo-page-delete"
-					className="Action__btn Todo__toolbar__delete-all"
-					onClick={onDeleteAllTodo}>
-					{tickAllTodos || !itemsSelectedAfterFilter.length
-						? "Clear all todos"
-						: `Clear ${itemsSelectedAfterFilter.length} todo(s) selected`}
-				</button>
 			</div>
-		</div>
+			{todoId && (
+				<EditTodo
+					todoId={todoId}
+					onCancel={handleCloseEditTodo}
+					onConfirm={handleConfirm}
+				/>
+			)}
+		</>
 	);
 };
 
