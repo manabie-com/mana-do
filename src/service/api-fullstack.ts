@@ -17,6 +17,22 @@ class ApiFullstack extends IAPI {
 
 		return resp.data.data;
 	}
+
+	async deleteTodo(id: string): Promise<boolean> {
+		return true;
+	}
+
+	async batchDelete(ids: string[]): Promise<boolean> {
+		return true;
+	}
+
+	async findById(id: string): Promise<Todo | null> {
+		return null;
+	}
+
+	async update(id: string, newData: Partial<Todo>): Promise<boolean> {
+		return true;
+	}
 }
 
 export default new ApiFullstack();
