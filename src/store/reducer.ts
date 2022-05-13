@@ -39,10 +39,11 @@ function reducer(state: AppState, action: AppActions): AppState {
       };
 
     case UPDATE_TODO_STATUS:
-      const index2 = state.todos.findIndex(
+      const todoStatusList = state.todos.findIndex(
         (todo) => todo.id === action.payload.todoId
       );
-      state.todos[index2].status = action.payload.checked
+
+      state.todos[todoStatusList].status = action.payload.checked
         ? TodoStatus.COMPLETED
         : TodoStatus.ACTIVE;
 
@@ -54,22 +55,24 @@ function reducer(state: AppState, action: AppActions): AppState {
       };
 
     case TOGGLE_ALL_TODOS:
-      const tempTodos = state.todos.map((e) => {
+      const toggledTodos = state.todos.map((todo) => {
         return {
-          ...e,
+          ...todo,
           status: action.payload ? TodoStatus.COMPLETED : TodoStatus.ACTIVE,
         };
       });
 
-      setLocalStorage(tempTodos);
+      setLocalStorage(toggledTodos);
 
       return {
         ...state,
-        todos: tempTodos,
+        todos: toggledTodos,
       };
 
     case DELETE_TODO:
-      const todosList = state.todos.filter((todo) => todo.id !== action.payload);
+      const todosList = state.todos.filter(
+        (todo) => todo.id !== action.payload
+      );
       setLocalStorage(todosList);
 
       return {

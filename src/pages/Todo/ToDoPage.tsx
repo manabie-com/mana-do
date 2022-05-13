@@ -10,7 +10,7 @@ import {
 } from "../../store/actions";
 import reducer, { initialState } from "../../store/reducer";
 
-import { STORAGE_TODO, Todo, TodoStatus } from "../../models/todo";
+import { STORAGE_TODO, TodoStatus } from "../../models/todo";
 
 import Service from "../../service";
 import { EnhanceTodoStatus } from "../../service/types";
@@ -20,7 +20,7 @@ import { getLocalStorage } from "../../utils/helpers";
 
 const ToDoPage = () => {
   const [{ todos }, dispatch] = useReducer(reducer, initialState);
-  const [showing, setShowing] = useState<EnhanceTodoStatus>(TodoStatus.ALL);
+  const [status, setStatus] = useState<EnhanceTodoStatus>(TodoStatus.ALL);
   const [todosList, setTodosList] = useState(todos);
   const inputRef = useRef<any>(null);
 
@@ -37,8 +37,17 @@ const ToDoPage = () => {
 
   // Causes the function to be called every time the todosList changes
   useEffect(() => {
-    setTodosList(todos);
+    setTodos(todos);
   }, [todos]);
+
+  // Filter todos by status and set todosList to filtered todos
+  useEffect(() => {
+    setTodosList(
+      todos.filter(
+        (todo) => todo.status === status || status === TodoStatus.ALL
+      )
+    );
+  }, [todos, status]);
 
   const onCreateTodo = async (e: React.KeyboardEvent<HTMLInputElement>) => {
     const inputRefValue = inputRef.current.value;
@@ -51,9 +60,9 @@ const ToDoPage = () => {
 
   const onUpdateTodoStatus = (
     e: React.ChangeEvent<HTMLInputElement>,
-    todoId: any
+    id: string
   ) => {
-    dispatch(updateTodoStatus(todoId, e.target.checked));
+    dispatch(updateTodoStatus(id, e.target.checked));
   };
 
   const onToggleAllTodo = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -78,37 +87,23 @@ const ToDoPage = () => {
           onKeyDown={onCreateTodo}
         />
       </div>
-      <div className="ToDo__list">
-        {todosList &&
-          todosList.map((todo, index) => {
-            return (
-              <ToDoItem
-                key={index}
-                isShowing={showing}
-                todo={todo}
-                onUpdateTodoStatus={(e) => onUpdateTodoStatus(e, todo.id)}
-                onDeleteTodo={() => onDeleteTodo(todo.id)}
-              />
-            );
-          })}
-      </div>
       <div className="Todo__toolbar">
-        {todos.length > 0 ? (
-          <input type="checkbox" onChange={onToggleAllTodo} />
-        ) : (
-          <div />
-        )}
         <div className="Todo__tabs">
-          <button className="Action__btn">All</button>
           <button
             className="Action__btn"
-            onClick={() => setShowing(TodoStatus.ACTIVE)}
+            onClick={() => setStatus(TodoStatus.ALL)}
+          >
+            All
+          </button>
+          <button
+            className="Action__btn"
+            onClick={() => setStatus(TodoStatus.ACTIVE)}
           >
             Active
           </button>
           <button
             className="Action__btn"
-            onClick={() => setShowing(TodoStatus.COMPLETED)}
+            onClick={() => setStatus(TodoStatus.COMPLETED)}
           >
             Completed
           </button>
@@ -116,6 +111,20 @@ const ToDoPage = () => {
         <button className="Action__btn" onClick={onDeleteAllTodo}>
           Clear all todos
         </button>
+      </div>
+      <div className="ToDo__list">
+        {todosList &&
+          todosList.map((todo, index) => {
+            return (
+              <ToDoItem
+                key={index}
+                todo={todo}
+                onUpdateTodoStatus={(e) => onUpdateTodoStatus(e, todo.id)}
+                onDeleteTodo={() => onDeleteTodo(todo.id)}
+              />
+            );
+          })}
+        {todosList.length === 0 && <div>No {status} todos</div>}
       </div>
     </div>
   );

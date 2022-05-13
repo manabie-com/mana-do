@@ -1,19 +1,14 @@
 import React from "react";
-import { TodoItem } from "../../models/todo";
+import { TodoItem, TodoStatus } from "../../models/todo";
 
-const ToDoItem = ({
-  isShowing,
-  todo,
-  onUpdateTodoStatus,
-  onDeleteTodo,
-}: TodoItem) => {
-  const isTodoItemCheked = isShowing === todo.status;
+const ToDoItem = ({ todo, onUpdateTodoStatus, onDeleteTodo }: TodoItem) => {
+  const checkStatusCompleted = TodoStatus.COMPLETED === todo.status;
 
   return (
     <div className="ToDo__item">
       <input
         type="checkbox"
-        checked={isTodoItemCheked}
+        checked={checkStatusCompleted}
         onChange={onUpdateTodoStatus}
       />
       <span>{todo.content}</span>
