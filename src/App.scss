@@ -1,0 +1,246 @@
+.App {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+}
+
+button {
+  outline: none;
+  border-radius: 4px;
+  min-height: 32px;
+  min-width: 80px;
+  padding: 4px 8px;
+  cursor: pointer;
+  border: 0;
+}
+.w-full {
+  width: 100%;
+}
+
+button:hover {
+  opacity: 0.85;
+}
+
+input[type="checkbox"] {
+  width: 24px;
+  height: 24px;
+  min-width: 24px;
+  box-shadow: none;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+input[type="checkbox"]:focus {
+  box-shadow: none;
+  border: none;
+  outline: none;
+}
+
+input[type="text"] {
+  height: 36px;
+  border: none;
+  outline: none;
+  padding: 0 12px;
+  box-shadow: 2px 0 4px rgba(0,0,0, 0.2);
+  border-radius: 4px;
+}
+
+input:focus {
+  box-shadow: 1px 0 9px rgba(0,0,0, 0.25);
+}
+
+.ToDo__container {
+  border: 1px solid rgba(0,0,0, 0.13);
+  border-radius: 8px;
+  width: 500px;
+  margin-top: 5rem;
+  padding: 24px;
+  box-shadow: 2px 2px 1px rgba(0,0,0, 0.09),
+              3px 2px 3px rgba(0,0,0, 0.05);
+  height: 80vh;
+  min-height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: rgb(16, 38, 72);
+
+  &__filter {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+
+
+.Todo__input {
+  flex: 1 1;
+}
+
+.ToDo__list {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1.5rem;
+  flex: 1;
+  overflow: auto;
+}
+
+.ToDo__item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 5px 0;
+  cursor: pointer;
+  position: relative;
+  color: #fff;
+  &__status,  &__delete, &__checkbox {
+    position: relative;
+    z-index: 2;
+  }
+  &__status {
+    margin-right: 10px;
+    padding: 5px;
+    border-radius: 3px;
+  }
+  &__content {
+    overflow: hidden;
+    padding-right: 10px;
+    text-overflow: ellipsis;
+  }
+  &__delete {
+    outline: none;
+    border: none;
+    width: 32px;
+    height: 32px;
+    min-width: auto;
+    min-height: auto;
+    box-shadow: none;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    color: red;
+    background: none;
+    padding: 2px;
+    svg {
+      width: 100%;
+    }
+  }
+  &__click {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    z-index: 1;
+  }
+}
+
+.ToDo__item > span {
+  flex: 1 1;
+  text-align: left;
+  margin-left: 8px;
+}
+
+.Todo__content {
+  flex: 1 1;
+}
+
+
+
+.Todo__action, .Todo__delete {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+.Todo__toolbar {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 24px;
+  &__delete-all {
+    margin-left: auto;
+  }
+}
+
+.Todo__tabs {
+  display: flex;
+  justify-content: center;
+}
+
+.Todo__tabs > *:not(:last-child) {
+  margin-right: 8px;
+}
+
+
+
+
+.Action__btn {
+  background-color: #fff;
+  color:#000;
+  box-shadow: 1px 2px #e5bbbb;
+  &--primary {
+    border: 1px solid rgb(18, 99, 241);
+    background-color: rgb(18, 99, 241);
+    box-shadow: 1px 2px rgb(27 62 124);
+    color:#fff;
+  }
+  &:active {
+    box-shadow: none;
+  }
+}
+
+
+.modal {
+  display: flex;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  z-index: 99;
+  align-items: center;
+ 
+  &__header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      h2 {
+          margin: 0;
+          font-size: 20px;
+      }
+  }
+  &__close {
+      cursor: pointer;
+  }
+  &__backdrop {
+      width: 100%;
+      height: 100%;
+      flex-basis: 100%;
+      background: rgba(#000000, 0.4);
+  }
+  &__inner {
+      width: 400px;
+      flex-basis: 400px;
+      max-width: 100%;
+      max-height: 80vh;
+      overflow: auto;
+      transform: translateX(-50%);
+      margin-left: -50%;
+      background: #fff;
+      padding: 30px 30px;
+  }
+}
+
+.Todo-form-edit {
+  &__content {
+    margin-bottom: 20px;
+  }
+  &__actions {
+    justify-content: flex-end;
+  }
+}
