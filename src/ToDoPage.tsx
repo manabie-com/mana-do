@@ -109,8 +109,53 @@ const ToDoPage = () => {
 	return (
 		<>
 			<div className="ToDo__container" aria-label="todo-page">
-				<div className="Todo__creation">
-					<TodoForm onSubmit={handSubmit} />
+				<div className="ToDo__container__head">
+					<div className="Todo__creation">
+						<TodoForm onSubmit={handSubmit} />
+					</div>
+					<div className="ToDo__container__filter">
+						{itemsAfterFilter.length > 0 ? (
+							<input
+								aria-label="todo-page-check-all"
+								type="checkbox"
+								checked={tickAllTodos}
+								onChange={onTickAllTodos}
+							/>
+						) : (
+							<div />
+						)}
+						<div className="Todo__tabs">
+							<button
+								aria-label="todo-page-filter-all"
+								className={cs("Action__btn", {
+									"Action__btn--primary":
+										showing === ALL_ITEM,
+								})}
+								onClick={() => setShowing(ALL_ITEM)}>
+								All
+							</button>
+							<button
+								aria-label="todo-page-filter-active"
+								className={cs("Action__btn", {
+									"Action__btn--primary":
+										showing === TodoStatus.ACTIVE,
+								})}
+								onClick={() => setShowing(TodoStatus.ACTIVE)}>
+								Active
+							</button>
+							<button
+								aria-label="todo-page-filter-completed"
+								className={cs("Action__btn", {
+									"Action__btn--primary":
+										showing === TodoStatus.COMPLETED,
+								})}
+								onClick={() =>
+									setShowing(TodoStatus.COMPLETED)
+								}>
+								Completed
+							</button>
+						</div>
+					</div>
 				</div>
 				<div className="ToDo__list">
 					{itemsAfterFilter.map((todo) => {
@@ -128,44 +173,6 @@ const ToDoPage = () => {
 					})}
 				</div>
 				<div className="Todo__toolbar">
-					{itemsAfterFilter.length > 0 ? (
-						<input
-							aria-label="todo-page-check-all"
-							type="checkbox"
-							checked={tickAllTodos}
-							onChange={onTickAllTodos}
-						/>
-					) : (
-						<div />
-					)}
-					<div className="Todo__tabs">
-						<button
-							aria-label="todo-page-filter-all"
-							className={cs("Action__btn", {
-								"Action__btn--primary": showing === ALL_ITEM,
-							})}
-							onClick={() => setShowing(ALL_ITEM)}>
-							All
-						</button>
-						<button
-							aria-label="todo-page-filter-active"
-							className={cs("Action__btn", {
-								"Action__btn--primary":
-									showing === TodoStatus.ACTIVE,
-							})}
-							onClick={() => setShowing(TodoStatus.ACTIVE)}>
-							Active
-						</button>
-						<button
-							aria-label="todo-page-filter-completed"
-							className={cs("Action__btn", {
-								"Action__btn--primary":
-									showing === TodoStatus.COMPLETED,
-							})}
-							onClick={() => setShowing(TodoStatus.COMPLETED)}>
-							Completed
-						</button>
-					</div>
 					<button
 						aria-label="todo-page-delete"
 						className="Action__btn Todo__toolbar__delete-all"
