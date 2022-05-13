@@ -10,13 +10,14 @@ import {
 } from "store/actions";
 import Service from "service";
 import { TodoStatus } from "models/todo";
+import TodoItem from "components/TodoItem";
+import TodoForm from "components/TodoForm";
 
 type EnhanceTodoStatus = TodoStatus | "ALL";
 
 const ToDoPage = () => {
 	const [{ todos }, dispatch] = useReducer(reducer, initialState);
 	const [showing, setShowing] = useState<EnhanceTodoStatus>("ALL");
-	const inputRef = useRef<any>(null);
 
 	useEffect(() => {
 		(async () => {
@@ -25,18 +26,13 @@ const ToDoPage = () => {
 		})();
 	}, []);
 
-	const onCreateTodo = async (e: React.KeyboardEvent<HTMLInputElement>) => {
-		if (e.keyCode === 13) {
-			const resp = await Service.createTodo(inputRef.current.value);
-			dispatch(createTodo(resp));
-		}
+	const handSubmit = async (content: string) => {
+		const item = await Service.createTodo(content);
+		dispatch(createTodo(item));
 	};
 
-	const onUpdateTodoStatus = (
-		e: React.ChangeEvent<HTMLInputElement>,
-		todoId: any,
-	) => {
-		dispatch(updateTodoStatus(todoId, e.target.checked));
+	const onUpdateTodoStatus = (id: string, status: TodoStatus) => {
+		dispatch(updateTodoStatus(id, status));
 	};
 
 	const onToggleAllTodo = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -50,25 +46,17 @@ const ToDoPage = () => {
 	return (
 		<div className="ToDo__container">
 			<div className="Todo__creation">
-				<input
-					ref={inputRef}
-					className="Todo__input"
-					placeholder="What need to be done?"
-					onKeyDown={onCreateTodo}
-				/>
+				<TodoForm onSubmit={handSubmit} />
 			</div>
 			<div className="ToDo__list">
 				{todos.map((todo, index) => {
 					return (
-						<div key={index} className="ToDo__item">
-							<input
-								type="checkbox"
-								checked={showing === todo.status}
-								onChange={(e) => onUpdateTodoStatus(e, index)}
-							/>
-							<span>{todo.content}</span>
-							<button className="Todo__delete">X</button>
-						</div>
+						<TodoItem
+							{...todo}
+							key={todo.id}
+							active={showing === todo.status}
+							onChangeStatus={onUpdateTodoStatus}
+						/>
 					);
 				})}
 			</div>
