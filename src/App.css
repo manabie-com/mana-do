@@ -1,5 +1,4 @@
 .App {
-  text-align: center;
   display: flex;
   justify-content: center;
 }
@@ -48,7 +47,7 @@ input:focus {
 .ToDo__container {
   border: 1px solid rgba(0,0,0, 0.13);
   border-radius: 8px;
-  width: 500px;
+  width: 640px;
   margin-top: 5rem;
   padding: 24px;
   box-shadow: 2px 2px 1px rgba(0,0,0, 0.09),
@@ -56,17 +55,18 @@ input:focus {
 }
 
 .Todo__creation {
-  display: flex;
+  
 }
 
 .Todo__input {
-  flex: 1 1;
+  width: 100%;
 }
 
 .ToDo__list {
   display: flex;
   flex-direction: column;
   margin-top: 1.5rem;
+  width: 100%;
 }
 
 .ToDo__item {
@@ -122,4 +122,17 @@ input:focus {
 }
 
 .Action__btn {
+}
+
+.Toggle__all__container {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.message {
+  font-size: 0.7rem;
+  color: #111;
+  margin: 5px 0;
+  padding: 0 10px;
 }

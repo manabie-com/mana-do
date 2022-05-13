@@ -1,4 +1,5 @@
 import {Todo} from "../models/todo";
+import { LocalStore } from './local-store';
 
 export const SET_TODO = 'SET_TODO';
 export const CREATE_TODO = 'CREATE_TODO';
@@ -16,7 +17,7 @@ export interface SetTodoAction {
 export function setTodos(todos: Array<Todo>): SetTodoAction {
   return {
     type: SET_TODO,
-    payload: todos
+    payload: todos.length === 0 ? LocalStore.getCachedState().todos: todos
   }
 }
 
