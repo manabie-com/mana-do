@@ -11,6 +11,7 @@ export const TodoContent = styled.span`
   flex: 1 1;
   text-align: left;
   margin-left: 8px;
+  padding: 10px 0;
 `;
 
 export const DeleteButton = styled(Button)`

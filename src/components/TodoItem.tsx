@@ -33,12 +33,10 @@ const TodoItem = ({
       setContent(todo.content);
     };
 
-    document.body.addEventListener('click', stopEditing, { capture: true });
+    document.body.addEventListener('click', stopEditing);
 
     return () => {
-      document.body.removeEventListener('click', stopEditing, {
-        capture: true,
-      });
+      document.body.removeEventListener('click', stopEditing);
     };
   }, [todo.content]);
 
@@ -94,7 +92,7 @@ const TodoItem = ({
           ref={refCallback}
         />
       ) : (
-        <TodoContent data-testid="content" onClick={edit}>
+        <TodoContent data-testid="content" onDoubleClick={edit}>
           {todo.content}
         </TodoContent>
       )}

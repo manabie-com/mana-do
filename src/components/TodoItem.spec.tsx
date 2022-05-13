@@ -66,7 +66,7 @@ describe('TodoItem component', () => {
     );
 
     await waitFor(() => {
-      fireEvent.click(screen.getByTestId('content'));
+      fireEvent.doubleClick(screen.getByTestId('content'));
     });
 
     expect(screen.getByRole('textbox')).toBeInTheDocument();

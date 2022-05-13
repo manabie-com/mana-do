@@ -121,7 +121,7 @@ describe('ToDoPage component', () => {
     render(<ToDoPage />);
 
     await waitFor(() => {
-      fireEvent.click(screen.getByText(todos[0].content));
+      fireEvent.doubleClick(screen.getByText(todos[0].content));
       fireEvent.change(screen.getByTestId('edit-todo'), {
         target: { value: content },
       });
