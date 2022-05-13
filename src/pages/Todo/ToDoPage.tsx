@@ -3,31 +3,42 @@ import React, { useEffect, useReducer, useRef, useState } from "react";
 import {
   setTodos,
   createTodo,
+  updateTodoStatus,
   toggleAllTodos,
   deleteAllTodos,
-  updateTodoStatus,
   deleteTodo,
-} from "./store/actions";
-import reducer, { initialState } from "./store/reducer";
+} from "../../store/actions";
+import reducer, { initialState } from "../../store/reducer";
 
-import { EnhanceTodoStatus } from "./service/types";
-import Service from "./service";
+import { STORAGE_TODO, Todo, TodoStatus } from "../../models/todo";
 
-import { TodoStatus } from "./models/todo";
+import Service from "../../service";
+import { EnhanceTodoStatus } from "../../service/types";
+
+import ToDoItem from "./ToDoItem";
+import { getLocalStorage } from "../../utils/helpers";
 
 const ToDoPage = () => {
   const [{ todos }, dispatch] = useReducer(reducer, initialState);
   const [showing, setShowing] = useState<EnhanceTodoStatus>(TodoStatus.ALL);
+  const [todosList, setTodosList] = useState(todos);
   const inputRef = useRef<any>(null);
 
+  const getTodos = () => {
+    const todoStorage = getLocalStorage(STORAGE_TODO);
+    const todosList = JSON.parse(todoStorage);
+    dispatch(setTodos(todosList));
+  };
+
+  // Causes the function to be called only once
   useEffect(() => {
     getTodos();
   }, []);
 
-  const getTodos = async () => {
-    const response = (await Service.getTodos()) || [];
-    dispatch(setTodos(response));
-  };
+  // Causes the function to be called every time the todosList changes
+  useEffect(() => {
+    setTodosList(todos);
+  }, [todos]);
 
   const onCreateTodo = async (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
@@ -51,7 +62,7 @@ const ToDoPage = () => {
     dispatch(deleteAllTodos());
   };
 
-  const onDeleteSelectedTodo = (id: string) => {
+  const onDeleteTodo = (id: string) => {
     dispatch(deleteTodo(id));
   };
 
@@ -66,19 +77,18 @@ const ToDoPage = () => {
         />
       </div>
       <div className="ToDo__list">
-        {todos.map((todo, index) => {
-          return (
-            <div key={index} className="ToDo__item">
-              <input
-                type="checkbox"
-                checked={showing === todo.status}
-                onChange={(e) => onUpdateTodoStatus(e, index)}
+        {todosList &&
+          todosList.map((todo, index) => {
+            return (
+              <ToDoItem
+                key={index}
+                isShowing={showing}
+                todo={todo}
+                onUpdateTodoStatus={(e) => onUpdateTodoStatus(e, todo.id)}
+                onDeleteTodo={() => onDeleteTodo(todo.id)}
               />
-              <span>{todo.content}</span>
-              <button type="button" className="Todo__delete" onClick={() => onDeleteSelectedTodo(todo.id)}>X</button>
-            </div>
-          );
-        })}
+            );
+          })}
       </div>
       <div className="Todo__toolbar">
         {todos.length > 0 ? (
