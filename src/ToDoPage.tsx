@@ -4,7 +4,6 @@ import reducer, { initialState } from "store/reducer";
 import {
 	setTodos,
 	createTodo,
-	toggleAllTodos,
 	updateTodoStatus,
 	deleteTodos,
 	toggleTickTodoAction,
@@ -51,10 +50,6 @@ const ToDoPage = () => {
 
 	const onUpdateTodoStatus = (id: string, status: TodoStatus) => {
 		dispatch(updateTodoStatus(id, status));
-	};
-
-	const onToggleAllTodo = (e: React.ChangeEvent<HTMLInputElement>) => {
-		dispatch(toggleAllTodos(e.target.checked));
 	};
 
 	// remove items are selected. If itemsSelectedAfterFilter is empty We will delete all items are filterd by filter menu
