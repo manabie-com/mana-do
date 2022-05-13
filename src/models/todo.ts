@@ -1,8 +1,12 @@
 export enum TodoStatus {
-  ACTIVE = 'ACTIVE',
-  COMPLETED = 'COMPLETED'
+	ACTIVE = "ACTIVE",
+	COMPLETED = "COMPLETED",
 }
 
 export interface Todo {
-  [key: string]: any
+	id: string;
+	content: string;
+	created_date: string;
+	status: TodoStatus;
+	user_id: string;
 }
