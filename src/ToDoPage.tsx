@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer, useRef, useState } from "react";
+import React, { useEffect, useReducer, useState } from "react";
 
 import reducer, { initialState } from "store/reducer";
 import {
@@ -7,6 +7,7 @@ import {
 	toggleAllTodos,
 	deleteAllTodos,
 	updateTodoStatus,
+	deleteTodos,
 } from "store/actions";
 import Service from "service";
 import { TodoStatus } from "models/todo";
@@ -43,6 +44,13 @@ const ToDoPage = () => {
 		dispatch(deleteAllTodos());
 	};
 
+	const onDeleteTodo = async (id: string) => {
+		const result = await Service.deleteTodo(id);
+		if (result) {
+			dispatch(deleteTodos([id]));
+		}
+	};
+
 	return (
 		<div className="ToDo__container">
 			<div className="Todo__creation">
@@ -56,6 +64,7 @@ const ToDoPage = () => {
 							key={todo.id}
 							active={showing === todo.status}
 							onChangeStatus={onUpdateTodoStatus}
+							onRemove={onDeleteTodo}
 						/>
 					);
 				})}
