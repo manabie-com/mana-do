@@ -1,11 +1,14 @@
-import { Todo } from "models/todo";
+import { Todo, TodoStatus } from "models/todo";
 
 export const SET_TODO = "SET_TODO";
 export const CREATE_TODO = "CREATE_TODO";
-export const DELETE_TODO = "DELETE_TODO";
+export const DELETE_TODOS = "DELETE_TODOS";
 export const DELETE_ALL_TODOS = "DELETE_ALL_TODOS";
 export const TOGGLE_ALL_TODOS = "TOGGLE_ALL_TODOS";
 export const UPDATE_TODO_STATUS = "UPDATE_TODO_STATUS";
+export const TOGGLE_TICK_TODO = "TOGGLE_TICK_TODO";
+export const TOGGLE_TICK_ALL_TODOS = "TOGGLE_TICK_ALL_TODOS";
+export const UPDATE_TODO = "UPDATE_TODO";
 
 export interface SetTodoAction {
 	type: typeof SET_TODO;
@@ -37,33 +40,33 @@ export interface UpdateTodoStatusAction {
 	type: typeof UPDATE_TODO_STATUS;
 	payload: {
 		todoId: string;
-		checked: boolean;
+		status: TodoStatus;
 	};
 }
 
 export function updateTodoStatus(
 	todoId: string,
-	checked: boolean,
+	status: TodoStatus,
 ): UpdateTodoStatusAction {
 	return {
 		type: UPDATE_TODO_STATUS,
 		payload: {
 			todoId,
-			checked,
+			status,
 		},
 	};
 }
 
 //////////////
-export interface DeleteTodoAction {
-	type: typeof DELETE_TODO;
-	payload: string;
+export interface DeleteTodosAction {
+	type: typeof DELETE_TODOS;
+	payload: string[];
 }
 
-export function deleteTodo(todoId: string): DeleteTodoAction {
+export function deleteTodos(todoIds: string[]): DeleteTodosAction {
 	return {
-		type: DELETE_TODO,
-		payload: todoId,
+		type: DELETE_TODOS,
+		payload: todoIds,
 	};
 }
 
@@ -91,10 +94,73 @@ export function toggleAllTodos(checked: boolean): ToggleAllTodosAction {
 	};
 }
 
+///////////
+export interface ToggleTickTodoAction {
+	type: typeof TOGGLE_TICK_TODO;
+	payload: {
+		id: string;
+		checked: boolean;
+	};
+}
+export function toggleTickTodoAction(
+	id: string,
+	checked: boolean,
+): ToggleTickTodoAction {
+	return {
+		type: TOGGLE_TICK_TODO,
+		payload: {
+			id,
+			checked,
+		},
+	};
+}
+
+///////////
+export interface ToggleTickALLTodosAction {
+	type: typeof TOGGLE_TICK_ALL_TODOS;
+	payload: {
+		checked: boolean;
+	};
+}
+export function toggleTickALLTodosAction(
+	checked: boolean,
+): ToggleTickALLTodosAction {
+	return {
+		type: TOGGLE_TICK_ALL_TODOS,
+		payload: {
+			checked,
+		},
+	};
+}
+
+///////////
+export interface UpdateTodoAction {
+	type: typeof UPDATE_TODO;
+	payload: {
+		id: string;
+		newData: Partial<Todo>;
+	};
+}
+export function updateTodoAction(
+	id: string,
+	newData: Partial<Todo>,
+): UpdateTodoAction {
+	return {
+		type: UPDATE_TODO,
+		payload: {
+			id,
+			newData,
+		},
+	};
+}
+
 export type AppActions =
 	| SetTodoAction
 	| CreateTodoAction
 	| UpdateTodoStatusAction
-	| DeleteTodoAction
+	| DeleteTodosAction
 	| DeleteAllTodosAction
-	| ToggleAllTodosAction;
+	| ToggleAllTodosAction
+	| ToggleTickTodoAction
+	| ToggleTickALLTodosAction
+	| UpdateTodoAction;
