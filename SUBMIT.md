@@ -19,5 +19,10 @@
 + I separate the done tasks below list to help users focus on their doing tasks. These once can be returned to the doing list if users click on the select box.
 + While users are editing the task but click outsides show modal to ask saving confirmation.
 
+#### RUNNING INSTRUCTION:
+
++ new .env file with value: SKIP_PREFLIGHT_CHECK=true
++ then follow the Readme.md
+
 #### Result screenshot
 ![alt screenshot](https://github.com/Hanv2itedu/mana-do/ScreenShot.png?raw=true)
