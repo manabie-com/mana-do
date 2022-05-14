@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { lazy } from 'react';
 
-import ToDoPage from './ToDoPage';
+export const ToDoPage = lazy(() => import('./screen/todo'));
 
 import './App.css';
 

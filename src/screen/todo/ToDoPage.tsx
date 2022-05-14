@@ -1,15 +1,15 @@
 import React, { useEffect, useReducer, useRef, useState } from 'react';
 
-import reducer, { initialState } from './store/reducer';
+import reducer, { initialState } from '../../store/reducer';
 import {
   setTodos,
   createTodo,
   toggleAllTodos,
   deleteAllTodos,
   updateTodoStatus,
-} from './store/actions';
-import Service from './service';
-import { TodoStatus } from './models/todo';
+} from '../../store/actions';
+import Service from '../../service';
+import { TodoStatus } from '../../models/todo';
 
 type EnhanceTodoStatus = TodoStatus | 'ALL';
 
