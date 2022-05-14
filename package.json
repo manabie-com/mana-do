@@ -5,6 +5,9 @@
   "private": true,
   "author": "Kieran Nguyen",
   "dependencies": {
+    "@emotion/react": "^11.9.0",
+    "@emotion/styled": "^11.8.1",
+    "@mui/material": "^5.7.0",
     "@reduxjs/toolkit": "^1.8.1",
     "@types/jest": "^26.0.24",
     "@types/node": "^12.0.0",
