@@ -3,15 +3,16 @@
   "description": "Manabie todo challenge",
   "version": "0.1.0",
   "private": true,
+  "author": "Kieran Nguyen",
   "dependencies": {
-    "@types/jest": "^24.0.0",
+    "@types/jest": "^26.0.24",
     "@types/node": "^12.0.0",
-    "@types/react": "^16.9.0",
-    "@types/react-dom": "^16.9.0",
-    "axios": "^0.19.2",
+    "@types/react": "^17.0.14",
+    "@types/react-dom": "^17.0.9",
+    "axios": "^0.21.1",
     "cross-env": "^7.0.2",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
     "react-scripts": "4.0.3",
     "shortid": "^2.2.15",
     "typescript": "4.5.3"
@@ -21,7 +22,8 @@
     "start:frontend": "cross-env REACT_APP_WHOAMI=frontend react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "commit": "cz"
   },
   "eslintConfig": {
     "extends": "react-app"
