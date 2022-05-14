@@ -19,8 +19,8 @@
   },
   "scripts": {
     "start:fullstack": "cross-env REACT_APP_WHOAMI=fullstack react-scripts start",
-    "start:frontend": "cross-env REACT_APP_WHOAMI=frontend react-scripts start",
-    "build": "react-scripts build",
+    "start:frontend": "webpack serve --config config/webpack.config.js --env env=development --open",
+    "build": "webpack --config config/webpack.config.js --env env=production",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "commit": "cz",
@@ -42,11 +42,26 @@
     ]
   },
   "devDependencies": {
+    "@babel/core": "^7.17.10",
+    "@babel/plugin-transform-runtime": "^7.17.10",
+    "@babel/preset-env": "^7.17.10",
+    "@babel/preset-react": "^7.16.7",
+    "@babel/preset-typescript": "^7.16.7",
+    "@babel/runtime": "^7.17.9",
     "@semantic-release/changelog": "^6.0.1",
     "@semantic-release/git": "^10.0.1",
     "@types/shortid": "^0.0.29",
+    "babel-loader": "^8.2.5",
+    "copy-webpack-plugin": "^10.2.4",
+    "css-loader": "^6.7.1",
     "cz-conventional-changelog": "3.3.0",
-    "semantic-release": "^19.0.2"
+    "html-webpack-plugin": "^5.5.0",
+    "semantic-release": "^19.0.2",
+    "style-loader": "^3.3.1",
+    "webpack": "^5.72.1",
+    "webpack-cli": "^4.9.2",
+    "webpack-dev-server": "^4.9.0",
+    "webpack-merge": "^5.8.0"
   },
   "config": {
     "commitizen": {
