@@ -23,7 +23,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "commit": "cz"
+    "commit": "cz",
+    "release": "semantic-release --no-ci"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -41,6 +42,9 @@
     ]
   },
   "devDependencies": {
-    "@types/shortid": "^0.0.29"
+    "@semantic-release/changelog": "^6.0.1",
+    "@semantic-release/git": "^10.0.1",
+    "@types/shortid": "^0.0.29",
+    "semantic-release": "^19.0.2"
   }
 }
