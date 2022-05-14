@@ -73,6 +73,11 @@ input:focus {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding: 0 8px;
+  border-radius: 8px;
+}
+.ToDo__item:hover {
+  background-color: aliceblue;
 }
 
 .ToDo__item > span {
@@ -122,4 +127,6 @@ input:focus {
 }
 
 .Action__btn {
+  background-color: #1B72E8;
+  color: #fff;
 }

@@ -5,8 +5,10 @@ import {
   DELETE_ALL_TODOS,
   DELETE_TODO,
   TOGGLE_ALL_TODOS,
-  UPDATE_TODO_STATUS
+  UPDATE_TODO_STATUS,
+  SET_TODO,
 } from './actions';
+import { useReducer } from 'react';
 
 export interface AppState {
   todos: Array<Todo>
@@ -18,19 +20,33 @@ export const initialState: AppState = {
 
 function reducer(state: AppState, action: AppActions): AppState {
   switch (action.type) {
+    case SET_TODO: 
+      return {
+        ...state,
+        todos: action.payload
+      };
     case CREATE_TODO:
-      state.todos.push(action.payload);
+      if(!state.todos.some(e => e.id === action.payload.id)){
+        state.todos = [...state.todos, action.payload];
+      }
+      localStorage.setItem('todos', JSON.stringify(state.todos) )
       return {
         ...state
       };
 
     case UPDATE_TODO_STATUS:
-      const index2 = state.todos.findIndex((todo) => todo.id === action.payload.todoId);
-      state.todos[index2].status = action.payload.checked ? TodoStatus.COMPLETED : TodoStatus.ACTIVE;
-
+      const data = state.todos.map((todo) => {
+        if(todo.id === action.payload.todoId) {
+          return {
+            ...todo,
+            status: action.payload.checked ? TodoStatus.COMPLETED : TodoStatus.ACTIVE
+          }
+        }
+        return {...todo}
+      })
+      localStorage.setItem('todos', JSON.stringify(data) )
       return {
-        ...state,
-        todos: state.todos
+        todos: data
       }
 
     case TOGGLE_ALL_TODOS:
@@ -41,20 +57,25 @@ function reducer(state: AppState, action: AppActions): AppState {
         }
       })
 
+      localStorage.setItem('todos', JSON.stringify(tempTodos) )
+
       return {
         ...state,
         todos: tempTodos
       }
 
     case DELETE_TODO:
-      const index1 = state.todos.findIndex((todo) => todo.id === action.payload);
-      state.todos.splice(index1, 1);
+      const list = state.todos.filter((todo) => todo.id !== action.payload);
+
+      localStorage.setItem('todos', JSON.stringify(list) )
 
       return {
         ...state,
-        todos: state.todos
+        todos: list
       }
     case DELETE_ALL_TODOS:
+      localStorage.setItem('todos', JSON.stringify([]) )
+
       return {
         ...state,
         todos: []
@@ -64,4 +85,6 @@ function reducer(state: AppState, action: AppActions): AppState {
   }
 }
 
-export default reducer;
+export function useApiCallReducer() {
+  return useReducer(reducer, initialState);
+}
