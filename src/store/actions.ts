@@ -1,4 +1,4 @@
-import {Todo} from "../models/todo";
+import { Todo } from "../models/todo";
 
 export const SET_TODO = 'SET_TODO';
 export const CREATE_TODO = 'CREATE_TODO';
@@ -6,6 +6,8 @@ export const DELETE_TODO = 'DELETE_TODO';
 export const DELETE_ALL_TODOS = 'DELETE_ALL_TODOS';
 export const TOGGLE_ALL_TODOS = 'TOGGLE_ALL_TODOS';
 export const UPDATE_TODO_STATUS = 'UPDATE_TODO_STATUS';
+export const EDIT_TODO = 'EDIT_TODO';
+export const SHOW_ALL_LIST_TODO = 'SHOW_ALL_LIST_TODO';
 
 
 export interface SetTodoAction {
@@ -58,13 +60,13 @@ export interface DeleteTodoAction {
   payload: string
 }
 
+
 export function deleteTodo(todoId: string): DeleteTodoAction {
   return {
     type: DELETE_TODO,
     payload: todoId
   }
 }
-
 //////////////
 export interface DeleteAllTodosAction {
   type: typeof DELETE_ALL_TODOS,
@@ -88,11 +90,48 @@ export function toggleAllTodos(checked: boolean): ToggleAllTodosAction {
     payload: checked
   }
 }
+/////////////
+export interface EditTodoStatusAction {
+  type: typeof EDIT_TODO,
+  payload: {
+    todoId: string,
+    value: string,
+    display: boolean
+  }
+}
 
+export function editTodoStatus(value: string, todoId: string, display: boolean): EditTodoStatusAction {
+  return {
+    type: EDIT_TODO,
+    payload: {
+      todoId,
+      value,
+      display
+    }
+  }
+}
+////////////////
+export interface ShowAllTodosAction {
+  type: typeof SHOW_ALL_LIST_TODO,
+  payload: {
+    listTodo: Array<Todo>
+  }
+}
+
+export function showAllTodos(listTodo: Array<Todo>): ShowAllTodosAction {
+  return {
+    type: SHOW_ALL_LIST_TODO,
+    payload: {
+      listTodo
+    }
+  }
+}
 export type AppActions =
   SetTodoAction |
   CreateTodoAction |
   UpdateTodoStatusAction |
   DeleteTodoAction |
   DeleteAllTodosAction |
-  ToggleAllTodosAction;
+  ToggleAllTodosAction |
+  EditTodoStatusAction |
+  ShowAllTodosAction;
