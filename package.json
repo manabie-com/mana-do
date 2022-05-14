@@ -18,13 +18,14 @@
     "typescript": "4.5.3"
   },
   "scripts": {
-    "start:fullstack": "cross-env REACT_APP_WHOAMI=fullstack react-scripts start",
-    "start:frontend": "webpack serve --config config/webpack.config.js --env env=development --open",
+    "start": "webpack serve --config config/webpack.config.js --env env=development --open",
     "build": "webpack --config config/webpack.config.js --env env=production",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "commit": "cz",
-    "release": "semantic-release --no-ci"
+    "release": "semantic-release --no-ci",
+    "lint": "eslint --fix \"./src/**/*.{js,jsx,ts,tsx,json}\"",
+    "format": "prettier --write \"./src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\""
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -52,11 +53,20 @@
     "@semantic-release/git": "^10.0.1",
     "@types/shortid": "^0.0.29",
     "babel-loader": "^8.2.5",
-    "brotli-gzip-webpack-plugin": "^0.5.0",
+    "brotli-webpack-plugin": "^1.1.0",
     "copy-webpack-plugin": "^10.2.4",
     "css-loader": "^6.7.1",
     "cz-conventional-changelog": "3.3.0",
+    "dotenv-webpack": "^7.1.0",
+    "eslint": "^8.15.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-jsx-a11y": "^6.5.1",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-react": "^7.29.4",
+    "eslint-plugin-react-hooks": "^4.5.0",
     "html-webpack-plugin": "^5.5.0",
+    "prettier": "^2.6.2",
     "semantic-release": "^19.0.2",
     "style-loader": "^3.3.1",
     "webpack": "^5.72.1",
