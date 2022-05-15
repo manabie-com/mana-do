@@ -1,48 +1,55 @@
-import React, { useEffect, useReducer, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
-import reducer, { initialState } from '../../store/reducer';
-import {
-  setTodos,
-  createTodo,
-  toggleAllTodos,
-  deleteAllTodos,
-  updateTodoStatus,
-} from '../../store/actions';
-import Service from '../../service';
-import { TodoStatus } from '../../models/todo';
+import { Todo, TodoStatus } from '../../models/todo';
+import { useAppDispatch, useAppselector } from '../../store';
+import { isTodoActive, isTodoCompleted } from '../../utils';
+
+import { actions, selectors } from './duck';
+import TodoItem from './TodoItem';
 
 type EnhanceTodoStatus = TodoStatus | 'ALL';
 
-const ToDoPage = () => {
-  const [{ todos }, dispatch] = useReducer(reducer, initialState);
+const TodoPage = () => {
+  const dispatch = useAppDispatch();
+  const todos: Todo[] = useAppselector(selectors.selectTodo);
+
   const [showing, setShowing] = useState<EnhanceTodoStatus>('ALL');
   const inputRef = useRef<any>(null);
 
   useEffect(() => {
-    (async () => {
-      const resp = await Service.getTodos();
-
-      dispatch(setTodos(resp || []));
-    })();
+    dispatch(actions.getTodos());
   }, []);
 
   const onCreateTodo = async (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
-      const resp = await Service.createTodo(inputRef.current.value);
-      dispatch(createTodo(resp));
+    if (e.key === 'Enter' && inputRef?.current?.value !== '') {
+      dispatch(actions.createTodo(inputRef.current.value));
+      inputRef.current.value = '';
     }
   };
 
-  const onUpdateTodoStatus = (e: React.ChangeEvent<HTMLInputElement>, todoId: any) => {
-    dispatch(updateTodoStatus(todoId, e.target.checked));
+  const onUpdateTodoStatus = (e: React.ChangeEvent<HTMLInputElement>, todoId: string) => {
+    dispatch(actions.updateTodoStatus({ todoId, checked: e.target.checked }));
+  };
+
+  const onUpdateTodoContent = (content: string, todoId: string) => {
+    dispatch(actions.onUpdateTodoContent({ content, todoId }));
   };
 
   const onToggleAllTodo = (e: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch(toggleAllTodos(e.target.checked));
+    dispatch(actions.toggleAllTodos(e.target.checked));
   };
 
   const onDeleteAllTodo = () => {
-    dispatch(deleteAllTodos());
+    dispatch(actions.deleteAllTodos());
+  };
+  const onDeleteTodo = (todoId: string) => {
+    dispatch(actions.deleteTodo(todoId));
+  };
+
+  const handleTodoFilter = (todoItem: Todo) => {
+    if (showing === 'ALL') return true;
+    if (showing === TodoStatus.ACTIVE) return isTodoActive(todoItem);
+    if (showing === TodoStatus.COMPLETED) return isTodoCompleted(todoItem);
   };
 
   return (
@@ -56,24 +63,22 @@ const ToDoPage = () => {
         />
       </div>
       <div className='ToDo__list'>
-        {todos.map((todo, index) => {
-          return (
-            <div key={index} className='ToDo__item'>
-              <input
-                type='checkbox'
-                checked={showing === todo.status}
-                onChange={(e) => onUpdateTodoStatus(e, index)}
-              />
-              <span>{todo.content}</span>
-              <button className='Todo__delete'>X</button>
-            </div>
-          );
-        })}
+        {todos.filter(handleTodoFilter).map((todo) => (
+          <TodoItem
+            key={todo.id}
+            todo={todo}
+            onUpdateTodoStatus={onUpdateTodoStatus}
+            onDeleteTodo={onDeleteTodo}
+            onUpdateTodoContent={onUpdateTodoContent}
+          />
+        ))}
       </div>
       <div className='Todo__toolbar'>
         {todos.length > 0 ? <input type='checkbox' onChange={onToggleAllTodo} /> : <div />}
         <div className='Todo__tabs'>
-          <button className='Action__btn'>All</button>
+          <button className='Action__btn' onClick={() => setShowing('ALL')}>
+            All
+          </button>
           <button className='Action__btn' onClick={() => setShowing(TodoStatus.ACTIVE)}>
             Active
           </button>
@@ -89,4 +94,4 @@ const ToDoPage = () => {
   );
 };
 
-export default ToDoPage;
+export default TodoPage;
