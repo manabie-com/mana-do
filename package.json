@@ -10,7 +10,7 @@
     "@mui/icons-material": "^5.6.2",
     "@mui/material": "^5.7.0",
     "@reduxjs/toolkit": "^1.8.1",
-    "@types/jest": "^26.0.24",
+    "@types/jest": "^27.5.1",
     "@types/node": "^12.0.0",
     "@types/react": "^17.0.14",
     "@types/react-dom": "^17.0.9",
@@ -27,7 +27,7 @@
   "scripts": {
     "start": "webpack serve --config config/webpack.config.js --env env=development --open",
     "build": "webpack --config config/webpack.config.js --env env=production",
-    "test": "react-scripts test",
+    "test": "jest --watch",
     "eject": "react-scripts eject",
     "commit": "cz",
     "release": "semantic-release --no-ci",
@@ -58,6 +58,8 @@
     "@babel/runtime": "^7.17.9",
     "@semantic-release/changelog": "^6.0.1",
     "@semantic-release/git": "^10.0.1",
+    "@testing-library/jest-dom": "^5.16.4",
+    "@testing-library/react": "^13.2.0",
     "@types/shortid": "^0.0.29",
     "axios-mock-adapter": "^1.20.0",
     "babel-loader": "^8.2.5",
@@ -77,6 +79,8 @@
     "prettier": "^2.6.2",
     "semantic-release": "^19.0.2",
     "style-loader": "^3.3.1",
+    "jest": "27.0.6",
+    "ts-jest": "^28.0.0",
     "webpack": "^5.72.1",
     "webpack-cli": "^4.9.2",
     "webpack-dev-server": "^4.9.0",
@@ -85,6 +89,18 @@
   "config": {
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "jest": {
+    "testEnvironment": "jsdom",
+    "preset": "ts-jest",
+    "verbose": true,
+    "setupFilesAfterEnv": [
+      "./config/setupTests.ts"
+    ],
+    "testURL": "http://localhost",
+    "moduleNameMapper": {
+      ".+\\.(css|styl|less|sass|scss|png|jpg|ttf|woff|woff2)$": "identity-obj-proxy"
     }
   }
 }
