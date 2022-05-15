@@ -1,42 +1,48 @@
-import React, {useEffect, useReducer, useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 
-import reducer, {initialState} from './store/reducer';
+import {useApiCallReducer} from './store/reducer';
 import {
     setTodos,
     createTodo,
     toggleAllTodos,
     deleteAllTodos,
-    updateTodoStatus
+    updateTodoStatus,
+    deleteTodo
 } from './store/actions';
 import Service from './service';
 import {TodoStatus} from './models/todo';
+import Item from './components/Item'
 
 type EnhanceTodoStatus = TodoStatus | 'ALL';
 
-
 const ToDoPage = () => {
-    const [{todos}, dispatch] = useReducer(reducer, initialState);
+    const [{todos}, dispatch] = useApiCallReducer()
     const [showing, setShowing] = useState<EnhanceTodoStatus>('ALL');
     const inputRef = useRef<any>(null);
+    const [hadEnter, setHadEnter] = useState<boolean>(false);
 
     useEffect(()=>{
         (async ()=>{
             const resp = await Service.getTodos();
-
-            dispatch(setTodos(resp || []));
+            dispatch(setTodos(resp));
+            inputRef.current.focus()
         })()
     }, [])
 
-    const onCreateTodo = async (e: React.KeyboardEvent<HTMLInputElement>) => {
-        if (e.key === 'Enter' ) {
+   
+    const onCreateTodo = async (e: React.KeyboardEvent<HTMLInputElement>) => {        
+        if (e.key === 'Enter' && !hadEnter && inputRef.current.value !== '') {
+            setHadEnter(true)
             const resp = await Service.createTodo(inputRef.current.value);
             dispatch(createTodo(resp));
+            
         }
+        else if(e.key !== 'Enter'){
+            setHadEnter(false)
+        }
+        inputRef.current.value = '';
     }
 
-    const onUpdateTodoStatus = (e: React.ChangeEvent<HTMLInputElement>, todoId: any) => {
-        dispatch(updateTodoStatus(todoId, e.target.checked))
-    }
 
     const onToggleAllTodo = (e: React.ChangeEvent<HTMLInputElement>) => {
         dispatch(toggleAllTodos(e.target.checked))
@@ -44,6 +50,14 @@ const ToDoPage = () => {
 
     const onDeleteAllTodo = () => {
         dispatch(deleteAllTodos());
+    }
+
+    const handleUpdateStatus = (id: string, checked: boolean) =>{
+        dispatch(updateTodoStatus(id, checked))
+    }
+
+    const handleDelete = (id: string) =>{
+        dispatch(deleteTodo(id))
     }
 
 
@@ -59,21 +73,20 @@ const ToDoPage = () => {
             </div>
             <div className="ToDo__list">
                 {
-                    todos.map((todo, index) => {
+                    todos.filter(todo =>{
+                        if(showing === 'ALL') {
+                            return true
+                        }
+                        else{
+                            if(todo.status === showing){
+                                return true
+                            }
+                            return false
+                        }
+                        
+                    }).map((todo, index) => {
                         return (
-                            <div key={index} className="ToDo__item">
-                                <input
-                                    type="checkbox"
-                                    checked={showing === todo.status}
-                                    onChange={(e) => onUpdateTodoStatus(e, index)}
-                                />
-                                <span>{todo.content}</span>
-                                <button
-                                    className="Todo__delete"
-                                >
-                                    X
-                                </button>
-                            </div>
+                            <Item todo={todo} key={index} updateStatus={handleUpdateStatus} deleteTodo={handleDelete}/>
                         );
                     })
                 }
@@ -86,7 +99,7 @@ const ToDoPage = () => {
                     /> : <div/>
                 }
                 <div className="Todo__tabs">
-                    <button className="Action__btn">
+                    <button className="Action__btn" onClick={()=>setShowing('ALL')}>
                         All
                     </button>
                     <button className="Action__btn" onClick={()=>setShowing(TodoStatus.ACTIVE)}>

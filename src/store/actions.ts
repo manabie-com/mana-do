@@ -7,7 +7,6 @@ export const DELETE_ALL_TODOS = 'DELETE_ALL_TODOS';
 export const TOGGLE_ALL_TODOS = 'TOGGLE_ALL_TODOS';
 export const UPDATE_TODO_STATUS = 'UPDATE_TODO_STATUS';
 
-
 export interface SetTodoAction {
   type: typeof SET_TODO,
   payload: Array<Todo>
@@ -95,4 +94,5 @@ export type AppActions =
   UpdateTodoStatusAction |
   DeleteTodoAction |
   DeleteAllTodosAction |
-  ToggleAllTodosAction;
+  ToggleAllTodosAction |
+  DeleteTodoAction;
