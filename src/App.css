@@ -53,6 +53,10 @@ input:focus {
   padding: 24px;
   box-shadow: 2px 2px 1px rgba(0,0,0, 0.09),
               3px 2px 3px rgba(0,0,0, 0.05);
+  justify-content: space-between;
+  display: flex;
+  flex-direction: column;
+  height: 70vh
 }
 
 .Todo__creation {
@@ -67,22 +71,30 @@ input:focus {
   display: flex;
   flex-direction: column;
   margin-top: 1.5rem;
+  flex: 1;
+  overflow: auto;
 }
 
 .ToDo__item {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin-right: 8px;
 }
 
-.ToDo__item > span {
+.ToDo__item > div {
   flex: 1 1;
   text-align: left;
   margin-left: 8px;
+  white-space: pre;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor: pointer;
 }
 
 .Todo__content {
   flex: 1 1;
+  margin: 0 8px;
 }
 
 .Todo__delete {
@@ -122,4 +134,5 @@ input:focus {
 }
 
 .Action__btn {
+  background-color: #bcbcbc;
 }
