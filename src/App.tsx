@@ -1,5 +1,4 @@
 import React from 'react';
-
 import ToDoPage from './ToDoPage';
 
 import './App.css';
