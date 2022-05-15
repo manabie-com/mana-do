@@ -8,17 +8,21 @@ button {
   outline: none;
   border: none;
   box-shadow: 2px 0 2px currentColor;
-  border-radius: 4px;
+  border-radius: 7px;
   min-height: 32px;
   min-width: 80px;
   padding: 4px 8px;
+  font-weight: bold;
+  color: #fff;
 }
 
 button:hover {
-  opacity: 0.85;
+  opacity: 0.7;
+  transition: 0.3s;
+  cursor: pointer;
 }
 
-input[type="checkbox"] {
+input[type='checkbox'] {
   width: 24px;
   height: 24px;
   box-shadow: none;
@@ -26,7 +30,7 @@ input[type="checkbox"] {
   outline: none;
 }
 
-input[type="checkbox"]:focus {
+input[type='checkbox']:focus {
   box-shadow: none;
   border: none;
   outline: none;
@@ -37,22 +41,21 @@ input {
   border: none;
   outline: none;
   padding: 0 12px;
-  box-shadow: 2px 0 4px rgba(0,0,0, 0.2);
+  box-shadow: 2px 0 4px rgba(0, 0, 0, 0.2);
   border-radius: 4px;
 }
 
 input:focus {
-  box-shadow: 1px 0 9px rgba(0,0,0, 0.25);
+  box-shadow: 1px 0 9px rgba(0, 0, 0, 0.25);
 }
 
 .ToDo__container {
-  border: 1px solid rgba(0,0,0, 0.13);
+  border: 1px solid rgba(0, 0, 0, 0.13);
   border-radius: 8px;
   width: 500px;
   margin-top: 5rem;
   padding: 24px;
-  box-shadow: 2px 2px 1px rgba(0,0,0, 0.09),
-              3px 2px 3px rgba(0,0,0, 0.05);
+  box-shadow: 2px 2px 1px rgba(0, 0, 0, 0.09), 3px 2px 3px rgba(0, 0, 0, 0.05);
 }
 
 .Todo__creation {
@@ -81,8 +84,16 @@ input:focus {
   margin-left: 8px;
 }
 
+/* adding ellipsis when text is too long */
 .Todo__content {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
   flex: 1 1;
+  cursor: pointer;
+}
+.Todo__content:hover {
+  overflow: visible;
 }
 
 .Todo__delete {
@@ -98,12 +109,11 @@ input:focus {
   justify-content: center;
   align-items: center;
   cursor: pointer;
-}
-
-.Todo__action, .Todo__delete {
   width: 24px;
   height: 24px;
   flex-shrink: 0;
+  background-color: #e15353;
+  box-shadow: 2px 2px #e1535350;
 }
 
 .Todo__toolbar {
@@ -121,5 +131,57 @@ input:focus {
   margin-right: 8px;
 }
 
-.Action__btn {
+.Action__btn__completed {
+  background-color: #01c9f8;
+  box-shadow: 3px 3px #01c9f850;
+}
+
+.Action__btn__active {
+  background-color: #51d686;
+  box-shadow: 3px 3px #51d68650;
+}
+
+.Action__btn__clear {
+  background-color: #e15353;
+  box-shadow: 3px 3px #e1535350;
+}
+
+.Error__text {
+  color: red;
+  text-align: left;
+  padding-top: 0.5rem;
+  padding-left: 0.5rem;
+}
+
+input[type='checkbox'] {
+  position: relative;
+  cursor: pointer;
+  -webkit-appearance: none;
+}
+input[type='checkbox']:before {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 9px;
+  left: 0;
+  width: 16px;
+  height: 16px;
+  border: 1px solid rgba(204, 204, 204, 0.76);
+  border-radius: 3px;
+  background-color: #fff;
+}
+
+input[type='checkbox']:checked:after {
+  content: '';
+  display: block;
+  width: 7px;
+  height: 20px;
+  border: 2px solid #01c9f8;
+  border-width: 0 2px 2px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+  position: absolute;
+  top: 0px;
+  left: 10px;
 }
