@@ -45,13 +45,17 @@ const TodoItem = ({
     <div className='Todo__item'>
       <input
         type='checkbox'
+        data-testid={`todo-item-checkbox-${todo.id}`}
         checked={isTodoCompleted(todo)}
         onChange={(e) => onUpdateTodoStatus(e, todo.id)}
       />
       {toggle ? (
-        <span onDoubleClick={toggleInput}>{todo.content}</span>
+        <span data-testid={`todo-item-${todo.id}`} onDoubleClick={toggleInput}>
+          {todo.content}
+        </span>
       ) : (
         <input
+          data-testid={`todo-item-${todo.id}`}
           className='Todo__input'
           ref={inputRef}
           type='text'
@@ -59,7 +63,11 @@ const TodoItem = ({
           onKeyDown={handleChange}
         />
       )}
-      <button className='Todo__delete' onClick={() => onDeleteTodo(todo.id)}>
+      <button
+        data-testid={`todo-item-remove-${todo.id}`}
+        className='Todo__delete'
+        onClick={() => onDeleteTodo(todo.id)}
+      >
         X
       </button>
     </div>

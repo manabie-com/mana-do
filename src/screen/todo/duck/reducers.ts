@@ -6,7 +6,7 @@ import actions from './actions';
 
 export interface TodoState {
   todoList: Todo[];
-  loading?: boolean;
+  loading?: string;
   error?: ErrorStatus;
 }
 

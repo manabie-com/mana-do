@@ -7,11 +7,13 @@ import { isTodoActive, isTodoCompleted } from '../../utils';
 
 import { actions, selectors } from './duck';
 import TodoItem from './components/TodoItem';
+import TodoList from './components/TodoList';
+import TodoActions from './components/TodoActions';
 
 enum TabAll {
   ALL = 'ALL',
 }
-const TabHeader = {
+export const TabHeader = {
   ...TodoStatus,
   ...TabAll,
 };
@@ -50,14 +52,15 @@ const TodoPage = () => {
   const onDeleteAllTodo = () => {
     dispatch(actions.deleteAllTodos());
   };
+
   const onDeleteTodo = (todoId: string) => {
     dispatch(actions.deleteTodo(todoId));
   };
 
   const handleTodoFilter = (todoItem: Todo) => {
-    if (showing === 'ALL') return true;
-    if (showing === TodoStatus.ACTIVE) return isTodoActive(todoItem);
-    if (showing === TodoStatus.COMPLETED) return isTodoCompleted(todoItem);
+    if (showing === TabHeader.ALL) return true;
+    if (showing === TabHeader.ACTIVE) return isTodoActive(todoItem);
+    if (showing === TabHeader.COMPLETED) return isTodoCompleted(todoItem);
   };
 
   return (
@@ -70,49 +73,19 @@ const TodoPage = () => {
           onKeyDown={onCreateTodo}
         />
       </div>
-
-      <Grid container justifyContent='space-between'>
-        <Grid>
-          {todos.length > 0 ? <input type='checkbox' onChange={onToggleAllTodo} /> : <div />}
-        </Grid>
-        <Grid>
-          <Button
-            variant={showing === TabHeader.ALL ? 'outlined' : 'text'}
-            onClick={() => setShowing(TabHeader.ALL)}
-          >
-            {TabHeader.ALL}
-          </Button>
-          <Button
-            variant={showing === TabHeader.ACTIVE ? 'outlined' : 'text'}
-            onClick={() => setShowing(TabHeader.ACTIVE)}
-          >
-            {TabHeader.ACTIVE}
-          </Button>
-          <Button
-            variant={showing === TabHeader.COMPLETED ? 'outlined' : 'text'}
-            onClick={() => setShowing(TabHeader.COMPLETED)}
-          >
-            {TabHeader.COMPLETED}
-          </Button>
-        </Grid>
-        <Grid>
-          <Button variant='contained' onClick={onDeleteAllTodo}>
-            Clear all
-          </Button>
-        </Grid>
-      </Grid>
-
-      <div className='Todo__list'>
-        {todos.filter(handleTodoFilter).map((todo) => (
-          <TodoItem
-            key={todo.id}
-            todo={todo}
-            onUpdateTodoStatus={onUpdateTodoStatus}
-            onDeleteTodo={onDeleteTodo}
-            onUpdateTodoContent={onUpdateTodoContent}
-          />
-        ))}
-      </div>
+      <TodoActions
+        todos={todos}
+        showing={showing}
+        setShowing={setShowing}
+        onDeleteAllTodo={onDeleteAllTodo}
+        onToggleAllTodo={onToggleAllTodo}
+      />
+      <TodoList
+        todos={todos.filter(handleTodoFilter)}
+        onUpdateTodoStatus={onUpdateTodoStatus}
+        onDeleteTodo={onDeleteTodo}
+        onUpdateTodoContent={onUpdateTodoContent}
+      />
     </div>
   );
 };
