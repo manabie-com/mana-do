@@ -122,4 +122,37 @@ input:focus {
 }
 
 .Action__btn {
+  background-color: #2CAFAF;
+  box-shadow: none;
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.Action__btn:hover{
+  cursor: pointer;
+}
+
+.input-list-item {
+  display: flex;
+  align-items: center;
+}
+
+.input-list-item {
+  width: 90%;
+}
+.input-edit {
+  width: 100%;
+}
+
+.Toastify__close-button {
+    display: none;
+}
+
+.disabled {
+    cursor: not-allowed !important;
+    opacity: 0.5;
+}
+
+.disabled:hover{
+  opacity: 0.5;
 }
