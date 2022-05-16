@@ -7,7 +7,7 @@
 button {
   outline: none;
   border: none;
-  box-shadow: 2px 0 2px currentColor;
+  box-shadow: 1px 2px 3px currentColor;
   border-radius: 4px;
   min-height: 32px;
   min-width: 80px;
@@ -45,7 +45,7 @@ input:focus {
   box-shadow: 1px 0 9px rgba(0,0,0, 0.25);
 }
 
-.ToDo__container {
+.Todo__container {
   border: 1px solid rgba(0,0,0, 0.13);
   border-radius: 8px;
   width: 500px;
@@ -63,19 +63,19 @@ input:focus {
   flex: 1 1;
 }
 
-.ToDo__list {
+.Todo__list {
   display: flex;
   flex-direction: column;
   margin-top: 1.5rem;
 }
 
-.ToDo__item {
+.Todo__item {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
-.ToDo__item > span {
+.Todo__item > span {
   flex: 1 1;
   text-align: left;
   margin-left: 8px;
@@ -122,4 +122,8 @@ input:focus {
 }
 
 .Action__btn {
+}
+
+.Todo__edit {
+  margin-right: 8px;
 }
