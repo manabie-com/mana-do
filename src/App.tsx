@@ -1,14 +1,16 @@
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 
-import ToDoPage from './ToDoPage';
+export const TodoPage = lazy(() => import('./screen/todo'));
 
 import './App.css';
 
 function App() {
   return (
-    <main className="App">
-      <ToDoPage />
-    </main>
+    <Suspense fallback={<></>}>
+      <main className='App'>
+        <TodoPage />
+      </main>
+    </Suspense>
   );
 }
 
