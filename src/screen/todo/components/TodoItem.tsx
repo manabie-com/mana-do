@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 
-import { Todo } from '../../models/todo';
-import { isTodoCompleted } from '../../utils';
+import { Todo } from '../../../models/todo';
+import { isTodoCompleted } from '../../../utils';
 
 type TodoItemProps = {
   todo: Todo;
@@ -42,7 +42,7 @@ const TodoItem = ({
   };
 
   return (
-    <div className='ToDo__item'>
+    <div className='Todo__item'>
       <input
         type='checkbox'
         checked={isTodoCompleted(todo)}

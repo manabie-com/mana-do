@@ -1,3 +1,4 @@
+import { Button, Grid } from '@mui/material';
 import React, { useEffect, useRef, useState } from 'react';
 
 import { Todo, TodoStatus } from '../../models/todo';
@@ -5,15 +6,22 @@ import { useAppDispatch, useAppselector } from '../../store';
 import { isTodoActive, isTodoCompleted } from '../../utils';
 
 import { actions, selectors } from './duck';
-import TodoItem from './TodoItem';
+import TodoItem from './components/TodoItem';
 
-type EnhanceTodoStatus = TodoStatus | 'ALL';
+enum TabAll {
+  ALL = 'ALL',
+}
+const TabHeader = {
+  ...TodoStatus,
+  ...TabAll,
+};
+type TabHeader = TodoStatus | TabAll;
 
 const TodoPage = () => {
   const dispatch = useAppDispatch();
   const todos: Todo[] = useAppselector(selectors.selectTodo);
 
-  const [showing, setShowing] = useState<EnhanceTodoStatus>('ALL');
+  const [showing, setShowing] = useState<TabHeader>(TabHeader.ALL);
   const inputRef = useRef<any>(null);
 
   useEffect(() => {
@@ -53,7 +61,7 @@ const TodoPage = () => {
   };
 
   return (
-    <div className='ToDo__container'>
+    <div className='Todo__container'>
       <div className='Todo__creation'>
         <input
           ref={inputRef}
@@ -62,7 +70,39 @@ const TodoPage = () => {
           onKeyDown={onCreateTodo}
         />
       </div>
-      <div className='ToDo__list'>
+
+      <Grid container justifyContent='space-between'>
+        <Grid>
+          {todos.length > 0 ? <input type='checkbox' onChange={onToggleAllTodo} /> : <div />}
+        </Grid>
+        <Grid>
+          <Button
+            variant={showing === TabHeader.ALL ? 'outlined' : 'text'}
+            onClick={() => setShowing(TabHeader.ALL)}
+          >
+            {TabHeader.ALL}
+          </Button>
+          <Button
+            variant={showing === TabHeader.ACTIVE ? 'outlined' : 'text'}
+            onClick={() => setShowing(TabHeader.ACTIVE)}
+          >
+            {TabHeader.ACTIVE}
+          </Button>
+          <Button
+            variant={showing === TabHeader.COMPLETED ? 'outlined' : 'text'}
+            onClick={() => setShowing(TabHeader.COMPLETED)}
+          >
+            {TabHeader.COMPLETED}
+          </Button>
+        </Grid>
+        <Grid>
+          <Button variant='contained' onClick={onDeleteAllTodo}>
+            Clear all
+          </Button>
+        </Grid>
+      </Grid>
+
+      <div className='Todo__list'>
         {todos.filter(handleTodoFilter).map((todo) => (
           <TodoItem
             key={todo.id}
@@ -72,23 +112,6 @@ const TodoPage = () => {
             onUpdateTodoContent={onUpdateTodoContent}
           />
         ))}
-      </div>
-      <div className='Todo__toolbar'>
-        {todos.length > 0 ? <input type='checkbox' onChange={onToggleAllTodo} /> : <div />}
-        <div className='Todo__tabs'>
-          <button className='Action__btn' onClick={() => setShowing('ALL')}>
-            All
-          </button>
-          <button className='Action__btn' onClick={() => setShowing(TodoStatus.ACTIVE)}>
-            Active
-          </button>
-          <button className='Action__btn' onClick={() => setShowing(TodoStatus.COMPLETED)}>
-            Completed
-          </button>
-        </div>
-        <button className='Action__btn' onClick={onDeleteAllTodo}>
-          Clear all todos
-        </button>
       </div>
     </div>
   );
