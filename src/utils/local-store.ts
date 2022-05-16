@@ -1,4 +1,4 @@
-import { AppState } from './reducer';
+import { AppState } from '../store/reducer';
 export class LocalStore {
   private static readonly storeKey: string = 'state';
 

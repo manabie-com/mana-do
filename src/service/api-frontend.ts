@@ -1,7 +1,7 @@
 import { IAPI } from "./types";
 import { Todo, TodoStatus } from "../models/todo";
 import shortid from "shortid";
-import { LocalStore } from '../store/local-store';
+import { LocalStore } from '../utils/local-store';
 
 class ApiFrontend extends IAPI {
     async createTodo(content: string): Promise<Todo> {

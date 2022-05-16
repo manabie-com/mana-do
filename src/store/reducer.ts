@@ -1,5 +1,5 @@
 import {Todo, TodoStatus} from '../models/todo';
-import { LocalStore } from './local-store';
+import { LocalStore } from '../utils/local-store';
 import {
   AppActions,
   SET_TODO,

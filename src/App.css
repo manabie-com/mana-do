@@ -73,6 +73,7 @@ input:focus {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding: 2px 0 5px;
 }
 
 .ToDo__item > span {
@@ -130,9 +131,34 @@ input:focus {
   gap: 5px;
 }
 
-.message {
+.Sub__message {
   font-size: 0.7rem;
   color: #111;
   margin: 5px 0;
   padding: 0 10px;
+}
+
+.Button__group {
+  display: flex;
+  flex-direction: row-reverse;
+  gap: 10px;
+}
+
+.message {
+  margin: 20px 0;
+}
+
+.btn {
+  box-shadow: none;
+  user-select: none;
+}
+
+.btn-primary {
+  background-color: #4299e1 !important;
+  color: #fff;
+}
+
+.btn-warning {
+  background-color: #ef4444 !important;
+  color: #fff;
 }

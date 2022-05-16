@@ -1,5 +1,5 @@
 import {Todo} from "../models/todo";
-import { LocalStore } from './local-store';
+import { LocalStore } from '../utils/local-store';
 
 export const SET_TODO = 'SET_TODO';
 export const CREATE_TODO = 'CREATE_TODO';

@@ -13,10 +13,14 @@ import { Todo, EnhanceTodoStatus, TodoStatus } from './models/todo';
 import { deleteTodo } from './store/actions';
 import { TodoItem } from './components/TodoItem';
 import { Filterer } from './components/Filterer';
+import { TvaDialog } from './components/TvaDialog';
 
 const ToDoPage = () => {
     const [{todos}, dispatch] = useReducer(reducer, initialState);
     const [showing, setShowing] = useState<EnhanceTodoStatus>('ALL');
+    const [confirmDeleteOneShowing, setConfirmDeleteOneShowing] = useState<boolean>(false);
+    const [confirmDeleteAllShowing, setConfirmDeleteAllShowing] = useState<boolean>(false);
+    const [focusItemId, setFocusItemId] = useState<string | null>(null);
     const inputRef = useRef<any>(null);
 
     useEffect(()=>{
@@ -27,7 +31,7 @@ const ToDoPage = () => {
     }, [])
 
     const onCreateTodo = async (e: React.KeyboardEvent<HTMLInputElement>) => {
-        if (e.key === 'Enter' ) {
+        if (e.key === 'Enter' && inputRef.current.value.length > 0) {
             const resp = await Service.createTodo(inputRef.current.value);
             dispatch(createTodo(resp));
             inputRef.current.value = "";
@@ -43,29 +47,60 @@ const ToDoPage = () => {
     }
 
     const onDeleteAllTodo = () => {
+        if (confirmDeleteAllShowing) {
+            setConfirmDeleteAllShowing(false);
+        }
         dispatch(deleteAllTodos());
     }
 
     const onDeleteTodo = (todoId: string) => {
-        dispatch(deleteTodo(todoId));        
+        if (confirmDeleteOneShowing) {
+            setConfirmDeleteOneShowing(false);
+        }
+        dispatch(deleteTodo(todoId));
     }
+
+    const showConfirmDeleteDialog = (todoId: string) => {
+        setFocusItemId(todoId);
+        setConfirmDeleteOneShowing(true);
+    }
+
+    const onCancel = () => {
+        setFocusItemId(null);
+        setConfirmDeleteOneShowing(false);
+        setConfirmDeleteAllShowing(false);
+    }
+
+    const showConfirmDeleteAllDialog = () => {
+        setConfirmDeleteAllShowing(true);
+    }
+
 
     return (
         <div className="ToDo__container">
             <div className="Todo__creation">
                 <input ref={inputRef} className="Todo__input" placeholder="What need to be done?" onKeyDown={onCreateTodo} />
-                <div className="message">Check all completed todos</div>
+                <div className="Sub__message">Check all completed todos</div>
             </div>
             <div className="ToDo__list">
                 {
                     todos.filter((todo: Todo) => showing === todo.status || showing === 'ALL').map((todo: Todo, index: number) => {
                         return (
                             <Fragment key={index}>
-                                <TodoItem todo={todo} index={index} handleUpdate={onUpdateTodoStatus} handleDelete={onDeleteTodo} />
+                                <TodoItem todo={todo} index={index} handleUpdate={onUpdateTodoStatus} handleDelete={() => showConfirmDeleteDialog(todo.id)} />
                             </Fragment>
                         );
                     })
                 }
+            <TvaDialog title='Confirming delete' isShown={confirmDeleteOneShowing} dialogStyle={{ width: '40vw', height: 'auto'}} onCancel={onCancel}>
+                <div className="message">
+                    Are you sure you want to delete?
+                </div>
+                <div className="Button__group">
+                    <button className='btn btn-warning' onClick={() => onDeleteTodo(focusItemId || '')}>Delete</button>
+                    <button className='btn' onClick={onCancel}>Cancel</button>
+                </div>
+            </TvaDialog>
             </div>
             <div className="Todo__toolbar">
                 {todos.length > 0 ?
@@ -81,9 +116,18 @@ const ToDoPage = () => {
                     </div> : <div/>
                 }
                 <Filterer setShowing={setShowing} />
-                <button className="Action__btn" onClick={onDeleteAllTodo}>
+                <button className="Action__btn" onClick={() => showConfirmDeleteAllDialog()} disabled={todos.length === 0}>
                     Clear all todos
                 </button>
+                <TvaDialog title='Confirming delete' isShown={confirmDeleteAllShowing} dialogStyle={{ width: '40vw', height: 'auto'}} onCancel={onCancel}>
+                    <div className="message">
+                        Are you sure you want to delete all items?
+                    </div>
+                    <div className="Button__group">
+                        <button className='btn btn-warning' onClick={onDeleteAllTodo}>Delete all</button>
+                        <button className='btn' onClick={() => setConfirmDeleteAllShowing(false)}>Cancel</button>
+                    </div>
+                </TvaDialog>
             </div>
         </div>
     );
