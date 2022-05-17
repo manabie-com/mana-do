@@ -39,6 +39,10 @@ function reducer(state: AppState, action: AppActions): AppState {
     case SET_TODO:
       return LocalStore.getCachedState().todos.length > 0 ? LocalStore.getCachedState(): state;
     case CREATE_TODO:
+      if (action.payload.content.length === 0) {
+        return state;
+      }
+      
       // Creating a new state, with new todo appended (action.payload)
       const stateAfterCreatingOne = {...state, todos: [...state.todos, action.payload]};
       LocalStore.setCachedState(stateAfterCreatingOne)
@@ -89,7 +93,6 @@ function reducer(state: AppState, action: AppActions): AppState {
         ]
       };
       
-      // Return a new state, with other todos added except the deleted todo
       LocalStore.setCachedState(stateAfterDeletingOne);
       return stateAfterDeletingOne;
     case DELETE_ALL_TODOS:
@@ -99,9 +102,6 @@ function reducer(state: AppState, action: AppActions): AppState {
       };
       LocalStore.setCachedState(stateAfterDeletingAll);
       return stateAfterDeletingAll;
-    default:
-      LocalStore.setCachedState(state);
-      return state;
   }
 }
 
