@@ -19,9 +19,6 @@ describe('TodoItem testing', () => {
   }
   const mockUpdate = jest.fn((e: ChangeEvent, todoId: string) => {});
   const mockDelete = jest.fn((todoId: string) => {});
-  
-  let checkbox;
-  let deleteBtn;
 
   beforeEach(() => {
     wrapper = shallow(<TodoItem index={0} todo={mockTodo} handleDelete={mockDelete} handleUpdate={mockUpdate} />);
