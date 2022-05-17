@@ -1,4 +1,3 @@
-import { render } from "@testing-library/react"
 import { Filterer } from "."
 import { EnhanceTodoStatus, TodoStatus } from '../../models/todo';
 import { shallow, configure, ShallowWrapper } from 'enzyme';

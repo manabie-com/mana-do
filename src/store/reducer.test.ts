@@ -10,7 +10,7 @@ import shortid from "shortid";
 import reducer from "./reducer";
 import { LocalStore } from '../utils/local-store';
 import { AppState } from './reducer';
-import { UpdateTodoStatusAction, UPDATE_TODO_STATUS, TOGGLE_ALL_TODOS, ToggleAllTodosAction, DeleteTodoAction, DELETE_TODO, DELETE_ALL_TODOS, AppActions } from './actions';
+import { UpdateTodoStatusAction, UPDATE_TODO_STATUS, TOGGLE_ALL_TODOS, ToggleAllTodosAction, DeleteTodoAction, DELETE_TODO, DELETE_ALL_TODOS } from './actions';
 
 describe("reducer test", () => {
   beforeEach(() => {
