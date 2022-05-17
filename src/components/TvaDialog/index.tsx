@@ -32,6 +32,9 @@ export function TvaDialog (props: ITvaDialogProps) {
   useEffect(() => {
     setIsShown(props.isShown);
     document.addEventListener('keydown', escape)
+    return () => {
+      document.removeEventListener('keydown', escape);
+    }
   }, [props.isShown, escape]);
   return isShown ? (
       <div className="Tva__Dialog__Background" onClick={onClose}>

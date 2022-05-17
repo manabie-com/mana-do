@@ -18,7 +18,7 @@ describe("reducer test", () => {
       LocalStore.setCachedState({ todos: []});
     }
   })
-  test("GET TODOS - SUCCESS", () => {
+  test("Should get all todos - SUCCESS", () => {
     const state = { todos: [] };
     const action: SetTodoAction = {
       type: SET_TODO,
@@ -56,7 +56,8 @@ describe("reducer test", () => {
     const getToDoSuccess = reducer(state, action);
     expect(Array.isArray(getToDoSuccess.todos)).toBe(true);
   });
-  test("CREATE A TODO - SUCCESS", () => {
+
+  test("Should create a todo - SUCCESS", () => {
     const state = { todos: [] };
     const action: CreateTodoAction = {
       type: CREATE_TODO,
@@ -76,12 +77,20 @@ describe("reducer test", () => {
     expect(createToDoSuccess.todos[createToDoSuccess.todos.length - 1].id).toBeTruthy();
   });
 
-  test("CREATE A TODO - FAIL - EMPTY CONTENT", () => {
-    const state = { todos: [] };
+  test("Should create a todo - FAIL - DATA DUPLICATION", () => {
+    const state = { todos: [
+      {
+        content: "Mock todo 1",
+        created_date: new Date().toISOString(),
+        status: TodoStatus.ACTIVE,
+        id: shortid(),
+        user_id: "firstUser",
+      }
+    ] };
     const action: CreateTodoAction = {
       type: CREATE_TODO,
       payload: {
-        content: "",
+        content: "Mock todo 1",
         created_date: new Date().toISOString(),
         status: TodoStatus.ACTIVE,
         id: shortid(),
@@ -92,7 +101,23 @@ describe("reducer test", () => {
     expect(createToDoSuccess.todos.length).toEqual(state.todos.length);
   });
 
-  test("UPDATE A TODO STATUS FROM ACTIVE TO COMPLETED - SUCCESS", () => {
+  test("Should create a todo - FAIL - EMPTY CONTENT", () => {
+    const state = { todos: [] };
+    const action: CreateTodoAction = {
+      type: CREATE_TODO,
+      payload: {
+        content: "  ",
+        created_date: new Date().toISOString(),
+        status: TodoStatus.ACTIVE,
+        id: shortid(),
+        user_id: "firstUser",
+      },
+    };
+    const createToDoSuccess = reducer(state, action);
+    expect(createToDoSuccess.todos.length).toEqual(state.todos.length);
+  });
+
+  test("Should update todo status from ACTIVE to COMPLETED - SUCCESS", () => {
     const id = shortid();
     const state: AppState = { todos: [
       {
@@ -114,7 +139,7 @@ describe("reducer test", () => {
     expect(updateToDoSuccess.todos.find(todo => todo.id === id)?.status).toEqual(TodoStatus.COMPLETED);
   });
 
-  test("UPDATE A TODO STATUS FROM COMPLETED TO ACTIVE - SUCCESS", () => {
+  test("Should update todo status from COMPLETED to ACTIVE - SUCCESS", () => {
     const id = shortid();
     const state: AppState = { todos: [
       {
@@ -136,7 +161,7 @@ describe("reducer test", () => {
     expect(updateToDoSuccess.todos.find(todo => todo.id === id)?.status).toEqual(TodoStatus.ACTIVE);
   });
 
-  test("UPDATE ALL TODOS STATUS FROM ACTIVE TO COMPLETED - SUCCESS", () => {
+  test("Should update all todos status from ACTIVE to COMPLETED - SUCCESS", () => {
     const state: AppState = { todos: [
       {
         id: shortid(),
@@ -161,7 +186,7 @@ describe("reducer test", () => {
     expect(updateToDoSuccess.todos.every((todo: Todo) => todo.status === TodoStatus.COMPLETED)).toEqual(true);
   });
 
-  test("UPDATE ALL TODOS STATUS FROM ACTIVE TO COMPLETED - SUCCESS", () => {
+  test("Should update all todos status from ACTIVE to COMPLETED - SUCCESS", () => {
     const state: AppState = { todos: [
       {
         id: shortid(),
@@ -186,7 +211,7 @@ describe("reducer test", () => {
     expect(updateToDoSuccess.todos.every((todo: Todo) => todo.status === TodoStatus.COMPLETED)).toEqual(true);
   });
   
-  test("UPDATE ALL TODOS STATUS FROM COMPLETED TO ACTIVE - SUCCESS", () => {
+  test("Should update all todos status COMPLETED TO ACTIVE - SUCCESS", () => {
     const state: AppState = { todos: [
       {
         id: shortid(),
@@ -211,7 +236,7 @@ describe("reducer test", () => {
     expect(updateToDoSuccess.todos.every((todo: Todo) => todo.status === TodoStatus.ACTIVE)).toEqual(true);
   });
 
-  test("DELETE A TODO BY ID - SUCCESS", () => {
+  test("Should delete a todo - SUCCESS", () => {
     const selectedId = shortid();
     const state: AppState = { todos: [
       {
@@ -244,7 +269,7 @@ describe("reducer test", () => {
     expect(updateAllToDoSuccess.todos.find((todo: Todo) => todo.id === selectedId)).toBeFalsy();
   });
 
-  test("DELETE ALL TODOS - SUCCESS", () => {
+  test("Should delete all todos - SUCCESS", () => {
     const state: AppState = { todos: [
       {
         id: shortid(),

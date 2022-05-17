@@ -162,3 +162,14 @@ input:focus {
   background-color: #ef4444 !important;
   color: #fff;
 }
+
+.Toastify__close-button.Toastify__close-button--light {
+  box-shadow: initial !important;
+  border-radius: initial !important;
+  min-height: initial !important;
+  min-width: initial !important;
+}
+
+.IsShowing {
+
+}

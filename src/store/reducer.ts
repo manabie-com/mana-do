@@ -38,8 +38,13 @@ function reducer(state: AppState, action: AppActions): AppState {
   switch (action.type) {
     case SET_TODO:
       return LocalStore.getCachedState().todos.length > 0 ? LocalStore.getCachedState(): state;
+      
     case CREATE_TODO:
-      if (action.payload.content.length === 0) {
+      if (action.payload.content.trim().length === 0) {
+        return state;
+      }
+
+      if (state.todos.some((todo: Todo) => todo.content.toLowerCase() === action.payload.content.trim().toLowerCase())) {
         return state;
       }
       
