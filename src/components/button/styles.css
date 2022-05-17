@@ -9,9 +9,7 @@
   padding-left: 10px;
   padding-right: 10px;
 }
-.Action__btn:focus {
-  box-shadow: 0 2px 0 #0c8d72;
-}
+/* Color */
 .Action__btn--default {
   background-color: #4c4c4c;
 }
@@ -23,4 +21,14 @@
 }
 .Action__btn--secondary {
   background-color: #3cbce1;
+}
+/* Variant */
+.Action__btn--icon {
+  padding-left: 0;
+  padding-right: 0;
+  background-color: transparent;
+  min-width: 32px;
+  width: 32px;
+  height: 32px;
+  border:none;
 }

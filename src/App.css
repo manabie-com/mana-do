@@ -69,18 +69,6 @@ input:focus {
   margin-top: 1.5rem;
 }
 
-.ToDo__item {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.ToDo__item > span {
-  flex: 1 1;
-  text-align: left;
-  margin-left: 8px;
-}
-
 .Todo__content {
   flex: 1 1;
 }

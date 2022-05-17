@@ -6,12 +6,14 @@ import {
     createTodo,
     toggleAllTodos,
     deleteAllTodos,
-    updateTodoStatus
+    updateTodoStatus,
+    editTodo
 } from './store/actions';
 import Service from './service';
 import {TodoStatus} from './models/todo';
 import TodoItem from './components/todo-item';
 import Button from './components/button';
+import Input from './components/input';
 
 type EnhanceTodoStatus = TodoStatus | 'ALL';
 
@@ -24,20 +26,24 @@ const ToDoPage = () => {
     useEffect(()=>{
         (async ()=>{
             const resp = await Service.getTodos();
-
             dispatch(setTodos(resp || []));
-        })()
+        })();
     }, [])
 
     const onCreateTodo = async (e: React.KeyboardEvent<HTMLInputElement>) => {
-        if (e.key === 'Enter' && inputRef.current ) {
+        if (e.key === 'Enter' && inputRef.current && inputRef.current.value !== "") {
             const resp = await Service.createTodo(inputRef.current.value);
             dispatch(createTodo(resp));
+            resetInput();
         }
     }
 
-    const onUpdateTodoStatus = (e: React.ChangeEvent<HTMLInputElement>, todoId: any) => {
-        dispatch(updateTodoStatus(todoId, e.target.checked))
+    const onUpdateTodoStatus = async (e: React.ChangeEvent<HTMLInputElement>, todoId: any) => {
+      const checked = e.target.checked;
+      const res = await Service.editTodo(todoId, checked);
+      if (res === true) {
+        dispatch(updateTodoStatus(todoId, checked));
+      }
     }
 
     const onToggleAllTodo = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -48,11 +54,21 @@ const ToDoPage = () => {
         dispatch(deleteAllTodos());
     }
 
+    const onEditTodo = async (id: string, newContent: string) => {
+      const res = await Service.editTodo(id, newContent);
+      if (res) {
+        dispatch(editTodo(id, newContent));
+      }
+    }
+
+    const resetInput = () => {
+      if (inputRef.current) inputRef.current.value = '';
+    }
 
     return (
         <div className="ToDo__container">
             <div className="Todo__creation">
-                <input
+                <Input
                     ref={inputRef}
                     className="Todo__input"
                     placeholder="What need to be done?"
@@ -61,7 +77,7 @@ const ToDoPage = () => {
             </div>
             <div className="ToDo__list">
                 {
-                    todos.map(todo => <TodoItem todo={todo} onUpdateTodoStatus={onUpdateTodoStatus}/>)
+                    todos.map(todo => <TodoItem key={todo.id} todo={todo} onUpdateTodoStatus={onUpdateTodoStatus} onDelete={() => {}} onEdit={onEditTodo}/>)
                 }
             </div>
             <div className="Todo__toolbar">

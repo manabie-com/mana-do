@@ -1,0 +1,24 @@
+.ToDo__item--COMPLETED {
+  text-decoration: line-through;
+  background-color: #eeeeee;
+}
+.ToDo__item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 8px;
+  margin-bottom: 2px;
+}
+.ToDo__item:hover {
+  background-color: #e2e2e2e2;
+  cursor: pointer;
+}
+.ToDo__item:last-child {
+  margin-bottom: 0;
+}
+
+.ToDo__item > span {
+  flex: 1 1;
+  text-align: left;
+  margin-left: 8px;
+}
