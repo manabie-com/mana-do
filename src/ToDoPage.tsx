@@ -36,12 +36,12 @@ const ToDoPage = () => {
         if (e.key === 'Enter' && inputRef.current.value.length > 0) {
             const resp: Todo = await Service.createTodo(inputRef.current.value);
             dispatch(createTodo(resp));
-            if (todos.some((todo: Todo) => inputRef.current.value.toLowerCase() === todo.content.toLocaleLowerCase())) {
-                toast.error('This to do has already exist!');
-            } else {
+            // if (todos.some((todo: Todo) => inputRef.current.value.trim.toLowerCase() === todo.content.toLowerCase())) {
+            //     toast.error('This to do has already exist!');
+            // } else {
                 toast.success('To do has been created!');
                 inputRef.current.value = "";
-            }
+            // }
         }
     }
 
