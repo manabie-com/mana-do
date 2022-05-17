@@ -25,8 +25,6 @@ describe('TodoItem testing', () => {
 
   beforeEach(() => {
     wrapper = shallow(<TodoItem index={0} todo={mockTodo} handleDelete={mockDelete} handleUpdate={mockUpdate} />);
-    checkbox = wrapper.find('input[type="checkbox"]');
-    deleteBtn = wrapper.find('btn.Todo__delete');
   });
 
   test('complete the todo when check the checkbox', () => {
