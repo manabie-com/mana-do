@@ -2,23 +2,18 @@ import React, { useEffect, useReducer, useRef, useState } from 'react';
 
 import reducer, { initialState } from './store/reducer';
 import {
-    // setTodos,
     createTodo,
-    // toggleAllTodos,
-    // deleteAllTodos,
     updateTodoStatus,
     updateTodo,
     setData,
     completeTodos,
-    deleteAllTodos,
     deleteTodos
 } from './store/actions';
 import Service from './service';
-import { Todo, TodoStatus } from './models/todo';
+import { Todo } from './models/todo';
 import './ToDoPage.css';
 import moment from 'moment';
 
-// type EnhanceTodoStatus = TodoStatus | 'ALL';
 
 function useOutsideAlerter(ref: any, fuc: Function) {
     useEffect(() => {
