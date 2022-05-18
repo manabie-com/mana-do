@@ -1,0 +1,87 @@
+.todoItem {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 3px 24px;
+
+	&:hover {
+		background-color: #f2f2f2;
+
+		.todoDelete {
+			opacity: 1;
+		}
+	}
+
+	input[type="checkbox"] {
+		width: 20px;
+		height: 20px;
+		background-color: #f4f4f4;
+		box-shadow: none;
+		border: 6px solid #c4c4c4;
+		border-radius: 17px;
+		outline: none;
+		flex: 0 0 24px;
+		cursor: pointer;
+		margin: 0;
+		margin-right: 4px;
+	}
+
+	input[type="checkbox"]:focus {
+		box-shadow: none;
+		border: none;
+		outline: none;
+	}
+
+	input[type="text"] {
+		border: none;
+		background-color: transparent;
+		width: 100%;
+		outline: none;
+		line-height: 2;
+		font-size: 15px;
+		margin-left: 8px;
+	}
+}
+
+.itemInner {
+	display: flex;
+	justify-content: space-between;
+	flex: 1;
+}
+
+.todoDelete {
+	outline: none;
+	opacity: 0;
+	border: none;
+	width: 32px;
+	height: 32px;
+	min-width: auto;
+	min-height: auto;
+	box-shadow: none;
+	border-radius: 50%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	cursor: pointer;
+
+	&:hover {
+		background-color: #ddd;
+	}
+}
+
+.itemInnerLeft {
+	display: flex;
+	flex: 1;
+	align-items: center;
+
+	span {
+		padding-left: 10px;
+		font-size: 15px;
+		color: #413f3f;
+	}
+}
+
+.itemCompleted {
+	text-decoration-line: line-through;
+	color: #b5b5ba !important;
+}

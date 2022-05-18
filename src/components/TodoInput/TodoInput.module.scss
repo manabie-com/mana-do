@@ -1,0 +1,26 @@
+.inputContainer {
+	display: flex;
+	padding: 0 24px;
+}
+
+.checkDecor {
+	width: 20px;
+	height: 20px;
+	background-color: #e2e2e2;
+	border: 3px solid #e2e2e2;
+	border-radius: 9px;
+	margin-right: 10px;
+}
+
+.input {
+	border: none;
+	background-color: transparent;
+	width: 100%;
+	outline: none;
+	line-height: 1.8;
+	font-size: 14px;
+
+	&::placeholder {
+		color: rgba(65, 63, 63, 0.6);
+	}
+}

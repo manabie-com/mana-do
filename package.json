@@ -39,6 +39,11 @@
     ]
   },
   "devDependencies": {
-    "@types/shortid": "^0.0.29"
+    "@testing-library/dom": "^8.13.0",
+    "@testing-library/jest-dom": "^5.16.4",
+    "@testing-library/react": "^12.1.5",
+    "@testing-library/user-event": "^14.2.0",
+    "@types/shortid": "^0.0.29",
+    "sass": "^1.51.0"
   }
 }
