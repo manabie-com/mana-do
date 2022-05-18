@@ -4,7 +4,7 @@
     justify-content: space-around;
 }
 .todo__task{
-    width: 14vw;
+    width: 40vw;
     background-color: #ebecf0;
     height: fit-content;
     border-radius: 6px;
@@ -40,7 +40,6 @@
     width: fit-content;
     border-radius: 6px;
     padding: 3px;
-    margin-top: 10px;
 }
 .donot{
     background-color:#ff9999;
@@ -61,4 +60,42 @@
     border: 0px;
     box-shadow: none !important;
     row-gap: 5;
+}
+.todo__footer{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 10px;
+    justify-content: space-between;
+}
+.todo__checkbox{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-left: 20px;
+}
+.todo__checkbox p{
+    font-size: 13px;
+}
+.todo__checkbox input{
+    height:16px !important;
+    width: 16px !important;
+}
+.todo__grp_btn{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+.todo__grp_btn button{
+    height: 40px;
+    width: 200px;
+    border: 0px;
+    color: #ffff;
+}
+.btn__delete{
+    background-color: #b81212;
+}
+.btn__complete{
+    background-color: #146e2c;
 }

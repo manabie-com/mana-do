@@ -9,6 +9,9 @@ export const TOGGLE_ALL_TODOS = 'TOGGLE_ALL_TODOS';
 export const UPDATE_TODO_STATUS = 'UPDATE_TODO_STATUS';
 export const UPDATE_TODO = 'UPDATE_TODO';
 
+export const COMPLETE_TODOS = "COMPLETE_TODOS"
+export const DELETE_TODOS = "DELETE_TODOS"
+
 export const SET_DATA = 'SET_DATA';
 
 export interface SetTodoAction {
@@ -117,12 +120,38 @@ export function updateTodo(todo: Todo): UpdateTodoAction {
   }
 }
 
+export interface CompleteTodosAction {
+  type: typeof COMPLETE_TODOS,
+  payload: Array<Todo>
+}
+
+export function completeTodos(todos: Array<Todo>): CompleteTodosAction {
+  return {
+    type: COMPLETE_TODOS,
+    payload: todos
+  }
+}
+
+export interface DeleteTodosAction {
+  type: typeof DELETE_TODOS,
+  payload: Array<Todo>
+}
+
+export function deleteTodos(todos: Array<Todo>): DeleteTodosAction {
+  return {
+    type: DELETE_TODOS,
+    payload: todos
+  }
+}
+
 export type AppActions =
   SetTodoAction |
   CreateTodoAction |
   UpdateTodoStatusAction |
   DeleteTodoAction |
   DeleteAllTodosAction |
-  ToggleAllTodosAction|
-  UpdateTodoAction|
-  SetDataAction;
+  ToggleAllTodosAction |
+  UpdateTodoAction |
+  SetDataAction |
+  CompleteTodosAction |
+  DeleteTodosAction;

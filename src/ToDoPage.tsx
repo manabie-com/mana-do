@@ -8,7 +8,10 @@ import {
     // deleteAllTodos,
     updateTodoStatus,
     updateTodo,
-    setData
+    setData,
+    completeTodos,
+    deleteAllTodos,
+    deleteTodos
 } from './store/actions';
 import Service from './service';
 import { Todo, TodoStatus } from './models/todo';
@@ -37,7 +40,7 @@ function useOutsideAlerter(ref: any, fuc: Function) {
 const TodoItem = (props: any) => {
     const wrapperRef = useRef(null);
 
-    const { todo, type, onDrop, onDragStart, onDragEnd, onDragOver, dispatch } = props
+    const { todo, type, onDrop, onDragStart, onDragEnd, onDragOver, dispatch, onCheckTask } = props
 
     const [isEditContent, setIsEditContent] = useState<Boolean>(false)
     const [contentTodo, setContentTodo] = useState<any>(todo.content)
@@ -70,26 +73,29 @@ const TodoItem = (props: any) => {
                     {todo.content}
                 </div>
             }
-            <div className={`item__time ${type}`}>
-                {moment(todo.created_date).format("DD/MM/YYYY")}
+
+            <div className='todo__footer'>
+                <div className={`item__time ${type}`}>
+                    {moment(todo.created_date).format("DD/MM/YYYY")}
+                </div>
+                {type == "do" && <div className='todo__checkbox'>
+                    <input type="checkbox" onChange={() => onCheckTask(todo)} />
+                </div>
+                }
             </div>
         </div>)
 }
 
 const ToDoPage = () => {
+    console.log(localStorage)
     const [reducerState, dispatch] = useReducer(reducer, initialState);
-    // const [showing, setShowing] = useState<EnhanceTodoStatus>('ALL');
     const inputRef = useRef<any>(null);
 
     const [todoWillUpdate, setTodoWillUpdate] = useState<any>()
-
+    const [todoCheck, setTodoCheck] = useState<Todo[]>([])
     const {
         todos = [],
-        todosDoing = [],
-        todosUrgent = [],
-        todosDonot = [],
         todosDone = [],
-        todosRemoved = []
     } = reducerState
 
     useEffect(() => {
@@ -107,18 +113,6 @@ const ToDoPage = () => {
         }
     }
 
-    // const onUpdateTodoStatus = (e: React.ChangeEvent<HTMLInputElement>, todoId: any, statusOld: string, statusNew: string) => {
-    //     // dispatch(updateTodoStatus(todoId, statusOld, statusNew))
-    // }
-
-    // const onToggleAllTodo = (e: React.ChangeEvent<HTMLInputElement>) => {
-    //     dispatch(toggleAllTodos(e.target.checked))
-    // }
-
-    // const onDeleteAllTodo = () => {
-    //     dispatch(deleteAllTodos());
-    // }
-
     const onDrop = (event: any, type: string, todo: Todo) => {
         event.preventDefault();
         dispatch(updateTodoStatus({ ...todoWillUpdate.todo, status: type }, todoWillUpdate.type, event.target.title))
@@ -127,29 +121,49 @@ const ToDoPage = () => {
     const onDragOver = (event: any, type: string, todo: Todo) => {
         event.preventDefault();
     }
+
     const onDragStart = (event: any, type: string, todo: Todo) => {
         if (todo.id) {
             setTodoWillUpdate({ todo: todo, type: type })
         }
     }
+
     const onDragEnd = (event: any, type: string, todo: Todo) => {
     }
+
+    const onCheckTask = (task: Todo) => {
+        if (todoCheck.includes(task)) {
+            let todosTmp = []
+            todosTmp = todoCheck.filter(element => element.id != task.id)
+            setTodoCheck(todosTmp)
+        }
+        else {
+            setTodoCheck([...todoCheck, task])
+        }
+    }
+
+    const onFinishTasks = () => {
+        dispatch(completeTodos(todoCheck))
+        setTodoCheck([])
+    }
+
+    const onDeleteTasks = () => {
+        dispatch(deleteTodos(todoCheck))
+        setTodoCheck([])
+    }
+
     return (
         <div className='todo__page'>
             {
                 [
                     { task: 'do', data: todos },
-                    { task: 'doing', data: todosDoing },
-                    { task: 'urgent', data: todosUrgent },
-                    { task: 'donot', data: todosDonot },
                     { task: 'done', data: todosDone },
-                    { task: 'removed', data: todosRemoved }
                 ].map(element =>
                     <div className='todo__task'>
                         <div className='task__title'>{element.task}</div>
                         <div className='task__content'>
                             {
-                                element.data.map((todo, index) => <TodoItem key={todo.id} dispatch={dispatch} todo={todo} type={element.task} onDrop={onDrop} onDragStart={onDragStart} onDragEnd={onDragEnd} onDragOver={onDragOver} />)
+                                element.data.map((todo, index) => <TodoItem key={todo.id} dispatch={dispatch} todo={todo} type={element.task} onDrop={onDrop} onDragStart={onDragStart} onDragEnd={onDragEnd} onDragOver={onDragOver} onCheckTask={onCheckTask} />)
                             }
                             <div style={{ height: 10 }} title={element.task} onDrop={event => onDrop(event, element.task, {})} onDragStart={event => onDragStart(event, element.task, {})} onDragEnd={event => onDragEnd(event, element.task, {})} onDragOver={event => onDragOver(event, element.task, {})} draggable />
                         </div>
@@ -160,6 +174,13 @@ const ToDoPage = () => {
                                 placeholder="What need to be done?"
                                 onKeyDown={e => onCreateTodo(e)}
                             />
+                        }
+                        {
+                            todoCheck.length > 0 && element.task == "do" &&
+                            <div className='todo__grp_btn'>
+                                <button className='btn__complete' onClick={() => onFinishTasks()}>Complete the tasks</button>
+                                <button className='btn__delete' onClick={() => onDeleteTasks()}>Delete the tasks</button>
+                            </div>
                         }
                     </div>
                 )

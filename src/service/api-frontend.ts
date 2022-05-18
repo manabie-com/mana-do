@@ -36,6 +36,7 @@ class ApiFrontend extends IAPI {
     async updateTodo(todo: Todo, content: string): Promise<Todo> {
         return Promise.resolve({ ...todo, content: content } as Todo);
     }
+
     async updateStatusTodo(todo: Todo, status: string): Promise<Todo> {
         return Promise.resolve({ ...todo, status: status } as Todo);
     }

@@ -1,4 +1,3 @@
-import { stringify } from 'querystring';
 import { Todo, TodoStatus } from '../models/todo';
 import {
   AppActions,
@@ -9,10 +8,12 @@ import {
   UPDATE_TODO,
   UPDATE_TODO_STATUS,
   SET_TODO,
-  SET_DATA
+  SET_DATA,
+  COMPLETE_TODOS,
+  DELETE_TODOS
 } from './actions';
 
-var localStorage: Storage
+// var localStorage: Storage
 export interface AppState {
   todos: Array<Todo>,
   todosDoing: Array<Todo>,
@@ -139,6 +140,27 @@ function reducer(state: AppState, action: AppActions): AppState {
 
     case SET_DATA:
       state = { ...action.payload }
+      return { ...state }
+
+    case COMPLETE_TODOS:
+      state.todosDone = [...state.todosDone, ...action.payload]
+      state.todos = state.todos.filter(element => !action.payload.includes(element))
+      try {
+        localStorage.setItem("initialState", JSON.stringify(state));
+      }
+      catch (err) {
+        console.log(err)
+      };
+      return { ...state }
+
+    case DELETE_TODOS:
+      state.todos = state.todos.filter(element => !action.payload.includes(element))
+      try {
+        localStorage.setItem("initialState", JSON.stringify(state));
+      }
+      catch (err) {
+        console.log(err)
+      };
       return { ...state }
 
     default:
