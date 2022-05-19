@@ -5,6 +5,7 @@ import shortid from 'shortid';
 const mockToken = 'testabc.xyz.ahk'
 
 class ApiFrontend extends IAPI {
+    
     async signIn(username: string, password: string): Promise<string>{
         if (username === 'firstUser' && password === 'example') {
             return Promise.resolve(mockToken)
@@ -14,17 +15,40 @@ class ApiFrontend extends IAPI {
     }
 
     async createTodo(content: string): Promise<Todo> {
-        return Promise.resolve({
+        const newId = shortid();
+        const item: Todo = {
             content: content,
             created_date: new Date().toISOString(),
             status: TodoStatus.ACTIVE,
-            id: shortid(),
+            id: newId,
             user_id: 'firstUser'
-        } as Todo);
+        }
+        localStorage.setItem(`__todo__${newId}`, JSON.stringify(item));
+        return Promise.resolve(item);
     }
 
     async getTodos(): Promise<Todo[]>{
-        return []
+        const keys = Object.keys(localStorage);
+        const values: Todo[] = [];
+        keys.forEach((key) => {
+            if (key.indexOf('__todo__') === 0) {
+                const itemStr = localStorage.getItem(key);
+                if (itemStr?.length) {
+                    values.push(JSON.parse(itemStr));
+                }
+            }
+        });
+        return values;
+    }
+
+    async deleteTodo(todoId: string): Promise<string | null> {
+        const key = `__todo__${todoId}`;
+        const itemStr = localStorage.getItem(key);
+        if (itemStr) {
+            localStorage.removeItem(key);
+            return todoId;
+        }
+        return null;
     }
 }
 

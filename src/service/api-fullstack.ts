@@ -23,6 +23,10 @@ class ApiFullstack extends IAPI {
 
         return resp.data.data;
     }
+
+    async deleteTodo(todoId: string): Promise<string | null> {
+        throw new Error('noImplement');
+    }
 }
 
 
