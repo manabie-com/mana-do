@@ -1,5 +1,5 @@
 import {IAPI} from './types';
-import {Todo} from '../models/todo';
+import {Todo, TodoStatus} from '../models/todo';
 import axios from '../utils/axios';
 import {AxiosResponse} from 'axios';
 
@@ -25,6 +25,10 @@ class ApiFullstack extends IAPI {
     }
 
     async deleteTodo(todoId: string): Promise<string | null> {
+        throw new Error('noImplement');
+    }
+
+    async updateTodo(todoId: string, status: TodoStatus): Promise<number> {
         throw new Error('noImplement');
     }
 }

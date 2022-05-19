@@ -50,6 +50,20 @@ class ApiFrontend extends IAPI {
         }
         return null;
     }
+
+    async updateTodo(todoId: string, status: TodoStatus): Promise<number> {
+        const key = `__todo__${todoId}`;
+        const objStr = localStorage.getItem(key);
+        if (!objStr) return 0;
+        try {
+            const obj: Todo = JSON.parse(objStr);
+            obj.status = status;
+            localStorage.setItem(key, JSON.stringify(obj));
+            return 1;
+        } catch (e) {
+            return 0;
+        }
+    }
 }
 
 export default new ApiFrontend();

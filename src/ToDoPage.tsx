@@ -1,10 +1,4 @@
-import React, {
-  useEffect,
-  useReducer,
-  useRef,
-  useState,
-  useCallback,
-} from "react";
+import React, { useEffect, useReducer, useState, useCallback } from "react";
 import { RouteComponentProps } from "react-router-dom";
 
 import reducer, { initialState } from "./store/reducer";
@@ -23,12 +17,9 @@ import { isTodoCompleted } from "./utils";
 import TodoItem from "./components/TodoItem";
 import TodoInput from "./components/TodoInput";
 
-type EnhanceTodoStatus = TodoStatus | "ALL";
-
 const ToDoPage = ({ history }: RouteComponentProps) => {
   const [{ todos }, dispatch] = useReducer(reducer, initialState);
-  const [showing, setShowing] = useState<EnhanceTodoStatus>("ALL");
-  const inputRef = useRef<HTMLInputElement>(null);
+  const [showing, setShowing] = useState<TodoStatus | "ALL">("ALL");
 
   useEffect(() => {
     (async () => {
@@ -49,8 +40,11 @@ const ToDoPage = ({ history }: RouteComponentProps) => {
   }, []);
 
   const handleUpdateTodoStatus = useCallback(
-    (todoId: string, status: TodoStatus) => {
-      dispatch(updateTodoStatus(todoId, status));
+    async (todoId: string, status: TodoStatus) => {
+      const resp = await Service.updateTodo(todoId, status);
+      if (resp) {
+        dispatch(updateTodoStatus(todoId, status));
+      }
     },
     []
   );
