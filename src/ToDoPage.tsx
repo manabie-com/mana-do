@@ -54,9 +54,11 @@ const ToDoPage = ({ history }: RouteComponentProps) => {
     }
   }, []);
 
-  const onDeleteAllTodo = () => {
+  const onDeleteAllTodo = useCallback(async () => {
+    const resp = await Service.deleteAllTodos();
+    if (!resp?.length) return;
     dispatch(deleteAllTodos());
-  };
+  }, []);
 
   const showTodos = todos.filter((todo) => {
     switch (showing) {

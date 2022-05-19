@@ -27,6 +27,9 @@ class ApiFullstack extends IAPI {
     async deleteTodo(todoId: string): Promise<string | null> {
         throw new Error('noImplement');
     }
+    async deleteAllTodos(): Promise<string[] | null> {
+        throw new Error('noImplement');
+    }
 
     async updateTodo(todo: Todo): Promise<Todo | null> {
         throw new Error('noImplement');
