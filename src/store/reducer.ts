@@ -1,10 +1,10 @@
-import {Todo, TodoStatus} from '../models/todo';
+import {Todo} from '../models/todo';
 import {
   AppActions,
   CREATE_TODO,
   DELETE_ALL_TODOS,
   DELETE_TODO,
-  TOGGLE_ALL_TODOS,
+  UPDATE_TODOS,
   UPDATE_TODO,
   SET_TODO,
 } from './actions';
@@ -33,20 +33,13 @@ function reducer(state: AppState, action: AppActions): AppState {
       state.todos[index2] = action.payload;
       return {
         ...state,
-        todos: state.todos
+        todos: [...state.todos]
       }
 
-    case TOGGLE_ALL_TODOS:
-      const tempTodos = state.todos.map((e)=>{
-        return {
-          ...e,
-          status: action.payload ? TodoStatus.COMPLETED : TodoStatus.ACTIVE
-        }
-      })
-
+    case UPDATE_TODOS:
       return {
         ...state,
-        todos: tempTodos
+        todos: action.payload,
       }
 
     case DELETE_TODO:

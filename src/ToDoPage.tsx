@@ -6,7 +6,7 @@ import {
   setTodos,
   createTodo,
   deleteTodo,
-  toggleAllTodos,
+  updateTodos,
   deleteAllTodos,
   updateTodoStatus,
 } from "./store/actions";
@@ -20,6 +20,7 @@ import TodoInput from "./components/TodoInput";
 const ToDoPage = ({ history }: RouteComponentProps) => {
   const [{ todos }, dispatch] = useReducer(reducer, initialState);
   const [showing, setShowing] = useState<TodoStatus | "ALL">("ALL");
+  const [toggleAll, setToggleAll] = useState(false);
 
   useEffect(() => {
     (async () => {
@@ -39,15 +40,12 @@ const ToDoPage = ({ history }: RouteComponentProps) => {
     }
   }, []);
 
-  const handleupdateTodoStatus = useCallback(
-    async (todo: Todo) => {
-      const resp = await Service.updateTodo(todo);
-      if (resp) {
-        dispatch(updateTodoStatus(resp));
-      }
-    },
-    []
-  );
+  const handleupdateTodoStatus = useCallback(async (todo: Todo) => {
+    const resp = await Service.updateTodo(todo);
+    if (resp) {
+      dispatch(updateTodoStatus(resp));
+    }
+  }, []);
 
   const handleDeleteTodo = useCallback(async (todoId: string) => {
     const todoIdDeleted = await Service.deleteTodo(todoId);
@@ -55,10 +53,6 @@ const ToDoPage = ({ history }: RouteComponentProps) => {
       dispatch(deleteTodo(todoIdDeleted));
     }
   }, []);
-
-  const onToggleAllTodo = (e: React.ChangeEvent<HTMLInputElement>) => {
-    dispatch(toggleAllTodos(e.target.checked));
-  };
 
   const onDeleteAllTodo = () => {
     dispatch(deleteAllTodos());
@@ -75,9 +69,27 @@ const ToDoPage = ({ history }: RouteComponentProps) => {
     }
   });
 
-  const activeTodos = todos.reduce(function (accum, todo) {
-    return isTodoCompleted(todo) ? accum : accum + 1;
-  }, 0);
+  const onToggleAllTodo = useCallback(async () => {
+    const newToggleVal = !toggleAll;
+    const list = await Service.getTodos();
+    if (!list?.length) return;
+    const newList = list.map((item) => {
+      return {
+        ...item,
+        status: newToggleVal ? TodoStatus.COMPLETED : TodoStatus.ACTIVE,
+      };
+    });
+    const resp = await Service.updateTodos(newList);
+    if (!resp?.length) return;
+    dispatch(updateTodos(resp));
+  }, [toggleAll]);
+
+  useEffect(() => {
+    const activeTodos = todos.reduce((sum, todo) => {
+      return isTodoCompleted(todo) ? sum : sum + 1;
+    }, 0);
+    setToggleAll(!activeTodos);
+  }, [todos]);
 
   return (
     <div className="ToDo__container">
@@ -106,7 +118,7 @@ const ToDoPage = ({ history }: RouteComponentProps) => {
         {todos.length > 0 ? (
           <input
             type="checkbox"
-            checked={activeTodos === 0}
+            checked={toggleAll}
             onChange={onToggleAllTodo}
           />
         ) : (
