@@ -11,7 +11,7 @@ import {
   updateTodoStatus,
 } from "./store/actions";
 import Service from "./service";
-import { TodoStatus } from "./models/todo";
+import { Todo, TodoStatus } from "./models/todo";
 import { isTodoCompleted } from "./utils";
 
 import TodoItem from "./components/TodoItem";
@@ -39,11 +39,11 @@ const ToDoPage = ({ history }: RouteComponentProps) => {
     }
   }, []);
 
-  const handleUpdateTodoStatus = useCallback(
-    async (todoId: string, status: TodoStatus) => {
-      const resp = await Service.updateTodo(todoId, status);
+  const handleupdateTodoStatus = useCallback(
+    async (todo: Todo) => {
+      const resp = await Service.updateTodo(todo);
       if (resp) {
-        dispatch(updateTodoStatus(todoId, status));
+        dispatch(updateTodoStatus(resp));
       }
     },
     []
@@ -94,12 +94,10 @@ const ToDoPage = ({ history }: RouteComponentProps) => {
         {showTodos.map((todo) => {
           return (
             <TodoItem
+              data={todo}
               key={todo.id}
-              id={todo.id}
-              onChange={handleUpdateTodoStatus}
+              onChange={handleupdateTodoStatus}
               onDelete={handleDeleteTodo}
-              content={todo.content}
-              status={todo.status}
             />
           );
         })}

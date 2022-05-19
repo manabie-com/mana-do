@@ -28,7 +28,11 @@ class ApiFullstack extends IAPI {
         throw new Error('noImplement');
     }
 
-    async updateTodo(todoId: string, status: TodoStatus): Promise<number> {
+    async updateTodo(todo: Todo): Promise<Todo | null> {
+        throw new Error('noImplement');
+    }
+
+    async updateTodos(todos: Todo[]): Promise<Todo[] | null> {
         throw new Error('noImplement');
     }
 }

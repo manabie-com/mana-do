@@ -1,17 +1,22 @@
-import React, { useCallback } from 'react';
-import {TodoStatus} from '../models/todo';
+import React, { useCallback } from "react";
+import { Todo, TodoStatus } from "../models/todo";
 
 interface ITodoItem {
-  id: string,
-  onChange: (todoId: string, status: TodoStatus) => void,
-  onDelete: (todoId: string) => void,
-  content: string,
-  status?: TodoStatus
+  data: Todo;
+  onChange: (todo: Todo) => void;
+  onDelete: (todoId: string) => void;
 }
-const TodoItem = ({ id, onChange, onDelete, content, status }: ITodoItem) => {
-  const handleChange = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
-    onChange(id, event.target.checked ? TodoStatus.COMPLETED : TodoStatus.ACTIVE);
-  }, []);
+const TodoItem = ({ data, onChange, onDelete }: ITodoItem) => {
+  const { id, content, status } = data;
+  const handleChange = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      onChange({
+        ...data,
+        status: event.target.checked ? TodoStatus.COMPLETED : TodoStatus.ACTIVE,
+      });
+    },
+    []
+  );
 
   const handleDelete = useCallback(() => {
     onDelete(id);
@@ -19,20 +24,17 @@ const TodoItem = ({ id, onChange, onDelete, content, status }: ITodoItem) => {
 
   return (
     <div className="ToDo__item">
-        <input
-            type="checkbox"
-            checked={status === TodoStatus.COMPLETED}
-            onChange={handleChange}
-        />
-        <span>{content}</span>
-        <button
-            className="Todo__delete"
-            onClick={handleDelete}
-        >
-            X
-        </button>
+      <input
+        type="checkbox"
+        checked={status === TodoStatus.COMPLETED}
+        onChange={handleChange}
+      />
+      <span>{content}</span>
+      <button className="Todo__delete" onClick={handleDelete}>
+        X
+      </button>
     </div>
-  )
-}
+  );
+};
 
-export default TodoItem
+export default TodoItem;
