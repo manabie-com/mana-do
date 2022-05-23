@@ -3,6 +3,7 @@ import { Todo, TodoStatus } from "../models/todo";
 import shortid from "shortid";
 
 const mockToken = "testabc.xyz.ahk";
+const todoPrefix = '__todo__';
 
 class ApiFrontend extends IAPI {
   async signIn(username: string, password: string): Promise<string> {
@@ -22,7 +23,7 @@ class ApiFrontend extends IAPI {
       id: newId,
       user_id: "firstUser",
     };
-    localStorage.setItem(`__todo__${newId}`, JSON.stringify(item));
+    localStorage.setItem(`${todoPrefix}${newId}`, JSON.stringify(item));
     return Promise.resolve(item);
   }
 
@@ -30,7 +31,7 @@ class ApiFrontend extends IAPI {
     const keys = Object.keys(localStorage);
     const values: Todo[] = [];
     keys.forEach((key) => {
-      if (key.indexOf("__todo__") === 0) {
+      if (key.indexOf(todoPrefix) === 0) {
         const itemStr = localStorage.getItem(key);
         if (itemStr?.length) {
           values.push(JSON.parse(itemStr));
@@ -50,7 +51,7 @@ class ApiFrontend extends IAPI {
   }
 
   async deleteTodo(todoId: string): Promise<string | null> {
-    const key = `__todo__${todoId}`;
+    const key = `${todoPrefix}${todoId}`;
     const itemStr = localStorage.getItem(key);
     if (itemStr) {
       localStorage.removeItem(key);
@@ -61,7 +62,7 @@ class ApiFrontend extends IAPI {
 
   async deleteAllTodos(): Promise<string[] | null> {
     const temp = Object.keys(localStorage);
-    const todoKeys = temp.filter((x) => x.indexOf("__todo__") === 0);
+    const todoKeys = temp.filter((x) => x.indexOf(todoPrefix) === 0);
     todoKeys.forEach((key) => {
       localStorage.removeItem(key);
     });
@@ -70,7 +71,7 @@ class ApiFrontend extends IAPI {
 
   async updateTodo(todo: Todo): Promise<Todo | null> {
     if (!todo?.id) return null;
-    const key = `__todo__${todo.id}`;
+    const key = `${todoPrefix}${todo.id}`;
     localStorage.setItem(key, JSON.stringify(todo));
     return todo;
   }
@@ -79,7 +80,7 @@ class ApiFrontend extends IAPI {
     if (!todos?.length) return null;
     const validTodos = todos.filter((x) => !!x.id);
     validTodos.forEach((item) => {
-      const key = `__todo__${item.id}`;
+      const key = `${todoPrefix}${item.id}`;
       localStorage.setItem(key, JSON.stringify(item));
     });
     return validTodos;
