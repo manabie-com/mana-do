@@ -13,6 +13,16 @@ class ApiFrontend extends IAPI {
         } as Todo);
     }
 
+    async createUpdateTodo(content: string, todoId: string, status: any): Promise<Todo> {
+        return Promise.resolve({
+            content: content,
+            created_date: new Date().toISOString(),
+            status: status,
+            id: todoId,
+            user_id: "firstUser",
+        } as Todo);
+    }
+
     async getTodos(): Promise<Todo[]> {
         return [
             {

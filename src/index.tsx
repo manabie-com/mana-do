@@ -1,13 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
+import ToDoPage from './components/Todo';
 import * as serviceWorker from './serviceWorker';
+import '../src/assets/styles/base.css';
+import '../src/assets/styles/index.css';
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <main className="App">
+  <ToDoPage />
+</main>,
   document.getElementById('root')
 );
 
