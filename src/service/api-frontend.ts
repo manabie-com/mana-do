@@ -3,17 +3,17 @@ import { Todo, TodoStatus } from "../models/todo";
 import shortid from "shortid";
 
 class ApiFrontend extends IAPI {
-    async createTodo(content: string): Promise<Todo> {
+    async createTodo(content: string): Promise<any> {
         return Promise.resolve({
             content: content,
             created_date: new Date().toISOString(),
             status: TodoStatus.ACTIVE,
             id: shortid(),
             user_id: "firstUser",
-        } as Todo);
+        } as any);
     }
 
-    async getTodos(): Promise<Todo[]> {
+    async getTodos(): Promise<any[]> {
         return [
             {
                 content: "Content",
@@ -21,7 +21,7 @@ class ApiFrontend extends IAPI {
                 status: TodoStatus.ACTIVE,
                 id: shortid(),
                 user_id: "firstUser",
-            } as Todo,
+            } as any,
         ];
     }
 }

@@ -1,34 +1,32 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Todo, TodoStatus } from "./models/todo";
+import { TO_DO_LIST } from "./utils/const";
 
 const ToDoPage = () => {
-  const [toDoList, setToDoList] = useState<any>([]);
+  const [toDoList, setToDoList] = useState<Todo[]>([]);
   const [reload, setReload] = useState<boolean>(false);
-  const [showing, setShowing] = useState<any>([]);
-  const inputRef = useRef<any>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    const list = localStorage.getItem("TO_DO_LIST") || "";
+    const list = localStorage.getItem(TO_DO_LIST) || "";
     if (list) {
       setToDoList(JSON.parse(list));
-      setShowing(JSON.parse(list));
-    } else {
-      localStorage.setItem("TO_DO_LIST", JSON.stringify([]));
-      setShowing([]);
     }
   }, [reload]);
 
   const reloadToDoList = (list: Todo[]) => {
-    localStorage.setItem("TO_DO_LIST", JSON.stringify(list));
-    setShowing(list);
+    localStorage.setItem(TO_DO_LIST, JSON.stringify(list));
     setReload(!reload);
-    inputRef.current.value = "";
+    if (inputRef.current) {
+      inputRef.current.value = "";
+    }
   };
 
   const onCreateTodo = async (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       toDoList.push({
-        content: inputRef.current.value,
+        id: Math.random(),
+        content: inputRef.current ? inputRef.current.value : "",
         status: TodoStatus.ACTIVE,
       });
       reloadToDoList(toDoList);
@@ -37,11 +35,11 @@ const ToDoPage = () => {
 
   const onUpdateTodoStatus = (
     e: React.ChangeEvent<HTMLInputElement>,
-    todoId: any
+    todoId: number
   ) => {
-    e.target.checked
-      ? (toDoList[todoId].status = TodoStatus.COMPLETED)
-      : (toDoList[todoId].status = TodoStatus.ACTIVE);
+    toDoList[todoId].status = e.target.checked
+      ? TodoStatus.COMPLETED
+      : TodoStatus.ACTIVE;
     reloadToDoList(toDoList);
   };
 
@@ -50,29 +48,30 @@ const ToDoPage = () => {
   };
 
   const filterByStatus = (status: string) => {
-    setShowing(toDoList.filter((todo: Todo) => todo.status === status));
+    const list = JSON.parse(localStorage.getItem(TO_DO_LIST) || "");
+    setToDoList(list.filter((todo: Todo) => todo.status === status));
   };
 
-  const deleteToDoTask = (index: number) => {
-    toDoList.splice(index, 1);
-    reloadToDoList(toDoList);
+  const deleteToDoTask = async (id: number) => {
+    reloadToDoList(toDoList.filter((item: Todo) => item.id !== id));
   };
 
   const updateToDoContent = (e: any, index: number) => {
-    const element = document.getElementById(`span-${index}`);
-    if (element) {
+    const inputElement = document.getElementById(`span-${index}`);
+    if (inputElement) {
       document.addEventListener("click", function (ev: any) {
-        var isClickInsideElement = element.contains(ev.target);
+        var isClickInsideElement = inputElement.contains(ev.target);
         if (!isClickInsideElement) {
           window.location.reload();
         } else {
-          element.contentEditable = "true";
+          inputElement.contentEditable = "true";
         }
       });
-      element.onkeydown = (event: any) => {
+      inputElement.onkeydown = (event: any) => {
         if (event.key === "Enter") {
-          if (element.innerText.trim().length > 0) {
-            toDoList[index].content = element.innerText.trim();
+          const textInput = inputElement.innerText.trim();
+          if (textInput.length > 0) {
+            toDoList[index].content = textInput;
             reloadToDoList(toDoList);
             window.location.reload();
           } else {
@@ -94,7 +93,7 @@ const ToDoPage = () => {
         />
       </div>
       <div className="ToDo__list">
-        {showing.map((todo: Todo, index: number) => {
+        {toDoList.map((todo: Todo, index: number) => {
           return (
             <div key={index} className="ToDo__item">
               <input
@@ -110,7 +109,7 @@ const ToDoPage = () => {
               </span>
               <button
                 className="Todo__delete"
-                onClick={() => deleteToDoTask(index)}
+                onClick={() => deleteToDoTask(todo.id)}
               >
                 X
               </button>
@@ -120,7 +119,12 @@ const ToDoPage = () => {
       </div>
       <div className="Todo__toolbar">
         <div className="Todo__tabs">
-          <button className="Action__btn" onClick={() => setShowing(toDoList)}>
+          <button
+            className="Action__btn"
+            onClick={() =>
+              setToDoList(JSON.parse(localStorage.getItem(TO_DO_LIST) || ""))
+            }
+          >
             All
           </button>
           <button
