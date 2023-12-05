@@ -18,7 +18,7 @@
   },
   "scripts": {
     "start:fullstack": "cross-env REACT_APP_WHOAMI=fullstack react-scripts start",
-    "start:frontend": "cross-env REACT_APP_WHOAMI=frontend react-scripts start",
+    "start:frontend": "cross-env REACT_APP_WHOAMI=frontend react-scripts --openssl-legacy-provider start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
