@@ -7,6 +7,7 @@ import {
   toggleAllTodos,
   deleteAllTodos,
   updateTodoStatus,
+  deleteTodo,
 } from "./store/actions";
 import Service from "./service";
 import { TodoStatus } from "./models/todo";
@@ -21,15 +22,17 @@ const ToDoPage = () => {
   useEffect(() => {
     (async () => {
       const resp = await Service.getTodos();
-
       dispatch(setTodos(resp || []));
     })();
   }, []);
 
   const onCreateTodo = async (e: React.KeyboardEvent<HTMLInputElement>) => {
+     
     if (e.key === "Enter") {
+       console.log('error')
       const resp = await Service.createTodo(inputRef.current.value);
       dispatch(createTodo(resp));
+
     }
   };
 
@@ -49,7 +52,7 @@ const ToDoPage = () => {
   };
 
   return (
-    <div className="overlay">
+    <div className="ToDo__overlay">
       <div className="ToDo__main">
         <div className="ToDo__container">
           <div className="Todo__creation">
@@ -66,11 +69,11 @@ const ToDoPage = () => {
                 <div key={index} className="ToDo__item">
                   <input
                     type="checkbox"
-                    checked={showing === todo.status}
+                    checked={showing === todo.state}
                     onChange={(e) => onUpdateTodoStatus(e, index)}
                   />
                   <span>{todo.content}</span>
-                  <button className="Todo__delete">X</button>
+                  <button className="Todo__delete" onClick={() => dispatch(deleteTodo(todo.id))}>X</button>
                 </div>
               );
             })}
@@ -82,7 +85,7 @@ const ToDoPage = () => {
               <div />
             )}
             <div className="Todo__tabs">
-              <button className="Action__btn">All</button>
+              <button className="Action__btn" onClick={() => setShowing('ALL')}>All</button>
               <button
                 className="Action__btn"
                 onClick={() => setShowing(TodoStatus.ACTIVE)}

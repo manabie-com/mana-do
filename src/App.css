@@ -65,7 +65,7 @@ input {
   opacity: 1;
 }
 
-.overlay {
+.ToDo__overlay {
   width: 100%;
   height: 618px;
   background-color: rgba(102, 98, 98, 0.555);
@@ -73,7 +73,7 @@ input {
 
 #img {
   width: 250px;
-  height: 300px;
+  height: 350px;
   
 }
 
@@ -86,7 +86,7 @@ input {
   padding: 24px;
   box-shadow: 2px 2px 1px rgba(0,0,0, 0.09),
               3px 2px 3px rgba(0,0,0, 0.05);
-  background-color: rgba(49, 48, 48, 0.63)
+  background-color: rgba(87, 85, 85, 0.63)
 }
 
 
@@ -175,4 +175,6 @@ input {
 .Todo__toolbar > .Clear__btn {
   background-color: rgb(247, 72, 72);
   color: black;
+  margin-left: 35px;
+  margin-right: -5px;
 }
