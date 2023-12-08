@@ -29,13 +29,12 @@ const ToDoPage = () => {
   const onCreateTodo = async (e: React.KeyboardEvent<HTMLInputElement>) => {
      
     if (e.key === "Enter") {
-       console.log('error')
       const resp = await Service.createTodo(inputRef.current.value);
       dispatch(createTodo(resp));
-
     }
   };
 
+ 
   const onUpdateTodoStatus = (
     e: React.ChangeEvent<HTMLInputElement>,
     todoId: any

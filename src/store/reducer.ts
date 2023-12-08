@@ -25,11 +25,12 @@ function reducer(state: AppState, action: AppActions): AppState {
         ...state
       };
     case CREATE_TODO:
-      console.log('before', state)
-      state.todos.push(action.payload);
-      console.log('after', state)
+      // console.log('before', state)
+      // state.todos.push(action.payload);
+      // console.log('after', state)
       return {
-        ...state
+        ...state, 
+        todos: [...state.todos, (action.payload)]
       };
 
     case UPDATE_TODO_STATUS:
@@ -55,12 +56,12 @@ function reducer(state: AppState, action: AppActions): AppState {
       }
 
     case DELETE_TODO:
-      const index1 = state.todos.findIndex((todo) => todo.id === action.payload);
-      state.todos.splice(index1, 1);
+      // const index1 = state.todos.findIndex((todo) => todo.id === action.payload);
+      // state.todos.splice(index1, 1);
 
       return {
         ...state,
-        todos: state.todos
+        todos: state.todos.filter((todo) => todo.id !== action.payload)
       }
     case DELETE_ALL_TODOS:
       return {
