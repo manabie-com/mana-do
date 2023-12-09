@@ -66,7 +66,7 @@ function reducer(state: AppState, action: AppActions): AppState {
     case DELETE_ALL_TODOS:
       return {
         ...state,
-        todos: []
+        todos: state.todos.filter((todo) => todo.id === action.type)
       }
     default:
       return state;
