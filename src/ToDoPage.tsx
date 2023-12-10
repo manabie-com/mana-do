@@ -8,6 +8,7 @@ import {
   deleteAllTodos,
   updateTodoStatus,
   deleteTodo,
+  changeTodo,
 } from "./store/actions";
 import Service from "./service";
 import { TodoStatus } from "./models/todo";
@@ -34,7 +35,7 @@ const ToDoPage = () => {
     }
   };
 
- 
+
   const onUpdateTodoStatus = (
     e: React.ChangeEvent<HTMLInputElement>,
     todoId: any
@@ -71,7 +72,7 @@ const ToDoPage = () => {
                     checked={showing === todo.state}
                     onChange={(e) => onUpdateTodoStatus(e, index)}
                   />
-                  <span>{todo.content}</span>
+                  <span onClick={() => dispatch(changeTodo(todo.id))}>{todo.content}</span>
                   <button className="Todo__delete" onClick={() => dispatch(deleteTodo(todo.id))}>X</button>
                 </div>
               );
