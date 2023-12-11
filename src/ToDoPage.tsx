@@ -8,7 +8,6 @@ import {
   deleteAllTodos,
   updateTodoStatus,
   deleteTodo,
-  changeTodo,
 } from "./store/actions";
 import Service from "./service";
 import { TodoStatus } from "./models/todo";
@@ -18,7 +17,13 @@ type EnhanceTodoStatus = TodoStatus | "ALL";
 const ToDoPage = () => {
   const [{ todos }, dispatch] = useReducer(reducer, initialState);
   const [showing, setShowing] = useState<EnhanceTodoStatus>("ALL");
+  const [selectedTodo, setSelectedTodo] = useState(-1);
   const inputRef = useRef<any>(null);
+  var editInputRef = useRef<any>(null);
+
+  const setEditInputRef = (ref: any) => {
+    editInputRef = ref
+  }
 
   useEffect(() => {
     (async () => {
@@ -28,14 +33,17 @@ const ToDoPage = () => {
   }, []);
 
   const onCreateTodo = async (e: React.KeyboardEvent<HTMLInputElement>) => {
-     
     if (e.key === "Enter") {
       const resp = await Service.createTodo(inputRef.current.value);
       dispatch(createTodo(resp));
     }
   };
 
-
+  const onChangeTodo = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+     console.log("LOGGGG", inputRef.current.value)
+    }
+  }
   const onUpdateTodoStatus = (
     e: React.ChangeEvent<HTMLInputElement>,
     todoId: any
@@ -72,11 +80,19 @@ const ToDoPage = () => {
                     checked={showing === todo.state}
                     onChange={(e) => onUpdateTodoStatus(e, index)}
                   />
-                  <span onClick={() => dispatch(changeTodo(todo.id))}>{todo.content}</span>
-                  <button className="Todo__delete" onClick={() => dispatch(deleteTodo(todo.id))}>X</button>
+                  <span hidden={(selectedTodo === index)} onDoubleClick={() => setSelectedTodo(index)} 
+                  >{todo.content}</span>
+                  <input type="text" className="Todo__change" defaultValue={todo.content} hidden={!(selectedTodo === index)} onKeyDown={onChangeTodo} ref={React.createRef}
+                  />
+                  <button
+                    className="Todo__delete"
+                    onClick={() => dispatch(deleteTodo(todo.id))}
+                  >
+                    X
+                  </button>
                 </div>
               );
-            })}
+            })} 
           </div>
           <div className="Todo__toolbar">
             {todos.length > 0 ? (
@@ -85,7 +101,9 @@ const ToDoPage = () => {
               <div />
             )}
             <div className="Todo__tabs">
-              <button className="Action__btn" onClick={() => setShowing('ALL')}>All</button>
+              <button className="Action__btn" onClick={() => setShowing("ALL")}>
+                All
+              </button>
               <button
                 className="Action__btn"
                 onClick={() => setShowing(TodoStatus.ACTIVE)}

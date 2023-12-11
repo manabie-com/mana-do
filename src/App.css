@@ -121,6 +121,11 @@ input {
   flex: 1 1;
 }
 
+.Todo__change {
+  border-radius: 10px;
+  margin-left: -200px;
+}
+
 .Todo__delete {
   outline: none;
   border: none;
