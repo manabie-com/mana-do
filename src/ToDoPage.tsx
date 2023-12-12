@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer, useRef, useState } from "react";
+import React, { ChangeEvent, useEffect, useReducer, useRef, useState } from "react";
 
 import reducer, { initialState } from "./store/reducer";
 import {
@@ -8,6 +8,7 @@ import {
   deleteAllTodos,
   updateTodoStatus,
   deleteTodo,
+  CheckAllTodos,
 } from "./store/actions";
 import Service from "./service";
 import { TodoStatus } from "./models/todo";
@@ -20,10 +21,12 @@ const ToDoPage = () => {
   const [selectedTodo, setSelectedTodo] = useState(-1);
   const inputRef = useRef<any>(null);
   var editInputRef = useRef<any>(null);
+  // tao state luu selectedIds
+  const [selectedIds, setSelectedIds] = useState<Array<string>>([]);
 
   const setEditInputRef = (ref: any) => {
-    editInputRef = ref
-  }
+    editInputRef = ref;
+  };
 
   useEffect(() => {
     (async () => {
@@ -41,13 +44,38 @@ const ToDoPage = () => {
 
   const onChangeTodo = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
-     console.log("LOGGGG", inputRef.current.value)
+      console.log("LOGGGG", inputRef.current.value);
     }
-  }
+  };
+
+  const getColorByStatus = (status: TodoStatus) => {
+    switch (status) {
+      case TodoStatus.ACTIVE:
+        return "red";
+      case TodoStatus.COMPLETED:
+        return "blue";
+      default:
+        return "";
+    }
+  };
+
   const onUpdateTodoStatus = (
     e: React.ChangeEvent<HTMLInputElement>,
     todoId: any
   ) => {
+    // push id vo state selectedIds
+    if (e.target.checked) {
+      selectedIds.push(todoId);
+      setSelectedIds(selectedIds);
+      getColorByStatus(TodoStatus.ACTIVE);
+    } else {
+      const index = selectedIds.indexOf(todoId, 0);
+      if (index > -1) {
+        selectedIds.splice(index, 1);
+        setSelectedIds(selectedIds);
+      }
+      getColorByStatus(TodoStatus.COMPLETED);
+    }
     dispatch(updateTodoStatus(todoId, e.target.checked));
   };
 
@@ -57,6 +85,10 @@ const ToDoPage = () => {
 
   const onDeleteAllTodo = () => {
     dispatch(deleteAllTodos());
+  };
+
+  const onCheckAllTodo = () => {
+    dispatch(CheckAllTodos());
   };
 
   return (
@@ -77,12 +109,30 @@ const ToDoPage = () => {
                 <div key={index} className="ToDo__item">
                   <input
                     type="checkbox"
-                    checked={showing === todo.state}
-                    onChange={(e) => onUpdateTodoStatus(e, index)}
+                    defaultChecked={showing === todo.id}
+                    onChange={(e) => onUpdateTodoStatus(e, todo.id)}
+                    // onClick ={(e) => {
+                    //   if(onSelectedStatus === e.target.checked) {
+                    //     getColorByStatus(TodoStatus.ACTIVE);
+                    //   } else if (onSelectedStatus !== e.target.checked) {
+                    //     getColorByStatus(TodoStatus.COMPLETED)
+                    //   }
+                    // }}
                   />
-                  <span hidden={(selectedTodo === index)} onDoubleClick={() => setSelectedTodo(index)} 
-                  >{todo.content}</span>
-                  <input type="text" className="Todo__change" defaultValue={todo.content} hidden={!(selectedTodo === index)} onKeyDown={onChangeTodo} ref={React.createRef}
+                  <span
+                    hidden={selectedTodo === index}
+                    onDoubleClick={() => setSelectedTodo(index)}
+                    style={{ color: getColorByStatus(todo.status) }}
+                  >
+                    {todo.content}
+                  </span>
+                  <input
+                    type="text"
+                    className="Todo__change"
+                    defaultValue={todo.content}
+                    hidden={!(selectedTodo === index)}
+                    onKeyDown={onChangeTodo}
+                    ref={React.createRef}
                   />
                   <button
                     className="Todo__delete"
@@ -92,27 +142,34 @@ const ToDoPage = () => {
                   </button>
                 </div>
               );
-            })} 
+            })}
           </div>
           <div className="Todo__toolbar">
             {todos.length > 0 ? (
-              <input type="checkbox" onChange={onToggleAllTodo} />
+              <input type="checkbox" onChange={onToggleAllTodo} hidden />
             ) : (
               <div />
             )}
             <div className="Todo__tabs">
-              <button className="Action__btn" onClick={() => setShowing("ALL")}>
+              <button
+                className="Action__btn"
+                onClick={() => setShowing("ALL")}
+                // onChange={() => onUpdateColorStatus}
+                onDoubleClick={onCheckAllTodo}
+              >
                 All
               </button>
               <button
                 className="Action__btn"
                 onClick={() => setShowing(TodoStatus.ACTIVE)}
+                // onChange={() => onUpdateColorStatus}
               >
                 Active
               </button>
               <button
                 className="Action__btn"
                 onClick={() => setShowing(TodoStatus.COMPLETED)}
+                // onChange={() => onUpdateColorStatus}
               >
                 Completed
               </button>

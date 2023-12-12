@@ -4,18 +4,18 @@ import {
   CREATE_TODO,
   DELETE_ALL_TODOS,
   DELETE_TODO,
-  // CHANGE_TODO,
+  CHECK_ALL_TODO,
   SET_TODO,
   TOGGLE_ALL_TODOS,
   UPDATE_TODO_STATUS
 } from './actions';
 
 export interface AppState {
-  todos: Array<Todo>
+  todos: Array<Todo> 
 }
 
 export const initialState: AppState = {
-  todos: []
+  todos: [] 
 }
 
 function reducer(state: AppState, action: AppActions): AppState {
@@ -40,7 +40,7 @@ function reducer(state: AppState, action: AppActions): AppState {
 
       return {
         ...state,
-        todos: state.todos
+        todos : state.todos
       }
 
     case TOGGLE_ALL_TODOS:
@@ -56,14 +56,6 @@ function reducer(state: AppState, action: AppActions): AppState {
         todos: tempTodos
       }
 
-    // case CHANGE_TODO: 
-    //   const changeTodo = state.todos.findIndex((todo) => todo.id === action.payload.todoId);
-    //   state.todos[changeTodo].status = action.payload.checked ? TodoStatus.COMPLETED : TodoStatus.ACTIVE;
-       
-    //   return {
-    //     ...state,
-    //     todos: state.todos
-    //   }
     case DELETE_TODO:
       // const index1 = state.todos.findIndex((todo) => todo.id === action.payload);
       // state.todos.splice(index1, 1);
@@ -77,6 +69,11 @@ function reducer(state: AppState, action: AppActions): AppState {
         ...state,
         todos: state.todos.filter((todo) => todo.id === action.type)
       }
+      case CHECK_ALL_TODO:
+        return {
+          ...state,
+          todos: state.todos.filter((todo) => todo.id === action.type)
+        }
     default:
       return state;
   }

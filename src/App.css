@@ -1,6 +1,6 @@
 body {
   background-image: url(pexels-pixabay-36717.jpg);
-  background-size: 1366px 650px;
+  background-size: 1366px 100%;
   background-repeat: no-repeat;
 }
 .App {
@@ -67,7 +67,7 @@ input {
 
 .ToDo__overlay {
   width: 100%;
-  height: 618px;
+  min-height: 618px;
   background-color: rgba(102, 98, 98, 0.555);
 }
 
