@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useEffect, useReducer, useRef, useState } from "react";
+import React, { useEffect, useReducer, useRef, useState } from "react";
 
 import reducer, { initialState } from "./store/reducer";
 import {
@@ -59,7 +59,7 @@ const ToDoPage = () => {
     }
   };
 
-  const onUpdateTodoStatus = (
+  const onSelectTodoStatus = (
     e: React.ChangeEvent<HTMLInputElement>,
     todoId: any
   ) => {
@@ -67,29 +67,40 @@ const ToDoPage = () => {
     if (e.target.checked) {
       selectedIds.push(todoId);
       setSelectedIds(selectedIds);
-      getColorByStatus(TodoStatus.ACTIVE);
+      // getColorByStatus(TodoStatus.ACTIVE);
     } else {
       const index = selectedIds.indexOf(todoId, 0);
       if (index > -1) {
         selectedIds.splice(index, 1);
         setSelectedIds(selectedIds);
       }
-      getColorByStatus(TodoStatus.COMPLETED);
+      // getColorByStatus(TodoStatus.COMPLETED);
     }
-    dispatch(updateTodoStatus(todoId, e.target.checked));
   };
 
+  const updateTodoCompleted = async (
+    e: React.ChangeEvent<HTMLInputElement>,
+    todoId: any
+  ) => {
+        // update status xuong local storage
+       await Service.updateStatus(todoId, TodoStatus.COMPLETED)
+    dispatch(updateTodoStatus(todoId, true));
+  }
+  const clearAllTodo = async (
+  ) => {
+        // update status xuong local storage
+       await Service.clearAllTodo()
+    dispatch(deleteAllTodos());
+    console.log('asasda')
+  }
   const onToggleAllTodo = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(toggleAllTodos(e.target.checked));
   };
 
-  const onDeleteAllTodo = () => {
-    dispatch(deleteAllTodos());
-  };
+  // const onDeleteAllTodo = () => {
+  //   dispatch(deleteAllTodos());
+  // };
 
-  const onCheckAllTodo = () => {
-    dispatch(CheckAllTodos());
-  };
 
   return (
     <div className="ToDo__overlay">
@@ -105,19 +116,15 @@ const ToDoPage = () => {
           </div>
           <div className="ToDo__list">
             {todos.map((todo, index) => {
+              if (showing !== 'ALL' && showing !== todo.status) return;
+
               return (
                 <div key={index} className="ToDo__item">
                   <input
                     type="checkbox"
-                    defaultChecked={showing === todo.id}
-                    onChange={(e) => onUpdateTodoStatus(e, todo.id)}
-                    // onClick ={(e) => {
-                    //   if(onSelectedStatus === e.target.checked) {
-                    //     getColorByStatus(TodoStatus.ACTIVE);
-                    //   } else if (onSelectedStatus !== e.target.checked) {
-                    //     getColorByStatus(TodoStatus.COMPLETED)
-                    //   }
-                    // }}
+                    // defaultChecked={showing === todo.id}
+                    disabled={todo.status == TodoStatus.COMPLETED}
+                    onChange={(e) => updateTodoCompleted(e, todo.id)}
                   />
                   <span
                     hidden={selectedTodo === index}
@@ -155,14 +162,13 @@ const ToDoPage = () => {
                 className="Action__btn"
                 onClick={() => setShowing("ALL")}
                 // onChange={() => onUpdateColorStatus}
-                onDoubleClick={onCheckAllTodo}
               >
                 All
               </button>
               <button
                 className="Action__btn"
                 onClick={() => setShowing(TodoStatus.ACTIVE)}
-                // onChange={() => onUpdateColorStatus}
+                // onChange={() => onUpdateTodoStatus}
               >
                 Active
               </button>
@@ -176,7 +182,7 @@ const ToDoPage = () => {
             </div>
             <button
               className="Action__btn Clear__btn"
-              onClick={onDeleteAllTodo}
+              onClick={() => clearAllTodo()}
             >
               Clear all todos
             </button>

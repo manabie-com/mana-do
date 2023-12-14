@@ -27,6 +27,28 @@ class ApiFrontend extends IAPI {
         var state = JSON.parse(localStorage.getItem('state') || '{"todos": []}') ;
        return state.todos;
     }
+
+    // viet ham update status o day
+    // truyen vo id
+    async updateStatus(id: string, status: TodoStatus): Promise<boolean> {
+            var todos = await this.getTodos()
+            const index = todos.findIndex((t) => t.id === id)
+            if (index === -1)return false;
+
+            todos[index].status = status
+
+            localStorage.setItem('state', JSON.stringify({
+                todos : todos
+            }))
+            return true
+    }
+
+    async clearAllTodo(): Promise<boolean> {
+        // localStorage.setItem('state', "")
+        localStorage.clear()
+        return true;
+    }
+    
 }
 
 export default new ApiFrontend();
