@@ -86,13 +86,22 @@ const ToDoPage = () => {
        await Service.updateStatus(todoId, TodoStatus.COMPLETED)
     dispatch(updateTodoStatus(todoId, true));
   }
+
   const clearAllTodo = async (
   ) => {
         // update status xuong local storage
        await Service.clearAllTodo()
     dispatch(deleteAllTodos());
-    console.log('asasda')
   }
+  
+    const clearTodo = async ( 
+      todoId: any
+    ) => {
+      await Service.clearTodo(todoId) 
+      dispatch(deleteTodo(todoId))
+      // console.log('asdadsad')
+    }
+
   const onToggleAllTodo = (e: React.ChangeEvent<HTMLInputElement>) => {
     dispatch(toggleAllTodos(e.target.checked));
   };
@@ -143,7 +152,7 @@ const ToDoPage = () => {
                   />
                   <button
                     className="Todo__delete"
-                    onClick={() => dispatch(deleteTodo(todo.id))}
+                    onClick={() => clearTodo(todo.todoId)}
                   >
                     X
                   </button>

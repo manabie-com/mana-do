@@ -25,6 +25,10 @@ class ApiFullstack extends IAPI {
     async clearAllTodo(): Promise<boolean> {
         return true;
     }
+    async clearTodo(id: string) : Promise<boolean> {
+        var todos = await this.getTodos()
+        return true;
+    }
 }
 
 

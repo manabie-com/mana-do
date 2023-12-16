@@ -5,4 +5,5 @@ export abstract class IAPI {
     abstract createTodo(content: string) : Promise<Todo>
     abstract updateStatus(id: string, status: TodoStatus):   Promise<boolean>
     abstract clearAllTodo(): Promise<boolean>
+    abstract clearTodo(id: string) : Promise<boolean>
 }
