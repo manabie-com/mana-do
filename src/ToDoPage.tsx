@@ -99,7 +99,6 @@ const ToDoPage = () => {
     ) => {
       await Service.clearTodo(todoId) 
       dispatch(deleteTodo(todoId))
-      // console.log('asdadsad')
     }
 
   const onToggleAllTodo = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -152,7 +151,7 @@ const ToDoPage = () => {
                   />
                   <button
                     className="Todo__delete"
-                    onClick={() => clearTodo(todo.todoId)}
+                    onClick={() => clearTodo(todo.id)}
                   >
                     X
                   </button>

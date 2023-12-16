@@ -52,14 +52,8 @@ class ApiFrontend extends IAPI {
     async clearTodo(id: string) : Promise<boolean> {
         var todos = await this.getTodos()
         const index = todos.findIndex((t) => t.id === id)
-        console.log('sadas', index)
-
         if (index === -1)return false;
-
-        console.log('before', todos)
         todos.splice(index, 1);
-        console.log('after', todos)
-
         localStorage.setItem('state', JSON.stringify({
             todos : todos
         }))
