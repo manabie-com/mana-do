@@ -4,7 +4,6 @@ import shortid from "shortid";
 
 class ApiFrontend extends IAPI {
     async createTodo(content: string): Promise<Todo> {
-        console.log('error')
         var todo = {
                     content: content,
                     created_date: new Date().toISOString(),
@@ -43,8 +42,20 @@ class ApiFrontend extends IAPI {
             return true
     }
 
+    async updateTodo(id: string, content: string): Promise<boolean> {
+        var todos = await this.getTodos()
+        const index = todos.findIndex((t) => t.id === id)
+        if (index === -1)return false;
+
+        todos[index].content = content
+
+        localStorage.setItem('state', JSON.stringify({
+            todos : todos
+        }))
+        return true
+}
+
     async clearAllTodo(): Promise<boolean> {
-        // localStorage.setItem('state', "")
         localStorage.clear()
         return true;
     }

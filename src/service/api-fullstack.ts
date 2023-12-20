@@ -29,6 +29,9 @@ class ApiFullstack extends IAPI {
         var todos = await this.getTodos()
         return true;
     }
+    async updateTodo(id: string, content: string):  Promise<boolean> {
+        return true
+    }
 }
 
 

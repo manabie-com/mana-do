@@ -8,25 +8,42 @@ import {
   deleteAllTodos,
   updateTodoStatus,
   deleteTodo,
-  CheckAllTodos,
+  updateTodo
 } from "./store/actions";
 import Service from "./service";
 import { TodoStatus } from "./models/todo";
 
 type EnhanceTodoStatus = TodoStatus | "ALL";
 
+const EditContentInput = (props: any) => {
+  const  {todo, onEnter, isHidden, onBlur} = props;
+  const inputRef = useRef<any>(null);
+
+
+  const onKeydown = async (e: React.KeyboardEvent<HTMLInputElement>, id: any) => {
+    if (e.key === "Enter") {
+      onEnter(id, inputRef.current.value)
+    }
+  };
+
+  return (
+    <input
+                    type="text"
+                    className="Todo__change"
+                    defaultValue={todo.content}
+                    hidden={isHidden}
+                    onKeyDown={(e) => onKeydown(e, todo.id)}
+                    ref={inputRef}
+                    onBlur={onBlur()}
+                  />
+  )
+}
+
 const ToDoPage = () => {
   const [{ todos }, dispatch] = useReducer(reducer, initialState);
   const [showing, setShowing] = useState<EnhanceTodoStatus>("ALL");
   const [selectedTodo, setSelectedTodo] = useState(-1);
   const inputRef = useRef<any>(null);
-  var editInputRef = useRef<any>(null);
-  // tao state luu selectedIds
-  const [selectedIds, setSelectedIds] = useState<Array<string>>([]);
-
-  const setEditInputRef = (ref: any) => {
-    editInputRef = ref;
-  };
 
   useEffect(() => {
     (async () => {
@@ -42,10 +59,13 @@ const ToDoPage = () => {
     }
   };
 
-  const onChangeTodo = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") {
-      console.log("LOGGGG", inputRef.current.value);
-    }
+  const onUpdateTodo = async (id: any, content: string) => {
+    // ham any update to duoi localstorage
+      await Service.updateTodo(id, content);
+      // buoc nay update todo tren UI de xem
+      dispatch(updateTodo(id, content));
+      // la de an cai input di
+      setSelectedTodo(-1)
   };
 
   const getColorByStatus = (status: TodoStatus) => {
@@ -56,25 +76,6 @@ const ToDoPage = () => {
         return "blue";
       default:
         return "";
-    }
-  };
-
-  const onSelectTodoStatus = (
-    e: React.ChangeEvent<HTMLInputElement>,
-    todoId: any
-  ) => {
-    // push id vo state selectedIds
-    if (e.target.checked) {
-      selectedIds.push(todoId);
-      setSelectedIds(selectedIds);
-      // getColorByStatus(TodoStatus.ACTIVE);
-    } else {
-      const index = selectedIds.indexOf(todoId, 0);
-      if (index > -1) {
-        selectedIds.splice(index, 1);
-        setSelectedIds(selectedIds);
-      }
-      // getColorByStatus(TodoStatus.COMPLETED);
     }
   };
 
@@ -105,10 +106,12 @@ const ToDoPage = () => {
     dispatch(toggleAllTodos(e.target.checked));
   };
 
-  // const onDeleteAllTodo = () => {
-  //   dispatch(deleteAllTodos());
-  // };
+  const onBlurEditTodo = (index:number) => {
+    if (index !== selectedTodo) return;
 
+    console.log("blurrrrr", index)
+    
+  }
 
   return (
     <div className="ToDo__overlay">
@@ -130,8 +133,7 @@ const ToDoPage = () => {
                 <div key={index} className="ToDo__item">
                   <input
                     type="checkbox"
-                    // defaultChecked={showing === todo.id}
-                    disabled={todo.status == TodoStatus.COMPLETED}
+                    disabled={todo.status === TodoStatus.COMPLETED}
                     onChange={(e) => updateTodoCompleted(e, todo.id)}
                   />
                   <span
@@ -141,14 +143,12 @@ const ToDoPage = () => {
                   >
                     {todo.content}
                   </span>
-                  <input
-                    type="text"
-                    className="Todo__change"
-                    defaultValue={todo.content}
-                    hidden={!(selectedTodo === index)}
-                    onKeyDown={onChangeTodo}
-                    ref={React.createRef}
-                  />
+                  <EditContentInput
+                  onEnter={onUpdateTodo}
+                  todo={todo}
+                  isHidden={!(selectedTodo === index)}
+                  onBlur={()=> {onBlurEditTodo(index)}}
+                   />
                   <button
                     className="Todo__delete"
                     onClick={() => clearTodo(todo.id)}
@@ -169,21 +169,18 @@ const ToDoPage = () => {
               <button
                 className="Action__btn"
                 onClick={() => setShowing("ALL")}
-                // onChange={() => onUpdateColorStatus}
               >
                 All
               </button>
               <button
                 className="Action__btn"
                 onClick={() => setShowing(TodoStatus.ACTIVE)}
-                // onChange={() => onUpdateTodoStatus}
               >
                 Active
               </button>
               <button
                 className="Action__btn"
                 onClick={() => setShowing(TodoStatus.COMPLETED)}
-                // onChange={() => onUpdateColorStatus}
               >
                 Completed
               </button>
