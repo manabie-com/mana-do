@@ -1,7 +1,13 @@
+body {
+  background-image: url(pexels-pixabay-36717.jpg);
+  background-size: 1366px 100%;
+  background-repeat: no-repeat;
+}
 .App {
   text-align: center;
   display: flex;
   justify-content: center;
+  
 }
 
 button {
@@ -39,21 +45,50 @@ input {
   padding: 0 12px;
   box-shadow: 2px 0 4px rgba(0,0,0, 0.2);
   border-radius: 4px;
+  
 }
 
-input:focus {
+/* input:focus {
   box-shadow: 1px 0 9px rgba(0,0,0, 0.25);
+} */
+.ToDo__main {
+  display: flex;
+  flex-direction: row;
+  width: 800px;
+  height: auto;
+  background-color: rgba(17, 17, 17, 0.774);
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+  margin-top: 5rem;
+  border-radius: 5px;
+  opacity: 1;
+}
+
+.ToDo__overlay {
+  width: 100%;
+  min-height: 618px;
+  background-color: rgba(102, 98, 98, 0.555);
+}
+
+#img {
+  width: 250px;
+  height: 350px;
+  
 }
 
 .ToDo__container {
-  border: 1px solid rgba(0,0,0, 0.13);
+  /* border: 1px solid rgba(0,0,0, 0.13); */
+  border: none;
   border-radius: 8px;
   width: 500px;
-  margin-top: 5rem;
+  margin: 10px;
   padding: 24px;
   box-shadow: 2px 2px 1px rgba(0,0,0, 0.09),
               3px 2px 3px rgba(0,0,0, 0.05);
+  background-color: rgba(87, 85, 85, 0.63)
 }
+
 
 .Todo__creation {
   display: flex;
@@ -79,10 +114,16 @@ input:focus {
   flex: 1 1;
   text-align: left;
   margin-left: 8px;
+  color: white;
 }
 
 .Todo__content {
   flex: 1 1;
+}
+
+.Todo__change {
+  border-radius: 10px;
+  margin-left: -200px;
 }
 
 .Todo__delete {
@@ -118,8 +159,28 @@ input:focus {
 }
 
 .Todo__tabs > *:not(:last-child) {
-  margin-right: 8px;
+  margin-right: 30px;
 }
 
-.Action__btn {
+.Action__btn:nth-child(1) {
+  margin-left: -10px;
+  margin-right: 30px;
+  background-color: rgb(43, 96, 211);
+}
+
+.Action__btn:nth-child(2) {
+  margin-right: 30px;
+  background-color: rgb(43, 211, 107);
+}
+
+.Action__btn:nth-child(3) {
+  margin-right: 30px;
+  background-color: rgb(43, 211, 107);
+}
+
+.Todo__toolbar > .Clear__btn {
+  background-color: rgb(247, 72, 72);
+  color: black;
+  margin-left: 35px;
+  margin-right: -5px;
 }
