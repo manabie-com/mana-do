@@ -34,7 +34,7 @@ const EditContentInput = (props: any) => {
                     hidden={isHidden}
                     onKeyDown={(e) => onKeydown(e, todo.id)}
                     ref={inputRef}
-                    onBlur={onBlur()}
+                    onBlur={() => onBlur()}
                   />
   )
 }
@@ -109,8 +109,8 @@ const ToDoPage = () => {
   const onBlurEditTodo = (index:number) => {
     if (index !== selectedTodo) return;
 
-    console.log("blurrrrr", index)
-    
+    setSelectedTodo(-1)
+
   }
 
   return (
